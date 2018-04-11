@@ -19,16 +19,40 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base;
+
 namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
     /// Adapter class for a dune erosion calculation.
     /// </summary>
-    public class DuneLocationCalculation
+    public class DuneLocationCalculation : Observable
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="DuneLocationCalculation"/>.
+        /// </summary>
+        /// <param name="duneLocation">The dune location the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/>
+        /// is <c>null</c>.</exception>
+        public DuneLocationCalculation(DuneLocation duneLocation)
+        {
+            if (duneLocation == null)
+            {
+                throw new ArgumentNullException(nameof(duneLocation));
+            }
+
+            DuneLocation = duneLocation;
+        }
+
         /// <summary>
         /// Gets or sets the output of the calculation.
         /// </summary>
         public DuneLocationOutput Output { get; set; }
+
+        /// <summary>
+        /// Gets the dune location the calculation belongs to.
+        /// </summary>
+        public DuneLocation DuneLocation { get; }
     }
 }

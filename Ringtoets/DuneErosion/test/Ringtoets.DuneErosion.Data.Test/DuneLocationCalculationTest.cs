@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
@@ -27,13 +30,29 @@ namespace Ringtoets.DuneErosion.Data.Test
     public class DuneLocationCalculationTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_DuneLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            var duneLocationCalculation = new DuneLocationCalculation();
+            TestDelegate call = () => new DuneLocationCalculation(null);
 
             // Assert
-            Assert.IsNull(duneLocationCalculation.Output);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("duneLocation", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var duneLocation = new TestDuneLocation();
+
+            // Call
+            var calculation = new DuneLocationCalculation(duneLocation);
+
+            // Assert
+            Assert.IsInstanceOf<Observable>(calculation);
+            Assert.AreSame(duneLocation, calculation.DuneLocation);
+            Assert.IsNull(calculation.Output);
         }
     }
 }

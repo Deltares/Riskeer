@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
+using Ringtoets.DuneErosion.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -124,6 +125,7 @@ namespace Ringtoets.Integration.TestUtil
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(assessmentSection.DuneErosion);
 
             return assessmentSection;
         }
@@ -996,14 +998,26 @@ namespace Ringtoets.Integration.TestUtil
 
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
-            failureMechanism.DuneLocations.Add(new TestDuneLocation());
-            failureMechanism.DuneLocations.Add(new TestDuneLocation
+            var duneLocations = new[]
             {
-                Calculation =
+                new TestDuneLocation
                 {
-                    Output = new TestDuneLocationOutput()
-                }
-            });
+                    Calculation =
+                    {
+                        Output = new TestDuneLocationOutput()
+                    }
+                },
+                new TestDuneLocation()
+            };
+
+            failureMechanism.DuneLocations.AddRange(duneLocations);
+            failureMechanism.SetDuneLocationCalculations(duneLocations);
+
+            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
 
             AddFailureMechanismSections(failureMechanism);
         }

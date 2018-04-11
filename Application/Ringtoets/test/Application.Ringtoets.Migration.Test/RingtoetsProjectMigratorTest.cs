@@ -446,43 +446,73 @@ namespace Application.Ringtoets.Migration.Test
                 string expectedMessage = $"Het projectbestand '{sourceFilePath}' is succesvol gemigreerd naar '{targetFilePath}' " +
                                          $"(versie {currentDatabaseVersion}).";
                 var migrationLog = new StringBuilder();
-                migrationLog.AppendLine(@"Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.");
-                migrationLog.AppendLine(@"Gevolgen van de migratie van versie 16.4 naar versie 17.1:");
-                migrationLog.AppendLine($@"* Alle berekende resultaten zijn verwijderd.{Environment.NewLine}" +
-                                        $@"* Traject: 'assessmentSection'{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'{Environment.NewLine}" +
-                                        $@"    - De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID.{Environment.NewLine}" +
-                                        $@"    - De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID.{Environment.NewLine}" +
-                                        $@"Gevolgen van de migratie van versie 17.1 naar versie 17.2:{Environment.NewLine}" +
-                                        $@"* Traject: 'assessmentSection'{Environment.NewLine}" +
-                                        $@"  + De ondergrens is gelijk gesteld aan 1/30000.{Environment.NewLine}" +
-                                        $@"  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).{Environment.NewLine}" +
-                                        $@"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Hoogte kunstwerk'{Environment.NewLine}" +
-                                        $@"    - Het ID van kunstwerk 'Id' is veranderd naar 'Id00003'.{Environment.NewLine}" +
-                                        $@"    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP7'.{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'{Environment.NewLine}" +
-                                        $@"    - Het ID van kunstwerk 'id' is veranderd naar 'id00002'.{Environment.NewLine}" +
-                                        $@"    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP8'.{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Golfklappen op asfaltbekleding'{Environment.NewLine}" +
-                                        $@"    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP9'.{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Grasbekleding erosie buitentalud'{Environment.NewLine}" +
-                                        $@"    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP10'.{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Stabiliteit steenzetting'{Environment.NewLine}" +
-                                        $@"    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP11'.{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'{Environment.NewLine}" +
-                                        $@"    - Het ID van kunstwerk 'anId' is veranderd naar 'anId000000002'.{Environment.NewLine}" +
-                                        $@"    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP12'.{Environment.NewLine}" +
-                                        $@"* Traject: 'Demo traject'{Environment.NewLine}" +
-                                        $@"  + De ondergrens is gelijk gesteld aan 1/1000.{Environment.NewLine}" +
-                                        $@"  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).{Environment.NewLine}" +
-                                        $@"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.{Environment.NewLine}" +
-                                        $@"Gevolgen van de migratie van versie 17.2 naar versie 17.3:{Environment.NewLine}" +
-                                        $@"* Geen aanpassingen.{Environment.NewLine}" +
-                                        $@"Gevolgen van de migratie van versie 17.3 naar versie 18.1:{Environment.NewLine}" +
-                                        $@"* Traject: 'assessmentSection'{Environment.NewLine}" +
-                                        $@"  + Toetsspoor: 'Piping'{Environment.NewLine}" +
-                                        $@"    - De waarde '3.2' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'HotPinkLayer' is ongeldig en is veranderd naar NaN.");
+                migrationLog.AppendLine("Door de migratie is het project aangepast. Bekijk het migratierapport door op details te klikken.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 16.4 naar versie 17.1:");
+                migrationLog.AppendLine("* Alle berekende resultaten zijn verwijderd.");
+                migrationLog.AppendLine("* Traject: 'assessmentSection'");
+                migrationLog.AppendLine("  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'");
+                migrationLog.AppendLine("    - De naam van dijkprofiel '1' is veranderd naar '102' en wordt ook gebruikt als ID.");
+                migrationLog.AppendLine("    - De naam van dijkprofiel '10' is veranderd naar '104' en wordt ook gebruikt als ID.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 17.1 naar versie 17.2:");
+                migrationLog.AppendLine("* Traject: 'assessmentSection'");
+                migrationLog.AppendLine("  + De ondergrens is gelijk gesteld aan 1/30000.");
+                migrationLog.AppendLine("  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
+                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Hoogte kunstwerk'");
+                migrationLog.AppendLine("    - Het ID van kunstwerk 'Id' is veranderd naar 'Id00003'.");
+                migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP7'.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'");
+                migrationLog.AppendLine("    - Het ID van kunstwerk 'id' is veranderd naar 'id00002'.");
+                migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP8'.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Golfklappen op asfaltbekleding'");
+                migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP9'.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Grasbekleding erosie buitentalud'");
+                migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP10'.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Stabiliteit steenzetting'");
+                migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP11'.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'");
+                migrationLog.AppendLine("    - Het ID van kunstwerk 'anId' is veranderd naar 'anId000000002'.");
+                migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP12'.");
+                migrationLog.AppendLine("* Traject: 'Demo traject'");
+                migrationLog.AppendLine("  + De ondergrens is gelijk gesteld aan 1/1000.");
+                migrationLog.AppendLine("  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
+                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 17.2 naar versie 17.3:");
+                migrationLog.AppendLine("* Geen aanpassingen.");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 17.3 naar versie 18.1:");
+                migrationLog.AppendLine("* Traject: 'assessmentSection'");
+                migrationLog.AppendLine("  + Toetsspoor: 'Piping'");
+                migrationLog.AppendLine("    - De waarde '3.2' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'HotPinkLayer' is ongeldig en is veranderd naar NaN.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Sterkte en stabiliteit langsconstructies'");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Wateroverdruk bij asfaltbekleding'");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Macrostabiliteit buitenwaarts'");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Golfklappen op asfaltbekleding'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Grasbekleding erosie buitentalud'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Grasbekleding afschuiven binnentalud'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Grasbekleding afschuiven buitentalud'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Microstabiliteit'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Piping bij kunstwerk'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Stabiliteit steenzetting'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Duinafslag'");
+                migrationLog.AppendLine("    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
 
                 var expectedLogMessagesAndLevel = new[]
                 {

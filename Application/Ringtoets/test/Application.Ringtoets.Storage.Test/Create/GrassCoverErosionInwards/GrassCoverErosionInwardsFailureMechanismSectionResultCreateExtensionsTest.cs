@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistencyRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -55,11 +55,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             TestDelegate test = () => sectionResult.Create(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
-        [Combinatorial]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
@@ -81,10 +81,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 ManualAssemblyProbability = manualAssemblyProbability
             };
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
+            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
@@ -107,10 +105,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                 ManualAssemblyProbability = double.NaN
             };
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
+            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsNull(entity.TailorMadeAssessmentProbability);

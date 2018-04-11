@@ -304,22 +304,15 @@ namespace Ringtoets.Integration.Service
                 {
                     IEnumerable<IObservable> affectedHydraulicBoundaryLocations =
                         RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
-
-                    if (affectedHydraulicBoundaryLocations.Any())
-                    {
-                        changedObservables.AddRange(affectedHydraulicBoundaryLocations);
-                    }
+                    changedObservables.AddRange(affectedHydraulicBoundaryLocations);
                 }
 
                 if (duneErosionFailureMechanism != null)
                 {
                     IEnumerable<IObservable> affectedDuneLocations =
-                        DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations);
-
-                    if (affectedDuneLocations.Any())
-                    {
-                        changedObservables.AddRange(affectedDuneLocations);
-                    }
+                        DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations)
+                                                             .Concat(DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(duneErosionFailureMechanism));
+                    changedObservables.AddRange(affectedDuneLocations);
                 }
             }
 

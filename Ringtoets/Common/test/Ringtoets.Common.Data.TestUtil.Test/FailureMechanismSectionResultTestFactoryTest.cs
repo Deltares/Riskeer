@@ -35,7 +35,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
 
             // Assert
-            Assert.AreEqual(AssessmentLayerOneState.NotAssessed, sectionResult.AssessmentLayerOne);
             Assert.AreEqual("test", sectionResult.Section.Name);
             CollectionAssert.AreEqual(new[]
             {
@@ -54,7 +53,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult(name);
 
             // Assert
-            Assert.AreEqual(AssessmentLayerOneState.NotAssessed, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(name, sectionResult.Section.Name);
             CollectionAssert.AreEqual(new[]
             {

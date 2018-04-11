@@ -25,7 +25,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffOutwards
@@ -34,21 +35,45 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffOutwards
     public class GrassCoverSlipOffOutwardsFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
-        public void Create_ValidData_ReturnsExpectedEntity()
+        public void Create_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((GrassCoverSlipOffOutwardsFailureMechanismSectionResult) null).Create();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var random = new Random(21);
+            var random = new Random(39);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             var sectionResult = new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerOne = random.NextEnumValue<AssessmentLayerOneState>()
+                SimpleAssessmentResult = simpleAssessmentResult,
+                DetailedAssessmentResult = detailedAssessmentResult,
+                TailorMadeAssessmentResult = tailorMadeAssessmentResult,
+                UseManualAssemblyCategoryGroup = useManualAssemblyCategoryGroup,
+                ManualAssemblyCategoryGroup = manualAssemblyCategoryGroup
             };
 
             // Call
-            GrassCoverSlipOffOutwardsSectionResultEntity result = sectionResult.Create();
+            GrassCoverSlipOffOutwardsSectionResultEntity entity = sectionResult.Create();
 
             // Assert
-            Assert.AreEqual(Convert.ToByte(sectionResult.AssessmentLayerOne), result.LayerOne);
+            Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(detailedAssessmentResult), entity.DetailedAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(tailorMadeAssessmentResult), entity.TailorMadeAssessmentResult);
+            Assert.AreEqual(Convert.ToByte(useManualAssemblyCategoryGroup), entity.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(Convert.ToByte(manualAssemblyCategoryGroup), entity.ManualAssemblyCategoryGroup);
         }
     }
 }

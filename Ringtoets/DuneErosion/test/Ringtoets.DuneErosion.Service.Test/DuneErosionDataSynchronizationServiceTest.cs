@@ -252,5 +252,57 @@ namespace Ringtoets.DuneErosion.Service.Test
                     location
                 }, affected);
         }
+
+        [Test]
+        public void ClearDuneCalculationOutputs_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearDuneCalculationOutputs_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
+        {
+            // Setup
+            var duneLocations = new[]
+            {
+                new TestDuneLocation(),
+                new TestDuneLocation()
+            };
+
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.DuneLocations.AddRange(duneLocations);
+            failureMechanism.SetDuneLocationCalculations(duneLocations);
+
+            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+
+            // Call
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(failureMechanism);
+
+            // Assert
+            var expectedAffectedCalculations = new[]
+            {
+                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
+                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(),
+                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(),
+                failureMechanism.CalculationsForLowerLimitNorm.First(),
+                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First()
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
+
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
+        }
     }
 }

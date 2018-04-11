@@ -38,16 +38,50 @@ SELECT
 	[ClosingStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[ClosingStructuresCalculationEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
-INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
+INSERT INTO DuneErosionSectionResultEntity (
+	[DuneErosionSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[DuneErosionSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[LayerOne],
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
 INSERT INTO DuneLocationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationOutputEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
@@ -95,18 +129,94 @@ SELECT
 	[GrassCoverErosionInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[GrassCoverErosionInwardsCalculationEntityId],
+	[LayerOne],
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
-INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
+INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
+	[GrassCoverErosionOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[GrassCoverErosionOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
-INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
-INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
+INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity (
+	[GrassCoverSlipOffInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[GrassCoverSlipOffInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
+INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity (
+	[GrassCoverSlipOffOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[GrassCoverSlipOffOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
@@ -135,10 +245,20 @@ SELECT
 	[HeightStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[HeightStructuresCalculationEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
@@ -178,10 +298,20 @@ INSERT INTO MacroStabilityInwardsSectionResultEntity (
 SELECT
 	[MacroStabilityInwardsSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
@@ -191,8 +321,54 @@ INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJ
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsStochasticSoilProfileEntity;
-INSERT INTO MacrostabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
-INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
+INSERT INTO MacroStabilityOutwardsSectionResultEntity (
+	[MacroStabilityOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[DetailedAssessmentProbability],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[MacroStabilityOutwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	[LayerTwoA],
+	1,
+	NULL,
+	0,
+	1
+FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
+INSERT INTO MicrostabilitySectionResultEntity (
+	[MicrostabilitySectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[MicrostabilitySectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
 INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
@@ -209,10 +385,20 @@ INSERT INTO PipingSectionResultEntity (
 SELECT
 	[PipingSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].PipingSectionResultEntity;
@@ -284,7 +470,28 @@ SELECT
 FROM [SOURCEPROJECT].PipingSoilLayerEntity;
 INSERT INTO PipingSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingSoilProfileEntity;
 INSERT INTO PipingStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingStochasticSoilProfileEntity;
-INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
+INSERT INTO PipingStructureSectionResultEntity (
+	[PipingStructureSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[PipingStructureSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
@@ -314,10 +521,15 @@ SELECT
 	[StabilityPointStructuresSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
 	[StabilityPointStructuresCalculationEntityId],
+	[LayerOne],
 	1,
-	1,
-	1,
-	NULL,
+	CASE
+		WHEN [LayerThree] IS NOT NULL
+			THEN 3
+		ELSE
+			1
+	END,
+	[LayerThree],
 	0,
 	NULL
 FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
@@ -331,16 +543,78 @@ SELECT [StabilityStoneCoverFailureMechanismMetaEntityId],
 	[ForeshoreProfileCollectionSourcePath],
 	"4"
 FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
-INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
+INSERT INTO StabilityStoneCoverSectionResultEntity (
+	[StabilityStoneCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[StabilityStoneCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[LayerOne],
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
-INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
+INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity (
+	[StrengthStabilityLengthwiseConstructionSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[StrengthStabilityLengthwiseConstructionSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 INSERT INTO SubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointEntity;
 INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointStochastEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
-INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
+INSERT INTO TechnicalInnovationSectionResultEntity (
+	[TechnicalInnovationSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[TechnicalInnovationSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
 INSERT INTO TopLevelSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
 INSERT INTO VersionEntity (
@@ -353,7 +627,26 @@ SELECT [VersionId],
 	[Timestamp],
 	[FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
-INSERT INTO WaterPressureAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
+INSERT INTO WaterPressureAsphaltCoverSectionResultEntity (
+	[WaterPressureAsphaltCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT
+	[WaterPressureAsphaltCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverFailureMechanismMetaEntity (
 	[WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
 	[FailureMechanismEntityId],
@@ -364,7 +657,36 @@ SELECT [WaveImpactAsphaltCoverFailureMechanismMetaEntityId],
 	[ForeshoreProfileCollectionSourcePath],
 	"1000"
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
-INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
+INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
+	[WaveImpactAsphaltCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResultForFactorizedSignalingNorm],
+	[DetailedAssessmentResultForSignalingNorm],
+	[DetailedAssessmentResultForMechanismSpecificLowerLimitNorm],
+	[DetailedAssessmentResultForLowerLimitNorm],
+	[DetailedAssessmentResultForFactorizedLowerLimitNorm],
+	[TailorMadeAssessmentResult],
+	[UseManualAssemblyCategoryGroup],
+	[ManualAssemblyCategoryGroup])
+SELECT 
+	[WaveImpactAsphaltCoverSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	CASE
+		WHEN [LayerOne] = 3
+			THEN 4
+		ELSE
+			[LayerOne]
+	END,
+	1,
+	1,
+	1,
+	1,
+	1,
+	1,
+	0,
+	1
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
@@ -420,66 +742,6 @@ INSERT INTO TempCalculationTypes VALUES (12);
 INSERT INTO TempCalculationTypes VALUES (13);
 
 -- Migrate the hydraulic boundary location calculations on assessment section level
--- Create the calculation entities
-CREATE TEMP TABLE TempHydraulicLocationCalculationEntity
-(
-	'HydraulicLocationCalculationEntityId' INTEGER NOT NULL,
-	'HydraulicLocationEntityId' INTEGER NOT NULL,
-	'AssessmentSectionEntityId' INTEGER,
-	'GrassCoverErosionOutwardsFailureMechanismMetaEntityId' INTEGER,
-	'CalculationType' TINYINT (1) NOT NULL,
-	PRIMARY KEY
-	(
-		'HydraulicLocationCalculationEntityId' AUTOINCREMENT
-	)
-);
-
--- Create the calculations for the Hydraulic Boundary Locations on AssessmentSection level
-INSERT INTO TempHydraulicLocationCalculationEntity (
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	[CalculationType])
-SELECT
-	[HydraulicLocationEntityId],
-	[AssessmentSectionEntityId],
-	[CalculationType]
-FROM HydraulicLocationEntity
-JOIN (
-	SELECT * 
-	FROM TempCalculationTypes
-	WHERE CalculationType >= 0 AND CalculationType <= 7
-);
-
--- Create the calculations for the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism level
--- Note: it is assumed that the HBL entities of the grass cover erosion outwards failure mechanism have the same PK value 
--- as the HBL entities on assessment section level. Otherwise a join needs to be done on each column to find matching results
-INSERT INTO TempHydraulicLocationCalculationEntity (
-	[HydraulicLocationEntityId],
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
-	[CalculationType])
-SELECT
-	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
-	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId], 
-	[CalculationType]
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING (FailureMechanismEntityId)
-JOIN (
-	SELECT * 
-	FROM TempCalculationTypes
-	WHERE CalculationType >= 8 AND CalculationType <= 13
-);
-
-INSERT INTO HydraulicLocationCalculationEntity (
-	[HydraulicLocationCalculationEntityId],
-	[HydraulicLocationEntityId],
-	[ShouldIllustrationPointsBeCalculated])
-SELECT
-	[HydraulicLocationCalculationEntityId],
-	[HydraulicLocationEntityId],
-	0
-FROM TempHydraulicLocationCalculationEntity;
-
 -- Create the calculation collections
 CREATE TEMP TABLE TempHydraulicLocationCalculationCollectionEntity
 (
@@ -525,28 +787,72 @@ SELECT
 	[HydraulicLocationCalculationCollectionEntityId]
 FROM TempHydraulicLocationCalculationCollectionEntity;
 
--- Map the calculations into the collections and add them to the association table
-INSERT INTO HydraulicLocationCalculationCollectionToHydraulicCalculationEntity (
-	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId])
-SELECT
-	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId]
-FROM TempHydraulicLocationCalculationEntity calculationTable
-JOIN TempHydraulicLocationCalculationCollectionEntity calculationCollectionTable
-ON calculationTable.AssessmentSectionEntityId = calculationCollectionTable.AssessmentSectionEntityId
-AND calculationTable.CalculationType = calculationCollectionTable.CalculationType;
+-- Create the calculation entities
+CREATE TEMP TABLE TempHydraulicLocationCalculationEntity
+(
+	'HydraulicLocationCalculationEntityId' INTEGER NOT NULL,
+	'HydraulicLocationEntityId' INTEGER NOT NULL,
+	'AssessmentSectionEntityId' INTEGER,
+	'GrassCoverErosionOutwardsFailureMechanismMetaEntityId' INTEGER,
+	'CalculationType' TINYINT (1) NOT NULL,
+	PRIMARY KEY
+	(
+		'HydraulicLocationCalculationEntityId' AUTOINCREMENT
+	)
+);
 
-INSERT INTO HydraulicLocationCalculationCollectionToHydraulicCalculationEntity (
-	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId])
+-- Create the calculations for the Hydraulic Boundary Locations on AssessmentSection level
+INSERT INTO TempHydraulicLocationCalculationEntity (
+	[HydraulicLocationEntityId],
+	[AssessmentSectionEntityId],
+	[CalculationType])
 SELECT
+	[HydraulicLocationEntityId],
+	[AssessmentSectionEntityId],
+	[CalculationType]
+FROM HydraulicLocationEntity
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 0 AND CalculationType <= 7
+);
+
+-- Create the calculations for the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism level
+-- Note: it is assumed that the HBL entities of the grass cover erosion outwards failure mechanism have the same PK value 
+-- as the HBL entities on assessment section level. Otherwise a join needs to be done on each column to find matching results
+INSERT INTO TempHydraulicLocationCalculationEntity (
+	[HydraulicLocationEntityId],
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
+	[CalculationType])
+SELECT
+	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId], 
+	[CalculationType]
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
+JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)
+JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING(FailureMechanismEntityId)
+JOIN (
+	SELECT * 
+	FROM TempCalculationTypes
+	WHERE CalculationType >= 8 AND CalculationType <= 13
+);
+
+-- Insert the calculations 
+INSERT INTO HydraulicLocationCalculationEntity (
+	[HydraulicLocationCalculationEntityId],
+	[HydraulicLocationEntityId],
 	[HydraulicLocationCalculationCollectionEntityId],
-	[HydraulicLocationCalculationEntityId]
-FROM TempHydraulicLocationCalculationEntity calculationTable
-JOIN TempHydraulicLocationCalculationCollectionEntity calculationCollectionTable
-ON calculationTable.GrassCoverErosionOutwardsFailureMechanismMetaEntityId = calculationCollectionTable.GrassCoverErosionOutwardsFailureMechanismMetaEntityId
-AND calculationTable.CalculationType = calculationCollectionTable.CalculationType;
+	[ShouldIllustrationPointsBeCalculated])
+SELECT
+	[HydraulicLocationCalculationEntityId],
+	[HydraulicLocationEntityId],
+	[HydraulicLocationCalculationCollectionEntityId],
+	0
+FROM TempHydraulicLocationCalculationCollectionEntity collections
+JOIN TempHydraulicLocationCalculationEntity calculations 
+ON calculations.CalculationType = collections.CalculationType
+AND (calculations.AssessmentSectionEntityId = collections.AssessmentSectionEntityId 
+	OR calculations.GrassCoverErosionOutwardsFailureMechanismMetaEntityId = collections.GrassCoverErosionOutwardsFailureMechanismMetaEntityId);
 
 -- Migration for the Hydraulic Boundary Locations on Assessment Section Level
 INSERT INTO AssessmentSectionEntity (
@@ -599,49 +905,49 @@ JOIN (
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFactorizedSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 0
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 1
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 2
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFactorizedLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 3
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFactorizedSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 4
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForSignalingNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 5
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 6
-) USING (AssessmentSectionEntityId)
+) USING(AssessmentSectionEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFactorizedLowerLimitNormId,
 		AssessmentSectionEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 7
-) USING (AssessmentSectionEntityId);
+) USING(AssessmentSectionEntityId);
 
 -- Update the calculation inputs
 UPDATE HydraulicLocationCalculationEntity
@@ -655,9 +961,8 @@ UPDATE HydraulicLocationCalculationEntity
 		OR ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
-		JOIN [SOURCEPROJECT].HydraulicLocationEntity USING (HydraulicLocationEntityId)
+		JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
+		JOIN [SOURCEPROJECT].HydraulicLocationEntity USING(HydraulicLocationEntityId)
 		WHERE(ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldWaveHeightIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -689,10 +994,9 @@ ON ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocation
 OR ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR ase.HydraulicLocationCalculationCollectionEntity7Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
-JOIN HydraulicLocationEntity USING (HydraulicLocationEntityId)
-JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING (HydraulicLocationEntityId)
+JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
+JOIN HydraulicLocationEntity USING(HydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].HydraulicLocationOutputEntity USING(HydraulicLocationEntityId)
 WHERE (HydraulicLocationOutputType = 1 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 1 AND NormativeNormType = 1 AND ase.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 2 AND NormativeNormType = 2 AND ase.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -727,37 +1031,37 @@ JOIN (
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFailureMechanismSpecificFactorizedSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 8
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFailureMechanismSpecificSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 9
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaterLevelCalculationsForFailureMechanismSpecificLowerLimitNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 10
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFailureMechanismSpecificFactorizedSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 11
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFailureMechanismSpecificSignalingNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 12
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId)
 JOIN (
 	SELECT
 		HydraulicLocationCalculationCollectionEntityId AS WaveHeightCalculationsForFailureMechanismSpecificLowerLimitNormId,
 		GrassCoverErosionOutwardsFailureMechanismMetaEntityId
 	FROM TempHydraulicLocationCalculationCollectionEntity WHERE CalculationType = 13
-) USING (GrassCoverErosionOutwardsFailureMechanismMetaEntityId);
+) USING(GrassCoverErosionOutwardsFailureMechanismMetaEntityId);
 
 -- Update the calculation inputs
 UPDATE HydraulicLocationCalculationEntity
@@ -766,15 +1070,14 @@ UPDATE HydraulicLocationCalculationEntity
 		SELECT
 			HydraulicLocationCalculationEntityId
 		FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-		JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-		JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+		JOIN FailureMechanismEntity USING(FailureMechanismEntityId)
+		JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)
 		JOIN HydraulicLocationCalculationCollectionEntity hlcce 
 		ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 		OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-		JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-		JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+		JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
 		JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
 		WHERE (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -802,17 +1105,16 @@ SELECT
 	[CalculatedReliability],
 	[CalculationConvergence]
 FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-JOIN FailureMechanismEntity USING (FailureMechanismEntityId)
-JOIN AssessmentSectionEntity USING (AssessmentSectionEntityId)
+JOIN FailureMechanismEntity USING(FailureMechanismEntityId)
+JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)
 JOIN HydraulicLocationCalculationCollectionEntity hlcce 
 ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
 OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
-JOIN HydraulicLocationCalculationCollectionToHydraulicCalculationEntity USING (HydraulicLocationCalculationCollectionEntityId)
-JOIN HydraulicLocationCalculationEntity USING (HydraulicLocationCalculationEntityId)
+JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
 JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity USING (GrassCoverErosionOutwardsHydraulicLocationEntityId)
+JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId)
 WHERE (HydraulicLocationOutputType = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 2 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -882,8 +1184,8 @@ SELECT
 	[FailureMechanismEntityId], 
 	[FailureMechanismName]
 	FROM AssessmentSectionEntity
-	JOIN FailureMechanismEntity USING (AssessmentSectionEntityId)
-	JOIN TempFailureMechanisms USING (FailureMechanismType);
+	JOIN FailureMechanismEntity USING(AssessmentSectionEntityId)
+	JOIN TempFailureMechanisms USING(FailureMechanismType);
 
 CREATE TEMP TABLE TempChanges
 (
@@ -904,7 +1206,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[BelowPhreaticLevelMean] IS NOT psl.[BelowPhreaticLevelMean];
@@ -920,7 +1222,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[BelowPhreaticLevelDeviation] IS NOT psl.[BelowPhreaticLevelDeviation];
@@ -935,7 +1237,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[BelowPhreaticLevelShift] IS NOT psl.[BelowPhreaticLevelShift];
@@ -950,7 +1252,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[DiameterD70Mean] IS NOT psl.[DiameterD70Mean];
@@ -965,7 +1267,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[DiameterD70CoefficientOfVariation] IS NOT psl.[DiameterD70CoefficientOfVariation];
@@ -980,7 +1282,7 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[PermeabilityMean] IS NOT psl.[PermeabilityMean];
@@ -995,10 +1297,448 @@ SELECT
 	FROM PipingSoilLayerEntity as psl
 	JOIN PipingSoilProfileEntity USING(PipingSoilProfileEntityId)
 	JOIN PipingStochasticSoilProfileEntity USING(PipingSoilProfileEntityId)
-	JOIN StochasticSoilModelEntity USING (StochasticSoilModelEntityId)
+	JOIN StochasticSoilModelEntity USING(StochasticSoilModelEntityId)
 	JOIN [SOURCEPROJECT].PipingSoilLayerEntity AS source ON psl.[rowid] = source.[rowid]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[PermeabilityCoefficientOfVariation] IS NOT psl.[PermeabilityCoefficientOfVariation];
+
+/*
+* Log changed simple assessment results
+*/
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM ClosingStructuresSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM HeightStructuresSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM MacroStabilityInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM MacroStabilityOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM MicrostabilitySectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM PipingSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM PipingStructureSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM StrengthStabilityLengthwiseConstructionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM TechnicalInnovationSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].TechnicalInnovationSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+	
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM WaterPressureAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+	
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+/*
+* Log removed detailed assessment results
+*/
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM StabilityStoneCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM DuneErosionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM MicrostabilitySectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM PipingStructureSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+/*
+* Log removed tailor made assessment results
+*/
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM StabilityStoneCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM DuneErosionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM MacroStabilityOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM MicrostabilitySectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM WaterPressureAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM PipingStructureSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM StrengthStabilityLengthwiseConstructionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 

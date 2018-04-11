@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         }
 
         [Test]
-        public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
+        public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())

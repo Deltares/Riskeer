@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new GrassCoverErosionInwardsSectionResultEntity();
@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_CollectorIsNull_ThrowArgumentNullException()
+        public void Read_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new GrassCoverErosionInwardsSectionResultEntity();

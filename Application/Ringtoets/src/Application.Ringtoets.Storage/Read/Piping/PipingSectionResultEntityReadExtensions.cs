@@ -36,12 +36,17 @@ namespace Application.Ringtoets.Storage.Read.Piping
         /// Reads the <see cref="PipingSectionResultEntity"/> and use the information to construct a 
         /// <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="PipingSectionResultEntity"/> to update 
+        /// <param name="entity">The <see cref="PipingSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this PipingSectionResultEntity entity, PipingFailureMechanismSectionResult sectionResult)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));

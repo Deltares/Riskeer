@@ -25,7 +25,8 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -34,7 +35,21 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            TestDelegate call = () => ((WaterPressureAsphaltCoverSectionResultEntity) null).Read(sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new WaterPressureAsphaltCoverSectionResultEntity();
@@ -48,22 +63,21 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_ParameterValues_SectionResultWithParameterValues()
+        public void Read_ParameterValues_SetsSectionResultWithParameterValues()
         {
             // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            double layerThree = random.NextDouble();
+            var random = new Random(31);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new WaterPressureAsphaltCoverSectionResultEntity
             {
-                LayerThree = layerThree,
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
+                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
 
@@ -71,8 +85,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNotNull(sectionResult);
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
+            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
     }
 }

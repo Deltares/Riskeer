@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
         /// Reads the <see cref="HeightStructuresSectionResultEntity"/> and use the information 
         /// to update a <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> to 
+        /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> used to 
         /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>

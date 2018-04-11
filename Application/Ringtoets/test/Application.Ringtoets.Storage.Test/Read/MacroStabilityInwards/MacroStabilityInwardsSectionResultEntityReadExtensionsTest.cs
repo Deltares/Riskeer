@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
         }
 
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new MacroStabilityInwardsSectionResultEntity();

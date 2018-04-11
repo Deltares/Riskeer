@@ -25,7 +25,8 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read
@@ -34,7 +35,21 @@ namespace Application.Ringtoets.Storage.Test.Read
     public class MicrostabilitySectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var sectionResult = new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            TestDelegate call = () => ((MicrostabilitySectionResultEntity) null).Read(sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new MicrostabilitySectionResultEntity();
@@ -48,24 +63,23 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_ParameterValues_SectionResultWithParameterValues()
+        public void Read_ParameterValues_SetsSectionResultWithParameterValues()
         {
             // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
-            double layerThree = random.NextDouble();
+            var random = new Random(31);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new MicrostabilitySectionResultEntity
             {
-                LayerThree = layerThree,
-                LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
+                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
             var sectionResult = new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection());
 
@@ -73,35 +87,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-        }
-
-        [Test]
-        public void Read_EntityWithNullValues_SectionResultWitNaNValues()
-        {
-            // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            var layerTwoA = random.NextEnumValue<AssessmentLayerTwoAResult>();
-
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new MicrostabilitySectionResultEntity
-            {
-                LayerThree = null,
-                LayerTwoA = Convert.ToByte(layerTwoA),
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
+            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
+            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
     }
 }

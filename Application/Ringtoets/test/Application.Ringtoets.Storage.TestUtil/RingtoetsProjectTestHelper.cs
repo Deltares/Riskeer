@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -202,25 +203,37 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(39);
             foreach (StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
         private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(39);
             foreach (TechnicalInnovationFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
         private static void SetSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(39);
             foreach (WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
@@ -229,41 +242,65 @@ namespace Application.Ringtoets.Storage.TestUtil
             var random = new Random(21);
             foreach (MacroStabilityOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
                 sectionResult.DetailedAssessmentProbability = random.NextDouble();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
         private static void SetSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(39);
             foreach (GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
         private static void SetSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(39);
             foreach (GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
         private static void SetSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(39);
             foreach (MicrostabilityFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
         private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(39);
             foreach (PipingStructureFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
@@ -451,12 +488,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                                                                             {
                                                                                 topLevelIllustrationPoint
                                                                             });
-        }
-
-        private static AssessmentLayerOneState GetAssessmentLayerOneState()
-        {
-            var random = new Random(21);
-            return (AssessmentLayerOneState) random.Next(1, Enum.GetValues(typeof(AssessmentLayerOneState)).Length + 1);
         }
 
         private static StructuresOutput GetStructuresOutputWithIllustrationPoints()
@@ -777,9 +808,18 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(42);
             foreach (DuneErosionFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
@@ -1946,9 +1986,18 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(37);
             foreach (GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
@@ -2038,9 +2087,18 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(21);
             foreach (StabilityStoneCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 
@@ -2126,9 +2184,18 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
+            var random = new Random(37);
             foreach (WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerOne = GetAssessmentLayerOneState();
+                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
+                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+                sectionResult.UseManualAssemblyCategoryGroup = random.NextBoolean();
+                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             }
         }
 

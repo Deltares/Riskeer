@@ -21,7 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
@@ -36,18 +37,31 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
         /// Reads the <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> to create <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsSectionResultEntity"/> used
+        /// to update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this GrassCoverErosionOutwardsSectionResultEntity entity, GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = (DetailedAssessmentResultType) entity.DetailedAssessmentResultForFactorizedSignalingNorm;
+            sectionResult.DetailedAssessmentResultForSignalingNorm = (DetailedAssessmentResultType) entity.DetailedAssessmentResultForSignalingNorm;
+            sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = (DetailedAssessmentResultType) entity.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm;
+            sectionResult.DetailedAssessmentResultForLowerLimitNorm = (DetailedAssessmentResultType) entity.DetailedAssessmentResultForLowerLimitNorm;
+            sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = (DetailedAssessmentResultType) entity.DetailedAssessmentResultForFactorizedLowerLimitNorm;
+            sectionResult.TailorMadeAssessmentResult = (FailureMechanismSectionAssemblyCategoryGroup) entity.TailorMadeAssessmentResult;
+            sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
+            sectionResult.ManualAssemblyCategoryGroup = (FailureMechanismSectionAssemblyCategoryGroup) entity.ManualAssemblyCategoryGroup;
         }
     }
 }

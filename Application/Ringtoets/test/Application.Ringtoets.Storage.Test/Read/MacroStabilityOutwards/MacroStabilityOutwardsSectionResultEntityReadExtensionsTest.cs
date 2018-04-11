@@ -21,12 +21,12 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.MacroStabilityOutwards;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
@@ -35,7 +35,21 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
     public class MacroStabilityOutwardsSectionResultEntityReadExtensionsTest
     {
         [Test]
-        public void Read_SectionResultIsNull_ThrowArgumentNullException()
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            TestDelegate call = () => ((MacroStabilityOutwardsSectionResultEntity) null).Read(sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
+        [Test]
+        public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new MacroStabilityOutwardsSectionResultEntity();
@@ -49,24 +63,27 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
         }
 
         [Test]
-        public void Read_ParameterValues_SectionResultWithParameterValues()
+        public void Read_ParameterValues_SetsSectionResultWithParameterValues()
         {
             // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-            double layerTwoA = random.NextDouble();
-            double layerThree = random.NextDouble();
-
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            var random = new Random(31);
+            var simpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
+            var detailedAssessmentResult = random.NextEnumValue<DetailedAssessmentProbabilityOnlyResultType>();
+            double detailedAssessmentProbability = random.NextDouble();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>();
+            double tailorMadeAssessmentProbability = random.NextDouble();
+            bool useManualAssemblyCategoryGroup = random.NextBoolean();
+            var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            
             var entity = new MacroStabilityOutwardsSectionResultEntity
             {
-                LayerThree = layerThree,
-                LayerTwoA = layerTwoA,
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
+                SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(detailedAssessmentResult),
+                DetailedAssessmentProbability = detailedAssessmentProbability,
+                TailorMadeAssessmentResult = Convert.ToByte(tailorMadeAssessmentResult),
+                TailorMadeAssessmentProbability = tailorMadeAssessmentProbability,
+                UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
 
@@ -74,36 +91,24 @@ namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityOutwards
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.DetailedAssessmentProbability, 1e-6);
-            Assert.AreEqual(layerThree, sectionResult.TailorMadeAssessmentProbability, 1e-6);
+            Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
+            Assert.AreEqual(detailedAssessmentResult, sectionResult.DetailedAssessmentResult);
+            Assert.AreEqual(tailorMadeAssessmentResult, sectionResult.TailorMadeAssessmentResult);
+            Assert.AreEqual(useManualAssemblyCategoryGroup, sectionResult.UseManualAssemblyCategoryGroup);
+            Assert.AreEqual(manualAssemblyCategoryGroup, sectionResult.ManualAssemblyCategoryGroup);
         }
 
         [Test]
-        public void Read_EntityWithNullValues_SectionResultWithNaNValues()
+        public void Read_EntityWithNullValues_SetsSectionResultWithNaNValues()
         {
             // Setup
-            var random = new Random(21);
-            var layerOne = random.NextEnumValue<AssessmentLayerOneState>();
-
-            var collector = new ReadConversionCollector();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new MacroStabilityOutwardsSectionResultEntity
-            {
-                LayerThree = null,
-                LayerTwoA = null,
-                LayerOne = Convert.ToByte(layerOne),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
+            var entity = new MacroStabilityOutwardsSectionResultEntity();
             var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
 
             // Assert
-            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.IsNaN(sectionResult.DetailedAssessmentProbability);
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
         }

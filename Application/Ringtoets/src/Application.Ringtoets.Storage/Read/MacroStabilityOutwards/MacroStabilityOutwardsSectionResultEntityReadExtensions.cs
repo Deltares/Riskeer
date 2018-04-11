@@ -21,7 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Read.MacroStabilityOutwards
@@ -36,20 +37,28 @@ namespace Application.Ringtoets.Storage.Read.MacroStabilityOutwards
         /// Reads the <see cref="MacroStabilityOutwardsSectionResultEntity"/> and use the information to update a 
         /// <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="MacroStabilityOutwardsSectionResultEntity"/> to create <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="MacroStabilityOutwardsSectionResultEntity"/> used to update <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void Read(this MacroStabilityOutwardsSectionResultEntity entity, MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            sectionResult.AssessmentLayerOne = (AssessmentLayerOneState) entity.LayerOne;
-            sectionResult.DetailedAssessmentProbability = entity.LayerTwoA.ToNullAsNaN();
-            sectionResult.TailorMadeAssessmentProbability = entity.LayerThree.ToNullAsNaN();
+            sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;
+            sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
+            sectionResult.DetailedAssessmentProbability = entity.DetailedAssessmentProbability.ToNullAsNaN();
+            sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) entity.TailorMadeAssessmentResult;
+            sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
+            sectionResult.UseManualAssemblyCategoryGroup = Convert.ToBoolean(entity.UseManualAssemblyCategoryGroup);
+            sectionResult.ManualAssemblyCategoryGroup = (FailureMechanismSectionAssemblyCategoryGroup) entity.ManualAssemblyCategoryGroup;
         }
     }
 }

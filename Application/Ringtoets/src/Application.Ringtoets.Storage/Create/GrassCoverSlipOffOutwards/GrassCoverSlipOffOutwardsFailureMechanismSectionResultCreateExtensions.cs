@@ -36,11 +36,21 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffOutwards
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         internal static GrassCoverSlipOffOutwardsSectionResultEntity Create(this GrassCoverSlipOffOutwardsFailureMechanismSectionResult result)
         {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             var sectionResultEntity = new GrassCoverSlipOffOutwardsSectionResultEntity
             {
-                LayerOne = Convert.ToByte(result.AssessmentLayerOne)
+                SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
+                DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
+                TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
+                UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
+                ManualAssemblyCategoryGroup = Convert.ToByte(result.ManualAssemblyCategoryGroup)
             };
 
             return sectionResultEntity;

@@ -194,13 +194,17 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();
 
-            DuneLocation[] duneLocationWithOutput = assessmentSection.GetFailureMechanisms().OfType<DuneErosionFailureMechanism>()
-                                                                     .SelectMany(f => f.DuneLocations)
-                                                                     .Where(loc => loc.Calculation.Output != null)
-                                                                     .ToArray();
+            DuneLocationCalculation[] duneLocationCalculationsWithOutput = assessmentSection.DuneErosion.DuneLocations.Select(loc => loc.Calculation)
+                                                                                            .Where(calc => calc.Output != null)
+                                                                                            .Concat(assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                                                                            .Concat(assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                                                                            .Concat(assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                                                                            .Concat(assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                                                                            .Concat(assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                                                                            .ToArray();
 
-            HydraulicBoundaryLocation[] hblWithOutput = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                         .SelectMany(f => f.HydraulicBoundaryLocations)
+            HydraulicBoundaryLocation[] hblWithOutput = assessmentSection.GrassCoverErosionOutwards
+                                                                         .HydraulicBoundaryLocations
                                                                          .Where(loc => loc.DesignWaterLevelCalculation1.HasOutput
                                                                                        || loc.WaveHeightCalculation1.HasOutput)
                                                                          .ToArray();
@@ -214,7 +218,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.True(calculationsWithOutput.All(c => c.HasOutput),
                         "All calculations that had output still have them.");
 
-            Assert.True(duneLocationWithOutput.All(loc => loc.Calculation.Output != null));
+            Assert.True(duneLocationCalculationsWithOutput.All(calc => calc.Output != null));
             Assert.True(hblWithOutput.All(loc => loc.DesignWaterLevelCalculation1.HasOutput || loc.WaveHeightCalculation1.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
@@ -234,30 +238,23 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                                                                   .Single();
-
-            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                                       .OfType<DuneErosionFailureMechanism>()
-                                                                                       .Single();
-
             IEnumerable<ICalculation> unaffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
-                .SelectMany(fm => fm.Calculations)
-                .Where(calc => calc.HasOutput)
-                .ToList();
+                                                          .SelectMany(fm => fm.Calculations)
+                                                          .Where(calc => calc.HasOutput)
+                                                          .ToArray();
 
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects =
-                duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null).Cast<IObservable>()
-                                           .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
-                                           .Concat(new IObservable[]
-                                           {
-                                               assessmentSection
-                                           })
-                                           .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
-                                                       .SelectMany(fm => fm.Calculations)
-                                                       .Where(calc => calc.HasOutput))
-                                           .ToList();
+                GetAllAffectedDuneErosionLocationCalculations(duneErosionFailureMechanism).Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
+                                                                                          .Concat(new IObservable[]
+                                                                                          {
+                                                                                              assessmentSection
+                                                                                          })
+                                                                                          .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
+                                                                                                  .SelectMany(fm => fm.Calculations)
+                                                                                                  .Where(calc => calc.HasOutput))
+                                                                                          .ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
@@ -282,10 +279,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
                 Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
             }
-            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
-            {
-                Assert.IsNull(duneLocation.Calculation.Output);
-            }
+
+            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+
             mocks.VerifyAll();
         }
 
@@ -304,21 +300,18 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(oldComposition);
 
-            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                                       .OfType<DuneErosionFailureMechanism>()
-                                                                                       .Single();
-
             IEnumerable<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
                                                                                    .SelectMany(fm => fm.Calculations)
                                                                                    .Where(calc => calc.HasOutput)
-                                                                                   .ToList();
+                                                                                   .ToArray();
 
-            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null)
-                                                                                          .Concat(new IObservable[]
-                                                                                          {
-                                                                                              assessmentSection
-                                                                                          })
-                                                                                          .ToList();
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            IEnumerable<IObservable> expectedAffectedObjects = GetAllAffectedDuneErosionLocationCalculations(duneErosionFailureMechanism)
+                                                               .Concat(new IObservable[]
+                                                               {
+                                                                   assessmentSection
+                                                               })
+                                                               .ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
@@ -341,10 +334,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.IsTrue(location.WaveHeightCalculation1.HasOutput);
             }
 
-            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
-            {
-                Assert.IsNull(duneLocation.Calculation.Output);
-            }
+            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+
             mocks.VerifyAll();
         }
 
@@ -361,25 +352,18 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
-            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                                                                   .OfType<GrassCoverErosionOutwardsFailureMechanism>()
-                                                                                                                   .Single();
-
-            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                                       .OfType<DuneErosionFailureMechanism>()
-                                                                                       .Single();
-
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects =
-                duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null).Cast<IObservable>()
-                                           .Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
-                                           .Concat(new IObservable[]
-                                           {
-                                               assessmentSection
-                                           })
-                                           .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
-                                                       .SelectMany(fm => fm.Calculations)
-                                                       .Where(calc => calc.HasOutput))
-                                           .ToList();
+                GetAllAffectedDuneErosionLocationCalculations(duneErosionFailureMechanism).Concat(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations)
+                                                                                          .Concat(new IObservable[]
+                                                                                          {
+                                                                                              assessmentSection
+                                                                                          })
+                                                                                          .Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
+                                                                                                  .SelectMany(fm => fm.Calculations)
+                                                                                                  .Where(calc => calc.HasOutput))
+                                                                                          .ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
@@ -399,10 +383,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
                 Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
             }
-            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
-            {
-                Assert.IsNull(duneLocation.Calculation.Output);
-            }
+
+            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+
             mocks.VerifyAll();
         }
 
@@ -419,16 +402,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
-            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                                       .OfType<DuneErosionFailureMechanism>()
-                                                                                       .Single();
-
-            IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null)
-                                                                                          .Concat(new IObservable[]
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            IEnumerable<IObservable> expectedAffectedObjects =
+                GetAllAffectedDuneErosionLocationCalculations(duneErosionFailureMechanism).Concat(new IObservable[]
                                                                                           {
                                                                                               assessmentSection
                                                                                           })
-                                                                                          .ToList();
+                                                                                          .ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
@@ -448,10 +428,9 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                 Assert.IsTrue(location.DesignWaterLevelCalculation1.HasOutput);
                 Assert.IsTrue(location.WaveHeightCalculation1.HasOutput);
             }
-            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
-            {
-                Assert.IsNull(duneLocation.Calculation.Output);
-            }
+
+            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+
             mocks.VerifyAll();
         }
 
@@ -469,16 +448,16 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
             IEnumerable<ICalculation> notAffectedObjects = GetDuneIrrelevantFailureMechanisms(assessmentSection)
-                .SelectMany(fm => fm.Calculations)
-                .Where(calc => calc.HasOutput)
-                .ToList();
+                                                           .SelectMany(fm => fm.Calculations)
+                                                           .Where(calc => calc.HasOutput)
+                                                           .ToArray();
 
             IObservable[] expectedAffectedObjects = new IObservable[]
             {
                 assessmentSection
             }.Concat(GetDuneRelevantFailureMechanisms(assessmentSection)
-                         .SelectMany(fm => fm.Calculations)
-                         .Where(c => c.HasOutput)).ToArray();
+                     .SelectMany(fm => fm.Calculations)
+                     .Where(c => c.HasOutput)).ToArray();
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
@@ -511,10 +490,10 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutHydraulicBoundaryLocationAndDuneOutput(oldComposition);
 
-            List<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
+            IEnumerable<ICalculation> expectedUnaffectedObjects = assessmentSection.GetFailureMechanisms()
                                                                             .SelectMany(fm => fm.Calculations)
                                                                             .Where(calc => calc.HasOutput)
-                                                                            .ToList();
+                                                                            .ToArray();
 
             IObservable[] expectedAffectedObjects =
             {
@@ -621,6 +600,35 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssertOutputNotCleared(unaffectedObjects, GetDuneIrrelevantFailureMechanisms(assessmentSection));
         }
+
+        #region Dune Erosion Failure Mechanism Helpers
+
+        private static IEnumerable<IObservable> GetAllAffectedDuneErosionLocationCalculations(DuneErosionFailureMechanism failureMechanism)
+        {
+            return failureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null).Cast<IObservable>()
+                                   .Concat(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput));
+        }
+
+        private static bool HasDuneErosionLocationCalculationOutput(DuneLocationCalculation calculation)
+        {
+            return calculation.Output != null;
+        }
+
+        private static void AssertDuneLocationCalculationsHaveNoOutputs(DuneErosionFailureMechanism failureMechanism)
+        {
+            Assert.True(failureMechanism.DuneLocations.All(dl => dl.Calculation.Output == null));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
+        }
+
+        #endregion
 
         #region LinQ queries for expectancies
 

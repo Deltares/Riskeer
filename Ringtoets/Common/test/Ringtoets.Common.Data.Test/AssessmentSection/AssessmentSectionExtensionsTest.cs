@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
 
             // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+            Assert.IsNaN(normativeAssessmentLevel);
         }
 
         [TestCase(NormType.Signaling)]
@@ -130,7 +130,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
 
             // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+            Assert.IsNaN(normativeAssessmentLevel);
         }
 
         [TestCase(NormType.Signaling)]
@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+            Assert.IsNaN(normativeAssessmentLevel);
         }
     }
 }
