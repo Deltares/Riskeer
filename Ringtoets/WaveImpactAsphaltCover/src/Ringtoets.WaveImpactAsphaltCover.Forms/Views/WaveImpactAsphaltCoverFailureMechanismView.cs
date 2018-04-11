@@ -74,7 +74,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
-        /// <param name="assessmentSection">The assessment section to show data for.</param>
+        /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverFailureMechanismView(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                           IAssessmentSection assessmentSection)

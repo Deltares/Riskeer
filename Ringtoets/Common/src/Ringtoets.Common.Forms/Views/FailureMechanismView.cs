@@ -210,7 +210,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void SetSectionsMapData()
         {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections.ToArray();
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
 
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);

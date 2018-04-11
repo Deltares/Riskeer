@@ -204,6 +204,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresFailureMechanismView>(view);
+
+            var failureMechanismView = (ClosingStructuresFailureMechanismView) view;
+            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
     }
 }

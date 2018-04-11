@@ -204,6 +204,10 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<PipingFailureMechanismView>(view);
+
+            var failureMechanismView = (PipingFailureMechanismView) view;
+            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
     }
 }

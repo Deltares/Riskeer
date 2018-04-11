@@ -126,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         [Test]
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
-            // Setup          
+            // Setup
             var calculationA = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =

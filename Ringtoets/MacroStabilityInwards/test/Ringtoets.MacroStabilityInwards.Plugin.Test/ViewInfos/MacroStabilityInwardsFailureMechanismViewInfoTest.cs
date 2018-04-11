@@ -203,6 +203,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismView>(view);
+
+            var failureMechanismView = (MacroStabilityInwardsFailureMechanismView) view;
+            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
     }
 }

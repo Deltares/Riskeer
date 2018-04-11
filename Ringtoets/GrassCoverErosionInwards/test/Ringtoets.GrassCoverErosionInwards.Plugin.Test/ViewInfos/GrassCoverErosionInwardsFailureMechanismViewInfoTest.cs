@@ -205,6 +205,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismView>(view);
+
+            var failureMechanismView = (GrassCoverErosionInwardsFailureMechanismView) view;
+            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
     }
 }

@@ -351,7 +351,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
+        public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -388,7 +388,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithSurfaceLineData_WhenSurfaceLineUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
+        public void GivenViewWithSurfaceLineData_WhenSurfaceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var surfaceLine = new PipingSurfaceLine(string.Empty);
@@ -460,7 +460,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithStochasticSoilModels_WhenStochasticSoilModelsUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
+        public void GivenViewWithStochasticSoilModels_WhenStochasticSoilModelsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var failureMechanism = new PipingFailureMechanism();
@@ -840,11 +840,11 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var stochasticSoilModelMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[stochasticSoilModelsIndex].Attach(stochasticSoilModelMapDataObserver);
+            var stochasticSoilModelsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[stochasticSoilModelsIndex].Attach(stochasticSoilModelsMapDataObserver);
 
-            var surfaceLineMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[surfaceLinesIndex].Attach(surfaceLineMapDataObserver);
+            var surfaceLinesMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[surfaceLinesIndex].Attach(surfaceLinesMapDataObserver);
 
             var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[sectionsIndex].Attach(sectionsMapDataObserver);
@@ -864,8 +864,8 @@ namespace Ringtoets.Piping.Forms.Test.Views
             return new[]
             {
                 referenceLineMapDataObserver,
-                stochasticSoilModelMapDataObserver,
-                surfaceLineMapDataObserver,
+                stochasticSoilModelsMapDataObserver,
+                surfaceLinesMapDataObserver,
                 sectionsMapDataObserver,
                 sectionsStartPointMapDataObserver,
                 sectionsEndPointMapDataObserver,
