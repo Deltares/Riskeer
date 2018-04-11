@@ -1501,7 +1501,7 @@ SELECT
 	JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1514,7 +1514,7 @@ SELECT
 	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1527,7 +1527,7 @@ SELECT
 	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1540,7 +1540,7 @@ SELECT
 	JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1553,7 +1553,7 @@ SELECT
 	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1566,7 +1566,7 @@ SELECT
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1579,7 +1579,7 @@ SELECT
 	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 INSERT INTO TempChanges
 SELECT 
@@ -1592,7 +1592,7 @@ SELECT
 	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
-	WHERE source.[LayerTwoA] IS NOT 1;
+	WHERE source.[LayerTwoA] != 1;
 
 /*
 * Log removed tailor made assessment results
@@ -1736,6 +1736,19 @@ SELECT
 	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
 	FROM StrengthStabilityLengthwiseConstructionSectionResultEntity as sre
 	JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM TechnicalInnovationSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].TechnicalInnovationSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
 	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
 	WHERE source.[LayerThree] IS NOT NULL;

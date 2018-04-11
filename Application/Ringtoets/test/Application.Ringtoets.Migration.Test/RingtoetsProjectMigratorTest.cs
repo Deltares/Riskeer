@@ -485,6 +485,8 @@ namespace Application.Ringtoets.Migration.Test
                 migrationLog.AppendLine("    - De waarde '3.2' voor de verschuiving van parameter 'Verzadigd gewicht' van ondergrondlaag 'HotPinkLayer' is ongeldig en is veranderd naar NaN.");
                 migrationLog.AppendLine("  + Toetsspoor: 'Sterkte en stabiliteit langsconstructies'");
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
+                migrationLog.AppendLine("  + Toetsspoor: 'Technische innovaties'");
+                migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
                 migrationLog.AppendLine("  + Toetsspoor: 'Wateroverdruk bij asfaltbekleding'");
                 migrationLog.AppendLine("    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd.");
                 migrationLog.AppendLine("  + Toetsspoor: 'Macrostabiliteit buitenwaarts'");

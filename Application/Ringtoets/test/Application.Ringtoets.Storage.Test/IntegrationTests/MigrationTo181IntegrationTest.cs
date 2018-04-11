@@ -239,7 +239,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(60, messages.Count);
+                Assert.AreEqual(61, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "Gevolgen van de migratie van versie 17.3 naar versie 18.1:"),
@@ -279,6 +279,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
                                                                 "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Wateroverdruk bij asfaltbekleding'"),
@@ -774,7 +778,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "JOIN [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity OLD USING(StabilityPointStructuresSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.StabilityPointStructuresCalculationEntityId IS OLD.StabilityPointStructuresCalculationEntityId " +
-                "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
+                "AND NEW.SimpleAssessmentResult = OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
@@ -795,7 +799,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "JOIN [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity OLD USING(GrassCoverErosionInwardsSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
                 "AND NEW.GrassCoverErosionInwardsCalculationEntityId IS OLD.GrassCoverErosionInwardsCalculationEntityId " +
-                "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
+                "AND NEW.SimpleAssessmentResult = OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResult = 1 " +
                 "AND ((OLD.LayerThree IS NULL AND NEW.TailorMadeAssessmentResult = 1) " +
                 "OR (OLD.LayerThree IS NOT NULL AND NEW.TailorMadeAssessmentResult = 3)) " +
@@ -859,7 +863,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM DuneErosionSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity OLD USING(DuneErosionSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
+                "AND NEW.SimpleAssessmentResult = OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
@@ -905,7 +909,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "FROM StabilityStoneCoverSectionResultEntity NEW " +
                 "JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity OLD USING(StabilityStoneCoverSectionResultEntityId) " +
                 "WHERE NEW.FailureMechanismSectionEntityId = OLD.FailureMechanismSectionEntityId " +
-                "AND NEW.SimpleAssessmentResult IS OLD.LayerOne " +
+                "AND NEW.SimpleAssessmentResult = OLD.LayerOne " +
                 "AND NEW.DetailedAssessmentResultForFactorizedSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForSignalingNorm = 1 " +
                 "AND NEW.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = 1 " +
