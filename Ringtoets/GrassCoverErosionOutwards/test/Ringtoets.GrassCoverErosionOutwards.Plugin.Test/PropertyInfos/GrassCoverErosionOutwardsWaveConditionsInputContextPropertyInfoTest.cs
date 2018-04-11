@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
@@ -53,25 +54,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_ExpectedProperties()
         {
             // Setup
-            const double assessmentLevel = 1.1;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var testHydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
+            var assessmentSection = new AssessmentSectionStub
             {
-                DesignWaterLevelCalculation1 =
+                FailureMechanismContribution =
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel)
+                    NormativeNorm = NormType.Signaling
                 }
             };
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                failureMechanism, assessmentSection, new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = testHydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            var assessmentSection = new AssessmentSectionStub();
-
+            
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                                   calculation,
                                                                                   assessmentSection,
@@ -88,8 +95,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
 
-                var grassCoverErosionOutwardsWaveConditionsInputContextProperties = (GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties;
-                Assert.AreEqual(assessmentLevel, grassCoverErosionOutwardsWaveConditionsInputContextProperties.AssessmentLevel);
+                double expectedAssessmentLevel = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0).Output.Result;
+                Assert.AreEqual(expectedAssessmentLevel, ((GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }
 
