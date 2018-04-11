@@ -239,11 +239,196 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(10, messages.Count);
+                Assert.AreEqual(60, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "Gevolgen van de migratie van versie 17.3 naar versie 18.1:"),
                     messages[i++]);
+
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "* Traject: 'assessmentSectionResults'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Piping'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit langsconstructies'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Technische innovaties'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Wateroverdruk bij asfaltbekleding'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Macrostabiliteit binnenwaarts'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Macrostabiliteit buitenwaarts'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Grasbekleding erosie buitentalud'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Grasbekleding afschuiven binnentalud'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Grasbekleding afschuiven buitentalud'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Microstabiliteit'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Piping bij kunstwerk'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit toetsspoor, zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Duinafslag'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                                                                "omgezet naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "* Traject: 'PipingSoilLayer'"),
                     messages[i++]);
