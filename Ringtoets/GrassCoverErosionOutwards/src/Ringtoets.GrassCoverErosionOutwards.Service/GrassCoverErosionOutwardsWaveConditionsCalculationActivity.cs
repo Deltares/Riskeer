@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         protected override bool Validate()
         {
             return GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                      calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN,
+                                                                                      failureMechanism.GetNormativeAssessmentLevel(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation),
                                                                                       hlcdFilePath,
                                                                                       assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

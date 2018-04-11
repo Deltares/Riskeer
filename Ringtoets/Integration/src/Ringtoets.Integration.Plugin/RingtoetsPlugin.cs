@@ -1233,9 +1233,12 @@ namespace Ringtoets.Integration.Plugin
 
         private static RoundedDouble GetNormativeAssessmentLevel(WaveConditionsInputContext context)
         {
-            if (context is GrassCoverErosionOutwardsWaveConditionsInputContext)
+            var grassCoverErosionOutwardsWaveConditionsInputContext = context as GrassCoverErosionOutwardsWaveConditionsInputContext;
+            if (grassCoverErosionOutwardsWaveConditionsInputContext != null)
             {
-                return context.Calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+                return grassCoverErosionOutwardsWaveConditionsInputContext.FailureMechanism.GetNormativeAssessmentLevel(
+                    grassCoverErosionOutwardsWaveConditionsInputContext.AssessmentSection,
+                    grassCoverErosionOutwardsWaveConditionsInputContext.Calculation.InputParameters.HydraulicBoundaryLocation);
             }
 
             return context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation);
