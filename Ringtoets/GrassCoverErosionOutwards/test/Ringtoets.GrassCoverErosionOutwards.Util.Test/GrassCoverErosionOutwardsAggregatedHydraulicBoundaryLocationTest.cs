@@ -92,6 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
             Assert.AreEqual(id, aggregatedLocation.Id);
             Assert.AreEqual(name, aggregatedLocation.Name);
             Assert.AreSame(location, aggregatedLocation.Location);
+
             Assert.AreEqual(waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm, aggregatedLocation.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm);
             Assert.AreEqual(waterLevelCalculationForMechanismSpecificSignalingNorm, aggregatedLocation.WaterLevelCalculationForMechanismSpecificSignalingNorm);
             Assert.AreEqual(waterLevelCalculationForMechanismSpecificLowerLimitNorm, aggregatedLocation.WaterLevelCalculationForMechanismSpecificLowerLimitNorm);

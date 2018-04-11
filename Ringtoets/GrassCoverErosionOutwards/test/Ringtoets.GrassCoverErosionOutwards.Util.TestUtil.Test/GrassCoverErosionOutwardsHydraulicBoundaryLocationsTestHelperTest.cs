@@ -35,7 +35,7 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddHydraulicBoundaryLocations_Always_AddsLocationsAndCalculations(bool setCalculationOutput)
+        public void SetHydraulicBoundaryLocations_Always_SetsLocationsAndCalculations(bool setCalculationOutput)
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -47,11 +47,11 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
             };
 
             // Call
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(failureMechanism, assessmentSection, locations, setCalculationOutput);
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, locations, setCalculationOutput);
 
             // Assert
             CollectionAssert.AreEqual(locations, assessmentSection.HydraulicBoundaryDatabase.Locations);
-            
+
             AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, locations, setCalculationOutput);
@@ -77,7 +77,7 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
 
             Assert.AreEqual(expectedHydraulicBoundaryLocations.Length, calculationsArray.Length);
 
-            for (int i = 0; i < expectedHydraulicBoundaryLocations.Length; i++)
+            for (var i = 0; i < expectedHydraulicBoundaryLocations.Length; i++)
             {
                 Assert.AreSame(expectedHydraulicBoundaryLocations[i], calculationsArray[i].HydraulicBoundaryLocation);
                 Assert.AreEqual(expectedHasOutput, calculationsArray[i].HasOutput);

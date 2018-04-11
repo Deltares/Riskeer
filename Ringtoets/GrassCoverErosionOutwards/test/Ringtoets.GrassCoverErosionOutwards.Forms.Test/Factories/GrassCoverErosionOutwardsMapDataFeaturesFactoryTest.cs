@@ -142,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
                 new HydraulicBoundaryLocation(2, "test", 2, 2)
             };
 
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection, locations, withOutput);
 
             // Call

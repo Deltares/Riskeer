@@ -240,7 +240,6 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             SetReferenceLineMapData();
             SetSectionsMapData();
             SetHydraulicBoundaryLocationsMapData();
-
             SetForeshoreProfilesMapData();
             SetStructuresMapData();
             SetCalculationsMapData();

@@ -203,6 +203,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresFailureMechanismView>(view);
+
+            var failureMechanismView = (HeightStructuresFailureMechanismView) view;
+            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
     }
 }

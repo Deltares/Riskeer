@@ -28,29 +28,27 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
 {
     /// <summary>
-    /// Test helper for handling with hydraulic boundary locations and calculations in
+    /// Test helper for dealing with hydraulic boundary locations and calculations in
     /// <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public static class GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper
     {
-        private static Random random;
+        private static readonly Random random = new Random(39);
 
         /// <summary>
-        /// Adds the given <paramref name="hydraulicBoundaryLocations"/> to
+        /// Sets the given <paramref name="hydraulicBoundaryLocations"/> to
         /// the <paramref name="assessmentSection"/> and <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to add the locations to.</param>
-        /// <param name="assessmentSection">The assessment section to add the locations to.</param>
-        /// <param name="hydraulicBoundaryLocations">The locations to add.</param>
+        /// <param name="failureMechanism">The failure mechanism to set the locations to.</param>
+        /// <param name="assessmentSection">The assessment section to set the locations to.</param>
+        /// <param name="hydraulicBoundaryLocations">The locations to set.</param>
         /// <param name="setCalculationOutput">Whether to set dummy output for the automatically generated
         /// hydraulic boundary location calculations.</param>
-        public static void AddHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+        public static void SetHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                          AssessmentSectionStub assessmentSection,
                                                          IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                          bool setCalculationOutput = false)
         {
-            random = new Random(39);
-
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, setCalculationOutput);
             failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 

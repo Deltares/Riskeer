@@ -32,7 +32,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
     public class GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/>
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="id">The id of the hydraulic boundary location.</param>
         /// <param name="name">The name of the hydraulic boundary location.</param>
@@ -44,9 +44,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
         /// <param name="waterLevelCalculationForMechanismSpecificLowerLimitNorm">The result of the water level
         /// calculation for the mechanism specific lower limit norm.</param>
         /// <param name="waterLevelCalculationForLowerLimitNorm">The result of the water level calculation for
-        /// lower limit norm.</param>
-        /// <param name="waterLevelCalculationForFactorizedLowerLimitNorm">The result of the  water level
-        /// calculation for factorized lower limit norm.</param>
+        /// the lower limit norm.</param>
+        /// <param name="waterLevelCalculationForFactorizedLowerLimitNorm">The result of the water level
+        /// calculation for the factorized lower limit norm.</param>
         /// <param name="waveHeightCalculationForMechanismSpecificFactorizedSignalingNorm">The result of the
         /// wave height level calculation for the mechanism specific factorized signaling norm.</param>
         /// <param name="waveHeightCalculationForMechanismSpecificSignalingNorm">The result of the wave height
@@ -54,9 +54,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
         /// <param name="waveHeightCalculationForMechanismSpecificLowerLimitNorm">The result of the wave height
         /// calculation for the mechanism specific lower limit norm.</param>
         /// <param name="waveHeightCalculationForLowerLimitNorm">The result of the wave height calculation for
-        /// lower limit norm.</param>
+        /// the lower limit norm.</param>
         /// <param name="waveHeightCalculationForFactorizedLowerLimitNorm">The result of the wave height
-        /// calculation for factorized lower limit norm.</param>
+        /// calculation for the factorized lower limit norm.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or 
         /// <paramref name="location"/> is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation(
@@ -131,12 +131,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
         public RoundedDouble WaterLevelCalculationForMechanismSpecificLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the result of the water level calculation for lower limit norm.
+        /// Gets the result of the water level calculation for the lower limit norm.
         /// </summary>
         public RoundedDouble WaterLevelCalculationForLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the result of the water level calculation for factorized lower limit norm.
+        /// Gets the result of the water level calculation for the factorized lower limit norm.
         /// </summary>
         public RoundedDouble WaterLevelCalculationForFactorizedLowerLimitNorm { get; }
 
@@ -159,12 +159,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
         public RoundedDouble WaveHeightCalculationForMechanismSpecificLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the result of the wave height calculation for lower limit norm.
+        /// Gets the result of the wave height calculation for the lower limit norm.
         /// </summary>
         public RoundedDouble WaveHeightCalculationForLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the result of the wave height calculation for factorized lower limit norm.
+        /// Gets the result of the wave height calculation for the factorized lower limit norm.
         /// </summary>
         public RoundedDouble WaveHeightCalculationForFactorizedLowerLimitNorm { get; }
     }
