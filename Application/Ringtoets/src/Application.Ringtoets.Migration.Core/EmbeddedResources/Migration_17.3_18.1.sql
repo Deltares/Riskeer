@@ -1302,6 +1302,444 @@ SELECT
 	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = [FailureMechanismEntityId]
 	WHERE source.[PermeabilityCoefficientOfVariation] IS NOT psl.[PermeabilityCoefficientOfVariation];
 
+/*
+* Log changed simple assessment results
+*/
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM ClosingStructuresSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].ClosingStructuresSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM HeightStructuresSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].HeightStructuresSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM MacroStabilityInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM MacroStabilityOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM MicrostabilitySectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM PipingSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM PipingStructureSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM StrengthStabilityLengthwiseConstructionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM TechnicalInnovationSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].TechnicalInnovationSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+	
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM WaterPressureAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+	
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten met de waarde 'Voldoende/Niet relevant' voor de eenvoudige toets van dit toetsspoor, zijn omgezet naar 'NVT'."
+	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerOne] = 2;
+
+/*
+* Log removed detailed assessment results
+*/
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM StabilityStoneCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM DuneErosionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM MicrostabilitySectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM PipingStructureSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerTwoA] IS NOT 1;
+
+/*
+* Log removed tailor made assessment results
+*/
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM StabilityStoneCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM WaveImpactAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverErosionOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM DuneErosionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].DuneErosionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM MacroStabilityOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM MicrostabilitySectionResultEntity as sre
+	JOIN [SOURCEPROJECT].MicrostabilitySectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM WaterPressureAsphaltCoverSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffOutwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM GrassCoverSlipOffInwardsSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM PipingStructureSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].PipingStructureSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
+INSERT INTO TempChanges
+SELECT 
+	asfm.[AssessmentSectionId],
+	asfm.[AssessmentSectionName],
+	asfm.[FailureMechanismId],
+	asfm.[FailureMechanismName],
+	"Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet naar een geldig resultaat en zijn verwijderd."
+	FROM StrengthStabilityLengthwiseConstructionSectionResultEntity as sre
+	JOIN [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity AS source ON sre.[rowid] = source.[rowid]
+	JOIN FailureMechanismSectionEntity as fms ON fms.[FailureMechanismSectionEntityId] = sre.[FailureMechanismSectionEntityId]
+	JOIN TempAssessmentSectionFailureMechanism AS asfm ON asfm.[FailureMechanismId] = fms.[FailureMechanismEntityId]
+	WHERE source.[LayerThree] IS NOT NULL;
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 
