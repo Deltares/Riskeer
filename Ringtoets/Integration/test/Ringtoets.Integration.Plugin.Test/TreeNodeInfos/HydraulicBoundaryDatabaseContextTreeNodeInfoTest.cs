@@ -587,9 +587,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var waveHeightCalculationsForSignalingNormObserver = mocks.StrictMock<IObserver>();
             var waveHeightCalculationsForLowerLimitNormObserver = mocks.StrictMock<IObserver>();
             var waveHeightCalculationsForFactorizedLowerLimitNormObserver = mocks.StrictMock<IObserver>();
-
-            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
-
+            
             var waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver = mocks.StrictMock<IObserver>();
             var waterLevelCalculationsForMechanismSpecificSignalingNormObserver = mocks.StrictMock<IObserver>();
             var waterLevelCalculationsForMechanismSpecificLowerLimitNormObserver = mocks.StrictMock<IObserver>();
@@ -615,8 +613,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.WaveHeightCalculationsForSignalingNorm.Attach(waveHeightCalculationsForSignalingNormObserver);
             assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Attach(waveHeightCalculationsForLowerLimitNormObserver);
             assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Attach(waveHeightCalculationsForFactorizedLowerLimitNormObserver);
-
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Attach(waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver);
             assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Attach(waterLevelCalculationsForMechanismSpecificSignalingNormObserver);
@@ -645,8 +641,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 waveHeightCalculationsForSignalingNormObserver.Expect(o => o.UpdateObserver());
                 waveHeightCalculationsForLowerLimitNormObserver.Expect(o => o.UpdateObserver());
                 waveHeightCalculationsForFactorizedLowerLimitNormObserver.Expect(o => o.UpdateObserver());
-
-                grassCoverErosionOutwardsLocationsObserver.Expect(o => o.UpdateObserver());
 
                 waterLevelCalculationsForMechanismSpecificFactorizedSignalingNormObserver.Expect(o => o.UpdateObserver());
                 waterLevelCalculationsForMechanismSpecificSignalingNormObserver.Expect(o => o.UpdateObserver());

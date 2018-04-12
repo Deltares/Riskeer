@@ -1911,8 +1911,6 @@ namespace Ringtoets.Integration.Plugin
             assessmentSection.WaveHeightCalculationsForLowerLimitNorm.NotifyObservers();
             assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.NotifyObservers();
 
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
-
             assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
             assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
             assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
