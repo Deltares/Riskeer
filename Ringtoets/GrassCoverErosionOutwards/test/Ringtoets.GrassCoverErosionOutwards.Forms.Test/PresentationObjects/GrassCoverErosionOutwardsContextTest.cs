@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
@@ -97,9 +96,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var observable = mocks.Stub<IObservable>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
@@ -111,27 +110,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(context.HydraulicBoundaryLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void HydraulicBoundaryLocations_Always_ReturnsHydraulicBoundaryLocationsFromFailureMechanism()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var target = mocks.StrictMock<IObservable>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new SimpleGrassCoverErosionOutwardsContext(target, failureMechanism, assessmentSection);
-
-            // Call
-            IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations = context.HydraulicBoundaryLocations;
-
-            // Assert
-            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, availableHydraulicBoundaryLocations);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
 
