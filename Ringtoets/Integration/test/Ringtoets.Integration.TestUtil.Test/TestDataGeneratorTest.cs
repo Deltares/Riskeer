@@ -630,8 +630,6 @@ namespace Ringtoets.Integration.TestUtil.Test
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = TestDataGenerator.GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations();
 
             // Assert
-            Assert.IsTrue(failureMechanism.HydraulicBoundaryLocations.All(loc => loc.DesignWaterLevelCalculation1.HasOutput
-                                                                                 && loc.WaveHeightCalculation1.HasOutput));
             AssertHasForeshoreProfiles(failureMechanism);
             AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithOutputs(failureMechanism);
             AssertGrassCoverErosionOutwardsFailureMechanismCalculationConfigurationsWithoutOutputs(failureMechanism);
