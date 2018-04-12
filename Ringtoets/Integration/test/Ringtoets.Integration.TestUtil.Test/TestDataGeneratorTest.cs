@@ -27,7 +27,6 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -179,11 +178,13 @@ namespace Ringtoets.Integration.TestUtil.Test
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.All(c => c.HasOutput == hasOutput));
 
-            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
-            {
-                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
-            }
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(calc => calc.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(calc => calc.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.HasOutput == hasOutput));
         }
 
         private static void AssertFailureMechanismsHaveAllPossibleCalculationConfigurations(IAssessmentSection assessmentSection)
