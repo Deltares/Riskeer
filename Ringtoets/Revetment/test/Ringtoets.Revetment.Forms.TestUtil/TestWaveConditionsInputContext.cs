@@ -77,10 +77,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil
             : base(wrappedData, calculation, assessmentSection)
         {
             ForeshoreProfiles = foreshoreProfiles;
-            HydraulicBoundaryLocations = locations;
         }
-
-        public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
 
         public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
     }

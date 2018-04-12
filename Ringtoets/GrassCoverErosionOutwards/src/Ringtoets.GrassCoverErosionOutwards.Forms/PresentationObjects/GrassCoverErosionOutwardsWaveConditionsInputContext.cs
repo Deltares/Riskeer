@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -57,14 +56,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
             }
 
             FailureMechanism = failureMechanism;
-        }
-
-        public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
-        {
-            get
-            {
-                return FailureMechanism.HydraulicBoundaryLocations;
-            }
         }
 
         public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
