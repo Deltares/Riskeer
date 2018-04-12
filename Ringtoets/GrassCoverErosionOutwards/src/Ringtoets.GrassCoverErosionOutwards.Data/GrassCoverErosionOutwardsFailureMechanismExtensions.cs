@@ -36,34 +36,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     public static class GrassCoverErosionOutwardsFailureMechanismExtensions
     {
         /// <summary>
-        /// Sets <see cref="GrassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations"/> 
-        /// based upon the <paramref name="hydraulicBoundaryLocations"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to update.</param>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(this GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                  IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-            if (hydraulicBoundaryLocations == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
-            }
-
-            failureMechanism.HydraulicBoundaryLocations.Clear();
-            if (!hydraulicBoundaryLocations.Any())
-            {
-                return;
-            }
-
-            failureMechanism.HydraulicBoundaryLocations.AddRange(hydraulicBoundaryLocations);
-        }
-
-        /// <summary>
         /// Gets the normative assessment level for a <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to get the normative assessment level from.</param>

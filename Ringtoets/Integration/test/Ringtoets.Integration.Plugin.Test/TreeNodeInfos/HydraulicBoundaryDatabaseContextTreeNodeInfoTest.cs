@@ -339,7 +339,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
-                    CollectionAssert.IsNotEmpty(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
                     CollectionAssert.AreEqual(hydraulicBoundaryLocations, grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Select(hblc => hblc.HydraulicBoundaryLocation));
@@ -476,7 +475,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             grassCoverErosionOutwardsFailureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            grassCoverErosionOutwardsFailureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase.Locations);
 
             PipingOutput pipingOutput = PipingOutputTestFactory.Create();
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
@@ -508,7 +506,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForSignalingNorm = assessmentSection.WaveHeightCalculationsForSignalingNorm.ToArray();
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForLowerLimitNorm = assessmentSection.WaveHeightCalculationsForLowerLimitNorm.ToArray();
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaveHeightCalculationsForFactorizedLowerLimitNorm = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ToArray();
-            IEnumerable<HydraulicBoundaryLocation> currentGrassCoverErosionOutwardsLocations = grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.ToArray();
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaterLevelCalculationsForMechanismSpecificSignalingNorm = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ToArray();
             IEnumerable<HydraulicBoundaryLocationCalculation> currentWaterLevelCalculationsForMechanismSpecificLowerLimitNorm = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
@@ -564,7 +561,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     CollectionAssert.AreEqual(currentWaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
                     CollectionAssert.AreEqual(currentWaveHeightCalculationsForMechanismSpecificSignalingNorm, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
                     CollectionAssert.AreEqual(currentWaveHeightCalculationsForMechanismSpecificLowerLimitNorm, grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
-                    CollectionAssert.AreEqual(currentGrassCoverErosionOutwardsLocations, grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
                     Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
                     Assert.AreSame(pipingOutput, pipingCalculation.Output);
                 }

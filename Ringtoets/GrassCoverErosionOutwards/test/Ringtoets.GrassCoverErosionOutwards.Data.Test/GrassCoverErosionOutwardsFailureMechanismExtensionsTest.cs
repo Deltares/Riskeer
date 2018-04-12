@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
@@ -37,76 +36,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismExtensionsTest
     {
-        [Test]
-        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(
-                null, Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_LocationsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            TestDelegate test = () => failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
-        }
-
-        [Test]
-        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_Always_PreviousLocationsCleared()
-        {
-            // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
-
-            // Precondition
-            CollectionAssert.AreEqual(new[]
-            {
-                hydraulicBoundaryLocation
-            }, failureMechanism.HydraulicBoundaryLocations);
-
-            // Call
-            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundaryLocations);
-        }
-
-        [Test]
-        public void SetGrassCoverErosionOutwardsHydraulicBoundaryLocations_MultipleHydraulicBoundaryLocations_SetsExpectedLocations()
-        {
-            // Setup
-            var locations = new[]
-            {
-                new HydraulicBoundaryLocation(1, "location 1", 1, 2),
-                new HydraulicBoundaryLocation(2, "location 2", 3, 4)
-            };
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Precondition
-            CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundaryLocations);
-
-            // Call
-            failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(locations);
-
-            // Assert
-            Assert.AreEqual(2, failureMechanism.HydraulicBoundaryLocations.Count);
-            CollectionAssert.AreEqual(locations, failureMechanism.HydraulicBoundaryLocations);
-        }
-
         [Test]
         public void GetNormativeAssessmentLevel_FailureMechanismnNull_ThrowsArgumentNullException()
         {

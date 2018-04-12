@@ -1886,7 +1886,6 @@ namespace Ringtoets.Integration.Plugin
 
                         assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-                        assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
 
                         var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
                         duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
