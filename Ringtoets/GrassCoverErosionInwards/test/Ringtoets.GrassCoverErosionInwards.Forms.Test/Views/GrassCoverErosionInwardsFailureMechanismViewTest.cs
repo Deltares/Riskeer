@@ -218,7 +218,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
             using (var view = new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
@@ -238,7 +238,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 // When
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
-                    new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
                     new HydraulicBoundaryLocation(2, "test2", 3.0, 4.0)
                 });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
