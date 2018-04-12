@@ -46,6 +46,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
@@ -310,18 +311,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
         {
             // Setup
-            var location = new TestHydraulicBoundaryLocation();
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    location
-                }
-            });
-
             mocks.ReplayAll();
+
+            var location = new TestHydraulicBoundaryLocation();
+            var assessmentSection = new AssessmentSectionStub();
 
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -330,17 +323,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                HydraulicBoundaryLocations =
-                {
-                    location
-                }
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 foreshoreProfile
             }, "path");
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                failureMechanism, assessmentSection, new[]
+                {
+                    location
+                });
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
@@ -376,19 +369,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
         {
             // Setup
-            var location = new TestHydraulicBoundaryLocation();
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    location
-                }
-            });
-
             mocks.ReplayAll();
 
+            var location = new TestHydraulicBoundaryLocation();
+            var assessmentSection = new AssessmentSectionStub();
+            
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -396,17 +381,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
             var foreshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Caisson, 1));
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                HydraulicBoundaryLocations =
-                {
-                    location
-                }
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.ForeshoreProfiles.AddRange(new[]
             {
                 foreshoreProfile
             }, "path");
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                failureMechanism, assessmentSection, new[]
+                {
+                    location
+                });
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
