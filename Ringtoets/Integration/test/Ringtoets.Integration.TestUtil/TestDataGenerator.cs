@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
@@ -37,7 +36,6 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Service;
@@ -126,7 +124,6 @@ namespace Ringtoets.Integration.TestUtil
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
-            GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(assessmentSection.GrassCoverErosionOutwards);
 
             return assessmentSection;
         }
@@ -867,7 +864,7 @@ namespace Ringtoets.Integration.TestUtil
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                Random random)
         {
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new []
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
