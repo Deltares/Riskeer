@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
@@ -512,30 +513,25 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
         private static IEnumerable<TestCaseData> GetInputContextDatasWithExpectedAssessmentLevel()
         {
-            const double assessmentLevel1 = 1.1;
-            const double assessmentLevel2 = 2.2;
+            const double assessmentLevel = 2.2;
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation
-            {
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel1)
-                }
-            };
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             var waveConditionsInput = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
 
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                failureMechanism, assessmentSection,
+                new []
+                {
+                    hydraulicBoundaryLocation
+                });
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel2);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel);
 
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(
@@ -549,7 +545,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                         },
                         assessmentSection,
                         new GrassCoverErosionOutwardsFailureMechanism()),
-                    assessmentLevel1)
+                    assessmentLevel)
                 .SetName("Grass outwards input context");
 
             yield return new TestCaseData(
@@ -564,7 +560,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                         },
                         assessmentSection,
                         new ForeshoreProfile[0]),
-                    assessmentLevel2)
+                    assessmentLevel)
                 .SetName("Stability stone cover input context");
 
             yield return new TestCaseData(
@@ -579,7 +575,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                         },
                         assessmentSection,
                         new ForeshoreProfile[0]),
-                    assessmentLevel2)
+                    assessmentLevel)
                 .SetName("Wave impact asphalt cover input context");
         }
 

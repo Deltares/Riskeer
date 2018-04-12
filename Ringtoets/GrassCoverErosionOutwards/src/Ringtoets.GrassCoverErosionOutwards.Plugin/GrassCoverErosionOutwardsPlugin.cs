@@ -25,7 +25,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -56,7 +55,6 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -500,8 +498,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
                 return new object[]
                 {
-                    new GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(locations, failureMechanism, assessmentSection), 
-                    new GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext(locations, failureMechanism, assessmentSection), 
+                    new GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(locations, failureMechanism, assessmentSection),
+                    new GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext(locations, failureMechanism, assessmentSection),
                     new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                        null,
                                                                                        failureMechanism,
@@ -731,7 +729,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private void ShowHydraulicBoundaryLocationSelectionDialog(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
         {
-            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HydraulicBoundaryLocations))
+            using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
             {
                 dialog.ShowDialog();
 
@@ -1031,14 +1029,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
-
-        private static double GetFailureMechanismSpecificNorm(IAssessmentSection assessmentSection, GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-        {
-            return RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
-                failureMechanism.Contribution,
-                failureMechanism.GeneralInput.N);
-        }
 
         #endregion
 

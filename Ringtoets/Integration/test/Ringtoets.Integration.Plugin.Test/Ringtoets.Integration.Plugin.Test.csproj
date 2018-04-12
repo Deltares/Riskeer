@@ -249,6 +249,10 @@
       <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\test\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.csproj">
+      <Project>{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
