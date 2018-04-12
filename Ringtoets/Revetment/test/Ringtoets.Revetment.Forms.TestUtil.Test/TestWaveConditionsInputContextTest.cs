@@ -88,8 +88,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             var context = new TestWaveConditionsInputContext(waveConditionsInput,
                                                              calculation,
                                                              assessmentSection,
-                                                             profiles,
-                                                             locations);
+                                                             profiles);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);

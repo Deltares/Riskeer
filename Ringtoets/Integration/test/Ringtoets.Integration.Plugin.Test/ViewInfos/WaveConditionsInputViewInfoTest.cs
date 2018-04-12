@@ -98,8 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new TestWaveConditionsInputContext(input,
                                                              calculation,
                                                              new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                             new ForeshoreProfile[0],
-                                                             new HydraulicBoundaryLocation[0]);
+                                                             new ForeshoreProfile[0]);
 
             // Call
             object viewData = info.GetViewData(context);

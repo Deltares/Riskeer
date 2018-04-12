@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
@@ -58,8 +57,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil
             : this(wrappedData,
                    new TestWaveConditionsCalculation(),
                    assesmentSection,
-                   foreshoreProfiles,
-                   assesmentSection.HydraulicBoundaryDatabase.Locations) {}
+                   foreshoreProfiles) {}
 
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
@@ -68,12 +66,10 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         /// <param name="calculation">The calculation.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        /// <param name="locations">The hydraulic boundary locations.</param>
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                               ICalculation<WaveConditionsInput> calculation,
                                               IAssessmentSection assessmentSection,
-                                              IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                              IEnumerable<HydraulicBoundaryLocation> locations)
+                                              IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)
         {
             ForeshoreProfiles = foreshoreProfiles;
