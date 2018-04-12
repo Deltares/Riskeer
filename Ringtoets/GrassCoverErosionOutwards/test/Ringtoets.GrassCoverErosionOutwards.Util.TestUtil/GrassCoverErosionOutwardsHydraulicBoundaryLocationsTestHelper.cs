@@ -63,8 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
             }
         }
 
-        private static void CreateHydraulicBoundaryLocationCalculationsOutput(
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        private static void CreateHydraulicBoundaryLocationCalculationsOutput(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {
             foreach (HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation in hydraulicBoundaryLocationCalculations)
             {
