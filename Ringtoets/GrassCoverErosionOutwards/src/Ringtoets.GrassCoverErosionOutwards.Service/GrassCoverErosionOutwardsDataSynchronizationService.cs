@@ -59,6 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                     calculation
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
 
@@ -146,6 +147,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             return new ClearResults(changedObjects, removedObjects);
         }
 
+        /// <summary>
+        /// Clears the output of the hydraulic boundary location calculations within the grass cover erosion outwards failure mechanism.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism for which the output of the calculations needs to be cleared.</param>
+        /// <returns>All objects changed during the clear.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            var affectedObjects = new List<IObservable>();
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+                                         failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm));
+
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm));
+            affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
+                                         failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm));
+
+            return affectedObjects;
+        }
+
         private static IEnumerable<IObservable> ClearHydraulicBoundaryLocation(WaveConditionsInput input)
         {
             if (input.HydraulicBoundaryLocation != null)
@@ -156,6 +188,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                     input
                 };
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

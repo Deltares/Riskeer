@@ -26,6 +26,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
@@ -200,6 +201,61 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
 
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationOutputs_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearHydraulicBoundaryLocationCalculationOutputs_FailureMechanismWithOutputs_OutputClearedAndAffectedItemsReturned()
+        {
+            // Setup
+            var random = new Random(21);
+            var hydraulicBoundaryLocations = new[]
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+
+            // Call
+            IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(failureMechanism);
+            
+            // Assert
+            var expectedAffectedItems = new[]
+            {
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First(),
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First(),
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First(),
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First()
+            };
+            CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
+
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !calc.HasOutput));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(calc => !calc.HasOutput));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(calc => !calc.HasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !calc.HasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(calc => !calc.HasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(calc => !calc.HasOutput));
         }
 
         private static GrassCoverErosionOutwardsFailureMechanism CreateFullyConfiguredFailureMechanism()
