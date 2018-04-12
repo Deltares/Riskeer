@@ -29,6 +29,23 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class TestHydraulicBoundaryLocationOutputTest
     {
         [Test]
+        public void TestHydraulicBoundaryLocationOutput_NoArguments_ReturnsExpectedValues()
+        {
+            // Call
+            var output = new TestHydraulicBoundaryLocationOutput();
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocationOutput>(output);
+            Assert.IsNaN(output.Result);
+            Assert.IsNaN(output.TargetProbability);
+            Assert.IsNaN(output.TargetReliability);
+            Assert.IsNaN(output.CalculatedProbability);
+            Assert.IsNaN(output.CalculatedReliability);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, output.CalculationConvergence);
+            Assert.IsNull(output.GeneralResult);
+        }
+
+        [Test]
         public void TestHydraulicBoundaryLocationOutput_WithoutConvergence_ReturnsExpectedValues()
         {
             // Setup
