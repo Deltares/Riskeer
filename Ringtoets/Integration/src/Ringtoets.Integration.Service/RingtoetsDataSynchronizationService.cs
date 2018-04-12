@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Service
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
                     IEnumerable<IObservable> affectedHydraulicBoundaryLocations =
-                        RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations);
+                        GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(grassCoverErosionOutwardsFailureMechanism);
                     changedObservables.AddRange(affectedHydraulicBoundaryLocations);
                 }
 

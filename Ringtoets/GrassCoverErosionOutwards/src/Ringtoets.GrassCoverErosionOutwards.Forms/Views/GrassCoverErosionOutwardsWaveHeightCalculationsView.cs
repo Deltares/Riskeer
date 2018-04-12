@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
@@ -52,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <param name="assessmentSection">The assessment section that the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to derive a mechanism specific norm from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+        public GrassCoverErosionOutwardsWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                    IAssessmentSection assessmentSection,
                                                                    Func<double> getNormFunc)
@@ -112,15 +111,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         protected override void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                getNormFunc(),
-                FailureMechanism.Contribution,
-                FailureMechanism.GeneralInput.N);
-
             CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                        calculations,
-                                                       mechanismSpecificNorm,
+                                                       getNormFunc(),
                                                        messageProvider);
         }
 

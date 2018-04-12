@@ -305,10 +305,7 @@ namespace Ringtoets.Integration.Service.Test
             ClearHydraulicLocationDependentTestCase testCase)
         {
             // Setup
-            HydraulicBoundaryLocation grassCoverErosionLocation = testCase.HydraulicBoundaryLocation;
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(grassCoverErosionLocation);
-
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = testCase.GrassCoverErosionOutwardsFailureMechanism;
             DuneErosionFailureMechanism duneErosionFailureMechanism = testCase.DuneErosionFailureMechanism;
 
             var mockRepository = new MockRepository();
@@ -327,8 +324,12 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(testCase.ExpectedAffectedObjects, affectedObjects);
-            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation1.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Single().Output);
 
             Assert.IsNull(duneErosionFailureMechanism.DuneLocations.Single().Calculation.Output);
             Assert.IsNull(duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
@@ -368,13 +369,10 @@ namespace Ringtoets.Integration.Service.Test
         [Test]
         [TestCaseSource(nameof(GetClearHydraulicLocationDependentData))]
         public void ClearHydraulicBoundaryLocationOutputForFailureMechanisms_FailureMechanismsGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations(
-           ClearHydraulicLocationDependentTestCase testCase)
+            ClearHydraulicLocationDependentTestCase testCase)
         {
             // Setup
-            HydraulicBoundaryLocation grassCoverErosionLocation = testCase.HydraulicBoundaryLocation;
-            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(grassCoverErosionLocation);
-
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = testCase.GrassCoverErosionOutwardsFailureMechanism;
             DuneErosionFailureMechanism duneErosionFailureMechanism = testCase.DuneErosionFailureMechanism;
 
             // Call
@@ -388,8 +386,12 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(testCase.ExpectedAffectedObjects, affectedObjects);
-            Assert.IsFalse(grassCoverErosionLocation.DesignWaterLevelCalculation1.HasOutput);
-            Assert.IsFalse(grassCoverErosionLocation.WaveHeightCalculation1.HasOutput);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Single().Output);
+            Assert.IsNull(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Single().Output);
 
             Assert.IsNull(duneErosionFailureMechanism.DuneLocations.Single().Calculation.Output);
             Assert.IsNull(duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
@@ -403,7 +405,6 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationOutput_HydraulicBoundaryGrassCoverErosionOutwardsAndDuneLocations_ClearDataAndReturnAffectedLocations()
         {
             // Setup
-            var random = new Random(21);
             HydraulicBoundaryLocation hydraulicBoundaryLocation1 = TestHydraulicBoundaryLocation.CreateFullyCalculated();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
             var duneLocation1 = new TestDuneLocation
@@ -441,9 +442,10 @@ namespace Ringtoets.Integration.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation1);
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation2);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation1);
+            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation2);
+            grassCoverErosionOutwardsFailureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
@@ -466,26 +468,47 @@ namespace Ringtoets.Integration.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation8 = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
 
-            hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationOutput();
 
-            assessmentSection.DuneErosion.SetDuneLocationCalculations(new[]
+            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation1 = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation2 = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
+                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation3 = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation4 = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation5 = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
+                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+            HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation6 = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                                                                                                                                       .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
+
+            grassHydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationOutput();
+            grassHydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationOutput();
+            grassHydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationOutput();
+            grassHydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationOutput();
+            grassHydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationOutput();
+            grassHydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationOutput();
+
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            duneErosionFailureMechanism.SetDuneLocationCalculations(new[]
             {
                 duneLocation1,
                 duneLocation2
             });
 
-            DuneLocationCalculation duneLocationCalculation1 = assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation2 = assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation3 = assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation4 = assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
-            DuneLocationCalculation duneLocationCalculation5 = assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation1 = duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation2 = duneErosionFailureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation3 = duneErosionFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation4 = duneErosionFailureMechanism.CalculationsForLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation5 = duneErosionFailureMechanism.CalculationsForFactorizedLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
 
             duneLocationCalculation1.Output = new TestDuneLocationOutput();
             duneLocationCalculation2.Output = new TestDuneLocationOutput();
@@ -503,7 +526,12 @@ namespace Ringtoets.Integration.Service.Test
                 hydraulicBoundaryLocationCalculation6,
                 hydraulicBoundaryLocationCalculation7,
                 hydraulicBoundaryLocationCalculation8,
-                hydraulicBoundaryLocation1,
+                grassHydraulicBoundaryLocationCalculation1,
+                grassHydraulicBoundaryLocationCalculation2,
+                grassHydraulicBoundaryLocationCalculation3,
+                grassHydraulicBoundaryLocationCalculation4,
+                grassHydraulicBoundaryLocationCalculation5,
+                grassHydraulicBoundaryLocationCalculation6,
                 duneLocation1,
                 duneLocationCalculation1,
                 duneLocationCalculation2,
@@ -525,8 +553,6 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsFalse(hydraulicBoundaryLocationCalculation6.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation7.HasOutput);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation8.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation1.DesignWaterLevelCalculation1.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation1.WaveHeightCalculation1.HasOutput);
 
             Assert.IsNull(duneLocation1.Calculation.Output);
             Assert.IsNull(duneLocationCalculation1.Output);
@@ -1648,28 +1674,37 @@ namespace Ringtoets.Integration.Service.Test
 
         public class ClearHydraulicLocationDependentTestCase
         {
-            public ClearHydraulicLocationDependentTestCase(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            public ClearHydraulicLocationDependentTestCase(GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism,
                                                            DuneErosionFailureMechanism duneErosionFailureMechanism)
             {
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation;
+                GrassCoverErosionOutwardsFailureMechanism = grassCoverErosionOutwardsFailureMechanism;
                 DuneErosionFailureMechanism = duneErosionFailureMechanism;
 
                 var expectedAffectedObjects = new List<IObservable>();
-                if (HasHydraulicBoundaryLocationOutput(hydraulicBoundaryLocation))
-                {
-                    expectedAffectedObjects.Add(hydraulicBoundaryLocation);
-                }
-
+                expectedAffectedObjects.AddRange(GetAffectedGrassCoverErosionOutwardsFailureMechanismItems(grassCoverErosionOutwardsFailureMechanism));
                 expectedAffectedObjects.AddRange(GetAffectedDuneErosionFailureMechanismItems(duneErosionFailureMechanism));
 
                 ExpectedAffectedObjects = expectedAffectedObjects;
             }
 
-            public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
+            public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwardsFailureMechanism { get; }
 
             public DuneErosionFailureMechanism DuneErosionFailureMechanism { get; }
 
             public IEnumerable<IObservable> ExpectedAffectedObjects { get; }
+
+            private static IEnumerable<IObservable> GetAffectedGrassCoverErosionOutwardsFailureMechanismItems(GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism)
+            {
+                var affectedObjects = new List<IObservable>();
+                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+
+                return affectedObjects;
+            }
 
             private static IEnumerable<IObservable> GetAffectedDuneErosionFailureMechanismItems(DuneErosionFailureMechanism duneErosionFailureMechanism)
             {
@@ -1684,47 +1719,72 @@ namespace Ringtoets.Integration.Service.Test
                 return affectedObjects;
             }
 
-            private static bool HasDuneErosionLocationCalculationOutput(DuneLocationCalculation calculation)
+            private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)
             {
                 return calculation.Output != null;
             }
 
-            private static bool HasHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+            private static bool HasDuneErosionLocationCalculationOutput(DuneLocationCalculation calculation)
             {
-                return hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput || hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput;
+                return calculation.Output != null;
             }
-
         }
 
         private static IEnumerable<TestCaseData> GetClearHydraulicLocationDependentData()
         {
+            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, false);
             var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, false);
             yield return new TestCaseData(new ClearHydraulicLocationDependentTestCase(
-                                              new TestHydraulicBoundaryLocation(),
+                                              grassCoverErosionOutwardsFailureMechanism,
                                               duneErosionFailureMechanism))
                 .SetName("GrassAndDuneLocationNoOutput");
 
+            grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, true);
             duneErosionFailureMechanism = new DuneErosionFailureMechanism();
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, false);
             yield return new TestCaseData(new ClearHydraulicLocationDependentTestCase(
-                                              TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                                              grassCoverErosionOutwardsFailureMechanism,
                                               duneErosionFailureMechanism))
                 .SetName("DuneLocationWithoutOutputGrassLocationWithOutput");
 
+            grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, false);
             duneErosionFailureMechanism = new DuneErosionFailureMechanism();
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, true);
             yield return new TestCaseData(new ClearHydraulicLocationDependentTestCase(
-                                              new TestHydraulicBoundaryLocation(),
+                                              grassCoverErosionOutwardsFailureMechanism,
                                               duneErosionFailureMechanism))
                 .SetName("GrassLocationWithoutOutputDuneLocationWithOutput");
 
+            grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, true);
             duneErosionFailureMechanism = new DuneErosionFailureMechanism();
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, true);
             yield return new TestCaseData(new ClearHydraulicLocationDependentTestCase(
-                                              TestHydraulicBoundaryLocation.CreateFullyCalculated(),
+                                              grassCoverErosionOutwardsFailureMechanism,
                                               duneErosionFailureMechanism))
                 .SetName("GrassAndDuneLocationWithOutput");
+        }
+
+        private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism, bool hasOutput)
+        {
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            });
+
+            if (hasOutput)
+            {
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+            }
         }
 
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism, bool hasOutput)

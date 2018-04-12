@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -26,26 +27,26 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Service;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaveHeightCalculationsGroupContextTreeNodeInfoTest : NUnitFormTest
+    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -75,7 +76,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsSetName()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -83,8 +84,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                const string expectedName = "Golfhoogtes";
-                Assert.AreEqual(expectedName, text);
+                Assert.AreEqual("Waterstanden", text);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsGeneralFolderIcon()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -119,8 +119,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var nodeData = new WaveHeightCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                  assessmentSection);
+            var nodeData = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                                                 new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                 assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -130,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
                 mockRepository.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -156,10 +157,15 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
             assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
 
-            var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var calculationsGroupContext = new WaveHeightCalculationsGroupContext(locations, assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 5
+            };
 
-            using (var plugin = new RingtoetsPlugin())
+            var locations = new ObservableList<HydraulicBoundaryLocation>();
+            var calculationsGroupContext = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
 
@@ -167,34 +173,46 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 object[] childNodeObjects = info.ChildNodeObjects(calculationsGroupContext);
 
                 // Assert
-                Assert.AreEqual(4, childNodeObjects.Length);
+                Assert.AreEqual(5, childNodeObjects.Length);
 
-                WaveHeightCalculationsContext[] calculationsContexts = childNodeObjects.OfType<WaveHeightCalculationsContext>().ToArray();
-                Assert.AreEqual(4, calculationsContexts.Length);
+                GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext[] calculationsContexts = childNodeObjects.OfType<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>().ToArray();
+                Assert.AreEqual(5, calculationsContexts.Length);
 
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
-                Assert.AreEqual("Categorie A+->A", calculationsContexts[0].CategoryBoundaryName);
-                Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
-                Assert.AreEqual(signalingNorm / 30, calculationsContexts[0].GetNormFunc());
+                Assert.AreEqual("Categorie Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreSame(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
+                Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm / 30), calculationsContexts[0].GetNormFunc());
 
-                Assert.AreEqual("Categorie A->B", calculationsContexts[1].CategoryBoundaryName);
-                Assert.AreSame(assessmentSection.WaveHeightCalculationsForSignalingNorm, calculationsContexts[1].WrappedData);
-                Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
+                Assert.AreEqual("Categorie IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreSame(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
+                Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm), calculationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("Categorie B->C", calculationsContexts[2].CategoryBoundaryName);
-                Assert.AreSame(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, calculationsContexts[2].WrappedData);
-                Assert.AreEqual(lowerLimitNorm, calculationsContexts[2].GetNormFunc());
+                Assert.AreEqual("Categorie IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreSame(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
+                Assert.AreEqual(GetExpectedNorm(failureMechanism, () => lowerLimitNorm), calculationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("Categorie C->D", calculationsContexts[3].CategoryBoundaryName);
-                Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, calculationsContexts[3].WrappedData);
-                Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[3].GetNormFunc());
+                Assert.AreEqual("Categorie IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
+                Assert.AreEqual(lowerLimitNorm, calculationsContexts[3].GetNormFunc());
+
+                Assert.AreEqual("Categorie Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
+                Assert.AreSame(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
+                Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc());
             }
         }
 
-        private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        private static double GetExpectedNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, Func<double> getNormFunc)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveHeightCalculationsGroupContext));
+            return RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                getNormFunc(),
+                failureMechanism.Contribution,
+                failureMechanism.GeneralInput.N);
+        }
+
+        private static TreeNodeInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
+        {
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext));
         }
     }
 }

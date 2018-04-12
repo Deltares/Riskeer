@@ -23,6 +23,7 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.Revetment.Data;
@@ -41,10 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var input = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
@@ -57,9 +55,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(failureMechanism.HydraulicBoundaryLocations, context.HydraulicBoundaryLocations);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
             Assert.AreSame(failureMechanism.ForeshoreProfiles, context.ForeshoreProfiles);
-            mocks.VerifyAll();
         }
 
         [Test]

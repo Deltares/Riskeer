@@ -18,6 +18,8 @@
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelper.cs" />
     <Compile Include="PresentationObjects\EmptyGrassCoverErosionOutwardsOutput.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsInputContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationContext.cs" />
@@ -123,11 +125,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Ringtoets.Common.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
-      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
-      <Name>Ringtoets.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">

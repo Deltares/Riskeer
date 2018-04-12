@@ -127,15 +127,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij doorsnede-eis.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

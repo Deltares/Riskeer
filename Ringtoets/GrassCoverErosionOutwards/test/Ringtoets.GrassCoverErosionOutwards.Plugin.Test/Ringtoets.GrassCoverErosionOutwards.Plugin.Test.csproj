@@ -42,12 +42,14 @@
     <Compile Include="PropertyInfos\GrassCoverErosionOutwardsWaveHeightCalculationContextPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\EmptyGrassCoverErosionOutwardsOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightCalculationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewInfoTest.cs" />
@@ -156,6 +158,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Plugin\Ringtoets.GrassCoverErosionOutwards.Plugin.csproj">
       <Project>{9B3ED064-E29F-4D38-85E0-3A82B77BA702}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.csproj">
+      <Project>{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />

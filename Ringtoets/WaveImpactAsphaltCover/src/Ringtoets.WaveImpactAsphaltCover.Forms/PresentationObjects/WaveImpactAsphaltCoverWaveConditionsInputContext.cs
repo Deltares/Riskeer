@@ -57,14 +57,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
             ForeshoreProfiles = foreshoreProfiles;
         }
 
-        public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
-        {
-            get
-            {
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
-            }
-        }
-
         public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
     }
 }

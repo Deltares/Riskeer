@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
@@ -44,22 +43,21 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData)
             : this(wrappedData,
                    new ForeshoreProfile[0],
-                   new HydraulicBoundaryLocation[0]) {}
+                   new AssessmentSectionStub()) {}
 
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        /// <param name="locations">The hydraulic boundary locations.</param>
+        /// <param name="assesmentSection">The assessment section.</param>
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                              IEnumerable<HydraulicBoundaryLocation> locations)
+                                              IAssessmentSection assesmentSection)
             : this(wrappedData,
                    new TestWaveConditionsCalculation(),
-                   new AssessmentSectionStub(),
-                   foreshoreProfiles,
-                   locations) {}
+                   assesmentSection,
+                   foreshoreProfiles) {}
 
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
@@ -68,19 +66,14 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         /// <param name="calculation">The calculation.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        /// <param name="locations">The hydraulic boundary locations.</param>
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                               ICalculation<WaveConditionsInput> calculation,
                                               IAssessmentSection assessmentSection,
-                                              IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                              IEnumerable<HydraulicBoundaryLocation> locations)
+                                              IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)
         {
             ForeshoreProfiles = foreshoreProfiles;
-            HydraulicBoundaryLocations = locations;
         }
-
-        public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
 
         public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
     }

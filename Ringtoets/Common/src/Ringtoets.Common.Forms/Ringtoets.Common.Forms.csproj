@@ -38,6 +38,7 @@
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactory.cs" />
     <Compile Include="IScenarioRow.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContext.cs" />
     <Compile Include="PresentationObjects\NormContext.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationCalculationContext.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="PresentationObjects\SelectedTopLevelSubMechanismIllustrationPoint.cs" />
     <Compile Include="PresentationObjects\StructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\StructuresOutputContext.cs" />
+    <Compile Include="PresentationObjects\WaveHeightCalculationsContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

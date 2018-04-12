@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculations">The hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightCalculationsProperties(ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        public GrassCoverErosionOutwardsWaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
             : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]

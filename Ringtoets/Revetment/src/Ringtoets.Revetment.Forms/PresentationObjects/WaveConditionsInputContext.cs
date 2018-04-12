@@ -74,7 +74,13 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
         /// <summary>
         /// Gets the hydraulic boundary locations.
         /// </summary>
-        public abstract IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
+        public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+        {
+            get
+            {
+                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
+            }
+        }
 
         /// <summary>
         /// Gets the foreshore profiles.

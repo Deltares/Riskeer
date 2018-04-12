@@ -48,11 +48,9 @@
     <Compile Include="PropertyClasses\ReferenceLinePropertiesTest.cs" />
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormPropertiesIntegrationTest.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveHeightCalculationsContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsPropertiesTest.cs" />

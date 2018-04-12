@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -32,40 +32,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
     /// with a design water level calculation result for a given norm.
     /// </summary>
-    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocationCalculation>>
+    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext : DesignWaterLevelCalculationsContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext"/>.
         /// </summary>
-        /// <param name="calculations">The hydraulic boundary location calculations for this context.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which the
-        /// <see cref="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext"/> belongs to.</param>
-        /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism within
-        /// the <paramref name="assessmentSection"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
+        /// <param name="wrappedData">The calculations for the context belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the context belongs to.</param>
+        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for obtaining the norm to use during calculations.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="failureMechanism"/>,
+        /// <paramref name="assessmentSection"/> or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        public GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(IObservableEnumerable<HydraulicBoundaryLocationCalculation> wrappedData,
+                                                                            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                             IAssessmentSection assessmentSection,
-                                                                            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
-            : base(calculations)
+                                                                            Func<double> getNormFunc,
+                                                                            string categoryBoundaryName)
+            : base(wrappedData, assessmentSection, getNormFunc, categoryBoundaryName)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            AssessmentSection = assessmentSection;
             FailureMechanism = failureMechanism;
         }
-
-        /// <summary>
-        /// Gets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
         /// Gets the grass cover erosion outwards failure mechanism.

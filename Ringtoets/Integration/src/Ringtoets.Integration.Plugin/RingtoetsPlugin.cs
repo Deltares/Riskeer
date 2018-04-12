@@ -88,6 +88,7 @@ using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.IO.Exporters;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -111,7 +112,6 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using RingtoetsIntegrationPluginResources = Ringtoets.Integration.Plugin.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
 using GuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -531,7 +531,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<Comment, CommentView>
             {
-                GetViewName = (view, comment) => RingtoetsIntegrationPluginResources.Comment_DisplayName,
+                GetViewName = (view, comment) => Resources.Comment_DisplayName,
                 GetViewData = comment => comment,
                 Image = RingtoetsCommonFormsResources.EditDocumentIcon,
                 CloseForData = CloseCommentViewForData
@@ -601,12 +601,12 @@ namespace Ringtoets.Integration.Plugin
                                                   new ForeshoreProfileReplaceDataStrategy(context.ParentFailureMechanism,
                                                                                           context.WrappedData),
                                                   new ImportMessageProvider()),
-                Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
+                Name = Resources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsIntegrationPluginResources.Foreshore,
+                Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => context.ParentAssessmentSection.ReferenceLine != null,
-                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, RingtoetsIntegrationPluginResources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
         }
 
@@ -641,13 +641,13 @@ namespace Ringtoets.Integration.Plugin
                                                   filePath,
                                                   new ForeshoreProfileUpdateDataStrategy(context.ParentFailureMechanism, context.WrappedData),
                                                   new UpdateMessageProvider()),
-                Name = RingtoetsIntegrationPluginResources.ForeshoreProfilesImporter_DisplayName,
+                Name = Resources.ForeshoreProfilesImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsIntegrationPluginResources.Foreshore,
+                Image = Resources.Foreshore,
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 CurrentPath = context => context.WrappedData.SourcePath,
                 IsEnabled = context => context.WrappedData.SourcePath != null,
-                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, RingtoetsIntegrationPluginResources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
+                VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RingtoetsPlugin_VerifyForeshoreProfileUpdates_When_updating_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
             };
         }
 
@@ -695,7 +695,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<BackgroundData>
             {
-                Text = data => RingtoetsIntegrationPluginResources.RingtoetsPlugin_BackgroundDataContext_Text,
+                Text = data => Resources.RingtoetsPlugin_BackgroundDataContext_Text,
                 Image = data => RingtoetsFormsResources.Map,
                 ContextMenuStrip = BackgroundDataMenuStrip,
                 ForeColor = data =>
@@ -848,7 +848,7 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<ForeshoreProfile>
             {
                 Text = foreshoreProfile => foreshoreProfile.Name,
-                Image = context => RingtoetsIntegrationPluginResources.Foreshore,
+                Image = context => Resources.Foreshore,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -873,7 +873,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<Comment>
             {
-                Text = comment => RingtoetsIntegrationPluginResources.Comment_DisplayName,
+                Text = comment => Resources.Comment_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.EditDocumentIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -1233,9 +1233,12 @@ namespace Ringtoets.Integration.Plugin
 
         private static RoundedDouble GetNormativeAssessmentLevel(WaveConditionsInputContext context)
         {
-            if (context is GrassCoverErosionOutwardsWaveConditionsInputContext)
+            var grassCoverErosionOutwardsWaveConditionsInputContext = context as GrassCoverErosionOutwardsWaveConditionsInputContext;
+            if (grassCoverErosionOutwardsWaveConditionsInputContext != null)
             {
-                return context.Calculation.InputParameters.HydraulicBoundaryLocation?.DesignWaterLevelCalculation1.Output?.Result ?? RoundedDouble.NaN;
+                return grassCoverErosionOutwardsWaveConditionsInputContext.FailureMechanism.GetNormativeAssessmentLevel(
+                    grassCoverErosionOutwardsWaveConditionsInputContext.AssessmentSection,
+                    grassCoverErosionOutwardsWaveConditionsInputContext.Calculation.InputParameters.HydraulicBoundaryLocation);
             }
 
             return context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation);
@@ -1296,8 +1299,8 @@ namespace Ringtoets.Integration.Plugin
             var assessmentSection = parentData as IAssessmentSection;
 
             var mapDataItem = new StrictContextMenuItem(
-                RingtoetsIntegrationPluginResources.BackgroundData_SelectMapData,
-                RingtoetsIntegrationPluginResources.BackgroundData_SelectMapData_Tooltip,
+                Resources.BackgroundData_SelectMapData,
+                Resources.BackgroundData_SelectMapData_Tooltip,
                 RingtoetsCommonFormsResources.MapsIcon, (sender, args) => SelectMapData(assessmentSection, nodeData));
 
             return Gui.Get(nodeData, treeViewControl)
@@ -1883,7 +1886,6 @@ namespace Ringtoets.Integration.Plugin
 
                         assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
                         assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-                        assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
 
                         var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
                         duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
@@ -1908,8 +1910,6 @@ namespace Ringtoets.Integration.Plugin
             assessmentSection.WaveHeightCalculationsForSignalingNorm.NotifyObservers();
             assessmentSection.WaveHeightCalculationsForLowerLimitNorm.NotifyObservers();
             assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.NotifyObservers();
-
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
 
             assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
             assessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
@@ -1969,19 +1969,19 @@ namespace Ringtoets.Integration.Plugin
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
+                                                        Resources.Hydraulic_category_boundary_name_1),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
+                                                        Resources.Hydraulic_category_boundary_name_2),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
+                                                        Resources.Hydraulic_category_boundary_name_3),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
+                                                        Resources.Hydraulic_category_boundary_name_4)
             };
         }
 
@@ -1992,19 +1992,19 @@ namespace Ringtoets.Integration.Plugin
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_1),
+                                                  Resources.Hydraulic_category_boundary_name_1),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_2),
+                                                  Resources.Hydraulic_category_boundary_name_2),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_3),
+                                                  Resources.Hydraulic_category_boundary_name_3),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  RingtoetsIntegrationPluginResources.Hydraulic_category_boundary_name_4)
+                                                  Resources.Hydraulic_category_boundary_name_4)
             };
         }
 

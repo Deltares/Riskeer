@@ -62,8 +62,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations,
+                                                                                           new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                            assessmentSection,
-                                                                                           new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                           () => 0.01,
+                                                                                           "Category");
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {

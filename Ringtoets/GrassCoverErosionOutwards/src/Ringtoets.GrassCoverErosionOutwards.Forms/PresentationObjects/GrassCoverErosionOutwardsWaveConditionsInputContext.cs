@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -36,8 +35,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsInputContext : WaveConditionsInputContext
     {
-        private readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/>.
         /// </summary>
@@ -58,23 +55,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.failureMechanism = failureMechanism;
-        }
-
-        public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
-        {
-            get
-            {
-                return failureMechanism.HydraulicBoundaryLocations;
-            }
+            FailureMechanism = failureMechanism;
         }
 
         public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
         {
             get
             {
-                return failureMechanism.ForeshoreProfiles;
+                return FailureMechanism.ForeshoreProfiles;
             }
         }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
     }
 }

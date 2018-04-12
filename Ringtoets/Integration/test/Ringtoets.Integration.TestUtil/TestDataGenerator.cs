@@ -33,7 +33,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -125,7 +124,6 @@ namespace Ringtoets.Integration.TestUtil
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
-            DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(assessmentSection.DuneErosion);
 
             return assessmentSection;
         }
@@ -866,14 +864,17 @@ namespace Ringtoets.Integration.TestUtil
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                Random random)
         {
-            hydraulicBoundaryLocation.DesignWaterLevelCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-            hydraulicBoundaryLocation.WaveHeightCalculation1.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
-
-            failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
             failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
+
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
 
             var profile1 = new ForeshoreProfile(new Point2D(0, 0),
                                                 new[]

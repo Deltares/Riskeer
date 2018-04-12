@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
@@ -140,7 +141,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                             .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
                                             .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                             .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                            .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+                                            .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
                                             .Concat(GetAllAffectedDuneErosionLocationCalculations(assessmentSection.DuneErosion))
                                             .Concat(new IObservable[]
                                             {
@@ -194,6 +195,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                  .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
                                  .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
+                                 .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
                                  .Concat(GetAllAffectedDuneErosionLocationCalculations(assessmentSection.DuneErosion))
                                  .Concat(new IObservable[]
                                  {
@@ -332,6 +334,21 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreSame(expectedException, exception);
         }
 
+        private static IEnumerable<IObservable> GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            return failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput)
+                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+        }
+
+        private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)
+        {
+            return calculation.HasOutput;
+        }
+
         private static void AssertHydraulicBoundaryLocationOutput(AssessmentSection assessmentSection, bool hasOutput)
         {
             Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
@@ -343,11 +360,13 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForLowerLimitNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.All(c => c.HasOutput == hasOutput));
 
-            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
-            {
-                Assert.AreEqual(hasOutput, location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.AreEqual(hasOutput, location.WaveHeightCalculation1.HasOutput);
-            }
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(c => c.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(c => c.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(c => c.HasOutput == hasOutput));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(c => c.HasOutput == hasOutput));
         }
 
         private static IEnumerable<IObservable> GetAllAffectedDuneErosionLocationCalculations(DuneErosionFailureMechanism failureMechanism)

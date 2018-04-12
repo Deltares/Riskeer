@@ -74,10 +74,6 @@
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Service\Ringtoets.DuneErosion.Service.csproj">
-      <Project>{FDEE3429-0BB1-4AD2-813A-06FAD425EA6F}</Project>
-      <Name>Ringtoets.DuneErosion.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\test\Ringtoets.DuneErosion.Data.TestUtil\Ringtoets.DuneErosion.Data.TestUtil.csproj">
       <Project>{7BE6B522-02E3-4143-8508-C021A211DE54}</Project>
       <Name>Ringtoets.DuneErosion.Data.TestUtil</Name>
@@ -94,6 +90,10 @@
       <Project>{e7225477-577f-4a17-b7ec-6721158e1543}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
+      <Project>{18E9F7C8-3170-4E9D-8D9F-1378225EED90}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1c0017d8-35b5-4ca0-8fc7-a83f46dbdc99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
@@ -101,10 +101,6 @@
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.IO\Ringtoets.MacroStabilityInwards.IO.csproj">
-      <Project>{0943dda8-8fab-4d0b-8e9c-8a1a9b3273b4}</Project>
-      <Name>Ringtoets.MacroStabilityInwards.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Plugin\Ringtoets.MacroStabilityInwards.Plugin.csproj">
       <Project>{B6B27968-6B39-48DF-B2E5-CBABF362808C}</Project>
@@ -121,10 +117,6 @@
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.IO\Ringtoets.Piping.IO.csproj">
-      <Project>{35B87B7A-7F50-4139-B563-589EE522B1ED}</Project>
-      <Name>Ringtoets.Piping.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Plugin\Ringtoets.Piping.Plugin.csproj">
       <Project>{1d3d58b6-ef7e-401e-92a0-104067d222ee}</Project>

@@ -39,7 +39,8 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData,
-                                                AssessmentSection assessmentSection) : base(wrappedData)
+                                                AssessmentSection assessmentSection) 
+            : base(wrappedData)
         {
             if (assessmentSection == null)
             {

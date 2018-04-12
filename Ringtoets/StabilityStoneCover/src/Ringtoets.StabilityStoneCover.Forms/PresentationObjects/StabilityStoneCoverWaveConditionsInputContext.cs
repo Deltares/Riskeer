@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
@@ -56,14 +55,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
             }
 
             ForeshoreProfiles = foreshoreProfiles;
-        }
-
-        public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
-        {
-            get
-            {
-                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
-            }
         }
 
         public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }

@@ -84,14 +84,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the grass cover erosion outward specific hydraulic boundary locations
-        /// currently known in the <see cref="FailureMechanism"/>.
+        /// Gets the hydraulic boundary locations.
         /// </summary>
         public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {
             get
             {
-                return FailureMechanism.HydraulicBoundaryLocations;
+                return AssessmentSection.HydraulicBoundaryDatabase.Locations;
             }
         }
     }

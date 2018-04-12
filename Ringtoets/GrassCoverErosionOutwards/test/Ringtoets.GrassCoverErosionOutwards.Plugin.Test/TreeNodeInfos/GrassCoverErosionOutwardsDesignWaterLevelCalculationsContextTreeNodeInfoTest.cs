@@ -95,15 +95,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnName()
+        public void Text_Always_ReturnCategoryBoundaryName()
         {
             // Setup
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
+            const string categoryBoundaryName = "Category";
             var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                           new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                            assessmentSection,
-                                                                                           new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                           () => 0.01,
+                                                                                           categoryBoundaryName);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -113,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 string nodeText = info.Text(context);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij doorsnede-eis", nodeText);
+                Assert.AreEqual(categoryBoundaryName, nodeText);
             }
 
             mockRepository.VerifyAll();
@@ -126,8 +129,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                           new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                            assessmentSection,
-                                                                                           new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                           () => 0.01,
+                                                                                           "Category");
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -154,8 +159,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 TreeNodeInfo info = GetInfo(plugin);
 
                 var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                               new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                assessmentSection,
-                                                                                               new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                               () => 0.01,
+                                                                                               "Category");
 
                 var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
                 using (mockRepository.Ordered())
@@ -204,11 +211,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                                   assessmentSection,
                                                                                                    new GrassCoverErosionOutwardsFailureMechanism
                                                                                                    {
                                                                                                        Contribution = 5
-                                                                                                   });
+                                                                                                   }, assessmentSection,
+                                                                                                   () => 0.01,
+                                                                                                   "Category");
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -267,8 +275,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                                   new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                    assessmentSection,
-                                                                                                   new GrassCoverErosionOutwardsFailureMechanism());
+                                                                                                   () => 0.01,
+                                                                                                   "Category");
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -327,11 +337,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TreeNodeInfo info = GetInfo(plugin);
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                                   assessmentSection,
                                                                                                    new GrassCoverErosionOutwardsFailureMechanism
                                                                                                    {
                                                                                                        Contribution = 5
-                                                                                                   });
+                                                                                                   }, assessmentSection,
+                                                                                                   () => 0.01,
+                                                                                                   "Category");
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -368,6 +379,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -380,10 +392,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            }, assessmentSection, failureMechanism);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
+                new ObservableList<HydraulicBoundaryLocationCalculation>
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }, failureMechanism, assessmentSection,
+                () => norm,
+                "Category");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -412,11 +427,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -428,6 +439,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -445,10 +457,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            }, assessmentSection, failureMechanism);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
+                new ObservableList<HydraulicBoundaryLocationCalculation>
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }, failureMechanism, assessmentSection,
+                () => norm,
+                "Category");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -477,11 +492,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -493,6 +504,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void CalculateDesignWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string filePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -509,10 +521,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
 
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            }, assessmentSection, failureMechanism);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
+                new ObservableList<HydraulicBoundaryLocationCalculation>
+                {
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                }, failureMechanism, assessmentSection,
+                () => norm,
+                "Category");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -541,11 +556,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         AssessmentLevelCalculationInput designWaterLevelCalculationInput = designWaterLevelCalculator.ReceivedInputs.First();
 
                         Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
-                        double expectedProbability = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                            assessmentSection.FailureMechanismContribution.Norm,
-                            failureMechanism.Contribution,
-                            failureMechanism.GeneralInput.N);
-                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), designWaterLevelCalculationInput.Beta);
+                        Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -568,10 +579,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>
-            {
-                hydraulicBoundaryLocationCalculation
-            }, assessmentSection, failureMechanism);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
+                new ObservableList<HydraulicBoundaryLocationCalculation>
+                {
+                    hydraulicBoundaryLocationCalculation
+                }, failureMechanism, assessmentSection,
+                () => 0.01,
+                "Category");
 
             using (var treeViewControl = new TreeViewControl())
             {

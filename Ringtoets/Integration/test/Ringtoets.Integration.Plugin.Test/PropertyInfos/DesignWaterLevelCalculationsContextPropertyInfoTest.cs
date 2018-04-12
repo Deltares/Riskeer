@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Integration.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos

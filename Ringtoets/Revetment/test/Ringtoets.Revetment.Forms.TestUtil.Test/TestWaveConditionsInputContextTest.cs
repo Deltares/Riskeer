@@ -53,23 +53,22 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
         }
 
         [Test]
-        public void Constructor_WithInputAndForeshoreProfilesAndLocations_ExpectedValues()
+        public void Constructor_WithInputAndForeshoreProfilesAndAssessmentSection_ExpectedValues()
         {
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
             var profiles = new ForeshoreProfile[0];
-            var locations = new HydraulicBoundaryLocation[0];
+            var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var context = new TestWaveConditionsInputContext(waveConditionsInput, profiles, locations);
+            var context = new TestWaveConditionsInputContext(waveConditionsInput, profiles, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
-            Assert.IsInstanceOf<AssessmentSectionStub>(context.AssessmentSection);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(profiles, context.ForeshoreProfiles);
-            Assert.AreSame(locations, context.HydraulicBoundaryLocations);
         }
 
         [Test]
@@ -89,8 +88,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             var context = new TestWaveConditionsInputContext(waveConditionsInput,
                                                              calculation,
                                                              assessmentSection,
-                                                             profiles,
-                                                             locations);
+                                                             profiles);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
@@ -98,7 +96,6 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(profiles, context.ForeshoreProfiles);
-            Assert.AreSame(locations, context.HydraulicBoundaryLocations);
             mocks.VerifyAll();
         }
     }

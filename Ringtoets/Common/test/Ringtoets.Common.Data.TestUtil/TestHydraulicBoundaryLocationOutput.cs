@@ -33,6 +33,11 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocationOutput"/>.
         /// </summary>
+        public TestHydraulicBoundaryLocationOutput() : this(double.NaN) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocationOutput"/>.
+        /// </summary>
         /// <param name="result">The result to set in the output.</param>
         /// <param name="calculationConvergence">The <see cref="CalculationConvergence"/> to set in the output.</param>
         public TestHydraulicBoundaryLocationOutput(double result, CalculationConvergence calculationConvergence = CalculationConvergence.NotCalculated) :

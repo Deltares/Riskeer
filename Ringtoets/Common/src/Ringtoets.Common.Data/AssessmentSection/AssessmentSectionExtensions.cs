@@ -82,7 +82,8 @@ namespace Ringtoets.Common.Data.AssessmentSection
                     throw new NotSupportedException();
             }
 
-            return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))?.Output?.Result ?? RoundedDouble.NaN;
+            return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))?.Output?.Result
+                   ?? RoundedDouble.NaN;
         }
     }
 }

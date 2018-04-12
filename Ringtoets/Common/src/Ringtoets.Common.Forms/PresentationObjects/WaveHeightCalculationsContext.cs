@@ -25,28 +25,28 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/>
-    /// with a design water level calculation result.
+    /// with a wave height calculation result.
     /// </summary>
-    public class DesignWaterLevelCalculationsContext : ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>
+    public class WaveHeightCalculationsContext : ObservableWrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelCalculationsContext"/>.
+        /// Creates a new instance of <see cref="WaveHeightCalculationsContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The calculations that the <see cref="DesignWaterLevelCalculationsContext"/> belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="DesignWaterLevelCalculationsContext"/> belongs to.</param>
+        /// <param name="wrappedData">The calculations that the <see cref="WaveHeightCalculationsContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="WaveHeightCalculationsContext"/> belongs to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for obtaining the norm to use during calculations.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="assessmentSection"/> or
         /// <paramref name="getNormFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public DesignWaterLevelCalculationsContext(IObservableEnumerable<HydraulicBoundaryLocationCalculation> wrappedData,
-                                                   IAssessmentSection assessmentSection,
-                                                   Func<double> getNormFunc,
-                                                   string categoryBoundaryName)
+        public WaveHeightCalculationsContext(IObservableEnumerable<HydraulicBoundaryLocationCalculation> wrappedData,
+                                             IAssessmentSection assessmentSection,
+                                             Func<double> getNormFunc,
+                                             string categoryBoundaryName)
             : base(wrappedData)
         {
             if (assessmentSection == null)
@@ -87,13 +87,13 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         public override bool Equals(WrappedObjectContextBase<IObservableEnumerable<HydraulicBoundaryLocationCalculation>> other)
         {
             return base.Equals(other)
-                   && other is DesignWaterLevelCalculationsContext
-                   && CategoryBoundaryName.Equals(((DesignWaterLevelCalculationsContext) other).CategoryBoundaryName);
+                   && other is WaveHeightCalculationsContext
+                   && CategoryBoundaryName.Equals(((WaveHeightCalculationsContext) other).CategoryBoundaryName);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as DesignWaterLevelCalculationsContext);
+            return Equals(obj as WaveHeightCalculationsContext);
         }
 
         public override int GetHashCode()

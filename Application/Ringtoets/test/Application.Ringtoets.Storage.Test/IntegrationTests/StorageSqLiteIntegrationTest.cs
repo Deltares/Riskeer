@@ -1829,7 +1829,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertHydraulicBoundaryLocations(expectedFailureMechanism.HydraulicBoundaryLocations, actualFailureMechanism.HydraulicBoundaryLocations);
             AssertHydraulicBoundaryLocationCalculations(expectedFailureMechanism, actualFailureMechanism);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }

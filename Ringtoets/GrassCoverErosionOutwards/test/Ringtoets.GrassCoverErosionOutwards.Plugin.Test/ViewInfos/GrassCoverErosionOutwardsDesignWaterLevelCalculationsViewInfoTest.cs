@@ -77,8 +77,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Call
                 object calculations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                                                            expectedCalculations,
+                                                           new GrassCoverErosionOutwardsFailureMechanism(),
                                                            assessmentSection,
-                                                           new GrassCoverErosionOutwardsFailureMechanism()));
+                                                           () => 0.01,
+                                                           "Category"));
 
                 // Assert
                 Assert.AreSame(calculations, expectedCalculations);
@@ -104,8 +106,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
                 var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                               grassCoverErosionOutwardsFailureMechanism,
                                                                                                assessmentSection,
-                                                                                               grassCoverErosionOutwardsFailureMechanism);
+                                                                                               () => 0.01,
+                                                                                               "Category");
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -137,18 +141,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsViewName()
+        public void GetViewName_WithContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
             // Setup
+            const string categoryBoundaryName = "Category";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
+                
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                               failureMechanism,
+                                                                                               assessmentSection,
+                                                                                               () => 0.01,
+                                                                                               categoryBoundaryName);
 
                 // Call
-                string name = info.GetViewName(null, null);
+                string name = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij doorsnede-eis", name);
+                Assert.AreEqual($"Waterstanden - {categoryBoundaryName}", name);
+                mocks.VerifyAll();
             }
         }
 
@@ -169,8 +187,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
                 var data = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                            grassCoverErosionOutwardsFailureMechanism,
                                                                                             assessmentSection,
-                                                                                            grassCoverErosionOutwardsFailureMechanism);
+                                                                                            () => 0.01,
+                                                                                            "Category");
 
                 plugin.Gui = gui;
                 plugin.Activate();

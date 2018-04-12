@@ -29,13 +29,11 @@
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsGroupContext.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationsGroupContext.cs" />
-    <Compile Include="PresentationObjects\WaveHeightCalculationsContext.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
