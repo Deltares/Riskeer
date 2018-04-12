@@ -27,7 +27,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -105,8 +104,6 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
                                                   ICalculation<WaveConditionsInput> calculation,
                                                   IAssessmentSection assessmentSection)
                 : base(wrappedData, calculation, assessmentSection) {}
-
-            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
 
             public override IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
         }

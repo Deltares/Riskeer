@@ -44,22 +44,22 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData)
             : this(wrappedData,
                    new ForeshoreProfile[0],
-                   new HydraulicBoundaryLocation[0]) {}
+                   new AssessmentSectionStub()) {}
 
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        /// <param name="locations">The hydraulic boundary locations.</param>
+        /// <param name="assesmentSection">The assessment section.</param>
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                              IEnumerable<HydraulicBoundaryLocation> locations)
+                                              IAssessmentSection assesmentSection)
             : this(wrappedData,
                    new TestWaveConditionsCalculation(),
-                   new AssessmentSectionStub(),
+                   assesmentSection,
                    foreshoreProfiles,
-                   locations) {}
+                   assesmentSection.HydraulicBoundaryDatabase.Locations) {}
 
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
