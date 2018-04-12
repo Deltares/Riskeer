@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -77,14 +78,14 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
             });
-
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection, hydraulicBoundaryLocation1, random);
 
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation1);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                hydraulicBoundaryLocation1
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
             });
+            SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1, random);
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
@@ -113,6 +114,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             AttachObserver(mockRepository, assessmentSection.FailureMechanismContribution);
             AttachObserver(mockRepository, assessmentSection, hydraulicBoundaryLocation1);
             AttachObserver(mockRepository, assessmentSection, hydraulicBoundaryLocation2, false);
+            AttachObserver(mockRepository, assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1);
+            AttachObserver(mockRepository, assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation2, false);
             AttachObserver(mockRepository, pipingCalculation);
             AttachObserver(mockRepository, emptyPipingCalculation, false);
             AttachObserver(mockRepository, grassCoverErosionInwardsCalculation);
@@ -142,7 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             AssertNormValues(properties, assessmentSection.FailureMechanismContribution);
             AssertHydraulicBoundaryOutput(assessmentSection, hydraulicBoundaryLocation1, false);
-            AssertHydraulicBoundaryLocationOutputCleared(hydraulicBoundaryLocation1);
+            AssertHydraulicBoundaryOutput(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation1, false);
             Assert.IsFalse(pipingCalculation.HasOutput);
             Assert.IsFalse(grassCoverErosionInwardsCalculation.HasOutput);
             Assert.IsFalse(heightStructuresCalculation.HasOutput);
@@ -173,11 +176,11 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection, hydraulicBoundaryLocation, random);
 
-            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
+            SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, random);
 
             var pipingCalculation = new PipingCalculation(new GeneralPipingInput())
             {
@@ -199,6 +202,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var mockRepository = new MockRepository();
             AttachObserver(mockRepository, assessmentSection.FailureMechanismContribution, false);
             AttachObserver(mockRepository, assessmentSection, hydraulicBoundaryLocation, false);
+            AttachObserver(mockRepository, assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, false);
             AttachObserver(mockRepository, pipingCalculation, false);
             AttachObserver(mockRepository, grassCoverErosionInwardsCalculation, false);
             AttachObserver(mockRepository, heightStructuresCalculation, false);
@@ -230,6 +234,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(originalNorm, failureMechanismContribution.Norm);
 
             AssertHydraulicBoundaryOutput(assessmentSection, hydraulicBoundaryLocation, true);
+            AssertHydraulicBoundaryOutput(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, true);
             Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
             Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
             Assert.IsTrue(pipingCalculation.HasOutput);
@@ -329,6 +334,30 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                              .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
         }
 
+        private static void SetOutputToHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                             Random random)
+        {
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
+                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
+                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                            .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+        }
+
         private static void AttachObserver(MockRepository mockRepository,
                                            IAssessmentSection assessmentSection,
                                            HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -376,6 +405,42 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         }
 
         private static void AttachObserver(MockRepository mockRepository,
+                                           GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                           HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                           bool expectUpdateObserver = true)
+        {
+            AttachObserver(mockRepository,
+                           failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+
+            AttachObserver(mockRepository,
+                           failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
+                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+
+            AttachObserver(mockRepository,
+                           failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+
+            AttachObserver(mockRepository,
+                           failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+
+            AttachObserver(mockRepository,
+                           failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
+                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+
+            AttachObserver(mockRepository,
+                           failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)),
+                           expectUpdateObserver);
+        }
+
+        private static void AttachObserver(MockRepository mockRepository,
                                            IObservable observable,
                                            bool expectUpdateObserver = true)
         {
@@ -419,10 +484,28 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                 .HasOutput);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutputCleared(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void AssertHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                          bool expectedHasOutput)
         {
-            Assert.IsFalse(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
-            Assert.IsFalse(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
+            Assert.AreEqual(expectedHasOutput, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                                                               .HasOutput);
+            Assert.AreEqual(expectedHasOutput, failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
+                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                                                               .HasOutput);
+            Assert.AreEqual(expectedHasOutput, failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
+                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                                                               .HasOutput);
+            Assert.AreEqual(expectedHasOutput, failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                                                               .HasOutput);
+            Assert.AreEqual(expectedHasOutput, failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
+                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                                                               .HasOutput);
+            Assert.AreEqual(expectedHasOutput, failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
+                                                               .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
+                                                               .HasOutput);
         }
 
         private static void AssertNormValues(NormProperties properties, FailureMechanismContribution failureMechanismContribution)
