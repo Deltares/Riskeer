@@ -46,6 +46,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Revetment.Data;
@@ -1807,24 +1808,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 };
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    HydraulicBoundaryLocations =
-                    {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
-                    }
-                };
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var assessmentSection = new AssessmentSectionStub();
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    Locations =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                    failureMechanism, assessmentSection, new[]
                     {
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
-                    }
-                });
+                    });
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
@@ -1884,25 +1876,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    HydraulicBoundaryLocations =
-                    {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
-                    }
-                };
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var assessmentSection = new AssessmentSectionStub();
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    Locations =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                    failureMechanism, assessmentSection, new[]
                     {
-                        new TestHydraulicBoundaryLocation(),
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
-                    }
-                });
+                    });
 
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
                                                                                                   null,
