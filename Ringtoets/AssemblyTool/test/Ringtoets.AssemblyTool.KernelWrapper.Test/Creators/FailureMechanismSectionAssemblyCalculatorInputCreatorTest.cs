@@ -64,10 +64,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateSimpleCalculationResultValidityOnly_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
+        public void CreateAssessmentResultTypeE2_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResultValidityOnly((SimpleAssessmentValidityOnlyResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2((SimpleAssessmentValidityOnlyResultType) 99);
 
             // Assert
             const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentValidityOnlyResultType'.";
@@ -75,15 +75,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.None, SimpleCalculationResultValidityOnly.None)]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, SimpleCalculationResultValidityOnly.NVT)]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, SimpleCalculationResultValidityOnly.WVT)]
-        public void CreateSimpleCalculationResultValidityOnly_ValidData_ReturnSimpleCalculationResultValidityOnly(
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None, EAssessmentResultTypeE2.Gr)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, EAssessmentResultTypeE2.Nvt)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, EAssessmentResultTypeE2.Wvt)]
+        public void CreateAssessmentResultTypeE2_ValidData_ReturnSimpleCalculationResultValidityOnly(
             SimpleAssessmentValidityOnlyResultType originalResult,
-            SimpleCalculationResultValidityOnly expectedResult)
+            EAssessmentResultTypeE2 expectedResult)
         {
             // Call
-            SimpleCalculationResultValidityOnly result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResultValidityOnly(originalResult);
+            EAssessmentResultTypeE2 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);

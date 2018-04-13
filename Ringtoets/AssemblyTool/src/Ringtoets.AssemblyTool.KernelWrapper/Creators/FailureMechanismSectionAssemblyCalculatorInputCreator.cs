@@ -69,15 +69,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates <see cref="SimpleCalculationResultValidityOnly"/> based on the given <paramref name="input"/>.
+        /// Creates <see cref="EAssessmentResultTypeE2"/> based on the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="SimpleAssessmentValidityOnlyResultType"/> to create the result for.</param>
-        /// <returns>The created <see cref="SimpleCalculationResultValidityOnly"/>.</returns>
+        /// <returns>The created <see cref="EAssessmentResultTypeE2"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SimpleAssessmentValidityOnlyResultType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentValidityOnlyResultType"/>
         /// is a valid value, but unsupported.</exception>
-        public static SimpleCalculationResultValidityOnly CreateSimpleCalculationResultValidityOnly(SimpleAssessmentValidityOnlyResultType input)
+        public static EAssessmentResultTypeE2 CreateAssessmentResultTypeE2(SimpleAssessmentValidityOnlyResultType input)
         {
             if (!Enum.IsDefined(typeof(SimpleAssessmentValidityOnlyResultType), input))
             {
@@ -89,11 +89,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             switch (input)
             {
                 case SimpleAssessmentValidityOnlyResultType.None:
-                    return SimpleCalculationResultValidityOnly.None;
+                    return EAssessmentResultTypeE2.Gr;
                 case SimpleAssessmentValidityOnlyResultType.NotApplicable:
-                    return SimpleCalculationResultValidityOnly.NVT;
+                    return EAssessmentResultTypeE2.Nvt;
                 case SimpleAssessmentValidityOnlyResultType.Applicable:
-                    return SimpleCalculationResultValidityOnly.WVT;
+                    return EAssessmentResultTypeE2.Wvt;
                 default:
                     throw new NotSupportedException();
             }
