@@ -32,7 +32,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>.
         /// </summary>
-        public TestHydraulicBoundaryLocation() : this(null, null) {}
+        public TestHydraulicBoundaryLocation() : this(string.Empty) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/>
@@ -40,39 +40,5 @@ namespace Ringtoets.Common.Data.TestUtil
         /// </summary>
         /// <param name="name">The name for the <see cref="TestHydraulicBoundaryLocation"/>.</param>
         public TestHydraulicBoundaryLocation(string name) : base(0, name, 0, 0) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with 
-        /// <see cref="HydraulicBoundaryLocationCalculation.Output"/> set.
-        /// </summary>
-        /// <param name="designWaterLevel">The design water level result to set in the output.</param>
-        /// <param name="waveHeight">The wave height result to set in the output.</param>
-        private TestHydraulicBoundaryLocation(double? designWaterLevel, double? waveHeight)
-            : this(string.Empty)
-        {
-            if (designWaterLevel.HasValue)
-            {
-                DesignWaterLevelCalculation1.Output = new HydraulicBoundaryLocationOutput(
-                    designWaterLevel.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged, null);
-            }
-
-            if (waveHeight.HasValue)
-            {
-                WaveHeightCalculation1.Output = new HydraulicBoundaryLocationOutput(
-                    waveHeight.Value, 0, 0, 0, 0, CalculationConvergence.CalculatedConverged, null);
-            }
-        }
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestHydraulicBoundaryLocation"/> with
-        /// <see cref="HydraulicBoundaryLocationCalculation.Output"/> set for
-        /// <see cref="HydraulicBoundaryLocation.DesignWaterLevelCalculation1"/>
-        /// and <see cref="HydraulicBoundaryLocation.WaveHeightCalculation1"/>.
-        /// </summary>
-        /// <returns>A new <see cref="TestHydraulicBoundaryLocation"/>.</returns>
-        public static TestHydraulicBoundaryLocation CreateFullyCalculated()
-        {
-            return new TestHydraulicBoundaryLocation(4.5, 5.5);
-        }
     }
 }

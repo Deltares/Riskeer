@@ -58,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const int numberOfCalculationsWithOutput = 3;
 
             var random = new Random();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation1 = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random();
-            TestHydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
@@ -235,8 +235,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             AssertHydraulicBoundaryOutput(assessmentSection, hydraulicBoundaryLocation, true);
             AssertHydraulicBoundaryOutput(assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, true);
-            Assert.IsTrue(hydraulicBoundaryLocation.WaveHeightCalculation1.HasOutput);
-            Assert.IsTrue(hydraulicBoundaryLocation.DesignWaterLevelCalculation1.HasOutput);
             Assert.IsTrue(pipingCalculation.HasOutput);
             Assert.IsTrue(grassCoverErosionInwardsCalculation.HasOutput);
             Assert.IsTrue(heightStructuresCalculation.HasOutput);
