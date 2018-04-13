@@ -23,32 +23,28 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using AssemblyTool.Kernel.Assembly;
-using AssemblyTool.Kernel.Assembly.CalculatorInput;
-using AssemblyTool.Kernel.Data;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
-using AssemblyTool.Kernel.Data.CalculationResults;
-using AssemblyTool.Kernel.ErrorHandling;
+using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model.AssessmentResultTypes;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates input instances that can be used in <see cref="IFailureMechanismSectionAssemblyCalculator"/>.
+    /// Creates input instances that can be used in <see cref="IAssessmentResultsTranslator"/>.
     /// </summary>
     public static class FailureMechanismSectionAssemblyCalculatorInputCreator
     {
         /// <summary>
-        /// Creates <see cref="SimpleCalculationResult"/> based on the given <paramref name="input"/>.
+        /// Creates <see cref="EAssessmentResultTypeE1"/> based on the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="SimpleAssessmentResultType"/> to create the result for.</param>
-        /// <returns>The created <see cref="SimpleCalculationResult"/>.</returns>
+        /// <returns>The created <see cref="EAssessmentResultTypeE1"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SimpleAssessmentResultType"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentResultType"/>
         /// is a valid value, but unsupported.</exception>
-        public static SimpleCalculationResult CreateSimpleCalculationResult(SimpleAssessmentResultType input)
+        public static EAssessmentResultTypeE1 CreateAssessmentResultE1(SimpleAssessmentResultType input)
         {
             if (!Enum.IsDefined(typeof(SimpleAssessmentResultType), input))
             {
@@ -60,13 +56,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             switch (input)
             {
                 case SimpleAssessmentResultType.None:
-                    return SimpleCalculationResult.None;
+                    return EAssessmentResultTypeE1.Gr;
                 case SimpleAssessmentResultType.NotApplicable:
-                    return SimpleCalculationResult.NVT;
+                    return EAssessmentResultTypeE1.Nvt;
                 case SimpleAssessmentResultType.ProbabilityNegligible:
-                    return SimpleCalculationResult.FV;
+                    return EAssessmentResultTypeE1.Fv;
                 case SimpleAssessmentResultType.AssessFurther:
-                    return SimpleCalculationResult.VB;
+                    return EAssessmentResultTypeE1.Vb;
                 default:
                     throw new NotSupportedException();
             }

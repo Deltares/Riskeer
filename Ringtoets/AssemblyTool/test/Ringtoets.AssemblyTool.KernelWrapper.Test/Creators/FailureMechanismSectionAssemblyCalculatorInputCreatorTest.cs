@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using AssemblyTool.Kernel.Assembly.CalculatorInput;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
-using AssemblyTool.Kernel.Data.CalculationResults;
+using Assembly.Kernel.Model.AssessmentResultTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -40,10 +38,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         #region Simple Assessment
 
         [Test]
-        public void CreateSimpleCalculationResult_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
+        public void CreateAssessmentResultE1_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult((SimpleAssessmentResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultE1((SimpleAssessmentResultType) 99);
 
             // Assert
             const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultType'.";
@@ -51,15 +49,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(SimpleAssessmentResultType.None, SimpleCalculationResult.None)]
-        [TestCase(SimpleAssessmentResultType.NotApplicable, SimpleCalculationResult.NVT)]
-        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, SimpleCalculationResult.FV)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther, SimpleCalculationResult.VB)]
-        public void CreateSimpleCalculationResult_ValidData_ReturnSimpleCalculationResult(SimpleAssessmentResultType originalResult,
-                                                                                          SimpleCalculationResult expectedResult)
+        [TestCase(SimpleAssessmentResultType.None, EAssessmentResultTypeE1.Gr)]
+        [TestCase(SimpleAssessmentResultType.NotApplicable, EAssessmentResultTypeE1.Nvt)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, EAssessmentResultTypeE1.Fv)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther, EAssessmentResultTypeE1.Vb)]
+        public void CreateAssessmentResultE1_ValidData_ReturnSimpleCalculationResult(SimpleAssessmentResultType originalResult,
+                                                                                     EAssessmentResultTypeE1 expectedResult)
         {
             // Call
-            SimpleCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(originalResult);
+            EAssessmentResultTypeE1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultE1(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
