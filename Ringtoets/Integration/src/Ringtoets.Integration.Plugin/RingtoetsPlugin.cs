@@ -1864,44 +1864,56 @@ namespace Ringtoets.Integration.Plugin
         {
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            bool haveEqualVersion = HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
-            bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsLinked() && !haveEqualVersion;
-            if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
+            if (HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile))
             {
-                return;
-            }
-
-            using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
-            {
-                if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
+                if (hydraulicBoundaryDatabase.FilePath != databaseFile)
                 {
+                    hydraulicBoundaryDatabase.FilePath = databaseFile;
+                    hydraulicBoundaryDatabase.NotifyObservers();
+                }
+            }
+            else
+            {
+                bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsLinked();
+                if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
+                {
+                    return;
+                }
+
+                using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
+                {
+                    if (!hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
+                    {
+                        return;
+                    }
+
+                    HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+
+                    assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+                    assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+
+                    var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
+                    duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
+                    duneLocationsReplacementHandler.DoPostReplacementUpdates();
+
+                    NotifyObservers(assessmentSection);
+
                     if (isClearConfirmationRequired)
                     {
                         ClearCalculations(assessmentSection);
                     }
-
-                    if (!haveEqualVersion)
-                    {
-                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
-
-                        assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-                        assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-
-                        var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
-                        duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
-                        duneLocationsReplacementHandler.DoPostReplacementUpdates();
-
-                        NotifyObservers(assessmentSection);
-                    }
-
-                    log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
-                                   assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
             }
+
+            log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
+                           assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         private static void NotifyObservers(AssessmentSection assessmentSection)
         {
+            assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+
             assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.NotifyObservers();
             assessmentSection.WaterLevelCalculationsForSignalingNorm.NotifyObservers();
             assessmentSection.WaterLevelCalculationsForLowerLimitNorm.NotifyObservers();
