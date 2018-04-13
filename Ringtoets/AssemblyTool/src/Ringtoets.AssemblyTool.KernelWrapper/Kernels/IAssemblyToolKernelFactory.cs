@@ -19,8 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using AssemblyTool.Kernel.Assembly;
-using AssemblyTool.Kernel.Categories;
+using Assembly.Kernel.Interfaces;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
 {
@@ -32,13 +31,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
         /// <summary>
         /// Creates an assembly categories kernel.
         /// </summary>
-        /// <returns>A new <see cref="ICategoriesCalculator"/>.</returns>
-        ICategoriesCalculator CreateAssemblyCategoriesKernel();
+        /// <returns>A new <see cref="ICategoryLimitsCalculator"/>.</returns>
+        ICategoryLimitsCalculator CreateAssemblyCategoriesKernel();
 
         /// <summary>
         /// Creates a failure mechanism section assembly kernel.
         /// </summary>
-        /// <returns>A new <see cref="IFailureMechanismSectionAssemblyCalculator"/>.</returns>
-        IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyKernel();
+        /// <returns>A new <see cref="IAssessmentResultsTranslator"/>.</returns>
+        IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel();
     }
 }
