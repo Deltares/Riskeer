@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
         /// for mechanism specific factorized signaling norm.
         /// </summary>
         string WaterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName { get; }
-        
+
         /// <summary>
         /// Gets the meta data attribute name of the water level calculation
         /// for mechanism specific signaling norm.
@@ -61,7 +61,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
         /// for mechanism specific factorized signaling norm.
         /// </summary>
         string WaveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName { get; }
-        
+
         /// <summary>
         /// Gets the meta data attribute name of the wave height calculation
         /// for mechanism specific signaling norm.

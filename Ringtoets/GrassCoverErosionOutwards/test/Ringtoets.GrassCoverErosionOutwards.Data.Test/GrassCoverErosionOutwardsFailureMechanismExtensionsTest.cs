@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection,
                 new[]
                 {
@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection,
                 new[]
                 {

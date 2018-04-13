@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util
         /// <param name="location">The location to create the feature for.</param>
         /// <param name="nameProvider">The provider of the labels.</param>
         /// <returns>A feature based on the given <paramref name="location"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when all parameters are <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static MapFeature CreateHydraulicBoundaryLocationFeature(GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location,
                                                                         IGrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider nameProvider)
         {

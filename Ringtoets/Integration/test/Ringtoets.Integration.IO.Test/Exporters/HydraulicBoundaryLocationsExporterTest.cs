@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Constructor_FilePathNull_ThrowArgumentException()
+        public void Constructor_FilePathNull_ThrowsArgumentException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnsTrueAndWritesCorrectData");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             const string baseName = "test";

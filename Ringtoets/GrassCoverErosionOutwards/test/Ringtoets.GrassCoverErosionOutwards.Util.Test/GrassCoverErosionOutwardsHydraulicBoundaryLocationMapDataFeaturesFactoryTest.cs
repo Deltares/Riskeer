@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
         {
             // Setup
             GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location = GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationTestHelper.Create();
-            
+
             // Call
             TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(location, null);
 

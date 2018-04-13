@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteHydrauulicBoundaryLocations_FilePathNull_ThrowsArgumentNullException()
+        public void WriteHydraulicBoundaryLocations_FilePathNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter.WriteHydraulicBoundaryLocations(

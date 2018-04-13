@@ -1811,7 +1811,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
 
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                     failureMechanism, assessmentSection, new[]
                     {
                         hydraulicBoundaryLocation1,
@@ -1879,7 +1879,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
 
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                     failureMechanism, assessmentSection, new[]
                     {
                         hydraulicBoundaryLocation1,
