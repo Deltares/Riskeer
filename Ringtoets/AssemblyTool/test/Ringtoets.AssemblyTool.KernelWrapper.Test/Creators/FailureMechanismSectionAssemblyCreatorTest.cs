@@ -21,8 +21,7 @@
 
 using System;
 using System.ComponentModel;
-using AssemblyTool.Kernel.Data;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -86,31 +85,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void ConvertFailureMechanismSectionCategoryGroup_InvalidGroup_ThrowsInvalidEnumArgumentException()
+        public void ConvertFailureMechanismSectionCategory_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup((FailureMechanismSectionCategoryGroup) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory((EFmSectionCategory) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
+            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None)]
-        [TestCase(FailureMechanismSectionCategoryGroup.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
-        [TestCase(FailureMechanismSectionCategoryGroup.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
-        public void ConvertFailureMechanismSectionCategoryGroup_ValidGroup_ReturnFailureMechanismSectionAssemblyCategoryGroup(FailureMechanismSectionCategoryGroup originalGroup,
-                                                                                                                              FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
+        [TestCase(EFmSectionCategory.Gr, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(EFmSectionCategory.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(EFmSectionCategory.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        [TestCase(EFmSectionCategory.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
+        [TestCase(EFmSectionCategory.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
+        [TestCase(EFmSectionCategory.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
+        [TestCase(EFmSectionCategory.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
+        [TestCase(EFmSectionCategory.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
+        [TestCase(EFmSectionCategory.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
+        public void ConvertFailureMechanismSectionCategory_ValidGroup_ReturnFailureMechanismSectionAssemblyCategoryGroup(EFmSectionCategory originalGroup,
+                                                                                                                         FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
         {
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup actualGroup = FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(originalGroup);
+            FailureMechanismSectionAssemblyCategoryGroup actualGroup = FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(originalGroup);
 
             // Assert
             Assert.AreEqual(expectedGroup, actualGroup);

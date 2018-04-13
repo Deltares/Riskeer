@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Assembly.Kernel.Model.FmSectionTypes;
 using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Ringtoets.AssemblyTool.Data;
 
@@ -38,9 +39,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <param name="result">The result to create the assembly from.</param>
         /// <returns>The created assembly.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionCategoryGroup"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EFmSectionCategory"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionCategoryGroup"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="EFmSectionCategory"/>
         /// is a valid value, but unsupported.</exception>
         public static FailureMechanismSectionAssembly Create(FailureMechanismSectionAssemblyCategoryResult result)
         {
@@ -50,46 +51,46 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return new FailureMechanismSectionAssembly(result.EstimatedProbabilityOfFailure.Value,
-                                                       ConvertFailureMechanismSectionCategoryGroup(result.CategoryGroup));
+                                                       ConvertFailureMechanismSectionCategory(result.CategoryGroup));
         }
 
         /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionCategoryGroup"/> into a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// Converts a <see cref="EFmSectionCategory"/> into a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
-        /// <param name="category">The <see cref="FailureMechanismSectionCategoryGroup"/> to convert.</param>
+        /// <param name="category">The <see cref="EFmSectionCategory"/> to convert.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup ConvertFailureMechanismSectionCategoryGroup(FailureMechanismSectionCategoryGroup category)
+        public static FailureMechanismSectionAssemblyCategoryGroup ConvertFailureMechanismSectionCategory(EFmSectionCategory category)
         {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionCategoryGroup), category))
+            if (!Enum.IsDefined(typeof(EFmSectionCategory), category))
             {
                 throw new InvalidEnumArgumentException(nameof(category),
                                                        (int) category,
-                                                       typeof(FailureMechanismSectionCategoryGroup));
+                                                       typeof(EFmSectionCategory));
             }
 
             switch (category)
             {
-                case FailureMechanismSectionCategoryGroup.Iv:
+                case EFmSectionCategory.Iv:
                     return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case FailureMechanismSectionCategoryGroup.IIv:
+                case EFmSectionCategory.IIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case FailureMechanismSectionCategoryGroup.IIIv:
+                case EFmSectionCategory.IIIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case FailureMechanismSectionCategoryGroup.IVv:
+                case EFmSectionCategory.IVv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case FailureMechanismSectionCategoryGroup.Vv:
+                case EFmSectionCategory.Vv:
                     return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case FailureMechanismSectionCategoryGroup.VIv:
+                case EFmSectionCategory.VIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case FailureMechanismSectionCategoryGroup.VIIv:
+                case EFmSectionCategory.VIIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case FailureMechanismSectionCategoryGroup.None:
+                case EFmSectionCategory.Gr:
                     return FailureMechanismSectionAssemblyCategoryGroup.None;
-                case FailureMechanismSectionCategoryGroup.NotApplicable:
+                case EFmSectionCategory.NotApplicable:
                     return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
                 default:
                     throw new NotSupportedException();

@@ -22,10 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Data;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
-using AssemblyTool.Kernel.Data.CalculationResults;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
