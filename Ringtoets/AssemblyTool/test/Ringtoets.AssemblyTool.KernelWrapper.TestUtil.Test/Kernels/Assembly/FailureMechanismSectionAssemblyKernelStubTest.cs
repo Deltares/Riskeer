@@ -96,7 +96,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void SimpleAssessmentDirectFailureMechanisms_ThrowExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0E1_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
             var kernel = new FailureMechanismSectionAssemblyKernelStub
@@ -117,57 +117,41 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        public void TranslateAssessmentResultWbi0E3_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
-            var input = random.NextEnumValue<SimpleCalculationResultValidityOnly>();
+            var input = random.NextEnumValue<EAssessmentResultTypeE2>();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
             // Call
-            kernel.SimpleAssessmentDirectFailureMechanisms(input);
+            kernel.TranslateAssessmentResultWbi0E3(input);
 
             // Assert
-            Assert.AreEqual(input, kernel.SimpleAssessmentFailureMechanismsValidityOnlyInput);
-        }
-
-        [Test]
-        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
-        {
-            // Setup
-            var kernel = new FailureMechanismSectionAssemblyKernelStub();
-
-            // Precondition
-            Assert.IsFalse(kernel.Calculated);
-
-            // Call
-            kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResultValidityOnly) 0);
-
-            // Assert
+            Assert.AreEqual(input, kernel.AssessmentResultTypeE2Input);
             Assert.IsTrue(kernel.Calculated);
         }
 
         [Test]
-        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0E3_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
-                FailureMechanismSectionAssemblyResult = new FmSectionAssemblyDirectResult(
-                    new FailureMechanismSectionAssemblyResult(random.NextEnumValue<EFmSectionCategory>(), double.NaN))
+                FailureMechanismSectionAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), double.NaN)
             };
 
             // Call
-            FmSectionAssemblyDirectResult result = kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResultValidityOnly) 0);
+            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0E3(0);
 
             // Assert
             Assert.AreSame(kernel.FailureMechanismSectionAssemblyResult, result);
         }
 
         [Test]
-        public void SimpleAssessmentDirectFailureMechanismsValidityOnly_ThrowExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0E3_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
             var kernel = new FailureMechanismSectionAssemblyKernelStub
@@ -176,13 +160,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             };
 
             // Call
-            TestDelegate test = () => kernel.SimpleAssessmentDirectFailureMechanisms((SimpleCalculationResultValidityOnly) 0);
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0E3(0);
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-            Assert.IsNull(kernel.SimpleAssessmentFailureMechanismsInput);
+            Assert.IsNull(kernel.AssessmentResultTypeE2Input);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionAssemblyResult);
         }
