@@ -31,7 +31,7 @@ namespace Ringtoets.AssemblyTool.Data
         /// </summary>
         /// <param name="probability">The probability of the assembly.</param>
         /// <param name="group">The group of the assembly.</param>
-        public FailureMechanismSectionAssembly(double probability, FailureMechanismSectionAssemblyCategoryGroup group)
+        public FailureMechanismSectionAssembly(double? probability, FailureMechanismSectionAssemblyCategoryGroup group)
         {
             Probability = probability;
             Group = group;
@@ -40,7 +40,7 @@ namespace Ringtoets.AssemblyTool.Data
         /// <summary>
         /// Gets the probability of the assembly.
         /// </summary>
-        public double Probability { get; }
+        public double? Probability { get; }
 
         /// <summary>
         /// Gets the group of the assembly.
