@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using AssemblyTool.Kernel.Assembly;
-using AssemblyTool.Kernel.Categories;
+using Assembly.Kernel.Implementations;
+using Assembly.Kernel.Interfaces;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
@@ -75,10 +75,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Call
-            ICategoriesCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
+            ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
 
             // Assert
-            Assert.IsInstanceOf<CategoriesCalculator>(assemblyCategoriesKernel);
+            Assert.IsInstanceOf<CategoryLimitsCalculator>(assemblyCategoriesKernel);
         }
 
         [Test]
@@ -88,10 +88,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Call
-            IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+            IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculator>(kernel);
+            Assert.IsInstanceOf<AssessmentResultsTranslator>(kernel);
         }
     }
 }
