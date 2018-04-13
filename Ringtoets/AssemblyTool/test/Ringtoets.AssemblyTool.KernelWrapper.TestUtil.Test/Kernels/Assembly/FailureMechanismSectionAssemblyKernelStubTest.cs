@@ -304,6 +304,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
+
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
             // Precondition
@@ -599,18 +600,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TailorMadeAssessmentDirectFailureMechanismsWithProbability_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T3_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
-            var input = new TailorMadeCalculationInputFromProbability(
-                new TailorMadeProbabilityCalculationResult(new Probability(random.NextDouble())),
-                new[]
-                {
-                    new FailureMechanismSectionCategory(random.NextEnumValue<EFmSectionCategory>(),
-                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
-                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
-                });
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
+            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
+            double failureProbability = random.NextDouble();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
@@ -618,10 +615,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsFalse(kernel.Calculated);
 
             // Call
-            kernel.TailorMadeAssessmentDirectFailureMechanisms(input);
+            kernel.TranslateAssessmentResultWbi0T3(section, failureMechanism, assessment, failureProbability);
 
             // Assert
-            Assert.AreSame(input, kernel.TailorMadeCalculationInputFromProbabilityInput);
+            Assert.AreSame(section, kernel.AssessmentSectionInput);
+            Assert.AreSame(failureMechanism, kernel.FailureMechanismInput);
+            Assert.AreEqual(assessment, kernel.AssessmentResultTypeT3Input);
+            Assert.AreEqual(failureProbability, kernel.FailureProbabilityInput);
             Assert.IsTrue(kernel.Calculated);
         }
 
@@ -630,23 +630,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var input = new TailorMadeCalculationInputFromProbability(
-                new TailorMadeProbabilityCalculationResult(new Probability(random.NextDouble())),
-                new[]
-                {
-                    new FailureMechanismSectionCategory(random.NextEnumValue<EFmSectionCategory>(),
-                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
-                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
-                });
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
+            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
+            double failureProbability = random.NextDouble();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
-                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(
-                    new FailureMechanismSectionAssemblyResult(EFmSectionCategory.IIIv, double.NaN))
+                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
             };
 
             // Call
-            FmSectionAssemblyDirectResult result = kernel.TailorMadeAssessmentDirectFailureMechanisms(input);
+            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0T3(section, failureMechanism, assessment, failureProbability);
 
             // Assert
             Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
@@ -657,14 +652,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var input = new TailorMadeCalculationInputFromProbability(
-                new TailorMadeProbabilityCalculationResult(new Probability(random.NextDouble())),
-                new[]
-                {
-                    new FailureMechanismSectionCategory(random.NextEnumValue<EFmSectionCategory>(),
-                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
-                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
-                });
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
+            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
+            double failureProbability = random.NextDouble();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
@@ -672,13 +663,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             };
 
             // Call
-            TestDelegate test = () => kernel.TailorMadeAssessmentDirectFailureMechanisms(input);
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T3(section, failureMechanism, assessment, failureProbability);
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-            Assert.IsNull(kernel.TailorMadeCalculationInputFromProbabilityInput);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.AssessmentResultTypeT3Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
