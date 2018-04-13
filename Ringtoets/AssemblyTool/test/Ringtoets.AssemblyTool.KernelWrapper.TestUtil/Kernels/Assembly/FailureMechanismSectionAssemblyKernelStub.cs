@@ -20,68 +20,98 @@
 // All rights reserved.
 
 using System;
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Assembly;
-using AssemblyTool.Kernel.Assembly.CalculatorInput;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
-using AssemblyTool.Kernel.Data.CalculationResults;
+using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.AssessmentResultTypes;
+using Assembly.Kernel.Model.FmSectionTypes;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
     /// Failure mechanism section assembly kernel stub for testing purposes.
     /// </summary>
-    public class FailureMechanismSectionAssemblyKernelStub : IFailureMechanismSectionAssemblyCalculator
+    public class FailureMechanismSectionAssemblyKernelStub : IAssessmentResultsTranslator
     {
         /// <summary>
-        /// Gets the input used in <see cref="SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResult)"/>.
+        /// Gets the input used in <see cref="TranslateAssessmentResultWbi0E1"/>.
         /// </summary>
-        public SimpleCalculationResult? SimpleAssessmentFailureMechanismsInput { get; private set; }
+        public EAssessmentResultTypeE1? AssessmentResultTypeE1Input { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResultValidityOnly)"/>.
+        /// Gets the input used in <see cref="TranslateAssessmentResultWbi0E3"/>.
         /// </summary>
-        public SimpleCalculationResultValidityOnly? SimpleAssessmentFailureMechanismsValidityOnlyInput { get; private set; }
+        public EAssessmentResultTypeE2? AssessmentResultTypeE2Input { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationResult)"/>.
+        /// Gets the input used in <see cref="TranslateAssessmentResultWbi0G1"/>.
         /// </summary>
-        public DetailedCalculationResult? DetailedCalculationResultInput { get; private set; }
+        public EAssessmentResultTypeG1? AssessmentResultTypeG1Input { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbability)"/>.
+        /// Gets the input used in <see cref="TranslateAssessmentResultWbi0G3"/>.
         /// </summary>
-        public DetailedCalculationInputFromProbability DetailedAssessmentFailureMechanismFromProbabilityInput { get; private set; }
+        public EAssessmentResultTypeG2? AssessmentResultTypeG2Input { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbabilityWithLengthEffect)"/>.
+        /// Gets the input used in <see cref="TranslateAssessmentResultWbi0T1"/>.
         /// </summary>
-        public DetailedCalculationInputFromProbabilityWithLengthEffect DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput { get; private set; }
+        public EAssessmentResultTypeT1? AssessmentResultTypeT1Input { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationResult)"/>.
+        /// Gets the input used in <see cref="TranslateAssessmentResultWbi0T3"/>.
         /// </summary>
-        public TailorMadeCalculationResult? TailorMadeCalculationResultInput { get; private set; }
+        public EAssessmentResultTypeT3? AssessmentResultTypeT3Input { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbability)"/>.
+        /// Gets the section category input used as input parameter for assembly methods.
         /// </summary>
-        public TailorMadeCalculationInputFromProbability TailorMadeCalculationInputFromProbabilityInput { get; private set; }
+        public EFmSectionCategory? SectionCategoryInput { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationResult)"/>.
+        /// Gets the simple assessment result used as input parameter for the combined assembly methods.
         /// </summary>
-        public TailorMadeCategoryCalculationResult TailorMadeCalculationInputFromCategoryResultInput { get; private set; }
+        public FmSectionAssemblyDirectResult SimpleAssessmentResultInput { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="o:TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor)"/>.
+        /// Gets the detailed assessment result used as input parameter for the combined assembly methods.
         /// </summary>
-        public TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor { get; private set; }
+        public FmSectionAssemblyDirectResult DetailedAssessmentResultInput { get; private set; }
 
         /// <summary>
-        /// Gets the input used in <see cref="DetailedAssessmentDirectFailureMechanisms(DetailedCategoryBoundariesCalculationResult)"/>.
+        /// Gets the tailor made assessment result used as input parameter for the combined assembly methods.
         /// </summary>
-        public DetailedCategoryBoundariesCalculationResult DetailedAssessmentFailureMechanismFromCategoriesInput { get; private set; }
+        public FmSectionAssemblyDirectResult TailorMadeAssessmentResultInput { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="AssessmentSection"/> used as input parameter for assembly methods.
+        /// </summary>
+        public AssessmentSection AssessmentSectionInput { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="FailureMechanism"/> used as input parameter for assembly methods.
+        /// </summary>
+        public FailureMechanism FailureMechanismInput { get; private set; }
+
+        /// <summary>
+        /// Gets the probability of failure used as input parameter for assembly methods.
+        /// </summary>
+        public double? FailureProbabilityInput { get; private set; }
+
+        /// <summary>
+        /// Gets the 'N' parameter used to factor in the 'length effect' which is 
+        /// used as input parameter for assembly methods.
+        /// </summary>
+        public double? LengthEffectFactorInput { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="FmSectionCategoryCompliancyResults"/> used as input parameter for assembly methods.
+        /// </summary>
+        public FmSectionCategoryCompliancyResults CategoryCompliancyResultsInput { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism section assembly result.
+        /// </summary>
+        public FmSectionAssemblyDirectResult FailureMechanismSectionAssemblyResult { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
@@ -93,209 +123,222 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        /// <summary>
-        /// Gets or sets the failure mechanism section assembly category result.
-        /// </summary>
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> FailureMechanismSectionAssemblyCategoryResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism section assembly category group.
-        /// </summary>
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> FailureMechanismSectionAssemblyCategoryGroup { get; set; }
-
-        /// <summary>
-        /// Gets the simple assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
-        /// </summary>
-        public FailureMechanismSectionAssemblyCategoryResult CombinedSimpleAssessmentInput { get; private set; }
-
-        /// <summary>
-        /// Gets the detailed assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
-        /// </summary>
-        public FailureMechanismSectionAssemblyCategoryResult CombinedDetailedAssessmentInput { get; private set; }
-
-        /// <summary>
-        /// Gets the tailor made assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult, FailureMechanismSectionAssemblyCategoryResult)"/>
-        /// </summary>
-        public FailureMechanismSectionAssemblyCategoryResult CombinedTailorMadeAssessmentInput { get; private set; }
-
-        /// <summary>
-        /// Gets the simple assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup)"/>
-        /// </summary>
-        public FailureMechanismSectionCategoryGroup? CombinedSimpleAssessmentGroupInput { get; private set; }
-
-        /// <summary>
-        /// Gets the detailed assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup)"/>
-        /// </summary>
-        public FailureMechanismSectionCategoryGroup? CombinedDetailedAssessmentGroupInput { get; private set; }
-
-        /// <summary>
-        /// Gets the tailor made assessment input used in <see cref="o:CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup, FailureMechanismSectionCategoryGroup)"/>
-        /// </summary>
-        public FailureMechanismSectionCategoryGroup? CombinedTailorMadeAssessmentGroupInput { get; private set; }
-
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResult result)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0E1(EAssessmentResultTypeE1 assessment)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            SimpleAssessmentFailureMechanismsInput = result;
+            AssessmentResultTypeE1Input = assessment;
+
             Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryResult;
+            return FailureMechanismSectionAssemblyResult;
         }
 
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> SimpleAssessmentIndirectFailureMechanisms(SimpleCalculationResult result)
+        public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0E2(EAssessmentResultTypeE1 assessment)
         {
             throw new NotImplementedException();
         }
 
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> SimpleAssessmentDirectFailureMechanisms(SimpleCalculationResultValidityOnly result)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0E3(EAssessmentResultTypeE2 assessment)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            SimpleAssessmentFailureMechanismsValidityOnlyInput = result;
+            AssessmentResultTypeE2Input = assessment;
+
             Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryResult;
+            return FailureMechanismSectionAssemblyResult;
         }
 
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationResult result)
-        {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            DetailedCalculationResultInput = result;
-            Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryGroup;
-        }
-
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentIndirectFailureMechanisms(DetailedCalculationResult result)
+        public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0E4(EAssessmentResultTypeE2 assessment)
         {
             throw new NotImplementedException();
         }
 
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbability input)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G1(EAssessmentResultTypeG1 assessment)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            DetailedAssessmentFailureMechanismFromProbabilityInput = input;
+            AssessmentResultTypeG1Input = assessment;
+
             Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryResult;
+            return FailureMechanismSectionAssemblyResult;
         }
 
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> DetailedAssessmentDirectFailureMechanisms(DetailedCategoryBoundariesCalculationResult calculationResults)
-        {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            DetailedAssessmentFailureMechanismFromCategoriesInput = calculationResults;
-            Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryGroup;
-        }
-
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> DetailedAssessmentDirectFailureMechanisms(DetailedCalculationInputFromProbabilityWithLengthEffect input)
-        {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput = input;
-            Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryResult;
-        }
-
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationResult result)
-        {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            TailorMadeCalculationResultInput = result;
-            Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryGroup;
-        }
-
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentIndirectFailureMechanisms(TailorMadeCalculationResult result)
+        public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0G2(EAssessmentResultTypeG1 assessment)
         {
             throw new NotImplementedException();
         }
 
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbability input)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G3(AssessmentSection section,
+                                                                             FailureMechanism failureMechanism,
+                                                                             EAssessmentResultTypeG2 assessment,
+                                                                             double? failureProbability)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            TailorMadeCalculationInputFromProbabilityInput = input;
+            AssessmentSectionInput = section;
+            FailureMechanismInput = failureMechanism;
+            AssessmentResultTypeG2Input = assessment;
+            FailureProbabilityInput = failureProbability;
+
             Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryResult;
+            return FailureMechanismSectionAssemblyResult;
         }
 
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCategoryCalculationResult result)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G4(EAssessmentResultTypeG2 assessment, EFmSectionCategory? category)
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            TailorMadeCalculationInputFromCategoryResultInput = result;
-            Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryGroup;
+            throw new NotImplementedException();
         }
 
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> TailorMadeAssessmentDirectFailureMechanisms(TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor input)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G5(AssessmentSection section,
+                                                                             FailureMechanism failureMechanism,
+                                                                             double fmSectionLengthEffectFactor,
+                                                                             EAssessmentResultTypeG2 assessment,
+                                                                             double? failureProbability)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor = input;
+            AssessmentSectionInput = section;
+            FailureMechanismInput = failureMechanism;
+            AssessmentResultTypeG2Input = assessment;
+            FailureProbabilityInput = failureProbability;
+            LengthEffectFactorInput = fmSectionLengthEffectFactor;
+
             Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryResult;
+            return FailureMechanismSectionAssemblyResult;
         }
 
-        public CalculationOutput<FailureMechanismSectionCategoryGroup> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionCategoryGroup resultSimpleAssessment, FailureMechanismSectionCategoryGroup resultDetailedAssessment, FailureMechanismSectionCategoryGroup resultTailorMadeAssessment)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G6(FmSectionCategoryCompliancyResults compliancyResults)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            CombinedSimpleAssessmentGroupInput = resultSimpleAssessment;
-            CombinedDetailedAssessmentGroupInput = resultDetailedAssessment;
-            CombinedTailorMadeAssessmentGroupInput = resultTailorMadeAssessment;
+            CategoryCompliancyResultsInput = compliancyResults;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryGroup;
+            return FailureMechanismSectionAssemblyResult;
         }
 
-        public CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> CombinedAssessmentFromFailureMechanismSectionResults(FailureMechanismSectionAssemblyCategoryResult resultSimpleAssessment, FailureMechanismSectionAssemblyCategoryResult resultDetailedAssessment, FailureMechanismSectionAssemblyCategoryResult resultTailorMadeAssessment)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T1(EAssessmentResultTypeT1 assessment)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            CombinedSimpleAssessmentInput = resultSimpleAssessment;
-            CombinedDetailedAssessmentInput = resultDetailedAssessment;
-            CombinedTailorMadeAssessmentInput = resultTailorMadeAssessment;
+            AssessmentResultTypeT1Input = assessment;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyCategoryResult;
+            return FailureMechanismSectionAssemblyResult;
+        }
+
+        public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0T2(EAssessmentResultTypeT2 assessment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T3(AssessmentSection section,
+                                                                             FailureMechanism failureMechanism,
+                                                                             EAssessmentResultTypeT3 assessment,
+                                                                             double? failureProbability)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            AssessmentSectionInput = section;
+            FailureMechanismInput = failureMechanism;
+            AssessmentResultTypeT3Input = assessment;
+            FailureProbabilityInput = failureProbability;
+
+            Calculated = true;
+            return FailureMechanismSectionAssemblyResult;
+        }
+
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T4(EAssessmentResultTypeT3 assessment, EFmSectionCategory? category)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            AssessmentResultTypeT3Input = assessment;
+            SectionCategoryInput = category;
+
+            Calculated = true;
+            return FailureMechanismSectionAssemblyResult;
+        }
+
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T5(AssessmentSection section,
+                                                                             FailureMechanism failureMechanism,
+                                                                             double fmSectionLengthEffectFactor,
+                                                                             EAssessmentResultTypeT3 assessment,
+                                                                             double? failureProbability)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            AssessmentSectionInput = section;
+            FailureMechanismInput = failureMechanism;
+            AssessmentResultTypeT3Input = assessment;
+            FailureProbabilityInput = failureProbability;
+            LengthEffectFactorInput = LengthEffectFactorInput;
+
+            Calculated = true;
+            return FailureMechanismSectionAssemblyResult;
+        }
+
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T6(FmSectionCategoryCompliancyResults compliancyResults, EAssessmentResultTypeT3 assessment)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(AssessmentSection section, FailureMechanism failureMechanism, EAssessmentResultTypeT4 assessment, double? failureProbability)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResult simpleAssessmentResult,
+                                                                       FmSectionAssemblyDirectResult detailedAssessmentResult,
+                                                                       FmSectionAssemblyDirectResult tailorMadeAssessmentResult)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            SimpleAssessmentResultInput = simpleAssessmentResult;
+            DetailedAssessmentResultInput = detailedAssessmentResult;
+            TailorMadeAssessmentResultInput = tailorMadeAssessmentResult;
+
+            Calculated = true;
+            return FailureMechanismSectionAssemblyResult;
+        }
+
+        public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyIndirectResult simpleAssessmentResult,
+                                                                       FmSectionAssemblyIndirectResult detailedAssessmentResult,
+                                                                       FmSectionAssemblyIndirectResult customAssessmentResult)
+        {
+            throw new NotImplementedException();
         }
     }
 }
