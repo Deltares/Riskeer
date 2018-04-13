@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -83,6 +84,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
                                    .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
                                    .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
                                    .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+        }
+
+        /// <summary>
+        /// Asserts if all the hydraulic boundary location calculations within the <paramref name="failureMechanism"/>
+        /// have no outputs.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static void AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
         }
 
         private static void CreateHydraulicBoundaryLocationCalculationsOutput(
