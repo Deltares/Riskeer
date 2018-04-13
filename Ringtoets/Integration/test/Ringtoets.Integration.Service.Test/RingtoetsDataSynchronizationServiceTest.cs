@@ -434,8 +434,6 @@ namespace Ringtoets.Integration.Service.Test
             });
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation1);
-            grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation2);
             grassCoverErosionOutwardsFailureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,

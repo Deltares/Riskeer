@@ -59,7 +59,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             {
                 Name = RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
-            HydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
@@ -75,11 +74,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// Gets the general grass cover erosion outwards calculation input parameters that apply to each calculation.
         /// </summary>
         public GeneralGrassCoverErosionOutwardsInput GeneralInput { get; }
-
-        /// <summary>
-        /// Gets the hydraulic boundary locations.
-        /// </summary>
-        public ObservableList<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
 
         /// <summary>
         /// Gets the container of all wave conditions calculations.

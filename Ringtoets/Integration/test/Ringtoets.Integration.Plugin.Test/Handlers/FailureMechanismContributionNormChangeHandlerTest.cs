@@ -194,7 +194,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                  .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                 .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
                                  .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
                                  .Concat(GetAllAffectedDuneErosionLocationCalculations(assessmentSection.DuneErosion))
                                  .Concat(new IObservable[]
