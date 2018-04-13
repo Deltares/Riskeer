@@ -47,34 +47,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void Create_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var result = new FailureMechanismSectionAssemblyCategoryResult((FailureMechanismSectionCategoryGroup) 99, Probability.NaN);
+            var result = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
             // Call
             TestDelegate test = () => FailureMechanismSectionAssemblyCreator.Create(result);
 
             // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
+            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None)]
-        [TestCase(FailureMechanismSectionCategoryGroup.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
-        [TestCase(FailureMechanismSectionCategoryGroup.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
-        public void Create_ValidResult_ReturnFailureMechanismSectionAssembly(FailureMechanismSectionCategoryGroup originalGroup,
+        [TestCase(EFmSectionCategory.Gr, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(EFmSectionCategory.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(EFmSectionCategory.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        [TestCase(EFmSectionCategory.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
+        [TestCase(EFmSectionCategory.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
+        [TestCase(EFmSectionCategory.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
+        [TestCase(EFmSectionCategory.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
+        [TestCase(EFmSectionCategory.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
+        [TestCase(EFmSectionCategory.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
+        public void Create_ValidResult_ReturnFailureMechanismSectionAssembly(EFmSectionCategory originalGroup,
                                                                              FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
         {
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
 
-            var result = new FailureMechanismSectionAssemblyCategoryResult(originalGroup, new Probability(probability));
+            var result = new FmSectionAssemblyDirectResult(originalGroup, probability);
 
             // Call
             FailureMechanismSectionAssembly assembly = FailureMechanismSectionAssemblyCreator.Create(result);

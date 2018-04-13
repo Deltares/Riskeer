@@ -34,7 +34,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
     public static class FailureMechanismSectionAssemblyCreator
     {
         /// <summary>
-        /// Creates <see cref="FailureMechanismSectionAssembly"/> from the given <see cref="FailureMechanismSectionAssemblyCategoryResult"/>.
+        /// Creates <see cref="FailureMechanismSectionAssembly"/> from the given <see cref="FmSectionAssemblyDirectResult"/>.
         /// </summary>
         /// <param name="result">The result to create the assembly from.</param>
         /// <returns>The created assembly.</returns>
@@ -43,15 +43,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EFmSectionCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssembly Create(FailureMechanismSectionAssemblyCategoryResult result)
+        public static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new FailureMechanismSectionAssembly(result.EstimatedProbabilityOfFailure.Value,
-                                                       ConvertFailureMechanismSectionCategory(result.CategoryGroup));
+            return new FailureMechanismSectionAssembly(result.FailureProbability,
+                                                       ConvertFailureMechanismSectionCategory(result.Result));
         }
 
         /// <summary>
