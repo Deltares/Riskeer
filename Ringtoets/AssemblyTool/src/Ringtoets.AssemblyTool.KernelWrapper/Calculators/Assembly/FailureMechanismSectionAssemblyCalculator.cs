@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Data;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Primitives;
-using IFailureMechanismSectionAssemblyCalculatorKernel = AssemblyTool.Kernel.Assembly.IFailureMechanismSectionAssemblyCalculator;
+using IFailureMechanismSectionAssemblyCalculatorKernel = Assembly.Kernel.Interfaces.IAssessmentResultsTranslator;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
@@ -62,10 +60,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResult(input));
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0E1(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultE1(input));
 
-                return FailureMechanismSectionAssemblyCreator.Create(output.Result);
+                return FailureMechanismSectionAssemblyCreator.Create(output);
             }
             catch (Exception e)
             {
@@ -79,7 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.SimpleAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateSimpleCalculationResultValidityOnly(input));
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(input));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output.Result);
             }
@@ -101,7 +99,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.DetailedAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationResult(detailedAssessmentResult));
 
-                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(output.Result);
             }
             catch (Exception e)
             {
@@ -201,7 +199,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                         detailedAssessmentResultForLowerLimitNorm,
                         detailedAssessmentResultForFactorizedLowerLimitNorm));
 
-                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(output.Result);
             }
             catch (Exception e)
             {
@@ -221,7 +219,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationResult(tailorMadeAssessmentResult));
 
-                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(output.Result);
             }
             catch (Exception e)
             {
@@ -289,7 +287,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
                         tailorMadeAssessmentResult));
-                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(output.Result);
             }
             catch (Exception e)
             {
@@ -333,7 +331,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionAssemblyCategoryGroup(detailedAssembly),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionAssemblyCategoryGroup(tailorMadeAssembly));
 
-                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategoryGroup(output.Result);
+                return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(output.Result);
             }
             catch (Exception e)
             {
