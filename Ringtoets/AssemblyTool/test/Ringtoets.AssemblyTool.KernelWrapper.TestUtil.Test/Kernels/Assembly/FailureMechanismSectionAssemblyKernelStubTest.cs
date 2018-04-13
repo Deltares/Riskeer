@@ -62,13 +62,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 
         private static FmSectionCategoryCompliancyResults CreateRandomCompliancyResults(Random random)
         {
-            var input = new FmSectionCategoryCompliancyResults();
-            input.Set(EFmSectionCategory.Iv, random.NextEnumValue<ECategoryCompliancy>());
-            input.Set(EFmSectionCategory.IIv, random.NextEnumValue<ECategoryCompliancy>());
-            input.Set(EFmSectionCategory.IIIv, random.NextEnumValue<ECategoryCompliancy>());
-            input.Set(EFmSectionCategory.IVv, random.NextEnumValue<ECategoryCompliancy>());
-            input.Set(EFmSectionCategory.Vv, random.NextEnumValue<ECategoryCompliancy>());
-            return input;
+            var compliancyResults = new FmSectionCategoryCompliancyResults();
+            compliancyResults.Set(EFmSectionCategory.Iv, random.NextEnumValue<ECategoryCompliancy>());
+            compliancyResults.Set(EFmSectionCategory.IIv, random.NextEnumValue<ECategoryCompliancy>());
+            compliancyResults.Set(EFmSectionCategory.IIIv, random.NextEnumValue<ECategoryCompliancy>());
+            compliancyResults.Set(EFmSectionCategory.IVv, random.NextEnumValue<ECategoryCompliancy>());
+            compliancyResults.Set(EFmSectionCategory.Vv, random.NextEnumValue<ECategoryCompliancy>());
+            return compliancyResults;
         }
 
         #region Simple Assessment
@@ -436,19 +436,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void DetailedAssessmentDirectFailureMechanismsWithLengthEffect_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G5_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
-            var input = new DetailedCalculationInputFromProbabilityWithLengthEffect(
-                new Probability(random.NextDouble()),
-                new[]
-                {
-                    new FailureMechanismSectionCategory(random.NextEnumValue<EFmSectionCategory>(),
-                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
-                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
-                },
-                random.NextRoundedDouble(1.0, 40.0));
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
+            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
+            double failureProbability = random.NextDouble();
+            double lengthEffect = random.NextDouble();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
@@ -456,55 +452,50 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsFalse(kernel.Calculated);
 
             // Call
-            kernel.DetailedAssessmentDirectFailureMechanisms(input);
+            kernel.TranslateAssessmentResultWbi0G5(section, failureMechanism, lengthEffect, assessment, failureProbability);
 
             // Assert
-            Assert.AreSame(input, kernel.DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput);
+            Assert.AreSame(section, kernel.AssessmentSectionInput);
+            Assert.AreSame(failureMechanism, kernel.FailureMechanismInput);
+            Assert.AreEqual(lengthEffect, kernel.LengthEffectFactorInput);
+            Assert.AreEqual(assessment, kernel.AssessmentResultTypeG2Input);
+            Assert.AreEqual(failureProbability, kernel.FailureProbabilityInput);
             Assert.IsTrue(kernel.Calculated);
         }
 
         [Test]
-        public void DetailedAssessmentDirectFailureMechanismsWithLengthEffect_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G5_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
-            var input = new DetailedCalculationInputFromProbabilityWithLengthEffect(
-                new Probability(random.NextDouble()),
-                new[]
-                {
-                    new FailureMechanismSectionCategory(random.NextEnumValue<EFmSectionCategory>(),
-                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
-                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
-                },
-                random.NextRoundedDouble(1.0, 40.0));
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
+            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
+            double failureProbability = random.NextDouble();
+            double lengthEffect = random.NextDouble();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
-                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(
-                    new FailureMechanismSectionAssemblyResult(EFmSectionCategory.IIIv, double.NaN))
+                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
             };
 
             // Call
-            FmSectionAssemblyDirectResult result = kernel.DetailedAssessmentDirectFailureMechanisms(input);
+            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0G5(section, failureMechanism, lengthEffect, assessment, failureProbability);
 
             // Assert
             Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
         }
 
         [Test]
-        public void DetailedAssessmentDirectFailureMechanismsWithLengthEffect_ThrowExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0G5_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
             var random = new Random(39);
-            var input = new DetailedCalculationInputFromProbabilityWithLengthEffect(
-                new Probability(random.NextDouble()),
-                new[]
-                {
-                    new FailureMechanismSectionCategory(random.NextEnumValue<EFmSectionCategory>(),
-                                                        new Probability(random.NextRoundedDouble(0.0, 0.5)),
-                                                        new Probability(random.NextRoundedDouble(0.6, 1.0)))
-                },
-                random.NextRoundedDouble(1.0, 40.0));
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
+            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
+            double failureProbability = random.NextDouble();
+            double lengthEffect = random.NextDouble();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
@@ -512,13 +503,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             };
 
             // Call
-            TestDelegate test = () => kernel.DetailedAssessmentDirectFailureMechanisms(input);
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G5(section, failureMechanism, lengthEffect, assessment, failureProbability);
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-            Assert.IsNull(kernel.DetailedAssessmentFailureMechanismFromProbabilityWithLengthEffectInput);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsNull(kernel.AssessmentResultTypeG2Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
