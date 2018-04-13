@@ -59,13 +59,13 @@ namespace Ringtoets.Common.IO.TestUtil
         /// <param name="expectedDbfBodyLength">The expected body length of the .dbf file.</param>
         /// <exception cref="AssertionException">Thrown when the actual files do not contain the same binary
         /// content as the expected files.</exception>
-        private static void AssertEssentialShapefileMd5Hashes(string directoryPathWithActualFiles,
-                                                              string baseNameOfActualFiles,
-                                                              string directoryPathWithExpectedFiles,
-                                                              string baseNameOfExpectedFiles,
-                                                              int expectedShpBodyLength,
-                                                              int expectedShxBodyLength,
-                                                              int expectedDbfBodyLength)
+        public static void AssertEssentialShapefileMd5Hashes(string directoryPathWithActualFiles,
+                                                             string baseNameOfActualFiles,
+                                                             string directoryPathWithExpectedFiles,
+                                                             string baseNameOfExpectedFiles,
+                                                             int expectedShpBodyLength,
+                                                             int expectedShxBodyLength,
+                                                             int expectedDbfBodyLength)
         {
             string pathName = Path.Combine(directoryPathWithActualFiles, baseNameOfActualFiles);
             string refPathName = Path.Combine(directoryPathWithExpectedFiles, baseNameOfExpectedFiles);
