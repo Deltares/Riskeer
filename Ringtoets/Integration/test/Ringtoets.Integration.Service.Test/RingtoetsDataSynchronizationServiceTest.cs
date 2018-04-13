@@ -1695,15 +1695,7 @@ namespace Ringtoets.Integration.Service.Test
 
             private static IEnumerable<IObservable> GetAffectedGrassCoverErosionOutwardsFailureMechanismItems(GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism)
             {
-                var affectedObjects = new List<IObservable>();
-                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
-                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
-                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
-                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
-                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
-                affectedObjects.AddRange(grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
-
-                return affectedObjects;
+                return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
             }
 
             private static IEnumerable<IObservable> GetAffectedDuneErosionFailureMechanismItems(DuneErosionFailureMechanism duneErosionFailureMechanism)

@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
@@ -234,19 +235,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
             failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
 
+            IEnumerable<HydraulicBoundaryLocationCalculation> expectedAffectedItems =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism)
+                                                                             .ToArray();
+
             // Call
             IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(failureMechanism);
-            
+
             // Assert
-            var expectedAffectedItems = new[]
-            {
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First(),
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First(),
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First(),
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First()
-            };
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);
 
             Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !calc.HasOutput));

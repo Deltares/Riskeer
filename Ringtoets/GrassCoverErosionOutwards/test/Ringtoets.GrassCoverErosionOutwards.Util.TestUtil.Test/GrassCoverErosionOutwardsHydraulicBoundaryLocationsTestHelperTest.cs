@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -67,6 +68,68 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
             AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, locations, setCalculationOutput);
+        }
+
+        [Test]
+        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismWithoutHydraulicBoundaryLocationCalculations_ReturnsEmpty()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+
+            // Assert
+            CollectionAssert.IsEmpty(calculations);
+        }
+
+        [Test]
+        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismWithHydraulicBoundaryCalculations_ReturnsCalculationsWithOutput()
+        {
+            // Setup
+            var hydraulicBoundaryLocations = new[]
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+
+            // Call
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+
+            // Assert
+            var expectedCalculations = new[]
+            {
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First(),
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First(),
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First(),
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First()
+            };
+            CollectionAssert.AreEquivalent(expectedCalculations, calculations);
         }
 
         private static void AssertHydraulicBoundaryCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,

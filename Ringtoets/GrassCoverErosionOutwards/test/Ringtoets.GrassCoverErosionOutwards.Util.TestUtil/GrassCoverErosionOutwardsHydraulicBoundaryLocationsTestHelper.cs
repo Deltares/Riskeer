@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -63,12 +64,39 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
             }
         }
 
-        private static void CreateHydraulicBoundaryLocationCalculationsOutput(IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        /// <summary>
+        /// Gets all the <see cref="HydraulicBoundaryLocationCalculation"/> that have an output within the <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to retrieve the calculations from.</param>
+        /// <returns>A collection of all the hydraulic boundary location calculations that contain an output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicBoundaryLocationsCalculationsWithOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput)
+                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+        }
+
+        private static void CreateHydraulicBoundaryLocationCalculationsOutput(
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {
             foreach (HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation in hydraulicBoundaryLocationCalculations)
             {
                 hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
             }
+        }
+
+        private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)
+        {
+            return calculation.HasOutput;
         }
     }
 }
