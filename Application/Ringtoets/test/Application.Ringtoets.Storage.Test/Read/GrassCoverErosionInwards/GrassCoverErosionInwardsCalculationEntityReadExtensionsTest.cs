@@ -218,31 +218,31 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         public void Read_ValidEntityWithAlreadyReadHydraulicLocationEntity_ReturnCalculationWithReadHydraulicBoundaryLocation()
         {
             // Setup
-            var hydroLocation = new HydraulicBoundaryLocation(1, "A", 0, 0);
-            var hydroLocationEntity = new HydraulicLocationEntity();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 0, 0);
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                HydraulicLocationEntity = hydroLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();
-            collector.Read(hydroLocationEntity, hydroLocation);
+            collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
             GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
 
             // Assert
-            Assert.AreSame(hydroLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         [Test]
         public void Read_ValidEntityWithUnreadHydraulicLocationEntity_ReturnCalculationWithNewHydraulicBoundaryLocation()
         {
             // Setup
-            HydraulicLocationEntity hydroLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
+            HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
-                HydraulicLocationEntity = hydroLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();
@@ -252,7 +252,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.IsNotNull(calculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsTrue(collector.Contains(hydroLocationEntity));
+            Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
         }
 
         [Test]

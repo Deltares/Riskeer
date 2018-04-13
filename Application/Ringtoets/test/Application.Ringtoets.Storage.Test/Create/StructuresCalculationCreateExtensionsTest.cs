@@ -654,17 +654,17 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateForClosingStructures_CalculationWithHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
-            var alreadyRegisteredHydroLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = alreadyRegisteredHydroLocation
+                    HydraulicBoundaryLocation = alreadyRegisteredHydraulicBoundaryLocation
                 }
             };
 
             var registry = new PersistenceRegistry();
-            registry.Register(new HydraulicLocationEntity(), alreadyRegisteredHydroLocation);
+            registry.Register(new HydraulicLocationEntity(), alreadyRegisteredHydraulicBoundaryLocation);
 
             // Call
             ClosingStructuresCalculationEntity entity = calculation.CreateForClosingStructures(registry, 0);
@@ -1164,17 +1164,17 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateForStabilityPointStructures_CalculationWithHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
-            var alreadyRegisteredHydroLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = alreadyRegisteredHydroLocation
+                    HydraulicBoundaryLocation = alreadyRegisteredHydraulicBoundaryLocation
                 }
             };
 
             var registry = new PersistenceRegistry();
-            registry.Register(new HydraulicLocationEntity(), alreadyRegisteredHydroLocation);
+            registry.Register(new HydraulicLocationEntity(), alreadyRegisteredHydraulicBoundaryLocation);
 
             // Call
             StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, 0);
