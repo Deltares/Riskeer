@@ -300,6 +300,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                    .Where(calc => calc.HasOutput)
                                                                                    .ToArray();
 
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationsWithOutput =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism)
+                                                                             .ToArray();
+
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             IEnumerable<IObservable> expectedAffectedObjects = GetAllAffectedDuneErosionLocationCalculations(duneErosionFailureMechanism)
                                                                .Concat(new IObservable[]
@@ -322,13 +327,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
-
-            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
-            {
-                Assert.IsTrue(location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.IsTrue(location.WaveHeightCalculation1.HasOutput);
-            }
-
+            Assert.IsTrue(hydraulicBoundaryLocationsWithOutput.All(c => c.HasOutput));
             AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
 
             mocks.VerifyAll();
@@ -373,13 +372,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.AreEqual(newComposition, assessmentSection.Composition);
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
-
-            foreach (HydraulicBoundaryLocation location in assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
-            {
-                Assert.IsFalse(location.DesignWaterLevelCalculation1.HasOutput);
-                Assert.IsFalse(location.WaveHeightCalculation1.HasOutput);
-            }
-
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
             AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
 
             mocks.VerifyAll();
