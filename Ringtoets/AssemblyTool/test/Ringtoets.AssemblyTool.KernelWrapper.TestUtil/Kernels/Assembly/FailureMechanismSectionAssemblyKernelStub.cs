@@ -111,7 +111,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets or sets the failure mechanism section assembly result.
         /// </summary>
-        public FmSectionAssemblyDirectResult FailureMechanismSectionAssemblyResult { get; set; }
+        public FmSectionAssemblyDirectResult FailureMechanismSectionDirectResult { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
@@ -133,7 +133,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             AssessmentResultTypeE1Input = assessment;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0E2(EAssessmentResultTypeE1 assessment)
@@ -151,7 +151,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             AssessmentResultTypeE2Input = assessment;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0E4(EAssessmentResultTypeE2 assessment)
@@ -169,7 +169,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             AssessmentResultTypeG1Input = assessment;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0G2(EAssessmentResultTypeG1 assessment)
@@ -193,7 +193,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             FailureProbabilityInput = failureProbability;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G4(EAssessmentResultTypeG2 assessment, EFmSectionCategory? category)
@@ -219,7 +219,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             LengthEffectFactorInput = fmSectionLengthEffectFactor;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G6(FmSectionCategoryCompliancyResults compliancyResults)
@@ -232,7 +232,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             CategoryCompliancyResultsInput = compliancyResults;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T1(EAssessmentResultTypeT1 assessment)
@@ -245,7 +245,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             AssessmentResultTypeT1Input = assessment;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0T2(EAssessmentResultTypeT2 assessment)
@@ -269,7 +269,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             FailureProbabilityInput = failureProbability;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T4(EAssessmentResultTypeT3 assessment, EFmSectionCategory? category)
@@ -283,7 +283,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             SectionCategoryInput = category;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T5(AssessmentSection section,
@@ -304,7 +304,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             LengthEffectFactorInput = LengthEffectFactorInput;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T6(FmSectionCategoryCompliancyResults compliancyResults, EAssessmentResultTypeT3 assessment)
@@ -331,7 +331,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             TailorMadeAssessmentResultInput = tailorMadeAssessmentResult;
 
             Calculated = true;
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyIndirectResult simpleAssessmentResult,
