@@ -695,7 +695,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T4_ThrowExceptionOnCalculateFalse_ThrowsException()
+        public void TranslateAssessmentResultWbi0T4_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        {
+            // Setup
+            var random = new Random(39);
+            var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
+            var category = random.NextEnumValue<EFmSectionCategory>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
+            };
+
+            // Call
+            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0T4(assessment, category);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0T4_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
             var random = new Random(39);
@@ -801,6 +821,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.LengthEffectFactorInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0T6_Always_ThrowNotImplementedException()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssemblyKernelStub();
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T6(null, EAssessmentResultTypeT3.Ngo);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0T7_Always_ThrowNotImplementedException()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssemblyKernelStub();
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T7(null, null, EAssessmentResultTypeT4.Ngo, null);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
         }
 
         #endregion
