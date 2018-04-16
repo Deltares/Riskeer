@@ -263,10 +263,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         #region Failure Mechanism Section Assembly
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategoryResult_AssemblyNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyDirectResult_AssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(null);
+            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -283,7 +283,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EFmSectionCategory.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EFmSectionCategory.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EFmSectionCategory.VIIv)]
-        public void CreateFailureMechanismSectionAssemblyCategoryResult_WithAssembly_ReturnFailureMechanismSectionAssemblyCategoryResult(
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithAssembly_ReturnFailureMechanismSectionAssemblyCategoryResult(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             EFmSectionCategory expectedGroup)
         {
@@ -292,7 +292,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var assembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
 
             // Call
-            FmSectionAssemblyDirectResult input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(
+            FmSectionAssemblyDirectResult input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
                 assembly);
 
             // Assert
@@ -301,10 +301,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategoryResult_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
                 new FailureMechanismSectionAssembly(0, (FailureMechanismSectionAssemblyCategoryGroup) 99));
 
             // Assert
@@ -322,12 +322,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EFmSectionCategory.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EFmSectionCategory.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EFmSectionCategory.VIIv)]
-        public void ConvertFailureMechanismSectionAssemblyCategoryGroup_ValidGroup_ReturnEFmSectionCategory(
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithValidGroup_ReturnEFmSectionCategory(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             EFmSectionCategory expectedGroup)
         {
             // Call
-            EFmSectionCategory actualGroup = FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionAssemblyCategoryGroup(
+            FmSectionAssemblyDirectResult actualGroup = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
                 originalGroup);
 
             // Assert
@@ -335,10 +335,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void ConvertFailureMechanismSectionAssemblyCategoryGroup_InvalidGroup_ThrowInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithInvalidGroup_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionAssemblyCategoryGroup(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
                 (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
