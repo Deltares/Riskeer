@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
@@ -102,72 +100,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates <see cref="DetailedCalculationInputFromProbability"/> based on the given parameters.
-        /// </summary>
-        /// <param name="probability">The calculated probability to create the input for.</param>
-        /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
-        /// create the input for.</param>
-        /// <returns>The created <see cref="DetailedCalculationInputFromProbability"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
-        /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
-        /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
-        /// invalid value.</exception>
-        public static DetailedCalculationInputFromProbability CreateDetailedCalculationInputFromProbability(
-            double probability,
-            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
-        {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            return new DetailedCalculationInputFromProbability(new Probability(probability),
-                                                               categories.Select(category => new FailureMechanismSectionCategory(
-                                                                                     ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
-                                                                                     new Probability(category.LowerBoundary),
-                                                                                     new Probability(category.UpperBoundary))).ToArray());
-        }
-
-        /// <summary>
-        /// Creates <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/> based on the given parameters.
-        /// </summary>
-        /// <param name="probability">The calculated probability to create the input for.</param>
-        /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
-        /// create the input for.</param>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
-        /// <returns>The created <see cref="DetailedCalculationInputFromProbabilityWithLengthEffect"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categories"/> contains
-        /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="categories"/> contains
-        /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
-        /// invalid value.</exception>
-        public static DetailedCalculationInputFromProbabilityWithLengthEffect CreateDetailedCalculationInputFromProbabilityWithLengthEffect(
-            double probability,
-            IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
-            double n)
-        {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            return new DetailedCalculationInputFromProbabilityWithLengthEffect(
-                new Probability(probability),
-                categories.Select(category => new FailureMechanismSectionCategory(
-                                      ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
-                                      new Probability(category.LowerBoundary),
-                                      new Probability(category.UpperBoundary))).ToArray(),
-                n);
-        }
-
-        /// <summary>
         /// Creates <see cref="FailureMechanismSectionAssemblyCategoryResult"/> based on the given parameters.
         /// </summary>
         /// <param name="assembly">The assembly to convert.</param>
@@ -224,39 +156,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             compliancyResults.Set(EFmSectionCategory.IVv, CreateCategoryCompliancy(detailedAssessmentResultForLowerLimitNorm));
             compliancyResults.Set(EFmSectionCategory.Vv, CreateCategoryCompliancy(detailedAssessmentResultForFactorizedLowerLimitNorm));
             return compliancyResults;
-        }
-
-        /// <summary>
-        /// Creates a <see cref="ECategoryCompliancy"/> based on the given <see cref="DetailedAssessmentResultType"/>.
-        /// </summary>
-        /// <param name="detailedAssessmentResult">The detailed assessment result to create the category compliancy for.</param>
-        /// <returns>The created detailed calculation result.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
-        /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
-        /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
-        private static ECategoryCompliancy CreateCategoryCompliancy(DetailedAssessmentResultType detailedAssessmentResult)
-        {
-            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
-            {
-                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
-                                                       (int) detailedAssessmentResult,
-                                                       typeof(DetailedAssessmentResultType));
-            }
-
-            switch (detailedAssessmentResult)
-            {
-                case DetailedAssessmentResultType.None:
-                    return ECategoryCompliancy.NoResult;
-                case DetailedAssessmentResultType.Sufficient:
-                    return ECategoryCompliancy.Complies;
-                case DetailedAssessmentResultType.Insufficient:
-                    return ECategoryCompliancy.DoesNotComply;
-                case DetailedAssessmentResultType.NotAssessed:
-                    return ECategoryCompliancy.Ngo;
-                default:
-                    throw new NotSupportedException();
-            }
         }
 
         /// <summary>
@@ -427,94 +326,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates <see cref="TailorMadeCalculationInputFromProbability"/> based on the given parameters.
-        /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create
-        /// the input for.</param>
-        /// <param name="probability">The calculated probability to create the input for.</param>
-        /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
-        /// create the input for.</param>
-        /// <returns>The created <see cref="TailorMadeCalculationInputFromProbability"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><see cref="categories"/> contains an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>;</item>
-        /// <item><see cref="tailorMadeAssessmentResult"/> is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="NotSupportedException">Thrown when:
-        /// <list type="bullet">
-        /// <item><see cref="categories"/> contains a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>;</item>
-        /// <item><see cref="tailorMadeAssessmentResult"/> a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
-        /// invalid value.</exception>
-        public static TailorMadeCalculationInputFromProbability CreateTailorMadeCalculationInputFromProbability(
-            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-            double probability,
-            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
-        {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            return new TailorMadeCalculationInputFromProbability(ConvertTailorMadeProbabilityCalculationResult(tailorMadeAssessmentResult, probability),
-                                                                 categories.Select(category => new FailureMechanismSectionCategory(
-                                                                                       ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
-                                                                                       new Probability(category.LowerBoundary),
-                                                                                       new Probability(category.UpperBoundary))).ToArray());
-        }
-
-        /// <summary>
-        /// Creates <see cref="TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor"/> based on the given parameters.
-        /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create
-        /// the input for.</param>
-        /// <param name="probability">The calculated probability to create the input for.</param>
-        /// <param name="categories">A collection of <see cref="FailureMechanismSectionAssemblyCategory"/> to
-        /// create the input for.</param>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
-        /// <returns>The created <see cref="TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><see cref="categories"/> contains an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>;</item>
-        /// <item><see cref="tailorMadeAssessmentResult"/> is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="NotSupportedException">Thrown when:
-        /// <list type="bullet">
-        /// <item><see cref="categories"/> contains a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>;</item>
-        /// <item><see cref="tailorMadeAssessmentResult"/> a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</item>
-        /// </list>
-        /// </exception>
-        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
-        /// invalid value.</exception>
-        public static TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor CreateTailorMadeCalculationInputFromProbabilityWithLengthEffectFactor(
-            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-            double probability,
-            IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
-            double n)
-        {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            return new TailorMadeCalculationInputFromProbabilityWithLengthEffectFactor(
-                ConvertTailorMadeProbabilityCalculationResult(tailorMadeAssessmentResult, probability),
-                categories.Select(category => new FailureMechanismSectionCategory(
-                                      ConvertFailureMechanismSectionAssemblyCategoryGroup(category.Group),
-                                      new Probability(category.LowerBoundary),
-                                      new Probability(category.UpperBoundary))).ToArray(),
-                n);
-        }
-
-        /// <summary>
         /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
@@ -523,7 +334,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionCategoryGroup ConvertFailureMechanismSectionAssemblyCategoryGroup(
+        public static EFmSectionCategory ConvertFailureMechanismSectionAssemblyCategoryGroup(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
@@ -536,23 +347,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             switch (category)
             {
                 case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return FailureMechanismSectionCategoryGroup.Iv;
+                    return EFmSectionCategory.Iv;
                 case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return FailureMechanismSectionCategoryGroup.IIv;
+                    return EFmSectionCategory.IIv;
                 case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return FailureMechanismSectionCategoryGroup.IIIv;
+                    return EFmSectionCategory.IIIv;
                 case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return FailureMechanismSectionCategoryGroup.IVv;
+                    return EFmSectionCategory.IVv;
                 case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return FailureMechanismSectionCategoryGroup.Vv;
+                    return EFmSectionCategory.Vv;
                 case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return FailureMechanismSectionCategoryGroup.VIv;
+                    return EFmSectionCategory.VIv;
                 case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                    return FailureMechanismSectionCategoryGroup.VIIv;
+                    return EFmSectionCategory.VIIv;
                 case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                    return FailureMechanismSectionCategoryGroup.NotApplicable;
+                    return EFmSectionCategory.NotApplicable;
                 case FailureMechanismSectionAssemblyCategoryGroup.None:
-                    return FailureMechanismSectionCategoryGroup.None;
+                    return EFmSectionCategory.Gr;
                 default:
                     throw new NotSupportedException();
             }
@@ -602,38 +413,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/> and the given
-        /// <paramref name="probability"/> to a <see cref="TailorMadeProbabilityCalculationResult"/>.
+        /// Creates a <see cref="ECategoryCompliancy"/> based on the given <see cref="DetailedAssessmentResultType"/>.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create
-        /// the input for.</param>
-        /// <param name="probability">The calculated probability to create the input for.</param>
-        /// <returns>The converted <see cref="TailorMadeProbabilityCalculationResult"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
-        /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
-        /// is a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
-        private static TailorMadeProbabilityCalculationResult ConvertTailorMadeProbabilityCalculationResult(
-            TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-            double probability)
+        /// <param name="detailedAssessmentResult">The detailed assessment result to create the category compliancy for.</param>
+        /// <returns>The created detailed calculation result.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
+        private static ECategoryCompliancy CreateCategoryCompliancy(DetailedAssessmentResultType detailedAssessmentResult)
         {
-            if (!Enum.IsDefined(typeof(TailorMadeAssessmentProbabilityCalculationResultType), tailorMadeAssessmentResult))
+            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
             {
-                throw new InvalidEnumArgumentException(nameof(tailorMadeAssessmentResult),
-                                                       (int) tailorMadeAssessmentResult,
-                                                       typeof(TailorMadeAssessmentProbabilityCalculationResultType));
+                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
+                                                       (int) detailedAssessmentResult,
+                                                       typeof(DetailedAssessmentResultType));
             }
 
-            switch (tailorMadeAssessmentResult)
+            switch (detailedAssessmentResult)
             {
-                case TailorMadeAssessmentProbabilityCalculationResultType.None:
-                    return new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.None);
-                case TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible:
-                    return new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.FV);
-                case TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed:
-                    return new TailorMadeProbabilityCalculationResult(TailorMadeProbabilityCalculationResultGroup.NGO);
-                case TailorMadeAssessmentProbabilityCalculationResultType.Probability:
-                    return new TailorMadeProbabilityCalculationResult(new Probability(probability));
+                case DetailedAssessmentResultType.None:
+                    return ECategoryCompliancy.NoResult;
+                case DetailedAssessmentResultType.Sufficient:
+                    return ECategoryCompliancy.Complies;
+                case DetailedAssessmentResultType.Insufficient:
+                    return ECategoryCompliancy.DoesNotComply;
+                case DetailedAssessmentResultType.NotAssessed:
+                    return ECategoryCompliancy.Ngo;
                 default:
                     throw new NotSupportedException();
             }
