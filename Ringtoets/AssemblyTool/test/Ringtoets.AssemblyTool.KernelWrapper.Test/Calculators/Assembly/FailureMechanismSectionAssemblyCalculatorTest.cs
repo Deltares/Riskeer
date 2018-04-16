@@ -22,6 +22,8 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using Assembly.Kernel.Model.AssessmentResultTypes;
+using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -64,31 +66,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             Assert.AreEqual("factory", exception.ParamName);
         }
 
-        private static void AssertCalculatorOutput(CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> original, FailureMechanismSectionAssembly actual)
+        private static void AssertCalculatorOutput(FmSectionAssemblyDirectResult original, FailureMechanismSectionAssembly actual)
         {
-            Assert.AreEqual(GetGroup(original.Result.CategoryGroup), actual.Group);
-            Assert.AreEqual(original.Result.EstimatedProbabilityOfFailure, actual.Probability);
+            Assert.AreEqual(GetGroup(original.Result), actual.Group);
+            Assert.AreEqual(original.FailureProbability, actual.Probability);
         }
 
-        private static FailureMechanismSectionAssemblyCategoryGroup GetGroup(FailureMechanismSectionCategoryGroup originalGroup)
+        private static FailureMechanismSectionAssemblyCategoryGroup GetGroup(EFmSectionCategory originalGroup)
         {
             switch (originalGroup)
             {
-                case FailureMechanismSectionCategoryGroup.Iv:
+                case EFmSectionCategory.Iv:
                     return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case FailureMechanismSectionCategoryGroup.IIv:
+                case EFmSectionCategory.IIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case FailureMechanismSectionCategoryGroup.IIIv:
+                case EFmSectionCategory.IIIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case FailureMechanismSectionCategoryGroup.IVv:
+                case EFmSectionCategory.IVv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case FailureMechanismSectionCategoryGroup.Vv:
+                case EFmSectionCategory.Vv:
                     return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case FailureMechanismSectionCategoryGroup.VIv:
+                case EFmSectionCategory.VIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case FailureMechanismSectionCategoryGroup.VIIv:
+                case EFmSectionCategory.VIIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case FailureMechanismSectionCategoryGroup.None:
+                case EFmSectionCategory.Gr:
                     return FailureMechanismSectionAssemblyCategoryGroup.None;
                 default:
                     throw new NotSupportedException();
@@ -353,8 +355,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    random.NextEnumValue<FailureMechanismSectionCategoryGroup>());
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -362,7 +363,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleDetailedAssessment(detailedAssessmentResult);
 
                 // Assert
-                Assert.AreEqual(kernel.DetailedCalculationResultInput, GetDetailedCalculationResult(detailedAssessmentResult));
+                Assert.AreEqual(kernel.AssessmentResultTypeG1Input, GetAssessmentResultTypeG1(detailedAssessmentResult));
             }
         }
 
@@ -377,8 +378,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    (FailureMechanismSectionCategoryGroup) 99);
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -403,8 +403,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    random.NextEnumValue<FailureMechanismSectionCategoryGroup>());
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -413,7 +412,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     random.NextEnumValue<DetailedAssessmentResultType>());
 
                 // Assert
-                Assert.AreEqual(GetGroup(kernel.FailureMechanismSectionAssemblyCategoryGroup.Result), assembly);
+                Assert.AreEqual(GetGroup(kernel.FailureMechanismSectionDirectResult.Result), assembly);
             }
         }
 
@@ -940,15 +939,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Assert.AreEqual(kernel.DetailedAssessmentFailureMechanismFromCategoriesInput.ResultItoII,
-                                GetDetailedCalculationResult(detailedAssessmentResultForFactorizedSignalingNorm));
+                                GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedSignalingNorm));
                 Assert.AreEqual(kernel.DetailedAssessmentFailureMechanismFromCategoriesInput.ResultIItoIII,
-                                GetDetailedCalculationResult(detailedAssessmentResultForSignalingNorm));
+                                GetAssessmentResultTypeG1(detailedAssessmentResultForSignalingNorm));
                 Assert.AreEqual(kernel.DetailedAssessmentFailureMechanismFromCategoriesInput.ResultIIItoIV,
-                                GetDetailedCalculationResult(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+                                GetAssessmentResultTypeG1(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
                 Assert.AreEqual(kernel.DetailedAssessmentFailureMechanismFromCategoriesInput.ResultIVtoV,
-                                GetDetailedCalculationResult(detailedAssessmentResultForLowerLimitNorm));
+                                GetAssessmentResultTypeG1(detailedAssessmentResultForLowerLimitNorm));
                 Assert.AreEqual(kernel.DetailedAssessmentFailureMechanismFromCategoriesInput.ResultVtoVI,
-                                GetDetailedCalculationResult(detailedAssessmentResultForFactorizedLowerLimitNorm));
+                                GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedLowerLimitNorm));
             }
         }
 
@@ -1046,18 +1045,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static DetailedCalculationResult GetDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        private static EAssessmentResultTypeG1 GetAssessmentResultTypeG1(DetailedAssessmentResultType detailedAssessmentResult)
         {
             switch (detailedAssessmentResult)
             {
                 case DetailedAssessmentResultType.None:
-                    return DetailedCalculationResult.None;
+                    return EAssessmentResultTypeG1.Gr;
                 case DetailedAssessmentResultType.Sufficient:
-                    return DetailedCalculationResult.V;
+                    return EAssessmentResultTypeG1.V;
                 case DetailedAssessmentResultType.Insufficient:
-                    return DetailedCalculationResult.VN;
+                    return EAssessmentResultTypeG1.Vn;
                 case DetailedAssessmentResultType.NotAssessed:
-                    return DetailedCalculationResult.NGO;
+                    return EAssessmentResultTypeG1.Ngo;
                 default:
                     throw new NotSupportedException();
             }
