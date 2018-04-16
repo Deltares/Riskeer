@@ -40,13 +40,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Factories
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The collection of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> to create the calculation features for.</param>
-        /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
+        /// <param name="calculations">The collection of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
+        /// to create the calculation features for.</param>
+        /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> 
+        /// is <c>null</c> or empty.</returns>
         public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations)
         {
-            bool hasCalculations = calculations != null && calculations.Any();
-
-            if (!hasCalculations)
+            if (calculations == null || !calculations.Any())
             {
                 return new MapFeature[0];
             }

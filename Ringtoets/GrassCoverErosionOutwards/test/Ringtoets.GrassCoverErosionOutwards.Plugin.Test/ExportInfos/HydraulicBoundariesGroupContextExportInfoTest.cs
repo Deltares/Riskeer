@@ -37,7 +37,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class HydraulicBoundariesGroupContextLocationsExportInfoTest
+    public class HydraulicBoundariesGroupContextExportInfoTest
     {
         private ExportInfo exportInfo;
 

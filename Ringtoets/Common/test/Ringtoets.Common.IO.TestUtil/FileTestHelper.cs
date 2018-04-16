@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.TestUtil
 
         /// <summary>
         /// Asserts whether all essential shapefile related files (.shp, .shx and .dbf) contain the same binary
-        /// content as some corresponding reference files.
+        /// content as the reference files.
         /// </summary>
         /// <param name="directoryPathWithActualFiles">The directory to obtain the actual files from.</param>
         /// <param name="baseNameOfActualFiles">The base name of the actual files.</param>
