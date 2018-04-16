@@ -20,20 +20,20 @@
 // All rights reserved.
 
 using System;
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Categories;
-using AssemblyTool.Kernel.Categories.CalculatorInput;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
+using System.Collections.Generic;
+using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.CategoryLimits;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 {
     /// <summary>
     /// Assembly categories kernel stub for testing purposes.
     /// </summary>
-    public class AssemblyCategoriesKernelStub : ICategoriesCalculator
+    public class AssemblyCategoriesKernelStub : ICategoryLimitsCalculator
     {
         /// <summary>
-        /// Gets a value indicating whether <see cref="CalculateAssessmentSectionCategories"/> was called or not.
+        /// Gets a value indicating whether a calculation was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
 
@@ -65,61 +65,61 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         /// <summary>
         /// Gets or sets the assessment section categories output.
         /// </summary>
-        public CalculationOutput<AssessmentSectionCategory[]> AssessmentSectionCategoriesOutput { get; set; }
+        public IEnumerable<AssessmentSectionCategoryLimits> AssessmentSectionCategoriesOutput { get; set; }
 
         /// <summary>
         /// Gets or sets the failure mechanism section categories output.
         /// </summary>
-        public CalculationOutput<FailureMechanismSectionCategory[]> FailureMechanismSectionCategoriesOutput { get; set; }
+        public IEnumerable<FmSectionCategoryLimits> FailureMechanismSectionCategoriesOutput { get; set; }
 
-        public CalculationOutput<AssessmentSectionCategory[]> CalculateAssessmentSectionCategories(CalculateAssessmentSectionCategoriesInput input)
+        public IEnumerable<AssessmentSectionCategoryLimits> CalculateAssessmentSectionCategoryLimitsWbi21(AssessmentSection section)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            SignalingNorm = input.SignalingStandard;
-            LowerLimitNorm = input.LowerBoundaryStandard;
+            SignalingNorm = section.FailureProbabilitySignallingLimit;
+            LowerLimitNorm = section.FailureProbabilityLowerLimit;
 
             Calculated = true;
 
             return AssessmentSectionCategoriesOutput;
         }
 
-        public CalculationOutput<FailureMechanismCategory[]> CalculateFailureMechanismCategories(CalculateFailureMechanismCategoriesInput input)
+        public IEnumerable<FailureMechanismCategoryLimits> CalculateFailureMechanismCategoryLimitsWbi11(AssessmentSection section, FailureMechanism failureMechanism)
         {
             throw new NotImplementedException();
         }
 
-        public CalculationOutput<FailureMechanismSectionCategory[]> CalculateFailureMechanismSectionCategories(CalculateFailureMechanismSectionCategoriesInput input)
+        public IEnumerable<FmSectionCategoryLimits> CalculateFmSectionCategoryLimitsWbi01(AssessmentSection section, FailureMechanism failureMechanism)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            SignalingNorm = input.SignalingStandard;
-            LowerLimitNorm = input.LowerBoundaryStandard;
-            FailureMechanismContribution = input.ProbabilityDistributionFactor;
-            N = input.NValue;
+            SignalingNorm = section.FailureProbabilitySignallingLimit;
+            LowerLimitNorm = section.FailureProbabilityLowerLimit;
+            FailureMechanismContribution = failureMechanism.FailureProbabilityMarginFactor;
+            N = failureMechanism.LengthEffectFactor;
 
             Calculated = true;
 
             return FailureMechanismSectionCategoriesOutput;
         }
 
-        public CalculationOutput<FailureMechanismSectionCategory[]> CalculateGeotechnicFailureMechanismSectionCategories(CalculateFailureMechanismSectionCategoriesInput input)
+        public IEnumerable<FmSectionCategoryLimits> CalculateFmSectionCategoryLimitsWbi02(AssessmentSection section, FailureMechanism failureMechanism)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
             }
 
-            SignalingNorm = input.SignalingStandard;
-            LowerLimitNorm = input.LowerBoundaryStandard;
-            FailureMechanismContribution = input.ProbabilityDistributionFactor;
-            N = input.NValue;
+            SignalingNorm = section.FailureProbabilitySignallingLimit;
+            LowerLimitNorm = section.FailureProbabilityLowerLimit;
+            FailureMechanismContribution = failureMechanism.FailureProbabilityMarginFactor;
+            N = failureMechanism.LengthEffectFactor;
 
             Calculated = true;
 
