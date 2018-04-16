@@ -257,6 +257,35 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
+        /// Creates a <see cref="EAssessmentResultTypeG2"/> based on the given <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.
+        /// </summary>
+        /// <param name="detailedAssessmentResult">The detailed assessment result to create the result for.</param>
+        /// <returns>The created detailed calculation result.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is an invalid <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is a valid but unsupported <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
+        public static EAssessmentResultTypeG2 CreateAssessmentResultTypeG2(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
+        {
+            if (!Enum.IsDefined(typeof(DetailedAssessmentProbabilityOnlyResultType), detailedAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
+                                                       (int) detailedAssessmentResult,
+                                                       typeof(DetailedAssessmentProbabilityOnlyResultType));
+            }
+
+            switch (detailedAssessmentResult)
+            {
+                case DetailedAssessmentProbabilityOnlyResultType.Probability:
+                    return EAssessmentResultTypeG2.ResultSpecified;
+                case DetailedAssessmentProbabilityOnlyResultType.NotAssessed:
+                    return EAssessmentResultTypeG2.Ngo;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
         /// Creates a <see cref="TailorMadeCalculationResult"/> based on the given <see cref="TailorMadeAssessmentResultType"/>.
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create the result for.</param>

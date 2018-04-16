@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
@@ -109,75 +110,47 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
-                                                                          IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+                                                                          AssessmentSection assessmentSection,
+                                                                          FailureMechanism failureMechanism)
         {
-            if (!Enum.IsDefined(typeof(DetailedAssessmentProbabilityOnlyResultType), detailedAssessmentResult))
+            try
             {
-                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
-                                                       (int) detailedAssessmentResult,
-                                                       typeof(DetailedAssessmentProbabilityOnlyResultType));
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G3(
+                    assessmentSection,
+                    failureMechanism,
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
+                    probability);
+
+                return FailureMechanismSectionAssemblyCreator.Create(output);
             }
-
-            switch (detailedAssessmentResult)
+            catch (Exception e)
             {
-                case DetailedAssessmentProbabilityOnlyResultType.Probability:
-                    try
-                    {
-                        IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                        FmSectionAssemblyDirectResult output = kernel.DetailedAssessmentDirectFailureMechanisms(
-                            FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbability(probability,
-                                                                                                                                categories));
-
-                        return FailureMechanismSectionAssemblyCreator.Create(output);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
-                    }
-                case DetailedAssessmentProbabilityOnlyResultType.NotAssessed:
-                    return FailureMechanismSectionAssemblyCreator.Create(new FailureMechanismSectionAssemblyCategoryResult(
-                                                                             FailureMechanismSectionCategoryGroup.VIIv,
-                                                                             new Probability(0.0)));
-                default:
-                    throw new NotSupportedException();
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
         }
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
-                                                                          IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
-                                                                          double n)
+                                                                          double n,
+                                                                          AssessmentSection assessmentSection,
+                                                                          FailureMechanism failureMechanism)
         {
-            if (!Enum.IsDefined(typeof(DetailedAssessmentProbabilityOnlyResultType), detailedAssessmentResult))
+            try
             {
-                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
-                                                       (int) detailedAssessmentResult,
-                                                       typeof(DetailedAssessmentProbabilityOnlyResultType));
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G5(
+                    assessmentSection,
+                    failureMechanism,
+                    n,
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
+                    probability);
+
+                return FailureMechanismSectionAssemblyCreator.Create(output);
             }
-
-            switch (detailedAssessmentResult)
+            catch (Exception e)
             {
-                case DetailedAssessmentProbabilityOnlyResultType.Probability:
-                    try
-                    {
-                        IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                        FmSectionAssemblyDirectResult output = kernel.DetailedAssessmentDirectFailureMechanisms(
-                            FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromProbabilityWithLengthEffect(probability,
-                                                                                                                                                categories,
-                                                                                                                                                n));
-
-                        return FailureMechanismSectionAssemblyCreator.Create(output.Result);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
-                    }
-                case DetailedAssessmentProbabilityOnlyResultType.NotAssessed:
-                    return FailureMechanismSectionAssemblyCreator.Create(new FailureMechanismSectionAssemblyCategoryResult(
-                                                                             FailureMechanismSectionCategoryGroup.VIIv,
-                                                                             new Probability(0.0)));
-                default:
-                    throw new NotSupportedException();
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
         }
 

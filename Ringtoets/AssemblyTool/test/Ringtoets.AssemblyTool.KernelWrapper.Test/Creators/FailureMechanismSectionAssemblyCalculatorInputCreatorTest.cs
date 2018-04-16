@@ -323,6 +323,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(result, GetAssessmentResultTypeG1(detailedAssessmentResult));
         }
 
+        [Test]
+        public void CreateAssessmentResultTypeG2_InvalidEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(
+                (DetailedAssessmentProbabilityOnlyResultType) 99);
+
+            // Assert
+            string expectedMessage = "The value of argument 'detailedAssessmentResult' (99) is invalid for Enum type " +
+                                     $"'{nameof(DetailedAssessmentProbabilityOnlyResultType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.Probability)]
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.NotAssessed)]
+        public void CreateAssessmentResultTypeG2_ValidInput_ReturnsDetailedCalculationResult(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
+        {
+            // Call
+            EAssessmentResultTypeG2 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(result, GetAssessmentResultTypeG2(detailedAssessmentResult));
+        }
+
+
         private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
         {
             get
@@ -368,6 +394,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                     return EAssessmentResultTypeG1.Vn;
                 case DetailedAssessmentResultType.NotAssessed:
                     return EAssessmentResultTypeG1.Ngo;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private static EAssessmentResultTypeG2 GetAssessmentResultTypeG2(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
+        {
+            switch (detailedAssessmentResult)
+            {
+                case DetailedAssessmentProbabilityOnlyResultType.Probability:
+                    return EAssessmentResultTypeG2.ResultSpecified;
+                case DetailedAssessmentProbabilityOnlyResultType.NotAssessed:
+                    return EAssessmentResultTypeG2.Ngo;
                 default:
                     throw new NotSupportedException();
             }
