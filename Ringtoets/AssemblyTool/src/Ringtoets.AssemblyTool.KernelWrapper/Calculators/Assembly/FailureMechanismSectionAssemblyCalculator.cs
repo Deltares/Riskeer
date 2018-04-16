@@ -21,6 +21,7 @@
 
 using System;
 using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.AssessmentResultTypes;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
@@ -271,9 +272,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
-                        tailorMadeAssessmentResult));
+                Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> input = 
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(tailorMadeAssessmentResult);
+                
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T4(input.Item1, input.Item2);
+
                 return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(output.Result);
             }
             catch (Exception e)

@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
@@ -1462,13 +1463,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(39);
             var categoryGroupResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
+            
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    FailureMechanismSectionCategoryGroup.Iv);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -1476,7 +1475,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(categoryGroupResult);
 
                 // Assert
-                Assert.AreEqual(GetTailorMadeAssessmentResult(categoryGroupResult), kernel.TailorMadeCalculationInputFromCategoryResultInput);
+                Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> expectedInput = 
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(categoryGroupResult);
+
+                Assert.AreEqual(expectedInput.Item1, kernel.AssessmentResultTypeT3Input);
+                Assert.AreEqual(expectedInput.Item2, kernel.SectionCategoryInput);
             }
         }
 
@@ -1485,13 +1488,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    FailureMechanismSectionCategoryGroup.Iv);
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -1500,7 +1501,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Assert
-                Assert.AreEqual(GetGroup(kernel.FailureMechanismSectionAssemblyCategoryGroup.Result), assembly);
+                Assert.AreEqual(GetGroup(kernel.FailureMechanismSectionDirectResult.Result), assembly);
             }
         }
 
@@ -1509,13 +1510,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    (FailureMechanismSectionCategoryGroup) 99);
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -1536,7 +1535,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -1609,32 +1607,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     return EAssessmentResultTypeT4.Vn;
                 case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed:
                     return EAssessmentResultTypeT4.Ngo;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private static TailorMadeCategoryCalculationResult GetTailorMadeAssessmentResult(FailureMechanismSectionAssemblyCategoryGroup category)
-        {
-            switch (category)
-            {
-                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return TailorMadeCategoryCalculationResult.FV;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return TailorMadeCategoryCalculationResult.IIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return TailorMadeCategoryCalculationResult.IIIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return TailorMadeCategoryCalculationResult.IVv;
-                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return TailorMadeCategoryCalculationResult.Vv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return TailorMadeCategoryCalculationResult.VIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                    return TailorMadeCategoryCalculationResult.NGO;
-                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                case FailureMechanismSectionAssemblyCategoryGroup.None:
-                    return TailorMadeCategoryCalculationResult.None;
                 default:
                     throw new NotSupportedException();
             }

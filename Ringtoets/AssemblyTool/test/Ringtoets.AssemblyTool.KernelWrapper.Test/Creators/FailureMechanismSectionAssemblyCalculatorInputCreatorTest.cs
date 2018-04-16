@@ -274,8 +274,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, FailureMechanismCategoryGroup.NotApplicable)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, EFmSectionCategory.None)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, EFmSectionCategory.NotApplicable)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, EFmSectionCategory.Gr)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, EFmSectionCategory.Iv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, EFmSectionCategory.IIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, EFmSectionCategory.IIIv)]
@@ -292,12 +292,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var assembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
 
             // Call
-            FailureMechanismSectionAssemblyCategoryResult input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(
+            FmSectionAssemblyDirectResult input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyCategoryResult(
                 assembly);
 
             // Assert
-            Assert.AreEqual(assembly.Probability, input.EstimatedProbabilityOfFailure);
-            Assert.AreEqual(expectedGroup, input.CategoryGroup);
+            Assert.AreEqual(assembly.Probability, input.FailureProbability);
+            Assert.AreEqual(expectedGroup, input.Result);
         }
 
         [Test]
@@ -351,25 +351,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         #region Tailor Made Assessment
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, TailorMadeCategoryCalculationResult.None)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, TailorMadeCategoryCalculationResult.None)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, TailorMadeCategoryCalculationResult.FV)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, TailorMadeCategoryCalculationResult.IIv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, TailorMadeCategoryCalculationResult.IIIv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, TailorMadeCategoryCalculationResult.IVv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, TailorMadeCategoryCalculationResult.Vv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, TailorMadeCategoryCalculationResult.VIv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, TailorMadeCategoryCalculationResult.NGO)]
-        public void ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup_ValidGroup_ReturnEFmSectionCategory(
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.NotApplicable)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, EAssessmentResultTypeT3.Gr, null)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Iv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IVv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Vv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIv)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIIv)]
+        public void ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup_ValidGroup_ReturnsExpectedItems(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
-            TailorMadeCategoryCalculationResult expectedGroup)
+            EAssessmentResultTypeT3 expectedResult,
+            EFmSectionCategory? expectedGroup)
         {
             // Call
-            TailorMadeCategoryCalculationResult actualGroup = FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
-                originalGroup);
+            Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> actualGroup = 
+                FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(originalGroup);
 
             // Assert
-            Assert.AreEqual(expectedGroup, actualGroup);
+            Assert.AreEqual(expectedResult, actualGroup.Item1);
+            Assert.AreEqual(expectedGroup, actualGroup.Item2);
         }
 
         [Test]

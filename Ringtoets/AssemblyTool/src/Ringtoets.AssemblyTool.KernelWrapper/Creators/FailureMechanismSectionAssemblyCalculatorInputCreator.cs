@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
@@ -100,28 +101,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates <see cref="FailureMechanismSectionAssemblyCategoryResult"/> based on the given parameters.
+        /// Creates <see cref="FmSectionAssemblyDirectResult"/> based on the given parameters.
         /// </summary>
         /// <param name="assembly">The assembly to convert.</param>
-        /// <returns>The created <see cref="FailureMechanismSectionAssemblyCategoryResult"/>.</returns>
+        /// <returns>The created <see cref="FmSectionAssemblyDirectResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="assembly"/> contains
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="assembly"/> contains
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="AssemblyToolKernelException">Thrown when any input parameter has an
+        /// <exception cref="AssemblyException">Thrown when any input parameter has an
         /// invalid value.</exception>
-        public static FailureMechanismSectionAssemblyCategoryResult CreateFailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionAssembly assembly)
+        public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyCategoryResult(FailureMechanismSectionAssembly assembly)
         {
             if (assembly == null)
             {
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            return new FailureMechanismSectionAssemblyCategoryResult(
+            return new FmSectionAssemblyDirectResult(
                 ConvertFailureMechanismSectionAssemblyCategoryGroup(assembly.Group),
-                new Probability(assembly.Probability));
+                assembly.Probability);
         }
 
         /// <summary>
@@ -370,15 +371,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="TailorMadeCategoryCalculationResult"/>.
+        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
-        /// <returns>A <see cref="TailorMadeCategoryCalculationResult"/> based on <paramref name="category"/>.</returns>
+        /// <returns>A <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static TailorMadeCategoryCalculationResult ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+        public static Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
@@ -391,22 +392,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             switch (category)
             {
                 case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return TailorMadeCategoryCalculationResult.FV;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Iv);
                 case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return TailorMadeCategoryCalculationResult.IIv;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIv);
                 case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return TailorMadeCategoryCalculationResult.IIIv;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIIv);
                 case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return TailorMadeCategoryCalculationResult.IVv;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IVv);
                 case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return TailorMadeCategoryCalculationResult.Vv;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Vv);
                 case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return TailorMadeCategoryCalculationResult.VIv;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIv);
                 case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                    return TailorMadeCategoryCalculationResult.NGO;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIIv);
                 case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.NotApplicable);
                 case FailureMechanismSectionAssemblyCategoryGroup.None:
-                    return TailorMadeCategoryCalculationResult.None;
+                    return new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.Gr, null);
                 default:
                     throw new NotSupportedException();
             }
