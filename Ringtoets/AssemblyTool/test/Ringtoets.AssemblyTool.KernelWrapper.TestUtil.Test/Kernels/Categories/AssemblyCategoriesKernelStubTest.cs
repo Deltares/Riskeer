@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Categories;
-using AssemblyTool.Kernel.Categories.CalculatorInput;
-using AssemblyTool.Kernel.Data;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
+using System.Collections.Generic;
+using System.Linq;
+using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.CategoryLimits;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
@@ -38,258 +38,241 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         public void Constructor_ExpectedValues()
         {
             // Call
-            var kernelStub = new AssemblyCategoriesKernelStub();
+            var kernel = new AssemblyCategoriesKernelStub();
 
             // Assert
-            Assert.IsInstanceOf<ICategoriesCalculator>(kernelStub);
-            Assert.AreEqual(0, kernelStub.LowerLimitNorm);
-            Assert.AreEqual(0, kernelStub.SignalingNorm);
-            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsInstanceOf<ICategoryLimitsCalculator>(kernel);
+            Assert.AreEqual(0, kernel.LowerLimitNorm);
+            Assert.AreEqual(0, kernel.SignalingNorm);
+            Assert.AreEqual(0, kernel.N);
+            Assert.IsFalse(kernel.Calculated);
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        public void CalculateAssessmentSectionCategoryLimitsWbi21_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(11);
-            var lowerLimitNorm = new Probability(random.NextDouble());
-            var signalingNorm = new Probability(random.NextDouble());
-
-            var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateAssessmentSectionCategoriesInput(signalingNorm, lowerLimitNorm);
-
-            // Call
-            kernelStub.CalculateAssessmentSectionCategories(input);
-
-            // Assert
-            Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
-        }
-
-        [Test]
-        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub();
+            double lowerLimitNorm = random.NextDouble(0.5, 0.9);
+            double signalingNorm = random.NextDouble(0.0, 0.4);
+            var section = new AssessmentSection(random.NextDouble(), signalingNorm, lowerLimitNorm);
+            var kernel = new AssemblyCategoriesKernelStub();
 
             // Precondition
-            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsFalse(kernel.Calculated);
 
             // Call
-            kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(
-                                                                new Probability(0), new Probability(0)));
+            kernel.CalculateAssessmentSectionCategoryLimitsWbi21(section);
 
             // Assert
-            Assert.IsTrue(kernelStub.Calculated);
+            Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
+
+            // Assert
+            Assert.IsTrue(kernel.Calculated);
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        public void CalculateAssessmentSectionCategoryLimitsWbi21_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
         {
             // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub
+            var random = new Random(11);
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9));
+            var kernel = new AssemblyCategoriesKernelStub
             {
-                AssessmentSectionCategoriesOutput = new CalculationOutput<AssessmentSectionCategory[]>(new AssessmentSectionCategory[0])
+                AssessmentSectionCategoriesOutput = Enumerable.Empty<AssessmentSectionCategoryLimits>()
             };
 
             // Call
-            CalculationOutput<AssessmentSectionCategory[]> output = kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(new Probability(0), new Probability(0)));
+            IEnumerable<AssessmentSectionCategoryLimits> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(section);
 
             // Assert
-            Assert.AreSame(kernelStub.AssessmentSectionCategoriesOutput, output);
+            Assert.AreSame(kernel.AssessmentSectionCategoriesOutput, output);
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsException()
+        public void CalculateAssessmentSectionCategoryLimitsWbi21_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub
+            var random = new Random(11);
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9));
+
+            var kernel = new AssemblyCategoriesKernelStub
             {
                 ThrowExceptionOnCalculate = true
             };
 
             // Precondition
-            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsFalse(kernel.Calculated);
 
             // Call
-            TestDelegate test = () => kernelStub.CalculateAssessmentSectionCategories(new CalculateAssessmentSectionCategoriesInput(new Probability(0), new Probability(0)));
+            TestDelegate test = () => kernel.CalculateAssessmentSectionCategoryLimitsWbi21(section);
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-            Assert.IsFalse(kernelStub.Calculated);
-            Assert.IsNull(kernelStub.AssessmentSectionCategoriesOutput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.AssessmentSectionCategoriesOutput);
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        public void CalculateFmSectionCategoryLimitsWbi01_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(11);
-            var lowerLimitNorm = new Probability(random.NextDouble());
-            var signalingNorm = new Probability(random.NextDouble());
+            double lowerLimitNorm = random.NextDouble(0.5, 0.9);
+            double signalingNorm = random.NextDouble(0.0, 0.4);
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble(1, 5);
 
-            var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
-
-            // Call
-            kernelStub.CalculateFailureMechanismSectionCategories(input);
-
-            // Assert
-            Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
-            Assert.AreEqual(failureMechanismContribution, kernelStub.FailureMechanismContribution);
-            Assert.AreEqual(n, kernelStub.N);
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub();
+            var kernel = new AssemblyCategoriesKernelStub();
 
             // Precondition
-            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsFalse(kernel.Calculated);
 
             // Call
-            kernelStub.CalculateFailureMechanismSectionCategories(new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+            kernel.CalculateFmSectionCategoryLimitsWbi01(new AssessmentSection(random.NextDouble(), signalingNorm, lowerLimitNorm),
+                                                         new FailureMechanism(n, failureMechanismContribution));
 
             // Assert
-            Assert.IsTrue(kernelStub.Calculated);
+            Assert.IsTrue(kernel.Calculated);
+
+            Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
+            Assert.AreEqual(failureMechanismContribution, kernel.FailureMechanismContribution);
+            Assert.AreEqual(n, kernel.N);
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub
-            {
-                FailureMechanismSectionCategoriesOutput = new CalculationOutput<FailureMechanismSectionCategory[]>(new FailureMechanismSectionCategory[0])
-            };
-
-            // Call
-            CalculationOutput<FailureMechanismSectionCategory[]> output = kernelStub.CalculateFailureMechanismSectionCategories(
-                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
-
-            // Assert
-            Assert.AreSame(kernelStub.FailureMechanismSectionCategoriesOutput, output);
-        }
-
-        [Test]
-        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsException()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub
-            {
-                ThrowExceptionOnCalculate = true
-            };
-
-            // Precondition
-            Assert.IsFalse(kernelStub.Calculated);
-
-            // Call
-            TestDelegate test = () => kernelStub.CalculateFailureMechanismSectionCategories(
-                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
-
-            // Assert
-            var exception = Assert.Throws<Exception>(test);
-            Assert.AreEqual("Message", exception.Message);
-            Assert.IsNotNull(exception.InnerException);
-            Assert.IsFalse(kernelStub.Calculated);
-            Assert.IsNull(kernelStub.FailureMechanismSectionCategoriesOutput);
-        }
-
-        [Test]
-        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernel()
+        public void CalculateFmSectionCategoryLimitsWbi01_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
         {
             // Setup
             var random = new Random(11);
-            var lowerLimitNorm = new Probability(random.NextDouble());
-            var signalingNorm = new Probability(random.NextDouble());
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble(1, 5);
-
-            var kernelStub = new AssemblyCategoriesKernelStub();
-            var input = new CalculateFailureMechanismSectionCategoriesInput(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
-
-            // Call
-            kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(input);
-
-            // Assert
-            Assert.AreEqual(signalingNorm, kernelStub.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, kernelStub.LowerLimitNorm);
-            Assert.AreEqual(failureMechanismContribution, kernelStub.FailureMechanismContribution);
-            Assert.AreEqual(n, kernelStub.N);
-        }
-
-        [Test]
-        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetCalculatedTrue()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub();
-
-            // Precondition
-            Assert.IsFalse(kernelStub.Calculated);
-
-            // Call
-            kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
-
-            // Assert
-            Assert.IsTrue(kernelStub.Calculated);
-        }
-
-        [Test]
-        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
-        {
-            // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub
+            var kernel = new AssemblyCategoriesKernelStub
             {
-                FailureMechanismSectionCategoriesOutput = new CalculationOutput<FailureMechanismSectionCategory[]>(new FailureMechanismSectionCategory[0])
+                FailureMechanismSectionCategoriesOutput = Enumerable.Empty<FmSectionCategoryLimits>()
             };
 
             // Call
-            CalculationOutput<FailureMechanismSectionCategory[]> output = kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(
-                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+            IEnumerable<FmSectionCategoryLimits> output = kernel.CalculateFmSectionCategoryLimitsWbi01(
+                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
+                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
 
             // Assert
-            Assert.AreSame(kernelStub.FailureMechanismSectionCategoriesOutput, output);
+            Assert.AreSame(kernel.FailureMechanismSectionCategoriesOutput, output);
         }
 
         [Test]
-        public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateTrue_ThrowsException()
+        public void CalculateFmSectionCategoryLimitsWbi01_ThrowExceptionOnCalculateTrue_ThrowsException()
         {
             // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub
+            var random = new Random(11);
+            var kernel = new AssemblyCategoriesKernelStub
             {
                 ThrowExceptionOnCalculate = true
             };
 
             // Precondition
-            Assert.IsFalse(kernelStub.Calculated);
+            Assert.IsFalse(kernel.Calculated);
 
             // Call
-            TestDelegate test = () => kernelStub.CalculateGeotechnicFailureMechanismSectionCategories(
-                new CalculateFailureMechanismSectionCategoriesInput(new Probability(0), new Probability(0), 0, 1));
+            TestDelegate test = () => kernel.CalculateFmSectionCategoryLimitsWbi01(
+                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
+                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-            Assert.IsFalse(kernelStub.Calculated);
-            Assert.IsNull(kernelStub.FailureMechanismSectionCategoriesOutput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
         }
 
         [Test]
-        public void CalculateFailureMechanismCategories_Always_ThrowsNotImplementedException()
+        public void CalculateFmSectionCategoryLimitsWbi02_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
-            var kernelStub = new AssemblyCategoriesKernelStub();
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble(0.5, 0.9);
+            double signalingNorm = random.NextDouble(0.0, 0.4);
+            double failureMechanismContribution = random.NextDouble();
+            double n = random.NextDouble(1, 5);
+
+            var kernel = new AssemblyCategoriesKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
 
             // Call
-            TestDelegate test = () => kernelStub.CalculateFailureMechanismCategories(null);
+            kernel.CalculateFmSectionCategoryLimitsWbi02(new AssessmentSection(random.NextDouble(), signalingNorm, lowerLimitNorm),
+                                                         new FailureMechanism(n, failureMechanismContribution));
+
+            // Assert
+            Assert.IsTrue(kernel.Calculated);
+
+            Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
+            Assert.AreEqual(failureMechanismContribution, kernel.FailureMechanismContribution);
+            Assert.AreEqual(n, kernel.N);
+        }
+
+        [Test]
+        public void CalculateFmSectionCategoryLimitsWbi02_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        {
+            // Setup
+            var random = new Random(11);
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                FailureMechanismSectionCategoriesOutput = Enumerable.Empty<FmSectionCategoryLimits>()
+            };
+
+            // Call
+            IEnumerable<FmSectionCategoryLimits> output = kernel.CalculateFmSectionCategoryLimitsWbi02(
+                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
+                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionCategoriesOutput, output);
+        }
+
+        [Test]
+        public void CalculateFmSectionCategoryLimitsWbi02_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(11);
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.CalculateFmSectionCategoryLimitsWbi02(
+                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
+                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategoryLimitsWbi11_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var random = new Random(11);
+            var kernel = new AssemblyCategoriesKernelStub();
+
+            // Call
+            TestDelegate test = () => kernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
+                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
 
             // Assert
             Assert.Throws<NotImplementedException>(test);
