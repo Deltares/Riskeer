@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                                                                  "ExpectedExport",
                                                                  28,
                                                                  8,
-                                                                 741);
+                                                                 2637);
                 Assert.IsTrue(isExported);
             }
             finally

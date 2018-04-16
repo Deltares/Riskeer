@@ -47,14 +47,14 @@ namespace Ringtoets.Common.Util
             MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
             feature.MetaData[Resources.MetaData_ID] = location.Id;
             feature.MetaData[Resources.MetaData_Name] = location.Name;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm.Value;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForSignalingNorm] = location.WaterLevelCalculationForSignalingNorm.Value;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForLowerLimitNorm] = location.WaterLevelCalculationForLowerLimitNorm.Value;
-            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm] = location.WaterLevelCalculationForFactorizedLowerLimitNorm.Value;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedSignalingNorm] = location.WaveHeightCalculationForFactorizedSignalingNorm.Value;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForSignalingNorm] = location.WaveHeightCalculationForSignalingNorm.Value;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimitNorm] = location.WaveHeightCalculationForLowerLimitNorm.Value;
-            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm] = location.WaveHeightCalculationForFactorizedLowerLimitNorm.Value;
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedSignalingNorm] = location.WaterLevelCalculationForFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForSignalingNorm] = location.WaterLevelCalculationForSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForLowerLimitNorm] = location.WaterLevelCalculationForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm] = location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedSignalingNorm] = location.WaveHeightCalculationForFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForSignalingNorm] = location.WaveHeightCalculationForSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForLowerLimitNorm] = location.WaveHeightCalculationForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm] = location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString();
             return feature;
         }
     }

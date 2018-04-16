@@ -115,34 +115,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
             Assert.AreEqual(location.Id, feature.MetaData["ID"]);
             Assert.AreEqual(location.Name, feature.MetaData["Naam"]);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm,
+                location.WaterLevelCalculationForMechanismSpecificFactorizedSignalingNorm.ToString(),
                 feature, waterLevelCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaterLevelCalculationForMechanismSpecificSignalingNorm,
+                location.WaterLevelCalculationForMechanismSpecificSignalingNorm.ToString(),
                 feature, waterLevelCalculationForMechanismSpecificSignalingNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm,
+                location.WaterLevelCalculationForMechanismSpecificLowerLimitNorm.ToString(),
                 feature, waterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaterLevelCalculationForLowerLimitNorm,
+                location.WaterLevelCalculationForLowerLimitNorm.ToString(),
                 feature, waterLevelCalculationForLowerLimitNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaterLevelCalculationForFactorizedLowerLimitNorm,
+                location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString(),
                 feature, waterLevelCalculationForFactorizedLowerLimitNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm,
+                location.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm.ToString(),
                 feature, waveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaveHeightCalculationForMechanismSpecificSignalingNorm,
+                location.WaveHeightCalculationForMechanismSpecificSignalingNorm.ToString(),
                 feature, waveHeightCalculationForMechanismSpecificSignalingNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm,
+                location.WaveHeightCalculationForMechanismSpecificLowerLimitNorm.ToString(),
                 feature, waveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaveHeightCalculationForLowerLimitNorm,
+                location.WaveHeightCalculationForLowerLimitNorm.ToString(),
                 feature, waveHeightCalculationForLowerLimitNormAttributeName);
             MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
-                location.WaveHeightCalculationForFactorizedLowerLimitNorm,
+                location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString(),
                 feature, waveHeightCalculationForFactorizedLowerLimitNormAttributeName);
             mocks.VerifyAll();
         }

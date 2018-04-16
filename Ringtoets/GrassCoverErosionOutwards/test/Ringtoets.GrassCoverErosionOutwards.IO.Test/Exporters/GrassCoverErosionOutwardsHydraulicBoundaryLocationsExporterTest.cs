@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
                                                                  "ExpectedExport",
                                                                  28,
                                                                  8,
-                                                                 841);
+                                                                 3211);
                 Assert.IsTrue(isExported);
             }
             finally

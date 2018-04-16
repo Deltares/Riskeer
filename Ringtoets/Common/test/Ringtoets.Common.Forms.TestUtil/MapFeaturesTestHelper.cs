@@ -93,12 +93,14 @@ namespace Ringtoets.Common.Forms.TestUtil
             }
         }
 
-        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static string GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return calculations
-                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
-                   .Output?.Result ?? RoundedDouble.NaN;
+            RoundedDouble result = calculations
+                                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                                   .Output?.Result ?? RoundedDouble.NaN;
+
+            return result.ToString();
         }
     }
 }

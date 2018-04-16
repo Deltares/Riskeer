@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Util.TestUtil
         /// hydraulic boundary location and the respective meta data value associated with <paramref name="key"/>
         /// are not the same.
         /// </exception>
-        public static void AssertHydraulicBoundaryLocationOutputMetaData(RoundedDouble expectedValue,
+        public static void AssertHydraulicBoundaryLocationOutputMetaData(string expectedValue,
                                                                          MapFeature feature,
                                                                          string key)
         {
