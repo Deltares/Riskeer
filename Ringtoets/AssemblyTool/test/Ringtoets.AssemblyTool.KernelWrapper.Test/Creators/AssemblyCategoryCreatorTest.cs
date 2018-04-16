@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Data;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.CategoryLimits;
+using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -54,13 +54,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(11);
 
-            var output = new CalculationOutput<AssessmentSectionCategory[]>(new[]
+            var output = new[]
             {
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1))),
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1))),
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1))),
-                new AssessmentSectionCategory(random.NextEnumValue<AssessmentSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1)))
-            });
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
+            };
 
             // Call
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
@@ -73,10 +73,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithInvalidAssessmentSectionAssemblyCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var output = new CalculationOutput<AssessmentSectionCategory[]>(new[]
+            var output = new[]
             {
-                new AssessmentSectionCategory((AssessmentSectionCategoryGroup) 99, new Probability(0), new Probability(0))
-            });
+                new AssessmentSectionCategoryLimits((EAssessmentGrade) 99, 0, 0)
+            };
 
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
@@ -87,20 +87,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(AssessmentSectionCategoryGroup.APlus, AssessmentSectionAssemblyCategoryGroup.APlus)]
-        [TestCase(AssessmentSectionCategoryGroup.A, AssessmentSectionAssemblyCategoryGroup.A)]
-        [TestCase(AssessmentSectionCategoryGroup.B, AssessmentSectionAssemblyCategoryGroup.B)]
-        [TestCase(AssessmentSectionCategoryGroup.C, AssessmentSectionAssemblyCategoryGroup.C)]
-        [TestCase(AssessmentSectionCategoryGroup.D, AssessmentSectionAssemblyCategoryGroup.D)]
-        public void CreateAssessmentSectionAssemblyCategories_CategoryWithValidAssessmentSectionAssemblyCategory_ExpectedAssessmentSectionAssemblyCategoryResultType(
-            AssessmentSectionCategoryGroup categoryGroup,
+        [TestCase(EAssessmentGrade.APlus, AssessmentSectionAssemblyCategoryGroup.APlus)]
+        [TestCase(EAssessmentGrade.A, AssessmentSectionAssemblyCategoryGroup.A)]
+        [TestCase(EAssessmentGrade.B, AssessmentSectionAssemblyCategoryGroup.B)]
+        [TestCase(EAssessmentGrade.C, AssessmentSectionAssemblyCategoryGroup.C)]
+        [TestCase(EAssessmentGrade.D, AssessmentSectionAssemblyCategoryGroup.D)]
+        public void CreateAssessmentSectionAssemblyCategories_CategoryWithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
+            EAssessmentGrade categoryGroup,
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var output = new CalculationOutput<AssessmentSectionCategory[]>(new[]
+            var output = new[]
             {
-                new AssessmentSectionCategory(categoryGroup, new Probability(0), new Probability(0))
-            });
+                new AssessmentSectionCategoryLimits(categoryGroup, 0, 0)
+            };
 
             // Call
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
@@ -129,13 +129,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(11);
 
-            var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
+            var output = new[]
             {
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1))),
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1))),
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1))),
-                new FailureMechanismSectionCategory(random.NextEnumValue<FailureMechanismSectionCategoryGroup>(), new Probability(random.NextDouble(0, 0.5)), new Probability(random.NextDouble(0.5, 1)))
-            });
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
+            };
 
             // Call
             IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
@@ -148,10 +148,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithInvalidFailureMechanismSectionAssemblyCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
+            var output = new[]
             {
-                new FailureMechanismSectionCategory((FailureMechanismSectionCategoryGroup) 99, new Probability(0), new Probability(0))
-            });
+                new FmSectionCategoryLimits((EFmSectionCategory) 99, 0, 0)
+            };
 
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
@@ -162,24 +162,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionCategoryGroup.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
-        [TestCase(FailureMechanismSectionCategoryGroup.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
-        [TestCase(FailureMechanismSectionCategoryGroup.None, FailureMechanismSectionAssemblyCategoryGroup.None)]
-        public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithValidFailureMechanismSectionAssemblyCategory_ExpectedFailureMechanismSectionAssemblyCategoryResultType(
-            FailureMechanismSectionCategoryGroup categoryGroup,
+        [TestCase(EFmSectionCategory.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        [TestCase(EFmSectionCategory.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
+        [TestCase(EFmSectionCategory.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
+        [TestCase(EFmSectionCategory.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
+        [TestCase(EFmSectionCategory.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
+        [TestCase(EFmSectionCategory.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
+        [TestCase(EFmSectionCategory.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
+        [TestCase(EFmSectionCategory.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(EFmSectionCategory.Gr, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithValidFailureMechanismSectionCategory_ExpectedFailureMechanismSectionAssemblyCategoryResultType(
+            EFmSectionCategory categoryGroup,
             FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var output = new CalculationOutput<FailureMechanismSectionCategory[]>(new[]
+            var output = new[]
             {
-                new FailureMechanismSectionCategory(categoryGroup, new Probability(0), new Probability(0))
-            });
+                new FmSectionCategoryLimits(categoryGroup, 0, 0)
+            };
 
             // Call
             IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
