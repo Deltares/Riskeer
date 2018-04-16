@@ -162,8 +162,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                CalculationOutput<FailureMechanismSectionCategoryGroup> output = kernel.DetailedAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G6(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCategoryCompliancyResults(
                         detailedAssessmentResultForFactorizedSignalingNorm,
                         detailedAssessmentResultForSignalingNorm,
                         detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
