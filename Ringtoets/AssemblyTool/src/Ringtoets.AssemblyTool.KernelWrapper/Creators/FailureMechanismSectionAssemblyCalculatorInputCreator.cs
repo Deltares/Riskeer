@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
+using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 
@@ -191,7 +193,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates <see cref="DetailedCategoryBoundariesCalculationResult"/> based on the given parameters.
+        /// Creates a <see cref="FmSectionCategoryCompliancyResults"/> based on the given parameters.
         /// </summary>
         /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The detailed assessment result
         /// for category Iv - IIv.</param>
@@ -203,24 +205,58 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// IVv - Vv.</param>
         /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The detailed assessment result
         /// for category Vv - VIv.</param>
-        /// <returns>The created <see cref="DetailedCategoryBoundariesCalculationResult"/>.</returns>
+        /// <returns>The created <see cref="FmSectionCategoryCompliancyResults"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any parameter is an invalid
         /// <see cref="DetailedAssessmentResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when any parameter is a valid but unsupported
         /// <see cref="DetailedAssessmentResultType"/>.</exception>
-        public static DetailedCategoryBoundariesCalculationResult CreateDetailedCalculationInputFromCategoryResults(
+        public static FmSectionCategoryCompliancyResults CreateCategoryCompliancyResults(
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
             DetailedAssessmentResultType detailedAssessmentResultForLowerLimitNorm,
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
-            return new DetailedCategoryBoundariesCalculationResult(
-                CreateAssessmentResultTypeG1(detailedAssessmentResultForFactorizedSignalingNorm),
-                CreateAssessmentResultTypeG1(detailedAssessmentResultForSignalingNorm),
-                CreateAssessmentResultTypeG1(detailedAssessmentResultForMechanismSpecificLowerLimitNorm),
-                CreateAssessmentResultTypeG1(detailedAssessmentResultForLowerLimitNorm),
-                CreateAssessmentResultTypeG1(detailedAssessmentResultForFactorizedLowerLimitNorm));
+            var compliancyResults = new FmSectionCategoryCompliancyResults();
+            compliancyResults.Set(EFmSectionCategory.Iv, CreateCategoryCompliancy(detailedAssessmentResultForFactorizedSignalingNorm));
+            compliancyResults.Set(EFmSectionCategory.IIv, CreateCategoryCompliancy(detailedAssessmentResultForSignalingNorm));
+            compliancyResults.Set(EFmSectionCategory.IIIv, CreateCategoryCompliancy(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+            compliancyResults.Set(EFmSectionCategory.IVv, CreateCategoryCompliancy(detailedAssessmentResultForLowerLimitNorm));
+            compliancyResults.Set(EFmSectionCategory.Vv, CreateCategoryCompliancy(detailedAssessmentResultForFactorizedLowerLimitNorm));
+            return compliancyResults;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="ECategoryCompliancy"/> based on the given <see cref="DetailedAssessmentResultType"/>.
+        /// </summary>
+        /// <param name="detailedAssessmentResult">The detailed assessment result to create the category compliancy for.</param>
+        /// <returns>The created detailed calculation result.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
+        /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
+        private static ECategoryCompliancy CreateCategoryCompliancy(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(detailedAssessmentResult),
+                                                       (int) detailedAssessmentResult,
+                                                       typeof(DetailedAssessmentResultType));
+            }
+
+            switch (detailedAssessmentResult)
+            {
+                case DetailedAssessmentResultType.None:
+                    return ECategoryCompliancy.NoResult;
+                case DetailedAssessmentResultType.Sufficient:
+                    return ECategoryCompliancy.Complies;
+                case DetailedAssessmentResultType.Insufficient:
+                    return ECategoryCompliancy.DoesNotComply;
+                case DetailedAssessmentResultType.NotAssessed:
+                    return ECategoryCompliancy.Ngo;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         /// <summary>

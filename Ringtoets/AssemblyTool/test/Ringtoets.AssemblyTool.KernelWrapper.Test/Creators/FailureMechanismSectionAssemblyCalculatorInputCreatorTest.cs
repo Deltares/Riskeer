@@ -23,7 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
+using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -251,7 +253,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
         [Test]
         [TestCaseSource(nameof(InvalidDetailedAssessmentCategoryResults))]
-        public void CreateDetailedCalculationInputFromCategoryResults_InvalidEnumInput_ThrowInvalidEnumArgumentException(
+        public void CreateCategoryCompliancyResults_InvalidEnumInput_ThrowInvalidEnumArgumentException(
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -259,7 +261,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCategoryCompliancyResults(
                 detailedAssessmentResultForFactorizedSignalingNorm,
                 detailedAssessmentResultForSignalingNorm,
                 detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -272,7 +274,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateDetailedCalculationInputFromCategoryResults_ValidInput_ReturnsDetailedCategoryBoundariesCalculationResult()
+        public void CreateCategoryCompliancyResults_ValidInput_ReturnsFmSectionCategoryCompliancyResults()
         {
             // Setup
             var random = new Random(39);
@@ -283,7 +285,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
 
             // Call
-            DetailedCategoryBoundariesCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationInputFromCategoryResults(
+            FmSectionCategoryCompliancyResults result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCategoryCompliancyResults(
                 detailedAssessmentResultForFactorizedSignalingNorm,
                 detailedAssessmentResultForSignalingNorm,
                 detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -291,11 +293,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 detailedAssessmentResultForFactorizedLowerLimitNorm);
 
             // Assert
-            Assert.AreEqual(result.ResultItoII, GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedSignalingNorm));
-            Assert.AreEqual(result.ResultIItoIII, GetAssessmentResultTypeG1(detailedAssessmentResultForSignalingNorm));
-            Assert.AreEqual(result.ResultIIItoIV, GetAssessmentResultTypeG1(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
-            Assert.AreEqual(result.ResultIVtoV, GetAssessmentResultTypeG1(detailedAssessmentResultForLowerLimitNorm));
-            Assert.AreEqual(result.ResultVtoVI, GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedLowerLimitNorm));
+            Dictionary<EFmSectionCategory, ECategoryCompliancy> results = result.GetCompliancyResults();
+            Assert.AreEqual(results[EFmSectionCategory.Iv], GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedSignalingNorm));
+            Assert.AreEqual(results[EFmSectionCategory.IIv], GetAssessmentResultTypeG1(detailedAssessmentResultForSignalingNorm));
+            Assert.AreEqual(results[EFmSectionCategory.IIIv], GetAssessmentResultTypeG1(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+            Assert.AreEqual(results[EFmSectionCategory.IVv], GetAssessmentResultTypeG1(detailedAssessmentResultForLowerLimitNorm));
+            Assert.AreEqual(results[EFmSectionCategory.Vv], GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedLowerLimitNorm));
         }
 
         [Test]
