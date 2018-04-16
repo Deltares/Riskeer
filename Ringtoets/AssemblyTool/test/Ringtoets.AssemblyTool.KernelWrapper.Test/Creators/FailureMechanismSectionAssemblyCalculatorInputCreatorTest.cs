@@ -892,10 +892,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             EAssessmentResultTypeT1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(detailedAssessmentResult);
 
             // Assert
-            Assert.AreEqual(result, GetTailorMadeCalculationResult(detailedAssessmentResult));
+            Assert.AreEqual(result, GetAssessmentResultTypeT1(detailedAssessmentResult));
         }
 
-        private static EAssessmentResultTypeT1 GetTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
+        private static EAssessmentResultTypeT1 GetAssessmentResultTypeT1(TailorMadeAssessmentResultType detailedAssessmentResult)
         {
             switch (detailedAssessmentResult)
             {
@@ -909,6 +909,97 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                     return EAssessmentResultTypeT1.Vn;
                 case TailorMadeAssessmentResultType.NotAssessed:
                     return EAssessmentResultTypeT1.Ngo;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        [Test]
+        public void CreateAssessmentResultTypeT3_InvalidEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3((TailorMadeAssessmentProbabilityCalculationResultType) 99);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentProbabilityCalculationResultType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed)]
+        public void CreateAssessmentResultTypeT3_ValidInput_ReturnsTailorMadeCalculationResult(TailorMadeAssessmentProbabilityCalculationResultType detailedAssessmentResult)
+        {
+            // Call
+            EAssessmentResultTypeT3 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(detailedAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(result, GetAssessmentResultTypeT3(detailedAssessmentResult));
+        }
+
+        private static EAssessmentResultTypeT3 GetAssessmentResultTypeT3(TailorMadeAssessmentProbabilityCalculationResultType detailedAssessmentResult)
+        {
+            switch (detailedAssessmentResult)
+            {
+                case TailorMadeAssessmentProbabilityCalculationResultType.None:
+                    return EAssessmentResultTypeT3.Gr;
+                case TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible:
+                    return EAssessmentResultTypeT3.Fv;
+                case TailorMadeAssessmentProbabilityCalculationResultType.Probability:
+                    return EAssessmentResultTypeT3.ResultSpecified;
+                case TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed:
+                    return EAssessmentResultTypeT3.Ngo;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        [Test]
+        public void CreateAssessmentResultTypeT4_InvalidEnumInput_ThrowInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4((TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) 99);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed)]
+        public void CreateAssessmentResultTypeT4_ValidInput_ReturnsTailorMadeCalculationResult(
+            TailorMadeAssessmentProbabilityAndDetailedCalculationResultType detailedAssessmentResult)
+        {
+            // Call
+            EAssessmentResultTypeT4 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(detailedAssessmentResult);
+
+            // Assert
+            Assert.AreEqual(result, GetAssessmentResultTypeT4(detailedAssessmentResult));
+        }
+
+        private static EAssessmentResultTypeT4 GetAssessmentResultTypeT4(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType detailedAssessmentResult)
+        {
+            switch (detailedAssessmentResult)
+            {
+                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None:
+                    return EAssessmentResultTypeT4.Gr;
+                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible:
+                    return EAssessmentResultTypeT4.Fv;
+                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability:
+                    return EAssessmentResultTypeT4.ResultSpecified;
+                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient:
+                    return EAssessmentResultTypeT4.V;
+                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient:
+                    return EAssessmentResultTypeT4.Vn;
+                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed:
+                    return EAssessmentResultTypeT4.Ngo;
                 default:
                     throw new NotSupportedException();
             }
