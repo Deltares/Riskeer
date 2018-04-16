@@ -44,6 +44,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
+        public void Create_ResultProbabilityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => FailureMechanismSectionAssemblyCreator.Create(
+                new FmSectionAssemblyDirectResult(new Random(39).NextEnumValue<EFmSectionCategory>()));
+
+            // Assert
+            const string expectedMessage = "The failure probability of the result may not be null.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
         public void Create_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup

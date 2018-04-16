@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model.FmSectionTypes;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
 using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
@@ -50,7 +49,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new FailureMechanismSectionAssembly(result.FailureProbability,
+            if (!result.FailureProbability.HasValue)
+            {
+                throw new ArgumentException("The failure probability of the result may not be null.");
+            }
+
+            return new FailureMechanismSectionAssembly(result.FailureProbability.Value,
                                                        ConvertFailureMechanismSectionCategory(result.Result));
         }
 
