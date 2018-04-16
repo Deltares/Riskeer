@@ -286,7 +286,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates a <see cref="TailorMadeCalculationResult"/> based on the given <see cref="TailorMadeAssessmentResultType"/>.
+        /// Creates a <see cref="EAssessmentResultTypeT1"/> based on the given <see cref="TailorMadeAssessmentResultType"/>.
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create the result for.</param>
         /// <returns>The created tailor made calculation result.</returns>
@@ -294,7 +294,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="TailorMadeAssessmentResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is a valid but unsupported <see cref="TailorMadeAssessmentResultType"/>.</exception>
-        public static TailorMadeCalculationResult CreateTailorMadeCalculationResult(TailorMadeAssessmentResultType tailorMadeAssessmentResult)
+        public static EAssessmentResultTypeT1 CreateAssessmentResultTypeT1(TailorMadeAssessmentResultType tailorMadeAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(TailorMadeAssessmentResultType), tailorMadeAssessmentResult))
             {
@@ -306,15 +306,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             switch (tailorMadeAssessmentResult)
             {
                 case TailorMadeAssessmentResultType.None:
-                    return TailorMadeCalculationResult.None;
+                    return EAssessmentResultTypeT1.Gr;
                 case TailorMadeAssessmentResultType.ProbabilityNegligible:
-                    return TailorMadeCalculationResult.FV;
+                    return EAssessmentResultTypeT1.Fv;
                 case TailorMadeAssessmentResultType.Sufficient:
-                    return TailorMadeCalculationResult.V;
+                    return EAssessmentResultTypeT1.V;
                 case TailorMadeAssessmentResultType.Insufficient:
-                    return TailorMadeCalculationResult.VN;
+                    return EAssessmentResultTypeT1.Vn;
                 case TailorMadeAssessmentResultType.NotAssessed:
-                    return TailorMadeCalculationResult.NGO;
+                    return EAssessmentResultTypeT1.Ngo;
                 default:
                     throw new NotSupportedException();
             }

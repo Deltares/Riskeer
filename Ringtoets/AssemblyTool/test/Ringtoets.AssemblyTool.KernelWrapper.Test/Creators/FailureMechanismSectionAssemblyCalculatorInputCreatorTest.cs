@@ -870,10 +870,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateTailorMadeCalculationResult_InvalidEnumInput_ThrowInvalidEnumArgumentException()
+        public void CreateAssessmentResultTypeT1_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationResult((TailorMadeAssessmentResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1((TailorMadeAssessmentResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentResultType)}'.";
@@ -886,29 +886,29 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(TailorMadeAssessmentResultType.Insufficient)]
         [TestCase(TailorMadeAssessmentResultType.Sufficient)]
         [TestCase(TailorMadeAssessmentResultType.NotAssessed)]
-        public void CreateTailorMadeCalculationResult_ValidInput_ReturnsTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
+        public void CreateAssessmentResultTypeT1_ValidInput_ReturnsTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
         {
             // Call
-            TailorMadeCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationResult(detailedAssessmentResult);
+            EAssessmentResultTypeT1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(detailedAssessmentResult);
 
             // Assert
             Assert.AreEqual(result, GetTailorMadeCalculationResult(detailedAssessmentResult));
         }
 
-        private static TailorMadeCalculationResult GetTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
+        private static EAssessmentResultTypeT1 GetTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
         {
             switch (detailedAssessmentResult)
             {
                 case TailorMadeAssessmentResultType.None:
-                    return TailorMadeCalculationResult.None;
+                    return EAssessmentResultTypeT1.Gr;
                 case TailorMadeAssessmentResultType.ProbabilityNegligible:
-                    return TailorMadeCalculationResult.FV;
+                    return EAssessmentResultTypeT1.Fv;
                 case TailorMadeAssessmentResultType.Sufficient:
-                    return TailorMadeCalculationResult.V;
+                    return EAssessmentResultTypeT1.V;
                 case TailorMadeAssessmentResultType.Insufficient:
-                    return TailorMadeCalculationResult.VN;
+                    return EAssessmentResultTypeT1.Vn;
                 case TailorMadeAssessmentResultType.NotAssessed:
-                    return TailorMadeCalculationResult.NGO;
+                    return EAssessmentResultTypeT1.Ngo;
                 default:
                     throw new NotSupportedException();
             }
