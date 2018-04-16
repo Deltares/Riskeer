@@ -61,6 +61,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile()
         {
             // Setup

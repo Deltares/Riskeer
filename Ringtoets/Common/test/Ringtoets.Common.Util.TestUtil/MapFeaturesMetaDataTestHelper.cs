@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 
