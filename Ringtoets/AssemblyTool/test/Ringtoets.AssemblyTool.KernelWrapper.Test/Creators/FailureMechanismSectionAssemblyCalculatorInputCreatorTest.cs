@@ -291,18 +291,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 detailedAssessmentResultForFactorizedLowerLimitNorm);
 
             // Assert
-            Assert.AreEqual(result.ResultItoII, GetDetailedCalculationResult(detailedAssessmentResultForFactorizedSignalingNorm));
-            Assert.AreEqual(result.ResultIItoIII, GetDetailedCalculationResult(detailedAssessmentResultForSignalingNorm));
-            Assert.AreEqual(result.ResultIIItoIV, GetDetailedCalculationResult(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
-            Assert.AreEqual(result.ResultIVtoV, GetDetailedCalculationResult(detailedAssessmentResultForLowerLimitNorm));
-            Assert.AreEqual(result.ResultVtoVI, GetDetailedCalculationResult(detailedAssessmentResultForFactorizedLowerLimitNorm));
+            Assert.AreEqual(result.ResultItoII, GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedSignalingNorm));
+            Assert.AreEqual(result.ResultIItoIII, GetAssessmentResultTypeG1(detailedAssessmentResultForSignalingNorm));
+            Assert.AreEqual(result.ResultIIItoIV, GetAssessmentResultTypeG1(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+            Assert.AreEqual(result.ResultIVtoV, GetAssessmentResultTypeG1(detailedAssessmentResultForLowerLimitNorm));
+            Assert.AreEqual(result.ResultVtoVI, GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedLowerLimitNorm));
         }
 
         [Test]
-        public void CreateDetailedCalculationResult_InvalidEnumInput_ThrowInvalidEnumArgumentException()
+        public void CreateAssessmentResultTypeG1_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationResult((DetailedAssessmentResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1((DetailedAssessmentResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'detailedAssessmentResult' (99) is invalid for Enum type '{nameof(DetailedAssessmentResultType)}'.";
@@ -314,13 +314,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(DetailedAssessmentResultType.Insufficient)]
         [TestCase(DetailedAssessmentResultType.Sufficient)]
         [TestCase(DetailedAssessmentResultType.NotAssessed)]
-        public void CreateDetailedCalculationResult_ValidInput_ReturnsDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        public void CreateAssessmentResultTypeG1_ValidInput_ReturnsDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
         {
             // Call
-            DetailedCalculationResult result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateDetailedCalculationResult(detailedAssessmentResult);
+            EAssessmentResultTypeG1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(detailedAssessmentResult);
 
             // Assert
-            Assert.AreEqual(result, GetDetailedCalculationResult(detailedAssessmentResult));
+            Assert.AreEqual(result, GetAssessmentResultTypeG1(detailedAssessmentResult));
         }
 
         private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
@@ -356,18 +356,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             }
         }
 
-        private static DetailedCalculationResult GetDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        private static EAssessmentResultTypeG1 GetAssessmentResultTypeG1(DetailedAssessmentResultType detailedAssessmentResult)
         {
             switch (detailedAssessmentResult)
             {
                 case DetailedAssessmentResultType.None:
-                    return DetailedCalculationResult.None;
+                    return EAssessmentResultTypeG1.Gr;
                 case DetailedAssessmentResultType.Sufficient:
-                    return DetailedCalculationResult.V;
+                    return EAssessmentResultTypeG1.V;
                 case DetailedAssessmentResultType.Insufficient:
-                    return DetailedCalculationResult.VN;
+                    return EAssessmentResultTypeG1.Vn;
                 case DetailedAssessmentResultType.NotAssessed:
-                    return DetailedCalculationResult.NGO;
+                    return EAssessmentResultTypeG1.Ngo;
                 default:
                     throw new NotSupportedException();
             }

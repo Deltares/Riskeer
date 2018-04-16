@@ -216,15 +216,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
             return new DetailedCategoryBoundariesCalculationResult(
-                CreateDetailedCalculationResult(detailedAssessmentResultForFactorizedSignalingNorm),
-                CreateDetailedCalculationResult(detailedAssessmentResultForSignalingNorm),
-                CreateDetailedCalculationResult(detailedAssessmentResultForMechanismSpecificLowerLimitNorm),
-                CreateDetailedCalculationResult(detailedAssessmentResultForLowerLimitNorm),
-                CreateDetailedCalculationResult(detailedAssessmentResultForFactorizedLowerLimitNorm));
+                CreateAssessmentResultTypeG1(detailedAssessmentResultForFactorizedSignalingNorm),
+                CreateAssessmentResultTypeG1(detailedAssessmentResultForSignalingNorm),
+                CreateAssessmentResultTypeG1(detailedAssessmentResultForMechanismSpecificLowerLimitNorm),
+                CreateAssessmentResultTypeG1(detailedAssessmentResultForLowerLimitNorm),
+                CreateAssessmentResultTypeG1(detailedAssessmentResultForFactorizedLowerLimitNorm));
         }
 
         /// <summary>
-        /// Creates a <see cref="DetailedCalculationResult"/> based on the given <see cref="DetailedAssessmentResultType"/>.
+        /// Creates a <see cref="EAssessmentResultTypeG1"/> based on the given <see cref="DetailedAssessmentResultType"/>.
         /// </summary>
         /// <param name="detailedAssessmentResult">The detailed assessment result to create the result for.</param>
         /// <returns>The created detailed calculation result.</returns>
@@ -232,7 +232,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
         /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
-        public static DetailedCalculationResult CreateDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        public static EAssessmentResultTypeG1 CreateAssessmentResultTypeG1(DetailedAssessmentResultType detailedAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
             {
@@ -244,13 +244,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             switch (detailedAssessmentResult)
             {
                 case DetailedAssessmentResultType.None:
-                    return DetailedCalculationResult.None;
+                    return EAssessmentResultTypeG1.Gr;
                 case DetailedAssessmentResultType.Sufficient:
-                    return DetailedCalculationResult.V;
+                    return EAssessmentResultTypeG1.V;
                 case DetailedAssessmentResultType.Insufficient:
-                    return DetailedCalculationResult.VN;
+                    return EAssessmentResultTypeG1.Vn;
                 case DetailedAssessmentResultType.NotAssessed:
-                    return DetailedCalculationResult.NGO;
+                    return EAssessmentResultTypeG1.Ngo;
                 default:
                     throw new NotSupportedException();
             }
