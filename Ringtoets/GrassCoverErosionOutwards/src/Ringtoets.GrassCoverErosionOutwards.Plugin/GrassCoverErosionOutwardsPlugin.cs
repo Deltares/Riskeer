@@ -165,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IEnumerable<HydraulicBoundaryLocationCalculation>,
                 GrassCoverErosionOutwardsWaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName,
+                GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName} - {context.CategoryBoundaryName}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsView(context.WrappedData,

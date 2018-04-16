@@ -243,15 +243,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogtes bij doorsnede-eis.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculationsContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to h(Vv-&gt;VIv).
         /// </summary>
         public static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {
