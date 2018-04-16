@@ -348,7 +348,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(result, GetAssessmentResultTypeG2(detailedAssessmentResult));
         }
 
-
         private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
         {
             get

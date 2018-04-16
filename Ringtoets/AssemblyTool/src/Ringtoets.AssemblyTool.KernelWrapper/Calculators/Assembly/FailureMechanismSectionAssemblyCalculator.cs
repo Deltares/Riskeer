@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.AssemblyTool.Data;
@@ -202,26 +200,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
-                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
-        {
-            return FailureMechanismSectionAssemblyCreator.Create(new FailureMechanismSectionAssemblyCategoryResult(
-                                                                     FailureMechanismSectionCategoryGroup.VIIv,
-                                                                     new Probability(probability)));
-        }
-
-        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
-                                                                            double probability,
-                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories)
+                                                                            AssessmentSection assessmentSection,
+                                                                            FailureMechanism failureMechanism)
         {
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbability(tailorMadeAssessmentResult,
-                                                                                                                          probability,
-                                                                                                                          categories));
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T7(
+                    assessmentSection,
+                    failureMechanism,
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult),
+                    probability);
 
-                return FailureMechanismSectionAssemblyCreator.Create(output.Result);
+                return FailureMechanismSectionAssemblyCreator.Create(output);
             }
             catch (Exception e)
             {
@@ -231,20 +222,43 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
-                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> categories,
-                                                                            double n)
+                                                                            AssessmentSection assessmentSection,
+                                                                            FailureMechanism failureMechanism)
         {
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                CalculationOutput<FailureMechanismSectionAssemblyCategoryResult> output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationInputFromProbabilityWithLengthEffectFactor(
-                        tailorMadeAssessmentResult,
-                        probability,
-                        categories,
-                        n));
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T3(
+                    assessmentSection,
+                    failureMechanism,
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
+                    probability);
 
-                return FailureMechanismSectionAssemblyCreator.Create(output.Result);
+                return FailureMechanismSectionAssemblyCreator.Create(output);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
+
+        public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
+                                                                            double probability,
+                                                                            double n,
+                                                                            AssessmentSection assessmentSection,
+                                                                            FailureMechanism failureMechanism)
+        {
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T5(
+                    assessmentSection,
+                    failureMechanism,
+                    n,
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
+                    probability);
+
+                return FailureMechanismSectionAssemblyCreator.Create(output);
             }
             catch (Exception e)
             {
