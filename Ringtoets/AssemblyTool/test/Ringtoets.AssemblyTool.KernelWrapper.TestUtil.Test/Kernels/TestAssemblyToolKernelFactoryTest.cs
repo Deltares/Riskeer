@@ -19,8 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using AssemblyTool.Kernel.Assembly;
-using AssemblyTool.Kernel.Categories;
+using Assembly.Kernel.Interfaces;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
@@ -49,7 +48,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
             var factory = new TestAssemblyToolKernelFactory();
 
             // Call
-            ICategoriesCalculator kernel = factory.CreateAssemblyCategoriesKernel();
+            ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
 
             // Assert
             Assert.AreSame(factory.LastCreatedAssemblyCategoriesKernel, kernel);
@@ -62,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
             var factory = new TestAssemblyToolKernelFactory();
 
             // Call
-            IFailureMechanismSectionAssemblyCalculator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+            IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
             // Assert
             Assert.AreSame(factory.LastCreatedFailureMechanismSectionAssemblyKernel, kernel);
