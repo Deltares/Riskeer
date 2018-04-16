@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using AssemblyTool.Kernel.Assembly;
-using AssemblyTool.Kernel.Categories;
+using Assembly.Kernel.Implementations;
+using Assembly.Kernel.Interfaces;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
 {
@@ -45,14 +45,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
             }
         }
 
-        public ICategoriesCalculator CreateAssemblyCategoriesKernel()
+        public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {
-            return new CategoriesCalculator();
+            return new CategoryLimitsCalculator();
         }
 
-        public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyKernel()
+        public IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel()
         {
-            return new FailureMechanismSectionAssemblyCalculator();
+            return new AssessmentResultsTranslator();
         }
     }
 }
