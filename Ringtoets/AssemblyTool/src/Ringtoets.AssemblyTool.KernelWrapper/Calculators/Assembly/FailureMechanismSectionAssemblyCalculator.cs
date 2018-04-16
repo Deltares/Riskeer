@@ -189,8 +189,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FmSectionAssemblyDirectResult output = kernel.TailorMadeAssessmentDirectFailureMechanisms(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateTailorMadeCalculationResult(tailorMadeAssessmentResult));
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T1(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(tailorMadeAssessmentResult));
 
                 return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(output.Result);
             }

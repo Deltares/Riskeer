@@ -953,8 +953,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    random.NextEnumValue<FailureMechanismSectionCategoryGroup>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -962,24 +960,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
 
                 // Assert
-                Assert.AreEqual(kernel.TailorMadeCalculationResultInput, GetTailorMadeCalculationResult(tailorMadeAssessmentResult));
+                Assert.AreEqual(kernel.AssessmentResultTypeT1Input, GetTailorMadeCalculationResult(tailorMadeAssessmentResult));
             }
         }
 
-        private static TailorMadeCalculationResult GetTailorMadeCalculationResult(TailorMadeAssessmentResultType tailorMadeAssessmentResult)
+        private static EAssessmentResultTypeT1 GetTailorMadeCalculationResult(TailorMadeAssessmentResultType tailorMadeAssessmentResult)
         {
             switch (tailorMadeAssessmentResult)
             {
                 case TailorMadeAssessmentResultType.None:
-                    return TailorMadeCalculationResult.None;
+                    return EAssessmentResultTypeT1.Gr;
                 case TailorMadeAssessmentResultType.ProbabilityNegligible:
-                    return TailorMadeCalculationResult.FV;
+                    return EAssessmentResultTypeT1.Fv;
                 case TailorMadeAssessmentResultType.Sufficient:
-                    return TailorMadeCalculationResult.V;
+                    return EAssessmentResultTypeT1.V;
                 case TailorMadeAssessmentResultType.Insufficient:
-                    return TailorMadeCalculationResult.VN;
+                    return EAssessmentResultTypeT1.Vn;
                 case TailorMadeAssessmentResultType.NotAssessed:
-                    return TailorMadeCalculationResult.NGO;
+                    return EAssessmentResultTypeT1.Ngo;
                 default:
                     throw new NotSupportedException();
             }
@@ -996,8 +994,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    (FailureMechanismSectionCategoryGroup) 99);
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -1022,8 +1019,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                kernel.FailureMechanismSectionAssemblyCategoryGroup = new CalculationOutput<FailureMechanismSectionCategoryGroup>(
-                    random.NextEnumValue<FailureMechanismSectionCategoryGroup>());
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -1032,7 +1028,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     random.NextEnumValue<TailorMadeAssessmentResultType>());
 
                 // Assert
-                Assert.AreEqual(GetGroup(kernel.FailureMechanismSectionAssemblyCategoryGroup.Result), assembly);
+                Assert.AreEqual(GetGroup(kernel.FailureMechanismSectionDirectResult.Result), assembly);
             }
         }
 
