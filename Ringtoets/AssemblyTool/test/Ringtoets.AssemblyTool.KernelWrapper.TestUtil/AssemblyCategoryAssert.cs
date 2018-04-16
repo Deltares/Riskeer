@@ -22,8 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AssemblyTool.Kernel;
-using AssemblyTool.Kernel.Data.AssemblyCategories;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.CategoryLimits;
+using Assembly.Kernel.Model.FmSectionTypes;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 
@@ -37,77 +38,77 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="CalculationOutput{T}"/>.</param>
-        /// <param name="actual">The actual <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="original">The original collection of <see cref="AssessmentSectionCategoryLimits"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="AssessmentSectionAssemblyCategory"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssessmentSectionAssemblyCategories(CalculationOutput<AssessmentSectionCategory[]> original,
+        public static void AssertAssessmentSectionAssemblyCategories(IEnumerable<AssessmentSectionCategoryLimits> original,
                                                                      IEnumerable<AssessmentSectionAssemblyCategory> actual)
         {
-            Assert.AreEqual(original.Result.Length, actual.Count());
+            Assert.AreEqual(original.Count(), actual.Count());
 
-            CollectionAssert.AreEqual(original.Result.Select(o => GetAssessmentSectionCategoryGroup(o.CategoryGroup)), actual.Select(r => r.Group));
-            CollectionAssert.AreEqual(original.Result.Select(o => o.LowerBoundary), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Result.Select(o => o.UpperBoundary), actual.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(original.Select(o => GetAssessmentSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
+            CollectionAssert.AreEqual(original.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="CalculationOutput{T}"/>.</param>
-        /// <param name="actual">The actual <see cref="IEnumerable{T}"/>.</param>
+        /// <param name="original">The original collection of <see cref="FmSectionCategoryLimits"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertFailureMechanismSectionAssemblyCategories(CalculationOutput<FailureMechanismSectionCategory[]> original,
+        public static void AssertFailureMechanismSectionAssemblyCategories(IEnumerable<FmSectionCategoryLimits> original,
                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> actual)
         {
-            Assert.AreEqual(original.Result.Length, actual.Count());
+            Assert.AreEqual(original.Count(), actual.Count());
 
-            CollectionAssert.AreEqual(original.Result.Select(o => GetFailureMechanismSectionCategoryGroup(o.CategoryGroup)), actual.Select(r => r.Group));
-            CollectionAssert.AreEqual(original.Result.Select(o => o.LowerBoundary), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Result.Select(o => o.UpperBoundary), actual.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(original.Select(o => GetFailureMechanismSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
+            CollectionAssert.AreEqual(original.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
-        private static AssessmentSectionAssemblyCategoryGroup GetAssessmentSectionCategoryGroup(AssessmentSectionCategoryGroup category)
+        private static AssessmentSectionAssemblyCategoryGroup GetAssessmentSectionCategoryGroup(EAssessmentGrade category)
         {
             switch (category)
             {
-                case AssessmentSectionCategoryGroup.APlus:
+                case EAssessmentGrade.APlus:
                     return AssessmentSectionAssemblyCategoryGroup.APlus;
-                case AssessmentSectionCategoryGroup.A:
+                case EAssessmentGrade.A:
                     return AssessmentSectionAssemblyCategoryGroup.A;
-                case AssessmentSectionCategoryGroup.B:
+                case EAssessmentGrade.B:
                     return AssessmentSectionAssemblyCategoryGroup.B;
-                case AssessmentSectionCategoryGroup.C:
+                case EAssessmentGrade.C:
                     return AssessmentSectionAssemblyCategoryGroup.C;
-                case AssessmentSectionCategoryGroup.D:
+                case EAssessmentGrade.D:
                     return AssessmentSectionAssemblyCategoryGroup.D;
                 default:
                     throw new NotSupportedException();
             }
         }
 
-        private static FailureMechanismSectionAssemblyCategoryGroup GetFailureMechanismSectionCategoryGroup(FailureMechanismSectionCategoryGroup category)
+        private static FailureMechanismSectionAssemblyCategoryGroup GetFailureMechanismSectionCategoryGroup(EFmSectionCategory category)
         {
             switch (category)
             {
-                case FailureMechanismSectionCategoryGroup.Iv:
+                case EFmSectionCategory.Iv:
                     return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case FailureMechanismSectionCategoryGroup.IIv:
+                case EFmSectionCategory.IIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case FailureMechanismSectionCategoryGroup.IIIv:
+                case EFmSectionCategory.IIIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case FailureMechanismSectionCategoryGroup.IVv:
+                case EFmSectionCategory.IVv:
                     return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case FailureMechanismSectionCategoryGroup.Vv:
+                case EFmSectionCategory.Vv:
                     return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case FailureMechanismSectionCategoryGroup.VIv:
+                case EFmSectionCategory.VIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case FailureMechanismSectionCategoryGroup.VIIv:
+                case EFmSectionCategory.VIIv:
                     return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case FailureMechanismSectionCategoryGroup.NotApplicable:
+                case EFmSectionCategory.NotApplicable:
                     return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-                case FailureMechanismSectionCategoryGroup.None:
+                case EFmSectionCategory.Gr:
                     return FailureMechanismSectionAssemblyCategoryGroup.None;
                 default:
                     throw new NotSupportedException();
