@@ -29,16 +29,15 @@ namespace Ringtoets.Common.Util.TestUtil
     {
         /// <summary>
         /// Asserts whether the meta data for <paramref name="key"/> in <paramref name="feature"/>
-        /// contains the correct output data.
+        /// contains the correct value.
         /// </summary>
         /// <param name="expectedValue">The value to assert against.</param>
         /// <param name="feature">The <see cref="MapFeature"/> to be asserted.</param>
-        /// <param name="key">The name of the meta data element to retrieve the data from.</param>
+        /// <param name="key">The name of the meta data element to retrieve the value from.</param>
         /// <exception cref="KeyNotFoundException">Thrown when the meta data of <paramref name="feature"/> does not 
         /// contain a <see cref="KeyValuePair{TKey,TValue}"/> with <paramref name="key"/> as key.</exception>
-        /// <exception cref="AssertionException">Thrown when the wave height or the design water level of a 
-        /// hydraulic boundary location and the respective meta data value associated with <paramref name="key"/>
-        /// are not the same.
+        /// <exception cref="AssertionException">Thrown when the value and the respective meta data value associated
+        /// with <paramref name="key"/> are not equal.
         /// </exception>
         public static void AssertHydraulicBoundaryLocationOutputMetaData(string expectedValue,
                                                                          MapFeature feature,
