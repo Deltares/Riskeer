@@ -25,22 +25,22 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure multiple enumerations of <see cref="HydraulicBoundaryLocation"/> 
-    /// with a design water level calculation result.
+    /// with a wave height calculation result.
     /// </summary>
-    public class DesignWaterLevelCalculationsGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+    public class WaveHeightCalculationsGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelCalculationsGroupContext"/>.
+        /// Creates a new instance of <see cref="WaveHeightCalculationsGroupContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The locations that the <see cref="DesignWaterLevelCalculationsGroupContext"/> belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="DesignWaterLevelCalculationsGroupContext"/> belongs to.</param>
+        /// <param name="wrappedData">The locations that the <see cref="WaveHeightCalculationsGroupContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="WaveHeightCalculationsGroupContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationsGroupContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
-                                                        IAssessmentSection assessmentSection)
+        public WaveHeightCalculationsGroupContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
+                                                  IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)

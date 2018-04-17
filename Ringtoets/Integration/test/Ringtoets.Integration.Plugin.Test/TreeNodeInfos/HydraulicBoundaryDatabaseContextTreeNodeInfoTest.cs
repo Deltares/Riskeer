@@ -39,6 +39,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Data;
