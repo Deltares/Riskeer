@@ -7,9 +7,8 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_TestUtil.targets" />
   <ItemGroup>
-    <Reference Include="AssemblyToolKernel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\AssemblyToolKernel.dll</HintPath>
+    <Reference Include="Assembly.Kernel">
+      <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
