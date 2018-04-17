@@ -70,7 +70,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_CategoryWithInvalidAssessmentSectionAssemblyCategory_ThrowsInvalidEnumArgumentException()
+        public void CreateAssessmentSectionAssemblyCategories_CategoryWithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var output = new[]
@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
 
             // Assert
-            const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'AssessmentSectionCategoryGroup'.";
+            const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EAssessmentGrade'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, exceptionMessage);
         }
 
@@ -145,7 +145,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithInvalidFailureMechanismSectionAssemblyCategory_ThrowsInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithInvalidFailureMechanismSectionCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var output = new[]
@@ -157,7 +157,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
 
             // Assert
-            const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionCategoryGroup'.";
+            const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, exceptionMessage);
         }
 

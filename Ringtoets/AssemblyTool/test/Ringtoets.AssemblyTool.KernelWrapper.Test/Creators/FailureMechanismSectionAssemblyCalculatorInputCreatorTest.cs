@@ -138,11 +138,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             Dictionary<EFmSectionCategory, ECategoryCompliancy> results = result.GetCompliancyResults();
-            Assert.AreEqual(results[EFmSectionCategory.Iv], GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedSignalingNorm));
-            Assert.AreEqual(results[EFmSectionCategory.IIv], GetAssessmentResultTypeG1(detailedAssessmentResultForSignalingNorm));
-            Assert.AreEqual(results[EFmSectionCategory.IIIv], GetAssessmentResultTypeG1(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
-            Assert.AreEqual(results[EFmSectionCategory.IVv], GetAssessmentResultTypeG1(detailedAssessmentResultForLowerLimitNorm));
-            Assert.AreEqual(results[EFmSectionCategory.Vv], GetAssessmentResultTypeG1(detailedAssessmentResultForFactorizedLowerLimitNorm));
+            Assert.AreEqual(results[EFmSectionCategory.Iv], GetCategoryCompliance(detailedAssessmentResultForFactorizedSignalingNorm));
+            Assert.AreEqual(results[EFmSectionCategory.IIv], GetCategoryCompliance(detailedAssessmentResultForSignalingNorm));
+            Assert.AreEqual(results[EFmSectionCategory.IIIv], GetCategoryCompliance(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
+            Assert.AreEqual(results[EFmSectionCategory.IVv], GetCategoryCompliance(detailedAssessmentResultForLowerLimitNorm));
+            Assert.AreEqual(results[EFmSectionCategory.Vv], GetCategoryCompliance(detailedAssessmentResultForFactorizedLowerLimitNorm));
         }
 
         [Test]
@@ -258,6 +258,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             }
         }
 
+        private static ECategoryCompliancy GetCategoryCompliance(DetailedAssessmentResultType detailedAssessmentResult)
+        {
+            switch (detailedAssessmentResult)
+            {
+                case DetailedAssessmentResultType.None:
+                    return ECategoryCompliancy.NoResult;
+                case DetailedAssessmentResultType.Sufficient:
+                    return ECategoryCompliancy.Complies;
+                case DetailedAssessmentResultType.Insufficient:
+                    return ECategoryCompliancy.DoesNotComply;
+                case DetailedAssessmentResultType.NotAssessed:
+                    return ECategoryCompliancy.Ngo;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
         #endregion
 
         #region Failure Mechanism Section Assembly
@@ -327,11 +344,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             EFmSectionCategory expectedGroup)
         {
             // Call
-            FmSectionAssemblyDirectResult actualGroup = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
+            FmSectionAssemblyDirectResult actualResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
                 originalGroup);
 
             // Assert
-            Assert.AreEqual(expectedGroup, actualGroup);
+            Assert.AreEqual(expectedGroup, actualResult.Result);
+            Assert.IsNull(actualResult.FailureProbability);
         }
 
         [Test]
