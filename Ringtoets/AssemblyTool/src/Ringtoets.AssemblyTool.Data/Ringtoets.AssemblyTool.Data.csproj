@@ -11,6 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyCategoriesInput.cs" />
     <Compile Include="AssemblyCategory.cs" />
     <Compile Include="AssessmentSectionAssemblyCategory.cs" />
     <Compile Include="AssessmentSectionAssemblyCategoryGroup.cs" />
