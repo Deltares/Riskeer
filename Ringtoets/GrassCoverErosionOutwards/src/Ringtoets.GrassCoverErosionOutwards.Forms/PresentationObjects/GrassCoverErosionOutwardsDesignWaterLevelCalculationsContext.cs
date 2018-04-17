@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The calculations for the context belongs to.</param>
+        /// <param name="wrappedData">The calculations the context belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section the context belongs to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for obtaining the norm to use during calculations.</param>

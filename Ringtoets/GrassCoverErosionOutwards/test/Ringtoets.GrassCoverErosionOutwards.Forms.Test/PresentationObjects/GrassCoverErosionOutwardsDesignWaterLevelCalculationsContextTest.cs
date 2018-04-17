@@ -39,10 +39,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
+            var calculations = mocks.Stub<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-
-            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
             TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(calculations, null, assessmentSection,

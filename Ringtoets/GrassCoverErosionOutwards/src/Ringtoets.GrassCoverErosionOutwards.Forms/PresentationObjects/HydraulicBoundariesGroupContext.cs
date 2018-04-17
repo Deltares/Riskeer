@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The hydraulic boundaries database to wrap.</param>
         /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism the calculations belong to.</param>
-        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the hydraulic boundary database belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundariesGroupContext(HydraulicBoundaryDatabase wrappedData,
                                                GrassCoverErosionOutwardsFailureMechanism failureMechanism,
