@@ -71,7 +71,10 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 new TestCaseData(AssessmentSectionAssemblyCategoryGroup.A, Color.FromArgb(118, 147, 60)),
                 new TestCaseData(AssessmentSectionAssemblyCategoryGroup.B, Color.FromArgb(255, 255, 0)),
                 new TestCaseData(AssessmentSectionAssemblyCategoryGroup.C, Color.FromArgb(255, 153, 0)),
-                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, Color.FromArgb(255, 0, 0))
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, Color.FromArgb(255, 0, 0)),
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.None, Color.White),
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotAssessed, Color.White),
+                new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotApplicable, Color.White)
             };
 
             Assert.AreEqual(expectedCases.Length, testCases.Count());

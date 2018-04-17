@@ -83,6 +83,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
                     return AssessmentSectionAssemblyCategoryGroup.C;
                 case EAssessmentGrade.D:
                     return AssessmentSectionAssemblyCategoryGroup.D;
+                case EAssessmentGrade.Gr:
+                    return AssessmentSectionAssemblyCategoryGroup.None;
+                case EAssessmentGrade.Ngo:
+                    return AssessmentSectionAssemblyCategoryGroup.NotAssessed;
+                case EAssessmentGrade.Nvt:
+                    return AssessmentSectionAssemblyCategoryGroup.NotApplicable;
                 default:
                     throw new NotSupportedException();
             }

@@ -29,19 +29,28 @@ namespace Ringtoets.AssemblyTool.Data
     /// </summary>
     public enum AssessmentSectionAssemblyCategoryGroup
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_None_DisplayName))]
+        None = 1,
+
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_APlus_DisplayName))]
-        APlus = 1,
+        APlus = 2,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_A_DisplayName))]
-        A = 2,
+        A = 3,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_B_DisplayName))]
-        B = 3,
+        B = 4,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_C_DisplayName))]
-        C = 4,
+        C = 5,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_D_DisplayName))]
-        D = 5
+        D = 6,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_NotApplicable_DisplayName))]
+        NotApplicable = 7,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName))]
+        NotAssessed = 8
     }
 }

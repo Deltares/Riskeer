@@ -64,6 +64,9 @@ namespace Ringtoets.Common.Forms.TestUtil
                 yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.B, Color.FromArgb(255, 255, 0));
                 yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.C, Color.FromArgb(255, 153, 0));
                 yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, Color.FromArgb(255, 0, 0));
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.None, Color.White);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotAssessed, Color.White);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotApplicable, Color.White);
             }
         }
     }

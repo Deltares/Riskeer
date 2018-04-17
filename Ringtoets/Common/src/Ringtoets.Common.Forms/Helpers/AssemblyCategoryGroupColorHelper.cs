@@ -61,6 +61,10 @@ namespace Ringtoets.Common.Forms.Helpers
                     return Color.FromArgb(255, 153, 0);
                 case AssessmentSectionAssemblyCategoryGroup.D:
                     return Color.FromArgb(255, 0, 0);
+                case AssessmentSectionAssemblyCategoryGroup.None:
+                case AssessmentSectionAssemblyCategoryGroup.NotApplicable:
+                case AssessmentSectionAssemblyCategoryGroup.NotAssessed:
+                    return Color.White;
                 default:
                     throw new NotSupportedException();
             }

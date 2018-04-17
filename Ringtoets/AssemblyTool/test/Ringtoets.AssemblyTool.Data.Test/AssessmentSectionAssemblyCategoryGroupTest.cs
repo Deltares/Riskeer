@@ -35,20 +35,29 @@ namespace Ringtoets.AssemblyTool.Data.Test
                 return new Dictionary<AssessmentSectionAssemblyCategoryGroup, byte>
                 {
                     {
-                        AssessmentSectionAssemblyCategoryGroup.APlus, 1
+                        AssessmentSectionAssemblyCategoryGroup.None, 1
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.A, 2
+                        AssessmentSectionAssemblyCategoryGroup.APlus, 2
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.B, 3
+                        AssessmentSectionAssemblyCategoryGroup.A, 3
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.C, 4
+                        AssessmentSectionAssemblyCategoryGroup.B, 4
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.D, 5
-                    }
+                        AssessmentSectionAssemblyCategoryGroup.C, 5
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.D, 6
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.NotApplicable, 7
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, 8
+                    },
                 };
             }
         }
@@ -59,6 +68,9 @@ namespace Ringtoets.AssemblyTool.Data.Test
             {
                 return new Dictionary<AssessmentSectionAssemblyCategoryGroup, string>
                 {
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.None, ""
+                    },
                     {
                         AssessmentSectionAssemblyCategoryGroup.APlus, "A+"
                     },
@@ -73,7 +85,13 @@ namespace Ringtoets.AssemblyTool.Data.Test
                     },
                     {
                         AssessmentSectionAssemblyCategoryGroup.D, "D"
-                    }
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.NotApplicable, "-"
+                    },
+                    {
+                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, "-"
+                    },
                 };
             }
         }

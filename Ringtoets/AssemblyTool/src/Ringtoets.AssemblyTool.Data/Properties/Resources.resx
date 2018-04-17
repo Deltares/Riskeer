@@ -132,4 +132,13 @@
   <data name="AssessmentSectionAssemblyCategoryGroup_D_DisplayName" xml:space="preserve">
     <value>D</value>
   </data>
+  <data name="AssessmentSectionAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AssessmentSectionAssemblyCategoryGroup_NotApplicable_DisplayName" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName" xml:space="preserve">
+    <value>-</value>
+  </data>
 </root>

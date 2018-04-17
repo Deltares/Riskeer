@@ -115,8 +115,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     return AssessmentSectionAssemblyCategoryGroup.B;
                 case EAssessmentGrade.C:
                     return AssessmentSectionAssemblyCategoryGroup.C;
-                case EAssessmentGrade.D:
-                    return AssessmentSectionAssemblyCategoryGroup.D;
+                case EAssessmentGrade.Gr:
+                    return AssessmentSectionAssemblyCategoryGroup.None;
+                case EAssessmentGrade.Ngo:
+                    return AssessmentSectionAssemblyCategoryGroup.NotAssessed;
+                case EAssessmentGrade.Nvt:
+                    return AssessmentSectionAssemblyCategoryGroup.NotApplicable;
                 default:
                     throw new NotSupportedException();
             }
