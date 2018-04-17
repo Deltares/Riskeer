@@ -349,6 +349,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             TailorMadeAssessmentProbabilityAndDetailedCalculationResultInput = tailorMadeAssessmentResult;
+            TailorMadeAssessmentProbabilityInput = probability;
             TailorMadeAssessmentAssessmentSectionInput = assessmentSection;
             TailorMadeAssessmentFailureMechanismInput = failureMechanism;
 

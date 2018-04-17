@@ -63,6 +63,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public EAssessmentResultTypeT3? AssessmentResultTypeT3Input { get; private set; }
 
         /// <summary>
+        /// Gets the input used in <see cref="TranslateAssessmentResultWbi0T7"/>.
+        /// </summary>
+        public EAssessmentResultTypeT4? AssessmentResultTypeT4Input { get; private set; }
+
+        /// <summary>
         /// Gets the section category input used as input parameter for assembly methods.
         /// </summary>
         public EFmSectionCategory? SectionCategoryInput { get; private set; }
@@ -312,9 +317,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(AssessmentSection section, FailureMechanism failureMechanism, EAssessmentResultTypeT4 assessment, double? failureProbability)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(AssessmentSection section,
+                                                                             FailureMechanism failureMechanism,
+                                                                             EAssessmentResultTypeT4 assessment,
+                                                                             double? failureProbability)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            AssessmentSectionInput = section;
+            FailureMechanismInput = failureMechanism;
+            AssessmentResultTypeT4Input = assessment;
+            FailureProbabilityInput = failureProbability;
+
+            Calculated = true;
+            return FailureMechanismSectionDirectResult;
         }
 
         public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResult simpleAssessmentResult,

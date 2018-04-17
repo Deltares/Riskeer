@@ -300,8 +300,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
 
@@ -326,8 +326,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
 
@@ -348,8 +348,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
 
@@ -441,8 +441,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
             double lengthEffect = random.NextDouble();
@@ -469,8 +469,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
             double lengthEffect = random.NextDouble();
@@ -492,8 +492,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
             double lengthEffect = random.NextDouble();
@@ -604,8 +604,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
             double failureProbability = random.NextDouble();
 
@@ -630,8 +630,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
             double failureProbability = random.NextDouble();
 
@@ -652,8 +652,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
             double failureProbability = random.NextDouble();
 
@@ -745,8 +745,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
             double failureProbability = random.NextDouble();
             double lengthEffect = random.NextDouble();
@@ -773,8 +773,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
             double failureProbability = random.NextDouble();
             double lengthEffect = random.NextDouble();
@@ -796,8 +796,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.5, 0.9), random.NextDouble(0.0, 0.4));
-            var failureMechanism = new FailureMechanism(random.NextDouble(), random.NextDouble());
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
             var assessment = random.NextEnumValue<EAssessmentResultTypeT3>();
             double failureProbability = random.NextDouble();
             double lengthEffect = random.NextDouble();
@@ -837,16 +837,81 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T7_Always_ThrowNotImplementedException()
+        public void TranslateAssessmentResultWbi0T7_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
+            var random = new Random(39);
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeT4>();
+            double failureProbability = random.NextDouble();
+
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
             // Call
-            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T7(null, null, EAssessmentResultTypeT4.Ngo, null);
+            kernel.TranslateAssessmentResultWbi0T7(section, failureMechanism, assessment, failureProbability);
 
             // Assert
-            Assert.Throws<NotImplementedException>(test);
+            Assert.AreSame(section, kernel.AssessmentSectionInput);
+            Assert.AreSame(failureMechanism, kernel.FailureMechanismInput);
+            Assert.AreEqual(assessment, kernel.AssessmentResultTypeT4Input);
+            Assert.AreEqual(failureProbability, kernel.FailureProbabilityInput);
+            Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0T7_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        {
+            // Setup
+            var random = new Random(39);
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeT4>();
+            double failureProbability = random.NextDouble();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
+            };
+
+            // Call
+            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0T7(section, failureMechanism, assessment, failureProbability);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0T7_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(39);
+            var section = new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.5), random.NextDouble(0.5, 1.0));
+            var failureMechanism = new FailureMechanism(random.NextDouble(1, 5), random.NextDouble());
+            var assessment = random.NextEnumValue<EAssessmentResultTypeT4>();
+            double failureProbability = random.NextDouble();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T7(section, failureMechanism, assessment, failureProbability);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.AssessmentResultTypeT4Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
 
         #endregion
