@@ -254,55 +254,41 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void ClearDuneCalculationOutputs_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearDuneLocationOutput_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(null);
+            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
+            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
-        public void ClearDuneCalculationOutputs_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
+        public void ClearDuneLocationOutput_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
         {
             // Setup
-            var duneLocations = new[]
+            var calculationWithOutput = new DuneLocationCalculation(new TestDuneLocation())
             {
-                new TestDuneLocation(),
-                new TestDuneLocation()
+                Output = new TestDuneLocationOutput()
             };
+            var calculationWithoutOutput = new DuneLocationCalculation(new TestDuneLocation());
 
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.AddRange(duneLocations);
-            failureMechanism.SetDuneLocationCalculations(duneLocations);
-
-            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            var calculations = new[]
+            {
+                calculationWithOutput,
+                calculationWithoutOutput
+            };
 
             // Call
-            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(failureMechanism);
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(calculations);
 
             // Assert
-            var expectedAffectedCalculations = new[]
+            Assert.IsNull(calculationWithOutput.Output);
+            CollectionAssert.AreEqual(new[]
             {
-                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
-                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(),
-                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(),
-                failureMechanism.CalculationsForLowerLimitNorm.First(),
-                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First()
-            };
-            CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
-
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
+                calculationWithOutput
+            }, affected);
         }
     }
 }

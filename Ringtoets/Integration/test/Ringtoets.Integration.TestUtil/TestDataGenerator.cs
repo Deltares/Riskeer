@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
+using Ringtoets.DuneErosion.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -124,6 +125,11 @@ namespace Ringtoets.Integration.TestUtil
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm);
+            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm);
+            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForLowerLimitNorm);
+            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm);
 
             return assessmentSection;
         }

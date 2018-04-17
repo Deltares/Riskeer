@@ -115,31 +115,18 @@ namespace Ringtoets.DuneErosion.Service
         }
 
         /// <summary>
-        /// Clears the output of the dune location calculations within the dune erosion failure mechanism.
+        /// Clears the output of the dune location calculations within the collection.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism for which the output of the calculations needs to be cleared.</param>
+        /// <param name="calculations">The calculations for which the output needs to be cleared.</param>
         /// <returns>All objects changed during the clear.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearDuneCalculationOutputs(DuneErosionFailureMechanism failureMechanism)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static IEnumerable<IObservable> ClearDuneCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
-            if (failureMechanism == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(calculations));
             }
 
-            var affectedCalculations = new List<IObservable>();
-
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm));
-
-            return affectedCalculations;
-        }
-
-        private static IEnumerable<IObservable> ClearDuneCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
-        {
             var affectedCalculations = new List<IObservable>();
             foreach (DuneLocationCalculation calculation in calculations)
             {
