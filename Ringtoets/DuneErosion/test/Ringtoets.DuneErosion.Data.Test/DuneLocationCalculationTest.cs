@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
@@ -47,12 +46,11 @@ namespace Ringtoets.DuneErosion.Data.Test
             var duneLocation = new TestDuneLocation();
 
             // Call
-            var calculation = new DuneLocationCalculation(duneLocation);
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             // Assert
-            Assert.IsInstanceOf<Observable>(calculation);
-            Assert.AreSame(duneLocation, calculation.DuneLocation);
-            Assert.IsNull(calculation.Output);
+            Assert.AreSame(duneLocation, duneLocationCalculation.DuneLocation);
+            Assert.IsNull(duneLocationCalculation.Output);
         }
     }
 }

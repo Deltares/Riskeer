@@ -20,14 +20,13 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 
 namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
     /// Adapter class for a dune erosion calculation.
     /// </summary>
-    public class DuneLocationCalculation : Observable
+    public class DuneLocationCalculation
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculation"/>.
