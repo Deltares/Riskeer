@@ -45,24 +45,13 @@ namespace Ringtoets.DuneErosion.Forms
 
         protected override bool RequiresConfirmation(DuneErosionFailureMechanism failureMechanism)
         {
-            return base.RequiresConfirmation(failureMechanism)
-                   || failureMechanism.DuneLocations.Any(c => c.Calculation.Output != null)
-                   || failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(HasOutput)
-                   || failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(HasOutput)
-                   || failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(HasOutput)
-                   || failureMechanism.CalculationsForLowerLimitNorm.Any(HasOutput)
-                   || failureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(HasOutput);
+            return base.RequiresConfirmation(failureMechanism) ||
+                   failureMechanism.DuneLocations.Any(c => c.Calculation.Output != null);
         }
 
         protected override IEnumerable<IObservable> PropertyChanged(DuneErosionFailureMechanism failureMechanism)
         {
-            return DuneErosionDataSynchronizationService.ClearDuneLocationOutput(failureMechanism.DuneLocations)
-                                                        .Concat(DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(failureMechanism));
-        }
-
-        private static bool HasOutput(DuneLocationCalculation calculation)
-        {
-            return calculation.Output != null;
+            return DuneErosionDataSynchronizationService.ClearDuneLocationOutput(failureMechanism.DuneLocations);
         }
     }
 }
