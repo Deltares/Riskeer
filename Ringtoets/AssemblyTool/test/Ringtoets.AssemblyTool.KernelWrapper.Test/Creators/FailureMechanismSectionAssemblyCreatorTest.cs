@@ -59,7 +59,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void Create_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var result = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
+            var result = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99, new Random(39).NextDouble());
 
             // Call
             TestDelegate test = () => FailureMechanismSectionAssemblyCreator.Create(result);

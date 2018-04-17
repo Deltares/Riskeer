@@ -301,7 +301,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             FailureMechanismInput = failureMechanism;
             AssessmentResultTypeT3Input = assessment;
             FailureProbabilityInput = failureProbability;
-            LengthEffectFactorInput = LengthEffectFactorInput;
+            LengthEffectFactorInput = fmSectionLengthEffectFactor;
 
             Calculated = true;
             return FailureMechanismSectionDirectResult;

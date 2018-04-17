@@ -96,8 +96,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
             IEnumerable<AssessmentSectionCategoryLimits> output = CreateAssessmentSectionCategoryKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -262,8 +262,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble(1, 5);
             IEnumerable<FmSectionCategoryLimits> output = CreateFailureMechanismSectionCategoryKernelOutput();
@@ -277,8 +277,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
-                                                                                                                                              failureMechanismContribution, n);
+                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(
+                    signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
 
                 // Assert
                 AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);

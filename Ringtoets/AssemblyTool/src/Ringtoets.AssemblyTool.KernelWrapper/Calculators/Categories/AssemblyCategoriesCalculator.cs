@@ -57,7 +57,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
-                IEnumerable<AssessmentSectionCategoryLimits> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(new AssessmentSection(0.0, signalingNorm, lowerLimitNorm));
+                IEnumerable<AssessmentSectionCategoryLimits> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(
+                    new AssessmentSection(1, signalingNorm, lowerLimitNorm));
 
                 return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
             }
@@ -76,7 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 IEnumerable<FmSectionCategoryLimits> output = kernel.CalculateFmSectionCategoryLimitsWbi01(
-                    new AssessmentSection(0.0, signalingNorm, lowerLimitNorm),
+                    new AssessmentSection(1, signalingNorm, lowerLimitNorm),
                     new FailureMechanism(n, failureMechanismContribution));
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
@@ -96,7 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 IEnumerable<FmSectionCategoryLimits> output = kernel.CalculateFmSectionCategoryLimitsWbi02(
-                    new AssessmentSection(0.0, signalingNorm, lowerLimitNorm),
+                    new AssessmentSection(1, signalingNorm, lowerLimitNorm),
                     new FailureMechanism(n, failureMechanismContribution));
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
