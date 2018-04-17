@@ -1981,19 +1981,19 @@ namespace Ringtoets.Integration.Plugin
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_1),
+                                                        Resources.Hydraulic_category_boundary_factorizedSignalingNorm_name),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_2),
+                                                        Resources.Hydraulic_category_boundary_signalingNorm_name),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_3),
+                                                        Resources.Hydraulic_category_boundary_lowerBoundaryNorm_name),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_4)
+                                                        Resources.Hydraulic_category_boundary_factorizedLowerBoundaryNorm_name)
             };
         }
 
@@ -2004,19 +2004,19 @@ namespace Ringtoets.Integration.Plugin
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_1),
+                                                  Resources.Hydraulic_category_boundary_factorizedSignalingNorm_name),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_2),
+                                                  Resources.Hydraulic_category_boundary_signalingNorm_name),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_3),
+                                                  Resources.Hydraulic_category_boundary_lowerBoundaryNorm_name),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_4)
+                                                  Resources.Hydraulic_category_boundary_factorizedLowerBoundaryNorm_name)
             };
         }
 

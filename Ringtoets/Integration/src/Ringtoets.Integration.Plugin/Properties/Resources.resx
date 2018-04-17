@@ -173,16 +173,16 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="Hydraulic_category_boundary_name_1" xml:space="preserve">
+  <data name="Hydraulic_category_boundary_factorizedSignalingNorm_name" xml:space="preserve">
     <value>Categorie A+-&gt;A</value>
   </data>
-  <data name="Hydraulic_category_boundary_name_2" xml:space="preserve">
+  <data name="Hydraulic_category_boundary_signalingNorm_name" xml:space="preserve">
     <value>Categorie A-&gt;B</value>
   </data>
-  <data name="Hydraulic_category_boundary_name_3" xml:space="preserve">
+  <data name="Hydraulic_category_boundary_lowerBoundaryNorm_name" xml:space="preserve">
     <value>Categorie B-&gt;C</value>
   </data>
-  <data name="Hydraulic_category_boundary_name_4" xml:space="preserve">
+  <data name="Hydraulic_category_boundary_factorizedLowerBoundaryNorm_name" xml:space="preserve">
     <value>Categorie C-&gt;D</value>
   </data>
 </root>
