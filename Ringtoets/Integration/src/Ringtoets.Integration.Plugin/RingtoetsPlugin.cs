@@ -1931,12 +1931,6 @@ namespace Ringtoets.Integration.Plugin
             assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
 
             assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
-
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.NotifyObservers();
         }
 
         private static bool IsClearCalculationConfirmationGiven()
