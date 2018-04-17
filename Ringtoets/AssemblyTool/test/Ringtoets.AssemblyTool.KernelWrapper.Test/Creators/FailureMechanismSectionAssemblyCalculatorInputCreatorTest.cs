@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
 using Assembly.Kernel.Model.FmSectionTypes;
@@ -384,7 +383,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             EFmSectionCategory? expectedGroup)
         {
             // Call
-            Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> actualGroup = 
+            Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> actualGroup =
                 FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(originalGroup);
 
             // Assert

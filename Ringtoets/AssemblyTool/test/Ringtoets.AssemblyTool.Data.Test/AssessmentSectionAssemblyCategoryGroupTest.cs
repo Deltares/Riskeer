@@ -57,7 +57,7 @@ namespace Ringtoets.AssemblyTool.Data.Test
                     },
                     {
                         AssessmentSectionAssemblyCategoryGroup.NotAssessed, 8
-                    },
+                    }
                 };
             }
         }
@@ -91,7 +91,7 @@ namespace Ringtoets.AssemblyTool.Data.Test
                     },
                     {
                         AssessmentSectionAssemblyCategoryGroup.NotAssessed, "-"
-                    },
+                    }
                 };
             }
         }
