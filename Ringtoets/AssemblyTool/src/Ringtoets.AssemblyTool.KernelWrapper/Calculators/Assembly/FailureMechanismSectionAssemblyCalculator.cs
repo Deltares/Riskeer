@@ -305,7 +305,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 FmSectionAssemblyDirectResult simpleAssemblyResult = 
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
-                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable)
+                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable || simpleAssemblyResult.Result == EFmSectionCategory.Iv)
                 {
                     return FailureMechanismSectionAssemblyCreator.Create(simpleAssemblyResult);
                 }
@@ -332,14 +332,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 FmSectionAssemblyDirectResult simpleAssemblyResult = 
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
-                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable)
+                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable || simpleAssemblyResult.Result == EFmSectionCategory.Iv)
                 {
                     return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(simpleAssemblyResult.Result);
                 }
 
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                    simpleAssemblyResult,
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
 

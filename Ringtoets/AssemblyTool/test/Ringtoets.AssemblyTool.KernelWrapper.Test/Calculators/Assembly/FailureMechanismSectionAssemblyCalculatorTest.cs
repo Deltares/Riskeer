@@ -1755,7 +1755,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            var simpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var simpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.None);
             var detailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var tailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
@@ -1779,11 +1779,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleCombinedWithProbabilities_WithSimpleAssemblyNotApplicable_ExpectedOutputReturnedByCalculator()
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        public void AssembleCombinedWithProbabilities_WithSimpleAssemblyNotApplicableOrCategoryIv_ExpectedOutputReturnedByCalculator(
+            FailureMechanismSectionAssemblyCategoryGroup category)
         {
             // Setup
             var random = new Random(39);
-            var simpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.NotApplicable);
+            var simpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), category);
             var detailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var tailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
@@ -1848,7 +1851,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
-                    new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
+                    new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.None),
                     new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                     new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()));
 
@@ -1876,7 +1879,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined(
-                    new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
+                    new FailureMechanismSectionAssembly(random.NextDouble(), FailureMechanismSectionAssemblyCategoryGroup.None),
                     new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                     new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()));
 
@@ -1917,7 +1920,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            var simpleAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
             var detailedAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var tailorMadeAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -1940,11 +1943,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleCombined_WithSimpleAssemblyNotApplicable_ExpectedOutputReturnedByCalculator()
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        public void AssembleCombined_WithSimpleAssemblyNotApplicableOrCategoryIv_ExpectedOutputReturnedByCalculator(
+            FailureMechanismSectionAssemblyCategoryGroup category)
         {
             // Setup
             var random = new Random(39);
-            const FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
+            FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = category;
             var detailedAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var tailorMadeAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -1960,7 +1966,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, assembly);
+                Assert.AreEqual(simpleAssembly, assembly);
             }
         }
 
