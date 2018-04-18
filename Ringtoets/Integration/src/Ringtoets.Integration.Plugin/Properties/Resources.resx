@@ -179,10 +179,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="Hydraulic_category_boundary_signalingNorm_name" xml:space="preserve">
     <value>Categorie A-&gt;B</value>
   </data>
-  <data name="Hydraulic_category_boundary_lowerBoundaryNorm_name" xml:space="preserve">
+  <data name="Hydraulic_category_boundary_lowerLimitNorm_name" xml:space="preserve">
     <value>Categorie B-&gt;C</value>
   </data>
-  <data name="Hydraulic_category_boundary_factorizedLowerBoundaryNorm_name" xml:space="preserve">
+  <data name="Hydraulic_category_boundary_factorizedLowerLimitNorm_name" xml:space="preserve">
     <value>Categorie C-&gt;D</value>
   </data>
 </root>

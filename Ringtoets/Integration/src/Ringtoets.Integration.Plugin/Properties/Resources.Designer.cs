@@ -183,9 +183,9 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Categorie C-&gt;D.
         /// </summary>
-        public static string Hydraulic_category_boundary_factorizedLowerBoundaryNorm_name {
+        public static string Hydraulic_category_boundary_factorizedLowerLimitNorm_name {
             get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedLowerBoundaryNorm_name", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedLowerLimitNorm_name", resourceCulture);
             }
         }
         
@@ -201,9 +201,9 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Categorie B-&gt;C.
         /// </summary>
-        public static string Hydraulic_category_boundary_lowerBoundaryNorm_name {
+        public static string Hydraulic_category_boundary_lowerLimitNorm_name {
             get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_lowerBoundaryNorm_name", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_lowerLimitNorm_name", resourceCulture);
             }
         }
         
