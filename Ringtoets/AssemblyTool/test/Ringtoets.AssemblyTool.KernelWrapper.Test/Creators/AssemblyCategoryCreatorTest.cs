@@ -63,7 +63,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 new AssessmentSectionCategoryLimits(EAssessmentGrade.D, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
                 new AssessmentSectionCategoryLimits(EAssessmentGrade.Gr, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
                 new AssessmentSectionCategoryLimits(EAssessmentGrade.Ngo, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.Nvt, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new AssessmentSectionCategoryLimits(EAssessmentGrade.Nvt, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
             };
 
             // Call
@@ -142,7 +142,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 new FmSectionCategoryLimits(EFmSectionCategory.Vv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
                 new FmSectionCategoryLimits(EFmSectionCategory.VIv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
                 new FmSectionCategoryLimits(EFmSectionCategory.VIIv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.NotApplicable, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new FmSectionCategoryLimits(EFmSectionCategory.NotApplicable, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
             };
 
             // Call
