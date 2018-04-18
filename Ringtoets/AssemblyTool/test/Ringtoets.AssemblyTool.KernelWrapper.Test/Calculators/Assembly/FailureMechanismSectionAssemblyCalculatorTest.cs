@@ -99,6 +99,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
+        private static void AssertAssemblyCategoriesInput(AssemblyCategoriesInput assemblyCategoriesInput, FailureMechanismSectionAssemblyKernelStub kernel)
+        {
+            Assert.AreEqual(assemblyCategoriesInput.N, kernel.FailureMechanismInput.LengthEffectFactor);
+            Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismInput.FailureProbabilityMarginFactor);
+            Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.AssessmentSectionInput.FailureProbabilityLowerLimit);
+            Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.AssessmentSectionInput.FailureProbabilitySignallingLimit);
+        }
+
+        private AssemblyCategoriesInput CreateAssemblyCategoriesInput()
+        {
+            var random = new Random(39);
+            return new AssemblyCategoriesInput(random.NextDouble(1.0, 5.0),
+                                               random.NextDouble(),
+                                               random.NextDouble(0.0, 0.5),
+                                               random.NextDouble(0.5, 1.0));
+        }
+
         #region Simple Assessment
 
         [Test]
@@ -484,7 +501,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleDetailedAssessment_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
+        public void AssembleDetailedAssessmentWithProbability_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Setup
             var random = new Random(39);
@@ -507,17 +524,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private AssemblyCategoriesInput CreateAssemblyCategoriesInput()
-        {
-            var random = new Random(39);
-            return new AssemblyCategoriesInput(random.NextDouble(1.0, 5.0),
-                                               random.NextDouble(),
-                                               random.NextDouble(0.0, 0.5),
-                                               random.NextDouble(0.5, 1.0));
-        }
-
         [Test]
-        public void AssembleDetailedAssessment_WithValidInput_InputCorrectlySetToKernel()
+        public void AssembleDetailedAssessmentWithProbability_WithValidInput_InputCorrectlySetToKernel()
         {
             // Setup
             var random = new Random(39);
@@ -548,16 +556,38 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static void AssertAssemblyCategoriesInput(AssemblyCategoriesInput assemblyCategoriesInput, FailureMechanismSectionAssemblyKernelStub kernel)
+        [Test]
+        public void AssembleDetailedAssessmentWithProbability_WithProbabilityResultAndNaNValue_InputCorrectlySetToKernel()
         {
-            Assert.AreEqual(assemblyCategoriesInput.N, kernel.FailureMechanismInput.LengthEffectFactor);
-            Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismInput.FailureProbabilityMarginFactor);
-            Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.AssessmentSectionInput.FailureProbabilityLowerLimit);
-            Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.AssessmentSectionInput.FailureProbabilitySignallingLimit);
+            // Setup
+            var random = new Random(39);
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                               random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleDetailedAssessment(
+                    DetailedAssessmentProbabilityOnlyResultType.Probability,
+                    double.NaN,
+                    assemblyCategoriesInput);
+
+                // Assert
+                Assert.IsNaN(kernel.FailureProbabilityInput);
+                Assert.AreEqual(EAssessmentResultTypeG2.Gr, kernel.AssessmentResultTypeG2Input);
+
+                AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
+            }
         }
 
         [Test]
-        public void AssembleDetailedAssessment_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        public void AssembleDetailedAssessmentWithProbability_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
             var random = new Random(39);
@@ -582,7 +612,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleDetailedAssessment_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleDetailedAssessmentWithProbability_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);
@@ -610,7 +640,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleDetailedAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleDetailedAssessmentWithProbability_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);
@@ -691,6 +721,38 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
                 Assert.AreEqual(GetAssessmentResultTypeG2(detailedAssessment), kernel.AssessmentResultTypeG2Input);
+                AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
+            }
+        }
+
+        [Test]
+        public void AssembleDetailedAssessmentWithLengthEffect_WithProbabilityResultAndNanValue_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            double n = random.NextDouble();
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                               random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleDetailedAssessment(
+                    DetailedAssessmentProbabilityOnlyResultType.Probability,
+                    double.NaN,
+                    n,
+                    assemblyCategoriesInput);
+
+                // Assert
+                Assert.IsNaN(kernel.FailureProbabilityInput);
+                Assert.AreEqual(n, kernel.LengthEffectFactorInput);
+                Assert.AreEqual(EAssessmentResultTypeG2.Gr, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
             }
         }
@@ -1154,6 +1216,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityAndDetailedCalculationResult_WithProbabilityResultAndNaNValue_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                               random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability,
+                                                        double.NaN,
+                                                        assemblyCategoriesInput);
+
+                // Assert
+                Assert.AreEqual(EAssessmentResultTypeT4.Gr, kernel.AssessmentResultTypeT4Input);
+                Assert.IsNaN(kernel.FailureProbabilityInput);
+                AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
+            }
+        }
+
+        [Test]
         public void AssembleTailorMadeAssessmentWithProbabilityAndDetailedCalculationResult_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
@@ -1234,7 +1324,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_WithInvalidEnumInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_WithInvalidEnumInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);
@@ -1258,7 +1348,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_WithValidInput_InputCorrectlySetToKernel()
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_WithValidInput_InputCorrectlySetToKernel()
         {
             // Setup
             var random = new Random(39);
@@ -1286,7 +1376,35 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_WithProbabilityResultAndNaNValue_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                               random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                                                        double.NaN,
+                                                        assemblyCategoriesInput);
+
+                // Assert
+                Assert.AreEqual(EAssessmentResultTypeT3.Gr, kernel.AssessmentResultTypeT3Input);
+                Assert.IsNaN(kernel.FailureProbabilityInput);
+                AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
             var random = new Random(39);
@@ -1311,7 +1429,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_KernelWithInvalidOutput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);
@@ -1339,7 +1457,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleTailorMadeAssessment_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleTailorMadeAssessmentWithProbabilityCalculationResult_KernelThrowsException_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);
@@ -1415,6 +1533,37 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.AreEqual(GetAssessmentResultTypeT3(tailorMadeAssessmentResult), kernel.AssessmentResultTypeT3Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
+                Assert.AreEqual(n, kernel.LengthEffectFactorInput);
+                AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
+            }
+        }
+
+        [Test]
+        public void AssembleTailorMadeAssessmentWithLengthEffect_WithProbabilityResultAndNaNValue_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            double n = random.NextDouble();
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+                kernel.FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                               random.NextDouble());
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType.Probability,
+                                                        double.NaN,
+                                                        n,
+                                                        assemblyCategoriesInput);
+
+                // Assert
+                Assert.AreEqual(EAssessmentResultTypeT3.Gr, kernel.AssessmentResultTypeT3Input);
+                Assert.IsNaN(kernel.FailureProbabilityInput);
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
             }

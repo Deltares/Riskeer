@@ -117,7 +117,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G3(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
+                    double.IsNaN(probability) && detailedAssessmentResult == DetailedAssessmentProbabilityOnlyResultType.Probability
+                        ? EAssessmentResultTypeG2.Gr
+                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
                     probability);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
@@ -140,7 +142,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
                     n,
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
+                    double.IsNaN(probability) && detailedAssessmentResult == DetailedAssessmentProbabilityOnlyResultType.Probability
+                        ? EAssessmentResultTypeG2.Gr
+                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
                     probability);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
@@ -207,7 +211,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T7(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult),
+                    double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
+                        ? EAssessmentResultTypeT4.Gr
+                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult),
                     probability);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
@@ -228,7 +234,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T3(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
+                    double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityCalculationResultType.Probability
+                        ? EAssessmentResultTypeT3.Gr
+                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
                     probability);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
@@ -251,7 +259,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
                     n,
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
+                    double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityCalculationResultType.Probability
+                        ? EAssessmentResultTypeT3.Gr
+                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
                     probability);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
