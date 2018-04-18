@@ -39,10 +39,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         #region Simple Assessment
 
         [Test]
-        public void CreateAssessmentResultE1_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
+        public void CreateAssessmentResultTypeE1_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultE1((SimpleAssessmentResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1((SimpleAssessmentResultType) 99);
 
             // Assert
             const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultType'.";
@@ -54,11 +54,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(SimpleAssessmentResultType.NotApplicable, EAssessmentResultTypeE1.Nvt)]
         [TestCase(SimpleAssessmentResultType.ProbabilityNegligible, EAssessmentResultTypeE1.Fv)]
         [TestCase(SimpleAssessmentResultType.AssessFurther, EAssessmentResultTypeE1.Vb)]
-        public void CreateAssessmentResultE1_ValidData_ReturnSimpleCalculationResult(SimpleAssessmentResultType originalResult,
-                                                                                     EAssessmentResultTypeE1 expectedResult)
+        public void CreateAssessmentResultTypeE1_ValidData_ReturnsAssessmentResultTypeE1(SimpleAssessmentResultType originalResult,
+                                                                                         EAssessmentResultTypeE1 expectedResult)
         {
             // Call
-            EAssessmentResultTypeE1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultE1(originalResult);
+            EAssessmentResultTypeE1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -79,7 +79,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(SimpleAssessmentValidityOnlyResultType.None, EAssessmentResultTypeE2.Gr)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.NotApplicable, EAssessmentResultTypeE2.Nvt)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable, EAssessmentResultTypeE2.Wvt)]
-        public void CreateAssessmentResultTypeE2_ValidData_ReturnSimpleCalculationResultValidityOnly(
+        public void CreateAssessmentResultTypeE2_ValidData_ReturnsAssessmentResultTypeE2(
             SimpleAssessmentValidityOnlyResultType originalResult,
             EAssessmentResultTypeE2 expectedResult)
         {
@@ -156,17 +156,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(DetailedAssessmentResultType.None)]
+        [TestCase(DetailedAssessmentResultType.None, EAssessmentResultTypeG1.Gr)]
         [TestCase(DetailedAssessmentResultType.Insufficient)]
         [TestCase(DetailedAssessmentResultType.Sufficient)]
         [TestCase(DetailedAssessmentResultType.NotAssessed)]
-        public void CreateAssessmentResultTypeG1_ValidInput_ReturnsDetailedCalculationResult(DetailedAssessmentResultType detailedAssessmentResult)
+        public void CreateAssessmentResultTypeG1_ValidInput_ReturnsAssessmentResultTypeG1(DetailedAssessmentResultType originalResult,
+                                                                                          EAssessmentResultTypeG1 expectedResult)
         {
             // Call
-            EAssessmentResultTypeG1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(detailedAssessmentResult);
+            EAssessmentResultTypeG1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(originalResult);
 
             // Assert
-            Assert.AreEqual(result, GetAssessmentResultTypeG1(detailedAssessmentResult));
+            Assert.AreEqual(expectedResult, result);
         }
 
         [Test]
@@ -183,15 +184,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(DetailedAssessmentProbabilityOnlyResultType.Probability)]
-        [TestCase(DetailedAssessmentProbabilityOnlyResultType.NotAssessed)]
-        public void CreateAssessmentResultTypeG2_ValidInput_ReturnsDetailedCalculationResult(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.Probability, EAssessmentResultTypeG2.ResultSpecified)]
+        [TestCase(DetailedAssessmentProbabilityOnlyResultType.NotAssessed, EAssessmentResultTypeG2.Ngo)]
+        public void CreateAssessmentResultTypeG2_ValidInput_ReturnsAssessmentResultTypeG2(
+            DetailedAssessmentProbabilityOnlyResultType originalResult,
+            EAssessmentResultTypeG2 expectedResult)
         {
             // Call
-            EAssessmentResultTypeG2 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult);
+            EAssessmentResultTypeG2 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(originalResult);
 
             // Assert
-            Assert.AreEqual(result, GetAssessmentResultTypeG2(detailedAssessmentResult));
+            Assert.AreEqual(expectedResult, result);
         }
 
         private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
@@ -224,36 +227,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                                               random.NextEnumValue<DetailedAssessmentResultType>(),
                                               random.NextEnumValue<DetailedAssessmentResultType>(),
                                               (DetailedAssessmentResultType) 99);
-            }
-        }
-
-        private static EAssessmentResultTypeG1 GetAssessmentResultTypeG1(DetailedAssessmentResultType detailedAssessmentResult)
-        {
-            switch (detailedAssessmentResult)
-            {
-                case DetailedAssessmentResultType.None:
-                    return EAssessmentResultTypeG1.Gr;
-                case DetailedAssessmentResultType.Sufficient:
-                    return EAssessmentResultTypeG1.V;
-                case DetailedAssessmentResultType.Insufficient:
-                    return EAssessmentResultTypeG1.Vn;
-                case DetailedAssessmentResultType.NotAssessed:
-                    return EAssessmentResultTypeG1.Ngo;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private static EAssessmentResultTypeG2 GetAssessmentResultTypeG2(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
-        {
-            switch (detailedAssessmentResult)
-            {
-                case DetailedAssessmentProbabilityOnlyResultType.Probability:
-                    return EAssessmentResultTypeG2.ResultSpecified;
-                case DetailedAssessmentProbabilityOnlyResultType.NotAssessed:
-                    return EAssessmentResultTypeG2.Ngo;
-                default:
-                    throw new NotSupportedException();
             }
         }
 
@@ -299,7 +272,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EFmSectionCategory.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EFmSectionCategory.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EFmSectionCategory.VIIv)]
-        public void CreateFailureMechanismSectionAssemblyDirectResult_WithAssembly_ReturnFailureMechanismSectionAssemblyCategoryResult(
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithAssembly_ReturnFailureMechanismSectionDirectAssemblyResult(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             EFmSectionCategory expectedGroup)
         {
@@ -338,7 +311,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EFmSectionCategory.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EFmSectionCategory.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EFmSectionCategory.VIIv)]
-        public void CreateFailureMechanismSectionAssemblyDirectResult_WithValidGroup_ReturnEFmSectionCategory(
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithValidGroup_ReturnFmSectionCategory(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             EFmSectionCategory expectedGroup)
         {
@@ -415,37 +388,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(TailorMadeAssessmentResultType.None)]
-        [TestCase(TailorMadeAssessmentResultType.ProbabilityNegligible)]
-        [TestCase(TailorMadeAssessmentResultType.Insufficient)]
-        [TestCase(TailorMadeAssessmentResultType.Sufficient)]
-        [TestCase(TailorMadeAssessmentResultType.NotAssessed)]
-        public void CreateAssessmentResultTypeT1_ValidInput_ReturnsTailorMadeCalculationResult(TailorMadeAssessmentResultType detailedAssessmentResult)
+        [TestCase(TailorMadeAssessmentResultType.None, EAssessmentResultTypeT1.Gr)]
+        [TestCase(TailorMadeAssessmentResultType.ProbabilityNegligible, EAssessmentResultTypeT1.Fv)]
+        [TestCase(TailorMadeAssessmentResultType.Insufficient, EAssessmentResultTypeT1.Vn)]
+        [TestCase(TailorMadeAssessmentResultType.Sufficient, EAssessmentResultTypeT1.V)]
+        [TestCase(TailorMadeAssessmentResultType.NotAssessed, EAssessmentResultTypeT1.Ngo)]
+        public void CreateAssessmentResultTypeT1_ValidInput_ReturnsAssessmentResultTypeT1(
+            TailorMadeAssessmentResultType originalResult,
+            EAssessmentResultTypeT1 expectedResult)
         {
             // Call
-            EAssessmentResultTypeT1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(detailedAssessmentResult);
+            EAssessmentResultTypeT1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(originalResult);
 
             // Assert
-            Assert.AreEqual(result, GetAssessmentResultTypeT1(detailedAssessmentResult));
-        }
-
-        private static EAssessmentResultTypeT1 GetAssessmentResultTypeT1(TailorMadeAssessmentResultType detailedAssessmentResult)
-        {
-            switch (detailedAssessmentResult)
-            {
-                case TailorMadeAssessmentResultType.None:
-                    return EAssessmentResultTypeT1.Gr;
-                case TailorMadeAssessmentResultType.ProbabilityNegligible:
-                    return EAssessmentResultTypeT1.Fv;
-                case TailorMadeAssessmentResultType.Sufficient:
-                    return EAssessmentResultTypeT1.V;
-                case TailorMadeAssessmentResultType.Insufficient:
-                    return EAssessmentResultTypeT1.Vn;
-                case TailorMadeAssessmentResultType.NotAssessed:
-                    return EAssessmentResultTypeT1.Ngo;
-                default:
-                    throw new NotSupportedException();
-            }
+            Assert.AreEqual(expectedResult, result);
         }
 
         [Test]
@@ -460,34 +416,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None)]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible)]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability)]
-        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed)]
-        public void CreateAssessmentResultTypeT3_ValidInput_ReturnsTailorMadeCalculationResult(TailorMadeAssessmentProbabilityCalculationResultType detailedAssessmentResult)
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.None, EAssessmentResultTypeT3.Gr)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible, EAssessmentResultTypeT3.Fv)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.Probability, EAssessmentResultTypeT3.ResultSpecified)]
+        [TestCase(TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed, EAssessmentResultTypeT3.Ngo)]
+        public void CreateAssessmentResultTypeT3_ValidInput_ReturnsAssessmentResultTypeT3(
+            TailorMadeAssessmentProbabilityCalculationResultType originalResult,
+            EAssessmentResultTypeT3 expectedResult)
         {
             // Call
-            EAssessmentResultTypeT3 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(detailedAssessmentResult);
+            EAssessmentResultTypeT3 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(originalResult);
 
             // Assert
-            Assert.AreEqual(result, GetAssessmentResultTypeT3(detailedAssessmentResult));
-        }
-
-        private static EAssessmentResultTypeT3 GetAssessmentResultTypeT3(TailorMadeAssessmentProbabilityCalculationResultType detailedAssessmentResult)
-        {
-            switch (detailedAssessmentResult)
-            {
-                case TailorMadeAssessmentProbabilityCalculationResultType.None:
-                    return EAssessmentResultTypeT3.Gr;
-                case TailorMadeAssessmentProbabilityCalculationResultType.ProbabilityNegligible:
-                    return EAssessmentResultTypeT3.Fv;
-                case TailorMadeAssessmentProbabilityCalculationResultType.Probability:
-                    return EAssessmentResultTypeT3.ResultSpecified;
-                case TailorMadeAssessmentProbabilityCalculationResultType.NotAssessed:
-                    return EAssessmentResultTypeT3.Ngo;
-                default:
-                    throw new NotSupportedException();
-            }
+            Assert.AreEqual(expectedResult, result);
         }
 
         [Test]
@@ -502,41 +443,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None)]
-        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible)]
-        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability)]
-        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient)]
-        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient)]
-        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed)]
-        public void CreateAssessmentResultTypeT4_ValidInput_ReturnsTailorMadeCalculationResult(
-            TailorMadeAssessmentProbabilityAndDetailedCalculationResultType detailedAssessmentResult)
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, EAssessmentResultTypeT4.Gr)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible, EAssessmentResultTypeT4.Fv)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability, EAssessmentResultTypeT4.ResultSpecified)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient, EAssessmentResultTypeT4.V)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient, EAssessmentResultTypeT4.Vn)]
+        [TestCase(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed, EAssessmentResultTypeT4.Ngo)]
+        public void CreateAssessmentResultTypeT4_ValidInput_ReturnsAssessmentResultTypeT4(
+            TailorMadeAssessmentProbabilityAndDetailedCalculationResultType originalResult,
+            EAssessmentResultTypeT4 expectedResult)
         {
             // Call
-            EAssessmentResultTypeT4 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(detailedAssessmentResult);
+            EAssessmentResultTypeT4 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(originalResult);
 
             // Assert
-            Assert.AreEqual(result, GetAssessmentResultTypeT4(detailedAssessmentResult));
-        }
-
-        private static EAssessmentResultTypeT4 GetAssessmentResultTypeT4(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType detailedAssessmentResult)
-        {
-            switch (detailedAssessmentResult)
-            {
-                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None:
-                    return EAssessmentResultTypeT4.Gr;
-                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.ProbabilityNegligible:
-                    return EAssessmentResultTypeT4.Fv;
-                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability:
-                    return EAssessmentResultTypeT4.ResultSpecified;
-                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Sufficient:
-                    return EAssessmentResultTypeT4.V;
-                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Insufficient:
-                    return EAssessmentResultTypeT4.Vn;
-                case TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.NotAssessed:
-                    return EAssessmentResultTypeT4.Ngo;
-                default:
-                    throw new NotSupportedException();
-            }
+            Assert.AreEqual(expectedResult, result);
         }
 
         #endregion

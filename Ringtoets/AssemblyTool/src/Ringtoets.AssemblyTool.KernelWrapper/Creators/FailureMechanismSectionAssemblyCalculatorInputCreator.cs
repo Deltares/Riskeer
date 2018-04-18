@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentResultType"/>
         /// is a valid value, but unsupported.</exception>
-        public static EAssessmentResultTypeE1 CreateAssessmentResultE1(SimpleAssessmentResultType input)
+        public static EAssessmentResultTypeE1 CreateAssessmentResultTypeE1(SimpleAssessmentResultType input)
         {
             if (!Enum.IsDefined(typeof(SimpleAssessmentResultType), input))
             {
@@ -136,7 +136,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when any input parameter has an
         /// invalid value.</exception>
-        public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
+        public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
             return new FmSectionAssemblyDirectResult(ConvertFailureMechanismSectionAssemblyCategoryGroup(categoryGroup));
         }
@@ -306,7 +307,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates a <see cref="EAssessmentResultTypeT4"/> based on the given <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>.
+        /// Creates a <see cref="EAssessmentResultTypeT4"/> based on the
+        /// given <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>.
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create the result for.</param>
         /// <returns>The created tailor made calculation result.</returns>
@@ -314,7 +316,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
-        public static EAssessmentResultTypeT4 CreateAssessmentResultTypeT4(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult)
+        public static EAssessmentResultTypeT4 CreateAssessmentResultTypeT4(
+            TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType), tailorMadeAssessmentResult))
             {
@@ -387,10 +390,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="FailureMechanismSectionCategoryGroup"/>.
+        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="EFmSectionCategory"/>.
         /// </summary>
         /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionCategoryGroup"/> based on <paramref name="category"/>.</returns>
+        /// <returns>A <see cref="EFmSectionCategory"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
