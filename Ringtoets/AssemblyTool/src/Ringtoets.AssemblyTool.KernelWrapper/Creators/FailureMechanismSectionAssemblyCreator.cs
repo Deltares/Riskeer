@@ -49,12 +49,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (!result.FailureProbability.HasValue)
-            {
-                throw new ArgumentException("The failure probability of the result may not be null.");
-            }
-
-            return new FailureMechanismSectionAssembly(result.FailureProbability.Value,
+            return new FailureMechanismSectionAssembly(result.FailureProbability ?? double.NaN,
                                                        ConvertFailureMechanismSectionCategory(result.Result));
         }
 
