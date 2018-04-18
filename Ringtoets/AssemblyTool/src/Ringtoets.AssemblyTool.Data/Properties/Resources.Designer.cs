@@ -127,29 +127,20 @@ namespace Ringtoets.AssemblyTool.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        internal static string AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         internal static string AssessmentSectionAssemblyCategoryGroup_None_DisplayName {
             get {
                 return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_None_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -.
-        /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_NotApplicable_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -.
-        /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName", resourceCulture);
             }
         }
     }
