@@ -107,18 +107,14 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
-                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                        assessmentSection.FailureMechanismContribution.SignalingNorm,
-                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                        failureMechanism.Contribution,
-                        failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                            failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength));
-
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.DetailedAssessmentProbability,
-                    categories).Group;
+                    new AssemblyCategoriesInput(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                                                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength),
+                                                failureMechanism.Contribution,
+                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm)).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -163,18 +159,14 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
-                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                        assessmentSection.FailureMechanismContribution.SignalingNorm,
-                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                        failureMechanism.Contribution,
-                        failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                            failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength));
-
                 return calculator.AssembleTailorMadeAssessment(
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
-                    categories).Group;
+                    new AssemblyCategoriesInput(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                                                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength),
+                                                failureMechanism.Contribution,
+                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm)).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
