@@ -30,7 +30,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
     /// Creates <see cref="FailureMechanismSectionAssembly"/> instances and
     /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> values.
     /// </summary>
-    public static class FailureMechanismSectionAssemblyCreator
+    internal static class FailureMechanismSectionAssemblyCreator
     {
         /// <summary>
         /// Creates <see cref="FailureMechanismSectionAssembly"/> from the given <see cref="FmSectionAssemblyDirectResult"/>.
@@ -42,7 +42,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EFmSectionCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResult result)
+        internal static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResult result)
         {
             if (result == null)
             {
@@ -50,7 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return new FailureMechanismSectionAssembly(result.FailureProbability ?? double.NaN,
-                                                       ConvertFailureMechanismSectionCategory(result.Result));
+                                                       CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup ConvertFailureMechanismSectionCategory(EFmSectionCategory category)
+        internal static FailureMechanismSectionAssemblyCategoryGroup CreateFailureMechanismSectionAssemblyCategoryGroup(EFmSectionCategory category)
         {
             if (!Enum.IsDefined(typeof(EFmSectionCategory), category))
             {

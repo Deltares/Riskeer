@@ -34,7 +34,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
     /// <summary>
     /// Creates input instances that can be used in <see cref="IAssessmentResultsTranslator"/>.
     /// </summary>
-    public static class FailureMechanismSectionAssemblyCalculatorInputCreator
+    internal static class FailureMechanismSectionAssemblyCalculatorInputCreator
     {
         /// <summary>
         /// Creates <see cref="EAssessmentResultTypeE1"/> based on the given <paramref name="input"/>.
@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentResultType"/>
         /// is a valid value, but unsupported.</exception>
-        public static EAssessmentResultTypeE1 CreateAssessmentResultTypeE1(SimpleAssessmentResultType input)
+        internal static EAssessmentResultTypeE1 CreateAssessmentResultTypeE1(SimpleAssessmentResultType input)
         {
             if (!Enum.IsDefined(typeof(SimpleAssessmentResultType), input))
             {
@@ -78,7 +78,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="SimpleAssessmentValidityOnlyResultType"/>
         /// is a valid value, but unsupported.</exception>
-        public static EAssessmentResultTypeE2 CreateAssessmentResultTypeE2(SimpleAssessmentValidityOnlyResultType input)
+        internal static EAssessmentResultTypeE2 CreateAssessmentResultTypeE2(SimpleAssessmentValidityOnlyResultType input)
         {
             if (!Enum.IsDefined(typeof(SimpleAssessmentValidityOnlyResultType), input))
             {
@@ -113,7 +113,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when any input parameter has an
         /// invalid value.</exception>
-        public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(FailureMechanismSectionAssembly assembly)
+        internal static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(FailureMechanismSectionAssembly assembly)
         {
             if (assembly == null)
             {
@@ -136,7 +136,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when any input parameter has an
         /// invalid value.</exception>
-        public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(
+        internal static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
             return new FmSectionAssemblyDirectResult(ConvertFailureMechanismSectionAssemblyCategoryGroup(categoryGroup));
@@ -160,7 +160,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <see cref="DetailedAssessmentResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when any parameter is a valid but unsupported
         /// <see cref="DetailedAssessmentResultType"/>.</exception>
-        public static FmSectionCategoryCompliancyResults CreateCategoryCompliancyResults(
+        internal static FmSectionCategoryCompliancyResults CreateCategoryCompliancyResults(
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -185,7 +185,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
         /// is a valid but unsupported <see cref="DetailedAssessmentResultType"/>.</exception>
-        public static EAssessmentResultTypeG1 CreateAssessmentResultTypeG1(DetailedAssessmentResultType detailedAssessmentResult)
+        internal static EAssessmentResultTypeG1 CreateAssessmentResultTypeG1(DetailedAssessmentResultType detailedAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(DetailedAssessmentResultType), detailedAssessmentResult))
             {
@@ -218,7 +218,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="detailedAssessmentResult"/>
         /// is a valid but unsupported <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
-        public static EAssessmentResultTypeG2 CreateAssessmentResultTypeG2(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
+        internal static EAssessmentResultTypeG2 CreateAssessmentResultTypeG2(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(DetailedAssessmentProbabilityOnlyResultType), detailedAssessmentResult))
             {
@@ -247,7 +247,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="TailorMadeAssessmentResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is a valid but unsupported <see cref="TailorMadeAssessmentResultType"/>.</exception>
-        public static EAssessmentResultTypeT1 CreateAssessmentResultTypeT1(TailorMadeAssessmentResultType tailorMadeAssessmentResult)
+        internal static EAssessmentResultTypeT1 CreateAssessmentResultTypeT1(TailorMadeAssessmentResultType tailorMadeAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(TailorMadeAssessmentResultType), tailorMadeAssessmentResult))
             {
@@ -282,7 +282,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
-        public static EAssessmentResultTypeT3 CreateAssessmentResultTypeT3(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult)
+        internal static EAssessmentResultTypeT3 CreateAssessmentResultTypeT3(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(TailorMadeAssessmentProbabilityCalculationResultType), tailorMadeAssessmentResult))
             {
@@ -316,7 +316,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is a valid but unsupported <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
-        public static EAssessmentResultTypeT4 CreateAssessmentResultTypeT4(
+        internal static EAssessmentResultTypeT4 CreateAssessmentResultTypeT4(
             TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult)
         {
             if (!Enum.IsDefined(typeof(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType), tailorMadeAssessmentResult))
@@ -354,7 +354,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+        internal static Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
