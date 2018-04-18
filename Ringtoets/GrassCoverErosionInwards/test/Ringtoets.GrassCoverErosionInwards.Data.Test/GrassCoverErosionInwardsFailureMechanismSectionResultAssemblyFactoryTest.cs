@@ -29,7 +29,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -41,14 +40,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
-        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
-                                                          AssemblyCategoriesCalculatorStub categoryCalculator,
-                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static void AssertAssemblyCategoriesInput(IAssessmentSection assessmentSection,
+                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                          AssemblyCategoriesInput assemblyCategoriesInput)
         {
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-            Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, assemblyCategoriesInput.SignalingNorm);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
+            Assert.AreEqual(failureMechanism.Contribution, assemblyCategoriesInput.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, assemblyCategoriesInput.N);
         }
 
         #region Simple Assembly
@@ -211,7 +210,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
@@ -223,8 +221,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
-                AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
-                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }
@@ -367,7 +364,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
@@ -378,8 +374,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
-                AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
-                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.TailorMadeAssessmentCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }
