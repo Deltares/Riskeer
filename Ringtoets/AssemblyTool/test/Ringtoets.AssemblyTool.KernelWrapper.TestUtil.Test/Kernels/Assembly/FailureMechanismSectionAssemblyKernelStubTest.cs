@@ -374,66 +374,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G4_Always_ThrowNotImplementedException()
         {
             // Setup
-            var random = new Random(39);
-            FmSectionCategoryCompliancyResults input = CreateRandomCompliancyResults(random);
-
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
-            // Precondition
-            Assert.IsFalse(kernel.Calculated);
-
             // Call
-            kernel.TranslateAssessmentResultWbi0G6(input);
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G4(0, null);
 
             // Assert
-            Assert.AreSame(input, kernel.CategoryCompliancyResultsInput);
-            Assert.IsTrue(kernel.Calculated);
-        }
-
-        [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
-        {
-            // Setup
-            var random = new Random(39);
-            FmSectionCategoryCompliancyResults input = CreateRandomCompliancyResults(random);
-
-            var kernel = new FailureMechanismSectionAssemblyKernelStub
-            {
-                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
-            };
-
-            // Call
-            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0G6(input);
-
-            // Assert
-            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
-        }
-
-        [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateTrue_ThrowsException()
-        {
-            // Setup
-            var random = new Random(39);
-            FmSectionCategoryCompliancyResults input = CreateRandomCompliancyResults(random);
-
-            var kernel = new FailureMechanismSectionAssemblyKernelStub
-            {
-                ThrowExceptionOnCalculate = true
-            };
-
-            // Call
-            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G6(input);
-
-            // Assert
-            var exception = Assert.Throws<Exception>(test);
-            Assert.AreEqual("Message", exception.Message);
-            Assert.IsNotNull(exception.InnerException);
-            Assert.IsNull(kernel.CategoryCompliancyResultsInput);
-            Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+            Assert.Throws<NotImplementedException>(test);
         }
 
         [Test]
@@ -515,6 +465,69 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.LengthEffectFactorInput);
             Assert.IsNull(kernel.AssessmentResultTypeG2Input);
             Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        {
+            // Setup
+            var random = new Random(39);
+            FmSectionCategoryCompliancyResults input = CreateRandomCompliancyResults(random);
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            kernel.TranslateAssessmentResultWbi0G6(input);
+
+            // Assert
+            Assert.AreSame(input, kernel.CategoryCompliancyResultsInput);
+            Assert.IsTrue(kernel.Calculated);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        {
+            // Setup
+            var random = new Random(39);
+            FmSectionCategoryCompliancyResults input = CreateRandomCompliancyResults(random);
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
+            };
+
+            // Call
+            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0G6(input);
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(39);
+            FmSectionCategoryCompliancyResults input = CreateRandomCompliancyResults(random);
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G6(input);
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.CategoryCompliancyResultsInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
