@@ -148,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, null);
 
             // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+            Assert.IsNaN(normativeAssessmentLevel);
         }
 
         [TestCase(NormType.Signaling)]
@@ -164,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, new TestHydraulicBoundaryLocation());
 
             // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+            Assert.IsNaN(normativeAssessmentLevel);
         }
 
         [TestCase(NormType.Signaling)]
@@ -186,7 +186,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
 
             // Assert
-            Assert.AreEqual(RoundedDouble.NaN, normativeAssessmentLevel);
+            Assert.IsNaN(normativeAssessmentLevel);
         }
     }
 }
