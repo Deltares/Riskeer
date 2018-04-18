@@ -105,17 +105,13 @@ namespace Ringtoets.StabilityPointStructures.Data
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
-                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                        assessmentSection.FailureMechanismContribution.SignalingNorm,
-                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                        failureMechanism.Contribution,
-                        failureMechanism.GeneralInput.N);
-
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
-                    categories);
+                    new AssemblyCategoriesInput(failureMechanism.GeneralInput.N,
+                                                failureMechanism.Contribution,
+                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -160,17 +156,13 @@ namespace Ringtoets.StabilityPointStructures.Data
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
-                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                        assessmentSection.FailureMechanismContribution.SignalingNorm,
-                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                        failureMechanism.Contribution,
-                        failureMechanism.GeneralInput.N);
-
                 return calculator.AssembleTailorMadeAssessment(
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
-                    categories);
+                    new AssemblyCategoriesInput(failureMechanism.GeneralInput.N,
+                                                failureMechanism.Contribution,
+                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

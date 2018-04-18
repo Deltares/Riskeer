@@ -41,14 +41,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultAssemblyFactoryTest
     {
-        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
+        private static void AssertAssemblyCategoriesInput(IAssessmentSection assessmentSection,
                                                           StabilityPointStructuresFailureMechanism failureMechanism,
-                                                          AssemblyCategoriesCalculatorStub categoryCalculator)
+                                                          AssemblyCategoriesInput assemblyCategoriesInput)
         {
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-            Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
-            Assert.AreEqual(failureMechanism.GeneralInput.N, categoryCalculator.N);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, assemblyCategoriesInput.SignalingNorm);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
+            Assert.AreEqual(failureMechanism.Contribution, assemblyCategoriesInput.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, assemblyCategoriesInput.N);
         }
 
         #region Simple Assembly
@@ -211,7 +211,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
@@ -223,8 +222,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
-                AssertCategoryCalculatorInput(assessmentSection, failureMechanism, categoryCalculator);
-                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }
@@ -367,7 +365,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
                 StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
@@ -378,8 +375,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
-                AssertCategoryCalculatorInput(assessmentSection, failureMechanism, categoryCalculator);
-                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.TailorMadeAssessmentCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }
