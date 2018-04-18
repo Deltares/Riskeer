@@ -295,27 +295,19 @@ namespace Ringtoets.Integration.Service
             }
 
             var changedObservables = new List<IObservable>();
+
             foreach (IFailureMechanism failureMechanism in failureMechanisms)
             {
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
-                var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
-
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    IEnumerable<IObservable> affectedHydraulicBoundaryLocations =
-                        GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(grassCoverErosionOutwardsFailureMechanism);
-                    changedObservables.AddRange(affectedHydraulicBoundaryLocations);
+                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(grassCoverErosionOutwardsFailureMechanism));
                 }
 
+                var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
                 if (duneErosionFailureMechanism != null)
                 {
-                    IEnumerable<IObservable> affectedDuneLocations =
-                        DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations);
-
-                    if (affectedDuneLocations.Any())
-                    {
-                        changedObservables.AddRange(affectedDuneLocations);
-                    }
+                    changedObservables.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations));
                 }
             }
 

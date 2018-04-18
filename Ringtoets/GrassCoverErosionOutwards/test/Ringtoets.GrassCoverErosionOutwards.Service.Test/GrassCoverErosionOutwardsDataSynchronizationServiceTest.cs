@@ -236,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedAffectedItems =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism)
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism)
                                                                              .ToArray();
 
             // Call

@@ -71,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
         /// <param name="failureMechanism">The failure mechanism to retrieve the calculations from.</param>
         /// <returns>A collection of all the hydraulic boundary location calculations that contain an output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicBoundaryLocationsCalculationsWithOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicBoundaryLocationCalculationsWithOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

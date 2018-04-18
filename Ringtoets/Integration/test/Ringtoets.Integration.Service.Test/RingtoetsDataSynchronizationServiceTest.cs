@@ -1646,10 +1646,7 @@ namespace Ringtoets.Integration.Service.Test
                 GrassCoverErosionOutwardsFailureMechanism = grassCoverErosionOutwardsFailureMechanism;
                 DuneLocation = duneLocation;
 
-                var expectedAffectedObjects = new List<IObservable>();
-                expectedAffectedObjects.AddRange(GetAffectedGrassCoverErosionOutwardsFailureMechanismItems(grassCoverErosionOutwardsFailureMechanism));
-
-                ExpectedAffectedObjects = expectedAffectedObjects;
+                ExpectedAffectedObjects = GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
             }
 
             public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwardsFailureMechanism { get; }
@@ -1657,11 +1654,6 @@ namespace Ringtoets.Integration.Service.Test
             public DuneLocation DuneLocation { get; }
 
             public IEnumerable<IObservable> ExpectedAffectedObjects { get; }
-
-            private static IEnumerable<IObservable> GetAffectedGrassCoverErosionOutwardsFailureMechanismItems(GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism)
-            {
-                return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
-            }
         }
 
         private static IEnumerable<TestCaseData> GetClearHydraulicLocationDependentData()
@@ -1671,7 +1663,7 @@ namespace Ringtoets.Integration.Service.Test
             yield return new TestCaseData(new ClearHydraulicLocationDependentTestCase(
                                               grassCoverErosionOutwardsFailureMechanism,
                                               CreateDuneLocation(false)))
-                .SetName("GrassAndDuneLocationNoOutput");
+                .SetName("GrassAndDuneLocationWithoutOutput");
 
             grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, true);

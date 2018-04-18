@@ -71,10 +71,10 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
         }
 
         [Test]
-        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        public void GetAllHydraulicBoundaryLocationCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -82,21 +82,21 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
         }
 
         [Test]
-        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismWithoutHydraulicBoundaryLocationCalculations_ReturnsEmpty()
+        public void GetAllHydraulicBoundaryLocationCalculationsWithOutput_FailureMechanismWithoutHydraulicBoundaryLocationCalculations_ReturnsEmpty()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(calculations);
         }
 
         [Test]
-        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismWithHydraulicBoundaryCalculations_ReturnsCalculationsWithOutput()
+        public void GetAllHydraulicBoundaryLocationCalculationsWithOutput_FailureMechanismWithHydraulicBoundaryCalculations_ReturnsCalculationsWithOutput()
         {
             // Setup
             var hydraulicBoundaryLocations = new[]
@@ -117,7 +117,7 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
 
             // Call
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             var expectedCalculations = new[]
