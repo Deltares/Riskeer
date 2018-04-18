@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnsChildrenOfData()
+        public void ChildNodeObjects_Always_ReturnsExpectedChildData()
         {
             // Setup
             const double signalingNorm = 0.002;
@@ -177,6 +177,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.AreEqual(5, calculationsContexts.Length);
 
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
+                Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(failureMechanism, c.FailureMechanism)));
 
                 Assert.AreEqual("Categorie Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
