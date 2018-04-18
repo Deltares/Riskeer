@@ -59,7 +59,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Offset = offSet,
                 D50 = 0.000183
             });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
+            var duneLocationCalculation = new DuneLocationCalculation
             {
                 Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                 {
@@ -98,7 +98,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Setup
             var duneLocation = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties());
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             // Call
             var row = new DuneLocationRow(duneLocation, dl => duneLocationCalculation);

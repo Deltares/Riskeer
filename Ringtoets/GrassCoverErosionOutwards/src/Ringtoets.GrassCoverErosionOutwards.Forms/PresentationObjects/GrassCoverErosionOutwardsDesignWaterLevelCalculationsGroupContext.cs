@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// with a design water level calculation result.
     /// </summary>
     public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext
-        : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
+        : DesignWaterLevelCalculationsGroupContext
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext"/>.
@@ -45,30 +45,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         public GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(ObservableList<HydraulicBoundaryLocation> wrappedData,
                                                                                  GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                                  IAssessmentSection assessmentSection)
-            : base(wrappedData)
+            : base(wrappedData, assessmentSection)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             FailureMechanism = failureMechanism;
-            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the failure mechanism the context belongs to.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
-
-        /// <summary>
-        /// Gets the assessment section the context belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
     }
 }

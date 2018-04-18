@@ -31,27 +31,27 @@ namespace Ringtoets.Common.Util
     public class AggregatedHydraulicBoundaryLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AggregatedHydraulicBoundaryLocation"/>
+        /// Creates a new instance of <see cref="AggregatedHydraulicBoundaryLocation"/>.
         /// </summary>
         /// <param name="id">The id of the hydraulic boundary location.</param>
         /// <param name="name">The name of the hydraulic boundary location.</param>
         /// <param name="location">The location of the hydraulic boundary location.</param>
         /// <param name="waterLevelCalculationForFactorizedSignalingNorm">The result of the
-        /// water level calculation for factorized signaling norm.</param>
+        /// water level calculation for the factorized signaling norm.</param>
         /// <param name="waterLevelCalculationForSignalingNorm">The result of the water level
-        /// calculation for signaling norm.</param>
+        /// calculation for the signaling norm.</param>
         /// <param name="waterLevelCalculationForLowerLimitNorm">The result of the water level
-        /// calculation for lower limit norm.</param>
+        /// calculation for the lower limit norm.</param>
         /// <param name="waterLevelCalculationForFactorizedLowerLimitNorm">The result of the
-        /// water level calculation for factorized lower limit norm.</param>
+        /// water level calculation for the factorized lower limit norm.</param>
         /// <param name="waveHeightCalculationForFactorizedSignalingNorm">The result of the
-        /// wave height calculation for factorized signaling norm.</param>
+        /// wave height calculation for the factorized signaling norm.</param>
         /// <param name="waveHeightCalculationForSignalingNorm">The result of the wave height
-        /// calculation for signaling norm.</param>
+        /// calculation for the signaling norm.</param>
         /// <param name="waveHeightCalculationForLowerLimitNorm">The result of the wave height
-        /// calculation for lower limit norm.</param>
+        /// calculation for the lower limit norm.</param>
         /// <param name="waveHeightCalculationForFactorizedLowerLimitNorm">The result of the
-        /// wave height calculation for factorized lower limit norm.</param>
+        /// wave height calculation for the factorized lower limit norm.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> or 
         /// <paramref name="location"/> is <c>null</c>.</exception>
         public AggregatedHydraulicBoundaryLocation(
@@ -104,42 +104,42 @@ namespace Ringtoets.Common.Util
         public Point2D Location { get; }
 
         /// <summary>
-        /// Gets the result of the water level calculation for factorized signaling norm.
+        /// Gets the result of the water level calculation for the factorized signaling norm.
         /// </summary>
         public RoundedDouble WaterLevelCalculationForFactorizedSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the result of the water level calculation for signaling norm.
+        /// Gets the result of the water level calculation for the signaling norm.
         /// </summary>
         public RoundedDouble WaterLevelCalculationForSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the result of the water level calculation for lower limit norm.
+        /// Gets the result of the water level calculation for the lower limit norm.
         /// </summary>
         public RoundedDouble WaterLevelCalculationForLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the result of the water level calculation for factorized lower limit norm.
+        /// Gets the result of the water level calculation for the factorized lower limit norm.
         /// </summary>
         public RoundedDouble WaterLevelCalculationForFactorizedLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the result of the wave height calculation for factorized signaling norm.
+        /// Gets the result of the wave height calculation for the factorized signaling norm.
         /// </summary>
         public RoundedDouble WaveHeightCalculationForFactorizedSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the result of the wave height calculation for signaling norm.
+        /// Gets the result of the wave height calculation for the signaling norm.
         /// </summary>
         public RoundedDouble WaveHeightCalculationForSignalingNorm { get; }
 
         /// <summary>
-        /// Gets the result of the wave height calculation for lower limit norm.
+        /// Gets the result of the wave height calculation for the lower limit norm.
         /// </summary>
         public RoundedDouble WaveHeightCalculationForLowerLimitNorm { get; }
 
         /// <summary>
-        /// Gets the result of the wave height calculation for factorized lower limit norm.
+        /// Gets the result of the wave height calculation for the factorized lower limit norm.
         /// </summary>
         public RoundedDouble WaveHeightCalculationForFactorizedLowerLimitNorm { get; }
     }

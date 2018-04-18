@@ -115,6 +115,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
+                Assert.AreSame(grassCoverErosionOutwardsFailureMechanism, view.FailureMechanism);
             }
 
             mockRepository.VerifyAll();
@@ -137,18 +138,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsViewName()
+        public void GetViewName_WithContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
             // Setup
+            const string categoryBoundaryName = "Category";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
 
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+                var context = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                                         failureMechanism,
+                                                                                         assessmentSection,
+                                                                                         () => 0.01,
+                                                                                         categoryBoundaryName);
+
                 // Call
-                string name = info.GetViewName(null, null);
+                string name = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual("Golfhoogtes bij doorsnede-eis", name);
+                Assert.AreEqual($"Golfhoogtes - {categoryBoundaryName}", name);
             }
         }
 
@@ -179,7 +193,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                     info.AfterCreate(view, data);
 
                     // Assert
-                    Assert.AreSame(failureMechanism, view.FailureMechanism);
                     Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
                 }
             }

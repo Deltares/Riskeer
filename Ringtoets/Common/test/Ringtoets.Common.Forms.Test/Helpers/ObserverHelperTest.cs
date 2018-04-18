@@ -24,6 +24,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Common.Forms.Test.Helpers
@@ -66,11 +67,33 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             // Call
-            RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> observer = 
-                ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, () => {});
+            using (RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> observer =
+                ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, () => {}))
+            {
+                // Assert
+                Assert.AreSame(calculations, observer.Observable);
+            }
+        }
 
-            // Assert
-            Assert.AreSame(calculations, observer.Observable);
+        [Test]
+        public void GivenCreatedHydraulicBoundaryLocationCalculationsObserver_WhenCalculationNotifiesObservers_ThenUpdateObserverActionCalled()
+        {
+            // Given
+            var count = 0;
+            var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>
+            {
+                calculation
+            };
+
+            using (ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(calculations, () => { count++; }))
+            {
+                // When
+                calculation.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(1, count);
+            }
         }
     }
 }

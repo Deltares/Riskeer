@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection,
                 new[]
                 {
@@ -122,7 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection,
                 new[]
                 {
@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
 
             // Assert
-            Assert.AreEqual(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result, normativeAssessmentLevel);
+            Assert.AreEqual(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result, normativeAssessmentLevel);
         }
 
         [TestCase(NormType.Signaling)]

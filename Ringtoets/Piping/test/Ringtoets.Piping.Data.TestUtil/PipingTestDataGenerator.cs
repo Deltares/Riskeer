@@ -47,8 +47,8 @@ namespace Ringtoets.Piping.Data.TestUtil
         public static PipingFailureMechanism GetPipingFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new PipingFailureMechanism();
-            var hydroLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
-            ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydroLocation);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
         }

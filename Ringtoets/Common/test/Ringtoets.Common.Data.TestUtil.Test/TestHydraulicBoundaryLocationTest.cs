@@ -39,9 +39,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testLocation.Id);
             Assert.IsEmpty(testLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
-
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation1.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation1.Output);
         }
 
         [Test]
@@ -58,38 +55,6 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(0, testLocation.Id);
             Assert.AreEqual(name, testLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
-
-            Assert.IsNull(testLocation.DesignWaterLevelCalculation1.Output);
-            Assert.IsNull(testLocation.WaveHeightCalculation1.Output);
-        }
-
-        [Test]
-        public void CreateFullyCalculated_DesignWaterLevelAndWaveHeight_ExpectedValues()
-        {
-            // Call
-            HydraulicBoundaryLocation testLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
-
-            // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocation>(testLocation);
-            Assert.AreEqual(0, testLocation.Id);
-            Assert.IsEmpty(testLocation.Name);
-            Assert.AreEqual(new Point2D(0, 0), testLocation.Location);
-
-            AssertCalculationHasOutput(4.5, testLocation.DesignWaterLevelCalculation1);
-            AssertCalculationHasOutput(5.5, testLocation.WaveHeightCalculation1);
-        }
-
-        private static void AssertCalculationHasOutput(double value, HydraulicBoundaryLocationCalculation calculation)
-        {
-            HydraulicBoundaryLocationOutput actual = calculation.Output;
-
-            Assert.AreEqual(value, actual.Result, actual.Result.GetAccuracy());
-            Assert.AreEqual(0, actual.TargetReliability, actual.TargetReliability.GetAccuracy());
-            Assert.AreEqual(0, actual.TargetProbability);
-            Assert.AreEqual(0, actual.CalculatedReliability, actual.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(0, actual.CalculatedProbability);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, actual.CalculationConvergence);
-            Assert.IsNull(actual.GeneralResult);
         }
     }
 }

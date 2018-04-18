@@ -26,13 +26,12 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class for handling with <see cref="Observer"/>
-    /// and <see cref="RecursiveObserver{TContainer,TObservable}"/>
+    /// Helper class for dealing with <see cref="Observer"/> and <see cref="RecursiveObserver{TContainer,TObservable}"/>.
     /// </summary>
     public static class ObserverHelper
     {
         /// <summary>
-        /// Creates a <see cref="RecursiveObserver{TContainer,TObservable}"/>.
+        /// Creates a <see cref="RecursiveObserver{TContainer,TObservable}"/> for an enumeration of hydraulic boundary location calculations.
         /// </summary>
         /// <param name="calculations">The calculations to observe.</param>
         /// <param name="updateObserverAction">The action to perform on notifications coming from one of the calculations.</param>

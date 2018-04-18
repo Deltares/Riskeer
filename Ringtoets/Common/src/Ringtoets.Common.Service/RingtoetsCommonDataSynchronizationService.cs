@@ -58,23 +58,6 @@ namespace Ringtoets.Common.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations within the collection.
-        /// </summary>
-        /// <param name="locations">The locations for which the output needs to be cleared.</param>
-        /// <returns>All objects changed during the clear.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IEnumerable<HydraulicBoundaryLocation> locations)
-        {
-            if (locations == null)
-            {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            return locations.SelectMany(ClearHydraulicBoundaryLocationOutput)
-                            .ToArray();
-        }
-
-        /// <summary>
         /// Clears the output of the given <see cref="StructuresCalculation{T}"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear the output for.</param>
@@ -121,22 +104,6 @@ namespace Ringtoets.Common.Service
             }
 
             return affectedObjects;
-        }
-
-        private static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryLocation location)
-        {
-            if (location.DesignWaterLevelCalculation1.HasOutput || location.WaveHeightCalculation1.HasOutput)
-            {
-                location.DesignWaterLevelCalculation1.Output = null;
-                location.WaveHeightCalculation1.Output = null;
-
-                return new[]
-                {
-                    location
-                };
-            }
-
-            return Enumerable.Empty<IObservable>();
         }
     }
 }

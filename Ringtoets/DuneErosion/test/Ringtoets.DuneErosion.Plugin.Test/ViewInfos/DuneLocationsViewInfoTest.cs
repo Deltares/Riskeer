@@ -212,7 +212,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             plugin.Activate();
 
             using (var view = new DuneLocationsView(locations,
-                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
+                                                    dl => new DuneLocationCalculation(),
                                                     failureMechanism,
                                                     assessmentSection))
             {
@@ -243,7 +243,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
+                                                    dl => new DuneLocationCalculation(),
                                                     failureMechanism,
                                                     assessmentSection))
             {
@@ -277,7 +277,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
+                                                    dl => new DuneLocationCalculation(),
                                                     new DuneErosionFailureMechanism(),
                                                     assessmentSectionA))
             {
@@ -312,7 +312,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 assessmentSection);
 
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
+                                                    dl => new DuneLocationCalculation(),
                                                     failureMechanism,
                                                     assessmentSection))
             {
@@ -350,7 +350,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                 assessmentSectionB);
 
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
+                                                    dl => new DuneLocationCalculation(),
                                                     new DuneErosionFailureMechanism(),
                                                     assessmentSectionA))
             {
@@ -379,7 +379,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
+                                                    dl => new DuneLocationCalculation(),
                                                     new DuneErosionFailureMechanism(),
                                                     assessmentSection))
             {
@@ -402,7 +402,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new DuneLocationsView(new ObservableList<DuneLocation>(),
-                                                    dl => new DuneLocationCalculation(new TestDuneLocation()),
+                                                    dl => new DuneLocationCalculation(),
                                                     new DuneErosionFailureMechanism(),
                                                     assessmentSection))
             {

@@ -48,9 +48,6 @@ namespace Ringtoets.Common.Data.Hydraulics
             Id = id;
             Name = name;
             Location = new Point2D(coordinateX, coordinateY);
-
-            DesignWaterLevelCalculation1 = new HydraulicBoundaryLocationCalculation(this);
-            WaveHeightCalculation1 = new HydraulicBoundaryLocationCalculation(this);
         }
 
         /// <summary>
@@ -67,16 +64,6 @@ namespace Ringtoets.Common.Data.Hydraulics
         /// Gets the location of the hydraulic boundary.
         /// </summary>
         public Point2D Location { get; }
-
-        /// <summary>
-        /// Gets the first design water level calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation DesignWaterLevelCalculation1 { get; }
-
-        /// <summary>
-        /// Gets the first wave height calculation.
-        /// </summary>
-        public HydraulicBoundaryLocationCalculation WaveHeightCalculation1 { get; }
 
         public override string ToString()
         {

@@ -61,9 +61,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             Point2D location = hydraulicBoundaryLocation.Location;
             Assert.AreEqual(x, location.X);
             Assert.AreEqual(y, location.Y);
-
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.DesignWaterLevelCalculation1);
-            AssertHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, hydraulicBoundaryLocation.WaveHeightCalculation1);
         }
 
         [Test]
@@ -78,14 +75,6 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
 
             // Assert
             Assert.AreEqual(testName, result);
-        }
-
-        private static void AssertHydraulicBoundaryLocationCalculation(HydraulicBoundaryLocation expectedHydraulicBoundaryLocation,
-                                                                       HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-        {
-            Assert.IsNotNull(hydraulicBoundaryLocationCalculation);
-            Assert.AreSame(expectedHydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
-            Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
         }
     }
 }

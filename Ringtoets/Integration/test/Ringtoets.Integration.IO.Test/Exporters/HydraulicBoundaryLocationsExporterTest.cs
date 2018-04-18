@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -30,6 +29,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Integration.IO.Exporters;
 
 namespace Ringtoets.Integration.IO.Test.Exporters
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Constructor_FilePathNull_ThrowArgumentException()
+        public void Constructor_FilePathNull_ThrowsArgumentException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             });
 
-            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnTrue");
+            string directoryPath = TestHelper.GetScratchPadPath("Export_ValidData_ReturnsTrueAndWritesCorrectData");
             Directory.CreateDirectory(directoryPath);
             string filePath = Path.Combine(directoryPath, "test.shp");
             const string baseName = "test";
@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.IO.Test.Exporters
             var exporter = new HydraulicBoundaryLocationsExporter(assessmentSection, filePath);
 
             // Precondition
-            AssertEssentialShapefileExists(directoryPath, baseName, false);
+            FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, false);
 
             try
             {
@@ -111,8 +111,15 @@ namespace Ringtoets.Integration.IO.Test.Exporters
                 bool isExported = exporter.Export();
 
                 // Assert
-                AssertEssentialShapefileExists(directoryPath, baseName, true);
-                AssertEssentialShapefileMd5Hashes(directoryPath, baseName);
+                FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, true);
+                FileTestHelper.AssertEssentialShapefileMd5Hashes(directoryPath,
+                                                                 baseName,
+                                                                 Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO),
+                                                                              nameof(HydraulicBoundaryLocationsExporter)),
+                                                                 "ExpectedExport",
+                                                                 28,
+                                                                 8,
+                                                                 2637);
                 Assert.IsTrue(isExported);
             }
             finally
@@ -156,34 +163,6 @@ namespace Ringtoets.Integration.IO.Test.Exporters
             {
                 Directory.Delete(directoryPath, true);
             }
-        }
-
-        private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
-        {
-            string pathName = Path.Combine(directoryPath, baseName);
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
-        }
-
-        private static void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
-        {
-            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.IO),
-                                              nameof(HydraulicBoundaryLocationsExporter), "ExpectedExport");
-            string pathName = Path.Combine(directoryPath, baseName);
-
-            AssertBinaryFileContent(refPathName, pathName, ".shp", 100, 28);
-            AssertBinaryFileContent(refPathName, pathName, ".shx", 100, 8);
-            AssertBinaryFileContent(refPathName, pathName, ".dbf", 32, 741);
-        }
-
-        private static void AssertBinaryFileContent(string refPathName, string pathName, string extension, int headerLength, int bodyLength)
-        {
-            byte[] refContent = File.ReadAllBytes(refPathName + extension);
-            byte[] content = File.ReadAllBytes(pathName + extension);
-            Assert.AreEqual(headerLength + bodyLength, content.Length);
-            Assert.AreEqual(refContent.Skip(headerLength).Take(bodyLength),
-                            content.Skip(headerLength).Take(bodyLength));
         }
     }
 }

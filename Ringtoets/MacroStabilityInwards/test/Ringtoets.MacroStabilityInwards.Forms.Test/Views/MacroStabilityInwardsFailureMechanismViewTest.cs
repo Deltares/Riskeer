@@ -227,7 +227,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, mapDataList[hydraulicBoundaryLocationsIndex]);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
                 AssertStochasticSoilModelsMapData(failureMechanism.StochasticSoilModels, mapDataList[stochasticSoilModelsIndex]);
                 AssertCalculationsMapData(failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(), mapDataList[calculationsIndex]);
             }
@@ -240,7 +240,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
-                new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
+                new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
 
             using (var view = new MacroStabilityInwardsFailureMechanismView(new MacroStabilityInwardsFailureMechanism(), assessmentSection))
@@ -255,18 +255,17 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
                 {
-                    new HydraulicBoundaryLocation(1, "test", 1.0, 2.0),
                     new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
                 });
                 assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection.HydraulicBoundaryDatabase.Locations, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
         }
@@ -296,7 +295,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MapData hydraulicBoundaryLocationsMapData = map.Data.Collection.ElementAt(hydraulicBoundaryLocationsIndex);
 
                 // Precondition
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
                 HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
@@ -304,7 +303,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 calculation.NotifyObservers();
 
                 // Then
-                MapDataTestHelper.AssertHydraulicBoundaryLocationOutputsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
                 mocks.VerifyAll();
             }
         }
@@ -352,7 +351,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
+        public void GivenViewWithSurfaceLinesData_WhenSurfaceLinesUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -388,7 +387,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithSurfaceLineData_WhenSurfaceLineUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
+        public void GivenViewWithSurfaceLineData_WhenSurfaceLineUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
@@ -460,7 +459,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithStochasticSoilModels_WhenStochasticSoilModelsUpdatedAndNotified_ThenMapDataUpdatedAndObserverNotified()
+        public void GivenViewWithStochasticSoilModels_WhenStochasticSoilModelsUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -831,11 +830,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var referenceLineMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[referenceLineIndex].Attach(referenceLineMapDataObserver);
 
-            var stochasticSoilModelMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[stochasticSoilModelsIndex].Attach(stochasticSoilModelMapDataObserver);
+            var stochasticSoilModelsMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[stochasticSoilModelsIndex].Attach(stochasticSoilModelsMapDataObserver);
 
-            var surfaceLineMapDataObserver = mocks.StrictMock<IObserver>();
-            mapDataArray[surfaceLinesIndex].Attach(surfaceLineMapDataObserver);
+            var surfaceLinesMapDataObserver = mocks.StrictMock<IObserver>();
+            mapDataArray[surfaceLinesIndex].Attach(surfaceLinesMapDataObserver);
 
             var sectionsMapDataObserver = mocks.StrictMock<IObserver>();
             mapDataArray[sectionsIndex].Attach(sectionsMapDataObserver);
@@ -855,8 +854,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             return new[]
             {
                 referenceLineMapDataObserver,
-                stochasticSoilModelMapDataObserver,
-                surfaceLineMapDataObserver,
+                stochasticSoilModelsMapDataObserver,
+                surfaceLinesMapDataObserver,
                 sectionsMapDataObserver,
                 sectionsStartPointMapDataObserver,
                 sectionsEndPointMapDataObserver,

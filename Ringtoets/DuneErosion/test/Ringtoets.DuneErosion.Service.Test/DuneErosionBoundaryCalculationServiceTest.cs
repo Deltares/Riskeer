@@ -136,7 +136,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Call
             TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(null,
-                                                                                            new DuneLocationCalculation(new TestDuneLocation()),
+                                                                                            new DuneLocationCalculation(),
                                                                                             1,
                                                                                             validFilePath,
                                                                                             validPreprocessorDirectory);
@@ -198,7 +198,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 // Call
                 new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                      new DuneLocationCalculation(new TestDuneLocation()),
+                                                                      new DuneLocationCalculation(),
                                                                       mechanismSpecificNorm,
                                                                       validFilePath,
                                                                       preprocessorDirectory);
@@ -246,7 +246,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             // Precondition
             Assert.IsNull(duneLocation.Calculation.Output);
@@ -317,7 +317,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -371,7 +371,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -421,7 +421,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -492,7 +492,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -564,7 +564,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       duneLocationCalculation,
                                                                       validFilePath,
@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation();
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       duneLocationCalculation,
                                                                       validFilePath,
@@ -152,7 +152,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
             var initialOutput = new TestDuneLocationOutput();
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
+            var duneLocationCalculation = new DuneLocationCalculation
             {
                 Output = initialOutput
             };

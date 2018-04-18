@@ -203,6 +203,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismView>(view);
+
+            var failureMechanismView = (StabilityStoneCoverFailureMechanismView) view;
+            Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
+            Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
     }
 }

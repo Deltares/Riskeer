@@ -523,13 +523,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection,
                 new []
                 {
                     hydraulicBoundaryLocation
                 });
 
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel);
             assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel);
 
             yield return new TestCaseData(
@@ -543,7 +544,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                             }
                         },
                         assessmentSection,
-                        new GrassCoverErosionOutwardsFailureMechanism()),
+                        failureMechanism),
                     assessmentLevel)
                 .SetName("Grass outwards input context");
 

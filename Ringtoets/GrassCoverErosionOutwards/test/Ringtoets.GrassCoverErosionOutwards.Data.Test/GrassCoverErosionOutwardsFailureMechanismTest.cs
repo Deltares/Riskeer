@@ -49,7 +49,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             Assert.AreEqual("Berekeningen", failureMechanism.WaveConditionsCalculationGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundaryLocations);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);

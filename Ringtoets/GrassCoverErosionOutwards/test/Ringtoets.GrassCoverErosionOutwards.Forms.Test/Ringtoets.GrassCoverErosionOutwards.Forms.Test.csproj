@@ -130,10 +130,6 @@
       <Project>{d24fa2f7-28a7-413b-afd3-ee10e985630b}</Project>
       <Name>Ringtoets.Common.Forms.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
-      <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
-      <Name>Ringtoets.Common.Util.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
@@ -161,6 +157,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
       <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil\Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil.csproj">
+      <Project>{F20FCF45-A545-4ED9-9634-02DD4CDFB181}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.csproj">
       <Project>{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}</Project>

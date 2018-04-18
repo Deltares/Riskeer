@@ -1864,44 +1864,56 @@ namespace Ringtoets.Integration.Plugin
         {
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            bool haveEqualVersion = HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile);
-            bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsLinked() && !haveEqualVersion;
-            if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
+            if (HydraulicBoundaryDatabaseHelper.HaveEqualVersion(hydraulicBoundaryDatabase, databaseFile))
             {
-                return;
-            }
-
-            using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
-            {
-                if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
+                if (hydraulicBoundaryDatabase.FilePath != databaseFile)
                 {
+                    hydraulicBoundaryDatabase.FilePath = databaseFile;
+                    hydraulicBoundaryDatabase.NotifyObservers();
+                }
+            }
+            else
+            {
+                bool isClearConfirmationRequired = hydraulicBoundaryDatabase.IsLinked();
+                if (isClearConfirmationRequired && !IsClearCalculationConfirmationGiven())
+                {
+                    return;
+                }
+
+                using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
+                {
+                    if (!hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
+                    {
+                        return;
+                    }
+
+                    HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
+
+                    assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+                    assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+
+                    var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
+                    duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
+                    duneLocationsReplacementHandler.DoPostReplacementUpdates();
+
+                    NotifyObservers(assessmentSection);
+
                     if (isClearConfirmationRequired)
                     {
                         ClearCalculations(assessmentSection);
                     }
-
-                    if (!haveEqualVersion)
-                    {
-                        HydraulicBoundaryLocation[] hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
-
-                        assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-                        assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-
-                        var duneLocationsReplacementHandler = new DuneLocationsReplacementHandler(Gui.ViewCommands, assessmentSection.DuneErosion);
-                        duneLocationsReplacementHandler.Replace(hydraulicBoundaryLocations);
-                        duneLocationsReplacementHandler.DoPostReplacementUpdates();
-
-                        NotifyObservers(assessmentSection);
-                    }
-
-                    log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
-                                   assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }
             }
+
+            log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
+                           assessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         private static void NotifyObservers(AssessmentSection assessmentSection)
         {
+            assessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+
             assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.NotifyObservers();
             assessmentSection.WaterLevelCalculationsForSignalingNorm.NotifyObservers();
             assessmentSection.WaterLevelCalculationsForLowerLimitNorm.NotifyObservers();
@@ -1919,12 +1931,6 @@ namespace Ringtoets.Integration.Plugin
             assessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
 
             assessmentSection.DuneErosion.DuneLocations.NotifyObservers();
-
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.NotifyObservers();
-            assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.NotifyObservers();
         }
 
         private static bool IsClearCalculationConfirmationGiven()
@@ -1969,19 +1975,19 @@ namespace Ringtoets.Integration.Plugin
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_1),
+                                                        Resources.Hydraulic_category_boundary_factorizedSignalingNorm_name),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                         context.AssessmentSection,
                                                         () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_2),
+                                                        Resources.Hydraulic_category_boundary_signalingNorm_name),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_3),
+                                                        Resources.Hydraulic_category_boundary_lowerLimitNorm_name),
                 new DesignWaterLevelCalculationsContext(context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                         context.AssessmentSection,
                                                         () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                        Resources.Hydraulic_category_boundary_name_4)
+                                                        Resources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
             };
         }
 
@@ -1992,19 +1998,19 @@ namespace Ringtoets.Integration.Plugin
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetFirstHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_1),
+                                                  Resources.Hydraulic_category_boundary_factorizedSignalingNorm_name),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForSignalingNorm,
                                                   context.AssessmentSection,
                                                   () => GetSecondHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_2),
+                                                  Resources.Hydraulic_category_boundary_signalingNorm_name),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetThirdHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_3),
+                                                  Resources.Hydraulic_category_boundary_lowerLimitNorm_name),
                 new WaveHeightCalculationsContext(context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                   context.AssessmentSection,
                                                   () => GetFourthHydraulicBoundaryNorm(context.AssessmentSection),
-                                                  Resources.Hydraulic_category_boundary_name_4)
+                                                  Resources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
             };
         }
 

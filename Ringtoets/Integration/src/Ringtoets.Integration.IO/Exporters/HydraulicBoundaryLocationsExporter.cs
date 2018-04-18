@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.IO.Exporters
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationsExporter"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to get locations and calculation from.</param>
+        /// <param name="assessmentSection">The assessment section to get locations and calculations from.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>

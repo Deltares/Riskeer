@@ -52,7 +52,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
             MacroStabilityInwardsTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydraulicBoundaryLocation);

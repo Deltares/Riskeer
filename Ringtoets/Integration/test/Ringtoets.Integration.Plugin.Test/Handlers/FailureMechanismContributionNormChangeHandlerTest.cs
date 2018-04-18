@@ -29,10 +29,10 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
@@ -142,11 +142,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                             .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                             .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
                                             .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
-                                            .Concat(GetAllAffectedDuneErosionLocationCalculations(assessmentSection.DuneErosion))
+                                            .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Calculation.Output != null))
                                             .Concat(new IObservable[]
                                             {
                                                 assessmentSection.FailureMechanismContribution
-                                            }).ToArray();
+                                            }).ToList();
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
@@ -167,7 +167,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                      "There should be no calculations with output.");
 
             AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
-            AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
+
+            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
+            {
+                Assert.IsNull(duneLocation.Calculation.Output);
+            }
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -194,13 +198,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                  .Concat(assessmentSection.WaveHeightCalculationsForSignalingNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
-                                 .Concat(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations)
                                  .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
-                                 .Concat(GetAllAffectedDuneErosionLocationCalculations(assessmentSection.DuneErosion))
+                                 .Concat(assessmentSection.DuneErosion.DuneLocations.Where(dl => dl.Calculation.Output != null))
                                  .Concat(new IObservable[]
                                  {
                                      assessmentSection.FailureMechanismContribution
-                                 }).ToArray();
+                                 }).ToList();
 
             var handler = new FailureMechanismContributionNormChangeHandler(assessmentSection);
 
@@ -213,7 +216,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
 
             AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
-            AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
+
+            foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
+            {
+                Assert.IsNull(duneLocation.Calculation.Output);
+            }
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -302,13 +309,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
 
-            Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[0].Calculation.Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.First().Output);
-            Assert.IsNotNull(assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm.First().Output);
-
+            Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[1].Calculation.Output);
             CollectionAssert.IsEmpty(affectedObjects);
         }
 
@@ -336,17 +337,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         private static IEnumerable<IObservable> GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            return failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput)
-                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
-                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
-        }
-
-        private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)
-        {
-            return calculation.HasOutput;
+            return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
         }
 
         private static void AssertHydraulicBoundaryLocationOutput(AssessmentSection assessmentSection, bool hasOutput)
@@ -367,32 +358,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(c => c.HasOutput == hasOutput));
-        }
-
-        private static IEnumerable<IObservable> GetAllAffectedDuneErosionLocationCalculations(DuneErosionFailureMechanism failureMechanism)
-        {
-            return failureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null).Cast<IObservable>()
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput));
-        }
-
-        private static bool HasDuneErosionLocationCalculationOutput(DuneLocationCalculation calculation)
-        {
-            return calculation.Output != null;
-        }
-
-        private static void AssertDuneLocationCalculationsHaveNoOutputs(DuneErosionFailureMechanism failureMechanism)
-        {
-            Assert.True(failureMechanism.DuneLocations.All(dl => dl.Calculation.Output == null));
-
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
         }
     }
 }

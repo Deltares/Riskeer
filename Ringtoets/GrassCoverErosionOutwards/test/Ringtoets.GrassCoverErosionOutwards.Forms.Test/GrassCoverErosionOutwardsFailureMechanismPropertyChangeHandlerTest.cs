@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -92,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_MessageDialogShownSetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
         {
             // Setup
-            bool dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any() || testCase.ExpectedAffectedLocations.Any();
+            bool dialogBoxWillBeShown = testCase.ExpectedAffectedObjects.Any();
 
             var title = "";
             var message = "";
@@ -108,12 +107,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                 };
             }
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = testCase.FailureMechanism;
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in testCase.Calculations)
             {
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             }
-            failureMechanism.HydraulicBoundaryLocations.AddRange(testCase.Locations);
 
             var propertySet = 0;
 
@@ -134,15 +132,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);
             }
+
             Assert.AreEqual(1, propertySet);
-            var expectedAffectedObjects = new List<IObservable>(testCase.ExpectedAffectedCalculations);
-            if (testCase.ExpectedAffectedLocations.Any())
+
+            var expectedAffectedObjects = new List<IObservable>
             {
-                expectedAffectedObjects.Add(failureMechanism.HydraulicBoundaryLocations);
-            }
-            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedLocations);
-            expectedAffectedObjects.Add(failureMechanism);
-            CollectionAssert.AreEqual(expectedAffectedObjects, affectedObjects);
+                failureMechanism
+            };
+            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedObjects);
+            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
 
         [Test]
@@ -179,119 +177,179 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
 
         public class ChangePropertyTestCase
         {
-            public ChangePropertyTestCase(ICollection<HydraulicBoundaryLocation> locations, ICollection<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations)
+            public ChangePropertyTestCase(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                          IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations)
             {
+                FailureMechanism = failureMechanism;
                 Calculations = calculations;
-                ExpectedAffectedCalculations = calculations.Where(c => c.HasOutput).ToArray();
-                Locations = locations;
-                ExpectedAffectedLocations = locations.Where(c => c.DesignWaterLevelCalculation1.HasOutput || c.WaveHeightCalculation1.HasOutput).ToArray();
+                ExpectedAffectedObjects = calculations.Where(c => c.HasOutput).Cast<IObservable>()
+                                                      .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                                      .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                                      .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                                      .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                                      .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                                      .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                                      .ToArray();
             }
 
-            public ICollection<HydraulicBoundaryLocation> Locations { get; }
-            public ICollection<IObservable> ExpectedAffectedLocations { get; }
+            public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; }
 
-            public ICollection<GrassCoverErosionOutwardsWaveConditionsCalculation> Calculations { get; }
+            public IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> Calculations { get; }
 
-            public ICollection<IObservable> ExpectedAffectedCalculations { get; }
+            public IEnumerable<IObservable> ExpectedAffectedObjects { get; }
+
+            private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)
+            {
+                return calculation.HasOutput;
+            }
         }
 
-        static IEnumerable ChangePropertyTestCases()
+        private static IEnumerable<TestCaseData> ChangePropertyTestCases()
         {
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new TestHydraulicBoundaryLocation[0],
+                new ChangePropertyTestCase(new GrassCoverErosionOutwardsFailureMechanism(),
                                            new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
             ).SetName("SetPropertyValueAfterConfirmation No locations, no calculations");
 
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateHydraulicBoundaryLocationWithoutOutput()
-                }, new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
-            ).SetName("SetPropertyValueAfterConfirmation Single location without output, no calculations");
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location all without output, no calculations");
+
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism);
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location all with output, no calculations");
 
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new TestHydraulicBoundaryLocation[0],
+                new ChangePropertyTestCase(new GrassCoverErosionOutwardsFailureMechanism(),
                                            new[]
                                            {
                                                CreateCalculationWithOutput()
                                            })
             ).SetName("SetPropertyValueAfterConfirmation Calculation with output, no locations");
 
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateHydraulicBoundaryLocationWithoutOutput()
-                }, new[]
+                new ChangePropertyTestCase(failureMechanism, new[]
                 {
                     CreateCalculationWithOutput()
                 })
-            ).SetName("SetPropertyValueAfterConfirmation Single location without output, calculation with output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location all without output, calculation with output");
 
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism);
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                                           {
-                                               CreateHydraulicBoundaryLocationWithOutput()
-                                           },
+                new ChangePropertyTestCase(failureMechanism,
                                            new[]
                                            {
                                                CreateCalculationWithoutOutput()
                                            })
-            ).SetName("SetPropertyValueAfterConfirmation Single location with output, single calculation without output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location all with output, single calculation without output");
 
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                                           {
-                                               CreateHydraulicBoundaryLocationWithoutOutput(),
-                                               CreateHydraulicBoundaryLocationWithoutOutput()
-                                           },
+                new ChangePropertyTestCase(failureMechanism,
                                            new[]
                                            {
                                                CreateCalculationWithoutOutput(),
                                                CreateCalculationWithoutOutput()
                                            })
-            ).SetName("SetPropertyValueAfterConfirmation Two locations without output, calculations without output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location all without output, calculations without output");
 
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                                           {
-                                               CreateHydraulicBoundaryLocationWithOutput(),
-                                               CreateHydraulicBoundaryLocationWithoutOutput()
-                                           },
+                new ChangePropertyTestCase(failureMechanism,
                                            new[]
                                            {
                                                CreateCalculationWithOutput(),
                                                CreateCalculationWithoutOutput()
                                            })
-            ).SetName("SetPropertyValueAfterConfirmation Location with, location without, calculation without and calculation with output");
+            ).SetName("SetPropertyValueAfterConfirmation Single location all without output, calculation without and calculation with output");
 
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                                           {
-                                               CreateHydraulicBoundaryLocationWithOutput(),
-                                               CreateHydraulicBoundaryLocationWithOutput()
-                                           },
-                                           new[]
-                                           {
-                                               CreateCalculationWithOutput(),
-                                               CreateCalculationWithOutput()
-                                           })
-            ).SetName("SetPropertyValueAfterConfirmation Two locations with output, two calculations with output");
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location water level mechanism specific factorized signaling norm with output, no calculations");
 
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
             yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                                           {
-                                               CreateHydraulicBoundaryLocationWithOutput(),
-                                               CreateHydraulicBoundaryLocationWithoutOutput(),
-                                               CreateHydraulicBoundaryLocationWithOutput()
-                                           },
-                                           new[]
-                                           {
-                                               CreateCalculationWithOutput(),
-                                               CreateCalculationWithOutput(),
-                                               CreateCalculationWithoutOutput()
-                                           })
-            ).SetName("SetPropertyValueAfterConfirmation Two locations with, one location without, two calculations with and one calculation without output");
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location water level mechanism specific signaling norm with output, no calculations");
+
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location water level mechanism specific lower limit norm with output, no calculations");
+
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location wave height mechanism specific factorized signaling norm with output, no calculations");
+
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location wave height mechanism specific signaling norm with output, no calculations");
+
+            failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(failureMechanism);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
+            yield return new TestCaseData(
+                new ChangePropertyTestCase(failureMechanism,
+                                           new GrassCoverErosionOutwardsWaveConditionsCalculation[0])
+            ).SetName("SetPropertyValueAfterConfirmation Single location wave height mechanism specific lower limit norm with output, no calculations");
         }
+
+        private static void ConfigureFailureMechanismHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            var hydraulicBoundaryLocations = new[]
+            {
+                new TestHydraulicBoundaryLocation()
+            };
+
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
+            SetHydraulicBoundaryLocationCalculationOutput(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
+        }
+
+        private static void SetHydraulicBoundaryLocationCalculationOutput(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            calculations.First().Output = new TestHydraulicBoundaryLocationOutput();
+        }
+        
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculationWithoutOutput()
         {
@@ -303,26 +361,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             return new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
-            };
-        }
-
-        private static TestHydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithoutOutput()
-        {
-            return new TestHydraulicBoundaryLocation();
-        }
-
-        private static TestHydraulicBoundaryLocation CreateHydraulicBoundaryLocationWithOutput()
-        {
-            return new TestHydraulicBoundaryLocation
-            {
-                WaveHeightCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(0.5)
-                },
-                DesignWaterLevelCalculation1 =
-                {
-                    Output = new TestHydraulicBoundaryLocationOutput(2.3)
-                }
             };
         }
     }

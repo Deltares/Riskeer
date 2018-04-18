@@ -21,10 +21,10 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Util;
 using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
         }
 
         [Test]
-        public void WriteHydrauulicBoundaryLocations_FilePathNull_ThrowsArgumentNullException()
+        public void WriteHydraulicBoundaryLocations_FilePathNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter.WriteHydraulicBoundaryLocations(
@@ -61,6 +61,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void WriteHydraulicBoundaryLocations_ValidData_WritesShapeFile()
         {
             // Setup
@@ -81,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
             var waveHeightCalculationForFactorizedLowerLimitNorm = (RoundedDouble) 1.0;
 
             // Precondition
-            AssertEssentialShapefileExists(directoryPath, baseName, false);
+            FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, false);
 
             GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation location = GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocationTestHelper.Create(
                 waterLevelCalculationForMechanismSpecificFactorizedSignalingNorm,
@@ -104,41 +105,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
                 }, filePath);
 
                 // Assert
-                AssertEssentialShapefileExists(directoryPath, baseName, true);
-                AssertEssentialShapefileMd5Hashes(directoryPath, baseName);
+                FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, true);
+                FileTestHelper.AssertEssentialShapefileMd5Hashes(directoryPath,
+                                                                 baseName,
+                                                                 Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO),
+                                                                              nameof(GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter)),
+                                                                 "ExpectedExport",
+                                                                 28,
+                                                                 8,
+                                                                 3211);
             }
             finally
             {
                 Directory.Delete(directoryPath, true);
             }
-        }
-
-        private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
-        {
-            string pathName = Path.Combine(directoryPath, baseName);
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
-        }
-
-        private static void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
-        {
-            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO),
-                                              nameof(GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter), "ExpectedExport");
-            string pathName = Path.Combine(directoryPath, baseName);
-
-            AssertBinaryFileContent(refPathName, pathName, ".shp", 100, 28);
-            AssertBinaryFileContent(refPathName, pathName, ".shx", 100, 8);
-            AssertBinaryFileContent(refPathName, pathName, ".dbf", 32, 841);
-        }
-
-        private static void AssertBinaryFileContent(string refPathName, string pathName, string extension, int headerLength, int bodyLength)
-        {
-            byte[] refContent = File.ReadAllBytes(refPathName + extension);
-            byte[] content = File.ReadAllBytes(pathName + extension);
-            Assert.AreEqual(headerLength + bodyLength, content.Length);
-            Assert.AreEqual(refContent.Skip(headerLength).Take(bodyLength),
-                            content.Skip(headerLength).Take(bodyLength));
         }
     }
 }

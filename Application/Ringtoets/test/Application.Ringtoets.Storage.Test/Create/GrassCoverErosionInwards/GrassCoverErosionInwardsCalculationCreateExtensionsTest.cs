@@ -221,18 +221,18 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_CalculationWithAlreadySavedHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
         {
             // Setup
-            var hydroLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydroLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
 
             var hydraulicLocationEntity = new HydraulicLocationEntity();
             var registry = new PersistenceRegistry();
-            registry.Register(hydraulicLocationEntity, hydroLocation);
+            registry.Register(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
             GrassCoverErosionInwardsCalculationEntity entity = calculation.Create(registry, 0);

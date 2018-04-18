@@ -35,6 +35,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
     /// </summary>
     internal static class GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter
     {
+        private static readonly GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider metaDataAttributeNameProvider
+            = new GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider();
+
         /// <summary>
         /// Writes the collection of <see cref="GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation"/> as point features in a shapefile.
         /// </summary>
@@ -74,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Exporters
                 Features = new[]
                 {
                     GrassCoverErosionOutwardsHydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(
-                        location, new GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider())
+                        location, metaDataAttributeNameProvider)
                 }
             };
         }

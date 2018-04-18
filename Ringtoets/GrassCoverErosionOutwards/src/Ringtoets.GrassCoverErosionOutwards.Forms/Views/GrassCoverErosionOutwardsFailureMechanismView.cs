@@ -75,6 +75,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismView"/>.
         /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
+        /// <param name="assessmentSection">The assessment section to show the data for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailureMechanismView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                              IAssessmentSection assessmentSection)
         {

@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -28,29 +30,27 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
 {
     /// <summary>
-    /// Test helper for handling with hydraulic boundary locations and calculations in
+    /// Test helper for dealing with hydraulic boundary locations and calculations in
     /// <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
     public static class GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper
     {
-        private static Random random;
+        private static readonly Random random = new Random(39);
 
         /// <summary>
-        /// Adds the given <paramref name="hydraulicBoundaryLocations"/> to
+        /// Sets the given <paramref name="hydraulicBoundaryLocations"/> to
         /// the <paramref name="assessmentSection"/> and <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to add the locations to.</param>
-        /// <param name="assessmentSection">The assessment section to add the locations to.</param>
-        /// <param name="hydraulicBoundaryLocations">The locations to add.</param>
+        /// <param name="failureMechanism">The failure mechanism to set the locations to.</param>
+        /// <param name="assessmentSection">The assessment section to set the locations to.</param>
+        /// <param name="hydraulicBoundaryLocations">The locations to set.</param>
         /// <param name="setCalculationOutput">Whether to set dummy output for the automatically generated
         /// hydraulic boundary location calculations.</param>
-        public static void AddHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+        public static void SetHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                          AssessmentSectionStub assessmentSection,
                                                          IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                          bool setCalculationOutput = false)
         {
-            random = new Random(39);
-
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, setCalculationOutput);
             failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
@@ -65,6 +65,48 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
             }
         }
 
+        /// <summary>
+        /// Gets all the <see cref="HydraulicBoundaryLocationCalculation"/> that have an output within the <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to retrieve the calculations from.</param>
+        /// <returns>A collection of all the hydraulic boundary location calculations that contain an output.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicBoundaryLocationsCalculationsWithOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput)
+                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+                                   .Concat(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput));
+        }
+
+        /// <summary>
+        /// Asserts if all the hydraulic boundary location calculations within the <paramref name="failureMechanism"/>
+        /// have no outputs.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to assert.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static void AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+        }
+
         private static void CreateHydraulicBoundaryLocationCalculationsOutput(
             IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {
@@ -72,6 +114,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
             {
                 hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
             }
+        }
+
+        private static bool HasHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculation calculation)
+        {
+            return calculation.HasOutput;
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = TestHydraulicBoundaryLocation.CreateFullyCalculated();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
             PipingTestDataGenerator.ConfigureFailureMechanismWithAllCalculationConfigurations(failureMechanism, hydraulicBoundaryLocation);

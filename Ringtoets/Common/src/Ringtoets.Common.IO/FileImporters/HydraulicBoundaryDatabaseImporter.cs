@@ -68,45 +68,32 @@ namespace Ringtoets.Common.IO.FileImporters
 
             ValidateAndConnectTo(filePath);
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            if (hydraulicBoundaryDatabaseReader.GetVersion() == hydraulicBoundaryDatabase.Version)
+            ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabase();
+
+            if (readHydraulicBoundaryDatabase == null)
             {
-                if (hydraulicBoundaryDatabase.FilePath != filePath)
-                {
-                    hydraulicBoundaryDatabase.FilePath = filePath;
-                    hydraulicBoundaryDatabase.NotifyObservers();
-                }
+                return false;
+            }
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
+
+            hydraulicBoundaryDatabase.FilePath = filePath;
+            hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
+            hydraulicBoundaryDatabase.Locations.Clear();
+            hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryDatabase.Locations);
+
+            if (readHydraulicBoundaryDatabase.CanUsePreprocessor)
+            {
+                hydraulicBoundaryDatabase.CanUsePreprocessor = true;
+                hydraulicBoundaryDatabase.UsePreprocessor = true;
+                hydraulicBoundaryDatabase.PreprocessorDirectory = Path.GetDirectoryName(filePath);
             }
             else
             {
-                ReadHydraulicBoundaryDatabase readHydraulicBoundaryDatabase = ReadHydraulicBoundaryDatabase();
-
-                if (readHydraulicBoundaryDatabase == null)
-                {
-                    return false;
-                }
-
-                hydraulicBoundaryDatabase.FilePath = filePath;
-                hydraulicBoundaryDatabase.Version = readHydraulicBoundaryDatabase.Version;
-                hydraulicBoundaryDatabase.Locations.Clear();
-                hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryDatabase.Locations);
-
-                if (readHydraulicBoundaryDatabase.CanUsePreprocessor)
-                {
-                    hydraulicBoundaryDatabase.CanUsePreprocessor = true;
-                    hydraulicBoundaryDatabase.UsePreprocessor = true;
-                    hydraulicBoundaryDatabase.PreprocessorDirectory = Path.GetDirectoryName(filePath);
-                }
-                else
-                {
-                    hydraulicBoundaryDatabase.CanUsePreprocessor = false;
-                }
-
-                hydraulicBoundaryDatabase.NotifyObservers();
-                hydraulicBoundaryDatabase.Locations.NotifyObservers();
-
-                log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
+                hydraulicBoundaryDatabase.CanUsePreprocessor = false;
             }
+
+            log.Info(Resources.HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read);
 
             return true;
         }
@@ -198,6 +185,7 @@ namespace Ringtoets.Common.IO.FileImporters
                                                                                      location.CoordinateY));
                     }
                 }
+
                 return new ReadHydraulicBoundaryDatabase(version, hydraulicBoundaryLocations, canUsePreprocessor);
             }
             catch (Exception e) when (e is LineParseException || e is CriticalFileReadException)

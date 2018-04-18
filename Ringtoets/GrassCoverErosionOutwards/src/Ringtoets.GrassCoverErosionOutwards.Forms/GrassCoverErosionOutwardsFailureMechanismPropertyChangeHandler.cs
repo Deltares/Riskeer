@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Forms.ChangeHandlers;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
+using Ringtoets.GrassCoverErosionOutwards.Service;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms
 {
@@ -45,22 +45,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
 
         protected override bool RequiresConfirmation(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            return base.RequiresConfirmation(failureMechanism) ||
-                   failureMechanism.HydraulicBoundaryLocations.Any(c => c.WaveHeightCalculation1.HasOutput || c.DesignWaterLevelCalculation1.HasOutput);
+            return base.RequiresConfirmation(failureMechanism)
+                   || failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Any(c => c.HasOutput)
+                   || failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.Any(c => c.HasOutput)
+                   || failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.Any(c => c.HasOutput)
+                   || failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Any(c => c.HasOutput)
+                   || failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.Any(c => c.HasOutput)
+                   || failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.Any(c => c.HasOutput);
         }
 
         protected override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             var affectedObjects = new List<IObservable>(base.PropertyChanged(failureMechanism));
+            affectedObjects.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(failureMechanism));
 
-            IEnumerable<IObservable> affectedLocations = RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                failureMechanism.HydraulicBoundaryLocations).ToArray();
-
-            if (affectedLocations.Any())
-            {
-                affectedObjects.Add(failureMechanism.HydraulicBoundaryLocations);
-            }
-            affectedObjects.AddRange(affectedLocations);
             return affectedObjects;
         }
     }

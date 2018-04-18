@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -188,20 +187,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileWithCanUsePreprocessorFalse_DataImportedAndObserversNotified()
+        public void Import_ValidFileWithCanUsePreprocessorFalse_DataImported()
         {
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
-            var databaseObserver = mocks.StrictMock<IObserver>();
-            databaseObserver.Expect(o => o.UpdateObserver());
-            var locationsObserver = mocks.StrictMock<IObserver>();
-            locationsObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
 
             string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
             string validFilePath = Path.Combine(directory, "completeUsePreprocessorFalse.sqlite");
@@ -226,20 +217,12 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileWithCanUsePreprocessorTrue_DataImportedAndObserversNotified()
+        public void Import_ValidFileWithCanUsePreprocessorTrue_DataImported()
         {
             // Setup
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
-            var databaseObserver = mocks.StrictMock<IObserver>();
-            databaseObserver.Expect(o => o.UpdateObserver());
-            var locationsObserver = mocks.StrictMock<IObserver>();
-            locationsObserver.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
 
             string directory = Path.Combine(testDataPath, "WithUsePreprocessor");
             string validFilePath = Path.Combine(directory, "completeUsePreprocessorTrue.sqlite");
@@ -260,70 +243,6 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.AreEqual(directory, assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory);
             IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             Assert.AreEqual(106, importedLocations.Count());
-            CollectionAssert.AllItemsAreNotNull(importedLocations);
-            CollectionAssert.AllItemsAreUnique(importedLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenDatabaseLinked_WhenImportingToSameDatabaseOnDifferentPath_ThenFilePathUpdatedAndSpecificObserversNotified()
-        {
-            // Given
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
-            var databaseObserver = mocks.StrictMock<IObserver>();
-            databaseObserver.Expect(o => o.UpdateObserver());
-            var locationsObserver = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
-            string copyValidFilePath = Path.Combine(testDataPath, "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
-
-            importer.Import(assessmentSection, validFilePath);
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
-
-            // When
-            bool importResult = importer.Import(assessmentSection, copyValidFilePath);
-
-            // Then
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(copyValidFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(9, importedLocations.Count());
-            CollectionAssert.AllItemsAreNotNull(importedLocations);
-            CollectionAssert.AllItemsAreUnique(importedLocations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenDatabaseLinked_WhenImportingToSameDatabaseOnSamePath_ThenObserversNotNotified()
-        {
-            // Given
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
-            var databaseObserver = mocks.StrictMock<IObserver>();
-            var locationsObserver = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            string validFilePath = Path.Combine(testDataPath, "completeWithLocationsToBeFilteredOut.sqlite");
-
-            importer.Import(assessmentSection, validFilePath);
-
-            assessmentSection.HydraulicBoundaryDatabase.Attach(databaseObserver);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.Attach(locationsObserver);
-
-            // When
-            bool importResult = importer.Import(assessmentSection, validFilePath);
-
-            // Then
-            Assert.IsTrue(importResult);
-            Assert.AreEqual(validFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            IEnumerable<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            Assert.AreEqual(9, importedLocations.Count());
             CollectionAssert.AllItemsAreNotNull(importedLocations);
             CollectionAssert.AllItemsAreUnique(importedLocations);
             mocks.VerifyAll();

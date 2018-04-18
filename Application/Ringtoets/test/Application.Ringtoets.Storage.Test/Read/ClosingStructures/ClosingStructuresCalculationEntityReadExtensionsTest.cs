@@ -251,24 +251,24 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         }
 
         [Test]
-        public void Read_EntityWithHydroLocationEntity_ReturnCalculationWithHydraulicBoundaryLocation()
+        public void Read_EntityWithHydraulicLocationEntity_ReturnCalculationWithHydraulicBoundaryLocation()
         {
             // Setup
-            var hydroLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
-            var hydroLocationEntity = new HydraulicLocationEntity();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
             var entity = new ClosingStructuresCalculationEntity
             {
-                HydraulicLocationEntity = hydroLocationEntity
+                HydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();
-            collector.Read(hydroLocationEntity, hydroLocation);
+            collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
             StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
-            Assert.AreSame(hydroLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         [Test]

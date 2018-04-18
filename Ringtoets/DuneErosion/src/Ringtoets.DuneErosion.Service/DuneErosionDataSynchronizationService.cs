@@ -58,12 +58,10 @@ namespace Ringtoets.DuneErosion.Service
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
-
             if (duneLocations == null)
             {
                 throw new ArgumentNullException(nameof(duneLocations));
@@ -112,45 +110,6 @@ namespace Ringtoets.DuneErosion.Service
 
             return locations.SelectMany(ClearDuneLocationOutput)
                             .ToArray();
-        }
-
-        /// <summary>
-        /// Clears the output of the dune location calculations within the dune erosion failure mechanism.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism for which the output of the calculations needs to be cleared.</param>
-        /// <returns>All objects changed during the clear.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearDuneCalculationOutputs(DuneErosionFailureMechanism failureMechanism)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            var affectedCalculations = new List<IObservable>();
-
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm));
-
-            return affectedCalculations;
-        }
-
-        private static IEnumerable<IObservable> ClearDuneCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
-        {
-            var affectedCalculations = new List<IObservable>();
-            foreach (DuneLocationCalculation calculation in calculations)
-            {
-                if (calculation.Output != null)
-                {
-                    calculation.Output = null;
-                    affectedCalculations.Add(calculation);
-                }
-            }
-
-            return affectedCalculations;
         }
 
         private static bool DoesHydraulicBoundaryLocationMatchWithDuneLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation,

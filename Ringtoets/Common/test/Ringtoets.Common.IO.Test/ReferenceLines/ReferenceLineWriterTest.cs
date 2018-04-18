@@ -21,12 +21,12 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.ReferenceLines;
+using Ringtoets.Common.IO.TestUtil;
 
 namespace Ringtoets.Common.IO.Test.ReferenceLines
 {
@@ -139,42 +139,21 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
                 var writer = new ReferenceLineWriter();
 
                 // Precondition
-                AssertEssentialShapefileExists(directoryPath, baseName, false);
+                FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, false);
 
                 // Call
                 writer.WriteReferenceLine(referenceLine, "anId", filePath);
 
                 // Assert
-                AssertEssentialShapefileExists(directoryPath, baseName, true);
-                AssertEssentialShapefileMd5Hashes(directoryPath, baseName);
+                FileTestHelper.AssertEssentialShapefilesExist(directoryPath, baseName, true);
+                FileTestHelper.AssertEssentialShapefileMd5Hashes(directoryPath,
+                                                                 baseName,
+                                                                 TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO),
+                                                                 "LineShapefileMd5",
+                                                                 88,
+                                                                 8,
+                                                                 289);
             }
-        }
-
-        private static void AssertEssentialShapefileExists(string directoryPath, string baseName, bool shouldExist)
-        {
-            string pathName = Path.Combine(directoryPath, baseName);
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shp"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".shx"));
-            Assert.AreEqual(shouldExist, File.Exists(pathName + ".dbf"));
-        }
-
-        private void AssertEssentialShapefileMd5Hashes(string directoryPath, string baseName)
-        {
-            string refPathName = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO), "LineShapefileMd5");
-            string pathName = Path.Combine(directoryPath, baseName);
-
-            AssertBinaryFileContent(refPathName, pathName, ".shp", 100, 88);
-            AssertBinaryFileContent(refPathName, pathName, ".shx", 100, 8);
-            AssertBinaryFileContent(refPathName, pathName, ".dbf", 32, 289);
-        }
-
-        private static void AssertBinaryFileContent(string refPathName, string pathName, string extension, int headerLength, int bodyLength)
-        {
-            byte[] refContent = File.ReadAllBytes(refPathName + extension);
-            byte[] content = File.ReadAllBytes(pathName + extension);
-            Assert.AreEqual(headerLength + bodyLength, content.Length);
-            Assert.AreEqual(refContent.Skip(headerLength).Take(bodyLength),
-                            content.Skip(headerLength).Take(bodyLength));
         }
     }
 }

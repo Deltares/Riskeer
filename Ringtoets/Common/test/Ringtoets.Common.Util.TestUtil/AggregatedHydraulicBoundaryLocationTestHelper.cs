@@ -33,8 +33,7 @@ namespace Ringtoets.Common.Util.TestUtil
     public static class AggregatedHydraulicBoundaryLocationTestHelper
     {
         /// <summary>
-        /// Creates a new <see cref="AggregatedHydraulicBoundaryLocation"/>
-        /// with random output.
+        /// Creates a new <see cref="AggregatedHydraulicBoundaryLocation"/> with random output.
         /// </summary>
         /// <returns>The created <see cref="AggregatedHydraulicBoundaryLocation"/>.</returns>
         public static AggregatedHydraulicBoundaryLocation Create()
@@ -47,8 +46,7 @@ namespace Ringtoets.Common.Util.TestUtil
         }
 
         /// <summary>
-        /// Creates a new <see cref="AggregatedHydraulicBoundaryLocation"/>
-        /// with given output.
+        /// Creates a new <see cref="AggregatedHydraulicBoundaryLocation"/> with given output.
         /// </summary>
         /// <param name="waterLevelCalculationForFactorizedSignalingNorm">The water level calculation for factorized signaling norm.</param>
         /// <param name="waterLevelCalculationForSignalingNorm">The water level calculation for signaling norm.</param>

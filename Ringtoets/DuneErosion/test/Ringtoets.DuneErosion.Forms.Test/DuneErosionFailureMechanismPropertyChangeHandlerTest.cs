@@ -128,65 +128,12 @@ namespace Ringtoets.DuneErosion.Forms.Test
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);
             }
-
             Assert.AreEqual(1, propertySet);
             var expectedAffectedObjects = new List<IObservable>(new[]
             {
                 failureMechanism
             });
             expectedAffectedObjects.AddRange(testCase.ExpectedAffectedLocations);
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(ChangePropertyFailureMechanismTestCases))]
-        public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_MessageDialogShownSetValueCalledAffectedObjectsReturned(ChangePropertyFailureMechanismTestCase testCase)
-        {
-            // Setup
-            bool dialogBoxWillBeShown = testCase.ExpectedAffectedCalculations.Any();
-
-            var title = "";
-            var message = "";
-            if (dialogBoxWillBeShown)
-            {
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var tester = new MessageBoxTester(wnd);
-                    title = tester.Title;
-                    message = tester.Text;
-
-                    tester.ClickOk();
-                };
-            }
-
-            DuneErosionFailureMechanism failureMechanism = testCase.FailureMechanism;
-            var propertySet = 0;
-
-            var changeHandler = new DuneErosionFailureMechanismPropertyChangeHandler();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                failureMechanism,
-                3,
-                (f, v) => propertySet++);
-
-            // Assert
-            if (dialogBoxWillBeShown)
-            {
-                Assert.AreEqual("Bevestigen", title);
-                string expectedMessage = "Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties in dit toetsspoor verwijderd worden." + Environment.NewLine +
-                                         Environment.NewLine +
-                                         "Weet u zeker dat u wilt doorgaan?";
-                Assert.AreEqual(expectedMessage, message);
-            }
-
-            Assert.AreEqual(1, propertySet);
-            var expectedAffectedObjects = new List<IObservable>(new[]
-            {
-                failureMechanism
-            });
-            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedCalculations);
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -230,98 +177,6 @@ namespace Ringtoets.DuneErosion.Forms.Test
 
             public ICollection<DuneLocation> Locations { get; }
             public ICollection<IObservable> ExpectedAffectedLocations { get; }
-        }
-
-        public class ChangePropertyFailureMechanismTestCase
-        {
-            public ChangePropertyFailureMechanismTestCase(DuneErosionFailureMechanism failureMechanism)
-            {
-                FailureMechanism = failureMechanism;
-
-                ExpectedAffectedCalculations = failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasOutput)
-                                                               .Concat(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Where(HasOutput))
-                                                               .Concat(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasOutput))
-                                                               .Concat(failureMechanism.CalculationsForLowerLimitNorm.Where(HasOutput))
-                                                               .Concat(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Where(HasOutput))
-                                                               .ToArray();
-            }
-
-            public DuneErosionFailureMechanism FailureMechanism { get; }
-
-            public IEnumerable<IObservable> ExpectedAffectedCalculations { get; }
-
-            private static bool HasOutput(DuneLocationCalculation calculation)
-            {
-                return calculation.Output != null;
-            }
-        }
-
-        private static IEnumerable<TestCaseData> ChangePropertyFailureMechanismTestCases()
-        {
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(new DuneErosionFailureMechanism()))
-                .SetName("SetPropertyValueAfterConfirmation No Calculations");
-
-            var failureMechanismOneLocationWithoutOutput = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanismOneLocationWithoutOutput);
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanismOneLocationWithoutOutput))
-                .SetName("SetPropertyValueAfterConfirmation One location and all calculations without output");
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
-                .SetName("SetPropertyValueAfterConfirmation One location and calculation failure mechanism specific factorized signaling norm with output");
-
-            failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
-                .SetName("SetPropertyValueAfterConfirmation One location and calculation mechanism specific signaling norm with output");
-
-            failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
-                .SetName("SetPropertyValueAfterConfirmation One location and calculation mechanism specific lower limit norm with output");
-
-            failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            SetCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm);
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
-                .SetName("SetPropertyValueAfterConfirmation One location and calculation lower limit norm with output");
-
-            failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            SetCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
-                .SetName("SetPropertyValueAfterConfirmation One location and calculation factorized lower limit norm with output");
-
-            failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            SetCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm);
-            SetCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
-            yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
-                .SetName("SetPropertyValueAfterConfirmation One location and all calculations with output");
-        }
-
-        private static void ConfigureFailureMechanism(DuneErosionFailureMechanism failureMechanism)
-        {
-            var duneLocations = new[]
-            {
-                new TestDuneLocation()
-            };
-
-            failureMechanism.DuneLocations.AddRange(duneLocations);
-            failureMechanism.SetDuneLocationCalculations(duneLocations);
-        }
-
-        private static void SetCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
-        {
-            var output = new TestDuneLocationOutput();
-            calculations.First().Output = output;
         }
 
         private static IEnumerable ChangePropertyTestCases()

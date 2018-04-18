@@ -71,9 +71,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AddHydraulicBoundaryLocations(
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection, new[]
                 {
                     new HydraulicBoundaryLocation(1, "location1", 1, 1),
@@ -125,7 +125,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(assessmentSection.HydraulicBoundaryDatabase.Locations);
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism, assessmentSection, new[]
+                {
+                    new HydraulicBoundaryLocation(1, "location1", 1, 1),
+                    new HydraulicBoundaryLocation(2, "location1", 2, 2)
+                });
 
             // Call
             GrassCoverErosionOutwardsAggregatedHydraulicBoundaryLocation[] aggregatedLocations =
@@ -156,13 +162,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
             }
         }
 
-        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculationList,
+        private static RoundedDouble GetExpectedResult(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            return calculationList
-                   .Where(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
-                   .Select(calculation => calculation.Output.Result)
-                   .Single();
+            return calculations
+                   .Single(calculation => calculation.HydraulicBoundaryLocation.Equals(hydraulicBoundaryLocation))
+                   .Output.Result;
         }
     }
 }

@@ -561,7 +561,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             var random = new Random(56);
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydroLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "StabilityPoint structures A",
@@ -588,7 +588,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             FactorStormDurationOpenStructure = random.NextRoundedDouble(),
                             FailureProbabilityStructureWithErosion = random.NextDouble(),
                             ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydroLocation,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
                             ModelFactorSuperCriticalFlow =
                             {
@@ -627,7 +627,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             FactorStormDurationOpenStructure = random.NextRoundedDouble(),
                             FailureProbabilityStructureWithErosion = random.NextDouble(),
                             ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydroLocation,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             LoadSchematizationType = LoadSchematizationType.Quadratic,
                             ModelFactorSuperCriticalFlow =
                             {
@@ -693,7 +693,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             }, @"C:\Folder");
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydroLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "Closing structures A",
@@ -716,7 +716,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             {
                                 Mean = (RoundedDouble) 19.19
                             },
-                            HydraulicBoundaryLocation = hydroLocation,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             ModelFactorSuperCriticalFlow =
                             {
                                 Mean = (RoundedDouble) 13.13
@@ -749,7 +749,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             {
                                 Mean = (RoundedDouble) 19.19
                             },
-                            HydraulicBoundaryLocation = hydroLocation,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                             ModelFactorSuperCriticalFlow =
                             {
                                 Mean = (RoundedDouble) 13.13

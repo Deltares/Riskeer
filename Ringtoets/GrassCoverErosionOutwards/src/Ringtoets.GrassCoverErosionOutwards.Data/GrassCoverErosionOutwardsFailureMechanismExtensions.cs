@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                     calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm;
                     break;
                 case NormType.LowerLimit:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm;
                     break;
                 default:
                     throw new NotSupportedException();

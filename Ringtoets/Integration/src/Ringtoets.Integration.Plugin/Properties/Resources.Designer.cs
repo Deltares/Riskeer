@@ -181,38 +181,38 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie A+-&gt;A.
+        ///   Looks up a localized string similar to Categorie C-&gt;D.
         /// </summary>
-        public static string Hydraulic_category_boundary_name_1 {
+        public static string Hydraulic_category_boundary_factorizedLowerLimitNorm_name {
             get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_name_1", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedLowerLimitNorm_name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie A-&gt;B.
+        ///   Looks up a localized string similar to Categorie A+-&gt;A.
         /// </summary>
-        public static string Hydraulic_category_boundary_name_2 {
+        public static string Hydraulic_category_boundary_factorizedSignalingNorm_name {
             get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_name_2", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedSignalingNorm_name", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Categorie B-&gt;C.
         /// </summary>
-        public static string Hydraulic_category_boundary_name_3 {
+        public static string Hydraulic_category_boundary_lowerLimitNorm_name {
             get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_name_3", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_lowerLimitNorm_name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie C-&gt;D.
+        ///   Looks up a localized string similar to Categorie A-&gt;B.
         /// </summary>
-        public static string Hydraulic_category_boundary_name_4 {
+        public static string Hydraulic_category_boundary_signalingNorm_name {
             get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_name_4", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_signalingNorm_name", resourceCulture);
             }
         }
         

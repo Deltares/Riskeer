@@ -49,6 +49,7 @@ namespace Ringtoets.Common.Util.TestUtil.Test
             Assert.IsFalse(double.IsNaN(location.WaveHeightCalculationForLowerLimitNorm));
             Assert.IsFalse(double.IsNaN(location.WaveHeightCalculationForFactorizedLowerLimitNorm));
         }
+
         [Test]
         public void Create_WithParameters_ReturnAggregatedHydraulicBoundaryLocation()
         {
