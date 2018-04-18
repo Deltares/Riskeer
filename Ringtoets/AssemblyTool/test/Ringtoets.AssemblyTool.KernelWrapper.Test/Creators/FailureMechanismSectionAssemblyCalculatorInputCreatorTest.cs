@@ -157,9 +157,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
         [Test]
         [TestCase(DetailedAssessmentResultType.None, EAssessmentResultTypeG1.Gr)]
-        [TestCase(DetailedAssessmentResultType.Insufficient)]
-        [TestCase(DetailedAssessmentResultType.Sufficient)]
-        [TestCase(DetailedAssessmentResultType.NotAssessed)]
+        [TestCase(DetailedAssessmentResultType.Insufficient, EAssessmentResultTypeG1.Vn)]
+        [TestCase(DetailedAssessmentResultType.Sufficient, EAssessmentResultTypeG1.V)]
+        [TestCase(DetailedAssessmentResultType.NotAssessed, EAssessmentResultTypeG1.Ngo)]
         public void CreateAssessmentResultTypeG1_ValidInput_ReturnsAssessmentResultTypeG1(DetailedAssessmentResultType originalResult,
                                                                                           EAssessmentResultTypeG1 expectedResult)
         {
