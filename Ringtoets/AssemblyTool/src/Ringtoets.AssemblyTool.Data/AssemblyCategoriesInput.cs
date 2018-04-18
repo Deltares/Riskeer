@@ -40,7 +40,7 @@ namespace Ringtoets.AssemblyTool.Data
                                        double lowerLimitNorm)
         {
             N = n;
-            FailureMechanismContribution = failureMechanismContribution;
+            FailureMechanismContribution = failureMechanismContribution / 100;
             SignalingNorm = signalingNorm;
             LowerLimitNorm = lowerLimitNorm;
         }
