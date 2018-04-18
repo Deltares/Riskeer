@@ -899,7 +899,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
             var calculationA = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -977,7 +984,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -1038,7 +1052,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -1103,7 +1124,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -1168,7 +1196,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -1234,7 +1269,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
             var observerA = mocks.StrictMock<IObserver>();
             observerA.Expect(o => o.UpdateObserver());
@@ -1937,20 +1979,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             };
         }
 
-        private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanismWithHydraulicBoundaryOutput(AssessmentSectionStub assessmentSection)
+        private static void ConfigureFailureMechanismWithHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 5
-            };
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                });
+            failureMechanism.Contribution = 5;
             failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(9.3);
-            return failureMechanism;
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation location)
