@@ -25,7 +25,6 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
@@ -113,18 +112,15 @@ namespace Ringtoets.Piping.Data
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
-                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                        assessmentSection.FailureMechanismContribution.SignalingNorm,
-                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                        failureMechanism.Contribution,
-                        failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanism.PipingProbabilityAssessmentInput.SectionLength));
-
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
-                    categories,
-                    failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
+                    failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length),
+                    new AssemblyCategoriesInput(failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                                    failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
+                                                failureMechanism.Contribution,
+                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -169,18 +165,15 @@ namespace Ringtoets.Piping.Data
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
-                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                        assessmentSection.FailureMechanismContribution.SignalingNorm,
-                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                        failureMechanism.Contribution,
-                        failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanism.PipingProbabilityAssessmentInput.SectionLength));
-
                 return calculator.AssembleTailorMadeAssessment(
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
-                    categories,
-                    failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length));
+                    failureMechanism.PipingProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length),
+                    new AssemblyCategoriesInput(failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                                    failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
+                                                failureMechanism.Contribution,
+                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
