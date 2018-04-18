@@ -300,9 +300,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
+                FmSectionAssemblyDirectResult simpleAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
+                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable)
+                {
+                    return FailureMechanismSectionAssemblyCreator.Create(simpleAssemblyResult);
+                }
+
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                    simpleAssemblyResult,
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
 
@@ -320,6 +326,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
+                FmSectionAssemblyDirectResult simpleAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
+                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable)
+                {
+                    return FailureMechanismSectionAssemblyCreator.ConvertFailureMechanismSectionCategory(simpleAssemblyResult.Result);
+                }
+
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
