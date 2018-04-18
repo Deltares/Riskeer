@@ -30,7 +30,6 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -44,15 +43,16 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactoryTest
     {
-        private static void AssertCategoryCalculatorInput(IAssessmentSection assessmentSection,
-                                                          AssemblyCategoriesCalculatorStub categoryCalculator,
-                                                          MacroStabilityInwardsFailureMechanism failureMechanism)
+        private static void AssertAssemblyCategoriesInput(IAssessmentSection assessmentSection,
+                                                          MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                          AssemblyCategoriesInput assemblyCategoriesInput)
         {
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, categoryCalculator.SignalingNorm);
-            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, categoryCalculator.LowerLimitNorm);
-            Assert.AreEqual(failureMechanism.Contribution, categoryCalculator.FailureMechanismContribution);
-            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
-                            categoryCalculator.N);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, assemblyCategoriesInput.SignalingNorm);
+            Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
+            Assert.AreEqual(failureMechanism.Contribution, assemblyCategoriesInput.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                                failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
+                            assemblyCategoriesInput.N);
         }
 
         #region Simple Assembly
@@ -243,10 +243,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-
                 MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
                     calculationScenarios,
@@ -262,8 +260,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.DetailedAssessmentNInput);
-                AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
-                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.DetailedAssessmentCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
             }
         }
 
@@ -417,7 +414,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                AssemblyCategoriesCalculatorStub categoryCalculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
                 MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
@@ -430,8 +426,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
                 Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
                                 calculator.TailorMadeAssessmentNInput);
-                AssertCategoryCalculatorInput(assessmentSection, categoryCalculator, failureMechanism);
-                Assert.AreSame(categoryCalculator.FailureMechanismSectionCategoriesOutput, calculator.TailorMadeAssessmentCategoriesInput);
+                AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
                 mocks.VerifyAll();
             }
         }
