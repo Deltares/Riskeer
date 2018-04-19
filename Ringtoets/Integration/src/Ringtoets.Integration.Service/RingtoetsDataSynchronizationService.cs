@@ -229,7 +229,7 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the hydraulic boundary location calculation output that is contained within specific failure mechanisms the <paramref name="assessmentSection"/>
+        /// Clears the hydraulic boundary location calculation output that is contained within specific failure mechanisms of the <paramref name="assessmentSection"/>
         /// and within it.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
@@ -275,9 +275,9 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the hydraulic boundary location calculation outputs that are contained within specific <paramref name="failureMechanisms"/>.
+        /// Clears the hydraulic boundary location calculation output that is contained within specific <paramref name="failureMechanisms"/>.
         /// </summary>
-        /// <param name="failureMechanisms">The failure mechanisms to clear the hydraulic boundary location calculations outputs for.</param>
+        /// <param name="failureMechanisms">The failure mechanisms to clear the hydraulic boundary location calculation output for.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)

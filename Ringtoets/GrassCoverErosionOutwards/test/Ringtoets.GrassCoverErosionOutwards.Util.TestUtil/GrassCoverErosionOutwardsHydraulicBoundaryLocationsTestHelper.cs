@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.TestUtil
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         /// <exception cref="AssertionException">Thrown when any of the hydraulic boundary location calculations within the 
-        /// <paramref name="failureMechanism"/>contains output.</exception>
+        /// <paramref name="failureMechanism"/> contains output.</exception>
         public static void AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
