@@ -46,18 +46,20 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
+        /// <param name="assemblyGroup">The assembly group of the failure mechanism.</param>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
         /// <item><paramref name="failureMechanismCode"/> is <c>null</c> or empty.</item>
         /// </list>
         /// </exception>
-        protected FailureMechanismBase(string name, string failureMechanismCode)
+        protected FailureMechanismBase(string name, string failureMechanismCode, int assemblyGroup)
         {
             ValidateParameters(name, failureMechanismCode);
 
             Name = name;
             Code = failureMechanismCode;
+            AssemblyGroup = assemblyGroup;
             sections = new List<FailureMechanismSection>();
             IsRelevant = true;
             InputComments = new Comment();
@@ -86,6 +88,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         public string Name { get; }
 
         public string Code { get; }
+
+        public int AssemblyGroup { get; }
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
 

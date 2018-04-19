@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.TestUtil
             : this(defaultName, defaultCode, calculations) {}
 
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
-            : base(name, code)
+            : base(name, code, 1)
         {
             sectionResults = new ObservableList<FailureMechanismSectionResult>();
             Calculations = calculations;
