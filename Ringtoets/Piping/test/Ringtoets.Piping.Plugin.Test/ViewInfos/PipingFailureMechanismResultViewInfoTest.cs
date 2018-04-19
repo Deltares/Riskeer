@@ -133,7 +133,7 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C", 1);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]

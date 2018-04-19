@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             int assemblyGroup = new Random(39).Next();
 
             // Call
-            var failureMechanism = new SimpleFailureMechanismBase(name, code);
+            var failureMechanism = new SimpleFailureMechanismBase(name, code, assemblyGroup);
 
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);

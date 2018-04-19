@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var mockRepository = new MockRepository();
             var viewCommands = mockRepository.Stub<IViewCommands>();
 
-            var someMechanism = mockRepository.StrictMock<FailureMechanismBase>(testName, testCode);
+            var someMechanism = mockRepository.StrictMock<FailureMechanismBase>(testName, testCode, 1);
             someMechanism.Contribution = testContribution;
 
             mockRepository.ReplayAll();
