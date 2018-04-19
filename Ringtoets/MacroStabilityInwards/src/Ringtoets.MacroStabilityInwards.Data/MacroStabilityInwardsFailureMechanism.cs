@@ -42,7 +42,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsFailureMechanism"/> class.
         /// </summary>
         public MacroStabilityInwardsFailureMechanism()
-            : base(Resources.MacroStabilityInwardsFailureMechanism_DisplayName, Resources.MacroStabilityInwardsFailureMechanism_Code)
+            : base(Resources.MacroStabilityInwardsFailureMechanism_DisplayName, Resources.MacroStabilityInwardsFailureMechanism_Code, 2)
         {
             MacroStabilityInwardsProbabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
             SurfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
