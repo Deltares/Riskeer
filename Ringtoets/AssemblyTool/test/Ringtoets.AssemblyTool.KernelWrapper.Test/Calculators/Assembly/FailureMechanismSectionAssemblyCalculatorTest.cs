@@ -1804,10 +1804,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 AssertAssembly(simpleAssembly, kernel.SimpleAssessmentResultInput);
-                AssertAssembly(new FailureMechanismSectionAssembly(double.NaN, FailureMechanismSectionAssemblyCategoryGroup.None),
-                               kernel.DetailedAssessmentResultInput);
-                AssertAssembly(new FailureMechanismSectionAssembly(double.NaN, FailureMechanismSectionAssemblyCategoryGroup.None),
-                               kernel.TailorMadeAssessmentResultInput);
+                Assert.IsNull(kernel.DetailedAssessmentResultInput);
+                Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
             }
         }
 
@@ -1970,8 +1968,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Assert.AreEqual(simpleAssembly, GetGroup(kernel.SimpleAssessmentResultInput.Result));
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, GetGroup(kernel.DetailedAssessmentResultInput.Result));
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, GetGroup(kernel.TailorMadeAssessmentResultInput.Result));
+                Assert.IsNull(kernel.DetailedAssessmentResultInput);
+                Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
             }
         }
 

@@ -67,8 +67,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             // Assert
             Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
-
-            // Assert
             Assert.IsTrue(kernel.Calculated);
         }
 

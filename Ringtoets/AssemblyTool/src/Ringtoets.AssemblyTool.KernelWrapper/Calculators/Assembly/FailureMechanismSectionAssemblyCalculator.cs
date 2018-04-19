@@ -305,15 +305,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 FmSectionAssemblyDirectResult simpleAssemblyResult =
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
-                FmSectionAssemblyDirectResult detailedAssemblyResult;
-                FmSectionAssemblyDirectResult tailorMadeAssemblyResult;
+                FmSectionAssemblyDirectResult detailedAssemblyResult = null;
+                FmSectionAssemblyDirectResult tailorMadeAssemblyResult = null;
 
-                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable || simpleAssemblyResult.Result == EFmSectionCategory.Iv)
-                {
-                    detailedAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
-                    tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
-                }
-                else
+                if (simpleAssemblyResult.Result != EFmSectionCategory.NotApplicable && simpleAssemblyResult.Result != EFmSectionCategory.Iv)
                 {
                     detailedAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly);
                     tailorMadeAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly);
@@ -341,15 +336,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 FmSectionAssemblyDirectResult simpleAssemblyResult =
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
-                FmSectionAssemblyDirectResult detailedAssemblyResult;
-                FmSectionAssemblyDirectResult tailorMadeAssemblyResult;
+                FmSectionAssemblyDirectResult detailedAssemblyResult = null;
+                FmSectionAssemblyDirectResult tailorMadeAssemblyResult = null;
 
-                if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable || simpleAssemblyResult.Result == EFmSectionCategory.Iv)
-                {
-                    detailedAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
-                    tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
-                }
-                else
+                if (simpleAssemblyResult.Result != EFmSectionCategory.NotApplicable && simpleAssemblyResult.Result != EFmSectionCategory.Iv)
                 {
                     detailedAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly);
                     tailorMadeAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly);
