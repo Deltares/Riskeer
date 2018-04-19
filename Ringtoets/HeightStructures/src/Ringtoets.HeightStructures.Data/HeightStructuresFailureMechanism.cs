@@ -45,7 +45,7 @@ namespace Ringtoets.HeightStructures.Data
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
         /// </summary>
         public HeightStructuresFailureMechanism()
-            : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code)
+            : base(Resources.HeightStructuresFailureMechanism_DisplayName, Resources.HeightStructuresFailureMechanism_Code, 1)
         {
             sectionResults = new ObservableList<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup
