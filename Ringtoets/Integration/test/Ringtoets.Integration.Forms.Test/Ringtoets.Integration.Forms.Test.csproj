@@ -23,7 +23,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationFramework" />
     <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
       <Private>True</Private>
@@ -110,10 +109,6 @@
       <Project>{8E2FAB92-51AA-47B0-B18A-9AC0455EF77D}</Project>
       <Name>Core.Common.Base.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
-      <Project>{26214BD0-DAFB-4CFC-8EB2-80C5D53C859E}</Project>
-      <Name>Core.Common.Gui.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
@@ -121,10 +116,6 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.TestUtil\Core.Common.Util.TestUtil.csproj">
       <Project>{45193749-ece8-40c4-8c4b-0c783affacb5}</Project>
       <Name>Core.Common.Util.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Util.Test\Core.Common.Util.Test.csproj">
-      <Project>{7f937e31-02ca-41d9-b7d4-1079cf452c72}</Project>
-      <Name>Core.Common.Util.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.BruTile\Core.Components.BruTile.csproj">
       <Project>{E02482C7-F12B-42F0-BB2B-C7EC17503A72}</Project>
@@ -209,14 +200,6 @@
     <ProjectReference Include="..\..\..\Piping\src\Ringtoets.Piping.Data\Ringtoets.Piping.Data.csproj">
       <Project>{ce994cc9-6f6a-48ac-b4be-02c30a21f4db}</Project>
       <Name>Ringtoets.Piping.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.KernelWrapper.TestUtil\Ringtoets.Piping.KernelWrapper.TestUtil.csproj">
-      <Project>{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}</Project>
-      <Name>Ringtoets.Piping.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
-      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
-      <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
