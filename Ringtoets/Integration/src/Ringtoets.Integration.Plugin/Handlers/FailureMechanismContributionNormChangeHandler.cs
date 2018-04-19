@@ -105,8 +105,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationOutput()
         {
-            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(
-                assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection);
 
             if (affectedObjects.Any())
             {

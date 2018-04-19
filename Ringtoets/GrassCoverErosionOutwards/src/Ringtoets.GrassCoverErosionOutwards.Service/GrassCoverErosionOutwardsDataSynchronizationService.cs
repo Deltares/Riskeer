@@ -148,9 +148,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary location calculations within the grass cover erosion outwards failure mechanism.
+        /// Clears the hydraulic boundary location calculation output that is contained within the grass cover erosion outwards failure mechanism.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism for which the output of the calculations needs to be cleared.</param>
+        /// <param name="failureMechanism">The failure mechanism to clear the hydraulic boundary location calculations outputs for.</param>
         /// <returns>All objects changed during the clear.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)

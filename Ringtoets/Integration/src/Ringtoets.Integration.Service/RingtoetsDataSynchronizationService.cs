@@ -29,7 +29,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
@@ -230,20 +229,14 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations within the <paramref name="hydraulicBoundaryDatabase"/> and the 
-        /// hydraulic boundary locations that are contained within specific failure mechanisms of the <paramref name="assessmentSection"/>.
+        /// Clears the hydraulic boundary location calculation output that is contained within specific failure mechanisms the <paramref name="assessmentSection"/>
+        /// and within it.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> which contains the locations.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IAssessmentSection assessmentSection)
         {
-            if (hydraulicBoundaryDatabase == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
-            }
-
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -265,7 +258,7 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations that are contained within specific failure mechanisms 
+        /// Clears the hydraulic boundary location calculation output that is contained within specific failure mechanisms 
         /// of the <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
@@ -282,9 +275,9 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Clears the output of the hydraulic boundary locations that are contained within specific <paramref name="failureMechanisms"/>.
+        /// Clears the hydraulic boundary location calculation outputs that are contained within specific <paramref name="failureMechanisms"/>.
         /// </summary>
-        /// <param name="failureMechanisms">The failure mechanisms to clear the hydraulic boundary locations for.</param>
+        /// <param name="failureMechanisms">The failure mechanisms to clear the hydraulic boundary location calculations outputs for.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
