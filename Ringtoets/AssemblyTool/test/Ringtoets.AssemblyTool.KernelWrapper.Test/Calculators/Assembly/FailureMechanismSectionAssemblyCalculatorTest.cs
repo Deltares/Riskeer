@@ -1781,12 +1781,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv)]
-        public void AssembleCombinedWithProbabilities_WithSimpleAssemblyNotApplicableOrCategoryIv_ExpectedOutputReturnedByCalculator(
+        public void AssembleCombinedWithProbabilities_WithSimpleAssemblyNotApplicableOrCategoryIv_InputCorrectlySetToKernel(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             // Setup
             var random = new Random(39);
-            var simpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), category);
+            var simpleAssembly = new FailureMechanismSectionAssembly(double.NaN, category);
             var detailedAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var tailorMadeAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
@@ -1800,11 +1800,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssembly assembly = calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
+                calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
 
                 // Assert
-                AssertCalculatorOutput(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
-                                       assembly);
+                AssertAssembly(simpleAssembly, kernel.SimpleAssessmentResultInput);
+                AssertAssembly(new FailureMechanismSectionAssembly(double.NaN, FailureMechanismSectionAssemblyCategoryGroup.None),
+                               kernel.DetailedAssessmentResultInput);
+                AssertAssembly(new FailureMechanismSectionAssembly(double.NaN, FailureMechanismSectionAssemblyCategoryGroup.None),
+                               kernel.TailorMadeAssessmentResultInput);
             }
         }
 
@@ -1945,7 +1948,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         [Test]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv)]
-        public void AssembleCombined_WithSimpleAssemblyNotApplicableOrCategoryIv_ExpectedOutputReturnedByCalculator(
+        public void AssembleCombined_WithSimpleAssemblyNotApplicableOrCategoryIv_InputCorrectlySetToKernel(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             // Setup
@@ -1963,10 +1966,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
+                calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
 
                 // Assert
-                Assert.AreEqual(simpleAssembly, assembly);
+                Assert.AreEqual(simpleAssembly, GetGroup(kernel.SimpleAssessmentResultInput.Result));
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, GetGroup(kernel.DetailedAssessmentResultInput.Result));
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, GetGroup(kernel.TailorMadeAssessmentResultInput.Result));
             }
         }
 
@@ -2051,10 +2056,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static void AssertAssembly(FailureMechanismSectionAssembly simpleAssembly, FmSectionAssemblyDirectResult kernelInput)
+        private static void AssertAssembly(FailureMechanismSectionAssembly assembly, FmSectionAssemblyDirectResult kernelAssemblyResult)
         {
-            Assert.AreEqual(simpleAssembly.Probability, kernelInput.FailureProbability);
-            Assert.AreEqual(simpleAssembly.Group, GetGroup(kernelInput.Result));
+            Assert.AreEqual(assembly.Probability, kernelAssemblyResult.FailureProbability ?? double.NaN);
+            Assert.AreEqual(assembly.Group, GetGroup(kernelAssemblyResult.Result));
         }
 
         #endregion

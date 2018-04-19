@@ -303,18 +303,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                FmSectionAssemblyDirectResult simpleAssemblyResult = 
+                FmSectionAssemblyDirectResult simpleAssemblyResult =
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
+                FmSectionAssemblyDirectResult detailedAssemblyResult;
+                FmSectionAssemblyDirectResult tailorMadeAssemblyResult;
+
                 if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable || simpleAssemblyResult.Result == EFmSectionCategory.Iv)
                 {
-                    return FailureMechanismSectionAssemblyCreator.Create(simpleAssemblyResult);
+                    detailedAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
+                    tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
+                }
+                else
+                {
+                    detailedAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly);
+                    tailorMadeAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly);
                 }
 
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
                     simpleAssemblyResult,
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
+                    detailedAssemblyResult,
+                    tailorMadeAssemblyResult);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
             }
@@ -330,18 +339,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                FmSectionAssemblyDirectResult simpleAssemblyResult = 
+                FmSectionAssemblyDirectResult simpleAssemblyResult =
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
+                FmSectionAssemblyDirectResult detailedAssemblyResult;
+                FmSectionAssemblyDirectResult tailorMadeAssemblyResult;
+
                 if (simpleAssemblyResult.Result == EFmSectionCategory.NotApplicable || simpleAssemblyResult.Result == EFmSectionCategory.Iv)
                 {
-                    return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(simpleAssemblyResult.Result);
+                    detailedAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
+                    tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(EFmSectionCategory.Gr);
+                }
+                else
+                {
+                    detailedAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly);
+                    tailorMadeAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly);
                 }
 
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
                     simpleAssemblyResult,
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
+                    detailedAssemblyResult,
+                    tailorMadeAssemblyResult);
 
                 return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(output.Result);
             }
