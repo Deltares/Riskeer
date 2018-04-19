@@ -616,7 +616,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssertOutputNotCleared(unaffectedObjects, GetDuneIrrelevantFailureMechanisms(assessmentSection));
         }
 
-        #region Grass Cover Erosion Outwards Failure Mechanism Helpers
+        #region Grass Cover Erosion Outwards failure mechanism helpers
 
         private static IEnumerable<IObservable> GetAllAffectedGrassCoverErosionOutwardsCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
