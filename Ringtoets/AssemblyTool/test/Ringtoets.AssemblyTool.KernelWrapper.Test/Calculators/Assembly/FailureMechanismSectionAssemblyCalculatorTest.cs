@@ -275,8 +275,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleSimpleAssessment(assessmentResult);
 
                 // Assert
-                Assert.AreEqual(kernel.AssessmentResultTypeE2Input,
-                                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(assessmentResult));
+                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(assessmentResult),
+                                kernel.AssessmentResultTypeE2Input);
             }
         }
 
@@ -701,7 +701,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void AssembleDetailedAssessmentWithLengthEffect_WithProbabilityResultAndNanValue_InputCorrectlySetToKernel()
+        public void AssembleDetailedAssessmentWithLengthEffect_WithProbabilityResultAndNaNValue_InputCorrectlySetToKernel()
         {
             // Setup
             var random = new Random(39);
@@ -870,11 +870,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Dictionary<EFmSectionCategory, ECategoryCompliancy> results = kernel.CategoryCompliancyResultsInput.GetCompliancyResults();
-                Assert.AreEqual(results[EFmSectionCategory.Iv], GetCategoryCompliance(detailedAssessmentResultForFactorizedSignalingNorm));
-                Assert.AreEqual(results[EFmSectionCategory.IIv], GetCategoryCompliance(detailedAssessmentResultForSignalingNorm));
-                Assert.AreEqual(results[EFmSectionCategory.IIIv], GetCategoryCompliance(detailedAssessmentResultForMechanismSpecificLowerLimitNorm));
-                Assert.AreEqual(results[EFmSectionCategory.IVv], GetCategoryCompliance(detailedAssessmentResultForLowerLimitNorm));
-                Assert.AreEqual(results[EFmSectionCategory.Vv], GetCategoryCompliance(detailedAssessmentResultForFactorizedLowerLimitNorm));
+                Assert.AreEqual(GetCategoryCompliance(detailedAssessmentResultForFactorizedSignalingNorm), results[EFmSectionCategory.Iv]);
+                Assert.AreEqual(GetCategoryCompliance(detailedAssessmentResultForSignalingNorm), results[EFmSectionCategory.IIv]);
+                Assert.AreEqual(GetCategoryCompliance(detailedAssessmentResultForMechanismSpecificLowerLimitNorm), results[EFmSectionCategory.IIIv]);
+                Assert.AreEqual(GetCategoryCompliance(detailedAssessmentResultForLowerLimitNorm), results[EFmSectionCategory.IVv]);
+                Assert.AreEqual(GetCategoryCompliance(detailedAssessmentResultForFactorizedLowerLimitNorm), results[EFmSectionCategory.Vv]);
             }
         }
 
