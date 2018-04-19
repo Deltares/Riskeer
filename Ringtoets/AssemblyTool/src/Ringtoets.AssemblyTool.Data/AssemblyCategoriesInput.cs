@@ -45,9 +45,24 @@ namespace Ringtoets.AssemblyTool.Data
             LowerLimitNorm = lowerLimitNorm;
         }
 
+        /// <summary>
+        /// Gets the 'N' parameter used to factor in the 'length effect'.
+        /// </summary>
         public double N { get; }
+
+        /// <summary>
+        /// Gets the contribution of a failure mechanism.
+        /// </summary>
         public double FailureMechanismContribution { get; }
+
+        /// <summary>
+        /// Gets the signaling norm of the assessment section.
+        /// </summary>
         public double SignalingNorm { get; }
+
+        /// <summary>
+        /// Gets the lower limit norm of the assessment section.
+        /// </summary>
         public double LowerLimitNorm { get; }
     }
 }

@@ -360,8 +360,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             EFmSectionCategory result = ConvertFailureMechanismSectionAssemblyCategoryGroup(category);
-            return result == EFmSectionCategory.Gr 
-                       ? new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.Gr, null) 
+            return result == EFmSectionCategory.Gr
+                       ? new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.Gr, null)
                        : new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, result);
         }
 
