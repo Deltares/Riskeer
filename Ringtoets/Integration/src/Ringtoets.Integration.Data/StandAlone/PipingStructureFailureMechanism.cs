@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
         /// </summary>
         public PipingStructureFailureMechanism()
-            : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code)
+            : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<PipingStructureFailureMechanismSectionResult>();
             n = new RoundedDouble(numberOfDecimalPlacesN, 1.0);

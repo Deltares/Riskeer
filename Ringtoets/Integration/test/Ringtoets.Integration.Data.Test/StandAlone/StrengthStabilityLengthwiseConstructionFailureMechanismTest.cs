@@ -40,8 +40,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit langsconstructies", failureMechanism.Name);
             Assert.AreEqual("STKWl", failureMechanism.Code);
+            Assert.AreEqual(4, failureMechanism.AssemblyGroup);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 

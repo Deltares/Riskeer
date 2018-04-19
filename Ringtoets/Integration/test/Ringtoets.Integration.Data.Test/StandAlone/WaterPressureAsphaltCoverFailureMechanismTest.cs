@@ -40,8 +40,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Wateroverdruk bij asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AWO", failureMechanism.Code);
+            Assert.AreEqual(4, failureMechanism.AssemblyGroup);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 

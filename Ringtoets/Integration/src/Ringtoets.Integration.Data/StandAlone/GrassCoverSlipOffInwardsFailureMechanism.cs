@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverSlipOffInwardsFailureMechanism()
-            : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code)
+            : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
         }

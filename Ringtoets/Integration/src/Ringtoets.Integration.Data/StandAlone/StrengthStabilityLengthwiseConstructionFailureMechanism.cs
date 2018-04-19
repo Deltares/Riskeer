@@ -41,7 +41,9 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> class.
         /// </summary>
         public StrengthStabilityLengthwiseConstructionFailureMechanism()
-            : base(Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code)
+            : base(Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName,
+                   Resources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code,
+                   4)
         {
             sectionResults = new ObservableList<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
         }
