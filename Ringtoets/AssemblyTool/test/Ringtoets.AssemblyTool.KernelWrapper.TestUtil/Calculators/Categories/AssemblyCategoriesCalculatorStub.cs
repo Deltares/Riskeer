@@ -42,14 +42,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double LowerLimitNorm { get; private set; }
 
         /// <summary>
-        /// Gets the failure mechanism contribution that is used in the calculation.
+        /// Gets the assembly categories input used in the assembly calculation methods.
         /// </summary>
-        public double FailureMechanismContribution { get; private set; }
-
-        /// <summary>
-        /// Gets the n that is used in the calculation.
-        /// </summary>
-        public double N { get; private set; }
+        public AssemblyCategoriesInput AssemblyCategoriesInput { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
@@ -85,18 +80,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
                           });
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm, double lowerLimitNorm,
-                                                                                                               double failureMechanismContribution, double n)
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
+            AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new AssemblyCategoriesCalculatorException("Message", new Exception());
             }
 
-            SignalingNorm = signalingNorm;
-            LowerLimitNorm = lowerLimitNorm;
-            FailureMechanismContribution = failureMechanismContribution;
-            N = n;
+            AssemblyCategoriesInput = assemblyCategoriesInput;
 
             return FailureMechanismSectionCategoriesOutput
                    ?? (FailureMechanismSectionCategoriesOutput = new[]
@@ -107,18 +99,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
                           });
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(double signalingNorm, double lowerLimitNorm,
-                                                                                                                         double failureMechanismContribution, double n)
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
+            AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new AssemblyCategoriesCalculatorException("Message", new Exception());
             }
 
-            SignalingNorm = signalingNorm;
-            LowerLimitNorm = lowerLimitNorm;
-            FailureMechanismContribution = failureMechanismContribution;
-            N = n;
+            AssemblyCategoriesInput = assemblyCategoriesInput;
 
             return FailureMechanismSectionCategoriesOutput
                    ?? (FailureMechanismSectionCategoriesOutput = new[]

@@ -125,10 +125,11 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                                                                                               n);
 
                 // Assert
-                Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-                Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanismContribution / 100, calculator.FailureMechanismContribution);
-                Assert.AreEqual(n, calculator.N);
+                AssemblyCategoriesInput assemblyCategoriesInput = calculator.AssemblyCategoriesInput;
+                Assert.AreEqual(signalingNorm, assemblyCategoriesInput.SignalingNorm);
+                Assert.AreEqual(lowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution / 100, assemblyCategoriesInput.FailureMechanismContribution);
+                Assert.AreEqual(n, assemblyCategoriesInput.N);
             }
         }
 
@@ -206,10 +207,11 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                                                                                                         n);
 
                 // Assert
-                Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-                Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-                Assert.AreEqual(failureMechanismContribution / 100, calculator.FailureMechanismContribution);
-                Assert.AreEqual(n, calculator.N);
+                AssemblyCategoriesInput assemblyCategoriesInput = calculator.AssemblyCategoriesInput;
+                Assert.AreEqual(signalingNorm, assemblyCategoriesInput.SignalingNorm);
+                Assert.AreEqual(lowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution / 100, assemblyCategoriesInput.FailureMechanismContribution);
+                Assert.AreEqual(n, assemblyCategoriesInput.N);
             }
         }
 

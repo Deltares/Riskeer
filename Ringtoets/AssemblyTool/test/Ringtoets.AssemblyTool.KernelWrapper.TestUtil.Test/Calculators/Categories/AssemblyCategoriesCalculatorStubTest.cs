@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories;
@@ -138,7 +139,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateFailureMechanismSectionCategories(0, 0, 0, 0).ToArray();
+            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateFailureMechanismSectionCategories(new AssemblyCategoriesInput(0, 0, 0, 0)).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
@@ -167,21 +168,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         {
             // Setup
             var random = new Random(39);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = random.NextDouble();
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble();
+            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
+                                                                      random.NextDouble(), 
+                                                                      random.NextDouble(0.0, 0.4), 
+                                                                      random.NextDouble(0.5, 1.0));
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
+            calculator.CalculateFailureMechanismSectionCategories(
+                assemblyCategoriesInput);
 
             // Assert
-            Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-            Assert.AreEqual(failureMechanismContribution, calculator.FailureMechanismContribution);
-            Assert.AreEqual(n, calculator.N);
+            AssemblyCategoriesInput actualAssemblyCategoriesInput = calculator.AssemblyCategoriesInput;
+            Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, actualAssemblyCategoriesInput.SignalingNorm);
+            Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, actualAssemblyCategoriesInput.LowerLimitNorm);
+            Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, actualAssemblyCategoriesInput.FailureMechanismContribution);
+            Assert.AreEqual(assemblyCategoriesInput.N, actualAssemblyCategoriesInput.N);
         }
 
         [Test]
@@ -194,7 +197,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             };
 
             // Call
-            TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(0, 0, 0, 0);
+            TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(new AssemblyCategoriesInput(0, 0, 0, 0));
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
@@ -209,7 +212,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(0, 0, 0, 0).ToArray();
+            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(
+                new AssemblyCategoriesInput(0, 0, 0, 0)).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
@@ -238,21 +242,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         {
             // Setup
             var random = new Random(39);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = random.NextDouble();
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble();
+            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
+                                                                      random.NextDouble(), 
+                                                                      random.NextDouble(0.0, 0.4), 
+                                                                      random.NextDouble(0.5, 1.0));
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
+            calculator.CalculateGeotechnicFailureMechanismSectionCategories(
+                assemblyCategoriesInput);
 
             // Assert
-            Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
-            Assert.AreEqual(failureMechanismContribution, calculator.FailureMechanismContribution);
-            Assert.AreEqual(n, calculator.N);
+            AssemblyCategoriesInput actualAssemblyCategoriesInput = calculator.AssemblyCategoriesInput;
+            Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, actualAssemblyCategoriesInput.SignalingNorm);
+            Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, actualAssemblyCategoriesInput.LowerLimitNorm);
+            Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, actualAssemblyCategoriesInput.FailureMechanismContribution);
+            Assert.AreEqual(assemblyCategoriesInput.N, actualAssemblyCategoriesInput.N);
         }
 
         [Test]
@@ -265,7 +271,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             };
 
             // Call
-            TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(0, 0, 0, 0);
+            TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(new AssemblyCategoriesInput(0, 0, 0, 0));
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);

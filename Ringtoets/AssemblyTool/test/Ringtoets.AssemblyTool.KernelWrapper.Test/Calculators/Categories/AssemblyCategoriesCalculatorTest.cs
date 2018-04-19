@@ -147,10 +147,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.4);
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble(1, 5);
+            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
+                                                                      random.NextDouble(), 
+                                                                      random.NextDouble(0.0, 0.4), 
+                                                                      random.NextDouble(0.5, 1.0));
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -161,13 +161,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
+                calculator.CalculateFailureMechanismSectionCategories(assemblyCategoriesInput);
 
                 // Assert
-                Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
-                Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution, kernel.FailureMechanismContribution);
-                Assert.AreEqual(n, kernel.N);
+                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.LowerLimitNorm);
+                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.SignalingNorm);
+                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismContribution);
+                Assert.AreEqual(assemblyCategoriesInput.N, kernel.N);
             }
         }
 
@@ -191,8 +191,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
-                                                                                                                                    failureMechanismContribution, n);
+                IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(
+                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
 
                 // Assert
                 AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
@@ -218,8 +218,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
-                                                                                                failureMechanismContribution, n);
+                TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(
+                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
@@ -233,10 +233,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble(1, 5);
+            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
+                                                                      random.NextDouble(), 
+                                                                      random.NextDouble(0.0, 0.4), 
+                                                                      random.NextDouble(0.5, 1.0));
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -247,13 +247,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
+                calculator.CalculateGeotechnicFailureMechanismSectionCategories(assemblyCategoriesInput);
 
                 // Assert
-                Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
-                Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution, kernel.FailureMechanismContribution);
-                Assert.AreEqual(n, kernel.N);
+                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.LowerLimitNorm);
+                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.SignalingNorm);
+                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismContribution);
+                Assert.AreEqual(assemblyCategoriesInput.N, kernel.N);
             }
         }
 
@@ -278,7 +278,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Call
                 IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(
-                    signalingNorm, lowerLimitNorm, failureMechanismContribution, n);
+                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
 
                 // Assert
                 AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
@@ -304,8 +304,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm, lowerLimitNorm,
-                                                                                                          failureMechanismContribution, n);
+                TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(
+                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);

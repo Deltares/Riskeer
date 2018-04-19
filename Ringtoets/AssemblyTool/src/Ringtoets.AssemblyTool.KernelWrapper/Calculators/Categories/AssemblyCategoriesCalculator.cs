@@ -68,17 +68,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             }
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(double signalingNorm,
-                                                                                                               double lowerLimitNorm,
-                                                                                                               double failureMechanismContribution,
-                                                                                                               double n)
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
+            AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 IEnumerable<FmSectionCategoryLimits> output = kernel.CalculateFmSectionCategoryLimitsWbi01(
-                    new AssessmentSection(1, signalingNorm, lowerLimitNorm),
-                    new FailureMechanism(n, failureMechanismContribution));
+                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
             }
@@ -88,17 +86,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             }
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(double signalingNorm,
-                                                                                                                         double lowerLimitNorm,
-                                                                                                                         double failureMechanismContribution,
-                                                                                                                         double n)
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
+            AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 IEnumerable<FmSectionCategoryLimits> output = kernel.CalculateFmSectionCategoryLimitsWbi02(
-                    new AssessmentSection(1, signalingNorm, lowerLimitNorm),
-                    new FailureMechanism(n, failureMechanismContribution));
+                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
             }

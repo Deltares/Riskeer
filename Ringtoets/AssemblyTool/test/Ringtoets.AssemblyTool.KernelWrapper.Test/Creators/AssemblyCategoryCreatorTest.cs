@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("output", exception.ParamName);
+            Assert.AreEqual("categoryLimits", exception.ParamName);
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("output", exception.ParamName);
+            Assert.AreEqual("categoryLimits", exception.ParamName);
         }
 
         [Test]

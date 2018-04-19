@@ -76,10 +76,10 @@ namespace Ringtoets.Common.Data.AssemblyTool
 
             try
             {
-                return calculator.CalculateFailureMechanismSectionCategories(signalingNorm,
-                                                                             lowerLimitNorm,
-                                                                             failureMechanismContribution / 100,
-                                                                             n);
+                return calculator.CalculateFailureMechanismSectionCategories(new AssemblyCategoriesInput(n,
+                                                                                                         failureMechanismContribution,
+                                                                                                         signalingNorm,
+                                                                                                         lowerLimitNorm));
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
@@ -108,10 +108,10 @@ namespace Ringtoets.Common.Data.AssemblyTool
 
             try
             {
-                return calculator.CalculateGeotechnicFailureMechanismSectionCategories(signalingNorm,
-                                                                                       lowerLimitNorm,
-                                                                                       failureMechanismContribution / 100,
-                                                                                       n);
+                return calculator.CalculateGeotechnicFailureMechanismSectionCategories(new AssemblyCategoriesInput(n,
+                                                                                                                   failureMechanismContribution,
+                                                                                                                   signalingNorm,
+                                                                                                                   lowerLimitNorm));
             }
             catch (AssemblyCategoriesCalculatorException e)
             {

@@ -44,29 +44,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <summary>
         /// Performs the calculation for getting the failure mechanism section categories.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to calculate with.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
-        /// <param name="failureMechanismContribution">The failure mechanism contribution to calculate with.</param>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
+        /// determining the assembly categories.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// when performing the calculation.</exception>
         IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
-            double signalingNorm, double lowerLimitNorm, double failureMechanismContribution, double n);
+            AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
         /// Performs the calculation for getting the geotechnic failure mechanism section categories.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to calculate with.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
-        /// <param name="failureMechanismContribution">The failure mechanism contribution to calculate with.</param>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
+        /// determining the assembly categories.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// when performing the calculation.</exception>
         IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
-            double signalingNorm, double lowerLimitNorm, double failureMechanismContribution, double n);
+            AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }
