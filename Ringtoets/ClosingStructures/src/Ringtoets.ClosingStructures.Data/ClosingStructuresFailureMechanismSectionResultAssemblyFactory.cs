@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 
@@ -105,13 +103,6 @@ namespace Ringtoets.ClosingStructures.Data
 
             try
             {
-                IEnumerable<FailureMechanismSectionAssemblyCategory> categories =
-                    AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                        assessmentSection.FailureMechanismContribution.SignalingNorm,
-                        assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                        failureMechanism.Contribution,
-                        failureMechanism.GeneralInput.N);
-
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
