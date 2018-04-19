@@ -219,9 +219,9 @@ namespace Ringtoets.Integration.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to INN.
         /// </summary>
-        public static string TechnicalInnovationFailureMechanismFailureMechanism_Code {
+        public static string TechnicalInnovationFailureMechanism_Code {
             get {
-                return ResourceManager.GetString("TechnicalInnovationFailureMechanismFailureMechanism_Code", resourceCulture);
+                return ResourceManager.GetString("TechnicalInnovationFailureMechanism_Code", resourceCulture);
             }
         }
         

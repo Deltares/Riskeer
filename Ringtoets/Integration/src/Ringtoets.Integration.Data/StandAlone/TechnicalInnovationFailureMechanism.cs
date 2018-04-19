@@ -40,7 +40,9 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="TechnicalInnovationFailureMechanism"/> class.
         /// </summary>
         public TechnicalInnovationFailureMechanism()
-            : base(Resources.TechnicalInnovationFailureMechanismFailureMechanism_DisplayName, Resources.TechnicalInnovationFailureMechanismFailureMechanism_Code)
+            : base(Resources.TechnicalInnovationFailureMechanismFailureMechanism_DisplayName,
+                   Resources.TechnicalInnovationFailureMechanism_Code,
+                   4)
         {
             sectionResults = new ObservableList<TechnicalInnovationFailureMechanismSectionResult>();
         }

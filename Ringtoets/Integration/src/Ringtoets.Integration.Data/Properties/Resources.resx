@@ -156,7 +156,7 @@
   <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_Code" xml:space="preserve">
     <value>STKWl</value>
   </data>
-  <data name="TechnicalInnovationFailureMechanismFailureMechanism_Code" xml:space="preserve">
+  <data name="TechnicalInnovationFailureMechanism_Code" xml:space="preserve">
     <value>INN</value>
   </data>
   <data name="TechnicalInnovationFailureMechanismFailureMechanism_DisplayName" xml:space="preserve">
