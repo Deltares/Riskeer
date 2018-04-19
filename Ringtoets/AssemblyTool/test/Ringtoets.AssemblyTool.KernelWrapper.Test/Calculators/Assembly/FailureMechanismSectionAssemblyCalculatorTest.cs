@@ -1642,7 +1642,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> expectedInput =
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(categoryGroupResult);
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithSectionCategory(categoryGroupResult);
 
                 Assert.AreEqual(expectedInput.Item1, kernel.AssessmentResultTypeT3Input);
                 Assert.AreEqual(expectedInput.Item2, kernel.SectionCategoryInput);

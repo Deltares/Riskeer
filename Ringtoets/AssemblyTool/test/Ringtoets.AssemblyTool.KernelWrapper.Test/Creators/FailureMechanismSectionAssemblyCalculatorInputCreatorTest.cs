@@ -350,14 +350,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIIv)]
-        public void ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup_ValidGroup_ReturnsExpectedItems(
+        public void CreateAssessmentResultTypeT3WithSectionCategory_ValidGroup_ReturnsExpectedItems(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             EAssessmentResultTypeT3 expectedResult,
             EFmSectionCategory? expectedGroup)
         {
             // Call
             Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> actualGroup =
-                FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(originalGroup);
+                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithSectionCategory(originalGroup);
 
             // Assert
             Assert.AreEqual(expectedResult, actualGroup.Item1);
@@ -365,10 +365,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup_InvalidGroup_ThrowInvalidEnumArgumentException()
+        public void CreateAssessmentResultTypeT3WithSectionCategory_InvalidGroup_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithSectionCategory(
                 (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert

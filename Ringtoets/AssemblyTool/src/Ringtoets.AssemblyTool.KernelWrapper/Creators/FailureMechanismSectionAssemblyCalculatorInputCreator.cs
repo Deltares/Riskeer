@@ -122,7 +122,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return new FmSectionAssemblyDirectResult(
-                ConvertFailureMechanismSectionAssemblyCategoryGroup(assembly.Group),
+                CreateFailureMechanismSectionCategory(assembly.Group),
                 assembly.Probability);
         }
 
@@ -141,7 +141,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         internal static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
-            return new FmSectionAssemblyDirectResult(ConvertFailureMechanismSectionAssemblyCategoryGroup(categoryGroup));
+            return new FmSectionAssemblyDirectResult(CreateFailureMechanismSectionCategory(categoryGroup));
         }
 
         /// <summary>
@@ -348,33 +348,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/>.
+        /// Creates a <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> from a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
-        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
+        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to create the result for.</param>
         /// <returns>A <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        internal static Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> ConvertTailorMadeFailureMechanismSectionAssemblyCategoryGroup(
+        internal static Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> CreateAssessmentResultTypeT3WithSectionCategory(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
-            EFmSectionCategory result = ConvertFailureMechanismSectionAssemblyCategoryGroup(category);
+            EFmSectionCategory result = CreateFailureMechanismSectionCategory(category);
             return result == EFmSectionCategory.Gr
                        ? new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.Gr, null)
                        : new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, result);
         }
 
         /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> into a <see cref="EFmSectionCategory"/>.
+        /// Creates a <see cref="EFmSectionCategory"/> from a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
         /// </summary>
-        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to convert.</param>
+        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to create
+        /// a <see cref="EFmSectionCategory"/>.</param>
         /// <returns>A <see cref="EFmSectionCategory"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        private static EFmSectionCategory ConvertFailureMechanismSectionAssemblyCategoryGroup(
+        private static EFmSectionCategory CreateFailureMechanismSectionCategory(
             FailureMechanismSectionAssemblyCategoryGroup category)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
