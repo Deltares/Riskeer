@@ -36,55 +36,59 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
     internal static class AssemblyCategoryCreator
     {
         /// <summary>
-        /// Creates an <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>
-        /// based on the information given in the <paramref name="output"/>.
+        /// Creates a collection of <see cref="AssessmentSectionAssemblyCategory"/>
+        /// based on the information given in the <paramref name="categoryLimits"/>.
         /// </summary>
-        /// <param name="output">The output to create the result for.</param>
-        /// <returns>An <see cref="IEnumerable{AssessmentSectionAssemblyCategoryResult}"/>
-        /// with information taken from the <paramref name="output"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="AssessmentSectionCategoryLimits"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionCategoryLimits"/>
-        /// is a valid value, but unsupported.</exception>
+        /// <param name="categoryLimits">The collection of <see cref="AssessmentSectionAssemblyCategory"/> to
+        /// create the result for.</param>
+        /// <returns>A collection of <see cref="AssessmentSectionCategoryLimits"/>
+        /// with information taken from the <paramref name="categoryLimits"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categoryLimits"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryLimits"/>
+        /// contains an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryLimits"/>
+        /// contains a valid value, but unsupported.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(
-            IEnumerable<AssessmentSectionCategoryLimits> output)
+            IEnumerable<AssessmentSectionCategoryLimits> categoryLimits)
         {
-            if (output == null)
+            if (categoryLimits == null)
             {
-                throw new ArgumentNullException(nameof(output));
+                throw new ArgumentNullException(nameof(categoryLimits));
             }
 
-            return output.Select(
-                categoriesOutput => new AssessmentSectionAssemblyCategory(categoriesOutput.LowerLimit,
-                                                                          categoriesOutput.UpperLimit,
-                                                                          ConvertAssessmentSectionCategoryGroup(categoriesOutput.Category))).ToArray();
+            return categoryLimits.Select(
+                categoriesOutput => new AssessmentSectionAssemblyCategory(
+                    categoriesOutput.LowerLimit,
+                    categoriesOutput.UpperLimit,
+                    ConvertAssessmentSectionCategoryGroup(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>
-        /// Creates an <see cref="IEnumerable{FailureMechanismSectionAssemblyCategory}"/>
-        /// based on the information given in the <paramref name="output"/>.
+        /// Creates a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>
+        /// based on the information given in the <paramref name="categoryLimits"/>.
         /// </summary>
-        /// <param name="output">The output to create the result for.</param>
-        /// <returns>An <see cref="IEnumerable{FailureMechanismSectionAssemblyCategory}"/>
-        /// with information taken from the <paramref name="output"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FmSectionCategoryLimits"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FmSectionCategoryLimits"/>
-        /// is a valid value, but unsupported.</exception>
+        /// <param name="categoryLimits">The collection of <see cref="FmSectionCategoryLimits"/> to
+        /// create the result for.</param>
+        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyCategory"/>
+        /// with information taken from the <paramref name="categoryLimits"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categoryLimits"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryLimits"/>
+        /// contains an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryLimits"/>
+        /// contains a valid value, but unsupported.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionAssemblyCategories(
-            IEnumerable<FmSectionCategoryLimits> output)
+            IEnumerable<FmSectionCategoryLimits> categoryLimits)
         {
-            if (output == null)
+            if (categoryLimits == null)
             {
-                throw new ArgumentNullException(nameof(output));
+                throw new ArgumentNullException(nameof(categoryLimits));
             }
 
-            return output.Select(
-                categoriesOutput => new FailureMechanismSectionAssemblyCategory(categoriesOutput.LowerLimit,
-                                                                                categoriesOutput.UpperLimit,
-                                                                                ConvertFailureMechanismSectionCategoryGroup(categoriesOutput.Category))).ToArray();
+            return categoryLimits.Select(
+                categoriesOutput => new FailureMechanismSectionAssemblyCategory(
+                    categoriesOutput.LowerLimit,
+                    categoriesOutput.UpperLimit,
+                    ConvertFailureMechanismSectionCategoryGroup(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>
