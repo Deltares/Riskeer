@@ -39,7 +39,7 @@ namespace Ringtoets.DuneErosion.Data
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
         /// </summary>
         public DuneErosionFailureMechanism()
-            : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
+            : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code, 3)
         {
             sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
