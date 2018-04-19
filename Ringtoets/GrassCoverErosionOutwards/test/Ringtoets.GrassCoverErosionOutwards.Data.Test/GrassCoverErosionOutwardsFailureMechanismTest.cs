@@ -45,6 +45,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Grasbekleding erosie buitentalud", failureMechanism.Name);
             Assert.AreEqual("GEBU", failureMechanism.Code);
+            Assert.AreEqual(3, failureMechanism.AssemblyGroup);
             Assert.IsInstanceOf<GeneralGrassCoverErosionOutwardsInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.WaveConditionsCalculationGroup.Name);
