@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
         /// </summary>
         public StabilityPointStructuresFailureMechanism()
-            : base(Resources.StabilityPointStructuresFailureMechanism_DisplayName, Resources.StabilityPointStructuresFailureMechanism_Code)
+            : base(Resources.StabilityPointStructuresFailureMechanism_DisplayName, Resources.StabilityPointStructuresFailureMechanism_Code, 1)
         {
             CalculationsGroup = new CalculationGroup
             {
