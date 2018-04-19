@@ -71,8 +71,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -121,8 +121,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -176,8 +176,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble(1, 5);
             IEnumerable<FmSectionCategoryLimits> output = CreateFailureMechanismSectionCategoryKernelOutput();
@@ -204,10 +204,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
             double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble();
+            double n = random.NextDouble(1, 5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -233,8 +233,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble(1, 5);
 
@@ -290,10 +290,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
+            double signalingNorm = random.NextDouble(0.0, 0.5);
             double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble();
+            double n = random.NextDouble(1, 5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
