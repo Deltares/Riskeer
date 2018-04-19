@@ -41,7 +41,7 @@ namespace Ringtoets.AssemblyTool.Data.Test
 
             // Assert
             Assert.AreEqual(n, input.N);
-            Assert.AreEqual(failureMechanismContribution / 100, input.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanismContribution / 100, input.FailureMechanismContribution, 1e-6);
             Assert.AreEqual(signalingNorm, input.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, input.LowerLimitNorm);
         }
