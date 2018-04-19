@@ -22,8 +22,7 @@
 namespace Ringtoets.AssemblyTool.Data
 {
     /// <summary>
-    /// Class that contains the data that will be sent to the assembly kernel
-    /// for the determination of the assembly categories. 
+    /// Class that contains the data that is necessary to determine the assembly categories. 
     /// </summary>
     public class AssemblyCategoriesInput
     {
