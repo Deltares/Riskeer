@@ -44,6 +44,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Golfklappen op asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AGK", failureMechanism.Code);
+            Assert.AreEqual(3, failureMechanism.AssemblyGroup);
             Assert.IsNotNull(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
             Assert.IsNotNull(failureMechanism.GeneralInput);
 

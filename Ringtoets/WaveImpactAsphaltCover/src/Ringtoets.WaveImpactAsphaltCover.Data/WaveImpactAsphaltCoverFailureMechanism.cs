@@ -43,7 +43,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaveImpactAsphaltCoverFailureMechanism()
-            : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
+            : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code, 3)
         {
             sectionResults = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
