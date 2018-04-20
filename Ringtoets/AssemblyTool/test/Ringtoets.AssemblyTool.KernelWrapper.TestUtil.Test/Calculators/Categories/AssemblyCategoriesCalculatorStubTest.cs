@@ -168,11 +168,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
-            var random = new Random(39);
-            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
-                                                                      random.NextDouble(), 
-                                                                      random.NextDouble(0.0, 0.4), 
-                                                                      random.NextDouble(0.5, 1.0));
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
@@ -238,11 +234,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         public void CalculateGeotechnicFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
-            var random = new Random(39);
-            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
-                                                                      random.NextDouble(), 
-                                                                      random.NextDouble(0.0, 0.4), 
-                                                                      random.NextDouble(0.5, 1.0));
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
 
             var calculator = new AssemblyCategoriesCalculatorStub();
 
