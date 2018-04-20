@@ -140,7 +140,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             var calculator = new AssemblyCategoriesCalculatorStub();
 
             // Call
-            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateFailureMechanismSectionCategories(new AssemblyCategoriesInput(0, 0, 0, 0)).ToArray();
+            FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateFailureMechanismSectionCategories(CreateAssemblyCategoriesInput()).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
@@ -181,11 +181,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 assemblyCategoriesInput);
 
             // Assert
-            AssemblyCategoriesInput actualAssemblyCategoriesInput = calculator.AssemblyCategoriesInput;
-            Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, actualAssemblyCategoriesInput.SignalingNorm);
-            Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, actualAssemblyCategoriesInput.LowerLimitNorm);
-            Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, actualAssemblyCategoriesInput.FailureMechanismContribution);
-            Assert.AreEqual(assemblyCategoriesInput.N, actualAssemblyCategoriesInput.N);
+            Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
         }
 
         [Test]
@@ -198,7 +194,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             };
 
             // Call
-            TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(new AssemblyCategoriesInput(0, 0, 0, 0));
+            TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(CreateAssemblyCategoriesInput());
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
@@ -214,7 +210,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
 
             // Call
             FailureMechanismSectionAssemblyCategory[] result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(
-                new AssemblyCategoriesInput(0, 0, 0, 0)).ToArray();
+                CreateAssemblyCategoriesInput()).ToArray();
 
             // Assert
             Assert.AreEqual(3, result.Length);
@@ -255,11 +251,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 assemblyCategoriesInput);
 
             // Assert
-            AssemblyCategoriesInput actualAssemblyCategoriesInput = calculator.AssemblyCategoriesInput;
-            Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, actualAssemblyCategoriesInput.SignalingNorm);
-            Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, actualAssemblyCategoriesInput.LowerLimitNorm);
-            Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, actualAssemblyCategoriesInput.FailureMechanismContribution);
-            Assert.AreEqual(assemblyCategoriesInput.N, actualAssemblyCategoriesInput.N);
+            Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
         }
 
         [Test]
@@ -272,12 +264,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             };
 
             // Call
-            TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(new AssemblyCategoriesInput(0, 0, 0, 0));
+            TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(CreateAssemblyCategoriesInput());
 
             // Assert
             var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
+        }
+
+        private static AssemblyCategoriesInput CreateAssemblyCategoriesInput()
+        {
+            return new AssemblyCategoriesInput(0, 0, 0, 0);
         }
     }
 }
