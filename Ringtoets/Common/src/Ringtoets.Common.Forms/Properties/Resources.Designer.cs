@@ -1580,6 +1580,23 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NVT - Niet Van Toepassing
+        ///WVT - Wel Van Toepassing
+        ///FV - Faalkans Verwaarloosbaar
+        ///VB - Verder Beoordelen
+        ///
+        ///V - Voldoet
+        ///VN - Voldoet Niet
+        ///NGO - Nog Geen Oordeel
+        ///Faalkans - Faalkans gespecificeerd of uitgerekend.
+        /// </summary>
+        public static string FailureMechanismResultView_InfoToolTip {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_InfoToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblageresultaat
         ///handmatig.
         /// </summary>

@@ -26,8 +26,10 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -73,6 +75,8 @@ namespace Ringtoets.Common.Forms.Views
 
             InitializeComponent();
 
+            InitializeToolTip();
+
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
 
@@ -94,14 +98,18 @@ namespace Ringtoets.Common.Forms.Views
             };
         }
 
+        private void InitializeToolTip()
+        {
+            infoIcon.BackgroundImage = CoreCommonGuiResources.information;
+            toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
+        }
+
         /// <summary>
         /// Gets the failure mechanism.
         /// </summary>
         public TFailureMechanism FailureMechanism { get; }
 
         public object Data { get; set; }
-
-        protected DataGridViewControl DataGridViewControl { get; private set; }
 
         protected override void OnLoad(EventArgs e)
         {

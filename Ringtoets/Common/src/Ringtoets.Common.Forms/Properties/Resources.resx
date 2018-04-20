@@ -1375,4 +1375,15 @@ Cat. Vv - VIv</value>
   <data name="Norms_DisplayName" xml:space="preserve">
     <value>Normen</value>
   </data>
+  <data name="FailureMechanismResultView_InfoToolTip" xml:space="preserve">
+    <value>NVT - Niet Van Toepassing
+WVT - Wel Van Toepassing
+FV - Faalkans Verwaarloosbaar
+VB - Verder Beoordelen
+
+V - Voldoet
+VN - Voldoet Niet
+NGO - Nog Geen Oordeel
+Faalkans - Faalkans gespecificeerd of uitgerekend</value>
+  </data>
 </root>
