@@ -1211,6 +1211,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De groep waar het toetsspoor toe behoort..
+        /// </summary>
+        public static string FailureMechanism_Group_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Group_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groep.
+        /// </summary>
+        public static string FailureMechanism_Group_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Group_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string FailureMechanism_Inputs_DisplayName {

@@ -93,6 +93,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ObjectProperties<PipingFailureMechanism>>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
@@ -149,7 +150,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(19, dynamicProperties.Count);
+            Assert.AreEqual(20, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string heaveCategory = "Heave";
@@ -171,117 +172,124 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor volumicWeightOfWaterProperty = dynamicProperties[4];
+            PropertyDescriptor volumicWeightOfWaterProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(volumicWeightOfWaterProperty,
                                                                             generalCategory,
                                                                             "Volumiek gewicht van water [kN/m³]",
                                                                             "Volumiek gewicht van water.");
 
-            PropertyDescriptor upliftModelFactorProperty = dynamicProperties[5];
+            PropertyDescriptor upliftModelFactorProperty = dynamicProperties[6];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftModelFactorProperty,
                                                                             modelFactorCategory,
                                                                             "Modelfactor opbarsten [-]",
                                                                             "Rekenwaarde om de onzekerheid in het model van opbarsten in rekening te brengen.",
                                                                             true);
 
-            PropertyDescriptor sellmeijerModelFactorProperty = dynamicProperties[6];
+            PropertyDescriptor sellmeijerModelFactorProperty = dynamicProperties[7];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerModelFactorProperty,
                                                                             modelFactorCategory,
                                                                             "Modelfactor piping toegepast op het model van Sellmeijer [-]",
                                                                             "Rekenwaarde om de onzekerheid in het model van Sellmeijer in rekening te brengen.",
                                                                             true);
 
-            PropertyDescriptor aProperty = dynamicProperties[7];
+            PropertyDescriptor aProperty = dynamicProperties[8];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             lengthEffectCategory,
                                                                             "a [-]",
                                                                             "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
 
-            PropertyDescriptor bProperty = dynamicProperties[8];
+            PropertyDescriptor bProperty = dynamicProperties[9];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             lengthEffectCategory,
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
                                                                             true);
 
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[9];
+            PropertyDescriptor sectionLengthProperty = dynamicProperties[10];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
                                                                             lengthEffectCategory,
                                                                             "Lengte* [m]",
                                                                             "Totale lengte van het traject in meters (afgerond).",
                                                                             true);
 
-            PropertyDescriptor nProperty = dynamicProperties[10];
+            PropertyDescriptor nProperty = dynamicProperties[11];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
-            PropertyDescriptor criticalHeaveGradientProperty = dynamicProperties[11];
+            PropertyDescriptor criticalHeaveGradientProperty = dynamicProperties[12];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalHeaveGradientProperty,
                                                                             heaveCategory,
                                                                             "Kritiek verhang m.b.t. heave [-]",
                                                                             "Kritiek verhang met betrekking tot heave.",
                                                                             true);
 
-            PropertyDescriptor volumetricWeightSandParticlesProperty = dynamicProperties[12];
+            PropertyDescriptor volumetricWeightSandParticlesProperty = dynamicProperties[13];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(volumetricWeightSandParticlesProperty,
                                                                             sellmeijerCategory,
                                                                             "Volumiek gewicht van de zandkorrels onder water [kN/m³]",
                                                                             "Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag.",
                                                                             true);
 
-            PropertyDescriptor whitesDragCoefficientProperty = dynamicProperties[13];
+            PropertyDescriptor whitesDragCoefficientProperty = dynamicProperties[14];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(whitesDragCoefficientProperty,
                                                                             sellmeijerCategory,
                                                                             "Coëfficiënt van White [-]",
                                                                             "Sleepkrachtfactor volgens White.",
                                                                             true);
 
-            PropertyDescriptor beddingAngleProperty = dynamicProperties[14];
+            PropertyDescriptor beddingAngleProperty = dynamicProperties[15];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(beddingAngleProperty,
                                                                             sellmeijerCategory,
                                                                             "Rolweerstandshoek [°]",
                                                                             "Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.",
                                                                             true);
 
-            PropertyDescriptor waterKinematicViscosityProperty = dynamicProperties[15];
+            PropertyDescriptor waterKinematicViscosityProperty = dynamicProperties[16];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterKinematicViscosityProperty,
                                                                             sellmeijerCategory,
                                                                             "Kinematische viscositeit van water bij 10° C [m²/s]",
                                                                             "Kinematische viscositeit van water bij 10° C.",
                                                                             true);
 
-            PropertyDescriptor gravityProperty = dynamicProperties[16];
+            PropertyDescriptor gravityProperty = dynamicProperties[17];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravityProperty,
                                                                             sellmeijerCategory,
                                                                             "Valversnelling [m/s²]",
                                                                             "Valversnelling.",
                                                                             true);
 
-            PropertyDescriptor meanDiameter70Property = dynamicProperties[17];
+            PropertyDescriptor meanDiameter70Property = dynamicProperties[18];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanDiameter70Property,
                                                                             sellmeijerCategory,
                                                                             "Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]",
                                                                             "Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit.",
                                                                             true);
 
-            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[18];
+            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[19];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reductionFactorSellmeijerProperty,
                                                                             sellmeijerCategory,
                                                                             "Reductiefactor Sellmeijer [-]",
@@ -312,7 +320,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -330,7 +338,14 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
@@ -498,6 +513,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
             
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
