@@ -42,13 +42,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int frunupModelFactorPropertyIndex = 6;
-        private const int fbFactorPropertyIndex = 7;
-        private const int fnFactorPropertyIndex = 8;
-        private const int fshallowModelFactorPropertyIndex = 9;
+        private const int contributionPropertyIndex = 4;
+        private const int isRelevantPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int frunupModelFactorPropertyIndex = 7;
+        private const int fbFactorPropertyIndex = 8;
+        private const int fnFactorPropertyIndex = 9;
+        private const int fshallowModelFactorPropertyIndex = 10;
         private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
 
         /// <summary>

@@ -37,6 +37,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     /// </summary>
     public class StabilityStoneCoverFailureMechanismProperties : ObjectProperties<StabilityStoneCoverFailureMechanism>
     {
+        private const int namePropertyIndex = 1;
+        private const int codePropertyIndex = 2;
+        private const int groupPropertyIndex = 3;
+        private const int contributionPropertyIndex = 4;
+        private const int isRelevantPropertyIndex = 5;
+        private const int blocksPropertyIndex = 6;
+        private const int columnsPropertyIndex = 7;
+        private const int nPropertyIndex = 8;
+
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
         /// </summary>
@@ -55,7 +64,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         #region Length effect parameters
 
         [DynamicVisible]
-        [PropertyOrder(8)]
+        [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Description))]
@@ -94,7 +103,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 
         #region General
 
-        [PropertyOrder(1)]
+        [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
@@ -106,7 +115,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(codePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
@@ -118,7 +127,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(3)]
+        [PropertyOrder(groupPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_Description))]
@@ -131,7 +140,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(4)]
+        [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
@@ -143,7 +152,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(isRelevantPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
@@ -160,7 +169,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         #region Model settings
 
         [DynamicVisible]
-        [PropertyOrder(6)]
+        [PropertyOrder(blocksPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditions_Blocks_DisplayName))]
@@ -177,7 +186,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(7)]
+        [PropertyOrder(columnsPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.StabilityStoneCoverWaveConditions_Columns_DisplayName))]

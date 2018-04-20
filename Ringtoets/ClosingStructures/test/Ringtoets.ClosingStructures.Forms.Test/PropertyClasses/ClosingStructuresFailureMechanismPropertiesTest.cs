@@ -35,6 +35,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class ClosingStructuresFailureMechanismPropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 2;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+        private const int gravitationalAccelerationPropertyIndex = 5;
+
+        private const int cPropertyIndex = 6;
+        private const int n2APropertyIndex = 7;
+        private const int nPropertyIndex = 8;
+
+        private const int modelFactorOvertoppingFlowPropertyIndex = 9;
+        private const int modelFactorStorageVolumePropertyIndex = 10;
+        private const int modelFactorSubCriticalFlowPropertyIndex = 11;
+        private const int modelFactorInflowVolumePropertyIndex = 12;
+
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
@@ -105,69 +121,69 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(13, dynamicProperties.Count);
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor codeProperty = dynamicProperties[1];
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[3];
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[4];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[5];
+            PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(gravitationalAccelerationProperty,
                                                                             generalCategory,
                                                                             "Valversnelling [m/s²]",
                                                                             "Valversnelling.",
                                                                             true);
 
-            PropertyDescriptor cProperty = dynamicProperties[6];
+            PropertyDescriptor cProperty = dynamicProperties[cPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             lengthEffectCategory,
                                                                             "C [-]",
                                                                             "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.",
                                                                             true);
 
-            PropertyDescriptor n2AProperty = dynamicProperties[7];
+            PropertyDescriptor n2AProperty = dynamicProperties[n2APropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2AProperty,
                                                                             lengthEffectCategory,
                                                                             "2NA [-]",
                                                                             "De parameter '2NA' die gebruikt wordt om het lengte-effect te berekenen.");
 
-            PropertyDescriptor nProperty = dynamicProperties[8];
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
                                                                             "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in de beoordeling (afgerond).",
                                                                             true);
 
-            PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[9];
+            PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[modelFactorOvertoppingFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorOvertoppingFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorOvertoppingFlowProperty,
                                                                             modelSettingsCategory,
@@ -175,7 +191,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor voor het overslagdebiet.",
                                                                             true);
 
-            PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[10];
+            PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[modelFactorStorageVolumePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorStorageVolumeProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorStorageVolumeProperty,
                                                                             modelSettingsCategory,
@@ -183,7 +199,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor kombergend vermogen.",
                                                                             true);
 
-            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[11];
+            PropertyDescriptor modelFactorSubCriticalFlowProperty = dynamicProperties[modelFactorSubCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSubCriticalFlowProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorSubCriticalFlowProperty,
                                                                             modelSettingsCategory,
@@ -191,7 +207,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Modelfactor voor onvolkomen stroming.",
                                                                             true);
 
-            PropertyDescriptor modelFactorInflowVolumeProperty = dynamicProperties[12];
+            PropertyDescriptor modelFactorInflowVolumeProperty = dynamicProperties[modelFactorInflowVolumePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorInflowVolumeProperty,
                                                                             modelSettingsCategory,
                                                                             "Modelfactor instromend volume [-]",
@@ -215,28 +231,28 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(4, dynamicProperties.Count);
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor codeProperty = dynamicProperties[1];
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",

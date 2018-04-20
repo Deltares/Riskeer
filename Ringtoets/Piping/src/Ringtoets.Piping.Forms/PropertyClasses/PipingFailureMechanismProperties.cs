@@ -39,6 +39,27 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingFailureMechanismProperties : ObjectProperties<PipingFailureMechanism>
     {
+        private const int namePropertyIndex = 1;
+        private const int codePropertyIndex = 2;
+        private const int groupPropertyIndex = 3;
+        private const int contributionPropertyIndex = 4;
+        private const int isRelevantPropertyIndex = 5;
+        private const int waterVolumetricWeightPropertyIndex = 6;
+        private const int upLiftModelFactorPropertyIndex = 7;
+        private const int sellMeijerModelFactorPropertyIndex = 8;
+        private const int aPropertyIndex = 9;
+        private const int bPropertyIndex = 10;
+        private const int sectionLengthPropertyIndex = 11;
+        private const int nPropertyIndex = 12;
+        private const int criticalHeaveGradientPropertyIndex = 13;
+        private const int sandParticlesVolumetricWeightPropertyIndex = 14;
+        private const int whitesDragCoefficientPropertyIndex = 15;
+        private const int beddingAnglePropertyIndex = 16;
+        private const int waterKinematicViscosityPropertyIndex = 17;
+        private const int gravityPropertyIndex = 18;
+        private const int meanDiameter70PropertyIndex = 19;
+        private const int sellMeijerReductionFactorPropertyIndex = 20;
+
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
         /// <summary>
@@ -67,7 +88,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Heave
 
         [DynamicVisible]
-        [PropertyOrder(31)]
+        [PropertyOrder(criticalHeaveGradientPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Heave))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_CriticalHeaveGradient_Description))]
@@ -134,7 +155,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region General
 
-        [PropertyOrder(1)]
+        [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Name_Description))]
@@ -146,7 +167,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(codePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Code_Description))]
@@ -158,7 +179,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(3)]
+        [PropertyOrder(groupPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_Description))]
@@ -171,7 +192,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(4)]
+        [PropertyOrder(contributionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
@@ -183,7 +204,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(5)]
+        [PropertyOrder(isRelevantPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
@@ -196,7 +217,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(6)]
+        [PropertyOrder(waterVolumetricWeightPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_Description))]
@@ -217,7 +238,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Length effect parameters
 
         [DynamicVisible]
-        [PropertyOrder(21)]
+        [PropertyOrder(aPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_A_Description))]
@@ -235,7 +256,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(22)]
+        [PropertyOrder(bPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_ProbabilityAssessmentInput_B_Description))]
@@ -248,7 +269,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(23)]
+        [PropertyOrder(sectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.ReferenceLine_Length_Rounded_Description))]
@@ -261,7 +282,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(24)]
+        [PropertyOrder(nPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_LengthEffect))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_N_Rounded_Description))]
@@ -279,7 +300,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Sellmeijer
 
         [DynamicVisible]
-        [PropertyOrder(51)]
+        [PropertyOrder(sandParticlesVolumetricWeightPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SandParticlesVolumicWeight_Description))]
@@ -292,7 +313,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(52)]
+        [PropertyOrder(whitesDragCoefficientPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WhitesDragCoefficient_Description))]
@@ -305,7 +326,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(53)]
+        [PropertyOrder(beddingAnglePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_BeddingAngle_Description))]
@@ -318,7 +339,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(54)]
+        [PropertyOrder(waterKinematicViscosityPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterKinematicViscosity_Description))]
@@ -331,7 +352,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(55)]
+        [PropertyOrder(gravityPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.GravitationalAcceleration_Description))]
@@ -344,7 +365,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(56)]
+        [PropertyOrder(meanDiameter70PropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_MeanDiameter70_Description))]
@@ -357,7 +378,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(57)]
+        [PropertyOrder(sellMeijerReductionFactorPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Sellmeijer))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerReductionFactor_Description))]
@@ -374,7 +395,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         #region Model factors
 
         [DynamicVisible]
-        [PropertyOrder(11)]
+        [PropertyOrder(upLiftModelFactorPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_Description))]
@@ -387,7 +408,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(12)]
+        [PropertyOrder(sellMeijerModelFactorPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_Description))]

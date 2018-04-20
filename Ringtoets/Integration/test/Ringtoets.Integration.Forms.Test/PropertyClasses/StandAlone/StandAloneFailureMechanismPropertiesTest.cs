@@ -36,6 +36,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
     [TestFixture]
     public class StandAloneFailureMechanismPropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 2;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -122,35 +128,35 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(5, dynamicProperties.Count);
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor codeProperty = dynamicProperties[1];
+            PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[3];
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[4];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
@@ -181,28 +187,28 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses.StandAlone
 
             const string generalCategory = "Algemeen";
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor labelProperty = dynamicProperties[1];
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",

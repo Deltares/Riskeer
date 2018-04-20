@@ -36,6 +36,16 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismPropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int groupPropertyIndex = 2;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+        private const int aPropertyIndex = 5;
+        private const int bPropertyIndex = 6;
+        private const int sectionLengthPropertyIndex = 7;
+        private const int nPropertyIndex = 8;
+
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
@@ -102,62 +112,62 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor labelProperty = dynamicProperties[1];
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[3];
+            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[4];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor aProperty = dynamicProperties[5];
+            PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             lengthEffectCategory,
                                                                             "a [-]",
                                                                             "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
 
-            PropertyDescriptor bProperty = dynamicProperties[6];
+            PropertyDescriptor bProperty = dynamicProperties[bPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             lengthEffectCategory,
                                                                             "b [m]",
                                                                             "De parameter 'b' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.",
                                                                             true);
 
-            PropertyDescriptor sectionLengthProperty = dynamicProperties[7];
+            PropertyDescriptor sectionLengthProperty = dynamicProperties[sectionLengthPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionLengthProperty,
                                                                             lengthEffectCategory,
                                                                             "Lengte* [m]",
                                                                             "Totale lengte van het traject in meters (afgerond).",
                                                                             true);
 
-            PropertyDescriptor nProperty = dynamicProperties[8];
+            PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N* [-]",
@@ -183,28 +193,28 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             const string generalCategory = "Algemeen";
 
-            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor labelProperty = dynamicProperties[1];
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
                                                                             generalCategory,
                                                                             "Groep",
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
