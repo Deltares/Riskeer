@@ -38,7 +38,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
     public class AssemblyCategoryCreatorTest
     {
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_OutputNull_ThrowsArgumentNullException()
+        public void CreateAssessmentSectionAssemblyCategories_CategoryLimitsNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(null);
@@ -115,7 +115,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategories_OutputNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyCategories_CategoryLimitsNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(null);
@@ -126,7 +126,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCategories_WithOutput_ReturnFailureMechanismSectionAssemblyCategoryResult()
+        public void CreateFailureMechanismSectionAssemblyCategories_WithCategoryLimits_ReturnFailureMechanismSectionAssemblyCategoryResult()
         {
             // Setup
             var random = new Random(11);

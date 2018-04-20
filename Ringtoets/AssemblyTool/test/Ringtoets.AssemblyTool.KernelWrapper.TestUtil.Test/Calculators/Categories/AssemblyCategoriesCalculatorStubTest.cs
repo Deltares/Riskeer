@@ -43,6 +43,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             Assert.IsInstanceOf<IAssemblyCategoriesCalculator>(calculator);
             Assert.IsNull(calculator.AssessmentSectionCategoriesOutput);
             Assert.IsNull(calculator.FailureMechanismSectionCategoriesOutput);
+            Assert.IsNull(calculator.AssemblyCategoriesInput);
             Assert.AreEqual(0.0, calculator.SignalingNorm);
             Assert.AreEqual(0.0, calculator.LowerLimitNorm);
         }

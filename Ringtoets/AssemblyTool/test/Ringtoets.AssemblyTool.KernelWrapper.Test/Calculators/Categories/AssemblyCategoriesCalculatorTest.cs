@@ -146,11 +146,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateFailureMechanismSectionCategories_WithInput_InputCorrectlySetToKernel()
         {
             // Setup
-            var random = new Random(11);
-            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
-                                                                      random.NextDouble(), 
-                                                                      random.NextDouble(0.0, 0.4), 
-                                                                      random.NextDouble(0.5, 1.0));
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateRandomAssemblyCategoriesInput();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -175,11 +171,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
-            var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble(1, 5);
             IEnumerable<FmSectionCategoryLimits> output = CreateFailureMechanismSectionCategoryKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -192,7 +183,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Call
                 IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(
-                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
+                    CreateRandomAssemblyCategoriesInput());
 
                 // Assert
                 AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
@@ -203,12 +194,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateFailureMechanismSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
         {
             // Setup
-            var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble(1, 5);
-
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -219,7 +204,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Call
                 TestDelegate test = () => calculator.CalculateFailureMechanismSectionCategories(
-                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
+                    CreateRandomAssemblyCategoriesInput());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
@@ -232,11 +217,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateGeotechnicFailureMechanismSectionCategories_WithInput_InputCorrectlySetToKernel()
         {
             // Setup
-            var random = new Random(11);
-            var assemblyCategoriesInput = new AssemblyCategoriesInput(random.NextDouble(1, 5),
-                                                                      random.NextDouble(), 
-                                                                      random.NextDouble(0.0, 0.4), 
-                                                                      random.NextDouble(0.5, 1.0));
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateRandomAssemblyCategoriesInput();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -261,11 +242,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateGeotechnicFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
-            var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble(1, 5);
             IEnumerable<FmSectionCategoryLimits> output = CreateFailureMechanismSectionCategoryKernelOutput();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -278,7 +254,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Call
                 IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicFailureMechanismSectionCategories(
-                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
+                    CreateRandomAssemblyCategoriesInput());
 
                 // Assert
                 AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(output, result);
@@ -289,12 +265,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateGeotechnicFailureMechanismSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
         {
             // Setup
-            var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
-            double failureMechanismContribution = random.NextDouble();
-            double n = random.NextDouble(1, 5);
-
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -305,13 +275,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 
                 // Call
                 TestDelegate test = () => calculator.CalculateGeotechnicFailureMechanismSectionCategories(
-                    new AssemblyCategoriesInput(n, failureMechanismContribution, signalingNorm, lowerLimitNorm));
+                    CreateRandomAssemblyCategoriesInput());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
                 Assert.IsNotNull(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
+        }
+
+        private static AssemblyCategoriesInput CreateRandomAssemblyCategoriesInput()
+        {
+            var random = new Random(11);
+            return new AssemblyCategoriesInput(random.NextDouble(1, 5),
+                                               random.NextDouble(),
+                                               random.NextDouble(0.0, 0.5),
+                                               random.NextDouble(0.5, 1.0));
         }
 
         private static IEnumerable<AssessmentSectionCategoryLimits> CreateAssessmentSectionCategoryKernelOutput()
