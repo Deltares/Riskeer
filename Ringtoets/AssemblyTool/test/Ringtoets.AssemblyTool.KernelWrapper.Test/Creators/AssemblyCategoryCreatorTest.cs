@@ -56,14 +56,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var categoryLimits = new[]
             {
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.APlus, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.A, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.B, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.C, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.D, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.Gr, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.Ngo, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(EAssessmentGrade.Nvt, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
             };
 
             // Call
@@ -96,6 +92,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssessmentGrade.B, AssessmentSectionAssemblyCategoryGroup.B)]
         [TestCase(EAssessmentGrade.C, AssessmentSectionAssemblyCategoryGroup.C)]
         [TestCase(EAssessmentGrade.D, AssessmentSectionAssemblyCategoryGroup.D)]
+        [TestCase(EAssessmentGrade.Gr, AssessmentSectionAssemblyCategoryGroup.None)]
+        [TestCase(EAssessmentGrade.Nvt, AssessmentSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(EAssessmentGrade.Ngo, AssessmentSectionAssemblyCategoryGroup.NotAssessed)]
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
@@ -134,15 +133,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var categoryLimits = new[]
             {
-                new FmSectionCategoryLimits(EFmSectionCategory.Gr, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.Iv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.IIv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.IIIv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.IVv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.Vv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.VIv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.VIIv, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(EFmSectionCategory.NotApplicable, random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
+                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
             };
 
             // Call

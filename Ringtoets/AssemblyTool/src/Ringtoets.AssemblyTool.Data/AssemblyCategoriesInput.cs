@@ -29,7 +29,8 @@ namespace Ringtoets.AssemblyTool.Data
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyCategoriesInput"/>.
         /// </summary>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="n">The 'N' parameter of the failure mechanism
+        /// used to factor in the 'length effect'.</param>
         /// <param name="failureMechanismContribution">The contribution of a failure mechanism.</param>
         /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>

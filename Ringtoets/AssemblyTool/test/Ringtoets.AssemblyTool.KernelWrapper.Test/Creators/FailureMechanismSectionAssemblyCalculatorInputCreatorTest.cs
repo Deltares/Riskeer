@@ -116,6 +116,44 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
+        private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
+        {
+            get
+            {
+                var random = new Random(39);
+                yield return new TestCaseData((DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>())
+                    .SetName($"DetailedAssessmentResultForFactorizedSignalingNorm invalid {nameof(DetailedAssessmentResultType)}");
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>())
+                    .SetName($"DetailedAssessmentResultForSignalingNorm invalid {nameof(DetailedAssessmentResultType)}");
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>())
+                    .SetName($"DetailedAssessmentResultForMechanismSpecificLowerLimitNorm invalid {nameof(DetailedAssessmentResultType)}");
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99,
+                                              random.NextEnumValue<DetailedAssessmentResultType>())
+                    .SetName($"DetailedAssessmentResultForLowerLimitNorm invalid {nameof(DetailedAssessmentResultType)}");
+                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              random.NextEnumValue<DetailedAssessmentResultType>(),
+                                              (DetailedAssessmentResultType) 99)
+                    .SetName($"DetailedAssessmentResultForFactorizedLowerLimitNorm invalid {nameof(DetailedAssessmentResultType)}");
+            }
+        }
+
         [Test]
         public void CreateCategoryCompliancyResults_ValidInput_ReturnsFmSectionCategoryCompliancyResults()
         {
@@ -197,39 +235,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(expectedResult, result);
         }
 
-        private static IEnumerable<TestCaseData> InvalidDetailedAssessmentCategoryResults
-        {
-            get
-            {
-                var random = new Random(39);
-                yield return new TestCaseData((DetailedAssessmentResultType) 99,
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>());
-                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              (DetailedAssessmentResultType) 99,
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>());
-                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              (DetailedAssessmentResultType) 99,
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>());
-                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              (DetailedAssessmentResultType) 99,
-                                              random.NextEnumValue<DetailedAssessmentResultType>());
-                yield return new TestCaseData(random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              random.NextEnumValue<DetailedAssessmentResultType>(),
-                                              (DetailedAssessmentResultType) 99);
-            }
-        }
-
         private static ECategoryCompliancy GetCategoryCompliance(DetailedAssessmentResultType detailedAssessmentResult)
         {
             switch (detailedAssessmentResult)
@@ -272,7 +277,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EFmSectionCategory.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EFmSectionCategory.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EFmSectionCategory.VIIv)]
-        public void CreateFailureMechanismSectionAssemblyDirectResult_WithAssembly_ReturnFailureMechanismSectionDirectAssemblyResult(
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithAssembly_ReturnFmSectionAssemblyDirectResult(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             EFmSectionCategory expectedGroup)
         {
@@ -311,7 +316,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EFmSectionCategory.Vv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EFmSectionCategory.VIv)]
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EFmSectionCategory.VIIv)]
-        public void CreateFailureMechanismSectionAssemblyDirectResult_WithValidGroup_ReturnFmSectionCategory(
+        public void CreateFailureMechanismSectionAssemblyDirectResult_WithValidGroup_ReturnFmSectionAssemblyDirectResult(
             FailureMechanismSectionAssemblyCategoryGroup originalGroup,
             EFmSectionCategory expectedGroup)
         {

@@ -81,7 +81,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
         /// <param name="probability">The calculated probability.</param>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="n">The 'N' parameter of the failure mechanism section used to factor in the 'length effect'.</param>
         /// <param name="assemblyCategoriesInput">The object containing the input parameters for
         /// determining the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -161,7 +161,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>
         /// to assemble for.</param>
         /// <param name="probability">The calculated probability.</param>
-        /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="n">The 'N' parameter of the failure mechanism section used to factor in the 'length effect'.</param>
         /// <param name="assemblyCategoriesInput">The object containing the input parameters for
         /// determining the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
