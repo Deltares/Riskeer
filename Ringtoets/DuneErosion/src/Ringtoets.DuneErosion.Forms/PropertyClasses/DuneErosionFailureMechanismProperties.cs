@@ -39,9 +39,10 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
+        private const int groupPropertyIndex = 3;
+        private const int contributionPropertyIndex = 4;
+        private const int isRelevantPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
         private readonly IFailureMechanismPropertyChangeHandler<DuneErosionFailureMechanism> propertyChangeHandler;
 
         /// <summary>
@@ -138,6 +139,18 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             get
             {
                 return data.Code;
+            }
+        }
+
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
             }
         }
 
