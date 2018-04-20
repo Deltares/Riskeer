@@ -138,7 +138,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C", 1);
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism

@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -131,9 +132,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C", 1);
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new []
             {
                 otherFailureMechanism
             });
@@ -157,11 +158,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C", 1);
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                otherFailureMechanism,
+                new TestFailureMechanism(), 
                 failureMechanism
             });
 

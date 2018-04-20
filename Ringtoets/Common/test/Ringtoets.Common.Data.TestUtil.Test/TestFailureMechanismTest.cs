@@ -60,6 +60,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             Assert.AreEqual(testName, failureMechanism.Name);
             Assert.AreEqual(testCode, failureMechanism.Code);
+            Assert.AreEqual(1, failureMechanism.Group);
         }
 
         [Test]
@@ -76,6 +77,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             Assert.AreEqual("Test failure mechanism", failureMechanism.Name);
             Assert.AreEqual("TFM", failureMechanism.Code);
+            Assert.AreEqual(1, failureMechanism.Group);
         }
 
         [Test]

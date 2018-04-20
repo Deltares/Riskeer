@@ -283,7 +283,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         {
             public SimpleFailureMechanismBase(string name = "SomeName", 
                                               string failureMechanismCode = "SomeCode", 
-                                              int @group = 1) : base(name, failureMechanismCode, @group) {}
+                                              int group = 1) : base(name, failureMechanismCode, group) {}
 
             public override IEnumerable<ICalculation> Calculations
             {

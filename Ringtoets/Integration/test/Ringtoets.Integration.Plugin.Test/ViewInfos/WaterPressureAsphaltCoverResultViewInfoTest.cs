@@ -29,11 +29,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using Ringtoets.Piping.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C", 1);
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -160,7 +160,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new PipingFailureMechanism(),
+                new TestFailureMechanism(),
                 failureMechanism
             });
 
