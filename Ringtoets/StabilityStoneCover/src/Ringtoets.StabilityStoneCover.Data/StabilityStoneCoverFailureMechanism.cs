@@ -42,7 +42,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
         /// </summary>
         public StabilityStoneCoverFailureMechanism()
-            : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
+            : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code, 3)
         {
             sectionResults = new ObservableList<StabilityStoneCoverFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup

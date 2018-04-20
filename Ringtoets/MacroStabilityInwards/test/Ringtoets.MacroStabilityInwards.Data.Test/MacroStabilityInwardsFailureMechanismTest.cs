@@ -43,6 +43,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Macrostabiliteit binnenwaarts", failureMechanism.Name);
             Assert.AreEqual("STBI", failureMechanism.Code);
+            Assert.AreEqual(2, failureMechanism.Group);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);

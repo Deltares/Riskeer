@@ -71,10 +71,10 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
         }
 
         [Test]
-        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        public void GetAllHydraulicBoundaryLocationCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -82,21 +82,21 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
         }
 
         [Test]
-        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismWithoutHydraulicBoundaryLocationCalculations_ReturnsEmpty()
+        public void GetAllHydraulicBoundaryLocationCalculationsWithOutput_FailureMechanismWithoutHydraulicBoundaryLocationCalculations_ReturnsEmpty()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(calculations);
         }
 
         [Test]
-        public void GetAllHydraulicBoundaryLocationsCalculationsWithOutput_FailureMechanismWithHydraulicBoundaryCalculations_ReturnsCalculationsWithOutput()
+        public void GetAllHydraulicBoundaryLocationCalculationsWithOutput_FailureMechanismWithHydraulicBoundaryCalculations_ReturnsCalculationsWithOutput()
         {
             // Setup
             var hydraulicBoundaryLocations = new[]
@@ -108,26 +108,33 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-            failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+            HydraulicBoundaryLocationCalculation calculation1 = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First();
+            HydraulicBoundaryLocationCalculation calculation2 = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First();
+            HydraulicBoundaryLocationCalculation calculation3 = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First();
+            HydraulicBoundaryLocationCalculation calculation4 = failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First();
+            HydraulicBoundaryLocationCalculation calculation5 = failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First();
+            HydraulicBoundaryLocationCalculation calculation6 = failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First();
+
+            calculation1.Output = new TestHydraulicBoundaryLocationOutput();
+            calculation2.Output = new TestHydraulicBoundaryLocationOutput();
+            calculation3.Output = new TestHydraulicBoundaryLocationOutput();
+            calculation4.Output = new TestHydraulicBoundaryLocationOutput();
+            calculation5.Output = new TestHydraulicBoundaryLocationOutput();
+            calculation6.Output = new TestHydraulicBoundaryLocationOutput();
 
             // Call
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             var expectedCalculations = new[]
             {
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First(),
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First(),
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First(),
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First()
+                calculation1,
+                calculation2,
+                calculation3,
+                calculation4,
+                calculation5,
+                calculation6
             };
             CollectionAssert.AreEquivalent(expectedCalculations, calculations);
         }

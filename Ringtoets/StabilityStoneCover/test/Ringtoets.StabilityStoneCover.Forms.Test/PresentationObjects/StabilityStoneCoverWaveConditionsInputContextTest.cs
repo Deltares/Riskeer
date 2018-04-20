@@ -57,7 +57,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(foreshoreProfiles, context.ForeshoreProfiles);
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
         }
 
         [Test]

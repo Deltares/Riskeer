@@ -29,16 +29,17 @@ namespace Ringtoets.Common.Data.Test.Contribution
     public class OtherFailureMechanismTest
     {
         [Test]
-        public void Constructor_Always_NameSet()
+        public void Constructor_Always_PropertiesSet()
         {
             // Call
-            var result = new OtherFailureMechanism();
+            var failureMechanism = new OtherFailureMechanism();
 
             // Assert
-            Assert.AreEqual("Overig", result.Name);
-            Assert.AreEqual("-", result.Code);
-            Assert.IsInstanceOf<FailureMechanismBase>(result);
-            CollectionAssert.IsEmpty(result.Calculations);
+            Assert.AreEqual("Overig", failureMechanism.Name);
+            Assert.AreEqual("-", failureMechanism.Code);
+            Assert.AreEqual(int.MinValue, failureMechanism.Group);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
         }
     }
 }

@@ -43,8 +43,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<PipingStructureFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Piping bij kunstwerk", failureMechanism.Name);
             Assert.AreEqual("PKW", failureMechanism.Code);
+            Assert.AreEqual(4, failureMechanism.Group);
             Assert.AreEqual(2, failureMechanism.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, failureMechanism.N, failureMechanism.N.GetAccuracy());
 

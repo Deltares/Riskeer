@@ -337,7 +337,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         private static IEnumerable<IObservable> GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+            return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
         }
 
         private static void AssertHydraulicBoundaryLocationOutput(AssessmentSection assessmentSection, bool hasOutput)

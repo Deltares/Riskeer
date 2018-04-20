@@ -473,6 +473,12 @@ handmatig</value>
   <data name="FailureMechanism_Code_DisplayName" xml:space="preserve">
     <value>Label</value>
   </data>
+  <data name="FailureMechanism_Group_Description" xml:space="preserve">
+    <value>De groep waar het toetsspoor toe behoort.</value>
+  </data>
+  <data name="FailureMechanism_Group_DisplayName" xml:space="preserve">
+    <value>Groep</value>
+  </data>
   <data name="FailureMechanism_Name_Description" xml:space="preserve">
     <value>De naam van het toetsspoor.</value>
   </data>

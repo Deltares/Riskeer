@@ -201,9 +201,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                      .ToArray();
 
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            HydraulicBoundaryLocationCalculation[] hblWithOutput =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism)
-                                                                             .ToArray();
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             var handler = new AssessmentSectionCompositionChangeHandler(viewCommands);
 
@@ -215,7 +214,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                         "All calculations that had output still have them.");
 
             Assert.True(duneLocationWithOutput.All(loc => loc.Calculation.Output != null));
-            Assert.True(hblWithOutput.All(loc => loc.HasOutput));
+            Assert.True(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
             mocks.VerifyAll();
@@ -312,9 +311,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                                    .ToList();
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationsWithOutput =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism)
-                                                                             .ToArray();
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
 
             IEnumerable<IObservable> expectedAffectedObjects = duneErosionFailureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null)
                                                                                           .Concat(new IObservable[]
@@ -337,7 +335,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
-            Assert.IsTrue(hydraulicBoundaryLocationsWithOutput.All(c => c.HasOutput));
+            Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(c => c.HasOutput));
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
                 Assert.IsNull(duneLocation.Calculation.Output);
@@ -414,9 +412,8 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsWithoutCalculationOutput(oldComposition);
 
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
-            HydraulicBoundaryLocationCalculation[] hblWithOutput =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism)
-                                                                             .ToArray();
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput =
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
 
@@ -440,7 +437,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
-            Assert.IsTrue(hblWithOutput.All(calc => calc.HasOutput));
+            Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
                 Assert.IsNull(duneLocation.Calculation.Output);
@@ -616,11 +613,11 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssertOutputNotCleared(unaffectedObjects, GetDuneIrrelevantFailureMechanisms(assessmentSection));
         }
 
-        #region Grass Cover Erosion Outwards Failure Mechanism Helpers
+        #region Grass Cover Erosion Outwards failure mechanism helpers
 
         private static IEnumerable<IObservable> GetAllAffectedGrassCoverErosionOutwardsCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationsCalculationsWithOutput(failureMechanism);
+            return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
         }
 
         #endregion

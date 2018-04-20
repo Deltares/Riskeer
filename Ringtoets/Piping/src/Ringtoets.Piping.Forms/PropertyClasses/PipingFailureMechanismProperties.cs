@@ -158,8 +158,20 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [DynamicVisible]
         [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
+            }
+        }
+
+        [DynamicVisible]
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Contribution_Description))]
@@ -171,7 +183,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(4)]
+        [PropertyOrder(5)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_DisplayName))]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_IsRelevant_Description))]
@@ -184,7 +196,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [DynamicVisible]
-        [PropertyOrder(5)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_WaterVolumetricWeight_Description))]

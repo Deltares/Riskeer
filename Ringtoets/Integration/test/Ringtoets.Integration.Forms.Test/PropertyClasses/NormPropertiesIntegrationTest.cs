@@ -173,7 +173,6 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             {
                 hydraulicBoundaryLocation
             });
-
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection, hydraulicBoundaryLocation, random);
 
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
@@ -277,7 +276,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             var mockRepository = new MockRepository();
             AttachObserver(mockRepository, assessmentSection.FailureMechanismContribution);
-            AttachObserver(mockRepository, assessmentSection.HydraulicBoundaryDatabase, false);
+            AttachObserver(mockRepository, assessmentSection, hydraulicBoundaryLocation, false);
+            AttachObserver(mockRepository, assessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocation, false);
             AttachObserver(mockRepository, emptyPipingCalculation, false);
             AttachObserver(mockRepository, emptyGrassCoverErosionInwardsCalculation, false);
             AttachObserver(mockRepository, emptyHeightStructuresCalculation, false);

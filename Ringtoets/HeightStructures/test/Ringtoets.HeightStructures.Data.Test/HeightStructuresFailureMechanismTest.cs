@@ -46,6 +46,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<HeightStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", failureMechanism.Name);
             Assert.AreEqual("HTKW", failureMechanism.Code);
+            Assert.AreEqual(1, failureMechanism.Group);
             Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);

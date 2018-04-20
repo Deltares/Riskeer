@@ -40,7 +40,7 @@ namespace Ringtoets.Piping.Data
         /// Initializes a new instance of the <see cref="PipingFailureMechanism"/> class.
         /// </summary>
         public PipingFailureMechanism()
-            : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode)
+            : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode, 2)
         {
             PipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
             GeneralInput = new GeneralPipingInput();

@@ -123,7 +123,7 @@ namespace Ringtoets.Integration.TestUtil
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
-            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection.HydraulicBoundaryDatabase, assessmentSection);
+            RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(assessmentSection);
 
             return assessmentSection;
         }

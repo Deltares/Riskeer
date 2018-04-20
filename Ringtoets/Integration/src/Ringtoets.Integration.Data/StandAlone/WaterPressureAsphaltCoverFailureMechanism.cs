@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaterPressureAsphaltCoverFailureMechanism()
-            : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code)
+            : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
         }

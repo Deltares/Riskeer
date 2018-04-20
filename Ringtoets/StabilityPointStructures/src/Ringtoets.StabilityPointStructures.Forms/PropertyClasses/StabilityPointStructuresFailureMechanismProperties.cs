@@ -39,14 +39,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int gravitationalAccelerationPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int modelFactorStorageVolumePropertyIndex = 7;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 8;
-        private const int modelFactorCollisionLoadPropertyIndex = 9;
-        private const int modelFactorLoadEffectPropertyIndex = 10;
+        private const int groupPropertyIndex = 3;
+        private const int contributionPropertyIndex = 4;
+        private const int isRelevantPropertyIndex = 5;
+        private const int gravitationalAccelerationPropertyIndex = 6;
+        private const int nPropertyIndex = 7;
+        private const int modelFactorStorageVolumePropertyIndex = 8;
+        private const int modelFactorSubCriticalFlowPropertyIndex = 9;
+        private const int modelFactorCollisionLoadPropertyIndex = 10;
+        private const int modelFactorLoadEffectPropertyIndex = 11;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismProperties"/>.
@@ -126,6 +127,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             get
             {
                 return data.Code;
+            }
+        }
+
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
             }
         }
 

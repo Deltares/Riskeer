@@ -45,6 +45,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", failureMechanism.Name);
             Assert.AreEqual("BSKW", failureMechanism.Code);
+            Assert.AreEqual(1, failureMechanism.Group);
 
             Assert.IsInstanceOf<GeneralClosingStructuresInput>(failureMechanism.GeneralInput);
 

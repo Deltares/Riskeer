@@ -73,6 +73,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
@@ -112,7 +113,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string modelSettingsCateogry = "Modelinstellingen";
@@ -132,35 +133,42 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor contributionProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor contributionProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
                                                                             generalCategory,
                                                                             "Faalkansbijdrage [%]",
                                                                             "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
+            PropertyDescriptor isRelevantProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor blocksProperty = dynamicProperties[4];
+            PropertyDescriptor blocksProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
                                                                             modelSettingsCateogry,
                                                                             "Blokken",
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor blokken.",
                                                                             true);
 
-            PropertyDescriptor columnsProperty = dynamicProperties[5];
+            PropertyDescriptor columnsProperty = dynamicProperties[6];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
                                                                             modelSettingsCateogry,
                                                                             "Zuilen",
                                                                             "De modelinstellingen voor het berekenen van golfcondities voor zuilen.",
                                                                             true);
 
-            PropertyDescriptor nProperty = dynamicProperties[6];
+            PropertyDescriptor nProperty = dynamicProperties[7];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,
                                                                             lengthEffectCategory,
                                                                             "N [-]",
@@ -181,7 +189,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -199,7 +207,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor isRelevantProperty = dynamicProperties[2];
+            PropertyDescriptor groupProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
+                                                                            true);
+
+            PropertyDescriptor isRelevantProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isRelevantProperty,
                                                                             generalCategory,
                                                                             "Is relevant",
@@ -222,6 +237,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));

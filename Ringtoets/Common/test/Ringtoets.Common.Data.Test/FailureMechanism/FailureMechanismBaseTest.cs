@@ -65,9 +65,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             // Setup
             const string name = "<cool name>";
             const string code = "<cool code>";
+            int group = new Random(39).Next();
 
             // Call
-            var failureMechanism = new SimpleFailureMechanismBase(name, code);
+            var failureMechanism = new SimpleFailureMechanismBase(name, code, group);
 
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
@@ -75,6 +76,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             Assert.AreEqual(0, failureMechanism.Contribution);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
+            Assert.AreEqual(group, failureMechanism.Group);
             Assert.IsNotNull(failureMechanism.InputComments);
             Assert.IsNotNull(failureMechanism.OutputComments);
             Assert.IsNotNull(failureMechanism.NotRelevantComments);
@@ -279,7 +281,9 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
 
         private class SimpleFailureMechanismBase : FailureMechanismBase
         {
-            public SimpleFailureMechanismBase(string name = "SomeName", string failureMechanismCode = "SomeCode") : base(name, failureMechanismCode) {}
+            public SimpleFailureMechanismBase(string name = "SomeName", 
+                                              string failureMechanismCode = "SomeCode", 
+                                              int @group = 1) : base(name, failureMechanismCode, @group) {}
 
             public override IEnumerable<ICalculation> Calculations
             {

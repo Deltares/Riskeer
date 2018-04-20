@@ -49,6 +49,11 @@ namespace Ringtoets.Common.Data.FailureMechanism
         string Code { get; }
 
         /// <summary>
+        /// Gets the group of the <see cref="IFailureMechanism"/>.
+        /// </summary>
+        int Group { get; }
+
+        /// <summary>
         /// Gets the comments associated with the input of the data object.
         /// </summary>
         Comment InputComments { get; }

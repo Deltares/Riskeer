@@ -43,6 +43,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<PipingFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Piping", failureMechanism.Name);
             Assert.AreEqual("STPH", failureMechanism.Code);
+            Assert.AreEqual(2, failureMechanism.Group);
 
             Assert.IsNotNull(failureMechanism.GeneralInput);
             Assert.IsNotNull(failureMechanism.PipingProbabilityAssessmentInput);

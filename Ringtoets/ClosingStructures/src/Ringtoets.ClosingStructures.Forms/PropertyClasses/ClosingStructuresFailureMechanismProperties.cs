@@ -39,18 +39,19 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int isRelevantPropertyIndex = 4;
-        private const int gravitationalAccelerationPropertyIndex = 5;
+        private const int groupPropertyIndex = 3;
+        private const int contributionPropertyIndex = 4;
+        private const int isRelevantPropertyIndex = 5;
+        private const int gravitationalAccelerationPropertyIndex = 6;
 
-        private const int cPropertyIndex = 6;
-        private const int n2APropertyIndex = 7;
-        private const int nPropertyIndex = 8;
+        private const int cPropertyIndex = 7;
+        private const int n2APropertyIndex = 8;
+        private const int nPropertyIndex = 9;
 
-        private const int modelFactorOvertoppingFlowPropertyIndex = 9;
-        private const int modelFactorStorageVolumePropertyIndex = 10;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 11;
-        private const int modelFactorInflowVolumePropertyIndex = 12;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 10;
+        private const int modelFactorStorageVolumePropertyIndex = 11;
+        private const int modelFactorSubCriticalFlowPropertyIndex = 12;
+        private const int modelFactorInflowVolumePropertyIndex = 13;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
@@ -158,6 +159,18 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return data.Code;
+            }
+        }
+
+        [PropertyOrder(groupPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.FailureMechanism_Group_Description))]
+        public int Group
+        {
+            get
+            {
+                return data.Group;
             }
         }
 

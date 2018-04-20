@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="MacroStabilityOutwardsFailureMechanism"/> class.
         /// </summary>
         public MacroStabilityOutwardsFailureMechanism()
-            : base(Resources.MacroStabilityOutwardsFailureMechanism_DisplayName, Resources.MacroStabilityOutwardsFailureMechanism_Code)
+            : base(Resources.MacroStabilityOutwardsFailureMechanism_DisplayName, Resources.MacroStabilityOutwardsFailureMechanism_Code, 4)
         {
             sectionResults = new ObservableList<MacroStabilityOutwardsFailureMechanismSectionResult>();
             MacroStabilityOutwardsProbabilityAssessmentInput = new MacroStabilityOutwardsProbabilityAssessmentInput();

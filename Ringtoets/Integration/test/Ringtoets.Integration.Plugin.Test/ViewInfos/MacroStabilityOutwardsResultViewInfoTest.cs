@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C", 1);
 
             otherAssessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {

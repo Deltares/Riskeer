@@ -135,7 +135,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C");
+            var otherFailureMechanism = mocks.Stub<FailureMechanismBase>("N", "C", 1);
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {

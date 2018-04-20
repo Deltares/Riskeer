@@ -38,14 +38,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int contributionPropertyIndex = 2;
-        private const int isRelevantPropertyIndex = 3;
-        private const int gravitationalAccelerationPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int modelFactorStorageVolumePropertyIndex = 6;
-        private const int modelFactorSubCriticalFlowPropertyIndex = 7;
-        private const int modelFactorCollisionLoadPropertyIndex = 8;
-        private const int modelFactorLoadEffectPropertyIndex = 9;
+        private const int groupPropertyIndex = 2;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+        private const int gravitationalAccelerationPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int modelFactorStorageVolumePropertyIndex = 7;
+        private const int modelFactorSubCriticalFlowPropertyIndex = 8;
+        private const int modelFactorCollisionLoadPropertyIndex = 9;
+        private const int modelFactorLoadEffectPropertyIndex = 10;
 
         [Test]
         public void Constructor_DataIsNull_ThrowArgumentNullException()
@@ -77,6 +78,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
@@ -111,7 +113,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(11, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -125,6 +127,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
@@ -203,7 +212,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string generalCategory = "Algemeen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -217,6 +226,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
@@ -293,6 +309,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));

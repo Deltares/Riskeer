@@ -40,9 +40,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int contributionPropertyIndex = 2;
-        private const int isRelevantPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
+        private const int groupPropertyIndex = 2;
+        private const int contributionPropertyIndex = 3;
+        private const int isRelevantPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
 
         [Test]
         [TestCase(true)]
@@ -67,6 +68,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
@@ -123,7 +125,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectParameterCategory = "Lengte-effect parameters";
@@ -140,6 +142,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
@@ -182,7 +191,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -198,6 +207,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
+                                                                            true);
+
+            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
+                                                                            generalCategory,
+                                                                            "Groep",
+                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor isRelevantProperty = dynamicProperties[isRelevantPropertyIndex - 1];
@@ -294,6 +310,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.IsRelevant)));
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));

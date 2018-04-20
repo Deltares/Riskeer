@@ -59,7 +59,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
@@ -99,7 +107,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
@@ -141,7 +157,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
@@ -187,7 +211,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             
             calculation.InputParameters.BreakWater.Type = breakWaterType;
@@ -253,7 +285,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
@@ -306,7 +346,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
@@ -347,7 +395,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
@@ -387,7 +443,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var calculator = new TestWaveConditionsCosineCalculator
@@ -428,7 +492,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
@@ -469,7 +541,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
@@ -501,7 +581,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
@@ -537,7 +625,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanismWithHydraulicBoundaryOutput(assessmentSection);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection, new[]
+                {
+                    new TestHydraulicBoundaryLocation()
+                });
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
@@ -568,17 +664,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             mockRepository.VerifyAll();
         }
 
-        private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanismWithHydraulicBoundaryOutput(AssessmentSectionStub assessmentSection)
+        private static void ConfigureFailureMechanismWithHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection, new[]
-                {
-                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
-                });
             failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(9.3);
-            return failureMechanism;
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation location)

@@ -49,7 +49,6 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
             Assert.IsInstanceOf<AssessmentSectionStub>(context.AssessmentSection);
             CollectionAssert.IsEmpty(context.ForeshoreProfiles);
-            CollectionAssert.IsEmpty(context.HydraulicBoundaryLocations);
         }
 
         [Test]
@@ -82,7 +81,6 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             var waveConditionsInput = new WaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
             var profiles = new ForeshoreProfile[0];
-            var locations = new HydraulicBoundaryLocation[0];
 
             // Call
             var context = new TestWaveConditionsInputContext(waveConditionsInput,

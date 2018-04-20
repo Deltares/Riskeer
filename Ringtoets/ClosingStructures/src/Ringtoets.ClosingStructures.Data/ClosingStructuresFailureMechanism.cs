@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
         /// </summary>
         public ClosingStructuresFailureMechanism()
-            : base(Resources.ClosingStructuresFailureMechanism_DisplayName, Resources.ClosingStructuresFailureMechanism_Code)
+            : base(Resources.ClosingStructuresFailureMechanism_DisplayName, Resources.ClosingStructuresFailureMechanism_Code, 1)
         {
             CalculationsGroup = new CalculationGroup
             {
