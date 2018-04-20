@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             Assert.IsInstanceOf<IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Grasbekleding afschuiven buitentalud", failureMechanism.Name);
             Assert.AreEqual("GABU", failureMechanism.Code);
-            Assert.AreEqual(4, failureMechanism.AssemblyGroup);
+            Assert.AreEqual(4, failureMechanism.Group);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 

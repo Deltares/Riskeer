@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             Assert.IsInstanceOf<IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Technische innovaties - Technische innovaties", failureMechanism.Name);
             Assert.AreEqual("INN", failureMechanism.Code);
-            Assert.AreEqual(4, failureMechanism.AssemblyGroup);
+            Assert.AreEqual(4, failureMechanism.Group);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 

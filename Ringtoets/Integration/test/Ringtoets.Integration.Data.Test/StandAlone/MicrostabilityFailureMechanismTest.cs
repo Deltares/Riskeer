@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
             Assert.IsInstanceOf<IHasSectionResults<MicrostabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Microstabiliteit", failureMechanism.Name);
             Assert.AreEqual("STMI", failureMechanism.Code);
-            Assert.AreEqual(4, failureMechanism.AssemblyGroup);
+            Assert.AreEqual(4, failureMechanism.Group);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
         }
 

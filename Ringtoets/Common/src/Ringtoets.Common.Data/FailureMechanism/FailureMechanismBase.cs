@@ -46,20 +46,20 @@ namespace Ringtoets.Common.Data.FailureMechanism
         /// </summary>
         /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
-        /// <param name="assemblyGroup">The assembly group of the failure mechanism.</param>
+        /// <param name="group">The group that this failure mechanism belongs to.</param>
         /// <exception cref="ArgumentException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
         /// <item><paramref name="failureMechanismCode"/> is <c>null</c> or empty.</item>
         /// </list>
         /// </exception>
-        protected FailureMechanismBase(string name, string failureMechanismCode, int assemblyGroup)
+        protected FailureMechanismBase(string name, string failureMechanismCode, int group)
         {
             ValidateParameters(name, failureMechanismCode);
 
             Name = name;
             Code = failureMechanismCode;
-            AssemblyGroup = assemblyGroup;
+            Group = group;
             sections = new List<FailureMechanismSection>();
             IsRelevant = true;
             InputComments = new Comment();
@@ -81,6 +81,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                                                    contributionValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
                     throw new ArgumentOutOfRangeException(nameof(value), message);
                 }
+
                 contribution = value;
             }
         }
@@ -89,7 +90,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public string Code { get; }
 
-        public int AssemblyGroup { get; }
+        public int Group { get; }
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
 
@@ -138,6 +139,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             {
                 throw new ArgumentException(parameterIsRequired, nameof(failureMechanismName));
             }
+
             if (string.IsNullOrEmpty(failureMechanismCode))
             {
                 throw new ArgumentException(parameterIsRequired, nameof(failureMechanismCode));

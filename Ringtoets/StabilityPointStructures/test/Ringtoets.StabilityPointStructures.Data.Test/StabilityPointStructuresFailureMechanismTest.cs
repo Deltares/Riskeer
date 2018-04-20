@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", failureMechanism.Name);
             Assert.AreEqual("STKWp", failureMechanism.Code);
-            Assert.AreEqual(1, failureMechanism.AssemblyGroup);
+            Assert.AreEqual(1, failureMechanism.Group);
 
             Assert.IsInstanceOf<GeneralStabilityPointStructuresInput>(failureMechanism.GeneralInput);
 

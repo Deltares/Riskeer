@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", failureMechanism.Name);
             Assert.AreEqual("GEKB", failureMechanism.Code);
-            Assert.AreEqual(1, failureMechanism.AssemblyGroup);
+            Assert.AreEqual(1, failureMechanism.Group);
 
             Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(failureMechanism.GeneralInput);
 
