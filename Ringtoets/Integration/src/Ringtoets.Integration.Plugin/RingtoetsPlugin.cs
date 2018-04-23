@@ -928,6 +928,18 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<AssemblyResultTotalContext>
+            {
+                Text = context => RingtoetsFormsResources.AssemblyResultTotalContext_DisplayName,
+                Image = context => RingtoetsFormsResources.AssemblyResultTotal
+            };
+
+            yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
+            {
+                Text = context => RingtoetsFormsResources.AssemblyResultPerSectionContext_DisplayName,
+                Image = context => RingtoetsFormsResources.AssemblyResultPerSection
+            };
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<

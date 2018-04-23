@@ -110,6 +110,44 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AssemblyResultPerSection {
+            get {
+                object obj = ResourceManager.GetObject("AssemblyResultPerSection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gecombineerd vakoordeel.
+        /// </summary>
+        public static string AssemblyResultPerSectionContext_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultPerSectionContext_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AssemblyResultTotal {
+            get {
+                object obj = ResourceManager.GetObject("AssemblyResultTotal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gecombineerd totaaloordeel.
+        /// </summary>
+        public static string AssemblyResultTotalContext_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalContext_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID van het traject..
         /// </summary>
         public static string AssessmentSection_Id_Description {
