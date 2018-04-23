@@ -34,12 +34,13 @@ using Ringtoets.Integration.Forms.Views;
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssessmentSectionCombinedAssemblyResultViewTest
+    public class AssemblyResultTotalViewTest
     {
         private const int expectedColumnCount = 3;
         private const int failureMechanismNameColumnIndex = 0;
         private const int failureMechanismCodeColumnIndex = 1;
         private const int failureMechanismGroupColumnIndex = 2;
+
         private Form testForm;
 
         [SetUp]
@@ -58,7 +59,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionCombinedAssemblyResultView(null);
+            TestDelegate call = () => new AssemblyResultTotalView(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            using (var view = new AssessmentSectionCombinedAssemblyResultView(assessmentSection))
+            using (var view = new AssemblyResultTotalView(assessmentSection))
             {
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -95,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Then
-            using (var view = new AssessmentSectionCombinedAssemblyResultView(assessmentSection))
+            using (var view = new AssemblyResultTotalView(assessmentSection))
             {
                 testForm.Controls.Add(view);
                 testForm.Show();

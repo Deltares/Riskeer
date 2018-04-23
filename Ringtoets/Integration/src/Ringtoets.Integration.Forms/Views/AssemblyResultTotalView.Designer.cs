@@ -21,7 +21,7 @@
 
 namespace Ringtoets.Integration.Forms.Views
 {
-    partial class AssessmentSectionCombinedAssemblyResultView
+    partial class AssemblyResultTotalView
     {
         /// <summary> 
         /// Required designer variable.
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridViewControl);
-            this.Name = "AssessmentSectionCombinedAssemblyResultView";
+            this.Name = "AssemblyResultTotalView";
             this.Size = new System.Drawing.Size(177, 202);
             this.ResumeLayout(false);
 

@@ -32,17 +32,17 @@ namespace Ringtoets.Integration.Forms.Views
     /// The view for the combined assembly result for all failure mechanisms of 
     /// the <see cref="AssessmentSection"/>. 
     /// </summary>
-    public partial class AssessmentSectionCombinedAssemblyResultView : UserControl, IView
+    public partial class AssemblyResultTotalView : UserControl, IView
     {
         private readonly AssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCombinedAssemblyResultView"/>.
+        /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to create the view for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionCombinedAssemblyResultView(AssessmentSection assessmentSection)
+        public AssemblyResultTotalView(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
