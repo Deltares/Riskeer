@@ -44,9 +44,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         {
             get
             {
-                return data.Items.Select(conditionsoutput => new WaveConditionsOutputProperties
+                return data.Items.Select(waveConditionsOutput => new WaveConditionsOutputProperties
                 {
-                    Data = conditionsoutput
+                    Data = waveConditionsOutput
                 }).ToArray();
             }
         }

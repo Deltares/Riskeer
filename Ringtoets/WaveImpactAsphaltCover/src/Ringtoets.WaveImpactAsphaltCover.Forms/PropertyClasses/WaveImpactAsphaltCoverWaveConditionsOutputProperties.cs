@@ -44,9 +44,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
         {
             get
             {
-                return data.Items.Select(waveConditionOutputProperties => new WaveConditionsOutputProperties
+                return data.Items.Select(waveConditionOutput => new WaveConditionsOutputProperties
                 {
-                    Data = waveConditionOutputProperties
+                    Data = waveConditionOutput
                 }).ToArray();
             }
         }

@@ -41,7 +41,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_LocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationsProperties(null, hbl => new DuneLocationCalculation());
+            TestDelegate call = () => new DuneLocationsProperties(null, dl => new DuneLocationCalculation());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -44,9 +44,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                return data.BlocksOutput.Select(loc => new WaveConditionsOutputProperties
+                return data.BlocksOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
                 {
-                    Data = loc
+                    Data = waveConditionsOutput
                 }).ToArray();
             }
         }
@@ -59,9 +59,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
         {
             get
             {
-                return data.ColumnsOutput.Select(loc => new WaveConditionsOutputProperties
+                return data.ColumnsOutput.Select(waveConditionsOutput => new WaveConditionsOutputProperties
                 {
-                    Data = loc
+                    Data = waveConditionsOutput
                 }).ToArray();
             }
         }
