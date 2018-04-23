@@ -76,13 +76,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext),
-                    typeof(IEnumerable<HydraulicBoundaryLocationCalculation>),
+                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext),
-                    typeof(IEnumerable<HydraulicBoundaryLocationCalculation>),
+                    typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView));
             }
         }

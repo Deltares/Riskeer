@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext,
-                IEnumerable<HydraulicBoundaryLocationCalculation>,
+                IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 GrassCoverErosionOutwardsDesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName} - {context.CategoryBoundaryName}",
@@ -163,7 +163,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsWaveHeightCalculationsContext,
-                IEnumerable<HydraulicBoundaryLocationCalculation>,
+                IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 GrassCoverErosionOutwardsWaveHeightCalculationsView>
             {
                 GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName} - {context.CategoryBoundaryName}",

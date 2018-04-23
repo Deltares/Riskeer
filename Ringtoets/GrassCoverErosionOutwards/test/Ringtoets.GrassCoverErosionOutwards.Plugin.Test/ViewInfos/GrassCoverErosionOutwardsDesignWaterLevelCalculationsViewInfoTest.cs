@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -55,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView));
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocationCalculation>), info.ViewDataType);
+                Assert.AreEqual(typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>), info.ViewDataType);
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView), info.ViewType);
             }
         }
@@ -154,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
-                
+
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                                failureMechanism,

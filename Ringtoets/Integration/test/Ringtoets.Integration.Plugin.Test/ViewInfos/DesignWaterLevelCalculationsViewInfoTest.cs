@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             Type viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocationCalculation>), viewDataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>), viewDataType);
         }
 
         [Test]

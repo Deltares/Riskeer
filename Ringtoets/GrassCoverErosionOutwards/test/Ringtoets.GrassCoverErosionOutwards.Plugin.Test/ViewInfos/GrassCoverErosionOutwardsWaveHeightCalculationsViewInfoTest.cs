@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -55,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView));
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocationCalculation>), info.ViewDataType);
+                Assert.AreEqual(typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>), info.ViewDataType);
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView), info.ViewType);
             }
         }
