@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
@@ -36,16 +35,17 @@ namespace Ringtoets.Integration.Forms.PresentationObjects
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryDatabase"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the <see cref="HydraulicBoundaryDatabaseContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HydraulicBoundaryDatabaseContext(HydraulicBoundaryDatabase wrappedData,
-                                                AssessmentSection assessmentSection) 
+                                                AssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             AssessmentSection = assessmentSection;
         }
 
