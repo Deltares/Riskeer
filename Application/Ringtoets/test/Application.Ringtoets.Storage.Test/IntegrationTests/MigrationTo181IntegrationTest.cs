@@ -1629,9 +1629,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
                        $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
                        "JOIN HydraulicLocationCalculationEntity NEW USING(HydraulicLocationCalculationCollectionEntityId)  " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity OLD ON OLD.GrassCoverErosionOutwardsHydraulicLocationEntityId = NEW.HydraulicLocationEntityId  " +
-                       "JOIN FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       "JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId) " +
+                       "JOIN FailureMechanismEntity fm USING(FailureMechanismEntityId) " +
                        "JOIN AssessmentSectionEntity ase USING(AssessmentSectionEntityId) " +
+                       "JOIN( " +
+                       "SELECT " +
+                       "LocationId, " +
+                       "AssessmentSectionEntityId, " +
+                       "ShouldDesignWaterLevelIllustrationPointsBeCalculated " +
+                       "FROM[SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity " +
+                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       ") OLD ON(OLD.LocationId = hl.LocationId AND OLD.AssessmentSectionEntityId = fm.AssessmentSectionEntityId) " +
                        $"WHERE OLD.ShouldDesignWaterLevelIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
@@ -1686,9 +1694,17 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "JOIN HydraulicLocationCalculationCollectionEntity hlcce " +
                        $"ON gceofmme.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = hlcce.HydraulicLocationCalculationCollectionEntityId  " +
                        "JOIN HydraulicLocationCalculationEntity NEW USING(HydraulicLocationCalculationCollectionEntityId)  " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity OLD ON OLD.GrassCoverErosionOutwardsHydraulicLocationEntityId = NEW.HydraulicLocationEntityId  " +
-                       "JOIN FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       "JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId) " +
+                       "JOIN FailureMechanismEntity fm USING(FailureMechanismEntityId) " +
                        "JOIN AssessmentSectionEntity ase USING(AssessmentSectionEntityId) " +
+                       "JOIN( " +
+                       "SELECT " +
+                       "LocationId, " +
+                       "AssessmentSectionEntityId, " +
+                       "ShouldWaveHeightIllustrationPointsBeCalculated " +
+                       "FROM[SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity " +
+                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       ") OLD ON(OLD.LocationId = hl.LocationId AND OLD.AssessmentSectionEntityId = fm.AssessmentSectionEntityId) " +
                        $"WHERE OLD.ShouldWaveHeightIllustrationPointsBeCalculated != NEW.ShouldIllustrationPointsBeCalculated AND ase.NormativeNormType = {(int) normType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
