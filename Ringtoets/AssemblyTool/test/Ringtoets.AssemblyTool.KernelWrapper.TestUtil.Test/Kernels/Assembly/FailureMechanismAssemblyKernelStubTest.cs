@@ -163,7 +163,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
                                                                                           random.NextBoolean());
 
             // Assert
-            Assert.AreEqual(kernel.FailureMechanismCategoryResult, result);
+            Assert.AreEqual(kernel.FailureMechanismAssemblyResult, result);
         }
 
         [Test]

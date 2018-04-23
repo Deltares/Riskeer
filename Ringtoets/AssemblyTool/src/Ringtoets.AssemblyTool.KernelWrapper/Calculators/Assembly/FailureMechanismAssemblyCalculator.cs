@@ -58,7 +58,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
                 EFailureMechanismCategory output = kernel.AssembleFailureMechanismWbi1A1(
-                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult),
+                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
                     false);
 
                 return FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(output);
@@ -78,7 +78,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FailureMechanismAssemblyResult output = kernel.AssembleFailureMechanismWbi1B1(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult),
+                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
                     false);
 
                 return FailureMechanismAssemblyCreator.Create(output);

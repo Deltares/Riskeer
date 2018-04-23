@@ -57,7 +57,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Converts a <see cref="EFailureMechanismCategory"/> into a <see cref="FailureMechanismAssemblyCategoryGroup"/>.
         /// </summary>
-        /// <param name="category">The <see cref="EFmSectionCategory"/> to convert.</param>
+        /// <param name="category">The <see cref="EFailureMechanismCategory"/> to convert.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
@@ -65,7 +65,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is a valid value, but unsupported.</exception>
         internal static FailureMechanismAssemblyCategoryGroup CreateFailureMechanismAssemblyCategoryGroup(EFailureMechanismCategory category)
         {
-            if (!Enum.IsDefined(typeof(EFmSectionCategory), category))
+            if (!Enum.IsDefined(typeof(EFailureMechanismCategory), category))
             {
                 throw new InvalidEnumArgumentException(nameof(category),
                                                        (int) category,
