@@ -818,19 +818,23 @@ JOIN (
 );
 
 -- Create the calculations for the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism level
--- Note: it is assumed that the HBL entities of the grass cover erosion outwards failure mechanism have the same PK value 
--- as the HBL entities on assessment section level. Otherwise a join needs to be done on each column to find matching results
+-- Note 1: It is assumed that LocationId is unique within an assessment section. Because it is possible for multiple 
+-- assessment sections to have the same hydraulic boundary locations (and thus same LocationIds), a join needs to be 
+-- performed based on the LocationId and the AssessmentSection
+-- Note 2: The Hydraulic Location ID on assessment section level is chosen as a reference, because the hydraulic boundary 
+-- location calculation entities contain references to these entities.  
 INSERT INTO TempHydraulicLocationCalculationEntity (
 	[HydraulicLocationEntityId],
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
 	[CalculationType])
 SELECT
-	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	hl.HydraulicLocationEntityId,
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId], 
 	[CalculationType]
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity gceohl
+JOIN [SOURCEPROJECT].FailureMechanismEntity fm USING(FailureMechanismEntityId)
 JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING(FailureMechanismEntityId)
+JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON (hl.LocationId = gceohl.LocationId AND hl.AssessmentSectionEntityId = fm.AssessmentSectionEntityId)
 JOIN (
 	SELECT * 
 	FROM TempCalculationTypes
@@ -1080,13 +1084,13 @@ UPDATE HydraulicLocationCalculationEntity
 		JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
 		JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId)
 		JOIN (
-				SELECT 
-					LocationId,
-					AssessmentSectionEntityId,
-					ShouldDesignWaterLevelIllustrationPointsBeCalculated,
-					ShouldWaveHeightIllustrationPointsBeCalculated
-				FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
-				JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)
+			SELECT 
+				[LocationId],
+				[AssessmentSectionEntityId],
+				[ShouldDesignWaterLevelIllustrationPointsBeCalculated],
+				[ShouldWaveHeightIllustrationPointsBeCalculated]
+			FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
+			JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)
 		) SOURCE ON (SOURCE.LocationId = hl.LocationId AND SOURCE.AssessmentSectionEntityId = fm.AssessmentSectionEntityId)
 		WHERE (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 		OR (ShouldDesignWaterLevelIllustrationPointsBeCalculated = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
@@ -1114,7 +1118,7 @@ SELECT
 	[CalculatedReliability],
 	[CalculationConvergence]
 FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmme
-JOIN FailureMechanismEntity USING(FailureMechanismEntityId)
+JOIN FailureMechanismEntity fm USING(FailureMechanismEntityId)
 JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)
 JOIN HydraulicLocationCalculationCollectionEntity hlcce 
 ON gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId
@@ -1122,8 +1126,23 @@ OR gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLoc
 OR gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId 
 OR gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId
 JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId)
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity ON GrassCoverErosionOutwardsHydraulicLocationEntityId = HydraulicLocationEntityId
-JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId)
+JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId)
+JOIN (
+	SELECT 
+		[LocationId],
+		[AssessmentSectionEntityId],
+		[GeneralResultSubMechanismIllustrationPointEntityId],
+		[Result],
+		[TargetProbability],
+		[TargetReliability],
+		[CalculatedProbability],
+		[CalculatedReliability],
+		[CalculationConvergence],
+		[HydraulicLocationOutputType]
+	FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity
+	JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId)
+	JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)
+) SOURCE ON (SOURCE.LocationId = hl.LocationId AND SOURCE.AssessmentSectionEntityId = fm.AssessmentSectionEntityId)
 WHERE (HydraulicLocationOutputType = 1 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity2Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 1 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity3Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 2 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId)

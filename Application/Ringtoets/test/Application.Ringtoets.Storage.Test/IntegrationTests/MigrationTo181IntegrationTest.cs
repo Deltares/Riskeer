@@ -1767,16 +1767,34 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             private static string GetHydraulicLocationCalculationsFromFailureMechanismQuery(CalculationType calculationType)
             {
-                return "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity " +
+                return "FROM GrassCoverErosionOutwardsFailureMechanismMetaEntity gceofmm " +
                        "JOIN HydraulicLocationCalculationCollectionEntity " +
-                       $"ON HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
-                       "JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId) ";
+                       $"ON gceofmm.HydraulicLocationCalculationCollectionEntity{(int) calculationType}Id = HydraulicLocationCalculationCollectionEntityId " +
+                       "JOIN HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId) " +
+                       "JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId) " +
+                       "JOIN FailureMechanismEntity fm USING(FailureMechanismEntityId) " +
+                       "JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId) ";
             }
 
             private static string GetHydraulicLocationCalculationOutputValidationSubQuery()
             {
                 return "JOIN HydraulicLocationOutputEntity NEW USING(HydraulicLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity OLD ON NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
+                       "JOIN ( " +
+                       "SELECT " +
+                       "LocationId, " +
+                       "AssessmentSectionEntityId, " +
+                       "GeneralResultSubMechanismIllustrationPointEntityId, " +
+                       "Result,  " +
+                       "TargetProbability, " +
+                       "TargetReliability, " +
+                       "CalculatedProbability, " +
+                       "CalculatedReliability, " +
+                       "CalculationConvergence " +
+                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationOutputEntity " +
+                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       ") OLD ON (fm.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId AND OLD.LocationId = hl.LocationId)" +
+                       "WHERE NEW.GeneralResultSubMechanismIllustrationPointEntityId IS OLD.GeneralResultSubMechanismIllustrationPointEntityId " +
                        "AND NEW.Result IS OLD.Result " +
                        "AND NEW.TargetProbability IS OLD.TargetProbability " +
                        "AND NEW.TargetReliability IS OLD.TargetReliability " +
