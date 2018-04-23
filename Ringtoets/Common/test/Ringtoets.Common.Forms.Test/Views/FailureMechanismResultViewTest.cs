@@ -76,21 +76,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 testForm.Show();
 
                 // Assert
-                var dataGridView = (DataGridViewControl) new ControlTester("DataGridViewControl").TheObject;
-                Assert.AreEqual(DockStyle.Fill, dataGridView.Dock);
-                Assert.AreEqual(DataGridViewSelectionMode.RowHeaderSelect, dataGridView.SelectionMode);
-
-                var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
-                Assert.AreEqual(DockStyle.Top, tableLayoutPanel.Dock);
-                Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
-                Assert.AreEqual(SizeType.Percent, tableLayoutPanel.ColumnStyles[0].SizeType);
-                Assert.AreEqual(100F, tableLayoutPanel.ColumnStyles[0].Width);
-                Assert.AreEqual(SizeType.Absolute, tableLayoutPanel.ColumnStyles[1].SizeType);
-                Assert.AreEqual(20F, tableLayoutPanel.ColumnStyles[1].Width);
-                Assert.AreEqual(1, tableLayoutPanel.RowCount);
-                Assert.AreEqual(SizeType.Percent, tableLayoutPanel.RowStyles[0].SizeType);
-                Assert.AreEqual(100F, tableLayoutPanel.RowStyles[0].Height);
-
                 var infoIcon = (PictureBox) new ControlTester("infoIcon").TheObject;
                 TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.information, infoIcon.BackgroundImage);
                 Assert.AreEqual(ImageLayout.Center, infoIcon.BackgroundImageLayout);

@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Views
             // 
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel.Controls.Add(this.infoIcon, 1, 0);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -73,9 +73,10 @@ namespace Ringtoets.Common.Forms.Views
             // 
             this.infoIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.infoIcon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.infoIcon.Location = new System.Drawing.Point(505, 3);
+            this.infoIcon.Location = new System.Drawing.Point(499, 7);
+            this.infoIcon.Margin = new System.Windows.Forms.Padding(7);
             this.infoIcon.Name = "infoIcon";
-            this.infoIcon.Size = new System.Drawing.Size(14, 24);
+            this.infoIcon.Size = new System.Drawing.Size(16, 16);
             this.infoIcon.TabIndex = 0;
             this.infoIcon.TabStop = false;
             // 

@@ -74,8 +74,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             InitializeComponent();
-
-            InitializeToolTip();
+            InitializeInfoIcon();
 
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
@@ -98,7 +97,7 @@ namespace Ringtoets.Common.Forms.Views
             };
         }
 
-        private void InitializeToolTip()
+        private void InitializeInfoIcon()
         {
             infoIcon.BackgroundImage = CoreCommonGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
