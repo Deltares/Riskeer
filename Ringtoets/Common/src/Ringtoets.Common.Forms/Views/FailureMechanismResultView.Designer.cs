@@ -84,7 +84,6 @@ namespace Ringtoets.Common.Forms.Views
             // 
             this.toolTip.AutoPopDelay = 5000;
             this.toolTip.InitialDelay = 100;
-            this.toolTip.IsBalloon = true;
             this.toolTip.ReshowDelay = 100;
             // 
             // FailureMechanismResultView
