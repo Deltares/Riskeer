@@ -93,5 +93,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
             // Assert
             Assert.IsInstanceOf<AssessmentResultsTranslator>(kernel);
         }
+
+        [Test]
+        public void CreateFailureMechanismAssemblyKernel_Always_ReturnsKernelFailureMechanismAssemblyCalculator()
+        {
+            // Setup
+            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+
+            // Call
+            IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismResultAssembler>(kernel);
+        }
     }
 }

@@ -39,5 +39,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
         /// </summary>
         /// <returns>A new <see cref="IAssessmentResultsTranslator"/>.</returns>
         IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel();
+
+        /// <summary>
+        /// Creates a failure mechanism assembly kernel.
+        /// </summary>
+        /// <returns>A new <see cref="IFailureMechanismResultAssembler"/>.</returns>
+        IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel();
     }
 }

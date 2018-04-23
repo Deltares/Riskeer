@@ -38,6 +38,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         {
             LastCreatedAssemblyCategoriesKernel = new AssemblyCategoriesKernelStub();
             LastCreatedFailureMechanismSectionAssemblyKernel = new FailureMechanismSectionAssemblyKernelStub();
+            LastCreatedFailureMechanismAssemblyKernel = new FailureMechanismAssemblyKernelStub();
         }
 
         /// <summary>
@@ -50,6 +51,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// </summary>
         public FailureMechanismSectionAssemblyKernelStub LastCreatedFailureMechanismSectionAssemblyKernel { get; }
 
+        /// <summary>
+        /// Gets the last created failure mechanism assembly kernel.
+        /// </summary>
+        public FailureMechanismAssemblyKernelStub LastCreatedFailureMechanismAssemblyKernel { get; }
+
         public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {
             return LastCreatedAssemblyCategoriesKernel;
@@ -58,6 +64,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         public IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel()
         {
             return LastCreatedFailureMechanismSectionAssemblyKernel;
+        }
+
+        public IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel()
+        {
+            return LastCreatedFailureMechanismAssemblyKernel;
         }
     }
 }
