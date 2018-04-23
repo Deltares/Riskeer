@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="AssemblyCategoryAssert.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfig.cs" />
+    <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorStub.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorStub.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorStub.cs" />
     <Compile Include="Calculators\TestAssemblyToolCalculatorFactory.cs" />
