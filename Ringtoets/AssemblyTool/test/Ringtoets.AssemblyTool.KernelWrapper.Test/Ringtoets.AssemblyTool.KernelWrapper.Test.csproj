@@ -23,6 +23,7 @@
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorExceptionTest.cs" />
+    <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorTest.cs" />
