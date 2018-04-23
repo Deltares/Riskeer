@@ -21,6 +21,7 @@
     <Compile Include="FailureMechanismAssemblyCategoryGroupTest.cs" />
     <Compile Include="FailureMechanismSectionAssemblyCategoryGroupTest.cs" />
     <Compile Include="FailureMechanismSectionAssemblyCategoryTest.cs" />
+    <Compile Include="FailureMechanismAssemblyTest.cs" />
     <Compile Include="FailureMechanismSectionAssemblyTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
