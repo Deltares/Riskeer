@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Views
             // 
             this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridViewControl.Location = new System.Drawing.Point(0, 30);
-            this.DataGridViewControl.MultiSelect = true;
+            this.DataGridViewControl.MultiSelect = false;
             this.DataGridViewControl.Name = "DataGridViewControl";
             this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             this.DataGridViewControl.Size = new System.Drawing.Size(522, 120);

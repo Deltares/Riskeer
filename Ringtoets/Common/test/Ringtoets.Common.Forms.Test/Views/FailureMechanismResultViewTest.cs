@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -76,19 +75,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 testForm.Show();
 
                 // Assert
-                var infoIcon = (PictureBox) new ControlTester("infoIcon").TheObject;
-                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.information, infoIcon.BackgroundImage);
-                Assert.AreEqual(ImageLayout.Center, infoIcon.BackgroundImageLayout);
+                Assert.AreEqual(2, view.Controls.Count);
 
-                var toolTip = TypeUtils.GetField<ToolTip>(view, "toolTip");
-                Assert.AreEqual("NVT - Niet Van Toepassing\r\n" + 
-                                "WVT - Wel Van Toepassing\r\n" +
-                                "FV - Faalkans Verwaarloosbaar\r\n"+
-                                "VB - Verder Beoordelen\r\n\r\n" + 
-                                "V - Voldoet\r\n" + 
-                                "VN - Voldoet Niet\r\n" + 
-                                "NGO - Nog Geen Oordeel\r\n" + 
-                                "Faalkans - Faalkans gespecificeerd of uitgerekend", toolTip.GetToolTip(infoIcon));
+                var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
+                Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
+                Assert.AreEqual(1, tableLayoutPanel.RowCount);
+                Assert.IsInstanceOf<PictureBox>(tableLayoutPanel.GetControlFromPosition(1, 0));
+                Assert.IsNull(tableLayoutPanel.GetControlFromPosition(0, 0));
 
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
@@ -135,6 +128,38 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
 
                 Assert.AreEqual("Test", dataGridView.Columns[nameColumnIndex].HeaderText);
+            }
+        }
+
+        [Test]
+        public void Constructor_ToolTipCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            using (var view = new TestFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                testForm.Controls.Add(view);
+                testForm.Show();
+
+                // Assert
+                var infoIcon = (PictureBox) new ControlTester("infoIcon").TheObject;
+                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.information, infoIcon.BackgroundImage);
+                Assert.AreEqual(ImageLayout.Center, infoIcon.BackgroundImageLayout);
+
+                var toolTip = TypeUtils.GetField<ToolTip>(view, "toolTip");
+                Assert.AreEqual("NVT - Niet Van Toepassing\r\n" +
+                                "WVT - Wel Van Toepassing\r\n" +
+                                "FV - Faalkans Verwaarloosbaar\r\n" +
+                                "VB - Verder Beoordelen\r\n\r\n" +
+                                "V - Voldoet\r\n" +
+                                "VN - Voldoet Niet\r\n" +
+                                "NGO - Nog Geen Oordeel\r\n" +
+                                "Faalkans - Faalkans gespecificeerd of uitgerekend", toolTip.GetToolTip(infoIcon));
+                Assert.AreEqual(5000, toolTip.AutoPopDelay);
+                Assert.AreEqual(100, toolTip.InitialDelay);
+                Assert.AreEqual(100, toolTip.ReshowDelay);
             }
         }
 
