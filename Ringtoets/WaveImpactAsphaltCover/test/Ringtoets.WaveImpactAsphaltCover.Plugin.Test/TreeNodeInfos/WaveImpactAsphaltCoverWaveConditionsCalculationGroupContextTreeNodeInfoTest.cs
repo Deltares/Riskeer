@@ -1900,7 +1900,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }

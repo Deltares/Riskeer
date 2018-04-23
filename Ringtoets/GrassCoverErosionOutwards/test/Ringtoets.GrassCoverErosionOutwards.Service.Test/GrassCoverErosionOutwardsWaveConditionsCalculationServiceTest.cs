@@ -1066,7 +1066,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         private static void ConfigureFailureMechanismWithHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             failureMechanism.Contribution = 20;
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(9.3);
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
         }
 
         private static double CalculateTargetNorm(double norm, double contribution, RoundedDouble N)

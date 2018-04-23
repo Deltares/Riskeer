@@ -161,11 +161,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             {
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                 },
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
                 }
             };
 

@@ -439,24 +439,24 @@ namespace Application.Ringtoets.Storage.TestUtil
             waveHeightCalculation.Output = GetWaveHeightOutput(hasIllustrationPoints);
         }
 
-        private static HydraulicBoundaryLocationOutput GetWaveHeightOutput(bool hasIllustrationPoints)
+        private static HydraulicBoundaryLocationCalculationOutput GetWaveHeightOutput(bool hasIllustrationPoints)
         {
             GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoints = hasIllustrationPoints
                                                                                           ? GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint()
                                                                                           : null;
 
-            return new HydraulicBoundaryLocationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged, illustrationPoints);
+            return new HydraulicBoundaryLocationCalculationOutput(2.4, 0, 0, 0, 0, CalculationConvergence.CalculatedNotConverged, illustrationPoints);
         }
 
-        private static HydraulicBoundaryLocationOutput GetDesignWaterLevelOutput(bool hasIllustrationPoints)
+        private static HydraulicBoundaryLocationCalculationOutput GetDesignWaterLevelOutput(bool hasIllustrationPoints)
         {
             GeneralResult<TopLevelSubMechanismIllustrationPoint> illustrationPoints = hasIllustrationPoints
                                                                                           ? GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint()
                                                                                           : null;
 
-            return new HydraulicBoundaryLocationOutput(12.4, double.NaN,
-                                                       double.NaN, double.NaN,
-                                                       double.NaN, CalculationConvergence.CalculatedConverged, illustrationPoints);
+            return new HydraulicBoundaryLocationCalculationOutput(12.4, double.NaN,
+                                                                  double.NaN, double.NaN,
+                                                                  double.NaN, CalculationConvergence.CalculatedConverged, illustrationPoints);
         }
 
         private static GeneralResult<TopLevelSubMechanismIllustrationPoint> GetConfiguredGeneralResultTopLevelSubMechanismIllustrationPoint()

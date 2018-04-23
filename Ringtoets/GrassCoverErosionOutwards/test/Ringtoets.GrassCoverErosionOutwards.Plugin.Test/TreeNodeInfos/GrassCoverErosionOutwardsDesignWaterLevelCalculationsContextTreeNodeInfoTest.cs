@@ -39,7 +39,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -628,7 +627,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual($"Waterstand bij doorsnede-eis berekenen voor locatie '{hydraulicBoundaryLocation.Name}' is gelukt.", msgs[7]);
                         });
 
-                        HydraulicBoundaryLocationOutput output = hydraulicBoundaryLocationCalculation.Output;
+                        HydraulicBoundaryLocationCalculationOutput output = hydraulicBoundaryLocationCalculation.Output;
                         Assert.AreEqual(0, output.Result, output.Result.GetAccuracy());
                         Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
                     }

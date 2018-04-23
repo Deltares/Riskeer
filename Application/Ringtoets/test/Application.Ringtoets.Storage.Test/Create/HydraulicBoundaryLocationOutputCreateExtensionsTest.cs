@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         public void CreateHydraulicLocationOutputEntity_HydraulicLocationOutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryLocationOutput) null).CreateHydraulicLocationOutputEntity();
+            TestDelegate call = () => ((HydraulicBoundaryLocationCalculationOutput) null).CreateHydraulicLocationOutputEntity();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var output = new HydraulicBoundaryLocationOutput(
+            var output = new HydraulicBoundaryLocationCalculationOutput(
                 random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                 random.NextDouble(), random.NextEnumValue<CalculationConvergence>(), null);
 
@@ -75,8 +75,8 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
+            var output = new HydraulicBoundaryLocationCalculationOutput(double.NaN, double.NaN, double.NaN,
+                                                                        double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(), null);
 
             // Call
             HydraulicLocationOutputEntity entity = output.CreateHydraulicLocationOutputEntity();
@@ -98,9 +98,9 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var random = new Random(21);
-            var output = new HydraulicBoundaryLocationOutput(double.NaN, double.NaN, double.NaN,
-                                                             double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(),
-                                                             GetGeneralResult());
+            var output = new HydraulicBoundaryLocationCalculationOutput(double.NaN, double.NaN, double.NaN,
+                                                                        double.NaN, double.NaN, random.NextEnumValue<CalculationConvergence>(),
+                                                                        GetGeneralResult());
 
             // Call
             HydraulicLocationOutputEntity entity = output.CreateHydraulicLocationOutputEntity();

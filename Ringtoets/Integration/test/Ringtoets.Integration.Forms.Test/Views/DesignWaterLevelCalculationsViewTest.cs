@@ -212,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 {
                     ShouldIllustrationPointsBeCalculated = true
                 },
-                Output = new TestHydraulicBoundaryLocationOutput(designWaterLevel)
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(designWaterLevel)
             };
 
             // Precondition
@@ -286,7 +286,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                           new TestSubMechanismIllustrationPoint())
             };
             var generalResult = new TestGeneralResultSubMechanismIllustrationPoint(topLevelIllustrationPoints);
-            var output = new TestHydraulicBoundaryLocationOutput(generalResult);
+            var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
 
             // Call
             HydraulicBoundaryLocationCalculation boundaryLocationCalculation = hydraulicBoundaryLocationCalculations.ElementAt(2);
@@ -632,7 +632,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput(1.23)
                 },
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
                 {
@@ -647,7 +647,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     },
-                    Output = new TestHydraulicBoundaryLocationOutput(1.01, generalResult)
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput(1.01, generalResult)
                 }
             };
         }

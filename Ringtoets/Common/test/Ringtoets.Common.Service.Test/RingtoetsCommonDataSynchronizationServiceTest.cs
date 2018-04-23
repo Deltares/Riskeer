@@ -55,12 +55,12 @@ namespace Ringtoets.Common.Service.Test
 
             var calculationWithOutput1 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
             };
 
             var calculationWithOutput2 = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble())
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble())
             };
 
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>

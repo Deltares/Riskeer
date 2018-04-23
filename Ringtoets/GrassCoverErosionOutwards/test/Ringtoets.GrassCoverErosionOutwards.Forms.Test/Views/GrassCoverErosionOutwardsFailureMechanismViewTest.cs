@@ -308,7 +308,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
                 // When
                 HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection, failureMechanism);
-                calculation.Output = new TestHydraulicBoundaryLocationOutput(new Random(21).NextDouble());
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
                 calculation.NotifyObservers();
 
                 // Then

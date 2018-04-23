@@ -203,7 +203,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
             if (setCalculationOutput)
             {
-                hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             }
 
             return hydraulicBoundaryLocationCalculation;

@@ -31,7 +31,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -525,13 +524,13 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                 failureMechanism, assessmentSection,
-                new []
+                new[]
                 {
                     hydraulicBoundaryLocation
                 });
 
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel);
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(assessmentLevel);
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(assessmentLevel);
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(assessmentLevel);
 
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(

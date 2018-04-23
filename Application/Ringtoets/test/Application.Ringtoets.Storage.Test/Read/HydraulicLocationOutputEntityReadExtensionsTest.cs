@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            HydraulicBoundaryLocationOutput output = entity.Read();
+            HydraulicBoundaryLocationCalculationOutput output = entity.Read();
 
             // Assert
             Assert.AreEqual(result, output.Result, output.Result.GetAccuracy());
@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            HydraulicBoundaryLocationOutput output = entity.Read();
+            HydraulicBoundaryLocationCalculationOutput output = entity.Read();
 
             // Assert
             Assert.IsNaN(output.Result);
@@ -160,7 +160,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             };
 
             // Call
-            HydraulicBoundaryLocationOutput output = entity.Read();
+            HydraulicBoundaryLocationCalculationOutput output = entity.Read();
 
             // Assert
             GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult = output.GeneralResult;

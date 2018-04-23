@@ -115,12 +115,12 @@ namespace Ringtoest.GrassCoverErosionOutwards.Util.TestUtil.Test
             HydraulicBoundaryLocationCalculation calculation5 = failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First();
             HydraulicBoundaryLocationCalculation calculation6 = failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First();
 
-            calculation1.Output = new TestHydraulicBoundaryLocationOutput();
-            calculation2.Output = new TestHydraulicBoundaryLocationOutput();
-            calculation3.Output = new TestHydraulicBoundaryLocationOutput();
-            calculation4.Output = new TestHydraulicBoundaryLocationOutput();
-            calculation5.Output = new TestHydraulicBoundaryLocationOutput();
-            calculation6.Output = new TestHydraulicBoundaryLocationOutput();
+            calculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            calculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            calculation3.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            calculation4.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            calculation5.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            calculation6.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
             // Call
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations =

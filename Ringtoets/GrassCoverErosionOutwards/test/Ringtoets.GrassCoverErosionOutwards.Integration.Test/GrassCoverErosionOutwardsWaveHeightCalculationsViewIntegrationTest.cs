@@ -105,11 +105,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0)),
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0))
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(1.23)
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput(1.23)
                 },
                 new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0))
                 {
-                    Output = new TestHydraulicBoundaryLocationOutput(2.45)
+                    Output = new TestHydraulicBoundaryLocationCalculationOutput(2.45)
                 }
             };
 

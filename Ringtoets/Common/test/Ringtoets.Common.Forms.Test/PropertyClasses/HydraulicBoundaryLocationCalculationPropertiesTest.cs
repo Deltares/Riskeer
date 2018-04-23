@@ -172,7 +172,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
             };
 
             // Call
@@ -305,18 +305,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                illustrationPoints)
                     : null;
 
-            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(result,
-                                                                                      targetProbability,
-                                                                                      targetReliability,
-                                                                                      calculatedProbability,
-                                                                                      calculatedReliability,
-                                                                                      convergence,
-                                                                                      generalResult);
+            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(result,
+                                                                                                            targetProbability,
+                                                                                                            targetReliability,
+                                                                                                            calculatedProbability,
+                                                                                                            calculatedReliability,
+                                                                                                            convergence,
+                                                                                                            generalResult);
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
             {
-                Output = hydraulicBoundaryLocationOutput
+                Output = hydraulicBoundaryLocationCalculationOutput
             };
 
             // Call
@@ -335,7 +335,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             if (withIllustrationPoints)
             {
-                GeneralResult<TopLevelSubMechanismIllustrationPoint> expectedGeneralResult = hydraulicBoundaryLocationOutput.GeneralResult;
+                GeneralResult<TopLevelSubMechanismIllustrationPoint> expectedGeneralResult = hydraulicBoundaryLocationCalculationOutput.GeneralResult;
                 CollectionAssert.AreEqual(expectedGeneralResult.Stochasts, properties.AlphaValues);
                 CollectionAssert.AreEqual(expectedGeneralResult.Stochasts, properties.Durations);
                 CollectionAssert.AreEqual(expectedGeneralResult.TopLevelIllustrationPoints, properties.IllustrationPoints.Select(ip => ip.Data));

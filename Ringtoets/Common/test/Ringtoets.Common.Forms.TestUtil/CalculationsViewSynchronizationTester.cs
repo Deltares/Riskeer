@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = calculations.First();
-            hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
+            hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
             hydraulicBoundaryLocationCalculation.NotifyObservers();
         }
 

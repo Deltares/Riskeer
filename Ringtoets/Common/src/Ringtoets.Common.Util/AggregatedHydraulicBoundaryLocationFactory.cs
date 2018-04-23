@@ -86,7 +86,7 @@ namespace Ringtoets.Common.Util
                                                 GetCalculationResult(waveHeightLookupForFactorizedLowerLimitNorm[location].Output))).ToArray();
         }
 
-        private static RoundedDouble GetCalculationResult(HydraulicBoundaryLocationOutput output)
+        private static RoundedDouble GetCalculationResult(HydraulicBoundaryLocationCalculationOutput output)
         {
             return output?.Result ?? RoundedDouble.NaN;
         }

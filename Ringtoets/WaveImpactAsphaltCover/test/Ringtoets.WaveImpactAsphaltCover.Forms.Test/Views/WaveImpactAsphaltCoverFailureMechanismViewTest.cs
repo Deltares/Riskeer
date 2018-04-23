@@ -277,7 +277,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
 
                 // When
                 HydraulicBoundaryLocationCalculation calculation = getCalculationFunc(assessmentSection);
-                calculation.Output = new TestHydraulicBoundaryLocationOutput(new Random(21).NextDouble());
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(21).NextDouble());
                 calculation.NotifyObservers();
 
                 // Then

@@ -676,7 +676,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
         private static void AssertHydraulicBoundaryLocationDesignWaterLevelCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
-            HydraulicBoundaryLocationOutput output = calculation.Output;
+            HydraulicBoundaryLocationCalculationOutput output = calculation.Output;
             Assert.AreEqual(12.4, output.Result, output.Result.GetAccuracy());
             Assert.IsNaN(output.TargetProbability);
             Assert.IsNaN(output.TargetReliability);
@@ -687,7 +687,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
         private static void AssertHydraulicBoundaryLocationWaveHeightCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
-            HydraulicBoundaryLocationOutput output = calculation.Output;
+            HydraulicBoundaryLocationCalculationOutput output = calculation.Output;
             Assert.AreEqual(2.4, output.Result, output.Result.GetAccuracy());
             Assert.AreEqual(0, output.TargetProbability);
             Assert.AreEqual(0, output.TargetReliability, output.TargetReliability.GetAccuracy());

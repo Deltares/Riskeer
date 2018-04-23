@@ -306,28 +306,28 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaterLevelCalculationsForSignalingNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaterLevelCalculationsForLowerLimitNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaveHeightCalculationsForSignalingNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaveHeightCalculationsForLowerLimitNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
                              .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                             .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                             .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
         }
 
         private static void SetOutputToHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
@@ -336,22 +336,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         {
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
             failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
                             .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                            .Output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+                            .Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
         }
 
         private static void AttachObserver(MockRepository mockRepository,

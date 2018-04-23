@@ -236,10 +236,10 @@ namespace Ringtoets.Common.Service
                                        e.Message));
             }
 
-            HydraulicBoundaryLocationOutput hydraulicBoundaryLocationOutput = CreateHydraulicBoundaryLocationOutput(
+            HydraulicBoundaryLocationCalculationOutput hydraulicBoundaryLocationCalculationOutput = CreateOutput(
                 messageProvider, hydraulicBoundaryLocation.Name, calculationInput.Beta, norm, calculator.Converged, generalResult);
 
-            hydraulicBoundaryLocationCalculation.Output = hydraulicBoundaryLocationOutput;
+            hydraulicBoundaryLocationCalculation.Output = hydraulicBoundaryLocationCalculationOutput;
         }
 
         /// <summary>
@@ -277,15 +277,15 @@ namespace Ringtoets.Common.Service
         /// <param name="targetProbability">The target probability for the calculation.</param>
         /// <param name="calculatorConverged">The value indicating whether the calculation converged.</param>
         /// <param name="generalResult">The general result with illustration points.</param>
-        /// <returns>A <see cref="HydraulicBoundaryLocationOutput"/>.</returns>
+        /// <returns>A <see cref="HydraulicBoundaryLocationCalculationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private HydraulicBoundaryLocationOutput CreateHydraulicBoundaryLocationOutput(ICalculationMessageProvider messageProvider,
-                                                                                      string hydraulicBoundaryLocationName,
-                                                                                      double targetReliability,
-                                                                                      double targetProbability,
-                                                                                      bool? calculatorConverged,
-                                                                                      GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
+        private HydraulicBoundaryLocationCalculationOutput CreateOutput(ICalculationMessageProvider messageProvider,
+                                                                        string hydraulicBoundaryLocationName,
+                                                                        double targetReliability,
+                                                                        double targetProbability,
+                                                                        bool? calculatorConverged,
+                                                                        GeneralResult<TopLevelSubMechanismIllustrationPoint> generalResult)
         {
             double waveHeight = calculator.WaveHeight;
             double reliability = calculator.ReliabilityIndex;
@@ -298,9 +298,9 @@ namespace Ringtoets.Common.Service
                 log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocationName));
             }
 
-            return new HydraulicBoundaryLocationOutput(waveHeight, targetProbability,
-                                                       targetReliability, probability, reliability,
-                                                       converged, generalResult);
+            return new HydraulicBoundaryLocationCalculationOutput(waveHeight, targetProbability,
+                                                                  targetReliability, probability, reliability,
+                                                                  converged, generalResult);
         }
 
         /// <summary>

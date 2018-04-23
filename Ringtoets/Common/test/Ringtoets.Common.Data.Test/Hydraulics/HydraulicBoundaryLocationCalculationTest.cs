@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var calculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
             if (setOutput)
             {
-                calculation.Output = new TestHydraulicBoundaryLocationOutput(5);
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(5);
             }
 
             // Call
@@ -97,14 +97,14 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 {
                     ShouldIllustrationPointsBeCalculated = true
                 },
-                Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, CalculationConvergence.CalculatedConverged)
             }, false);
 
             yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), false);
 
             yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(1.0, CalculationConvergence.CalculatedConverged)
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, CalculationConvergence.CalculatedConverged)
             }, true);
 
             yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
@@ -113,12 +113,12 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
                 {
                     ShouldIllustrationPointsBeCalculated = true
                 },
-                Output = new TestHydraulicBoundaryLocationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
             }, true);
 
             yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
             }, false);
         }
     }

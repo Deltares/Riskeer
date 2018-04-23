@@ -102,7 +102,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                 {
                     ShouldIllustrationPointsBeCalculated = shouldIllustrationPointsBeCalculated
                 },
-                Output = new HydraulicBoundaryLocationOutput(
+                Output = new HydraulicBoundaryLocationCalculationOutput(
                     random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextDouble(),
                     random.NextDouble(), random.NextEnumValue<CalculationConvergence>(),
                     null)
@@ -121,7 +121,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             HydraulicLocationOutputEntity outputEntity = entity.HydraulicLocationOutputEntities.Single();
 
-            HydraulicBoundaryLocationOutput expectedOutput = calculation.Output;
+            HydraulicBoundaryLocationCalculationOutput expectedOutput = calculation.Output;
             Assert.AreEqual(expectedOutput.CalculatedProbability, outputEntity.CalculatedProbability);
             Assert.AreEqual(expectedOutput.CalculatedReliability, outputEntity.CalculatedReliability);
             Assert.AreEqual(expectedOutput.TargetReliability, outputEntity.TargetReliability);
@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             registry.Register(hydraulicLocationEntity, hydraulicLocation);
 
             var calculation = new HydraulicBoundaryLocationCalculation(hydraulicLocation);
-            
+
             // Call
             HydraulicLocationCalculationEntity entity = calculation.Create(registry);
 

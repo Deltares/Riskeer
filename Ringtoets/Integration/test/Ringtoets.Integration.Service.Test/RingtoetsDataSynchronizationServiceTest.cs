@@ -312,14 +312,14 @@ namespace Ringtoets.Integration.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation8 = assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
 
-            hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationOutput();
-            hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationOutput();
-            hydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationOutput();
-            hydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationOutput();
-            hydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationOutput();
-            hydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationOutput();
-            hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationOutput();
-            hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationOutput();
+            hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation7.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            hydraulicBoundaryLocationCalculation8.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
             HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation1 = grassCoverErosionOutwardsFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm
                                                                                                                                        .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
@@ -334,12 +334,12 @@ namespace Ringtoets.Integration.Service.Test
             HydraulicBoundaryLocationCalculation grassHydraulicBoundaryLocationCalculation6 = grassCoverErosionOutwardsFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm
                                                                                                                                        .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
 
-            grassHydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationOutput();
-            grassHydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationOutput();
-            grassHydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationOutput();
-            grassHydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationOutput();
-            grassHydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationOutput();
-            grassHydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationOutput();
+            grassHydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            grassHydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            grassHydraulicBoundaryLocationCalculation3.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            grassHydraulicBoundaryLocationCalculation4.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            grassHydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            grassHydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
             var expectedAffectedItems = new List<IObservable>
             {
@@ -517,7 +517,7 @@ namespace Ringtoets.Integration.Service.Test
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             ConfigureGrassCoverErosionOutwardsFailureMechanism(grassCoverErosionOutwardsFailureMechanism, hasOutput);
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> expectedAffectedItems = 
+            IEnumerable<HydraulicBoundaryLocationCalculation> expectedAffectedItems =
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(grassCoverErosionOutwardsFailureMechanism);
 
             // Call
@@ -1679,12 +1679,12 @@ namespace Ringtoets.Integration.Service.Test
 
             if (hasOutput)
             {
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
-                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput();
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
+                failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
             }
         }
 

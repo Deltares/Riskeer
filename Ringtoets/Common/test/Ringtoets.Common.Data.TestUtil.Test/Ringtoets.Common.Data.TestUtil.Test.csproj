@@ -45,7 +45,7 @@
     <Compile Include="TestFailureMechanismTest.cs" />
     <Compile Include="DistributionAssertTest.cs" />
     <Compile Include="TestForeshoreProfileTest.cs" />
-    <Compile Include="TestHydraulicBoundaryLocationOutputTest.cs" />
+    <Compile Include="TestHydraulicBoundaryLocationCalculationOutputTest.cs" />
     <Compile Include="TestHydraulicBoundaryLocationTest.cs" />
     <Compile Include="IllustrationPoints\TestSubMechanismIllustrationPointTest.cs" />
     <Compile Include="TestProbabilityAssessmentOutputTest.cs" />

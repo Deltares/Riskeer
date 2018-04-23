@@ -347,7 +347,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
 
         private static void SetHydraulicBoundaryLocationCalculationOutput(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            calculations.First().Output = new TestHydraulicBoundaryLocationOutput();
+            calculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput();
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculationWithoutOutput()

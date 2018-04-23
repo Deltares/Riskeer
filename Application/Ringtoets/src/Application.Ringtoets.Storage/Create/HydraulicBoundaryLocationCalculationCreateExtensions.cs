@@ -58,13 +58,13 @@ namespace Application.Ringtoets.Storage.Create
                 HydraulicLocationEntity = registry.Get(calculation.HydraulicBoundaryLocation)
             };
 
-            CreateHydraulicBoundaryLocationOutput(hydraulicLocationCalculationEntity, calculation.Output);
+            CreateHydraulicBoundaryLocationCalculationOutput(hydraulicLocationCalculationEntity, calculation.Output);
 
             return hydraulicLocationCalculationEntity;
         }
 
-        private static void CreateHydraulicBoundaryLocationOutput(HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity,
-                                                                  HydraulicBoundaryLocationOutput output)
+        private static void CreateHydraulicBoundaryLocationCalculationOutput(HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity,
+                                                                             HydraulicBoundaryLocationCalculationOutput output)
         {
             if (output != null)
             {

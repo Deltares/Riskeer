@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(1.5, CalculationConvergence.CalculatedConverged)
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.5, CalculationConvergence.CalculatedConverged)
             };
 
             // Call

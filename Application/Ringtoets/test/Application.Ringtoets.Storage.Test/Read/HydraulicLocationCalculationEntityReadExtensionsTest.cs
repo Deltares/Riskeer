@@ -169,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                                                   actual.Output);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(HydraulicLocationOutputEntity expected, HydraulicBoundaryLocationOutput actual)
+        private static void AssertHydraulicBoundaryLocationOutput(HydraulicLocationOutputEntity expected, HydraulicBoundaryLocationCalculationOutput actual)
         {
             if (expected == null)
             {

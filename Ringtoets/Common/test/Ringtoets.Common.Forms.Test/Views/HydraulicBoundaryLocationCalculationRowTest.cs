@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -99,7 +98,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var row = new HydraulicBoundaryLocationCalculationRow(hydraulicBoundaryLocationCalculation);
 
             var random = new Random(432);
-            var output = new TestHydraulicBoundaryLocationOutput(random.NextDouble());
+            var output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
             // Call
             hydraulicBoundaryLocationCalculation.Output = output;

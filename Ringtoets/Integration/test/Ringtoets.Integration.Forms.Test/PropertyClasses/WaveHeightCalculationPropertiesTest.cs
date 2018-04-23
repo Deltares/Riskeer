@@ -158,7 +158,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
             };
 
             // Call
@@ -278,17 +278,17 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             double waveHeight = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
-            var hydraulicBoundaryLocationOutput = new HydraulicBoundaryLocationOutput(waveHeight,
-                                                                                      random.NextDouble(),
-                                                                                      random.NextDouble(),
-                                                                                      random.NextDouble(),
-                                                                                      random.NextDouble(),
-                                                                                      convergence,
-                                                                                      new TestGeneralResultSubMechanismIllustrationPoint());
+            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(waveHeight,
+                                                                                                            random.NextDouble(),
+                                                                                                            random.NextDouble(),
+                                                                                                            random.NextDouble(),
+                                                                                                            random.NextDouble(),
+                                                                                                            convergence,
+                                                                                                            new TestGeneralResultSubMechanismIllustrationPoint());
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = hydraulicBoundaryLocationOutput
+                Output = hydraulicBoundaryLocationCalculationOutput
             };
 
             // Call

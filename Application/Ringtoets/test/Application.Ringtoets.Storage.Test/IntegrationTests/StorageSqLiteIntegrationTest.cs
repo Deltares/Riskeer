@@ -2115,8 +2115,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertHydraulicBoundaryLocationOutput(expected.Output, actual.Output);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationOutput expectedOutput,
-                                                                  HydraulicBoundaryLocationOutput actualOutput)
+        private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationCalculationOutput expectedOutput,
+                                                                  HydraulicBoundaryLocationCalculationOutput actualOutput)
         {
             if (expectedOutput == null)
             {

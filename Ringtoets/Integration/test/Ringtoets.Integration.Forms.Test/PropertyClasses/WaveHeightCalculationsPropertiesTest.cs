@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = new TestHydraulicBoundaryLocationOutput(1.5)
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.5)
             };
 
             // Call

@@ -27,18 +27,18 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="HydraulicBoundaryLocationOutput"/> related to creating a hydraulic boundary location output entity.
+    /// Extension methods for <see cref="HydraulicBoundaryLocationCalculationOutput"/> related to creating a hydraulic boundary location output entity.
     /// </summary>
     internal static class HydraulicBoundaryLocationOutputCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HydraulicLocationOutputEntity"/> based 
-        /// on the information of the <see cref="HydraulicBoundaryLocationOutput"/>.
+        /// on the information of the <see cref="HydraulicBoundaryLocationCalculationOutput"/>.
         /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
         /// <returns>A new <see cref="HydraulicLocationOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        internal static HydraulicLocationOutputEntity CreateHydraulicLocationOutputEntity(this HydraulicBoundaryLocationOutput output)
+        internal static HydraulicLocationOutputEntity CreateHydraulicLocationOutputEntity(this HydraulicBoundaryLocationCalculationOutput output)
         {
             if (output == null)
             {

@@ -1742,7 +1742,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Given
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            
+
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -1935,7 +1935,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         private static void ConfigureFailureMechanismWithHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             failureMechanism.Contribution = 5;
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationOutput(12);
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(12);
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation location)
