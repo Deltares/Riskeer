@@ -184,7 +184,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(assessmentSection).ToArray();
 
                 // Assert
-                Assert.AreEqual(24, objects.Length);
+                Assert.AreEqual(25, objects.Length);
 
                 var referenceLineContext = (ReferenceLineContext) objects[0];
                 Assert.AreSame(assessmentSection, referenceLineContext.WrappedData);
@@ -246,6 +246,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var grassCoverSlipOffOutwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[15];
                 Assert.AreSame(assessmentSection.GrassCoverSlipOffOutwards, grassCoverSlipOffOutwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverSlipOffOutwardsFailureMechanismContext.Parent);
+
                 var grassCoverSlipOffInwardsFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[16];
                 Assert.AreSame(assessmentSection.GrassCoverSlipOffInwards, grassCoverSlipOffInwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverSlipOffInwardsFailureMechanismContext.Parent);
@@ -277,6 +278,17 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var technicalInnovationFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>) objects[23];
                 Assert.AreSame(assessmentSection.TechnicalInnovation, technicalInnovationFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, technicalInnovationFailureMechanismContext.Parent);
+
+                var assemblyResultCategoryTreeFolder = (CategoryTreeFolder) objects[24];
+                Assert.AreEqual("Assemblage", assemblyResultCategoryTreeFolder.Name);
+                Assert.AreEqual(TreeFolderCategory.General, assemblyResultCategoryTreeFolder.Category);
+                Assert.AreEqual(2, assemblyResultCategoryTreeFolder.Contents.Count());
+
+                var assemblyResultTotalContext = (AssemblyResultTotalContext) assemblyResultCategoryTreeFolder.Contents.ElementAt(0);
+                Assert.AreSame(assessmentSection, assemblyResultTotalContext.WrappedData);
+
+                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) assemblyResultCategoryTreeFolder.Contents.ElementAt(1);
+                Assert.AreSame(assessmentSection, assemblyResultPerSectionContext.WrappedData);
             }
         }
 

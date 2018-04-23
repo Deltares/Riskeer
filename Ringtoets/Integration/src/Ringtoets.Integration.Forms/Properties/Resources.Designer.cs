@@ -101,6 +101,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblage.
+        /// </summary>
+        public static string AssemblyResultCategoryTreeFolder_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultCategoryTreeFolder_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID van het traject..
         /// </summary>
         public static string AssessmentSection_Id_Description {

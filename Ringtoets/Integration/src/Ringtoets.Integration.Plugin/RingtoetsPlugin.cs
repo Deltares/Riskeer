@@ -1355,8 +1355,13 @@ namespace Ringtoets.Integration.Plugin
                 nodeData.Comments
             };
 
-            IEnumerable<object> failureMechanismContexts = WrapFailureMechanismsInContexts(nodeData);
-            childNodes.AddRange(failureMechanismContexts);
+            childNodes.AddRange(WrapFailureMechanismsInContexts(nodeData));
+            childNodes.Add(new CategoryTreeFolder(RingtoetsFormsResources.AssemblyResultCategoryTreeFolder_DisplayName,
+                                                  new object[]
+                                                  {
+                                                      new AssemblyResultTotalContext(nodeData),
+                                                      new AssemblyResultPerSectionContext(nodeData)
+                                                  }));
 
             return childNodes.ToArray();
         }

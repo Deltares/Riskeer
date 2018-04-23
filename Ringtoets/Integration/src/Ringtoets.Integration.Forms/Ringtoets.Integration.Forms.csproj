@@ -29,7 +29,6 @@
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
-    <Compile Include="PresentationObjects\AssemblyResultGroupContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />

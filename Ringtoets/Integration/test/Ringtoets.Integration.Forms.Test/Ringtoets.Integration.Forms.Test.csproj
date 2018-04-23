@@ -38,7 +38,6 @@
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
-    <Compile Include="PresentationObjects\AssemblyResultGroupContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
