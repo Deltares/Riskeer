@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_ValidParameters_ReturnsHydraulicBoundaryLocationOutput()
+        public void Read_ValidParameters_ReturnsHydraulicBoundaryLocationCalculationOutput()
         {
             // Setup
             var random = new Random(22);
@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_NaNParameters_ReturnsHydraulicBoundaryLocationOutputWithNaN()
+        public void Read_NaNParameters_ReturnsHydraulicBoundaryLocationCalculationOutputWithNaN()
         {
             // Setup
             var random = new Random(21);
@@ -111,7 +111,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_EntityWithIllustrationPoints_ReturnsHydraulicBoundaryLocationOutputWithGeneralResult()
+        public void Read_EntityWithIllustrationPoints_ReturnsHydraulicBoundaryLocationCalculationOutputWithGeneralResult()
         {
             // Setup
             var random = new Random(21);

@@ -2112,11 +2112,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertHydraulicBoundaryLocation(expected.HydraulicBoundaryLocation, actual.HydraulicBoundaryLocation);
             Assert.AreEqual(expected.InputParameters.ShouldIllustrationPointsBeCalculated, actual.InputParameters.ShouldIllustrationPointsBeCalculated);
-            AssertHydraulicBoundaryLocationOutput(expected.Output, actual.Output);
+            AssertHydraulicBoundaryLocationCalculationOutput(expected.Output, actual.Output);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(HydraulicBoundaryLocationCalculationOutput expectedOutput,
-                                                                  HydraulicBoundaryLocationCalculationOutput actualOutput)
+        private static void AssertHydraulicBoundaryLocationCalculationOutput(HydraulicBoundaryLocationCalculationOutput expectedOutput,
+                                                                             HydraulicBoundaryLocationCalculationOutput actualOutput)
         {
             if (expectedOutput == null)
             {
