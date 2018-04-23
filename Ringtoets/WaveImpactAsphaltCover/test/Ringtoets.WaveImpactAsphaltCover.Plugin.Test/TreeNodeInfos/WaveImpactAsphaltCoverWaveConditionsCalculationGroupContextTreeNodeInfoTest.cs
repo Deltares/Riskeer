@@ -787,8 +787,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
         {
             // Setup
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -800,7 +800,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
-                    FilePath = validHydroDatabasePath
+                    FilePath = validHydraulicBoundaryDatabasePath
                 });
 
                 var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,

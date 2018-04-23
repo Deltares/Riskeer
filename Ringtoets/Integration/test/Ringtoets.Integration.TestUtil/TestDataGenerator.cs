@@ -151,7 +151,7 @@ namespace Ringtoets.Integration.TestUtil
         public static StabilityStoneCoverFailureMechanism GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.TestUtil
         public static WaveImpactAsphaltCoverFailureMechanism GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
@@ -190,7 +190,7 @@ namespace Ringtoets.Integration.TestUtil
         public static HeightStructuresFailureMechanism GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations()
         {
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
@@ -203,7 +203,7 @@ namespace Ringtoets.Integration.TestUtil
         public static ClosingStructuresFailureMechanism GetClosingStructuresFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
@@ -216,7 +216,7 @@ namespace Ringtoets.Integration.TestUtil
         public static StabilityPointStructuresFailureMechanism GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
@@ -229,7 +229,7 @@ namespace Ringtoets.Integration.TestUtil
         public static GrassCoverErosionInwardsFailureMechanism GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "<hydro location>", 0, 0);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;

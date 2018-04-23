@@ -789,8 +789,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismContributionZero_CalculateAllAndValidateAllDisabled()
         {
             // Setup
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -806,7 +806,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
-                    FilePath = validHydroDatabasePath
+                    FilePath = validHydraulicBoundaryDatabasePath
                 });
 
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
@@ -845,8 +845,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
         {
             // Setup
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                       Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
+            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -862,7 +862,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
                 {
-                    FilePath = validHydroDatabasePath
+                    FilePath = validHydraulicBoundaryDatabasePath
                 });
 
                 var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
