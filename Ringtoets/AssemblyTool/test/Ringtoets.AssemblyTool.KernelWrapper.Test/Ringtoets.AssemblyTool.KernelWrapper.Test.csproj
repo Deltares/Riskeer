@@ -21,12 +21,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
+    <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorTest.cs" />
     <Compile Include="Creators\AssemblyCategoryCreatorTest.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreatorTest.cs" />
+    <Compile Include="Creators\FailureMechanismAssemblyCreatorTest.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCreatorTest.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
