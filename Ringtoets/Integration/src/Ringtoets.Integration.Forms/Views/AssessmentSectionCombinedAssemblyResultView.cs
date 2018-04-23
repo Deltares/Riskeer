@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Integration.Data;
@@ -32,6 +34,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssessmentSectionCombinedAssemblyResultView : UserControl, IView
     {
+        private readonly AssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCombinedAssemblyResultView"/>.
         /// </summary>
@@ -45,6 +49,8 @@ namespace Ringtoets.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            this.assessmentSection = assessmentSection;
+
             InitializeComponent();
             InitializeDataGridView();
         }
@@ -53,9 +59,14 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn(null, "Toetsspoor", true);
-            dataGridViewControl.AddTextBoxColumn(null, "Label", true);
-            dataGridViewControl.AddTextBoxColumn(null, "Groep", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Name), "Toetsspoor", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Code), "Label", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group), "Groep", true);
+
+            IEnumerable<FailureMechanismAssemblyResultRow> rows = assessmentSection.GetFailureMechanisms()
+                                                                                   .Select(fm => new FailureMechanismAssemblyResultRow(fm))
+                                                                                   .ToList();
+            dataGridViewControl.SetDataSource(rows);
         }
     }
 }

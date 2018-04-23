@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
@@ -34,6 +36,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class AssessmentSectionCombinedAssemblyResultViewTest
     {
+        private const int expectedColumnCount = 3;
         private const int failureMechanismNameColumnIndex = 0;
         private const int failureMechanismCodeColumnIndex = 1;
         private const int failureMechanismGroupColumnIndex = 2;
@@ -98,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 testForm.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                Assert.AreEqual(3, dataGridView.ColumnCount);
+                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
 
@@ -113,6 +116,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsTrue(dataGridViewColumns[failureMechanismNameColumnIndex].ReadOnly);
                 Assert.IsTrue(dataGridViewColumns[failureMechanismCodeColumnIndex].ReadOnly);
                 Assert.IsTrue(dataGridViewColumns[failureMechanismGroupColumnIndex].ReadOnly);
+
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+                Assert.AreEqual(failureMechanisms.Length, rows.Count);
+
+                for (var i = 0; i < failureMechanisms.Length; i++)
+                {
+                    IFailureMechanism failureMechanism = failureMechanisms[i];
+                    DataGridViewCellCollection cells = rows[i].Cells;
+                    Assert.AreEqual(expectedColumnCount, cells.Count);
+
+                    Assert.AreEqual(failureMechanism.Name, cells[failureMechanismNameColumnIndex].Value);
+                    Assert.AreEqual(failureMechanism.Code, cells[failureMechanismCodeColumnIndex].Value);
+                    Assert.AreEqual(failureMechanism.Group, cells[failureMechanismGroupColumnIndex].Value);
+                }
             }
         }
     }
