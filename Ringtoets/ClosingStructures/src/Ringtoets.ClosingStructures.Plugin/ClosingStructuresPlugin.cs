@@ -104,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>,
-                IEnumerable<ClosingStructuresFailureMechanismSectionResult>,
+                IObservableEnumerable<ClosingStructuresFailureMechanismSectionResult>,
                 ClosingStructuresFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

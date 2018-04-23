@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>,
-                IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
+                IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>,
                 GrassCoverErosionInwardsFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

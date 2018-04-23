@@ -210,7 +210,7 @@ namespace Ringtoets.Piping.Plugin
 
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>,
-                IEnumerable<PipingFailureMechanismSectionResult>,
+                IObservableEnumerable<PipingFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

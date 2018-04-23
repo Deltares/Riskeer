@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
@@ -83,7 +83,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>),
-                    typeof(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>),
                     typeof(StabilityStoneCoverResultView));
             }
         }

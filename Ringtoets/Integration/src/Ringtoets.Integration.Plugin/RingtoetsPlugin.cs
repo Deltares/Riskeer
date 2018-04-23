@@ -513,7 +513,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>,
-                IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>,
+                IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>,
                 MacroStabilityOutwardsResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -942,7 +942,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
+        private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
             TFailureMechanism, TResult, TView, TResultRow>(
             Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
             where TResult : FailureMechanismSectionResult
@@ -952,7 +952,7 @@ namespace Ringtoets.Integration.Plugin
         {
             return new ViewInfo<
                 FailureMechanismSectionResultContext<TResult>,
-                IEnumerable<TResult>,
+                IObservableEnumerable<TResult>,
                 TView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

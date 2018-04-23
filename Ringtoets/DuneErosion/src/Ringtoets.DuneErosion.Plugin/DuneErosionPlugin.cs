@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
@@ -103,7 +104,7 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>,
-                IEnumerable<DuneErosionFailureMechanismSectionResult>,
+                IObservableEnumerable<DuneErosionFailureMechanismSectionResult>,
                 DuneErosionFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

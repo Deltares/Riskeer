@@ -176,7 +176,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
-                IEnumerable<HeightStructuresFailureMechanismSectionResult>,
+                IObservableEnumerable<HeightStructuresFailureMechanismSectionResult>,
                 HeightStructuresFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

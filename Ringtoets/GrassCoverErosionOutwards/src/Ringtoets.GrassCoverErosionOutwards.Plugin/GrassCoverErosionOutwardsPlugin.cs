@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
-                IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
+                IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>,
                 GrassCoverErosionOutwardsFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
@@ -122,7 +123,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>),
-                    typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<DuneErosionFailureMechanismSectionResult>),
                     typeof(DuneErosionFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(

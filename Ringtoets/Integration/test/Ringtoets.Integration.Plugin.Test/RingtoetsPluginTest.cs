@@ -25,6 +25,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows.Threading;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
@@ -407,49 +408,49 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
-                    typeof(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>),
                     typeof(StrengthStabilityLengthwiseConstructionResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>),
-                    typeof(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult>),
                     typeof(WaterPressureAsphaltCoverResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>),
-                    typeof(IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult>),
                     typeof(MacroStabilityOutwardsResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffInwardsFailureMechanismSectionResult>),
-                    typeof(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult>),
                     typeof(GrassCoverSlipOffInwardsResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>),
-                    typeof(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>),
                     typeof(GrassCoverSlipOffOutwardsResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>),
-                    typeof(IEnumerable<MicrostabilityFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult>),
                     typeof(MicrostabilityResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>),
-                    typeof(IEnumerable<PipingStructureFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<PipingStructureFailureMechanismSectionResult>),
                     typeof(PipingStructureResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<TechnicalInnovationFailureMechanismSectionResult>),
-                    typeof(IEnumerable<TechnicalInnovationFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult>),
                     typeof(TechnicalInnovationResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(

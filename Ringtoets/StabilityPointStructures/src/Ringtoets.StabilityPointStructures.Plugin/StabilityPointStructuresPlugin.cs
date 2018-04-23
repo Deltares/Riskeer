@@ -102,7 +102,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             yield return new ViewInfo<
                 ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
-                IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
+                IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
                 StabilityPointStructuresFailureMechanismResultView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,

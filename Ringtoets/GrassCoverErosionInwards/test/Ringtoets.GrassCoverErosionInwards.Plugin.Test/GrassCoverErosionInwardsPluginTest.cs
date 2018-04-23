@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>),
-                    typeof(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>),
+                    typeof(IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult>),
                     typeof(GrassCoverErosionInwardsFailureMechanismResultView));
 
                 PluginTestHelper.AssertViewInfoDefined(

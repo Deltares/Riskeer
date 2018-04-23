@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         {
             // Assert
             Assert.AreEqual(typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<DuneErosionFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<DuneErosionFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new []
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
@@ -161,7 +161,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new TestFailureMechanism(), 
+                new TestFailureMechanism(),
                 failureMechanism
             });
 
