@@ -37,6 +37,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultTotalView : UserControl, IView
     {
+        private IEnumerable<FailureMechanismAssemblyResultRow> assemblyResultRows;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
         /// </summary>
@@ -54,7 +56,6 @@ namespace Ringtoets.Integration.Forms.Views
 
             InitializeComponent();
             InitializeDataGridView();
-            SetData();
         }
 
         /// <summary>
@@ -85,11 +86,13 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Probablity),
                                                  Resources.AssemblyResultTotalView_Probability_DisplayName,
                                                  true);
+
+            InitializeRows();
         }
 
-        private void SetData()
+        private void InitializeRows()
         {
-            var rows = new List<FailureMechanismAssemblyResultRow>
+            assemblyResultRows = new List<FailureMechanismAssemblyResultRow>
             {
                 new FailureMechanismAssemblyResultRow(AssessmentSection.Piping, GetFailureMechanismAssembly),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionInwards, GetFailureMechanismAssembly),
@@ -111,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Views
                 new FailureMechanismAssemblyResultRow(AssessmentSection.TechnicalInnovation, GetFailureMechanismAssembly)
             };
 
-            dataGridViewControl.SetDataSource(rows);
+            dataGridViewControl.SetDataSource(assemblyResultRows);
         }
 
         private static FailureMechanismAssembly GetFailureMechanismAssembly()

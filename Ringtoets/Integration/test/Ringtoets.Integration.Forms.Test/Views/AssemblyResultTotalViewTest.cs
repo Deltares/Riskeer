@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithAssessmentSection_ThenExpectedColumnsAreVisible()
+        public void GivenWithAssemblyResultTotalView_ThenExpectedColumnsAreVisible()
         {
             // Given
             var random = new Random(21);
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithAssessmentSection_ThenExpectedRowsVisible()
+        public void GivenWithAssemblyResultTotalView_ThenExpectedRowsVisible()
         {
             // Given
             var random = new Random(21);
