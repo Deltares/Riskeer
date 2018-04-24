@@ -88,7 +88,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.AssembleFailureMechanism(sectionResults);
 
             // Assert
-            Assert.AreEqual(sectionResults, calculator.FailureMechanismSectionAssemblies);
+            Assert.AreEqual(sectionResults, calculator.FailureMechanismSectionCategories);
         }
 
         [Test]

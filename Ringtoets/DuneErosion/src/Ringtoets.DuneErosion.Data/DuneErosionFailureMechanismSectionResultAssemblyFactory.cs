@@ -25,7 +25,6 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.DuneErosion.Data
@@ -190,32 +189,28 @@ namespace Ringtoets.DuneErosion.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResults));
             }
 
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator sectionCalculator =
-                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
             var sectionAssemblies = new List<FailureMechanismSectionAssemblyCategoryGroup>();
+            foreach (DuneErosionFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
+            {
+                if (sectionResult.UseManualAssemblyCategoryGroup && considerManualAssembly)
+                {
+                    sectionAssemblies.Add(sectionResult.ManualAssemblyCategoryGroup);
+                }
+                else
+                {
+                    sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult));
+                }
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
             try
             {
-                foreach (DuneErosionFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
-                {
-                    if (sectionResult.UseManualAssemblyCategoryGroup && considerManualAssembly)
-                    {
-                        sectionAssemblies.Add(sectionCalculator.AssembleTailorMadeAssessment(sectionResult.ManualAssemblyCategoryGroup));
-                    }
-                    else
-                    {
-                        sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult));
-                    }
-                }
-
-                IFailureMechanismAssemblyCalculator calculator =
-                    calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
                 return calculator.AssembleFailureMechanism(sectionAssemblies);
             }
-            catch (Exception e) when (e is FailureMechanismAssemblyCalculatorException || e is FailureMechanismSectionAssemblyCalculatorException)
+            catch (FailureMechanismAssemblyCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
             }

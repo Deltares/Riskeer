@@ -427,9 +427,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 PipingStructureFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(sectionResults);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    PipingStructureFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(sectionResults.Single());
-                Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(sectionResults.Single().ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -498,31 +496,6 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 var exception = Assert.Throws<AssemblyException>(call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionCalculatorThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
-
-                // Call
-                TestDelegate call = () => PipingStructureFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    new[]
-                    {
-                        new PipingStructureFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                    });
-
-                // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
