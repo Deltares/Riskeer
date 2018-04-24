@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.Data;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -81,27 +82,33 @@ namespace Ringtoets.Integration.Forms.Views
         {
             var rows = new List<FailureMechanismAssemblyResultRow>
             {
-                new FailureMechanismAssemblyResultRow(AssessmentSection.Piping),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionInwards),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityInwards),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityOutwards),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.Microstability),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityStoneCover),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.WaveImpactAsphaltCover),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.WaterPressureAsphaltCover),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionOutwards),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffOutwards),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffInwards),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.HeightStructures),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.ClosingStructures),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityPointStructures),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.StrengthStabilityLengthwiseConstruction),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.DuneErosion),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.TechnicalInnovation)
+                new FailureMechanismAssemblyResultRow(AssessmentSection.Piping, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionInwards, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityInwards, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityOutwards, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.Microstability, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityStoneCover, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.WaveImpactAsphaltCover, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.WaterPressureAsphaltCover, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionOutwards, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffOutwards, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffInwards, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.HeightStructures, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.ClosingStructures, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityPointStructures, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.StrengthStabilityLengthwiseConstruction, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.DuneErosion, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.TechnicalInnovation, GetFailureMechanismAssembly)
             };
 
             dataGridViewControl.SetDataSource(rows);
+        }
+
+        private static FailureMechanismAssembly GetFailureMechanismAssembly()
+        {
+            var random = new Random();
+            return new FailureMechanismAssembly(random.NextDouble(), FailureMechanismAssemblyCategoryGroup.IIIt);
         }
     }
 }

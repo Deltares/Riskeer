@@ -20,7 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.Util;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -31,22 +35,30 @@ namespace Ringtoets.Integration.Forms.Views
     public class FailureMechanismAssemblyResultRow
     {
         private readonly IFailureMechanism failureMechanism;
+        private readonly Func<FailureMechanismAssembly> getFailureMechanismAssembly;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so 
         /// that it can be displayed as a row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// is <c>null</c>.</exception>
-        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism)
+        /// <param name="getFailureMechanismAssembly">Gets the assembly of the failure mechanism.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
+        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
+                                                 Func<FailureMechanismAssembly> getFailureMechanismAssembly)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (getFailureMechanismAssembly == null)
+            {
+                throw new ArgumentNullException(nameof(getFailureMechanismAssembly));
+            }
+
             this.failureMechanism = failureMechanism;
+            this.getFailureMechanismAssembly = getFailureMechanismAssembly;
         }
 
         /// <summary>
@@ -79,6 +91,30 @@ namespace Ringtoets.Integration.Forms.Views
             get
             {
                 return failureMechanism.Group;
+            }
+        }
+
+        /// <summary>
+        /// Gets the probability of the failure mechanism assembly.
+        /// </summary>
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double Probablity
+        {
+            get
+            {
+                return getFailureMechanismAssembly().Probability;
+            }
+        }
+
+        /// <summary>
+        /// Gets the group of the failure mechanism assembly.
+        /// </summary>
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public FailureMechanismAssemblyCategoryGroup FailureMechanismAssemblyCategoryGroup
+        {
+            get
+            {
+                return getFailureMechanismAssembly().Group;
             }
         }
     }
