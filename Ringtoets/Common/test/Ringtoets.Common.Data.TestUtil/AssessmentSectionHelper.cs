@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Data;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -74,6 +75,15 @@ namespace Ringtoets.Common.Data.TestUtil
             assessmentSection.Replay();
 
             return assessmentSection;
+        }
+
+        /// <summary>
+        /// Gets a normative assessment level.
+        /// </summary>
+        /// <returns>The normative assessment level.</returns>
+        public static RoundedDouble GetTestNormativeAssessmentLevel()
+        {
+            return (RoundedDouble) 1.1;
         }
 
         private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)

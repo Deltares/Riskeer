@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -138,6 +139,16 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetTestNormativeAssessmentLevel_Always_ReturnsAssessmentLevel()
+        {
+            // Call
+            RoundedDouble assessmentLevel = AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
+
+            // Assert
+            Assert.AreEqual(1.1, assessmentLevel, assessmentLevel.GetAccuracy());
         }
     }
 }
