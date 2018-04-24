@@ -76,6 +76,14 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group),
                                                  RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName,
                                                  true);
+
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.CategoryGroup),
+                                                 "Categorie",
+                                                 true);
+
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Probablity),
+                                                 "Benaderde faalkans",
+                                                 true);
         }
 
         private void SetData()

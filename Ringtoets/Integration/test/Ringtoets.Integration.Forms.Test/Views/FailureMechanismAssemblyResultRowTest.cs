@@ -94,13 +94,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 nameof(FailureMechanismAssemblyResultRow.Probablity));
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyResultRow,
                 EnumTypeConverter>(
-                nameof(FailureMechanismAssemblyResultRow.FailureMechanismAssemblyCategoryGroup));
+                nameof(FailureMechanismAssemblyResultRow.CategoryGroup));
 
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(failureMechanismGroup, row.Group);
             Assert.AreEqual(failureMechanismAssembly.Probability, row.Probablity);
-            Assert.AreEqual(failureMechanismAssembly.Group, row.FailureMechanismAssemblyCategoryGroup);
+            Assert.AreEqual(failureMechanismAssembly.Group, row.CategoryGroup);
 
             mocks.VerifyAll();
         }

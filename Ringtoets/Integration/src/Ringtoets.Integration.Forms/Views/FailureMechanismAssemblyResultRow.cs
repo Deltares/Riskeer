@@ -110,7 +110,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// Gets the group of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismAssemblyCategoryGroup FailureMechanismAssemblyCategoryGroup
+        public FailureMechanismAssemblyCategoryGroup CategoryGroup
         {
             get
             {

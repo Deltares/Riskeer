@@ -47,10 +47,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyResultTotalViewTest
     {
-        private const int expectedColumnCount = 3;
+        private const int expectedColumnCount = 5;
         private const int failureMechanismNameColumnIndex = 0;
         private const int failureMechanismCodeColumnIndex = 1;
         private const int failureMechanismGroupColumnIndex = 2;
+        private const int failureMechanismAssemblyCategoryColumnIndex = 3;
+        private const int failureMechanisProbabilityColumnIndex = 4;
 
         private Form testForm;
 
@@ -121,10 +123,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismNameColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismCodeColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismGroupColumnIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismAssemblyCategoryColumnIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanisProbabilityColumnIndex]);
 
                 Assert.AreEqual("Toetsspoor", dataGridViewColumns[failureMechanismNameColumnIndex].HeaderText);
                 Assert.AreEqual("Label", dataGridViewColumns[failureMechanismCodeColumnIndex].HeaderText);
                 Assert.AreEqual("Groep", dataGridViewColumns[failureMechanismGroupColumnIndex].HeaderText);
+                Assert.AreEqual("Categorie", dataGridViewColumns[failureMechanismAssemblyCategoryColumnIndex].HeaderText);
+                Assert.AreEqual("Benaderde faalkans", dataGridViewColumns[failureMechanisProbabilityColumnIndex].HeaderText);
 
                 Assert.IsTrue(dataGridViewColumns[failureMechanismNameColumnIndex].ReadOnly);
                 Assert.IsTrue(dataGridViewColumns[failureMechanismCodeColumnIndex].ReadOnly);
@@ -207,6 +213,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static void AssertAssemblyRow(IFailureMechanism failureMechanism, DataGridViewCellCollection row)
         {
+            Assert.AreEqual(expectedColumnCount, row.Count);
+
             Assert.AreEqual(failureMechanism.Name, row[failureMechanismNameColumnIndex].Value);
             Assert.AreEqual(failureMechanism.Code, row[failureMechanismCodeColumnIndex].Value);
             Assert.AreEqual(failureMechanism.Group, row[failureMechanismGroupColumnIndex].Value);
