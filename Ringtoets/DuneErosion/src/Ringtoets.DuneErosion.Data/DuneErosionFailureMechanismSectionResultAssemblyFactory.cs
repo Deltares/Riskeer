@@ -177,7 +177,8 @@ namespace Ringtoets.DuneErosion.Data
         /// get the assembly for.</param>
         /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(
