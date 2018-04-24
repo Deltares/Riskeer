@@ -40,6 +40,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
         {
             LastCreatedAssemblyCategoriesCalculator = new AssemblyCategoriesCalculatorStub();
             LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorStub();
+            LastCreatedFailureMechanismAssemblyCalculator = new FailureMechanismAssemblyCalculatorStub();
         }
 
         /// <summary>
@@ -52,6 +53,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public FailureMechanismSectionAssemblyCalculatorStub LastCreatedFailureMechanismSectionAssemblyCalculator { get; }
 
+        /// <summary>
+        /// Gets the last created <see cref="FailureMechanismAssemblyCalculatorStub"/>.
+        /// </summary>
+        public FailureMechanismAssemblyCalculatorStub LastCreatedFailureMechanismAssemblyCalculator { get; }
+
         public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactory factory)
         {
             return LastCreatedAssemblyCategoriesCalculator;
@@ -60,6 +66,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators
         public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)
         {
             return LastCreatedFailureMechanismSectionAssemblyCalculator;
+        }
+
+        public IFailureMechanismAssemblyCalculator CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        {
+            return LastCreatedFailureMechanismAssemblyCalculator;
         }
     }
 }

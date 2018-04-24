@@ -42,6 +42,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             Assert.IsInstanceOf<IAssemblyToolCalculatorFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedAssemblyCategoriesCalculator);
             Assert.IsNotNull(factory.LastCreatedFailureMechanismSectionAssemblyCalculator);
+            Assert.IsNotNull(factory.LastCreatedFailureMechanismAssemblyCalculator);
         }
 
         [Test]
@@ -70,6 +71,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorStub>(calculator);
             Assert.AreSame(factory.LastCreatedFailureMechanismSectionAssemblyCalculator, calculator);
+        }
+
+        [Test]
+        public void CreateFailureMechanismAssemblyCalculator_Always_ReturnStub()
+        {
+            // Setup
+            var factory = new TestAssemblyToolCalculatorFactory();
+
+            // Call
+            IFailureMechanismAssemblyCalculator calculator = factory.CreateFailureMechanismAssemblyCalculator(null);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorStub>(calculator);
+            Assert.AreSame(factory.LastCreatedFailureMechanismAssemblyCalculator, calculator);
         }
     }
 }
