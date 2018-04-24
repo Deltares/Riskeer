@@ -29,7 +29,7 @@ namespace Ringtoets.DuneErosion.Data
     public class DuneLocationOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationOutput"/>.
+        /// Creates a new instance of <see cref="DuneLocationOutput"/>.
         /// </summary>
         /// <param name="calculationConvergence">The convergence status of the calculation.</param>
         /// <param name="constructionProperties">The container for the properties for the <see cref="DuneLocationOutput"/>.</param>
