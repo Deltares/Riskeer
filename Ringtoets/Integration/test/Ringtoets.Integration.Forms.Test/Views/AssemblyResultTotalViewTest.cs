@@ -26,10 +26,21 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -67,7 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_WithAssessmentSection_ExpectedValuesSet()
         {
             // Setup
             var random = new Random(21);
@@ -118,22 +129,87 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsTrue(dataGridViewColumns[failureMechanismNameColumnIndex].ReadOnly);
                 Assert.IsTrue(dataGridViewColumns[failureMechanismCodeColumnIndex].ReadOnly);
                 Assert.IsTrue(dataGridViewColumns[failureMechanismGroupColumnIndex].ReadOnly);
-
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-                Assert.AreEqual(failureMechanisms.Length, rows.Count);
-
-                for (var i = 0; i < failureMechanisms.Length; i++)
-                {
-                    IFailureMechanism failureMechanism = failureMechanisms[i];
-                    DataGridViewCellCollection cells = rows[i].Cells;
-                    Assert.AreEqual(expectedColumnCount, cells.Count);
-
-                    Assert.AreEqual(failureMechanism.Name, cells[failureMechanismNameColumnIndex].Value);
-                    Assert.AreEqual(failureMechanism.Code, cells[failureMechanismCodeColumnIndex].Value);
-                    Assert.AreEqual(failureMechanism.Group, cells[failureMechanismGroupColumnIndex].Value);
-                }
             }
+        }
+
+        [Test]
+        public void GivenFormWithAssessmentSection_ThenExpectedRowsVisible()
+        {
+            // Given
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            // Then
+            using (var view = new AssemblyResultTotalView(assessmentSection))
+            {
+                testForm.Controls.Add(view);
+                testForm.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
+
+                PipingFailureMechanism piping = assessmentSection.Piping;
+                AssertAssemblyRow(piping, rows[0].Cells);
+
+                GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards = assessmentSection.GrassCoverErosionInwards;
+                AssertAssemblyRow(grassCoverErosionInwards, rows[1].Cells);
+
+                MacroStabilityInwardsFailureMechanism macroStabilityInwards = assessmentSection.MacroStabilityInwards;
+                AssertAssemblyRow(macroStabilityInwards, rows[2].Cells);
+
+                MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = assessmentSection.MacroStabilityOutwards;
+                AssertAssemblyRow(macroStabilityOutwards, rows[3].Cells);
+
+                MicrostabilityFailureMechanism microStability = assessmentSection.Microstability;
+                AssertAssemblyRow(microStability, rows[4].Cells);
+
+                StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
+                AssertAssemblyRow(stabilityStoneCover, rows[5].Cells);
+
+                WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
+                AssertAssemblyRow(waveImpactAsphaltCover, rows[6].Cells);
+
+                WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover = assessmentSection.WaterPressureAsphaltCover;
+                AssertAssemblyRow(waterPressureAsphaltCover, rows[7].Cells);
+
+                GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSection.GrassCoverErosionOutwards;
+                AssertAssemblyRow(grassCoverErosionOutwards, rows[8].Cells);
+
+                GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards = assessmentSection.GrassCoverSlipOffOutwards;
+                AssertAssemblyRow(grassCoverSlipOffOutwards, rows[9].Cells);
+
+                GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards = assessmentSection.GrassCoverSlipOffInwards;
+                AssertAssemblyRow(grassCoverSlipOffInwards, rows[10].Cells);
+
+                HeightStructuresFailureMechanism heightStructures = assessmentSection.HeightStructures;
+                AssertAssemblyRow(heightStructures, rows[11].Cells);
+
+                ClosingStructuresFailureMechanism closingStructures = assessmentSection.ClosingStructures;
+                AssertAssemblyRow(closingStructures, rows[12].Cells);
+
+                PipingStructureFailureMechanism pipingStructure = assessmentSection.PipingStructure;
+                AssertAssemblyRow(pipingStructure, rows[13].Cells);
+
+                StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
+                AssertAssemblyRow(stabilityPointStructures, rows[14].Cells);
+
+                StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = assessmentSection.StrengthStabilityLengthwiseConstruction;
+                AssertAssemblyRow(strengthStabilityLengthwiseConstruction, rows[15].Cells);
+
+                DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
+                AssertAssemblyRow(duneErosion, rows[16].Cells);
+
+                TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
+                AssertAssemblyRow(technicalInnovation, rows[17].Cells);
+            }
+        }
+
+        private static void AssertAssemblyRow(IFailureMechanism failureMechanism, DataGridViewCellCollection row)
+        {
+            Assert.AreEqual(failureMechanism.Name, row[failureMechanismNameColumnIndex].Value);
+            Assert.AreEqual(failureMechanism.Code, row[failureMechanismCodeColumnIndex].Value);
+            Assert.AreEqual(failureMechanism.Group, row[failureMechanismGroupColumnIndex].Value);
         }
     }
 }

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Integration.Data;
@@ -56,12 +55,12 @@ namespace Ringtoets.Integration.Forms.Views
             SetData();
         }
 
-        public object Data { get; set; }
-
         /// <summary>
         /// Gets the <see cref="AssessmentSection"/> the view belongs to.
         /// </summary>
         public AssessmentSection AssessmentSection { get; }
+
+        public object Data { get; set; }
 
         private void InitializeDataGridView()
         {
@@ -69,20 +68,39 @@ namespace Ringtoets.Integration.Forms.Views
                                                  CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
                                                  true);
 
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Code), 
-                                                 RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName, 
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Code),
+                                                 RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName,
                                                  true);
 
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group), 
-                                                 RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName, 
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group),
+                                                 RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName,
                                                  true);
         }
 
         private void SetData()
         {
-            IEnumerable<FailureMechanismAssemblyResultRow> rows = AssessmentSection.GetFailureMechanisms()
-                                                                                   .Select(fm => new FailureMechanismAssemblyResultRow(fm))
-                                                                                   .ToList();
+            var rows = new List<FailureMechanismAssemblyResultRow>
+            {
+                new FailureMechanismAssemblyResultRow(AssessmentSection.Piping),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionInwards),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityInwards),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityOutwards),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.Microstability),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityStoneCover),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.WaveImpactAsphaltCover),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.WaterPressureAsphaltCover),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionOutwards),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffOutwards),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffInwards),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.HeightStructures),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.ClosingStructures),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityPointStructures),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.StrengthStabilityLengthwiseConstruction),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.DuneErosion),
+                new FailureMechanismAssemblyResultRow(AssessmentSection.TechnicalInnovation)
+            };
+
             dataGridViewControl.SetDataSource(rows);
         }
     }
