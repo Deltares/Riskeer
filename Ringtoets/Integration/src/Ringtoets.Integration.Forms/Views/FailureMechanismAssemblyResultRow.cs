@@ -127,8 +127,23 @@ namespace Ringtoets.Integration.Forms.Views
         public void Update()
         {
             ResetErrorTexts();
-            TryGetCategoryGroup();
-            TryGetProbability();
+            TryGetDerivedData();
+        }
+
+        private void TryGetDerivedData()
+        {
+            try
+            {
+                FailureMechanismAssembly failureMechanism = getFailureMechanismAssembly();
+                CategoryGroup = failureMechanism.Group;
+                Probablity = failureMechanism.Probability;
+            }
+            catch (AssemblyException e)
+            {
+                CategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
+                Probablity = double.NaN;
+                ColumnStateDefinitions[categoryIndex].ErrorText = e.Message;
+            }
         }
 
         private void CreateColumnStateDefinitions()
@@ -137,42 +152,11 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 ReadOnly = true
             });
-            ColumnStateDefinitions.Add(probabilityIndex, new DataGridViewColumnStateDefinition
-            {
-                ReadOnly = true
-            });
         }
 
         private void ResetErrorTexts()
         {
             ColumnStateDefinitions[categoryIndex].ErrorText = string.Empty;
-            ColumnStateDefinitions[probabilityIndex].ErrorText = string.Empty;
-        }
-
-        private void TryGetCategoryGroup()
-        {
-            try
-            {
-                CategoryGroup = getFailureMechanismAssembly().Group;
-            }
-            catch (AssemblyException e)
-            {
-                CategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
-                ColumnStateDefinitions[categoryIndex].ErrorText = e.Message;
-            }
-        }
-
-        private void TryGetProbability()
-        {
-            try
-            {
-                Probablity = getFailureMechanismAssembly().Probability;
-            }
-            catch (AssemblyException e)
-            {
-                Probablity = double.NaN;
-                ColumnStateDefinitions[probabilityIndex].ErrorText = e.Message;
-            }
         }
     }
 }

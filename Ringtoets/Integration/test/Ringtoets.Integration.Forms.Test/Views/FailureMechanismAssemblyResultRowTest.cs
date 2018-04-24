@@ -39,7 +39,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class FailureMechanismAssemblyResultRowTest
     {
         private const int categoryIndex = 3;
-        private const int probabilityIndex = 4;
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -59,7 +58,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         [Test]
         public void Constructor_GetFailureMechanismAssemblyNull_ThrowsArgumentNullException()
-        {
+        { 
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -104,9 +103,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 nameof(FailureMechanismAssemblyResultRow.CategoryGroup));
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(2, columnStateDefinitions.Count);
+            Assert.AreEqual(1, columnStateDefinitions.Count);
             FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, categoryIndex);
-            FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilityIndex);
 
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
@@ -153,7 +151,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Then
             Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[categoryIndex].ErrorText);
-            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
 
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, row.CategoryGroup);
             Assert.IsNaN(row.Probablity);
@@ -187,7 +184,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Precondition
             Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[categoryIndex].ErrorText);
-            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
 
             // When
             throwException = false;
@@ -195,7 +191,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Then
             Assert.IsEmpty(row.ColumnStateDefinitions[categoryIndex].ErrorText);
-            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
         }
 
         [Test]
@@ -217,18 +212,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[categoryIndex],
                                                                          true,
                                                                          true);
-            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[probabilityIndex],
-                                                                         true,
-                                                                         true);
 
             // When 
             row.Update();
 
-            // Assert
+            // Then
             FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[categoryIndex],
-                                                                         true,
-                                                                         true);
-            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[probabilityIndex],
                                                                          true,
                                                                          true);
         }
