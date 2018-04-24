@@ -25,6 +25,7 @@ using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
 
@@ -36,11 +37,10 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public class FailureMechanismAssemblyResultRow
     {
-        private readonly IFailureMechanism failureMechanism;
-        private readonly Func<FailureMechanismAssembly> getFailureMechanismAssembly;
-
         private const int categoryIndex = 3;
         private const int probabilityIndex = 4;
+        private readonly IFailureMechanism failureMechanism;
+        private readonly Func<FailureMechanismAssembly> getFailureMechanismAssembly;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
@@ -67,6 +67,8 @@ namespace Ringtoets.Integration.Forms.Views
 
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
+
+            Update();
         }
 
         /// <summary>
@@ -111,24 +113,22 @@ namespace Ringtoets.Integration.Forms.Views
         /// Gets the group of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismAssemblyCategoryGroup CategoryGroup
-        {
-            get
-            {
-                return getFailureMechanismAssembly().Group;
-            }
-        }
+        public FailureMechanismAssemblyCategoryGroup CategoryGroup { get; private set; }
 
         /// <summary>
         /// Gets the probability of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double Probablity
+        public double Probablity { get; private set; }
+
+        /// <summary>
+        /// Updates all data and states in the row.
+        /// </summary>
+        public void Update()
         {
-            get
-            {
-                return getFailureMechanismAssembly().Probability;
-            }
+            ResetErrorTexts();
+            TryGetCategoryGroup();
+            TryGetProbability();
         }
 
         private void CreateColumnStateDefinitions()
@@ -141,6 +141,38 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 ReadOnly = true
             });
+        }
+
+        private void ResetErrorTexts()
+        {
+            ColumnStateDefinitions[categoryIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[probabilityIndex].ErrorText = string.Empty;
+        }
+
+        private void TryGetCategoryGroup()
+        {
+            try
+            {
+                CategoryGroup = getFailureMechanismAssembly().Group;
+            }
+            catch (AssemblyException e)
+            {
+                CategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
+                ColumnStateDefinitions[categoryIndex].ErrorText = e.Message;
+            }
+        }
+
+        private void TryGetProbability()
+        {
+            try
+            {
+                Probablity = getFailureMechanismAssembly().Probability;
+            }
+            catch (AssemblyException e)
+            {
+                Probablity = double.NaN;
+                ColumnStateDefinitions[probabilityIndex].ErrorText = e.Message;
+            }
         }
     }
 }

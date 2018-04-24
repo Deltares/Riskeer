@@ -27,6 +27,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -114,6 +115,122 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(failureMechanismAssembly.Group, row.CategoryGroup);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenRowWithoutAssemblyErrors_WhenUpdatingThrowsException_ThenCategorySetToNone()
+        {
+            // Given
+            var random = new Random(21);
+            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
+                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var throwException = false;
+            const string exceptionMessage = "Message";
+            Func<FailureMechanismAssembly> getFailureMechanismAssembly = () =>
+            {
+                if (!throwException)
+                {
+                    return failureMechanismAssembly;
+                }
+
+                throw new AssemblyException(exceptionMessage);
+            };
+
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, getFailureMechanismAssembly);
+
+            // Precondition
+            Assert.AreEqual(failureMechanismAssembly.Probability, row.Probablity);
+            Assert.AreEqual(failureMechanismAssembly.Group, row.CategoryGroup);
+
+            // When
+            throwException = true;
+            row.Update();
+
+            // Then
+            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[categoryIndex].ErrorText);
+            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, row.CategoryGroup);
+            Assert.IsNaN(row.Probablity);
+        }
+
+        [Test]
+        public void GivenRowWithAssemblyErrors_WhenUpdatingDoesNotThrowException_ThenExpectedColumnStates()
+        {
+            // Given
+            var random = new Random(21);
+            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
+                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var throwException = true;
+            const string exceptionMessage = "Message";
+            Func<FailureMechanismAssembly> getFailureMechanismAssembly = () =>
+            {
+                if (throwException)
+                {
+                    throw new AssemblyException(exceptionMessage);
+                }
+
+                return failureMechanismAssembly;
+            };
+
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, getFailureMechanismAssembly);
+
+            // Precondition
+            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[categoryIndex].ErrorText);
+            Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+
+            // When
+            throwException = false;
+            row.Update();
+
+            // Then
+            Assert.IsEmpty(row.ColumnStateDefinitions[categoryIndex].ErrorText);
+            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+        }
+
+        [Test]
+        public void GivenValidRow_WhenUpdating_ThenColumnStyleAndReadOnlyRemainsUnchanged()
+        {
+            // Given
+            var random = new Random(21);
+            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
+                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => failureMechanismAssembly);
+
+            // Precondition
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[categoryIndex],
+                                                                         true,
+                                                                         true);
+            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[probabilityIndex],
+                                                                         true,
+                                                                         true);
+
+            // When 
+            row.Update();
+
+            // Assert
+            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[categoryIndex],
+                                                                         true,
+                                                                         true);
+            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[probabilityIndex],
+                                                                         true,
+                                                                         true);
         }
     }
 }
