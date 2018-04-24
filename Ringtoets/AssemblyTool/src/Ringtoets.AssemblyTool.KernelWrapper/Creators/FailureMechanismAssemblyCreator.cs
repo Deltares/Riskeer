@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
@@ -34,7 +33,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismAssemblyCreator
     {
         /// <summary>
-        /// Creates <see cref="FailureMechanismAssembly"/> from the given <see cref="FmSectionAssemblyDirectResult"/>.
+        /// Creates <see cref="FailureMechanismAssembly"/> from the given <see cref="FailureMechanismAssemblyResult"/>.
         /// </summary>
         /// <param name="result">The result to create the assembly from.</param>
         /// <returns>The created assembly.</returns>
