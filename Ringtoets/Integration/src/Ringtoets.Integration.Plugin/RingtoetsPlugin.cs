@@ -564,6 +564,14 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(() => context.WrappedData.Output?.GeneralResult)
             };
+
+            yield return new ViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>
+            {
+                GetViewName = (view, context) => RingtoetsFormsResources.AssemblyResultTotalContext_DisplayName,
+                Image = RingtoetsFormsResources.AssemblyResultTotal,
+                CloseForData = CloseAssemblyResultTotalViewForData,
+                CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -1254,6 +1262,16 @@ namespace Ringtoets.Integration.Plugin
             }
 
             return context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation);
+        }
+
+        #endregion
+
+        #region AssemblyTotalResultContext ViewInfo
+
+        private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object o)
+        {
+            var assessmentSection = o as AssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection;
         }
 
         #endregion

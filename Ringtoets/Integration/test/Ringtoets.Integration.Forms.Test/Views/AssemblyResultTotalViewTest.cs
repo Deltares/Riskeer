@@ -85,6 +85,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
 

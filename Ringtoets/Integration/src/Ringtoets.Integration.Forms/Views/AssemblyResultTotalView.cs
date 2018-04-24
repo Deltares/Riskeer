@@ -34,8 +34,6 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultTotalView : UserControl, IView
     {
-        private readonly AssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
         /// </summary>
@@ -49,21 +47,30 @@ namespace Ringtoets.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            this.assessmentSection = assessmentSection;
+            AssessmentSection = assessmentSection;
 
             InitializeComponent();
             InitializeDataGridView();
+            SetData();
         }
 
         public object Data { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="AssessmentSection"/> the view belongs to.
+        /// </summary>
+        public AssessmentSection AssessmentSection { get; }
 
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Name), "Toetsspoor", true);
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Code), "Label", true);
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group), "Groep", true);
+        }
 
-            IEnumerable<FailureMechanismAssemblyResultRow> rows = assessmentSection.GetFailureMechanisms()
+        private void SetData()
+        {
+            IEnumerable<FailureMechanismAssemblyResultRow> rows = AssessmentSection.GetFailureMechanisms()
                                                                                    .Select(fm => new FailureMechanismAssemblyResultRow(fm))
                                                                                    .ToList();
             dataGridViewControl.SetDataSource(rows);
