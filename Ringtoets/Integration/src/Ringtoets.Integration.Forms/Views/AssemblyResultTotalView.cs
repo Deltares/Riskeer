@@ -25,6 +25,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Integration.Data;
+using CommonGuiResources = Core.Common.Gui.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -63,9 +65,17 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Name), "Toetsspoor", true);
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Code), "Label", true);
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group), "Groep", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Name),
+                                                 CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
+                                                 true);
+
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Code), 
+                                                 RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName, 
+                                                 true);
+
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group), 
+                                                 RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName, 
+                                                 true);
         }
 
         private void SetData()
