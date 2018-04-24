@@ -54,7 +54,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var calculator = new FailureMechanismAssemblyCalculatorStub();
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssembly>());
+            FailureMechanismAssemblyCategoryGroup category = calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.IIt, category);
@@ -71,7 +71,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssembly>());
+            FailureMechanismAssemblyCategoryGroup category = calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Assert
             Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, category);
@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         {
             // Setup
             var calculator = new FailureMechanismAssemblyCalculatorStub();
-            var sectionResults = new List<FailureMechanismSectionAssembly>();
+            var sectionResults = new List<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
             calculator.AssembleFailureMechanism(sectionResults);
@@ -101,7 +101,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             };
 
             // Call
-            TestDelegate test = () => calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssembly>());
+            TestDelegate test = () => calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Assert
             var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);

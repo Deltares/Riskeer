@@ -37,6 +37,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<FailureMechanismSectionAssembly> FailureMechanismSectionAssemblies { get; private set; }
 
         /// <summary>
+        /// Gets the collection of <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// </summary>
+        public IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> FailureMechanismSectionCategories { get; private set; }
+
+        /// <summary>
         /// Gets or sets the output of the failure mechanism assembly without probabilities.
         /// </summary>
         public FailureMechanismAssemblyCategoryGroup? FailureMechanismAssemblyCategoryGroupOutput { get; set; }
@@ -56,14 +61,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies)
+        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
             }
 
-            FailureMechanismSectionAssemblies = sectionAssemblies;
+            FailureMechanismSectionCategories = sectionCategories;
 
             if (FailureMechanismAssemblyCategoryGroupOutput == null)
             {

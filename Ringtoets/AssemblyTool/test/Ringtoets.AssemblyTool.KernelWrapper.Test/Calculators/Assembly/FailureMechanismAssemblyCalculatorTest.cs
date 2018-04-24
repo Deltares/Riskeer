@@ -80,7 +80,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 TestDelegate test = () => calculator.AssembleFailureMechanism(new[]
                 {
-                    new FailureMechanismSectionAssembly(new Random(39).NextDouble(), (FailureMechanismSectionAssemblyCategoryGroup) 99)
+                   (FailureMechanismSectionAssemblyCategoryGroup) 99
                 });
 
                 // Assert
@@ -96,9 +96,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            var sectionResults = new []
+            var categoryGroups = new []
             {
-                new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+               random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
             };
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -110,10 +110,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                calculator.AssembleFailureMechanism(sectionResults);
+                calculator.AssembleFailureMechanism(categoryGroups);
 
                 // Assert
-                AssertCalculatorOutput(sectionResults.Single(), kernel.FmSectionAssemblyResultsInput.Single());
+                Assert.AreEqual(categoryGroups.Single(), 
+                                FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(
+                                    kernel.FmSectionAssemblyResultsInput.Single().Result));
                 Assert.IsFalse(kernel.PartialAssembly);
             }
         }
@@ -131,7 +133,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismAssemblyCategoryGroup category = calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssembly>());
+                FailureMechanismAssemblyCategoryGroup category = calculator.AssembleFailureMechanism(
+                    new List<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Assert
                 Assert.AreEqual(FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(kernel.FailureMechanismCategoryResult),
@@ -152,7 +155,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssembly>());
+                TestDelegate test = () => calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
@@ -175,7 +178,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssembly>());
+                TestDelegate test = () => calculator.AssembleFailureMechanism(new List<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);

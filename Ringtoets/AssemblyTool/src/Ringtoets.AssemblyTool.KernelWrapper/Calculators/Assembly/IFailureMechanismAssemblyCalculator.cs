@@ -30,13 +30,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
     public interface IFailureMechanismAssemblyCalculator
     {
         /// <summary>
-        /// Assembles the failure mechanism using the given <paramref name="sectionAssemblies"/>.
+        /// Assembles the failure mechanism using the given <paramref name="sectionCategories"/>.
         /// </summary>
-        /// <param name="sectionAssemblies">The collection of <see cref="FailureMechanismSectionAssembly"/> to assemble for.</param>
+        /// <param name="sectionCategories">The collection of <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies);
+        FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories);
 
         /// <summary>
         /// Assembles the failure mechanism with failure probabilities using the given parameters.

@@ -52,13 +52,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies)
+        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories)
         {
             try
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
                 EFailureMechanismCategory output = kernel.AssembleFailureMechanismWbi1A1(
-                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
+                    sectionCategories.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
                     false);
 
                 return FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(output);
