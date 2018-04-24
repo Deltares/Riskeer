@@ -23,12 +23,12 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
@@ -72,7 +72,9 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                             failureMechanism,
                                                             assessmentSection);
 
-            var properties = new PipingInputContextProperties(pipingInputContext, GetTestNormativeAssessmentLevel, handler);
+            var properties = new PipingInputContextProperties(pipingInputContext,
+                                                              AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                              handler);
 
             var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
             var someValue = new object();
@@ -140,7 +142,9 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
+            var properties = new PipingInputContextProperties(inputParametersContext,
+                                                              AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                              handler);
 
             var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
             var someValue = new object();
@@ -159,11 +163,6 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
             Assert.AreSame(stochasticSoilProfile, result);
 
             mockRepository.VerifyAll();
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }
