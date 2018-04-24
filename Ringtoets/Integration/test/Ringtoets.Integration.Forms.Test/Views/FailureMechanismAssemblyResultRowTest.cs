@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
 
@@ -34,6 +37,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismAssemblyResultRowTest
     {
+        private const int categoryIndex = 3;
+        private const int probabilityIndex = 4;
+
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -95,6 +101,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyResultRow,
                 EnumTypeConverter>(
                 nameof(FailureMechanismAssemblyResultRow.CategoryGroup));
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(2, columnStateDefinitions.Count);
+            FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, categoryIndex);
+            FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilityIndex);
 
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);

@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -36,6 +38,9 @@ namespace Ringtoets.Integration.Forms.Views
     {
         private readonly IFailureMechanism failureMechanism;
         private readonly Func<FailureMechanismAssembly> getFailureMechanismAssembly;
+
+        private const int categoryIndex = 3;
+        private const int probabilityIndex = 4;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
@@ -59,7 +64,15 @@ namespace Ringtoets.Integration.Forms.Views
 
             this.failureMechanism = failureMechanism;
             this.getFailureMechanismAssembly = getFailureMechanismAssembly;
+
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
+            CreateColumnStateDefinitions();
         }
+
+        /// <summary>
+        /// Gets the column state definitions for the given indices.
+        /// </summary>
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
         /// <summary>
         /// Gets the name of the failure mechanism.
@@ -95,6 +108,18 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
+        /// Gets the group of the failure mechanism assembly.
+        /// </summary>
+        [TypeConverter(typeof(EnumTypeConverter))]
+        public FailureMechanismAssemblyCategoryGroup CategoryGroup
+        {
+            get
+            {
+                return getFailureMechanismAssembly().Group;
+            }
+        }
+
+        /// <summary>
         /// Gets the probability of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
@@ -106,16 +131,16 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        /// <summary>
-        /// Gets the group of the failure mechanism assembly.
-        /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismAssemblyCategoryGroup CategoryGroup
+        private void CreateColumnStateDefinitions()
         {
-            get
+            ColumnStateDefinitions.Add(categoryIndex, new DataGridViewColumnStateDefinition
             {
-                return getFailureMechanismAssembly().Group;
-            }
+                ReadOnly = true
+            });
+            ColumnStateDefinitions.Add(probabilityIndex, new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = true
+            });
         }
     }
 }
