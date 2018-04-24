@@ -234,7 +234,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             }, true);
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
             };
@@ -674,6 +674,307 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 // Call
                 TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+                mocks.VerifyAll();
+            }
+        }
+
+        #endregion
+
+        #region Failure Mechanism Assembly
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                null,
+                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                new MacroStabilityInwardsFailureMechanism(),
+                assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
+                null,
+                new MacroStabilityInwardsFailureMechanism(),
+                assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
+                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                null,
+                assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
+                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                new MacroStabilityInwardsFailureMechanism(),
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResults = new[]
+            {
+                new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                    sectionResults,
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                FailureMechanismSectionAssembly expectedAssembly = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResults.Single(),
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection);
+                AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyTrue_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResults = new[]
+            {
+                new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+                {
+                    UseManualAssemblyProbability = true,
+                    ManualAssemblyProbability = new Random(39).NextDouble()
+                }
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                    sectionResults,
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                FailureMechanismSectionAssembly expectedAssembly = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
+                    sectionResults.Single(),
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection);
+                AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyFalse_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResults = new[]
+            {
+                new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+                {
+                    UseManualAssemblyProbability = true,
+                    ManualAssemblyProbability = new Random(39).NextDouble()
+                }
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                    sectionResults,
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection,
+                    false);
+
+                // Assert
+                FailureMechanismSectionAssembly expectedAssembly = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResults.Single(),
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection);
+                AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                FailureMechanismAssembly actualOutput =
+                    MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                        Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
+                        Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                        failureMechanism,
+                        assessmentSection);
+
+                // Assert
+                Assert.AreSame(calculator.FailureMechanismAssemblyOutput, actualOutput);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismCalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                    Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismSectionCalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
+
+                // Call
+                TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
+                    new[]
+                    {
+                        new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+                    },
                     Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);

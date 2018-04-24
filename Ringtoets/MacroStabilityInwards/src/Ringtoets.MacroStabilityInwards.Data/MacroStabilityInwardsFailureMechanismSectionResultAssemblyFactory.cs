@@ -28,6 +28,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.MacroStabilityInwards.Data
 {
@@ -234,6 +235,92 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 return calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Assembles the failure mechanism assembly.
+        /// </summary>
+        /// <param name="failureMechanismSectionResults">The failure mechanism section results to
+        /// get the assembly for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios belonging to this failure mechanism.</param>
+        /// <param name="failureMechanism">The failure mechanism this to assemble for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
+        /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
+        /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismAssembly AssembleFailureMechanism(
+            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
+            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
+            MacroStabilityInwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection,
+            bool considerManualAssembly = true)
+        {
+            if (failureMechanismSectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator sectionCalculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
+            var assemblyCategoriesInput = new AssemblyCategoriesInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                                                                          failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
+                                                                      failureMechanism.Contribution,
+                                                                      assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                                                      assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            try
+            {
+                foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
+                {
+                    if (sectionResult.UseManualAssemblyProbability && considerManualAssembly)
+                    {
+                        sectionAssemblies.Add(sectionCalculator.AssembleDetailedAssessment(
+                                                  DetailedAssessmentProbabilityOnlyResultType.Probability,
+                                                  sectionResult.ManualAssemblyProbability,
+                                                  failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
+                                                  assemblyCategoriesInput));
+                    }
+                    else
+                    {
+                        sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult,
+                                                                         calculationScenarios,
+                                                                         failureMechanism,
+                                                                         assessmentSection));
+                    }
+                }
+
+                IFailureMechanismAssemblyCalculator calculator =
+                    calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                return calculator.AssembleFailureMechanism(sectionAssemblies, assemblyCategoriesInput);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+            catch (FailureMechanismAssemblyCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
             }
