@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.DuneErosion.Data
@@ -163,6 +165,56 @@ namespace Ringtoets.DuneErosion.Data
                 return calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Assembles the failure mechanism assembly.
+        /// </summary>
+        /// <param name="failureMechanismSectionResults">The failure mechanism section results to
+        /// get the assembly for.</param>
+        /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
+        /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssemblyCategoryGroup"/>
+        /// could not be created.</exception>
+        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(
+            IEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults,
+            bool considerManualAssembly = true)
+        {
+            if (failureMechanismSectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator sectionCalculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            var sectionAssemblies = new List<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            try
+            {
+                foreach (DuneErosionFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
+                {
+                    if (sectionResult.UseManualAssemblyCategoryGroup && considerManualAssembly)
+                    {
+                        sectionAssemblies.Add(sectionCalculator.AssembleTailorMadeAssessment(sectionResult.ManualAssemblyCategoryGroup));
+                    }
+                    else
+                    {
+                        sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult));
+                    }
+                }
+
+                IFailureMechanismAssemblyCalculator calculator =
+                    calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                return calculator.AssembleFailureMechanism(sectionAssemblies);
+            }
+            catch (Exception e) when (e is FailureMechanismAssemblyCalculatorException || e is FailureMechanismSectionAssemblyCalculatorException)
             {
                 throw new AssemblyException(e.Message, e);
             }
