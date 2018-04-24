@@ -276,8 +276,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
             IFailureMechanismSectionAssemblyCalculator sectionCalculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
+            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
 
             try
             {
