@@ -366,7 +366,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultCategoryTreeFolder_DisplayName" xml:space="preserve">
     <value>Assemblage</value>
   </data>
-  <data name="AssemblyResultTotalContext_DisplayName" xml:space="preserve">
+  <data name="AssemblyResultTotal_DisplayName" xml:space="preserve">
     <value>Gecombineerd totaaloordeel</value>
   </data>
   <data name="AssemblyResultPerSectionContext_DisplayName" xml:space="preserve">

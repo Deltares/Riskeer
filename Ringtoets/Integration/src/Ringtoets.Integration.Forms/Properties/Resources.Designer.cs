@@ -141,9 +141,9 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gecombineerd totaaloordeel.
         /// </summary>
-        public static string AssemblyResultTotalContext_DisplayName {
+        public static string AssemblyResultTotal_DisplayName {
             get {
-                return ResourceManager.GetString("AssemblyResultTotalContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyResultTotal_DisplayName", resourceCulture);
             }
         }
         
