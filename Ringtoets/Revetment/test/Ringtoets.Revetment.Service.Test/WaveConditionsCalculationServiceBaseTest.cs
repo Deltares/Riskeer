@@ -54,7 +54,7 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Call
             TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null,
-                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 GetValidNormativeAssessmentLevel(),
                                                                                                                  validFilePath,
                                                                                                                  validPreprocessorDirectory,
                                                                                                                  string.Empty);
@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                 GetTestNormativeAssessmentLevel(),
+                                                                                                                 GetValidNormativeAssessmentLevel(),
                                                                                                                  validFilePath,
                                                                                                                  validPreprocessorDirectory,
                                                                                                                  null);
@@ -93,7 +93,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      string.Empty,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      string.Empty);
@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      invalidFilePath,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      string.Empty);
@@ -147,7 +147,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      validFilePath,
                                                                                                                      invalidPreprocessorDirectory,
                                                                                                                      string.Empty);
@@ -174,7 +174,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      dbFilePath,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      string.Empty);
@@ -202,7 +202,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      validFilePath,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      string.Empty);
@@ -311,7 +311,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      validFilePath,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
@@ -344,7 +344,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      validFilePath,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
@@ -390,7 +390,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      validFilePath,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
@@ -418,7 +418,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                                                     GetTestNormativeAssessmentLevel(),
+                                                                                                                     GetValidNormativeAssessmentLevel(),
                                                                                                                      validFilePath,
                                                                                                                      validPreprocessorDirectory,
                                                                                                                      "DesignWaterLevelName");
@@ -453,7 +453,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                              c,
                                                                                              norm,
                                                                                              null,
-                                                                                             GetTestNormativeAssessmentLevel(),
+                                                                                             GetValidNormativeAssessmentLevel(),
                                                                                              hcldFilePath,
                                                                                              string.Empty);
 
@@ -914,7 +914,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                             c);
         }
 
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        private static RoundedDouble GetValidNormativeAssessmentLevel()
         {
             return (RoundedDouble) 12;
         }

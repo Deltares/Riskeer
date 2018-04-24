@@ -790,7 +790,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             var input = new WaveConditionsInput();
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetTestNormativeAssessmentLevel());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidNormativeAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -816,7 +816,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetTestNormativeAssessmentLevel());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidNormativeAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -836,7 +836,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            RoundedDouble normativeAssessmentLevel = GetValidNormativeAssessmentLevel();
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -921,7 +921,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            var normativeAssessmentLevel = GetValidNormativeAssessmentLevel();
             var input = new WaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry),
@@ -1009,7 +1009,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             }).SetName(string.Format(testNameFormat, "ForeshoreProfilePositiveCoordinates"));
         }
 
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        private static RoundedDouble GetValidNormativeAssessmentLevel()
         {
             return (RoundedDouble) 6;
         }

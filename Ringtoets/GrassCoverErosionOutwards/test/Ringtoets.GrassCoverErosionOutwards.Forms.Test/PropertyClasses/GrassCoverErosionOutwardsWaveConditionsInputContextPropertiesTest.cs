@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -68,7 +68,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context,
+                                                                                               AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                                               handler);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
@@ -87,7 +89,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 new GrassCoverErosionOutwardsFailureMechanism());
 
             // Call
-            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context,
+                                                                                               AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                                               handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -108,11 +112,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicParametersCategory, upperBoundaryDesignWaterLevelProperty.Category);
             Assert.AreEqual("Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]", upperBoundaryDesignWaterLevelProperty.DisplayName);
             Assert.AreEqual("Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.", upperBoundaryDesignWaterLevelProperty.Description);
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }

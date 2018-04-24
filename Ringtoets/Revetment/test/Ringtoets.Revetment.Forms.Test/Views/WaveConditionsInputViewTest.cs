@@ -81,7 +81,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Constructor_InputViewStyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(null, GetTestNormativeAssessmentLevel);
+            TestDelegate test = () => new WaveConditionsInputView(null,
+                                                                  AssessmentSectionHelper.GetTestNormativeAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -103,7 +104,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -118,7 +120,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Constructor_Always_AddEmptyChartControl()
         {
             // Call
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
@@ -134,7 +137,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_IWaveConditionsCalculation_DataSet()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 var calculation = new TestWaveConditionsCalculation();
 
@@ -150,7 +154,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_OtherThanWaveConditionsCalculation_DataNull()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 var calculation = new object();
 
@@ -166,7 +171,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Data_SetToNull_ChartDataCleared()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel)
             {
                 Data = new TestWaveConditionsCalculation()
             })
@@ -257,7 +263,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -286,7 +293,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void UpdateObserver_PreviousCalculationNameUpdated_ChartTitleNotUpdated()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel))
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -431,7 +439,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
             var calculation = new TestWaveConditionsCalculation();
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), GetTestNormativeAssessmentLevel)
+            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
+                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel)
             {
                 Data = calculation
             })
@@ -635,11 +644,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private static double GetPointX(double pointY, Point2D lastForeshorePoint)
         {
             return ((pointY - lastForeshorePoint.Y) / 3) + lastForeshorePoint.X;
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }

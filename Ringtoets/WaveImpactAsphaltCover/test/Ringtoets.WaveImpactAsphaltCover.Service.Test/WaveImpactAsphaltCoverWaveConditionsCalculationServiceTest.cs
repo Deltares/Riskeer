@@ -68,7 +68,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Call
             TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(null,
-                                                                                                      GetTestNormativeAssessmentLevel(),
+                                                                                                      GetValidNormativeAssessmentLevel(),
                                                                                                       validFilePath,
                                                                                                       validPreprocessorDirectory);
 
@@ -94,7 +94,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              GetValidNormativeAssessmentLevel(),
                                                                                                               testFilePath,
                                                                                                               validPreprocessorDirectory);
 
@@ -130,7 +130,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              GetValidNormativeAssessmentLevel(),
                                                                                                               invalidFilePath,
                                                                                                               validPreprocessorDirectory);
 
@@ -166,7 +166,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              GetValidNormativeAssessmentLevel(),
                                                                                                               validFilePath,
                                                                                                               invalidPreprocessorDirectory);
 
@@ -202,7 +202,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              GetValidNormativeAssessmentLevel(),
                                                                                                               testFilePath,
                                                                                                               validPreprocessorDirectory);
 
@@ -237,7 +237,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              GetValidNormativeAssessmentLevel(),
                                                                                                               validFilePath,
                                                                                                               validPreprocessorDirectory);
 
@@ -311,7 +311,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              GetValidNormativeAssessmentLevel(),
                                                                                                               validFilePath,
                                                                                                               validPreprocessorDirectory);
 
@@ -352,7 +352,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                              GetTestNormativeAssessmentLevel(),
+                                                                                                              GetValidNormativeAssessmentLevel(),
                                                                                                               validFilePath,
                                                                                                               validPreprocessorDirectory);
 
@@ -1045,7 +1045,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             return calculation;
         }
 
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
+        private static RoundedDouble GetValidNormativeAssessmentLevel()
         {
             return (RoundedDouble) 9.3;
         }
