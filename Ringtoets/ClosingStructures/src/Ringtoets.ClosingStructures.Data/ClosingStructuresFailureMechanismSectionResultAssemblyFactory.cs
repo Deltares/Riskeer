@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.ClosingStructures.Data
 {
@@ -106,10 +108,7 @@ namespace Ringtoets.ClosingStructures.Data
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
-                    new AssemblyCategoriesInput(failureMechanism.GeneralInput.N,
-                                                failureMechanism.Contribution,
-                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
+                    CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -157,10 +156,7 @@ namespace Ringtoets.ClosingStructures.Data
                 return calculator.AssembleTailorMadeAssessment(
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
-                    new AssemblyCategoriesInput(failureMechanism.GeneralInput.N,
-                                                failureMechanism.Contribution,
-                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
+                    CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -215,6 +211,85 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 throw new AssemblyException(e.Message, e);
             }
+        }
+
+        /// <summary>
+        /// Assembles the failure mechanism assembly.
+        /// </summary>
+        /// <param name="failureMechanismSectionResults">The failure mechanism section results to
+        /// get the assembly for.</param>
+        /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
+        /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
+        /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismAssembly AssembleFailureMechanism(
+            IEnumerable<ClosingStructuresFailureMechanismSectionResult> failureMechanismSectionResults,
+            ClosingStructuresFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection,
+            bool considerManualAssembly = true)
+        {
+            if (failureMechanismSectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator sectionCalculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
+            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
+
+            try
+            {
+                foreach (ClosingStructuresFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
+                {
+                    if (sectionResult.UseManualAssemblyProbability && considerManualAssembly)
+                    {
+                        sectionAssemblies.Add(sectionCalculator.AssembleDetailedAssessment(
+                                                  DetailedAssessmentProbabilityOnlyResultType.Probability,
+                                                  sectionResult.ManualAssemblyProbability,
+                                                  assemblyCategoriesInput));
+                    }
+                    else
+                    {
+                        sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult,
+                                                                         failureMechanism,
+                                                                         assessmentSection));
+                    }
+                }
+
+                IFailureMechanismAssemblyCalculator calculator =
+                    calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                return calculator.AssembleFailureMechanism(sectionAssemblies, assemblyCategoriesInput);
+            }
+            catch (Exception e) when (e is FailureMechanismAssemblyCalculatorException || e is FailureMechanismSectionAssemblyCalculatorException)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        private static AssemblyCategoriesInput CreateAssemblyCategoriesInput(ClosingStructuresFailureMechanism failureMechanism,
+                                                                             IAssessmentSection assessmentSection)
+        {
+            return new AssemblyCategoriesInput(failureMechanism.GeneralInput.N,
+                                               failureMechanism.Contribution,
+                                               assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                               assessmentSection.FailureMechanismContribution.LowerLimitNorm);
         }
     }
 }

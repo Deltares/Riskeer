@@ -238,7 +238,7 @@ namespace Ringtoets.Piping.Data
         /// <param name="failureMechanismSectionResults">The failure mechanism section results to
         /// get the assembly for.</param>
         /// <param name="calculationScenarios">The calculation scenarios belonging to this failure mechanism.</param>
-        /// <param name="failureMechanism">The failure mechanism this to assemble for.</param>
+        /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
         /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
         /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
@@ -305,11 +305,7 @@ namespace Ringtoets.Piping.Data
 
                 return calculator.AssembleFailureMechanism(sectionAssemblies, assemblyCategoriesInput);
             }
-            catch (FailureMechanismSectionAssemblyCalculatorException e)
-            {
-                throw new AssemblyException(e.Message, e);
-            }
-            catch (FailureMechanismAssemblyCalculatorException e)
+            catch (Exception e) when (e is FailureMechanismAssemblyCalculatorException || e is FailureMechanismSectionAssemblyCalculatorException)
             {
                 throw new AssemblyException(e.Message, e);
             }
