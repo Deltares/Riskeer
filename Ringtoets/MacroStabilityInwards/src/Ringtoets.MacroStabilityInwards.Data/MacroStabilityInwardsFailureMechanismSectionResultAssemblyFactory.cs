@@ -117,11 +117,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     failureMechanismSectionResult.DetailedAssessmentResult,
                     failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
                     failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length),
-                    new AssemblyCategoriesInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                                                    failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
-                                                failureMechanism.Contribution,
-                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
+                    CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -170,11 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
                     failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(failureMechanismSectionResult.Section.Length),
-                    new AssemblyCategoriesInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                                                    failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
-                                                failureMechanism.Contribution,
-                                                assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                                assessmentSection.FailureMechanismContribution.LowerLimitNorm));
+                    CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
@@ -285,11 +277,8 @@ namespace Ringtoets.MacroStabilityInwards.Data
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
             var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
-            var assemblyCategoriesInput = new AssemblyCategoriesInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                                                                          failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
-                                                                      failureMechanism.Contribution,
-                                                                      assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                                                      assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
+
             try
             {
                 foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
@@ -324,6 +313,16 @@ namespace Ringtoets.MacroStabilityInwards.Data
             {
                 throw new AssemblyException(e.Message, e);
             }
+        }
+
+        private static AssemblyCategoriesInput CreateAssemblyCategoriesInput(MacroStabilityInwardsFailureMechanism failureMechanism, 
+                                                                             IAssessmentSection assessmentSection)
+        {
+            return new AssemblyCategoriesInput(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                                                   failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
+                                               failureMechanism.Contribution,
+                                               assessmentSection.FailureMechanismContribution.SignalingNorm,
+                                               assessmentSection.FailureMechanismContribution.LowerLimitNorm);
         }
     }
 }
