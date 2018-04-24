@@ -101,6 +101,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string AssemblyCategory_Group_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyCategory_Group_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
         public static string AssemblyResultCategoryTreeFolder_DisplayName {
@@ -148,6 +157,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Benaderde faalkans.
+        /// </summary>
+        public static string AssemblyResultTotalView_Probability_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalView_Probability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID van het traject..
         /// </summary>
         public static string AssessmentSection_Id_Description {
@@ -189,15 +207,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string AssessmentSectionAssemblyCategory_Color_DisplayName {
             get {
                 return ResourceManager.GetString("AssessmentSectionAssemblyCategory_Color_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categorie.
-        /// </summary>
-        public static string AssessmentSectionAssemblyCategory_Group_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategory_Group_DisplayName", resourceCulture);
             }
         }
         

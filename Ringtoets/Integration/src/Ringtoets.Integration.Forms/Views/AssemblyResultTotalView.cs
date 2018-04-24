@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -78,11 +79,11 @@ namespace Ringtoets.Integration.Forms.Views
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.CategoryGroup),
-                                                 "Categorie",
+                                                 Resources.AssemblyCategory_Group_DisplayName,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Probablity),
-                                                 "Benaderde faalkans",
+                                                 Resources.AssemblyResultTotalView_Probability_DisplayName,
                                                  true);
         }
 

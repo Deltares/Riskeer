@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void AddColumns()
         {
             AddTextBoxColumn(nameof(AssessmentSectionAssemblyCategoryRow.Group),
-                             Resources.AssessmentSectionAssemblyCategory_Group_DisplayName,
+                             Resources.AssemblyCategory_Group_DisplayName,
                              true);
 
             AddColorColumn(nameof(AssessmentSectionAssemblyCategoryRow.Color),
