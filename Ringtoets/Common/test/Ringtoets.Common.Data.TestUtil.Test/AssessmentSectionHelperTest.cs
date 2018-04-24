@@ -142,13 +142,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetTestNormativeAssessmentLevel_Always_ReturnsAssessmentLevel()
+        public void GetTestNormativeAssessmentLevel_Always_ReturnsTheSameRandomValue()
         {
-            // Call
-            RoundedDouble assessmentLevel = AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
-
-            // Assert
-            Assert.AreEqual(1.1, assessmentLevel, assessmentLevel.GetAccuracy());
+            // Call & Assert
+            Assert.AreEqual(AssessmentSectionHelper.GetTestNormativeAssessmentLevel(), AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
         }
     }
 }

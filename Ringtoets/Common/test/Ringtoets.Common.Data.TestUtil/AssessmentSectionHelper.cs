@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
@@ -34,6 +36,8 @@ namespace Ringtoets.Common.Data.TestUtil
     /// </summary>
     public static class AssessmentSectionHelper
     {
+        private static readonly RoundedDouble testNormativeAssessmentLevel = new Random(21).NextRoundedDouble();
+
         /// <summary>
         /// Creates a stub of <see cref="IAssessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> that is not linked.
         /// </summary>
@@ -78,12 +82,13 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a normative assessment level.
+        /// Gets a random normative assessment level for testing purposes.
         /// </summary>
         /// <returns>The normative assessment level.</returns>
+        /// <remarks>The returned assessment level is random, though always the same.</remarks>
         public static RoundedDouble GetTestNormativeAssessmentLevel()
         {
-            return (RoundedDouble) 1.1;
+            return testNormativeAssessmentLevel;
         }
 
         private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)
