@@ -69,7 +69,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                     AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -90,7 +91,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             invalidMacroStabilityInwardsCalculation.Output = output;
 
             // Call
-            bool isValid = MacroStabilityInwardsCalculationService.Validate(invalidMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
+            bool isValid = MacroStabilityInwardsCalculationService.Validate(invalidMacroStabilityInwardsCalculation,
+                                                                            AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             // Assert
             Assert.IsFalse(isValid);
@@ -105,7 +107,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var isValid = true;
 
             // Call
-            Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(calculation, GetTestNormativeAssessmentLevel());
+            Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(calculation,
+                                                                                           AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -132,7 +135,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Call
-                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                               AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -158,7 +162,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
 
                 // Call
-                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                               AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -185,7 +190,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Call
-                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                               AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -211,7 +217,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculatorFactory.LastCreatedUpliftVanCalculator.ThrowExceptionOnValidate = true;
 
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Validate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => MacroStabilityInwardsCalculationService.Validate(testCalculation,
+                                                                                     AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
@@ -239,7 +246,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_ValidCalculation_LogStartAndEndOfValidatingInputsAndCalculation()
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -268,7 +275,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_ValidCalculationWithOutput_ShouldChangeOutput()
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
             MacroStabilityInwardsOutput output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
             testCalculation.Output = output;
@@ -299,7 +306,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
@@ -331,7 +339,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
@@ -376,7 +385,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
@@ -412,7 +422,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                  AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
@@ -430,7 +441,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -451,7 +462,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_ErrorWhileCalculating_LogErrorMessageAndThrowException()
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -506,7 +517,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                                      AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -530,7 +542,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
 
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                                      AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -559,7 +572,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation, GetTestNormativeAssessmentLevel());
+                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
+                                                                                      AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -583,7 +597,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Calculate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = GetTestNormativeAssessmentLevel();
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
             MacroStabilityInwardsInput input = testCalculation.InputParameters;
 
             input.AssessmentLevel = (RoundedDouble) 2.2;
@@ -761,11 +775,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             Assert.AreEqual(expectedGrid.ZBottom, actualGrid.ZBottom);
             Assert.AreEqual(expectedGrid.NumberOfHorizontalPoints, actualGrid.NumberOfHorizontalPoints);
             Assert.AreEqual(expectedGrid.NumberOfVerticalPoints, actualGrid.NumberOfVerticalPoints);
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }

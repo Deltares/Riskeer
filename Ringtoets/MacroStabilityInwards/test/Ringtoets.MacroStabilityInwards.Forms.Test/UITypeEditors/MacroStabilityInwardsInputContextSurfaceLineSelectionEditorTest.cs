@@ -23,12 +23,12 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -70,7 +70,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             var editor = new MacroStabilityInwardsInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -125,7 +127,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
                                                                                failureMechanism,
                                                                                assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(inputParametersContext,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             var editor = new MacroStabilityInwardsInputContextSurfaceLineSelectionEditor();
             var someValue = new object();
@@ -144,11 +148,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.UITypeEditors
             Assert.AreSame(surfaceLine, result);
 
             mockRepository.VerifyAll();
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
 
         private static MacroStabilityInwardsSurfaceLine ValidSurfaceLine()

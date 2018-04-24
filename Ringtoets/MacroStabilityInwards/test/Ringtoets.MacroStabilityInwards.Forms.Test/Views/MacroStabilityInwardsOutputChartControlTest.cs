@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -51,7 +52,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsOutputChartControl(null, GetTestNormativeAssessmentLevel);
+            TestDelegate test = () => new MacroStabilityInwardsOutputChartControl(null,
+                                                                                  AssessmentSectionHelper.GetTestNormativeAssessmentLevel);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -76,7 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel);
+            var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                      AssessmentSectionHelper.GetTestNormativeAssessmentLevel);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(control);
@@ -111,7 +114,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 IChartControl chartControl = GetChartControl(control);
@@ -138,7 +142,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 IChartControl chartControl = GetChartControl(control);
@@ -169,7 +174,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 IChartControl chartControl = GetChartControl(control);
@@ -198,7 +204,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Assert
                 IChartControl chartControl = GetChartControl(control);
@@ -226,7 +233,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
@@ -263,7 +271,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
@@ -300,7 +309,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
@@ -327,7 +337,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 IChartControl chartControl = GetChartControl(control);
 
@@ -360,7 +371,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
@@ -395,7 +407,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Precondition
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
@@ -426,7 +439,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 ChartDataCollection chartData = GetChartControl(control).Data;
 
@@ -461,7 +475,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, GetTestNormativeAssessmentLevel))
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
                 // Precondition
                 ChartData[] chartData = GetChartControl(control).Data.Collection.ToArray();
@@ -506,11 +521,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         private static IChartControl GetChartControl(MacroStabilityInwardsOutputChartControl view)
         {
             return ControlTestHelper.GetControls<IChartControl>(view, "chartControl").Single();
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }

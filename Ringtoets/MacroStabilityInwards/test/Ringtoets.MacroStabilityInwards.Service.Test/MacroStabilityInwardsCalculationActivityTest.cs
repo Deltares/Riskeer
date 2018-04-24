@@ -75,7 +75,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             invalidMacroStabilityInwardsCalculation.Output = originalOutput;
 
-            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
+            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation,
+                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -107,7 +108,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
+                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation,
+                                                                            AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
                 activity.Run();
 
                 // Call
@@ -142,7 +144,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             validMacroStabilityInwardsCalculation.Output = null;
             validMacroStabilityInwardsCalculation.Attach(observer);
 
-            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, GetTestNormativeAssessmentLevel());
+            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation,
+                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             activity.Run();
 
@@ -151,11 +154,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }

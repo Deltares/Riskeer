@@ -59,7 +59,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void Validate_ValidInput_ReturnsEmpty()
         {
             // Call
-            string[] messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            string[] messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -72,7 +73,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -110,7 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.AssessmentLevel = (RoundedDouble) assessmentLevel;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -126,7 +129,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = null;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -142,7 +146,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.StochasticSoilProfile = null;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -192,7 +197,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -243,7 +249,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -268,7 +275,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -331,7 +339,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -388,7 +397,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -446,7 +456,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -520,7 +531,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -547,7 +559,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -620,7 +633,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -684,7 +698,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.SurfaceLine = surfaceLine;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -698,7 +713,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.ZoneBoundaryRight = (RoundedDouble) 0.2;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -718,7 +734,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.ZoneBoundaryRight = (RoundedDouble) zoneBoundaryRight;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -742,7 +759,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.CreateZones = createZones;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -758,7 +776,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.TangentLineZBottom = (RoundedDouble) 1.5;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -777,7 +796,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.TangentLineZBottom = (RoundedDouble) 0.2;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -792,7 +812,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             input.TangentLineZBottom = (RoundedDouble) 1.59;
 
             // Call
-            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input, GetTestNormativeAssessmentLevel()).ToArray();
+            IEnumerable<string> messages = MacroStabilityInwardsInputValidator.Validate(input,
+                                                                                        AssessmentSectionHelper.GetTestNormativeAssessmentLevel()).ToArray();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -1109,11 +1130,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                             }))
                         }, new MacroStabilityInwardsPreconsolidationStress[0]))
                 .SetName("Min X soilLayer smaller than surfaceline");
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }

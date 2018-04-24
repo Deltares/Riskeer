@@ -70,7 +70,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, GetTestNormativeAssessmentLevel(), propertyChangeHandler);
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionHelper.GetTestNormativeAssessmentLevel(),
+                                                                              propertyChangeHandler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
@@ -97,7 +99,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(null, GetTestNormativeAssessmentLevel(), propertyChangeHandler);
+            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(null,
+                                                                                       AssessmentSectionHelper.GetTestNormativeAssessmentLevel(),
+                                                                                       propertyChangeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -112,7 +116,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(input, GetTestNormativeAssessmentLevel(), null);
+            TestDelegate call = () => new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                                       AssessmentSectionHelper.GetTestNormativeAssessmentLevel(),
+                                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -130,7 +136,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, GetTestNormativeAssessmentLevel(), propertyChangeHandler);
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionHelper.GetTestNormativeAssessmentLevel(),
+                                                                              propertyChangeHandler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -297,7 +305,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             MacroStabilityInwardsInput input = calculationItem.InputParameters;
 
             var propertyChangeHandler = new ObservablePropertyChangeHandler(calculationItem, input);
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, GetTestNormativeAssessmentLevel(), propertyChangeHandler);
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionHelper.GetTestNormativeAssessmentLevel(),
+                                                                              propertyChangeHandler);
 
             var random = new Random(21);
             double waterLevelRiverAverage = random.NextDouble();
@@ -454,18 +464,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, GetTestNormativeAssessmentLevel(), propertyChangeHandler);
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionHelper.GetTestNormativeAssessmentLevel(),
+                                                                              propertyChangeHandler);
 
             // Call
             string toString = properties.ToString();
 
             // Assert
             Assert.AreEqual(string.Empty, toString);
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
 
         private static void SetPropertyAndVerifyNotificationsForCalculation(Action<MacroStabilityInwardsWaterStressesProperties> setProperty,
@@ -484,7 +491,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new MacroStabilityInwardsWaterStressesProperties(input, GetTestNormativeAssessmentLevel(), propertyChangeHandler);
+            var properties = new MacroStabilityInwardsWaterStressesProperties(input,
+                                                                              AssessmentSectionHelper.GetTestNormativeAssessmentLevel(),
+                                                                              propertyChangeHandler);
 
             // Call
             setProperty(properties);

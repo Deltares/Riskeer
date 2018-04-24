@@ -43,7 +43,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null, GetTestNormativeAssessmentLevel());
+            TestDelegate test = () => new MacroStabilityInwardsWaterStressLinesProperties(null,
+                                                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -57,7 +58,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel());
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInput>>(properties);
@@ -96,7 +98,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters, GetTestNormativeAssessmentLevel());
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(calculation.InputParameters,
+                                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
@@ -115,7 +118,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel());
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             // Call
             string name = properties.ToString();
@@ -131,7 +135,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var input = new MacroStabilityInwardsInput(new MacroStabilityInwardsInput.ConstructionProperties());
 
             // Call
-            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input, GetTestNormativeAssessmentLevel());
+            var properties = new MacroStabilityInwardsWaterStressLinesProperties(input,
+                                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -153,11 +158,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Dagelijkse omstandigheden",
                                                                             "Eigenschappen van de waterspanningslijnen bij dagelijkse omstandigheden.",
                                                                             true);
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
     }
 }

@@ -78,7 +78,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(null, GetTestNormativeAssessmentLevel, handler);
+            TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(null,
+                                                                                      AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                                      handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -133,7 +135,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, null);
+            TestDelegate test = () => new MacroStabilityInwardsInputContextProperties(context,
+                                                                                      AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                                      null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -160,7 +164,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             // Call
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsInputContext>>(properties);
@@ -190,7 +196,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler)
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler)
             {
                 UseAssessmentLevelManualInput = false
             };
@@ -333,7 +341,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler)
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler)
             {
                 UseAssessmentLevelManualInput = useManualAssessmentLevelInput
             };
@@ -432,12 +442,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             // Call
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Assert
             RoundedDouble expectedAssessmentLevel = useManualAssessmentLevelInput
                                                         ? inputParameters.AssessmentLevel
-                                                        : GetTestNormativeAssessmentLevel();
+                                                        : AssessmentSectionHelper.GetTestNormativeAssessmentLevel();
             Assert.AreEqual(expectedAssessmentLevel, properties.AssessmentLevel);
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(inputParameters.UseAssessmentLevelManualInput, properties.UseAssessmentLevelManualInput);
@@ -491,7 +503,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 assessmentSection);
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             var random = new Random(21);
             const double assessmentLevel = 0.36;
@@ -666,7 +680,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             MacroStabilityInwardsSoilProfile1D soilProfile = MacroStabilityInwardsSoilProfile1DTestFactory.CreateMacroStabilityInwardsSoilProfile1D();
             inputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
@@ -720,7 +736,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             properties.SurfaceLine = testSurfaceLine;
@@ -774,7 +792,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             properties.SurfaceLine = newSurfaceLine;
@@ -839,7 +859,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             properties.StochasticSoilModel = stochasticSoilModel2;
@@ -863,7 +885,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
@@ -887,7 +911,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Precondition:
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
@@ -957,7 +983,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Precondition:
             Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
@@ -988,7 +1016,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Precondition
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
@@ -1027,7 +1057,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Precondition
             Assert.IsNotNull(calculation.InputParameters.StochasticSoilModel);
@@ -1054,7 +1086,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
@@ -1104,7 +1138,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // When
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -1146,7 +1182,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
@@ -1198,7 +1236,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             var context = new MacroStabilityInwardsInputContext(calculation.InputParameters, calculation,
                                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                                 failureMechanism, assessmentSection);
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
@@ -1263,7 +1303,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
                                                                                       .ToList();
@@ -1313,7 +1355,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             bool result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
@@ -1340,7 +1384,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             bool result = properties.DynamicReadOnlyValidationMethod("prop");
@@ -1376,7 +1422,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             bool result = properties.DynamicVisibleValidationMethod("SelectedHydraulicBoundaryLocation");
@@ -1403,7 +1451,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                 Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
                                                                 failureMechanism, assessmentSection);
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             bool result = properties.DynamicVisibleValidationMethod("prop");
@@ -1439,7 +1489,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                 observable
             });
 
-            var properties = new MacroStabilityInwardsInputContextProperties(context, GetTestNormativeAssessmentLevel, handler);
+            var properties = new MacroStabilityInwardsInputContextProperties(context,
+                                                                             AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                             handler);
 
             // Call
             setProperty(properties);
@@ -1447,11 +1499,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(handler.Called);
             mocks.VerifyAll();
-        }
-
-        private static RoundedDouble GetTestNormativeAssessmentLevel()
-        {
-            return (RoundedDouble) 1.1;
         }
 
         private static MacroStabilityInwardsStochasticSoilModel ValidStochasticSoilModel(double xMin, double xMax)
