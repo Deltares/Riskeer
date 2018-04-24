@@ -204,10 +204,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
-            var hydraulicBoundariesGroupContext = (HydraulicBoundariesGroupContext) children[1];
-            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundariesGroupContext.WrappedData);
-            Assert.AreSame(failureMechanism, hydraulicBoundariesGroupContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, hydraulicBoundariesGroupContext.AssessmentSection);
+            var hydraulicBoundaryDatabaseContext = (GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext) children[1];
+            Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase, hydraulicBoundaryDatabaseContext.WrappedData);
+            Assert.AreSame(failureMechanism, hydraulicBoundaryDatabaseContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, hydraulicBoundaryDatabaseContext.AssessmentSection);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);

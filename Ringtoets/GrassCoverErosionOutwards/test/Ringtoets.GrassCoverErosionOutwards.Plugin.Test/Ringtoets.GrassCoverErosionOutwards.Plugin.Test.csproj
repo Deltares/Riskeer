@@ -29,8 +29,8 @@
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationContextConfigurationExportInfoTest.cs" />
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest.cs" />
     <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextConfigurationExportInfoTest.cs" />
-    <Compile Include="ExportInfos\HydraulicBoundariesGroupContextWaveConditionsExportInfoTest.cs" />
-    <Compile Include="ExportInfos\HydraulicBoundariesGroupContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextWaveConditionsExportInfoTest.cs" />
+    <Compile Include="ExportInfos\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsPluginTest.cs" />
     <Compile Include="ImportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,7 +50,7 @@
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveConditionsOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\HydraulicBoundariesGroupContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\GrassCoverErosionOutwardsWaveHeightCalculationsViewInfoTest.cs" />

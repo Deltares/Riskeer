@@ -36,7 +36,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationsContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\HydraulicBoundariesGroupContextTest.cs" />
+    <Compile Include="PresentationObjects\GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

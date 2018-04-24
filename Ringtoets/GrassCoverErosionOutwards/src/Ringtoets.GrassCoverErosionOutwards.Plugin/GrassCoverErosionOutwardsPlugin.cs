@@ -205,11 +205,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<HydraulicBoundariesGroupContext>
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = GetHydraulicBoundariesGroupContextChildNodeObjects,
+                ChildNodeObjects = GetHydraulicBoundaryDatabaseContextChildNodeObjects,
                 ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
@@ -273,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return new ExportInfo<HydraulicBoundariesGroupContext>
+            yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
                 Name = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
@@ -284,7 +284,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                               RingtoetsCommonIoResources.Shape_file_filter_Description)
             };
 
-            yield return new ExportInfo<HydraulicBoundariesGroupContext>
+            yield return new ExportInfo<GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext>
             {
                 Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
                 CreateFileExporter = (context, filePath) =>
@@ -422,7 +422,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new HydraulicBoundariesGroupContext(failureMechanismContext.Parent.HydraulicBoundaryDatabase, failureMechanism, failureMechanismContext.Parent),
+                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(failureMechanismContext.Parent.HydraulicBoundaryDatabase, failureMechanism, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output)
             };
         }
@@ -490,7 +490,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private static object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext context)
+        private static object[] GetHydraulicBoundaryDatabaseContextChildNodeObjects(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext context)
         {
             IAssessmentSection assessmentSection = context.AssessmentSection;
             if (assessmentSection.HydraulicBoundaryDatabase.IsLinked())
