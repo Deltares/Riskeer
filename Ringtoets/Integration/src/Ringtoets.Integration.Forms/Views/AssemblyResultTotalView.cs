@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
@@ -55,6 +56,7 @@ namespace Ringtoets.Integration.Forms.Views
             AssessmentSection = assessmentSection;
 
             InitializeComponent();
+            LocalizeControl();
             InitializeDataGridView();
         }
 
@@ -64,6 +66,11 @@ namespace Ringtoets.Integration.Forms.Views
         public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
+
+        private void LocalizeControl()
+        {
+            RefreshAssemblyResultsButton.Text = Resources.AssemblyResultTotalView_RefreshAssemblyResultsButton_Text;
+        }
 
         private void InitializeDataGridView()
         {
@@ -121,6 +128,12 @@ namespace Ringtoets.Integration.Forms.Views
         {
             var random = new Random();
             return new FailureMechanismAssembly(random.NextDouble(), FailureMechanismAssemblyCategoryGroup.IIIt);
+        }
+
+        private void RefreshAssemblyResults_Click(object sender, EventArgs e)
+        {
+            assemblyResultRows.ForEachElementDo(row => row.Update());
+            dataGridViewControl.RefreshDataGridView();
         }
     }
 }

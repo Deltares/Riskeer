@@ -93,7 +93,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 testForm.Show();
 
                 // Assert
-                Assert.AreEqual(1, view.Controls.Count);
+                Assert.AreEqual(2, view.Controls.Count);
+
+                var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
+                Assert.AreEqual("Assemblageresultaat verversen", button.Text);
+                Assert.IsTrue(button.Enabled);
 
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
@@ -208,6 +212,36 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
                 AssertAssemblyRow(technicalInnovation, rows[17].Cells);
+            }
+        }
+
+        [Test]
+        public void GivenAssemblyResultTotalView_WhenUpdateCalled_ThenDataGridViewInvalidated()
+        {
+            // Given
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            // Then
+            using (var view = new AssemblyResultTotalView(assessmentSection))
+            {
+                testForm.Controls.Add(view);
+                testForm.Show();
+
+                var invalidated = false;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
+                // Precondition
+                Assert.IsFalse(invalidated);
+
+                var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
+
+                // When
+                buttonTester.Click();
+
+                // Then
+                Assert.IsTrue(invalidated);
             }
         }
 
