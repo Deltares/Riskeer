@@ -820,9 +820,9 @@ JOIN (
 -- Create the calculations for the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism level
 -- Note 1: It is assumed that LocationId is unique within an assessment section. Because it is possible for multiple 
 -- assessment sections to have the same hydraulic boundary locations (and thus same LocationIds), a join needs to be 
--- performed based on the LocationId and the AssessmentSection
+-- performed based on the LocationId and the AssessmentSection.
 -- Note 2: The Hydraulic Location ID on assessment section level is chosen as a reference, because the hydraulic boundary 
--- location calculation entities contain references to these entities.  
+-- location calculation entities contain references to these entities.
 INSERT INTO TempHydraulicLocationCalculationEntity (
 	[HydraulicLocationEntityId],
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],

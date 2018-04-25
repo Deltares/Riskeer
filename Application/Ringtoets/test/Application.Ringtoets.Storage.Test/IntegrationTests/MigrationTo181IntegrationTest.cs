@@ -1609,11 +1609,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
 
             /// <summary>
-            /// Generates a query to validate if the hydraulic boundary calculation input for the wave height calculations 
+            /// Generates a query to validate if the hydraulic boundary calculation input for the design water level calculations 
             /// are migrated correctly.
             /// </summary>
             /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the hydraulic boundary location calculation input for the wave height calculations.</returns>
+            /// <returns>A query to validate the hydraulic boundary location calculation input for the design water level calculations.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
@@ -1710,7 +1710,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
 
             /// <summary>
-            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the design water level calculations
+            /// Generates a query to validate if the hydraulic boundary location calculation outputs related to the wave height calculations
             /// are migrated correctly to the corresponding calculation entities.
             /// </summary>
             /// <param name="normType">The norm type to generate the query for.</param>
