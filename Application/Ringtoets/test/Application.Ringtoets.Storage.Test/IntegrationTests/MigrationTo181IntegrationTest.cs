@@ -95,6 +95,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertStabilityPointStructuresOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertGrassCoverErosionOutwardsWaveCalculationEntity(reader, sourceFilePath);
 
                     AssertHeightStructuresSectionResultEntity(reader, sourceFilePath);
                     AssertClosingStructuresSectionResultEntity(reader, sourceFilePath);
@@ -715,6 +716,59 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE new.FailureMechanismEntityId = OLD.FailureMechanismEntityId " +
                 "AND NEW.N = OLD.N " +
                 "AND NEW.ForeshoreProfileCollectionSourcePath IS OLD.ForeshoreProfileCollectionSourcePath; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertGrassCoverErosionOutwardsWaveCalculationEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity) " +
+                "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
+                "LEFT JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId) " +
+                "JOIN ( " +
+                "SELECT " +
+                "[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId], " +
+                "[LocationId], " +
+                "[AssessmentSectionEntityId], " +
+                "calc.CalculationGroupEntityId, " +
+                "[ForeshoreProfileEntityId], " +
+                "calc.'Order', " +
+                "calc.Name, " +
+                "[Comments], " +
+                "[UseBreakWater], " +
+                "[BreakWaterType], " +
+                "[BreakWaterHeight], " +
+                "[UseForeshore], " +
+                "[Orientation], " +
+                "[UpperBoundaryRevetment], " +
+                "[LowerBoundaryRevetment], " +
+                "[UpperBoundaryWaterLevels], " +
+                "[LowerBoundaryWaterLevels], " +
+                "[StepSize] " +
+                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity calc " +
+                "LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
+                "LEFT JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                ") OLD USING (GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                "WHERE OLD.LocationId IS hl.LocationId " +
+                "AND OLD.AssessmentSectionEntityId IS hl.AssessmentSectionEntityId " +
+                "AND OLD.CalculationGroupEntityId = NEW.CalculationGroupEntityId " +
+                "AND OLD.ForeshoreProfileEntityId IS NEW.ForeshoreProfileEntityId " +
+                "AND OLD.'Order' = NEW.'Order' " +
+                "AND OLD.Name IS NEW.Name " +
+                "AND OLD.Comments IS NEW.Comments " +
+                "AND OLD.UseBreakWater = NEW.UseBreakWater " +
+                "AND OLD.BreakWaterType = NEW.BreakWaterType " +
+                "AND OLD.BreakWaterHeight IS NEW.BreakWaterHeight " +
+                "AND OLD.UseForeshore = NEW.UseForeshore " +
+                "AND OLD.Orientation IS NEW.Orientation " +
+                "AND OLD.UpperBoundaryRevetment IS NEW.UpperBoundaryRevetment " +
+                "AND OLD.LowerBoundaryRevetment IS NEW.LowerBoundaryRevetment " +
+                "AND OLD.UpperBoundaryWaterLevels IS NEW.UpperBoundaryWaterLevels " +
+                "AND OLD.LowerBoundaryWaterLevels IS NEW.LowerBoundaryWaterLevels " +
+                "AND OLD.StepSize = New.StepSize; " +
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
