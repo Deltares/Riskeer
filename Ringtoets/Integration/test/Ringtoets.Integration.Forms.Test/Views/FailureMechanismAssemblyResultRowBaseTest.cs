@@ -90,10 +90,38 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenRow_WhenUpdateCalled_ThenColumnStateDefinitionErrorTextClearedAndTryGetDerivedDataExecuted()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var row = new TestFailureMechanismAssemblyResultRow(failureMechanism);
+            row.ColumnStateDefinitions[categoryIndex].ErrorText = "An error text";
+
+            // Precondition 
+            Assert.IsFalse(row.TryGetDerivedDataExecuted); 
+
+            // When
+            row.Update();
+
+            // Then
+            Assert.IsEmpty(row.ColumnStateDefinitions[categoryIndex].ErrorText);
+            Assert.IsTrue(row.TryGetDerivedDataExecuted);
+        }
+
         private class TestFailureMechanismAssemblyResultRow : FailureMechanismAssemblyResultRowBase
         {
+            public bool TryGetDerivedDataExecuted { get; private set; }
+
             public TestFailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism) : base(failureMechanism) {}
-            protected override void TryGetDerivedData() {}
+
+            protected override void TryGetDerivedData()
+            {
+                TryGetDerivedDataExecuted = true;
+            }
         }
     }
 }

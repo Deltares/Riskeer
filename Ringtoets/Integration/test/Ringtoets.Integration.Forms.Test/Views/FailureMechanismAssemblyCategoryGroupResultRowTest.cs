@@ -39,21 +39,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int categoryIndex = 3;
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-            var failureMechanismAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoryGroupResultRow(null, () => failureMechanismAssemblyCategoryGroup);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_GetFailureMechanismAssemblyCategoryGroupNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -127,7 +112,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 }
 
                 throw new AssemblyException(exceptionMessage);
-            };
+            }; 
 
             var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, getFailureMechanismAssembly);
 

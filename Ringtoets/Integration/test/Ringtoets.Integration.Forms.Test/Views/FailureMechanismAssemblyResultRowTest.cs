@@ -23,14 +23,12 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -39,22 +37,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class FailureMechanismAssemblyResultRowTest
     {
         private const int categoryIndex = 3;
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var random = new Random(21);
-            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
-                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
-
-            // Call
-            TestDelegate call = () => new FailureMechanismAssemblyResultRow(null, () => failureMechanismAssembly);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
 
         [Test]
         public void Constructor_GetFailureMechanismAssemblyNull_ThrowsArgumentNullException()
@@ -95,12 +77,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => failureMechanismAssembly);
 
             // Assert
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoryGroupResultRow,
-                NoProbabilityValueDoubleConverter>(
-                nameof(FailureMechanismAssemblyCategoryGroupResultRow.Probablity));
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoryGroupResultRow,
-                EnumTypeConverter>(
-                nameof(FailureMechanismAssemblyCategoryGroupResultRow.CategoryGroup));
+            Assert.IsInstanceOf<FailureMechanismAssemblyResultRowBase>(row);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(1, columnStateDefinitions.Count);
