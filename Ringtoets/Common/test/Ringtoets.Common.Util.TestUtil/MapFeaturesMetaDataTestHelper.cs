@@ -25,6 +25,9 @@ using NUnit.Framework;
 
 namespace Ringtoets.Common.Util.TestUtil
 {
+    /// <summary>
+    /// Helper methods for asserting map feature meta data.
+    /// </summary>
     public static class MapFeaturesMetaDataTestHelper
     {
         /// <summary>
