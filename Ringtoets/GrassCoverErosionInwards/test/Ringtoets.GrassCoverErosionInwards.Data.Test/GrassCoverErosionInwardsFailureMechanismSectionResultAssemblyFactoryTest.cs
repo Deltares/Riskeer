@@ -613,26 +613,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                null,
-                new GrassCoverErosionInwardsFailureMechanism(),
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -642,7 +622,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Call
             TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>(),
                 null,
                 assessmentSection);
 
@@ -657,7 +636,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Call
             TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>(),
                 new GrassCoverErosionInwardsFailureMechanism(),
                 null);
 
@@ -671,15 +649,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -688,13 +662,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -707,19 +680,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -728,13 +696,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -747,19 +714,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -768,14 +730,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection,
                     false);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -801,7 +762,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 // Call
                 FailureMechanismAssembly actualOutput =
                     GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>(),
                         failureMechanism,
                         assessmentSection);
 
@@ -829,7 +789,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>(),
                     failureMechanism,
                     assessmentSection);
 
@@ -847,6 +806,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -860,10 +820,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    new[]
-                    {
-                        new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                    },
                     failureMechanism,
                     assessmentSection);
 

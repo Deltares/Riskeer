@@ -613,26 +613,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                null,
-                new ClosingStructuresFailureMechanism(),
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -642,7 +622,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Call
             TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<ClosingStructuresFailureMechanismSectionResult>(),
                 null,
                 assessmentSection);
 
@@ -657,7 +636,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Call
             TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<ClosingStructuresFailureMechanismSectionResult>(),
                 new ClosingStructuresFailureMechanism(),
                 null);
 
@@ -671,15 +649,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -688,13 +662,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -707,19 +680,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -728,13 +696,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -747,19 +714,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -768,14 +730,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection,
                     false);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -801,7 +762,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Call
                 FailureMechanismAssembly actualOutput =
                     ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<ClosingStructuresFailureMechanismSectionResult>(),
                         failureMechanism,
                         assessmentSection);
 
@@ -829,7 +789,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<ClosingStructuresFailureMechanismSectionResult>(),
                     failureMechanism,
                     assessmentSection);
 
@@ -847,7 +806,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
@@ -860,10 +819,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
                 // Call
                 TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    new[]
-                    {
-                        new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                    },
                     failureMechanism,
                     assessmentSection);
 

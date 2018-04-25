@@ -613,26 +613,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                null,
-                new StabilityPointStructuresFailureMechanism(),
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -642,7 +622,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Call
             TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<StabilityPointStructuresFailureMechanismSectionResult>(),
                 null,
                 assessmentSection);
 
@@ -657,7 +636,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Call
             TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<StabilityPointStructuresFailureMechanismSectionResult>(),
                 new StabilityPointStructuresFailureMechanism(),
                 null);
 
@@ -671,15 +649,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -688,13 +662,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
                 // Call
                 StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -707,19 +680,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -728,13 +696,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
                 // Call
                 StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -747,19 +714,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -768,14 +730,13 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
                 // Call
                 StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
                     failureMechanism,
                     assessmentSection,
                     false);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     failureMechanism,
                     assessmentSection);
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
@@ -801,7 +762,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 // Call
                 FailureMechanismAssembly actualOutput =
                     StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<StabilityPointStructuresFailureMechanismSectionResult>(),
                         failureMechanism,
                         assessmentSection);
 
@@ -829,7 +789,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
                 // Call
                 TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<StabilityPointStructuresFailureMechanismSectionResult>(),
                     failureMechanism,
                     assessmentSection);
 
@@ -847,6 +806,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -860,10 +820,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
                 // Call
                 TestDelegate call = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    new[]
-                    {
-                        new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                    },
                     failureMechanism,
                     assessmentSection);
 

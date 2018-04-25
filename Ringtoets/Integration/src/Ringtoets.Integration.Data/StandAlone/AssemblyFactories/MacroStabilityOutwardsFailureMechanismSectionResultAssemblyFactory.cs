@@ -219,8 +219,6 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The failure mechanism section results to
-        /// get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
         /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
@@ -229,16 +227,10 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(
-            IEnumerable<MacroStabilityOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             MacroStabilityOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection,
             bool considerManualAssembly = true)
         {
-            if (failureMechanismSectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -250,7 +242,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             }
 
             var sectionAssemblies = new List<FailureMechanismSectionAssemblyCategoryGroup>();
-            foreach (MacroStabilityOutwardsFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
+            foreach (MacroStabilityOutwardsFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
             {
                 if (sectionResult.UseManualAssemblyCategoryGroup && considerManualAssembly)
                 {

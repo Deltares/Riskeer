@@ -218,8 +218,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The failure mechanism section results to
-        /// get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
         /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
@@ -228,16 +226,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismAssembly AssembleFailureMechanism(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection,
             bool considerManualAssembly = true)
         {
-            if (failureMechanismSectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -257,7 +249,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             try
             {
-                foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
+                foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
                 {
                     if (sectionResult.UseManualAssemblyProbability && considerManualAssembly)
                     {

@@ -692,48 +692,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                null,
-                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                new MacroStabilityInwardsFailureMechanism(),
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_CalculationScenariosNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
-                null,
-                new MacroStabilityInwardsFailureMechanism(),
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculationScenarios", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -743,8 +701,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Call
             TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
-                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 null,
                 assessmentSection);
 
@@ -759,8 +715,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Call
             TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
-                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                 new MacroStabilityInwardsFailureMechanism(),
                 null);
 
@@ -774,15 +728,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -791,14 +741,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
-                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
@@ -812,19 +760,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -833,14 +776,12 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
-                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
@@ -854,19 +795,14 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            MacroStabilityInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -875,15 +811,13 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
-                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection,
                     false);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
@@ -910,8 +844,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                 // Call
                 FailureMechanismAssembly actualOutput =
                     MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
-                        Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                         failureMechanism,
                         assessmentSection);
 
@@ -939,8 +871,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<MacroStabilityInwardsFailureMechanismSectionResult>(),
-                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
@@ -958,6 +888,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -971,11 +902,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
                 // Call
                 TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    new[]
-                    {
-                        new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                    },
-                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 

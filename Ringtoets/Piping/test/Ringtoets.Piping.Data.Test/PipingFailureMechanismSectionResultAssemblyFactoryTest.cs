@@ -233,7 +233,7 @@ namespace Ringtoets.Piping.Data.Test
             }, true);
 
             var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            var calculationScenarios = new[]
+            PipingCalculationScenario[] calculationScenarios =
             {
                 PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
             };
@@ -693,48 +693,6 @@ namespace Ringtoets.Piping.Data.Test
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                null,
-                Enumerable.Empty<PipingCalculationScenario>(),
-                new PipingFailureMechanism(),
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_CalculationScenariosNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<PipingFailureMechanismSectionResult>(),
-                null,
-                new PipingFailureMechanism(),
-                assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculationScenarios", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -744,8 +702,6 @@ namespace Ringtoets.Piping.Data.Test
 
             // Call
             TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<PipingFailureMechanismSectionResult>(),
-                Enumerable.Empty<PipingCalculationScenario>(),
                 null,
                 assessmentSection);
 
@@ -760,8 +716,6 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Call
             TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                Enumerable.Empty<PipingFailureMechanismSectionResult>(),
-                Enumerable.Empty<PipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 null);
 
@@ -775,15 +729,11 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -792,14 +742,12 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
-                    Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
@@ -813,19 +761,14 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -834,14 +777,12 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
-                    Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
@@ -855,19 +796,14 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyProbability = true;
+            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var sectionResults = new[]
-            {
-                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyProbability = true,
-                    ManualAssemblyProbability = new Random(39).NextDouble()
-                }
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -876,15 +812,13 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    sectionResults,
-                    Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection,
                     false);
 
                 // Assert
                 FailureMechanismSectionAssembly expectedAssembly = PipingFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResults.Single(),
+                    failureMechanism.SectionResults.Single(),
                     Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
@@ -911,8 +845,6 @@ namespace Ringtoets.Piping.Data.Test
                 // Call
                 FailureMechanismAssembly actualOutput =
                     PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<PipingFailureMechanismSectionResult>(),
-                        Enumerable.Empty<PipingCalculationScenario>(),
                         failureMechanism,
                         assessmentSection);
 
@@ -940,8 +872,6 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<PipingFailureMechanismSectionResult>(),
-                    Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
@@ -959,6 +889,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -972,11 +903,6 @@ namespace Ringtoets.Piping.Data.Test
 
                 // Call
                 TestDelegate call = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(
-                    new[]
-                    {
-                        new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                    },
-                    Enumerable.Empty<PipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 

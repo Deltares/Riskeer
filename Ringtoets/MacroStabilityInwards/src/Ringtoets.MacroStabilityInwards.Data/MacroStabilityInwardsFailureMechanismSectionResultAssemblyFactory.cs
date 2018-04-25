@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -235,9 +236,6 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The failure mechanism section results to
-        /// get the assembly for.</param>
-        /// <param name="calculationScenarios">The calculation scenarios belonging to this failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
         /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
@@ -246,22 +244,10 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismAssembly AssembleFailureMechanism(
-            IEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
             MacroStabilityInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection,
             bool considerManualAssembly = true)
         {
-            if (failureMechanismSectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
-            }
-
-            if (calculationScenarios == null)
-            {
-                throw new ArgumentNullException(nameof(calculationScenarios));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -281,7 +267,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
             try
             {
-                foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in failureMechanismSectionResults)
+                foreach (MacroStabilityInwardsFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
                 {
                     if (sectionResult.UseManualAssemblyProbability && considerManualAssembly)
                     {
@@ -294,7 +280,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     else
                     {
                         sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult,
-                                                                         calculationScenarios,
+                                                                         failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(),
                                                                          failureMechanism,
                                                                          assessmentSection));
                     }
