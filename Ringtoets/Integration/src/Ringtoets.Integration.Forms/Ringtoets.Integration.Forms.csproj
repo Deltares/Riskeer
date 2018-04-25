@@ -75,6 +75,8 @@
     <Compile Include="Views\AssessmentSectionView.Designer.cs">
       <DependentUpon>AssessmentSectionView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\FailureMechanismAssemblyCategoryGroupResultRow.cs" />
+    <Compile Include="Views\FailureMechanismAssemblyResultRowBase.cs" />
     <Compile Include="Views\FailureMechanismAssemblyResultRow.cs" />
     <Compile Include="Views\FailureMechanismContributionItemRow.cs" />
     <Compile Include="Views\FailureMechanismContributionView.cs">

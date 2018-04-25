@@ -28,29 +28,30 @@ namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
     /// This class represents a row displaying the properties of a <see cref="IFailureMechanism"/>
-    /// and its <see cref="FailureMechanismAssembly"/>.
+    /// and its <see cref="FailureMechanismAssemblyCategoryGroup"/>.
     /// </summary>
-    public class FailureMechanismAssemblyResultRow : FailureMechanismAssemblyResultRowBase
+    public class FailureMechanismAssemblyCategoryGroupResultRow : FailureMechanismAssemblyResultRowBase
     {
-        private readonly Func<FailureMechanismAssembly> getFailureMechanismAssembly;
+        private readonly Func<FailureMechanismAssemblyCategoryGroup> getFailureMechanismAssemblyCategoryGroup;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoryGroupResultRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
-        /// <param name="getFailureMechanismAssembly">Gets the <see cref="FailureMechanismAssembly"/>
+        /// <param name="getFailureMechanismAssemblyCategoryGroup">Gets the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
-                                                 Func<FailureMechanismAssembly> getFailureMechanismAssembly)
+        public FailureMechanismAssemblyCategoryGroupResultRow(IFailureMechanism failureMechanism,
+                                                              Func<FailureMechanismAssemblyCategoryGroup> getFailureMechanismAssemblyCategoryGroup)
             : base(failureMechanism)
         {
-            if (getFailureMechanismAssembly == null)
+            if (getFailureMechanismAssemblyCategoryGroup == null)
             {
-                throw new ArgumentNullException(nameof(getFailureMechanismAssembly));
+                throw new ArgumentNullException(nameof(getFailureMechanismAssemblyCategoryGroup));
             }
 
-            this.getFailureMechanismAssembly = getFailureMechanismAssembly;
+            this.getFailureMechanismAssemblyCategoryGroup = getFailureMechanismAssemblyCategoryGroup;
+            Probablity = double.NaN;
 
             Update();
         }
@@ -59,14 +60,11 @@ namespace Ringtoets.Integration.Forms.Views
         {
             try
             {
-                FailureMechanismAssembly failureMechanismAssembly = getFailureMechanismAssembly();
-                CategoryGroup = failureMechanismAssembly.Group;
-                Probablity = failureMechanismAssembly.Probability;
+                CategoryGroup = getFailureMechanismAssemblyCategoryGroup();
             }
             catch (AssemblyException e)
             {
                 CategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
-                Probablity = double.NaN;
                 ColumnStateDefinitions[CategoryIndex].ErrorText = e.Message;
             }
         }

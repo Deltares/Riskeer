@@ -23,20 +23,18 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class FailureMechanismAssemblyResultRowTest
+    public class FailureMechanismAssemblyCategoryGroupResultRowTest
     {
         private const int categoryIndex = 3;
 
@@ -45,11 +43,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var random = new Random(21);
-            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
-                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            var failureMechanismAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyResultRow(null, () => failureMechanismAssembly);
+            TestDelegate call = () => new FailureMechanismAssemblyCategoryGroupResultRow(null, () => failureMechanismAssemblyCategoryGroup);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetFailureMechanismAssemblyNull_ThrowsArgumentNullException()
+        public void Constructor_GetFailureMechanismAssemblyCategoryGroupNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -65,11 +62,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyResultRow(failureMechanism, null);
+            TestDelegate call = () => new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getFailureMechanismAssembly", exception.ParamName);
+            Assert.AreEqual("getFailureMechanismAssemblyCategoryGroup", exception.ParamName);
         }
 
         [Test]
@@ -81,8 +78,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const string failureMechanismCode = "Code";
             int failureMechanismGroup = random.Next();
 
-            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
-                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            var failureMechanismAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -92,15 +88,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => failureMechanismAssembly);
+            var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, () => failureMechanismAssemblyCategoryGroup);
 
             // Assert
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoryGroupResultRow,
-                NoProbabilityValueDoubleConverter>(
-                nameof(FailureMechanismAssemblyCategoryGroupResultRow.Probablity));
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoryGroupResultRow,
-                EnumTypeConverter>(
-                nameof(FailureMechanismAssemblyCategoryGroupResultRow.CategoryGroup));
+            Assert.IsInstanceOf<FailureMechanismAssemblyResultRowBase>(row);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(1, columnStateDefinitions.Count);
@@ -109,8 +100,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
             Assert.AreEqual(failureMechanismGroup, row.Group);
-            Assert.AreEqual(failureMechanismAssembly.Probability, row.Probablity);
-            Assert.AreEqual(failureMechanismAssembly.Group, row.CategoryGroup);
+            Assert.AreEqual(failureMechanismAssemblyCategoryGroup, row.CategoryGroup);
+            Assert.IsNaN(row.Probablity);
 
             mocks.VerifyAll();
         }
@@ -120,8 +111,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
-                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            var failureMechanismAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -129,21 +119,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var throwException = false;
             const string exceptionMessage = "Message";
-            Func<FailureMechanismAssembly> getFailureMechanismAssembly = () =>
+            Func<FailureMechanismAssemblyCategoryGroup> getFailureMechanismAssembly = () =>
             {
                 if (!throwException)
                 {
-                    return failureMechanismAssembly;
+                    return failureMechanismAssemblyCategoryGroup;
                 }
 
                 throw new AssemblyException(exceptionMessage);
             };
 
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, getFailureMechanismAssembly);
+            var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, getFailureMechanismAssembly);
 
             // Precondition
-            Assert.AreEqual(failureMechanismAssembly.Probability, row.Probablity);
-            Assert.AreEqual(failureMechanismAssembly.Group, row.CategoryGroup);
+            Assert.IsNaN(row.Probablity);
+            Assert.AreEqual(failureMechanismAssemblyCategoryGroup, row.CategoryGroup);
 
             // When
             throwException = true;
@@ -161,8 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
-                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            var failureMechanismAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -170,17 +159,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var throwException = true;
             const string exceptionMessage = "Message";
-            Func<FailureMechanismAssembly> getFailureMechanismAssembly = () =>
+            Func<FailureMechanismAssemblyCategoryGroup> getFailureMechanismAssembly = () =>
             {
                 if (throwException)
                 {
                     throw new AssemblyException(exceptionMessage);
                 }
 
-                return failureMechanismAssembly;
+                return failureMechanismAssemblyCategoryGroup;
             };
 
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, getFailureMechanismAssembly);
+            var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, getFailureMechanismAssembly);
 
             // Precondition
             Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[categoryIndex].ErrorText);
@@ -198,14 +187,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
-                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            var failureMechanismAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => failureMechanismAssembly);
+            var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, () => failureMechanismAssemblyCategoryGroup);
 
             // Precondition
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;

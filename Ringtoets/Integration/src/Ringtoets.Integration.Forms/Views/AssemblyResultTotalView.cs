@@ -30,6 +30,8 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
@@ -45,7 +47,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultTotalView : UserControl, IView
     {
-        private IEnumerable<FailureMechanismAssemblyResultRow> assemblyResultRows;
+        private IEnumerable<FailureMechanismAssemblyResultRowBase> assemblyResultRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
@@ -81,23 +83,23 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Name),
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Name),
                                                  CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
                                                  true);
 
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Code),
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Code),
                                                  RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName,
                                                  true);
 
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Group),
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Group),
                                                  RingtoetsCommonFormsResources.FailureMechanism_Group_DisplayName,
                                                  true);
 
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.CategoryGroup),
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.CategoryGroup),
                                                  Resources.AssemblyCategory_Group_DisplayName,
                                                  true);
 
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Probablity),
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Probablity),
                                                  Resources.AssemblyResultTotalView_Probability_DisplayName,
                                                  true);
 
@@ -106,31 +108,38 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeRows()
         {
-            assemblyResultRows = new List<FailureMechanismAssemblyResultRow>
+            assemblyResultRows = new List<FailureMechanismAssemblyResultRowBase>
             {
                 CreatePipingFailureMechanismAssemblyResultRow(),
                 CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow(),
                 CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow(),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.Microstability, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityStoneCover, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.WaveImpactAsphaltCover, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.WaterPressureAsphaltCover, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionOutwards, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffOutwards, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffInwards, GetFailureMechanismAssembly),
+                CreateMacroStabilityOutwardsFailureMechanismAssemblyResultRow(),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.Microstability, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.StabilityStoneCover, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.WaveImpactAsphaltCover, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.WaterPressureAsphaltCover, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.GrassCoverErosionOutwards, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.GrassCoverSlipOffOutwards, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.GrassCoverSlipOffInwards, GetFailureMechanismAssemblyCategoryGroup),
                 CreateHeightStructuresFailureMechanismAssemblyResultRow(),
                 CreateClosingStructuresFailureMechanismAssemblyResultRow(),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure, GetFailureMechanismAssembly),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.PipingStructure, GetFailureMechanismAssemblyCategoryGroup),
                 CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow(),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.StrengthStabilityLengthwiseConstruction, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.DuneErosion, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.TechnicalInnovation, GetFailureMechanismAssembly)
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.StrengthStabilityLengthwiseConstruction, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.DuneErosion, GetFailureMechanismAssemblyCategoryGroup),
+                new FailureMechanismAssemblyCategoryGroupResultRow(AssessmentSection.TechnicalInnovation, GetFailureMechanismAssemblyCategoryGroup)
             };
 
             dataGridViewControl.SetDataSource(assemblyResultRows);
         }
 
-        private FailureMechanismAssemblyResultRow CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow()
+        private FailureMechanismAssemblyResultRowBase CreateMacroStabilityOutwardsFailureMechanismAssemblyResultRow()
+        {
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = AssessmentSection.MacroStabilityOutwards;
+            return new FailureMechanismAssemblyCategoryGroupResultRow(macroStabilityOutwards, GetFailureMechanismAssemblyCategoryGroup);
+        }
+
+        private FailureMechanismAssemblyResultRowBase CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow()
         {
             MacroStabilityInwardsFailureMechanism macroStabilityInwards = AssessmentSection.MacroStabilityInwards;
             return new FailureMechanismAssemblyResultRow(macroStabilityInwards,
@@ -140,7 +149,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                                                                                                                           AssessmentSection));
         }
 
-        private FailureMechanismAssemblyResultRow CreatePipingFailureMechanismAssemblyResultRow()
+        private FailureMechanismAssemblyResultRowBase CreatePipingFailureMechanismAssemblyResultRow()
         {
             PipingFailureMechanism piping = AssessmentSection.Piping;
             return new FailureMechanismAssemblyResultRow(piping,
@@ -186,10 +195,9 @@ namespace Ringtoets.Integration.Forms.Views
                                                                                                                                                              AssessmentSection));
         }
 
-        private static FailureMechanismAssembly GetFailureMechanismAssembly()
+        private static FailureMechanismAssemblyCategoryGroup GetFailureMechanismAssemblyCategoryGroup()
         {
-            var random = new Random();
-            return new FailureMechanismAssembly(random.NextDouble(), FailureMechanismAssemblyCategoryGroup.IIIt);
+            return FailureMechanismAssemblyCategoryGroup.IIIt;
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
