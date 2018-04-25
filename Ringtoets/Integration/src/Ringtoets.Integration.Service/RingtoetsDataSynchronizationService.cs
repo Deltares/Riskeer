@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {

@@ -165,11 +165,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(Convert.ToBoolean(expected.ShouldIllustrationPointsBeCalculated),
                             actual.InputParameters.ShouldIllustrationPointsBeCalculated);
 
-            AssertHydraulicBoundaryLocationOutput(expected.HydraulicLocationOutputEntities.SingleOrDefault(),
-                                                  actual.Output);
+            AssertHydraulicBoundaryLocationCalculationOutput(expected.HydraulicLocationOutputEntities.SingleOrDefault(),
+                                                             actual.Output);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(HydraulicLocationOutputEntity expected, HydraulicBoundaryLocationCalculationOutput actual)
+        private static void AssertHydraulicBoundaryLocationCalculationOutput(HydraulicLocationOutputEntity expected, HydraulicBoundaryLocationCalculationOutput actual)
         {
             if (expected == null)
             {
