@@ -21,12 +21,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -101,10 +108,9 @@ namespace Ringtoets.Integration.Forms.Views
         {
             assemblyResultRows = new List<FailureMechanismAssemblyResultRow>
             {
-                new FailureMechanismAssemblyResultRow(AssessmentSection.Piping, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionInwards, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityInwards, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.MacroStabilityOutwards, GetFailureMechanismAssembly),
+                CreatePipingFailureMechanismAssemblyResultRow(),
+                CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow(),
+                CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow(),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.Microstability, GetFailureMechanismAssembly),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityStoneCover, GetFailureMechanismAssembly),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.WaveImpactAsphaltCover, GetFailureMechanismAssembly),
@@ -112,16 +118,72 @@ namespace Ringtoets.Integration.Forms.Views
                 new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverErosionOutwards, GetFailureMechanismAssembly),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffOutwards, GetFailureMechanismAssembly),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.GrassCoverSlipOffInwards, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.HeightStructures, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.ClosingStructures, GetFailureMechanismAssembly),
+                CreateHeightStructuresFailureMechanismAssemblyResultRow(),
+                CreateClosingStructuresFailureMechanismAssemblyResultRow(),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.PipingStructure, GetFailureMechanismAssembly),
-                new FailureMechanismAssemblyResultRow(AssessmentSection.StabilityPointStructures, GetFailureMechanismAssembly),
+                CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow(),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.StrengthStabilityLengthwiseConstruction, GetFailureMechanismAssembly),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.DuneErosion, GetFailureMechanismAssembly),
                 new FailureMechanismAssemblyResultRow(AssessmentSection.TechnicalInnovation, GetFailureMechanismAssembly)
             };
 
             dataGridViewControl.SetDataSource(assemblyResultRows);
+        }
+
+        private FailureMechanismAssemblyResultRow CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow()
+        {
+            MacroStabilityInwardsFailureMechanism macroStabilityInwards = AssessmentSection.MacroStabilityInwards;
+            return new FailureMechanismAssemblyResultRow(macroStabilityInwards,
+                                                         () => MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(macroStabilityInwards.SectionResults,
+                                                                                                                                                          macroStabilityInwards.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(),
+                                                                                                                                                          macroStabilityInwards,
+                                                                                                                                                          AssessmentSection));
+        }
+
+        private FailureMechanismAssemblyResultRow CreatePipingFailureMechanismAssemblyResultRow()
+        {
+            PipingFailureMechanism piping = AssessmentSection.Piping;
+            return new FailureMechanismAssemblyResultRow(piping,
+                                                         () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(piping.SectionResults,
+                                                                                                                                           piping.Calculations.Cast<PipingCalculationScenario>(),
+                                                                                                                                           piping,
+                                                                                                                                           AssessmentSection));
+        }
+
+        private FailureMechanismAssemblyResultRow CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow()
+        {
+            StabilityPointStructuresFailureMechanism stabilityPointStructures = AssessmentSection.StabilityPointStructures;
+            return new FailureMechanismAssemblyResultRow(stabilityPointStructures,
+                                                         () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(stabilityPointStructures.SectionResults,
+                                                                                                                                                             stabilityPointStructures,
+                                                                                                                                                             AssessmentSection));
+        }
+
+        private FailureMechanismAssemblyResultRow CreateClosingStructuresFailureMechanismAssemblyResultRow()
+        {
+            ClosingStructuresFailureMechanism closingStructures = AssessmentSection.ClosingStructures;
+            return new FailureMechanismAssemblyResultRow(closingStructures,
+                                                         () => ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(closingStructures.SectionResults,
+                                                                                                                                                      closingStructures,
+                                                                                                                                                      AssessmentSection));
+        }
+
+        private FailureMechanismAssemblyResultRow CreateHeightStructuresFailureMechanismAssemblyResultRow()
+        {
+            HeightStructuresFailureMechanism heightStructures = AssessmentSection.HeightStructures;
+            return new FailureMechanismAssemblyResultRow(heightStructures,
+                                                         () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(heightStructures.SectionResults,
+                                                                                                                                                     heightStructures,
+                                                                                                                                                     AssessmentSection));
+        }
+
+        private FailureMechanismAssemblyResultRow CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow()
+        {
+            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards = AssessmentSection.GrassCoverErosionInwards;
+            return new FailureMechanismAssemblyResultRow(grassCoverErosionInwards,
+                                                         () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(grassCoverErosionInwards.SectionResults,
+                                                                                                                                                             grassCoverErosionInwards,
+                                                                                                                                                             AssessmentSection));
         }
 
         private static FailureMechanismAssembly GetFailureMechanismAssembly()

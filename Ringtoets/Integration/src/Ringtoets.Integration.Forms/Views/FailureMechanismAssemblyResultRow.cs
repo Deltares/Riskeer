@@ -38,7 +38,6 @@ namespace Ringtoets.Integration.Forms.Views
     public class FailureMechanismAssemblyResultRow
     {
         private const int categoryIndex = 3;
-        private const int probabilityIndex = 4;
         private readonly IFailureMechanism failureMechanism;
         private readonly Func<FailureMechanismAssembly> getFailureMechanismAssembly;
 
@@ -134,9 +133,9 @@ namespace Ringtoets.Integration.Forms.Views
         {
             try
             {
-                FailureMechanismAssembly failureMechanism = getFailureMechanismAssembly();
-                CategoryGroup = failureMechanism.Group;
-                Probablity = failureMechanism.Probability;
+                FailureMechanismAssembly failureMechanismAssembly = getFailureMechanismAssembly();
+                CategoryGroup = failureMechanismAssembly.Group;
+                Probablity = failureMechanismAssembly.Probability;
             }
             catch (AssemblyException e)
             {
