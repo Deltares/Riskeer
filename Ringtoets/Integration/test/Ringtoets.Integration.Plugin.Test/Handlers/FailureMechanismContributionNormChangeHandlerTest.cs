@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).Where(c => c.HasOutput),
                                      "There should be no calculations with output.");
 
-            AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
+            AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
 
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
@@ -215,7 +215,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
 
-            AssertHydraulicBoundaryLocationOutput(assessmentSection, false);
+            AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
 
             foreach (DuneLocation duneLocation in assessmentSection.DuneErosion.DuneLocations)
             {
@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             // Assert
             Assert.AreEqual(0, propertySet);
 
-            AssertHydraulicBoundaryLocationOutput(assessmentSection, true);
+            AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, true);
 
             Assert.IsNotNull(assessmentSection.DuneErosion.DuneLocations[1].Calculation.Output);
             CollectionAssert.IsEmpty(affectedObjects);
@@ -340,7 +340,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
         }
 
-        private static void AssertHydraulicBoundaryLocationOutput(AssessmentSection assessmentSection, bool hasOutput)
+        private static void AssertHydraulicBoundaryLocationCalculationOutput(AssessmentSection assessmentSection, bool hasOutput)
         {
             Assert.IsTrue(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput == hasOutput));
             Assert.IsTrue(assessmentSection.WaterLevelCalculationsForSignalingNorm.All(c => c.HasOutput == hasOutput));

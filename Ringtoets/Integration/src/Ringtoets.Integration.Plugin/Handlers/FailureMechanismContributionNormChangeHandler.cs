@@ -57,6 +57,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             this.assessmentSection = assessmentSection;
         }
 
@@ -98,12 +99,12 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                affectedObjects.OfType<ICalculation>().Count());
             }
 
-            affectedObjects.AddRange(ClearAllHydraulicBoundaryLocationOutput());
+            affectedObjects.AddRange(ClearAllHydraulicBoundaryLocationCalculationOutput());
 
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationOutput()
+        private IEnumerable<IObservable> ClearAllHydraulicBoundaryLocationCalculationOutput()
         {
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
 
@@ -112,6 +113,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
                 log.Info(Resources.FailureMechanismContributionNormChangeHandler_Waveheight_and_design_water_level_results_cleared);
                 return affectedObjects;
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }

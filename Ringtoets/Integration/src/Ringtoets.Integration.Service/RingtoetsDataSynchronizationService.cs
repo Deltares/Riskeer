@@ -244,7 +244,7 @@ namespace Ringtoets.Integration.Service
 
             var affectedObjects = new List<IObservable>();
 
-            affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection));
+            affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection));
             affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm));
             affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm));
             affectedObjects.AddRange(RingtoetsCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
@@ -264,14 +264,14 @@ namespace Ringtoets.Integration.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the failure mechanisms.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(IAssessmentSection assessmentSection)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(assessmentSection.GetFailureMechanisms());
+            return ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection.GetFailureMechanisms());
         }
 
         /// <summary>
@@ -280,7 +280,7 @@ namespace Ringtoets.Integration.Service
         /// <param name="failureMechanisms">The failure mechanisms to clear the hydraulic boundary location calculation output for.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(IEnumerable<IFailureMechanism> failureMechanisms)
         {
             if (failureMechanisms == null)
             {

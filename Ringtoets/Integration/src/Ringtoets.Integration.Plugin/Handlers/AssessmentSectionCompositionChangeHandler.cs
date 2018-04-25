@@ -62,6 +62,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
             {
                 throw new ArgumentNullException(nameof(viewCommands));
             }
+
             this.viewCommands = viewCommands;
         }
 
@@ -103,10 +104,11 @@ namespace Ringtoets.Integration.Plugin.Handlers
                                    affectedObjects.OfType<ICalculation>().Count());
                 }
 
-                affectedObjects.AddRange(ClearHydraulicBoundaryLocationOutput(failureMechanismsToClearOutputFor));
+                affectedObjects.AddRange(ClearHydraulicBoundaryLocationCalculationOutput(failureMechanismsToClearOutputFor));
 
                 CloseViewsForIrrelevantFailureMechanisms(GetFailureMechanismsWithRelevancyUpdated(oldFailureMechanismRelevancies));
             }
+
             return affectedObjects;
         }
 
@@ -152,15 +154,16 @@ namespace Ringtoets.Integration.Plugin.Handlers
             return failureMechanismsToClearOutputFor;
         }
 
-        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationOutput(IEnumerable<IFailureMechanism> failureMechanismsToClearOutputFor)
+        private IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(IEnumerable<IFailureMechanism> failureMechanismsToClearOutputFor)
         {
             IEnumerable<IObservable> affectedObjects =
-                RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationOutputOfFailureMechanisms(failureMechanismsToClearOutputFor);
+                RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(failureMechanismsToClearOutputFor);
             if (affectedObjects.Any())
             {
                 log.Info(Resources.AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_results_cleared);
                 return affectedObjects;
             }
+
             return Enumerable.Empty<IObservable>();
         }
     }
