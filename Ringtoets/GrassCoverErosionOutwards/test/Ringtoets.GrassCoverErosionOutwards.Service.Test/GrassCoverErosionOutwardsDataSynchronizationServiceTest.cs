@@ -205,10 +205,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutputs_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearHydraulicBoundaryLocationCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -216,7 +216,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearHydraulicBoundaryLocationCalculationOutputs_FailureMechanismWithOutputs_OutputClearedAndAffectedItemsReturned()
+        public void ClearHydraulicBoundaryLocationCalculationOutput_FailureMechanismWithOutputs_OutputClearedAndAffectedItemsReturned()
         {
             // Setup
             var hydraulicBoundaryLocations = new[]
@@ -239,7 +239,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(failureMechanism);
+            IEnumerable<IObservable> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(failureMechanism);
 
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedItems);

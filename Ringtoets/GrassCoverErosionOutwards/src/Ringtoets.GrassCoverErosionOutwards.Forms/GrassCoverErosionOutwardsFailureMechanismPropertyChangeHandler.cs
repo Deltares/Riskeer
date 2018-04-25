@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
         protected override IEnumerable<IObservable> PropertyChanged(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             var affectedObjects = new List<IObservable>(base.PropertyChanged(failureMechanism));
-            affectedObjects.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(failureMechanism));
+            affectedObjects.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(failureMechanism));
 
             return affectedObjects;
         }

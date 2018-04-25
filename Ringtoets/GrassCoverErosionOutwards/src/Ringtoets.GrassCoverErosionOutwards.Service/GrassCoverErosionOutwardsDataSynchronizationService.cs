@@ -153,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// <param name="failureMechanism">The failure mechanism to clear the hydraulic boundary location calculation output for.</param>
         /// <returns>All objects changed during the clear.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public static IEnumerable<IObservable> ClearHydraulicBoundaryLocationCalculationOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

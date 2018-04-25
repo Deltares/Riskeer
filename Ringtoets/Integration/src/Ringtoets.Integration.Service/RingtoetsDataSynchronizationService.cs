@@ -294,7 +294,7 @@ namespace Ringtoets.Integration.Service
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputs(grassCoverErosionOutwardsFailureMechanism));
+                    changedObservables.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
                 }
 
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
