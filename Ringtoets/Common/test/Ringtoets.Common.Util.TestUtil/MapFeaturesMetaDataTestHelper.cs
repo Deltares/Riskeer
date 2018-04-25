@@ -39,9 +39,9 @@ namespace Ringtoets.Common.Util.TestUtil
         /// <exception cref="AssertionException">Thrown when the value and the respective meta data value associated
         /// with <paramref name="key"/> are not equal.
         /// </exception>
-        public static void AssertHydraulicBoundaryLocationOutputMetaData(string expectedValue,
-                                                                         MapFeature feature,
-                                                                         string key)
+        public static void AssertMetaData(string expectedValue,
+                                          MapFeature feature,
+                                          string key)
         {
             Assert.AreEqual(expectedValue, feature.MetaData[key]);
         }

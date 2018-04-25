@@ -50,29 +50,29 @@ namespace Ringtoets.Common.Util.Test
             MapFeature feature = HydraulicBoundaryLocationMapDataFeaturesFactory.CreateHydraulicBoundaryLocationFeature(location);
 
             // Assert
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForFactorizedSignalingNorm.ToString(),
                 feature, "h(A+->A)");
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForSignalingNorm.ToString(),
                 feature, "h(A->B)");
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForLowerLimitNorm.ToString(),
                 feature, "h(B->C)");
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaterLevelCalculationForFactorizedLowerLimitNorm.ToString(),
                 feature, "h(C->D)");
 
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForFactorizedSignalingNorm.ToString(),
                 feature, "Hs(A+->A)");
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForSignalingNorm.ToString(),
                 feature, "Hs(A->B)");
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForLowerLimitNorm.ToString(),
                 feature, "Hs(B->C)");
-            MapFeaturesMetaDataTestHelper.AssertHydraulicBoundaryLocationOutputMetaData(
+            MapFeaturesMetaDataTestHelper.AssertMetaData(
                 location.WaveHeightCalculationForFactorizedLowerLimitNorm.ToString(),
                 feature, "Hs(C->D)");
         }
