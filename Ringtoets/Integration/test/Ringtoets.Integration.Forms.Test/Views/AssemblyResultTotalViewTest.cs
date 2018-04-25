@@ -167,7 +167,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                     // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                    AssertFailureMechanismRows(assessmentSection, calculator.FailureMechanismAssemblyOutput, dataGridView.Rows);
+                    AssertFailureMechanismRows(assessmentSection,
+                                               calculator.FailureMechanismAssemblyOutput,
+                                               calculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
+                                               dataGridView.Rows);
                 }
             }
         }
@@ -192,16 +195,21 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Precondition
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(assessmentSection, calculator.FailureMechanismAssemblyOutput, rows);
+                AssertFailureMechanismRows(assessmentSection,
+                                           calculator.FailureMechanismAssemblyOutput,
+                                           calculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
+                                           rows);
 
                 // When
                 var newAssemblyResult = new FailureMechanismAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+                var newCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
                 calculator.FailureMechanismAssemblyOutput = newAssemblyResult;
+                calculator.FailureMechanismAssemblyCategoryGroupOutput = newCategoryGroup;
                 var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
                 buttonTester.Click();
 
                 // Then 
-                AssertFailureMechanismRows(assessmentSection, newAssemblyResult, rows);
+                AssertFailureMechanismRows(assessmentSection, newAssemblyResult, newCategoryGroup, rows);
             }
         }
 
@@ -235,7 +243,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
-        private static void AssertFailureMechanismRows(AssessmentSection assessmentSection, FailureMechanismAssembly assemblyOutput, DataGridViewRowCollection rows)
+        private static void AssertFailureMechanismRows(AssessmentSection assessmentSection,
+                                                       FailureMechanismAssembly assemblyOutput,
+                                                       FailureMechanismAssemblyCategoryGroup assemblyCategoryGroup,
+                                                       DataGridViewRowCollection rows)
         {
             Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
 
@@ -249,28 +260,28 @@ namespace Ringtoets.Integration.Forms.Test.Views
             AssertAssemblyRow(macroStabilityInwards, assemblyOutput, rows[2].Cells);
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = assessmentSection.MacroStabilityOutwards;
-            AssertAssemblyRow(macroStabilityOutwards, rows[3].Cells);
+            AssertAssemblyRow(macroStabilityOutwards, assemblyCategoryGroup, rows[3].Cells);
 
             MicrostabilityFailureMechanism microStability = assessmentSection.Microstability;
-            AssertAssemblyRow(microStability, rows[4].Cells);
+            AssertAssemblyRow(microStability, assemblyCategoryGroup, rows[4].Cells);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
-            AssertAssemblyRow(stabilityStoneCover, rows[5].Cells);
+            AssertAssemblyRow(stabilityStoneCover, assemblyCategoryGroup, rows[5].Cells);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
-            AssertAssemblyRow(waveImpactAsphaltCover, rows[6].Cells);
+            AssertAssemblyRow(waveImpactAsphaltCover, assemblyCategoryGroup, rows[6].Cells);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover = assessmentSection.WaterPressureAsphaltCover;
-            AssertAssemblyRow(waterPressureAsphaltCover, rows[7].Cells);
+            AssertAssemblyRow(waterPressureAsphaltCover, assemblyCategoryGroup, rows[7].Cells);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSection.GrassCoverErosionOutwards;
-            AssertAssemblyRow(grassCoverErosionOutwards, rows[8].Cells);
+            AssertAssemblyRow(grassCoverErosionOutwards, assemblyCategoryGroup, rows[8].Cells);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards = assessmentSection.GrassCoverSlipOffOutwards;
-            AssertAssemblyRow(grassCoverSlipOffOutwards, rows[9].Cells);
+            AssertAssemblyRow(grassCoverSlipOffOutwards, assemblyCategoryGroup, rows[9].Cells);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards = assessmentSection.GrassCoverSlipOffInwards;
-            AssertAssemblyRow(grassCoverSlipOffInwards, rows[10].Cells);
+            AssertAssemblyRow(grassCoverSlipOffInwards, assemblyCategoryGroup, rows[10].Cells);
 
             HeightStructuresFailureMechanism heightStructures = assessmentSection.HeightStructures;
             AssertAssemblyRow(heightStructures, assemblyOutput, rows[11].Cells);
@@ -279,19 +290,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
             AssertAssemblyRow(closingStructures, assemblyOutput, rows[12].Cells);
 
             PipingStructureFailureMechanism pipingStructure = assessmentSection.PipingStructure;
-            AssertAssemblyRow(pipingStructure, rows[13].Cells);
+            AssertAssemblyRow(pipingStructure, assemblyCategoryGroup, rows[13].Cells);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
             AssertAssemblyRow(stabilityPointStructures, assemblyOutput, rows[14].Cells);
 
             StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            AssertAssemblyRow(strengthStabilityLengthwiseConstruction, rows[15].Cells);
+            AssertAssemblyRow(strengthStabilityLengthwiseConstruction, assemblyCategoryGroup, rows[15].Cells);
 
             DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
-            AssertAssemblyRow(duneErosion, rows[16].Cells);
+            AssertAssemblyRow(duneErosion, assemblyCategoryGroup, rows[16].Cells);
 
             TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
-            AssertAssemblyRow(technicalInnovation, rows[17].Cells);
+            AssertAssemblyRow(technicalInnovation, assemblyCategoryGroup, rows[17].Cells);
         }
 
         private static void AssertAssemblyRow(IFailureMechanism failureMechanism, DataGridViewCellCollection row)
@@ -312,6 +323,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(assemblyOutput.Group, row[failureMechanismAssemblyCategoryColumnIndex].Value);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(assemblyOutput.Probability),
                             row[failureMechanisProbabilityColumnIndex].FormattedValue);
+        }
+
+        private static void AssertAssemblyRow(IFailureMechanism failureMechanism,
+                                              FailureMechanismAssemblyCategoryGroup categoryGroup,
+                                              DataGridViewCellCollection row)
+        {
+            AssertAssemblyRow(failureMechanism, row);
+
+            Assert.AreEqual(categoryGroup, row[failureMechanismAssemblyCategoryColumnIndex].Value);
+            Assert.AreEqual("-", row[failureMechanisProbabilityColumnIndex].FormattedValue);
         }
     }
 }
