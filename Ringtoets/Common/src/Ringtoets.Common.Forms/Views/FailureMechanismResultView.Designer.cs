@@ -37,48 +37,13 @@ namespace Ringtoets.Common.Forms.Views
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.infoIcon = new System.Windows.Forms.PictureBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.tableLayoutPanel.SuspendLayout();
+            this.TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.infoIcon = new System.Windows.Forms.PictureBox();
+            this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.TableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.infoIcon)).BeginInit();
             this.SuspendLayout();
-            // 
-            // DataGridViewControl
-            // 
-            this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewControl.Location = new System.Drawing.Point(0, 30);
-            this.DataGridViewControl.MultiSelect = true;
-            this.DataGridViewControl.Name = "DataGridViewControl";
-            this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.DataGridViewControl.Size = new System.Drawing.Size(522, 120);
-            this.DataGridViewControl.TabIndex = 0;
-            // 
-            // tableLayoutPanel
-            // 
-            this.tableLayoutPanel.ColumnCount = 2;
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel.Controls.Add(this.infoIcon, 1, 0);
-            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 1;
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(522, 30);
-            this.tableLayoutPanel.TabIndex = 1;
-            // 
-            // infoIcon
-            // 
-            this.infoIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.infoIcon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.infoIcon.Location = new System.Drawing.Point(499, 7);
-            this.infoIcon.Margin = new System.Windows.Forms.Padding(7);
-            this.infoIcon.Name = "infoIcon";
-            this.infoIcon.Size = new System.Drawing.Size(16, 16);
-            this.infoIcon.TabIndex = 0;
-            this.infoIcon.TabStop = false;
             // 
             // toolTip
             // 
@@ -86,15 +51,48 @@ namespace Ringtoets.Common.Forms.Views
             this.toolTip.InitialDelay = 100;
             this.toolTip.ReshowDelay = 100;
             // 
+            // TableLayoutPanel
+            // 
+            this.TableLayoutPanel.ColumnCount = 2;
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TableLayoutPanel.Controls.Add(this.infoIcon, 1, 0);
+            this.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TableLayoutPanel.Location = new System.Drawing.Point(0, 0);
+            this.TableLayoutPanel.Name = "TableLayoutPanel";
+            this.TableLayoutPanel.RowCount = 1;
+            this.TableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.TableLayoutPanel.Size = new System.Drawing.Size(0, 30);
+            // 
+            // infoIcon
+            // 
+            this.infoIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.infoIcon.Dock = System.Windows.Forms.DockStyle.Right;
+            this.infoIcon.Location = new System.Drawing.Point(815, 7);
+            this.infoIcon.Margin = new System.Windows.Forms.Padding(7);
+            this.infoIcon.Name = "infoIcon";
+            this.infoIcon.Size = new System.Drawing.Size(16, 16);
+            // 
+            // DataGridViewControl
+            // 
+            this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewControl.MultiSelect = true;
+            this.DataGridViewControl.Name = "DataGridViewControl";
+            this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.DataGridViewControl.TabIndex = 0;
+            // 
             // FailureMechanismResultView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoScrollMinSize = new System.Drawing.Size(500, 0);
             this.Controls.Add(this.DataGridViewControl);
-            this.Controls.Add(this.tableLayoutPanel);
+            this.Controls.Add(this.TableLayoutPanel);
             this.Name = "FailureMechanismResultView";
-            this.Size = new System.Drawing.Size(522, 150);
-            this.tableLayoutPanel.ResumeLayout(false);
+            this.TableLayoutPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.infoIcon)).EndInit();
             this.ResumeLayout(false);
 
@@ -103,8 +101,8 @@ namespace Ringtoets.Common.Forms.Views
         #endregion
 
         protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.PictureBox infoIcon;
         private System.Windows.Forms.ToolTip toolTip;
+        protected System.Windows.Forms.TableLayoutPanel TableLayoutPanel;
+        private System.Windows.Forms.PictureBox infoIcon;
     }
 }

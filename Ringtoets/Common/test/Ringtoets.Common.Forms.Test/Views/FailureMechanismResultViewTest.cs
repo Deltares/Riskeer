@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(2, view.Controls.Count);
 
-                var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
+                var tableLayoutPanel = (TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject;
                 Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(1, tableLayoutPanel.RowCount);
                 Assert.IsInstanceOf<PictureBox>(tableLayoutPanel.GetControlFromPosition(1, 0));
@@ -87,6 +87,8 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
+
+                Assert.IsTrue(view.AssemblyResultUpdated);
             }
         }
 
@@ -164,7 +166,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewInvalidated()
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultUpdated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -179,6 +181,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var invalidated = false;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
+                view.AssemblyResultUpdated = false;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
@@ -188,6 +191,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Then
                 Assert.IsTrue(invalidated);
+                Assert.IsTrue(view.AssemblyResultUpdated);
             }
         }
 
@@ -213,7 +217,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenDataGridViewInvalidated()
+        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultUpdated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -223,20 +227,23 @@ namespace Ringtoets.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var invalidated = false;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
+                view.AssemblyResultUpdated = false;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
+                Assert.IsFalse(view.AssemblyResultUpdated);
 
                 // When
                 sectionResult.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(invalidated);
+                Assert.IsTrue(view.AssemblyResultUpdated);
             }
         }
 
@@ -275,7 +282,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenRowUpdatedEventFiredAndSectionResultNotified_ThenRowNotUpdatedAndViewInvalidated()
+        public void GivenFailureMechanismResultView_WhenRowUpdatedEventFiredAndSectionResultNotified_ThenRowNotUpdatedAndViewInvalidatedAndAssemblyResultUpdated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -285,12 +292,13 @@ namespace Ringtoets.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
                 var invalidated = false;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
+                view.AssemblyResultUpdated = false;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
@@ -304,6 +312,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Then
                 Assert.IsTrue(invalidated);
                 Assert.IsFalse(row.Updated);
+                Assert.IsTrue(view.AssemblyResultUpdated);
             }
         }
 
@@ -387,6 +396,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
                 : base(failureMechanismSectionResults, failureMechanism) {}
 
+            public bool AssemblyResultUpdated { get; set; }
+
             protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
             {
                 return new TestRow(sectionResult);
@@ -395,6 +406,11 @@ namespace Ringtoets.Common.Forms.Test.Views
             protected override void AddDataGridColumns()
             {
                 DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
+            }
+
+            protected override void UpdateFailureMechanismAssemblyResult()
+            {
+                AssemblyResultUpdated = true;
             }
         }
 

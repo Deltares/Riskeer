@@ -26,10 +26,10 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -97,12 +97,6 @@ namespace Ringtoets.Common.Forms.Views
             };
         }
 
-        private void InitializeInfoIcon()
-        {
-            infoIcon.BackgroundImage = CoreCommonGuiResources.information;
-            toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
-        }
-
         /// <summary>
         /// Gets the failure mechanism.
         /// </summary>
@@ -118,6 +112,7 @@ namespace Ringtoets.Common.Forms.Views
             DataGridViewControl.CellFormatting += HandleCellStyling;
 
             UpdateDataGridViewDataSource();
+            UpdateFailureMechanismAssemblyResult();
         }
 
         /// <summary>
@@ -174,6 +169,17 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected abstract void AddDataGridColumns();
 
+        /// <summary>
+        /// Updates the failure mechanism assembly result
+        /// </summary>
+        protected virtual void UpdateFailureMechanismAssemblyResult() {}
+
+        private void InitializeInfoIcon()
+        {
+            infoIcon.BackgroundImage = CoreCommonGuiResources.information;
+            toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
+        }
+
         private void RemoveSectionResultRowEvents()
         {
             sectionResultRows?.ForEachElementDo(row =>
@@ -192,6 +198,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             rowUpdating = true;
             DataGridViewControl.RefreshDataGridView();
+            UpdateFailureMechanismAssemblyResult();
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
@@ -208,6 +215,8 @@ namespace Ringtoets.Common.Forms.Views
 
             sectionResultRows.ForEachElementDo(row => row.Update());
             DataGridViewControl.RefreshDataGridView();
+
+            UpdateFailureMechanismAssemblyResult();
         }
     }
 }
