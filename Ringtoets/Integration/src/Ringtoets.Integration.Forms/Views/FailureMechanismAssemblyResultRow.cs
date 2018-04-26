@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 CategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
                 Probablity = double.NaN;
-                ColumnStateDefinitions[CategoryIndex].ErrorText = e.Message;
+                GetCategoryGroupColumnStateDefinition().ErrorText = e.Message;
             }
         }
     }

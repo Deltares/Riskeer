@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -36,7 +38,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public abstract class FailureMechanismAssemblyResultRowBase
     {
-        protected const int CategoryIndex = 3;
+        private const int categoryIndex = 3;
         private readonly IFailureMechanism failureMechanism;
 
         /// <summary>
@@ -114,6 +116,8 @@ namespace Ringtoets.Integration.Forms.Views
         {
             ResetErrorTexts();
             TryGetDerivedData();
+
+            SetCategoryGroupColumnStateDefinition();
         }
 
         /// <summary>
@@ -121,9 +125,20 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         protected abstract void TryGetDerivedData();
 
+        protected DataGridViewColumnStateDefinition GetCategoryGroupColumnStateDefinition()
+        {
+            return ColumnStateDefinitions[categoryIndex];
+        }
+
+        private void SetCategoryGroupColumnStateDefinition()
+        {
+            GetCategoryGroupColumnStateDefinition().Style = new CellStyle(
+                Color.FromKnownColor(KnownColor.ControlText), AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(CategoryGroup));
+        }
+
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(CategoryIndex, new DataGridViewColumnStateDefinition
+            ColumnStateDefinitions.Add(categoryIndex, new DataGridViewColumnStateDefinition
             {
                 ReadOnly = true
             });
@@ -131,7 +146,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void ResetErrorTexts()
         {
-            ColumnStateDefinitions[CategoryIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[categoryIndex].ErrorText = string.Empty;
         }
     }
 }

@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -81,6 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(1, columnStateDefinitions.Count);
             FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, categoryIndex);
+            Assert.IsTrue(columnStateDefinitions[categoryIndex].ReadOnly);
 
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
@@ -112,7 +114,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 }
 
                 throw new AssemblyException(exceptionMessage);
-            }; 
+            };
 
             var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, getFailureMechanismAssembly);
 
@@ -168,6 +170,27 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.FailureMechanismAssemblyCategoryGroupColorCases))]
+        public void GivenRow_WhenUpdating_ThenCategoryColumnStateDefinitionSet(FailureMechanismAssemblyCategoryGroup categoryGroup,
+                                                                               Color expectedBackgroundColor)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, () => categoryGroup);
+            // When
+            row.Update();
+
+            // Then
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(columnStateDefinitions[categoryIndex],
+                                                                                  expectedBackgroundColor);
+        }
+
+        [Test]
         public void GivenValidRow_WhenUpdating_ThenColumnStyleAndReadOnlyRemainsUnchanged()
         {
             // Given
@@ -180,19 +203,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, () => failureMechanismAssemblyCategoryGroup);
 
-            // Precondition
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[categoryIndex],
-                                                                         true,
-                                                                         true);
-
             // When 
             row.Update();
 
             // Then
-            FailureMechanismSectionResultRowTestHelper.AssertColumnState(columnStateDefinitions[categoryIndex],
-                                                                         true,
-                                                                         true);
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.IsTrue(columnStateDefinitions[categoryIndex].ReadOnly);
         }
     }
 }

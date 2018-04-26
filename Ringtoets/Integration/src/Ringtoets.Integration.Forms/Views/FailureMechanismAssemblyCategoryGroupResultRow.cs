@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Views
             catch (AssemblyException e)
             {
                 CategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
-                ColumnStateDefinitions[CategoryIndex].ErrorText = e.Message;
+                GetCategoryGroupColumnStateDefinition().ErrorText = e.Message;
             }
         }
     }

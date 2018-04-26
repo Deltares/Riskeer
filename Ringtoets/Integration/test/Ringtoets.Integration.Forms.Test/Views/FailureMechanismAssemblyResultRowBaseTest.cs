@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -91,18 +92,37 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRow_WhenUpdateCalled_ThenColumnStateDefinitionErrorTextClearedAndTryGetDerivedDataExecuted()
+        public void GetCategoryGroupColumnStateDefinition_Always_ReturnsColumnStateDefinition()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var row = new TestFailureMechanismAssemblyResultRow(failureMechanism);
+
+            // Call
+            DataGridViewColumnStateDefinition columnStateDefinition = row.GetCategoryGrouColumnStateDefinition();
+
+            // Assert
+            Assert.AreSame(row.ColumnStateDefinitions[categoryIndex], columnStateDefinition);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.FailureMechanismAssemblyCategoryGroupColorCases))]
+        public void GivenRow_WhenUpdating_ThenCategoryColumnStateDefinitionSet(FailureMechanismAssemblyCategoryGroup categoryGroup,
+                                                                               Color expectedBackgroundColor)
         {
             // Given
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var row = new TestFailureMechanismAssemblyResultRow(failureMechanism);
+            var row = new TestFailureMechanismAssemblyResultRow(failureMechanism, categoryGroup);
             row.ColumnStateDefinitions[categoryIndex].ErrorText = "An error text";
 
             // Precondition 
-            Assert.IsFalse(row.TryGetDerivedDataExecuted); 
+            Assert.IsFalse(row.TryGetDerivedDataExecuted);
 
             // When
             row.Update();
@@ -110,6 +130,53 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Then
             Assert.IsEmpty(row.ColumnStateDefinitions[categoryIndex].ErrorText);
             Assert.IsTrue(row.TryGetDerivedDataExecuted);
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(columnStateDefinitions[categoryIndex],
+                                                                                  expectedBackgroundColor);
+        }
+
+        [Test]
+        public void GivenRow_WhenUpdating_ThenTryDerivedDataExecuted()
+        {
+            // Given
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var row = new TestFailureMechanismAssemblyResultRow(failureMechanism, random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+
+            // Precondition 
+            Assert.IsFalse(row.TryGetDerivedDataExecuted);
+
+            // When
+            row.Update();
+
+            // Then
+            Assert.IsTrue(row.TryGetDerivedDataExecuted);
+        }
+
+        [Test]
+        public void GivenRowWithError_WhenUpdating_ClearsErrorText()
+        {
+            // Given
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var row = new TestFailureMechanismAssemblyResultRow(failureMechanism, random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            row.ColumnStateDefinitions[categoryIndex].ErrorText = "An error text";
+
+            // When
+            row.Update();
+
+            // Then
+            Assert.IsEmpty(row.ColumnStateDefinitions[categoryIndex].ErrorText);
         }
 
         private class TestFailureMechanismAssemblyResultRow : FailureMechanismAssemblyResultRowBase
@@ -117,6 +184,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
             public bool TryGetDerivedDataExecuted { get; private set; }
 
             public TestFailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism) : base(failureMechanism) {}
+
+            public TestFailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
+                                                         FailureMechanismAssemblyCategoryGroup categoryGroup)
+                : base(failureMechanism)
+            {
+                CategoryGroup = categoryGroup;
+            }
+
+            public DataGridViewColumnStateDefinition GetCategoryGrouColumnStateDefinition()
+            {
+                return GetCategoryGroupColumnStateDefinition();
+            }
 
             protected override void TryGetDerivedData()
             {
