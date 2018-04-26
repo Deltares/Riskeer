@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 
 namespace Ringtoets.Common.Forms.Controls
@@ -34,6 +35,21 @@ namespace Ringtoets.Common.Forms.Controls
         public FailureMechanismAssemblyResultControl()
         {
             InitializeComponent();
+        }
+
+        public void ClearError()
+        {
+            ErrorProvider.SetError(this, string.Empty);
+        }
+
+        public void SetError(string error)
+        {
+            if (error == null)
+            {
+                throw new ArgumentNullException(nameof(error));
+            }
+
+            ErrorProvider.SetError(this, error);
         }
     }
 }

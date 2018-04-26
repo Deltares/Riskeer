@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Controls;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Test.Controls
 {
@@ -37,18 +40,75 @@ namespace Ringtoets.Common.Forms.Test.Controls
             var resultControl = new FailureMechanismAssemblyResultControl();
 
             // Assert
+            Assert.AreEqual(1, resultControl.Controls.Count);
             Assert.IsInstanceOf<UserControl>(resultControl);
             Assert.IsTrue(resultControl.AutoSize);
-            Assert.IsInstanceOf<BoxedLabel>(resultControl.GroupLabel);
-            Assert.IsTrue(resultControl.GroupLabel.AutoSize);
-            Assert.AreEqual(DockStyle.Fill, resultControl.GroupLabel.Dock);
-            Assert.AreEqual(new Padding(5, 0, 5, 0), resultControl.GroupLabel.Padding);
 
-            var description = TypeUtils.GetField<Label>(resultControl, "description");
+            var groupPanel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
+            Assert.AreEqual(2, groupPanel.ColumnCount);
+            Assert.AreEqual(1, groupPanel.RowCount);
+
+            var description = (Label) groupPanel.GetControlFromPosition(0, 0);
             Assert.IsTrue(description.AutoSize);
             Assert.AreEqual(DockStyle.Fill, description.Dock);
             Assert.AreEqual(ContentAlignment.MiddleLeft, description.TextAlign);
             Assert.AreEqual("Assemblageresultaat voor dit toetsspoor:", description.Text);
+
+            var groupLabel = (BoxedLabel) groupPanel.GetControlFromPosition(1, 0);
+            Assert.IsTrue(groupLabel.AutoSize);
+            Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
+            Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
+
+            ErrorProvider errorProvider = GetErrorProvider(resultControl);
+            TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
+        }
+
+        [Test]
+        public void SetError_ErrorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var resultControl = new FailureMechanismAssemblyResultControl();
+
+            // Call
+            TestDelegate test = () => resultControl.SetError(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("error", exception.ParamName);
+        }
+
+        [Test]
+        public void SetError_WithError_SetsErrorOnControl()
+        {
+            // Setup
+            const string error = "random error 123";
+            var resultControl = new FailureMechanismAssemblyResultControl();
+
+            // Call
+            resultControl.SetError(error);
+
+            // Assert
+            ErrorProvider errorProvider = GetErrorProvider(resultControl);
+            Assert.AreEqual(error, errorProvider.GetError(resultControl));
+        }
+
+        [Test]
+        public void ClearError_ClearsErrorOnControl()
+        {
+            // Setup
+            var resultControl = new FailureMechanismAssemblyResultControl();
+
+            // Call
+            resultControl.ClearError();
+
+            // Assert
+            ErrorProvider errorProvider = GetErrorProvider(resultControl);
+            Assert.AreEqual(string.Empty, errorProvider.GetError(resultControl));
+        }
+
+        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyResultControl resultControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
         }
     }
 }

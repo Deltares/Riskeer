@@ -51,11 +51,14 @@ namespace Ringtoets.Common.Forms.Controls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismAssemblyResultControl));
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
             this.description = new System.Windows.Forms.Label();
             this.GroupLabel = new Ringtoets.Common.Forms.Controls.BoxedLabel();
+            this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // GroupPanel
@@ -76,6 +79,11 @@ namespace Ringtoets.Common.Forms.Controls
             this.GroupLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.GroupLabel.Name = "GroupLabel";
             // 
+            // ErrorProvider
+            // 
+            this.ErrorProvider.ContainerControl = this;
+            this.ErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
+            // 
             // FailureMechanismAssemblyResultControl
             // 
             resources.ApplyResources(this, "$this");
@@ -84,14 +92,16 @@ namespace Ringtoets.Common.Forms.Controls
             this.Name = "FailureMechanismAssemblyResultControl";
             this.GroupPanel.ResumeLayout(false);
             this.GroupPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        public BoxedLabel GroupLabel;
         private System.Windows.Forms.Label description;
         protected System.Windows.Forms.TableLayoutPanel GroupPanel;
+        protected BoxedLabel GroupLabel;
+        protected System.Windows.Forms.ErrorProvider ErrorProvider;
     }
 }
