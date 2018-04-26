@@ -28,28 +28,32 @@ using Ringtoets.Common.Plugin.TestUtil;
 namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
-    public class RingtoetsPluginHelperTest : ShouldCloseViewWithCalculationDataTester
+    public class RingtoetsPluginHelperTest
     {
-        protected override bool ShouldCloseMethod(IView view, object o)
+        [TestFixture]
+        public class ShouldCloseViewWithCalculationDataTest : ShouldCloseViewWithCalculationDataTester
         {
-            return RingtoetsPluginHelper.ShouldCloseViewWithCalculationData(view, o);
-        }
-
-        protected override IView GetView(ICalculation data)
-        {
-            return new TestView
+            protected override bool ShouldCloseMethod(IView view, object o)
             {
-                Data = data
-            };
-        }
+                return RingtoetsPluginHelper.ShouldCloseViewWithCalculationData(view, o);
+            }
 
-        private class TestView : IView
-        {
-            public object Data { get; set; }
+            protected override IView GetView(ICalculation data)
+            {
+                return new TestView
+                {
+                    Data = data
+                };
+            }
 
-            public string Text { get; set; }
+            private class TestView : IView
+            {
+                public object Data { get; set; }
 
-            public void Dispose() {}
+                public string Text { get; set; }
+
+                public void Dispose() {}
+            }
         }
     }
 }
