@@ -147,18 +147,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Assert
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
 
-                Assert.AreEqual(sections.Length, sectionsTable.Rows.Count);
-
-                for (var i = 0; i < sectionsTable.Rows.Count; i++)
-                {
-                    FailureMechanismSection section = sections[i];
-                    DataGridViewCellCollection rowCells = sectionsTable.Rows[i].Cells;
-
-                    Assert.AreEqual(section.Name, rowCells[nameColumnIndex].Value);
-
-                    var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
-                    Assert.AreEqual(section.Length, sectionLength, sectionLength.GetAccuracy());
-                }
+                AssertSectionsTable(sections, sectionsTable);
             }
 
             mocks.VerifyAll();
@@ -176,15 +165,25 @@ namespace Ringtoets.Common.Forms.Test.Views
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
 
                 // Precondition
-                Assert.AreEqual(1, sectionsTable.Rows.Count);
+                AssertSectionsTable(failureMechanism.Sections.ToArray(), sectionsTable);
 
                 // When
                 failureMechanism.AddSection(CreateFailureMechanismSection("b"));
                 failureMechanism.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(2, sectionsTable.Rows.Count);
+                AssertSectionsTable(failureMechanism.Sections.ToArray(), sectionsTable);
             }
+        }
+
+        private static FailureMechanismSection CreateFailureMechanismSection(string name)
+        {
+            var random = new Random(39);
+
+            return new FailureMechanismSection(name, new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
         }
 
         private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsView view)
@@ -192,13 +191,20 @@ namespace Ringtoets.Common.Forms.Test.Views
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsTable").Single();
         }
 
-        private static FailureMechanismSection CreateFailureMechanismSection(string name)
+        private static void AssertSectionsTable(FailureMechanismSection[] sections, DataGridViewControl sectionsTable)
         {
-            var random = new Random(39);
-            return new FailureMechanismSection(name, new[]
+            Assert.AreEqual(sections.Length, sectionsTable.Rows.Count);
+
+            for (var i = 0; i < sectionsTable.Rows.Count; i++)
             {
-                new Point2D(random.NextDouble(), random.NextDouble())
-            });
+                FailureMechanismSection section = sections[i];
+                DataGridViewCellCollection rowCells = sectionsTable.Rows[i].Cells;
+
+                Assert.AreEqual(section.Name, rowCells[nameColumnIndex].Value);
+
+                var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
+                Assert.AreEqual(section.Length, sectionLength, sectionLength.GetAccuracy());
+            }
         }
     }
 }
