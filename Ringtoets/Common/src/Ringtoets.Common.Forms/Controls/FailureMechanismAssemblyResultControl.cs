@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
@@ -49,12 +50,12 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         /// <summary>
-        /// Sets the error message of the control.
+        /// Sets the error message of the control and clears its values.
         /// </summary>
         /// <param name="error">The error message to set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="error"/>
         /// is <c>null</c>.</exception>
-        public void SetError(string error)
+        public virtual void SetError(string error)
         {
             if (error == null)
             {
@@ -62,6 +63,8 @@ namespace Ringtoets.Common.Forms.Controls
             }
 
             ErrorProvider.SetError(this, error);
+            GroupLabel.Text = string.Empty;
+            GroupLabel.BackColor = Color.White;
         }
 
         /// <summary>

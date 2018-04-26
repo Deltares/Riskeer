@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void SetAssemblyResult_WithAssembly_SetsValuesOnControl()
+        public void SetAssemblyResult_WithAssembly_SetsValues()
         {
             // Setup
             var random = new Random(39);
@@ -128,10 +128,14 @@ namespace Ringtoets.Common.Forms.Test.Controls
             // Assert
             ErrorProvider errorProvider = GetErrorProvider(resultControl);
             Assert.AreEqual(error, errorProvider.GetError(resultControl));
+
+            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
+            Assert.AreEqual(string.Empty, groupLabel.Text);
+            Assert.AreEqual(Color.White, groupLabel.BackColor);
         }
 
         [Test]
-        public void ClearError_ClearsErrorOnControl()
+        public void ClearError_Always_ClearsErrorOnControl()
         {
             // Setup
             var resultControl = new FailureMechanismAssemblyResultControl();

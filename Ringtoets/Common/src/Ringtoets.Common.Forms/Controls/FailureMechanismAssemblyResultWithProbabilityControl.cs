@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Controls
@@ -42,6 +43,12 @@ namespace Ringtoets.Common.Forms.Controls
             base.SetAssemblyResult(assembly);
 
             probabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability);
+        }
+
+        public override void SetError(string error)
+        {
+            base.SetError(error);
+            probabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
         }
     }
 }

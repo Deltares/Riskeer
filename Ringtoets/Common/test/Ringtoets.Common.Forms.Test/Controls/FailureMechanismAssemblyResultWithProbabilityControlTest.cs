@@ -115,6 +115,41 @@ namespace Ringtoets.Common.Forms.Test.Controls
                             probabilityLabel.Text);
         }
 
+        [Test]
+        public void SetError_ErrorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var resultControl = new FailureMechanismAssemblyResultControl();
+
+            // Call
+            TestDelegate test = () => resultControl.SetError(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("error", exception.ParamName);
+        }
+
+        [Test]
+        public void SetError_WithError_SetsErrorOnControl()
+        {
+            // Setup
+            const string error = "random error 123";
+            var resultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+
+            // Call
+            resultControl.SetError(error);
+
+            // Assert
+            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
+            Assert.AreEqual(error, errorProvider.GetError(resultControl));
+
+            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
+            Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
+            Assert.AreEqual(string.Empty, groupLabel.Text);
+            Assert.AreEqual(Color.White, groupLabel.BackColor);
+            Assert.AreEqual("-", probabilityLabel.Text);
+        }
+
         private static TableLayoutPanel GetProbabilityPanel(FailureMechanismAssemblyResultWithProbabilityControl resultControl)
         {
             return TypeUtils.GetField<TableLayoutPanel>(resultControl, "probabilityPanel");
