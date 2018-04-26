@@ -219,6 +219,9 @@
     <Compile Include="Views\GeneralResultFaultTreeIllustrationPointView.Designer.cs">
       <DependentUpon>GeneralResultFaultTreeIllustrationPointView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\LengthEffectAwareFailureMechanismSectionsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

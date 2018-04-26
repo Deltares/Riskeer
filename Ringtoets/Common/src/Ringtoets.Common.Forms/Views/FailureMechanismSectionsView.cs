@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
@@ -72,8 +73,6 @@ namespace Ringtoets.Common.Forms.Views
 
             this.sections = sections;
             FailureMechanism = failureMechanism;
-
-            UpdateTableData();
         }
 
         /// <summary>
@@ -83,10 +82,11 @@ namespace Ringtoets.Common.Forms.Views
 
         public object Data { get; set; }
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if managed resources should be disposed; otherwise, <c>false</c>.</param>
+        protected override void OnLoad(EventArgs e)
+        {
+            UpdateTableData();
+        }
+
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
@@ -99,9 +99,20 @@ namespace Ringtoets.Common.Forms.Views
             base.Dispose(disposing);
         }
 
-        private void UpdateTableData()
+        /// <summary>
+        /// Updates the data in the failure mechanism sections table.
+        /// </summary>
+        /// <param name="dataGridViewControl">The failure mechanism sections table to update.</param>
+        /// <param name="failureMechanismSections">The failure mechanism sections to show in the failure mechanism sections table.</param>
+        protected virtual void UpdateTableData(DataGridViewControl dataGridViewControl,
+                                               IEnumerable<FailureMechanismSection> failureMechanismSections)
         {
             failureMechanismSectionsTable.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+        }
+
+        private void UpdateTableData()
+        {
+            UpdateTableData(failureMechanismSectionsTable, sections);
         }
     }
 }
