@@ -817,7 +817,7 @@ JOIN (
 );
 
 -- Create a lookup table to match the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism
--- with the Hydraulic Boundary Locations in the Assessment Section level, because hte primary keys of the 
+-- with the Hydraulic Boundary Locations in the Assessment Section level, because the primary keys of the 
 -- Hydraulic Boundary Locations between these two levels might differ. 
 -- The translation between the Hydraulic Boundary Locations is based on the LocationID (which is assumed to be unique
 -- for every Hydraulic Boundary Location) and the AssessmentSection (which is necessary because multiple assessment 
