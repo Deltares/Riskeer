@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Ringtoets.AssemblyTool.Data.Properties;
+
 namespace Ringtoets.AssemblyTool.Data
 {
     /// <summary>
@@ -26,14 +29,31 @@ namespace Ringtoets.AssemblyTool.Data
     /// </summary>
     public enum FailureMechanismAssemblyCategoryGroup
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_None_DisplayName))]
         None = 1,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_NotApplicable_DisplayName))]
         NotApplicable = 2,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_It_DisplayName))]
         It = 3,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_IIt_DisplayName))]
         IIt = 4,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_IIIt_DisplayName))]
         IIIt = 5,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_IVt_DisplayName))]
         IVt = 6,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_Vt_DisplayName))]
         Vt = 7,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_VIt_DisplayName))]
         VIt = 8,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_VIIt_DisplayName))]
         VIIt = 9
     }
 }

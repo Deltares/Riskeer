@@ -143,5 +143,86 @@ namespace Ringtoets.AssemblyTool.Data.Properties {
                 return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_None_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIIt.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_IIIt_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_IIIt_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIt.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_IIt_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_IIt_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_It_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_It_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IVt.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_IVt_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_IVt_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_None_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_None_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_NotApplicable_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIIt.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_VIIt_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_VIIt_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIt.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_VIt_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_VIt_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vt.
+        /// </summary>
+        internal static string FailureMechanismAssemblyCategoryGroup_Vt_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoryGroup_Vt_DisplayName", resourceCulture);
+            }
+        }
     }
 }

@@ -26,13 +26,13 @@ using NUnit.Framework;
 namespace Ringtoets.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCategoryGroupTest : EnumValuesTestFixture<FailureMechanismAssemblyCategoryGroup, int>
+    public class FailureMechanismAssemblyCategoryGroupTest : EnumWithDisplayNameTestFixture<FailureMechanismAssemblyCategoryGroup>
     {
-        protected override IDictionary<FailureMechanismAssemblyCategoryGroup, int> ExpectedValueForEnumValues
+        protected override IDictionary<FailureMechanismAssemblyCategoryGroup, byte> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<FailureMechanismAssemblyCategoryGroup, int>
+                return new Dictionary<FailureMechanismAssemblyCategoryGroup, byte>
                 {
                     {
                         FailureMechanismAssemblyCategoryGroup.None, 1
@@ -60,6 +60,43 @@ namespace Ringtoets.AssemblyTool.Data.Test
                     },
                     {
                         FailureMechanismAssemblyCategoryGroup.VIIt, 9
+                    }
+                };
+            }
+        }
+
+        protected override IDictionary<FailureMechanismAssemblyCategoryGroup, string> ExpectedDisplayNameForEnumValues
+        {
+            get
+            {
+                return new Dictionary<FailureMechanismAssemblyCategoryGroup, string>
+                {
+                    {
+                        FailureMechanismAssemblyCategoryGroup.None, ""
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.NotApplicable, "-"
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.It, "It"
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.IIt, "IIt"
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.IIIt, "IIIt"
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.IVt, "IVt"
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.Vt, "Vt"
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.VIt, "VIt"
+                    },
+                    {
+                        FailureMechanismAssemblyCategoryGroup.VIIt, "VIIt"
                     }
                 };
             }
