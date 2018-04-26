@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
@@ -36,8 +35,9 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public partial class FailureMechanismSectionsView : UserControl, IView
     {
+        protected readonly IEnumerable<FailureMechanismSection> sections;
+
         private readonly Observer failureMechanismObserver;
-        private readonly IEnumerable<FailureMechanismSection> sections;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
@@ -102,17 +102,9 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Updates the data in the failure mechanism sections table.
         /// </summary>
-        /// <param name="dataGridViewControl">The failure mechanism sections table to update.</param>
-        /// <param name="failureMechanismSections">The failure mechanism sections to show in the failure mechanism sections table.</param>
-        protected virtual void UpdateTableData(DataGridViewControl dataGridViewControl,
-                                               IEnumerable<FailureMechanismSection> failureMechanismSections)
+        protected virtual void UpdateTableData()
         {
             failureMechanismSectionsTable.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
-        }
-
-        private void UpdateTableData()
-        {
-            UpdateTableData(failureMechanismSectionsTable, sections);
         }
     }
 }

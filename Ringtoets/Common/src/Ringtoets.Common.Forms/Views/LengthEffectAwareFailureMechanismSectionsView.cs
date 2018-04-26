@@ -56,10 +56,9 @@ namespace Ringtoets.Common.Forms.Views
             this.getLengthEffectFunc = getLengthEffectFunc;
         }
 
-        protected override void UpdateTableData(DataGridViewControl dataGridViewControl,
-                                                IEnumerable<FailureMechanismSection> sections)
+        protected override void UpdateTableData()
         {
-            dataGridViewControl.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+            failureMechanismSectionsTable.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
         }
     }
 }

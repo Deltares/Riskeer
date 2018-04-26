@@ -23,7 +23,6 @@ namespace Ringtoets.Common.Forms.Views
 {
     partial class FailureMechanismSectionsView
     {
-
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -57,9 +56,8 @@ namespace Ringtoets.Common.Forms.Views
 
         }
 
-
         #endregion
 
-        private Core.Common.Controls.DataGrid.DataGridViewControl failureMechanismSectionsTable;
+        protected Core.Common.Controls.DataGrid.DataGridViewControl failureMechanismSectionsTable;
     }
 }
