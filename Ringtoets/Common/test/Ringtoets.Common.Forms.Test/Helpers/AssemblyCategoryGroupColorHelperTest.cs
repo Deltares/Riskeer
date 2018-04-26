@@ -79,5 +79,30 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             // Assert
             Assert.AreEqual(expectedColor, color);
         }
+
+        [Test]
+        public void GetFailureMechanismAssemblyCategoryGroupColor_WithInvalidFailureMechanismSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(
+                (FailureMechanismAssemblyCategoryGroup)99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'FailureMechanismAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.FailureMechanismAssemblyCategoryGroupColorCases))]
+        public void GetFailureMechanismAssemblyCategoryGroupColor_WithFailureMechanismSectionAssemblyCategoryGroup_ReturnsExpectedColor(
+            FailureMechanismAssemblyCategoryGroup assemblyCategoryGroup, Color expectedColor)
+        {
+            // Call
+            Color color = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assemblyCategoryGroup);
+
+            // Assert
+            Assert.AreEqual(expectedColor, color);
+        }
+
     }
 }

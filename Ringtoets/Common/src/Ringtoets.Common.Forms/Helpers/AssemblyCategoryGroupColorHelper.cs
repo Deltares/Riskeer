@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.Helpers
         }
 
         /// <summary>
-        /// Gets the color for a failure mechanism assembly category group.
+        /// Gets the color for a failure mechanism section assembly category group.
         /// </summary>
         /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
         /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
@@ -105,6 +105,47 @@ namespace Ringtoets.Common.Forms.Helpers
                 case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
                 case FailureMechanismSectionAssemblyCategoryGroup.None:
                 case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
+                    return Color.FromArgb(255, 255, 255);
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Gets the color for a failure mechanism assembly category group.
+        /// </summary>
+        /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
+        /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// has an invalid value for <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// is not supported.</exception>
+        public static Color GetFailureMechanismAssemblyCategoryGroupColor(FailureMechanismAssemblyCategoryGroup assemblyCategoryGroup)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismAssemblyCategoryGroup), assemblyCategoryGroup))
+            {
+                throw new InvalidEnumArgumentException(nameof(assemblyCategoryGroup),
+                                                       (int)assemblyCategoryGroup,
+                                                       typeof(FailureMechanismAssemblyCategoryGroup));
+            }
+
+            switch (assemblyCategoryGroup)
+            {
+                case FailureMechanismAssemblyCategoryGroup.It:
+                    return Color.FromArgb(0, 255, 0);
+                case FailureMechanismAssemblyCategoryGroup.IIt:
+                    return Color.FromArgb(118, 147, 60);
+                case FailureMechanismAssemblyCategoryGroup.IIIt:
+                    return Color.FromArgb(255, 255, 0);
+                case FailureMechanismAssemblyCategoryGroup.IVt:
+                    return Color.FromArgb(204, 192, 218);
+                case FailureMechanismAssemblyCategoryGroup.Vt:
+                    return Color.FromArgb(255, 153, 0);
+                case FailureMechanismAssemblyCategoryGroup.VIt:
+                    return Color.FromArgb(255, 0, 0);
+                case FailureMechanismAssemblyCategoryGroup.VIIt:
+                case FailureMechanismAssemblyCategoryGroup.None:
+                case FailureMechanismAssemblyCategoryGroup.NotApplicable:
                     return Color.FromArgb(255, 255, 255);
                 default:
                     throw new NotSupportedException();
