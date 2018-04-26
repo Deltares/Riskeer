@@ -22,40 +22,37 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="FailureMechanismSection"/>.
+    /// This class represents a row of <see cref="FailureMechanismSection"/> with a section specific N.
     /// </summary>
-    public class FailureMechanismSectionRow
+    public class FailureMechanismSectionProbabilityAssessmentRow : FailureMechanismSectionRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionRow"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionProbabilityAssessmentRow"/>.
         /// </summary>
         /// <param name="section">The failure mechanism section to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/>
-        /// is <c>null</c>.</exception>
-        public FailureMechanismSectionRow(FailureMechanismSection section)
+        /// <param name="probabilityAssessmentInput">The probability assessment input to use.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public FailureMechanismSectionProbabilityAssessmentRow(FailureMechanismSection section,
+                                                               ProbabilityAssessmentInput probabilityAssessmentInput)
+            : base(section)
         {
-            if (section == null)
+            if (probabilityAssessmentInput == null)
             {
-                throw new ArgumentNullException(nameof(section));
+                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
             }
 
-            Name = section.Name;
-            Length = new RoundedDouble(2, section.Length);
+            N = new RoundedDouble(2, probabilityAssessmentInput.GetN(section.Length));
         }
 
         /// <summary>
-        /// Gets the name of the section.
+        /// Gets the N of the section.
+        /// [-]
         /// </summary>
-        public string Name { get; }
-
-        /// <summary>
-        /// Gets the length of the section.
-        /// [m]
-        /// </summary>
-        public RoundedDouble Length { get; }
+        public RoundedDouble N { get; }
     }
 }

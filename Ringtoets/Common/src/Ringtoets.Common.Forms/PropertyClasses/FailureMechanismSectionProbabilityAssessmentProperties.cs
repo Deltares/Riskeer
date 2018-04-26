@@ -45,7 +45,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// failure mechanism of the properties.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionProbabilityAssessmentProperties(FailureMechanismSection section,
-                                                                      ProbabilityAssessmentInput probabilityAssessmentInput) : base(section)
+                                                                      ProbabilityAssessmentInput probabilityAssessmentInput)
+            : base(section)
         {
             if (probabilityAssessmentInput == null)
             {
