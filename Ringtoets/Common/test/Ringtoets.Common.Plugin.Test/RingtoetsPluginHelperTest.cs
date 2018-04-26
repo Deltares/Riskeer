@@ -22,6 +22,8 @@
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Plugin.TestUtil;
 
@@ -53,6 +55,26 @@ namespace Ringtoets.Common.Service.Test
                 public string Text { get; set; }
 
                 public void Dispose() {}
+            }
+        }
+
+        [TestFixture]
+        public class ShouldCloseFailureMechanismSectionsViewTest : ShouldCloseFailureMechanismSectionsViewTester
+        {
+            protected override bool ShouldCloseMethod(FailureMechanismSectionsView view, object o)
+            {
+                return RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView(view, o);
+            }
+
+            protected override FailureMechanismSectionsView GetView(IFailureMechanism failureMechanism)
+            {
+                return new TestFailureMechanismSectionsView(failureMechanism);
+            }
+
+            private class TestFailureMechanismSectionsView : FailureMechanismSectionsView
+            {
+                public TestFailureMechanismSectionsView(IFailureMechanism failureMechanism)
+                    : base(failureMechanism.Sections, failureMechanism) {}
             }
         }
     }

@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Plugin
         /// <param name="view">The view to be checked.</param>
         /// <param name="removedObject">The object that is removed.</param>
         /// <returns>Whether the view should be closed.</returns>
-        private static bool ShouldCloseFailureMechanismSectionsView(FailureMechanismSectionsView view, object removedObject)
+        public static bool ShouldCloseFailureMechanismSectionsView(FailureMechanismSectionsView view, object removedObject)
         {
             var assessmentSection = removedObject as IAssessmentSection;
             var failureMechanismContext = removedObject as IFailureMechanismContext<IFailureMechanism>;
