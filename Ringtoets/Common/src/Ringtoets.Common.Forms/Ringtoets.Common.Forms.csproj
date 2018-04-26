@@ -132,6 +132,7 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\FailureMechanismSectionProbabilityAssessmentRow.cs" />
     <Compile Include="Views\FailureMechanismSectionRow.cs" />
     <Compile Include="Views\FailureMechanismSectionsView.cs">
       <SubType>UserControl</SubType>

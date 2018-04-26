@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -53,11 +54,17 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             this.probabilityAssessmentInput = probabilityAssessmentInput;
+
+            failureMechanismSectionsTable.AddTextBoxColumn(nameof(FailureMechanismSectionProbabilityAssessmentRow.N),
+                                                           Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName,
+                                                           true);
         }
 
         protected override void UpdateTableData()
         {
-            failureMechanismSectionsTable.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+            failureMechanismSectionsTable.SetDataSource(
+                sections.Select(section => new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput))
+                        .ToArray());
         }
     }
 }
