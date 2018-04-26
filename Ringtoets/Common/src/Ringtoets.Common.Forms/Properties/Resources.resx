@@ -1386,4 +1386,7 @@ VN - Voldoet Niet
 NGO - Nog Geen Oordeel
 Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   </data>
+  <data name="ErrorIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\error.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

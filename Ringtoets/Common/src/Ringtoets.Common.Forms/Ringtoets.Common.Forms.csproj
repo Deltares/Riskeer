@@ -461,5 +461,6 @@
     <None Include="Resources\Sections.png" />
     <None Include="Resources\table.png" />
     <None Include="Resources\tickAll.png" />
+    <None Include="Resources\error.ico" />
   </ItemGroup>
 </Project>
