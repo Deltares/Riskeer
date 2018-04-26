@@ -34,7 +34,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.Plugin.TestUtil
 {
     /// <summary>
-    /// Class for testing <see cref="ShouldCloseMethod"/>.
+    /// Class for testing <see cref="ShouldCloseMethod"/> for views that contain calculation data.
     /// </summary>
     [TestFixture]
     [Apartment(ApartmentState.STA)]
@@ -229,7 +229,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// </summary>
         /// <param name="view">The view involved.</param>
         /// <param name="o">The object involved.</param>
-        /// <returns></returns>
+        /// <returns>Whether the view should close or not.</returns>
         protected abstract bool ShouldCloseMethod(IView view, object o);
 
         /// <summary>

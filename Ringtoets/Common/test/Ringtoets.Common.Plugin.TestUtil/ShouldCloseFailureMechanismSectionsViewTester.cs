@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Plugin.TestUtil
 {
     /// <summary>
-    /// Class for testing <see cref="ShouldCloseMethod"/>.
+    /// Class for testing <see cref="ShouldCloseMethod"/> for failure mechanism sections views.
     /// </summary>
     [TestFixture]
     [Apartment(ApartmentState.STA)]
@@ -170,7 +170,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// </summary>
         /// <param name="view">The failure mechanism sections view involved.</param>
         /// <param name="o">The object involved.</param>
-        /// <returns></returns>
+        /// <returns>Whether the view should close or not.</returns>
         protected abstract bool ShouldCloseMethod(FailureMechanismSectionsView view, object o);
 
         /// <summary>
