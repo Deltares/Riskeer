@@ -163,18 +163,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            var row = (FailureMechanismAssemblyResultRowBase) dataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
-
-            if (row.ColumnStateDefinitions.ContainsKey(e.ColumnIndex))
-            {
-                DataGridViewColumnStateDefinition columnStateDefinition = row.ColumnStateDefinitions[e.ColumnIndex];
-                DataGridViewCell cell = dataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-
-                cell.ReadOnly = columnStateDefinition.ReadOnly;
-                cell.ErrorText = columnStateDefinition.ErrorText;
-                cell.Style.BackColor = columnStateDefinition.Style.BackgroundColor;
-                cell.Style.ForeColor = columnStateDefinition.Style.TextColor;
-            }
+           dataGridViewControl.FormatCellWithColumnStateDefinition<FailureMechanismAssemblyResultRowBase>(e.RowIndex, e.ColumnIndex);
         }
 
         #region Failure mechanism assembly result rows

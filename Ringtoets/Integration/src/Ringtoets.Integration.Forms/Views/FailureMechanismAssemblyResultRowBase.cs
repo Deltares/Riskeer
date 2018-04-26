@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// This class represents a row displaying the properties of a <see cref="IFailureMechanism"/>
     /// and its assembly result.
     /// </summary>
-    public abstract class FailureMechanismAssemblyResultRowBase
+    public abstract class FailureMechanismAssemblyResultRowBase : IHasColumnStateDefinitions
     {
         private const int categoryIndex = 3;
         private readonly IFailureMechanism failureMechanism;
@@ -58,11 +58,6 @@ namespace Ringtoets.Integration.Forms.Views
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
         }
-
-        /// <summary>
-        /// Gets the column state definitions for the given indices.
-        /// </summary>
-        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
         /// <summary>
         /// Gets the name of the failure mechanism.
@@ -108,6 +103,8 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double Probablity { get; protected set; }
+
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
         /// <summary>
         /// Updates all data and states in the row.

@@ -71,6 +71,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var row = new TestFailureMechanismAssemblyResultRow(failureMechanism);
 
             // Assert
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
+
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyResultRowBase,
                 NoProbabilityValueDoubleConverter>(
                 nameof(FailureMechanismAssemblyResultRowBase.Probablity));
