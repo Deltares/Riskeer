@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -38,6 +39,9 @@ namespace Ringtoets.Common.Forms.Test.Views
     [TestFixture]
     public class FailureMechanismSectionsViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int lengthColumnIndex = 1;
+
         [Test]
         public void Constructor_SectionsNull_ThrowsArgumentNullException()
         {
@@ -68,21 +72,14 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithData_CreatesViewAndTableWithData()
+        public void Constructor_ValidParameters_InitializesViewCorrectly()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var random = new Random(39);
-            var sections = new[]
-            {
-                new FailureMechanismSection("a", new[]
-                {
-                    new Point2D(random.NextDouble(), random.NextDouble())
-                })
-            };
+            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
             using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
@@ -91,92 +88,117 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreEqual(1, view.Controls.Count);
 
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
                 Assert.NotNull(sectionsTable);
                 Assert.AreEqual(DockStyle.Fill, sectionsTable.Dock);
-                Assert.AreEqual(1, sectionsTable.Rows.Count);
+
+                DataGridViewColumn nameColumn = sectionsTable.GetColumnFromIndex(nameColumnIndex);
+                Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
+                DataGridViewColumn lengthColumn = sectionsTable.GetColumnFromIndex(lengthColumnIndex);
+                Assert.AreEqual("Lengte* [m]", lengthColumn.HeaderText);
+
+                Assert.Throws<ArgumentOutOfRangeException>(() => sectionsTable.GetColumnFromIndex(lengthColumnIndex + 1));
             }
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenViewWithSections_WhenSectionsUpdated_ThenDataTableUpdated()
+        public void Constructor_WithoutSections_CreatesViewWithTableEmpty()
         {
-            // Given
+            // Setup
             var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
+
+            // Call
+            using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
             {
-                new Point2D(0.0, 0.0)
-            }));
+                // Assert
+                CollectionAssert.IsEmpty(GetSectionsTable(view).Rows);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithSections_CreatesViewWithTableCorrectlyFilled()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var sections = new[]
+            {
+                CreateFailureMechanismSection("a"),
+                CreateFailureMechanismSection("b"),
+                CreateFailureMechanismSection("c")
+            };
+
+            // Call
+            using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
+            {
+                // Assert
+                DataGridViewControl sectionsTable = GetSectionsTable(view);
+
+                Assert.AreEqual(sections.Length, sectionsTable.Rows.Count);
+
+                for (var i = 0; i < sectionsTable.Rows.Count; i++)
+                {
+                    FailureMechanismSection section = sections[i];
+                    DataGridViewCellCollection rowCells = sectionsTable.Rows[i].Cells;
+
+                    Assert.AreEqual(section.Name, rowCells[nameColumnIndex].Value);
+
+                    var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
+                    Assert.AreEqual(section.Length, sectionLength, sectionLength.GetAccuracy());
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenViewWithSections_WhenSectionsUpdated_ThenTableUpdated()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(CreateFailureMechanismSection("a"));
 
             using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
-                failureMechanism.Attach(observer);
 
                 // Precondition
                 Assert.AreEqual(1, sectionsTable.Rows.Count);
 
                 // When
-                failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-                {
-                    new Point2D(0.0, 0.0)
-                }));
+                failureMechanism.AddSection(CreateFailureMechanismSection("b"));
                 failureMechanism.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(2, sectionsTable.Rows.Count);
             }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenViewWithSections_WhenSectionsCleared_ThenDataTableCleared()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
-            {
-                new Point2D(0.0, 0.0)
-            }));
-
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
-            {
-                DataGridViewControl sectionsTable = GetSectionsTable(view);
-                failureMechanism.Attach(observer);
-
-                // Precondition
-                Assert.AreEqual(1, sectionsTable.Rows.Count);
-
-                // When
-                failureMechanism.ClearAllSections();
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(0, sectionsTable.Rows.Count);
-            }
-
-            mocks.VerifyAll();
         }
 
         private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsView view)
         {
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsTable").Single();
+        }
+
+        private static FailureMechanismSection CreateFailureMechanismSection(string name)
+        {
+            var random = new Random(39);
+            return new FailureMechanismSection(name, new[]
+            {
+                new Point2D(random.NextDouble(), random.NextDouble())
+            });
         }
     }
 }

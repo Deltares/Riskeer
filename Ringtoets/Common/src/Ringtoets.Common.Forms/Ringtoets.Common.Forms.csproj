@@ -133,9 +133,6 @@
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
     <Compile Include="Views\FailureMechanismSectionRow.cs" />
-    <Compile Include="Views\FailureMechanismSectionsTable.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Views\FailureMechanismSectionsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
