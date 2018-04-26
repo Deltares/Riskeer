@@ -27,6 +27,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Plugin
 {
@@ -64,6 +65,33 @@ namespace Ringtoets.Common.Plugin
             }
 
             return calculations.Any(c => ReferenceEquals(view.Data, c));
+        }
+
+        /// <summary>
+        /// Checks whether <paramref name="view"/> should be closed based on the removal of
+        /// <paramref name="removedObject"/>.
+        /// </summary>
+        /// <param name="view">The view to be checked.</param>
+        /// <param name="removedObject">The object that is removed.</param>
+        /// <returns>Whether the view should be closed.</returns>
+        private static bool ShouldCloseFailureMechanismSectionsView(FailureMechanismSectionsView view, object removedObject)
+        {
+            var assessmentSection = removedObject as IAssessmentSection;
+            var failureMechanismContext = removedObject as IFailureMechanismContext<IFailureMechanism>;
+            var failureMechanism = removedObject as IFailureMechanism;
+
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .FirstOrDefault(fm => fm == view.FailureMechanism);
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         private static IEnumerable<ICalculation> GetCalculationsFromFailureMechanisms(object o)
