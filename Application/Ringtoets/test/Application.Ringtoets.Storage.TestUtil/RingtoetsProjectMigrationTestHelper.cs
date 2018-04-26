@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             string currentDatabaseVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
             string versionSuffix = currentDatabaseVersion.Replace(".", string.Empty);
-            string projectFileName = $"FullTestProject{versionSuffix}.rtd";
+            string projectFileName = $"MigrationTestProject{versionSuffix}.rtd";
 
             return TestHelper.GetTestDataPath(testDataPath, projectFileName);
         }
@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// for migration.</returns>
         public static string GetOutdatedSupportedProjectFilePath()
         {
-            const string projectFileName = "FullTestProject164.rtd";
+            const string projectFileName = "MigrationTestProject164.rtd";
             return TestHelper.GetTestDataPath(testDataPath, projectFileName);
         }
 

@@ -170,7 +170,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static string GetTestProjectFilePath(string versionNumber)
         {
-            return TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core, $"FullTestProject{versionNumber}.rtd");
+            return TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core, $"MigrationTestProject{versionNumber}.rtd");
         }
     }
 }

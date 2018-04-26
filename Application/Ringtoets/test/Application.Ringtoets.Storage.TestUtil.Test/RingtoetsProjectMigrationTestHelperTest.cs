@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             
             // Call
             List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                                                                                              $"FullTestProject{v}.rtd")).GetVersion()).ToList();
+                                                                                                                              $"MigrationTestProject{v}.rtd")).GetVersion()).ToList();
 
             // Assert
             IEnumerable<string> expectedProjectVersions = new[]

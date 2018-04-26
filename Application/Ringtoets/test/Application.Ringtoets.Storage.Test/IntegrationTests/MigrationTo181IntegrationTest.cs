@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
-                                                               "FullTestProject173.rtd");
+                                                               "MigrationTestProject173.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given173Project_WhenUpgradedTo181_ThenProjectAsExpected));
