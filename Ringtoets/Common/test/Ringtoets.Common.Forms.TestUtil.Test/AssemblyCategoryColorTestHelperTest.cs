@@ -28,7 +28,7 @@ using Ringtoets.AssemblyTool.Data;
 namespace Ringtoets.Common.Forms.TestUtil.Test
 {
     [TestFixture]
-    public class AssemblyCategoryGroupTestHelperTest
+    public class AssemblyCategoryColorTestHelperTest
     {
         [Test]
         public void FailureMechanismSectionAssemblyCategoryGroupColorCases_Always_ReturnsExpectedCases()
@@ -83,6 +83,34 @@ namespace Ringtoets.Common.Forms.TestUtil.Test
                 Assert.AreEqual(expectedCases[i].Arguments[0], testCases.ElementAt(i).Arguments[0]);
                 Assert.AreEqual(expectedCases[i].Arguments[1], testCases.ElementAt(i).Arguments[1]);
             }
+        }
+
+        [Test]
+        public void FailureMechanismAsseblyCategoryGroupColorCases_Always_ReturnsExpectedCases()
+        {
+            IEnumerable<TestCaseData> testCases = AssemblyCategoryColorTestHelper.FailureMechanismAssemblyCategoryGroupColorCases.ToArray();
+
+            // Assert
+            var expectedCases = new[]
+            {
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.NotApplicable, Color.FromArgb(255, 255, 255)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.None, Color.FromArgb(255, 255, 255)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.It, Color.FromArgb(0, 255, 0)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIt, Color.FromArgb(118, 147, 60)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIIt, Color.FromArgb(255, 255, 0)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.IVt, Color.FromArgb(204, 192, 218)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.Vt, Color.FromArgb(255, 153, 0)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIt, Color.FromArgb(255, 0, 0)),
+                new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIIt, Color.FromArgb(255, 255, 255))
+            };
+
+            Assert.AreEqual(expectedCases.Length, testCases.Count());
+            for (var i = 0; i < testCases.Count(); i++)
+            {
+                Assert.AreEqual(expectedCases[i].Arguments[0], testCases.ElementAt(i).Arguments[0]);
+                Assert.AreEqual(expectedCases[i].Arguments[1], testCases.ElementAt(i).Arguments[1]);
+            }
+
         }
     }
 }

@@ -69,5 +69,25 @@ namespace Ringtoets.Common.Forms.TestUtil
                 yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotApplicable, Color.White);
             }
         }
+
+        /// <summary>
+        /// Gets a collection of test cases to test the colors belong to various 
+        /// <see cref="FailureMechanismAssemblyCategoryGroup"/> values.
+        /// </summary>
+        public static IEnumerable<TestCaseData> FailureMechanismAssemblyCategoryGroupColorCases
+        {
+            get
+            {
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.NotApplicable, Color.FromArgb(255, 255, 255));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.None, Color.FromArgb(255, 255, 255));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.It, Color.FromArgb(0, 255, 0));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIt, Color.FromArgb(118, 147, 60));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIIt, Color.FromArgb(255, 255, 0));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IVt, Color.FromArgb(204, 192, 218));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.Vt, Color.FromArgb(255, 153, 0));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIt, Color.FromArgb(255, 0, 0));
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIIt, Color.FromArgb(255, 255, 255));
+            }
+        }
     }
 }
