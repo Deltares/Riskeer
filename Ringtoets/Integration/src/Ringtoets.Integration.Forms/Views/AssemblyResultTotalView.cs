@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
@@ -67,8 +68,6 @@ namespace Ringtoets.Integration.Forms.Views
             AssessmentSection = assessmentSection;
 
             InitializeComponent();
-            LocalizeControl();
-            InitializeDataGridView();
         }
 
         /// <summary>
@@ -77,6 +76,27 @@ namespace Ringtoets.Integration.Forms.Views
         public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            LocalizeControl();
+            InitializeDataGridView();
+
+            dataGridViewControl.CellFormatting += HandleCellStyling;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            dataGridViewControl.CellFormatting -= HandleCellStyling;
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
         private void LocalizeControl()
         {
@@ -139,6 +159,22 @@ namespace Ringtoets.Integration.Forms.Views
         {
             assemblyResultRows.ForEachElementDo(row => row.Update());
             dataGridViewControl.RefreshDataGridView();
+        }
+
+        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            var row = (FailureMechanismAssemblyResultRowBase) dataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
+
+            if (row.ColumnStateDefinitions.ContainsKey(e.ColumnIndex))
+            {
+                DataGridViewColumnStateDefinition columnStateDefinition = row.ColumnStateDefinitions[e.ColumnIndex];
+                DataGridViewCell cell = dataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+
+                cell.ReadOnly = columnStateDefinition.ReadOnly;
+                cell.ErrorText = columnStateDefinition.ErrorText;
+                cell.Style.BackColor = columnStateDefinition.Style.BackgroundColor;
+                cell.Style.ForeColor = columnStateDefinition.Style.TextColor;
+            }
         }
 
         #region Failure mechanism assembly result rows
