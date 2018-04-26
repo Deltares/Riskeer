@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Forms.Views
     /// Base class for a wrapper of a <see cref="FailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    public abstract class FailureMechanismSectionResultRow<T> where T : FailureMechanismSectionResult
+    public abstract class FailureMechanismSectionResultRow<T> : IHasColumnStateDefinitions where T : FailureMechanismSectionResult
     {
         /// <summary>
         /// Fired when the row has started updating.
@@ -72,9 +72,6 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        /// <summary>
-        /// Gets the column state definitions for the given indices.
-        /// </summary>
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
         /// <summary>

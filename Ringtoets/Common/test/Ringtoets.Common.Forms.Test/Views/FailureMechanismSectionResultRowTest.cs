@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
@@ -52,6 +53,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var row = new TestFailureMechanismSectionResultRow(sectionResult);
 
             // Assert
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
             Assert.AreEqual(sectionResult.Section.Name, row.Name);
             CollectionAssert.IsEmpty(row.ColumnStateDefinitions);
         }
