@@ -18,6 +18,7 @@
     <Compile Include="DataGrid\DataGridViewColorCell.cs" />
     <Compile Include="DataGrid\DataGridViewColorColumn.cs" />
     <Compile Include="DataGrid\DataGridViewColumnStateDefinition.cs" />
+    <Compile Include="DataGrid\DataGridViewControlCellFormatExtensions.cs" />
     <Compile Include="DataGrid\EnhancedDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -28,6 +29,7 @@
     <Compile Include="DataGrid\DataGridViewControl.Designer.cs">
       <DependentUpon>DataGridViewControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataGrid\IHasColumnStateDefinitions.cs" />
     <Compile Include="Dialogs\DialogBase.cs">
       <SubType>Form</SubType>
     </Compile>
