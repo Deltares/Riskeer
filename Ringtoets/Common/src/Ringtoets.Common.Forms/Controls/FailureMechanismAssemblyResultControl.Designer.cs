@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Common.Forms.Properties;
+using System.Windows.Forms;
 
 namespace Ringtoets.Common.Forms.Controls
 {
@@ -83,6 +83,7 @@ namespace Ringtoets.Common.Forms.Controls
             // 
             this.ErrorProvider.ContainerControl = this;
             this.ErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
+            this.ErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             // 
             // FailureMechanismAssemblyResultControl
             // 

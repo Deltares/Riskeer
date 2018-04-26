@@ -63,6 +63,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
             Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
 
             ErrorProvider errorProvider = GetErrorProvider(resultControl);
+            Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
             TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
         }
 
