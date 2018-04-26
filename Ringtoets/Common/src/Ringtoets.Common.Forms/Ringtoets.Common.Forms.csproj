@@ -219,7 +219,7 @@
     <Compile Include="Views\GeneralResultFaultTreeIllustrationPointView.Designer.cs">
       <DependentUpon>GeneralResultFaultTreeIllustrationPointView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\LengthEffectAwareFailureMechanismSectionsView.cs">
+    <Compile Include="Views\FailureMechanismSectionsProbabilityAssessmentView.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

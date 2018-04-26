@@ -22,38 +22,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Controls.DataGrid;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// View for a collection of <see cref="FailureMechanismSection"/>, also showing information on
-    /// the length effect.
+    /// View for a collection of <see cref="FailureMechanismSection"/> that have a section specific N.
     /// </summary>
-    public class LengthEffectAwareFailureMechanismSectionsView : FailureMechanismSectionsView
+    public class FailureMechanismSectionsProbabilityAssessmentView : FailureMechanismSectionsView
     {
-        private readonly Func<FailureMechanismSection, double> getLengthEffectFunc;
+        private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
 
         /// <summary>
-        /// Creates a new instance of <see cref="LengthEffectAwareFailureMechanismSectionsView"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionsProbabilityAssessmentView"/>.
         /// </summary>
         /// <param name="sections">The sections to be displayed in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
-        /// <param name="getLengthEffectFunc">The <see cref="Func{T,TResult}"/> for obtaining the
-        /// length effect value for a <see cref="FailureMechanismSection"/>.</param>
+        /// <param name="probabilityAssessmentInput">The probability assessment input belonging to the
+        /// failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public LengthEffectAwareFailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections,
-                                                             IFailureMechanism failureMechanism,
-                                                             Func<FailureMechanismSection, double> getLengthEffectFunc)
+        public FailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
+                                                                 IFailureMechanism failureMechanism,
+                                                                 ProbabilityAssessmentInput probabilityAssessmentInput)
             : base(sections, failureMechanism)
         {
-            if (getLengthEffectFunc == null)
+            if (probabilityAssessmentInput == null)
             {
-                throw new ArgumentNullException(nameof(getLengthEffectFunc));
+                throw new ArgumentNullException(nameof(probabilityAssessmentInput));
             }
 
-            this.getLengthEffectFunc = getLengthEffectFunc;
+            this.probabilityAssessmentInput = probabilityAssessmentInput;
         }
 
         protected override void UpdateTableData()
