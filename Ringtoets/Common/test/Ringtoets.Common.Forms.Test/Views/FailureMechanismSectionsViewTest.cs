@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -93,10 +94,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
 
-                FailureMechanismSectionsTable tableControl = GetSectionsTable(view);
-                Assert.NotNull(tableControl);
-                Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
-                Assert.AreEqual(1, tableControl.Rows.Count);
+                DataGridViewControl sectionsTable = GetSectionsTable(view);
+                Assert.NotNull(sectionsTable);
+                Assert.AreEqual(DockStyle.Fill, sectionsTable.Dock);
+                Assert.AreEqual(1, sectionsTable.Rows.Count);
             }
 
             mocks.VerifyAll();
@@ -119,7 +120,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
-                FailureMechanismSectionsTable sectionsTable = GetSectionsTable(view);
+                DataGridViewControl sectionsTable = GetSectionsTable(view);
                 failureMechanism.Attach(observer);
 
                 // Precondition
@@ -156,7 +157,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
-                FailureMechanismSectionsTable sectionsTable = GetSectionsTable(view);
+                DataGridViewControl sectionsTable = GetSectionsTable(view);
                 failureMechanism.Attach(observer);
 
                 // Precondition
@@ -173,9 +174,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static FailureMechanismSectionsTable GetSectionsTable(FailureMechanismSectionsView view)
+        private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsView view)
         {
-            return ControlTestHelper.GetControls<FailureMechanismSectionsTable>(view, "failureMechanismSectionsTable").Single();
+            return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsTable").Single();
         }
     }
 }

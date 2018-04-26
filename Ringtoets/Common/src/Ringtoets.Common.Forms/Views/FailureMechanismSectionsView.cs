@@ -21,10 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Views
 {
@@ -55,6 +57,13 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             InitializeComponent();
+
+            failureMechanismSectionsTable.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Name),
+                                                           Resources.FailureMechanismSection_Name_DisplayName,
+                                                           true);
+            failureMechanismSectionsTable.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Length),
+                                                           Resources.FailureMechanismSection_Length_Rounded_DisplayName,
+                                                           true);
 
             failureMechanismObserver = new Observer(UpdateTableData)
             {
@@ -92,7 +101,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateTableData()
         {
-            failureMechanismSectionsTable.SetData(sections);
+            failureMechanismSectionsTable.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
         }
     }
 }

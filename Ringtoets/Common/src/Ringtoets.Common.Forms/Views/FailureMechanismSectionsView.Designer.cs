@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
-
 namespace Ringtoets.Common.Forms.Views
 {
     partial class FailureMechanismSectionsView
@@ -40,7 +38,7 @@ namespace Ringtoets.Common.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismSectionsView));
-            this.failureMechanismSectionsTable = new Ringtoets.Common.Forms.Views.FailureMechanismSectionsTable();
+            this.failureMechanismSectionsTable = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.SuspendLayout();
             // 
             // failureMechanismSectionsTable
@@ -62,6 +60,6 @@ namespace Ringtoets.Common.Forms.Views
 
         #endregion
 
-        private FailureMechanismSectionsTable failureMechanismSectionsTable;
+        private Core.Common.Controls.DataGrid.DataGridViewControl failureMechanismSectionsTable;
     }
 }
