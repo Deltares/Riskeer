@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// This class represents a row displaying the properties of a <see cref="IFailureMechanism"/>
     /// and its assembly result.
     /// </summary>
-    public abstract class FailureMechanismAssemblyResultRowBase : IHasColumnStateDefinitions
+    internal abstract class FailureMechanismAssemblyResultRowBase : IHasColumnStateDefinitions
     {
         private const int categoryIndex = 3;
         private readonly IFailureMechanism failureMechanism;
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
-        protected FailureMechanismAssemblyResultRowBase(IFailureMechanism failureMechanism)
+        internal FailureMechanismAssemblyResultRowBase(IFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -129,8 +129,9 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetCategoryGroupColumnStateDefinition()
         {
-            GetCategoryGroupColumnStateDefinition().Style = new CellStyle(
-                Color.FromKnownColor(KnownColor.ControlText), AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(CategoryGroup));
+            GetCategoryGroupColumnStateDefinition().Style =
+                new CellStyle(Color.FromKnownColor(KnownColor.ControlText),
+                              AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(CategoryGroup));
         }
 
         private void CreateColumnStateDefinitions()

@@ -30,7 +30,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// This class represents a row displaying the properties of a <see cref="IFailureMechanism"/>
     /// and its <see cref="FailureMechanismAssemblyCategoryGroup"/>.
     /// </summary>
-    public class FailureMechanismAssemblyCategoryGroupResultRow : FailureMechanismAssemblyResultRowBase
+    internal class FailureMechanismAssemblyCategoryGroupResultRow : FailureMechanismAssemblyResultRowBase
     {
         private readonly Func<FailureMechanismAssemblyCategoryGroup> getFailureMechanismAssemblyCategoryGroup;
 
@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <param name="getFailureMechanismAssemblyCategoryGroup">Gets the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismAssemblyCategoryGroupResultRow(IFailureMechanism failureMechanism,
+        internal FailureMechanismAssemblyCategoryGroupResultRow(IFailureMechanism failureMechanism,
                                                               Func<FailureMechanismAssemblyCategoryGroup> getFailureMechanismAssemblyCategoryGroup)
             : base(failureMechanism)
         {
