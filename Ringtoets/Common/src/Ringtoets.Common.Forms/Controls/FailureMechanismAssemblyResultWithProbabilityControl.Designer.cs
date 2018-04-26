@@ -50,39 +50,38 @@ namespace Ringtoets.Common.Forms.Controls
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismAssemblyResultWithProbabilityControl));
-            this.ProbabilityLabel = new Ringtoets.Common.Forms.Controls.BoxedLabel();
-            this.ProbabilityPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.ProbabilityPanel.SuspendLayout();
+            this.probabilityLabel = new Ringtoets.Common.Forms.Controls.BoxedLabel();
+            this.probabilityPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.probabilityPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // ProbabilityLabel
             // 
-            resources.ApplyResources(this.ProbabilityLabel, "ProbabilityLabel");
-            this.ProbabilityLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ProbabilityLabel.Name = "ProbabilityLabel";
+            resources.ApplyResources(this.probabilityLabel, "probabilityLabel");
+            this.probabilityLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.probabilityLabel.Name = "probabilityLabel";
             // 
-            // ProbabilityPanel
+            // probabilityPanel
             // 
-            resources.ApplyResources(this.ProbabilityPanel, "ProbabilityPanel");
-            this.ProbabilityPanel.Controls.Add(this.ProbabilityLabel, 0, 0);
-            this.ProbabilityPanel.Name = "ProbabilityPanel";
+            resources.ApplyResources(this.probabilityPanel, "probabilityPanel");
+            this.probabilityPanel.Controls.Add(this.probabilityLabel, 0, 0);
+            this.probabilityPanel.Name = "probabilityPanel";
             // 
             // FailureMechanismAssemblyResultWithProbabilityControl
             // 
             resources.ApplyResources(this, "$this");
-            this.Controls.Add(this.ProbabilityPanel);
+            this.Controls.Add(this.probabilityPanel);
             this.Name = "FailureMechanismAssemblyResultWithProbabilityControl";
-            this.Controls.SetChildIndex(this.ProbabilityPanel, 0);
-            this.ProbabilityPanel.ResumeLayout(false);
-            this.ProbabilityPanel.PerformLayout();
+            this.Controls.SetChildIndex(this.probabilityPanel, 0);
+            this.probabilityPanel.ResumeLayout(false);
+            this.probabilityPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        public BoxedLabel ProbabilityLabel;
-        public System.Windows.Forms.TableLayoutPanel ProbabilityPanel;
+        private BoxedLabel probabilityLabel;
+        private System.Windows.Forms.TableLayoutPanel probabilityPanel;
     }
 }

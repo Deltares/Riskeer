@@ -23,9 +23,12 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Test.Controls
@@ -44,7 +47,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
             Assert.IsInstanceOf<UserControl>(resultControl);
             Assert.IsTrue(resultControl.AutoSize);
 
-            var groupPanel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
+            TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
             Assert.AreEqual(2, groupPanel.ColumnCount);
             Assert.AreEqual(1, groupPanel.RowCount);
 
@@ -61,6 +64,41 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
             ErrorProvider errorProvider = GetErrorProvider(resultControl);
             TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
+        }
+
+        [Test]
+        public void SetAssemblyResult_AssemblyNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var resultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+
+            // Call
+            TestDelegate test = () => resultControl.SetAssemblyResult(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assembly", exception.ParamName);
+        }
+
+        [Test]
+        public void SetAssemblyResult_WithAssembly_SetsValuesOnControl()
+        {
+            // Setup
+            var random = new Random(39);
+            var assembly = new FailureMechanismAssembly(random.NextDouble(),
+                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            var resultControl = new FailureMechanismAssemblyResultControl();
+
+            // Call
+            resultControl.SetAssemblyResult(assembly);
+
+            // Assert
+            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
+
+            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName,
+                            groupLabel.Text);
+            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group),
+                            groupLabel.BackColor);
         }
 
         [Test]
@@ -109,6 +147,11 @@ namespace Ringtoets.Common.Forms.Test.Controls
         private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyResultControl resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
+        }
+
+        private static TableLayoutPanel GetGroupPanel(FailureMechanismAssemblyResultControl resultControl)
+        {
+            return TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
         }
     }
 }

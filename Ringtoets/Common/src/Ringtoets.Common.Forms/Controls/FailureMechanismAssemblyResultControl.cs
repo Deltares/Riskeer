@@ -21,6 +21,9 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Common.Util;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Common.Forms.Controls
 {
@@ -37,11 +40,20 @@ namespace Ringtoets.Common.Forms.Controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Clears the error message of the control.
+        /// </summary>
         public void ClearError()
         {
             ErrorProvider.SetError(this, string.Empty);
         }
 
+        /// <summary>
+        /// Sets the error message of the control.
+        /// </summary>
+        /// <param name="error">The error message to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="error"/>
+        /// is <c>null</c>.</exception>
         public void SetError(string error)
         {
             if (error == null)
@@ -50,6 +62,22 @@ namespace Ringtoets.Common.Forms.Controls
             }
 
             ErrorProvider.SetError(this, error);
+        }
+
+        /// <summary>
+        /// Set the values of the <paramref name="assembly"/> to the control.
+        /// </summary>
+        /// <param name="assembly">The <see cref="FailureMechanismAssembly"/> to set on the control.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> is <c>null</c>.</exception>
+        public virtual void SetAssemblyResult(FailureMechanismAssembly assembly)
+        {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+
+            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group);
         }
     }
 }

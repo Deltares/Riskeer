@@ -118,81 +118,81 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ProbabilityLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="probabilityLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="ProbabilityLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="probabilityLabel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="ProbabilityLabel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="probabilityLabel.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="ProbabilityLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="probabilityLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="ProbabilityLabel.MinimumSize" type="System.Drawing.Size, System.Drawing">
+  <data name="probabilityLabel.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>50, 2</value>
   </data>
-  <data name="ProbabilityLabel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="probabilityLabel.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>5, 0, 5, 0</value>
   </data>
-  <data name="ProbabilityLabel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="probabilityLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>50, 144</value>
   </data>
-  <data name="ProbabilityLabel.TabIndex" type="System.Int32, mscorlib">
+  <data name="probabilityLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="ProbabilityLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+  <data name="probabilityLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleLeft</value>
   </data>
-  <data name="&gt;&gt;ProbabilityLabel.Name" xml:space="preserve">
-    <value>ProbabilityLabel</value>
+  <data name="&gt;&gt;probabilityLabel.Name" xml:space="preserve">
+    <value>probabilityLabel</value>
   </data>
-  <data name="&gt;&gt;ProbabilityLabel.Type" xml:space="preserve">
+  <data name="&gt;&gt;probabilityLabel.Type" xml:space="preserve">
     <value>Ringtoets.Common.Forms.Controls.BoxedLabel, Ringtoets.Common.Forms, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;ProbabilityLabel.Parent" xml:space="preserve">
-    <value>ProbabilityPanel</value>
+  <data name="&gt;&gt;probabilityLabel.Parent" xml:space="preserve">
+    <value>probabilityPanel</value>
   </data>
-  <data name="&gt;&gt;ProbabilityLabel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;probabilityLabel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="ProbabilityPanel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="probabilityPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="ProbabilityPanel.ColumnCount" type="System.Int32, mscorlib">
+  <data name="probabilityPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="ProbabilityPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="probabilityPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="ProbabilityPanel.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="probabilityPanel.Location" type="System.Drawing.Point, System.Drawing">
     <value>259, 0</value>
   </data>
-  <data name="ProbabilityPanel.RowCount" type="System.Int32, mscorlib">
+  <data name="probabilityPanel.RowCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="ProbabilityPanel.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="probabilityPanel.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 150</value>
   </data>
-  <data name="ProbabilityPanel.TabIndex" type="System.Int32, mscorlib">
+  <data name="probabilityPanel.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;ProbabilityPanel.Name" xml:space="preserve">
-    <value>ProbabilityPanel</value>
+  <data name="&gt;&gt;probabilityPanel.Name" xml:space="preserve">
+    <value>probabilityPanel</value>
   </data>
-  <data name="&gt;&gt;ProbabilityPanel.Type" xml:space="preserve">
+  <data name="&gt;&gt;probabilityPanel.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ProbabilityPanel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;probabilityPanel.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;ProbabilityPanel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;probabilityPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="ProbabilityPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+  <data name="probabilityPanel.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="ProbabilityLabel" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0" /&gt;&lt;Rows Styles="Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

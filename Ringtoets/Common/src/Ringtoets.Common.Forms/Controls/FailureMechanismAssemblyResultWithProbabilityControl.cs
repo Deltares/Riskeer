@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Controls
 {
@@ -33,6 +35,13 @@ namespace Ringtoets.Common.Forms.Controls
         public FailureMechanismAssemblyResultWithProbabilityControl()
         {
             InitializeComponent();
+        }
+
+        public override void SetAssemblyResult(FailureMechanismAssembly assembly)
+        {
+            base.SetAssemblyResult(assembly);
+
+            probabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability);
         }
     }
 }
