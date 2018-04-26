@@ -816,12 +816,12 @@ JOIN (
 	WHERE CalculationType >= 0 AND CalculationType <= 7
 );
 
--- Create the calculations for the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism level
--- Note 1: It is assumed that LocationId is unique within an assessment section. Because it is possible for multiple 
--- assessment sections to have the same hydraulic boundary locations (and thus same LocationIds), a join needs to be 
--- performed based on the LocationId and the AssessmentSection.
--- Note 2: The Hydraulic Location ID on assessment section level is chosen as a reference, because the hydraulic boundary 
--- location calculation entities contain references to these entities.
+-- Create a lookup table to match the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism
+-- with the Hydraulic Boundary Locations in the Assessment Section level, because hte primary keys of the 
+-- Hydraulic Boundary Locations between these two levels might differ. 
+-- The translation between the Hydraulic Boundary Locations is based on the LocationID (which is assumed to be unique
+-- for every Hydraulic Boundary Location) and the AssessmentSection (which is necessary because multiple assessment 
+-- sections can contain the same Hydraulic Boundary Locations)
 CREATE TEMP TABLE TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable (
     'GrassCoverErosionOutwardsHydraulicLocationEntityId' INTEGER NOT NULL UNIQUE,
     'HydraulicLocationEntityId' INTEGER NOT NULL UNIQUE
@@ -838,18 +838,19 @@ FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity gceohl
 JOIN [SOURCEPROJECT].FailureMechanismEntity fm USING(FailureMechanismEntityId)
 JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON (hl.LocationId = gceohl.LocationId AND hl.AssessmentSectionEntityId = fm.AssessmentSectionEntityId);
 
+-- Create the calculations for the Hydraulic Boundary Locations on Grass Cover Erosion Outwards Failure Mechanism level
 INSERT INTO TempHydraulicLocationCalculationEntity (
 	[HydraulicLocationEntityId],
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
 	[CalculationType])
 SELECT
-	hl.HydraulicLocationEntityId,
+	[HydraulicLocationEntityId],
 	[GrassCoverErosionOutwardsFailureMechanismMetaEntityId], 
 	[CalculationType]
-FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity gceohl
-JOIN [SOURCEPROJECT].FailureMechanismEntity fm USING(FailureMechanismEntityId)
+FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity
+JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)
 JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity USING(FailureMechanismEntityId)
-JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON (hl.LocationId = gceohl.LocationId AND hl.AssessmentSectionEntityId = fm.AssessmentSectionEntityId)
+JOIN TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable USING(GrassCoverErosionOutwardsHydraulicLocationEntityId)
 JOIN (
 	SELECT * 
 	FROM TempCalculationTypes
@@ -1142,7 +1143,7 @@ OR (HydraulicLocationOutputType = 1 AND NormativeNormType = 1 AND gceofmme.Hydra
 OR (HydraulicLocationOutputType = 2 AND NormativeNormType = 2 AND gceofmme.HydraulicLocationCalculationCollectionEntity5Id = hlcce.HydraulicLocationCalculationCollectionEntityId)
 OR (HydraulicLocationOutputType = 2 AND NormativeNormType = 1 AND gceofmme.HydraulicLocationCalculationCollectionEntity6Id = hlcce.HydraulicLocationCalculationCollectionEntityId);
 
--- Migrate the wave conditions calculations
+-- Migrate the grass cover erosion outwards wave conditions calculations
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
 	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
 	[CalculationGroupEntityId],

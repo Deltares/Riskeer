@@ -95,7 +95,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertStabilityPointStructuresOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
-                    AssertGrassCoverErosionOutwardsWaveCalculationEntity(reader, sourceFilePath);
+                    AssertGrassCoverErosionOutwardsWaveConditionsCalculationEntity(reader, sourceFilePath);
 
                     AssertHeightStructuresSectionResultEntity(reader, sourceFilePath);
                     AssertClosingStructuresSectionResultEntity(reader, sourceFilePath);
@@ -721,7 +721,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
 
-        private static void AssertGrassCoverErosionOutwardsWaveCalculationEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculationEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateMetaEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
