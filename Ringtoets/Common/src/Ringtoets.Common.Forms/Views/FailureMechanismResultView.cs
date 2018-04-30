@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Forms.Views
                 Observable = failureMechanism
             };
 
-            failureMechanismSectionResultObserver = new Observer(UpdateDataGridViewDataSource)
+            failureMechanismSectionResultObserver = new Observer(UpdateView)
             {
                 Observable = failureMechanismSectionResults
             };
@@ -114,8 +114,7 @@ namespace Ringtoets.Common.Forms.Views
 
             DataGridViewControl.CellFormatting += HandleCellStyling;
 
-            UpdateDataGridViewDataSource();
-            UpdateFailureMechanismAssemblyResultControl();
+            UpdateView();
         }
 
         /// <summary>
@@ -172,10 +171,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected abstract void AddDataGridColumns();
 
-        /// <summary>
-        /// Updates the failure mechanism assembly result control.
-        /// </summary>
-        protected void UpdateFailureMechanismAssemblyResultControl()
+        private void UpdateFailureMechanismAssemblyResultControl()
         {
             if (FailureMechanismAssemblyResultControl != null && GetFailureMechanismAssemblyFunc != null)
             {
@@ -189,6 +185,15 @@ namespace Ringtoets.Common.Forms.Views
                     FailureMechanismAssemblyResultControl.SetError(e.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// Updates all controls in the view.
+        /// </summary>
+        protected void UpdateView()
+        {
+            UpdateDataGridViewDataSource();
+            UpdateFailureMechanismAssemblyResultControl();
         }
 
         private void InitializeInfoIcon()

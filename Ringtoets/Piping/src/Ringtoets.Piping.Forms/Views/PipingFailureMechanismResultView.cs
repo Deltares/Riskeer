@@ -174,11 +174,5 @@ namespace Ringtoets.Piping.Forms.Views
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
-
-        private void UpdateView()
-        {
-            UpdateDataGridViewDataSource();
-            UpdateFailureMechanismAssemblyResultControl();
-        }
     }
 }

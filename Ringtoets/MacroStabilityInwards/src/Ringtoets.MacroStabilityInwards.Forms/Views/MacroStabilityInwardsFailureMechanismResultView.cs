@@ -175,11 +175,5 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 DataGridViewControl,
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
         }
-
-        private void UpdateView()
-        {
-            UpdateDataGridViewDataSource();
-            UpdateFailureMechanismAssemblyResultControl();
-        }
     }
 }
