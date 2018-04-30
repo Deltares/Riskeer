@@ -93,11 +93,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            using (var view = new AssemblyResultTotalView(assessmentSection))
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
-                testForm.Controls.Add(view);
-                testForm.Show();
-
                 // Assert
                 Assert.AreEqual(2, view.Controls.Count);
 
@@ -116,15 +113,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenWithAssemblyResultTotalView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            // Then
-            using (var view = new AssemblyResultTotalView(assessmentSection))
+            using (ShowAssemblyResultTotalView())
             {
-                testForm.Controls.Add(view);
-                testForm.Show();
-
+                // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
 
@@ -161,11 +152,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                using (var view = new AssemblyResultTotalView(assessmentSection))
+                using (ShowAssemblyResultTotalView(assessmentSection))
                 {
-                    testForm.Controls.Add(view);
-                    testForm.Show();
-
                     // Then
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     AssertFailureMechanismRows(assessmentSection,
@@ -185,11 +173,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new AssemblyResultTotalView(assessmentSection))
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
-                testForm.Controls.Add(view);
-                testForm.Show();
-
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
 
@@ -223,7 +208,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (var view = new AssemblyResultTotalView(assessmentSection))
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -251,15 +236,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenDataGridViewInvalidated()
         {
             // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            // Then
-            using (var view = new AssemblyResultTotalView(assessmentSection))
+            using (ShowAssemblyResultTotalView())
             {
-                testForm.Controls.Add(view);
-                testForm.Show();
-
                 var invalidated = false;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
@@ -411,6 +389,23 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private static DataGridViewCell GetCategoryGroupCellFromRow(DataGridViewCellCollection rowCells)
         {
             return rowCells[failureMechanismAssemblyCategoryColumnIndex];
+        }
+
+        private AssemblyResultTotalView ShowAssemblyResultTotalView(AssessmentSection assessmentSection)
+        {
+            var view = new AssemblyResultTotalView(assessmentSection);
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            return view;
+        }
+
+        private AssemblyResultTotalView ShowAssemblyResultTotalView()
+        {
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            return ShowAssemblyResultTotalView(assessmentSection);
         }
     }
 }

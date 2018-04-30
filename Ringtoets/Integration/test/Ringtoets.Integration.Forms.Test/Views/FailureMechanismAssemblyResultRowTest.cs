@@ -83,7 +83,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(1, columnStateDefinitions.Count);
             FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, categoryIndex);
-            Assert.IsTrue(columnStateDefinitions[categoryIndex].ReadOnly);
 
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
@@ -210,11 +209,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => failureMechanismAssembly);
 
+            // Precondition
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.IsTrue(columnStateDefinitions[categoryIndex].ReadOnly);
+
             // When 
             row.Update();
 
             // Then
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.IsTrue(columnStateDefinitions[categoryIndex].ReadOnly);
         }
     }
