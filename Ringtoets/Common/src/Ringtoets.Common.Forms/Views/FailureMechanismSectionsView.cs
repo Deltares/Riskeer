@@ -86,6 +86,8 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void OnLoad(EventArgs e)
         {
+            currentSections = sections.ToList();
+
             SetDataGridViewControlData();
         }
 
@@ -106,8 +108,6 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected virtual void SetDataGridViewControlData()
         {
-            currentSections = sections.ToList();
-
             failureMechanismSectionsDataGridViewControl.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
         }
 
@@ -117,6 +117,8 @@ namespace Ringtoets.Common.Forms.Views
             {
                 return;
             }
+
+            currentSections = sections.ToList();
 
             SetDataGridViewControlData();
         }

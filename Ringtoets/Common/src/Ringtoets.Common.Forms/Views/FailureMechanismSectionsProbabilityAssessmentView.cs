@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Properties;
@@ -34,6 +35,8 @@ namespace Ringtoets.Common.Forms.Views
     public class FailureMechanismSectionsProbabilityAssessmentView : FailureMechanismSectionsView
     {
         private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
+
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProbabilityAssessmentView"/>.
@@ -58,6 +61,11 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionProbabilityAssessmentRow.N),
                                                                          Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName,
                                                                          true);
+
+            failureMechanismObserver = new Observer(HandleProbabilityAssessmentInputChange)
+            {
+                Observable = failureMechanism
+            };
         }
 
         protected override void SetDataGridViewControlData()
@@ -65,6 +73,18 @@ namespace Ringtoets.Common.Forms.Views
             failureMechanismSectionsDataGridViewControl.SetDataSource(
                 sections.Select(section => new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput))
                         .ToArray());
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            failureMechanismObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        private void HandleProbabilityAssessmentInputChange()
+        {
+            failureMechanismSectionsDataGridViewControl.RefreshDataGridView();
         }
     }
 }

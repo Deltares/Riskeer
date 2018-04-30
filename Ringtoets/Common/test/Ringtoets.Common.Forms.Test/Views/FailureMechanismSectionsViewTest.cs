@@ -121,7 +121,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithoutSections_CreatesViewWithTableEmpty()
+        public void Constructor_WithoutSections_CreatesViewWithDataGridViewEmpty()
         {
             // Setup
             var mocks = new MockRepository();
@@ -141,7 +141,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithSections_CreatesViewWithTableCorrectlyFilled()
+        public void Constructor_WithSections_CreatesViewWithDataGridViewCorrectlyFilled()
         {
             // Setup
             var mocks = new MockRepository();
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsUpdated_ThenTableUpdated()
+        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsUpdated_ThenDataGridViewUpdated()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsNotUpdated_ThenTableNotUpdated()
+        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsNotUpdated_ThenDataGridViewNotUpdated()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
