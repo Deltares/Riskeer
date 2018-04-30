@@ -28,9 +28,11 @@ using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.Views;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
@@ -199,16 +201,37 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
         }
 
-        private MacroStabilityInwardsFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
+        [TestFixture]
+        public class MacroStabilityInwardsFailureMechanismResultWithProbabilityTest : FailureMechanismResultWithProbabilityTester<
+            MacroStabilityInwardsFailureMechanismResultView,
+            MacroStabilityInwardsFailureMechanism,
+            MacroStabilityInwardsFailureMechanismSectionResult,
+            MacroStabilityInwardsFailureMechanismSectionResultRow,
+            MacroStabilityInwardsCalculationScenario,
+            MacroStabilityInwardsInput>
         {
-            return ShowFailureMechanismResultsView(new MacroStabilityInwardsFailureMechanism(), sectionResults);
+            protected override MacroStabilityInwardsFailureMechanismResultView CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)
+            {
+                return new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                           failureMechanism,
+                                                                           new AssessmentSectionStub());
+            }
+
+            protected override MacroStabilityInwardsCalculationScenario CreateCalculationScenario()
+            {
+                return MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
+            }
+
+            protected override MacroStabilityInwardsInput GetInput(MacroStabilityInwardsCalculationScenario calculation)
+            {
+                return calculation.InputParameters;
+            }
         }
 
-        private MacroStabilityInwardsFailureMechanismResultView ShowFailureMechanismResultsView(MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                                                IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
+        private MacroStabilityInwardsFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> sectionResults)
         {
             var failureMechanismResultView = new MacroStabilityInwardsFailureMechanismResultView(sectionResults,
-                                                                                                 failureMechanism,
+                                                                                                 new MacroStabilityInwardsFailureMechanism(),
                                                                                                  new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
