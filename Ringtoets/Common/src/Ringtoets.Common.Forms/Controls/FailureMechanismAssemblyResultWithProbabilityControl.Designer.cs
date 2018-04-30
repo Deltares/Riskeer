@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
+
 namespace Ringtoets.Common.Forms.Controls
 {
     partial class FailureMechanismAssemblyResultWithProbabilityControl
@@ -52,10 +54,11 @@ namespace Ringtoets.Common.Forms.Controls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismAssemblyResultWithProbabilityControl));
             this.probabilityLabel = new Ringtoets.Common.Forms.Controls.BoxedLabel();
             this.probabilityPanel = new System.Windows.Forms.TableLayoutPanel();
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.probabilityPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // ProbabilityLabel
+            // probabilityLabel
             // 
             resources.ApplyResources(this.probabilityLabel, "probabilityLabel");
             this.probabilityLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -73,6 +76,7 @@ namespace Ringtoets.Common.Forms.Controls
             this.Controls.Add(this.probabilityPanel);
             this.Name = "FailureMechanismAssemblyResultWithProbabilityControl";
             this.Controls.SetChildIndex(this.probabilityPanel, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.probabilityPanel.ResumeLayout(false);
             this.probabilityPanel.PerformLayout();
             this.ResumeLayout(false);
