@@ -51,8 +51,9 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            var random = new Random(39);
             FailureMechanismSection section = GetTestFailureMechanismSection();
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
 
             // Call
             var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput);

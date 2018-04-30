@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
+            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
             // Call
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
+            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
             // Call
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
@@ -158,7 +158,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 CreateFailureMechanismSection("c")
             };
 
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
+            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
             // Call
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.AddSection(CreateFailureMechanismSection("a"));
 
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
+            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                                                                                   failureMechanism,
@@ -208,7 +208,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.AddSection(CreateFailureMechanismSection("a"));
 
-            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
+            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
             using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                                                                                   failureMechanism,
@@ -236,6 +236,13 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 new Point2D(random.NextDouble(), random.NextDouble())
             });
+        }
+
+        private static TestProbabilityAssessmentInput CreateProbabilityAssessmentInput()
+        {
+            var random = new Random(39);
+
+            return new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
         }
 
         private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsProbabilityAssessmentView view)
