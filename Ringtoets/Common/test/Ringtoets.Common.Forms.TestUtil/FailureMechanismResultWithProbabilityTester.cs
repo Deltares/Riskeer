@@ -88,35 +88,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenCalculatorThrowsException_FailureMechanismAssemblyResultCleared()
-        {
-            // Given
-            var failureMechanism = new TFailureMechanism();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism))
-            {
-                // Precondition
-                BoxedLabel assemblyGroupLabel = GetGroupLabel();
-                BoxedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
-                Assert.AreEqual("1/1", assemblyProbabilityLabel.Text);
-                Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
-
-                // When
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-                failureMechanism.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual("-", assemblyProbabilityLabel.Text);
-                Assert.IsEmpty(assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
-            }
-        }
-
-        [Test]
         public void GivenFailureMechanismResultsView_WhenResultChangedAndSectionResultNotified_FailureMechanismAssemblyResultUpdated()
         {
             // Given

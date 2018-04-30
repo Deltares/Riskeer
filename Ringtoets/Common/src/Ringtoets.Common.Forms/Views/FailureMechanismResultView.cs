@@ -27,7 +27,9 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Properties;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -46,10 +48,11 @@ namespace Ringtoets.Common.Forms.Views
         where TFailureMechanism : IFailureMechanism
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
-
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
+        protected FailureMechanismAssemblyResultControl FailureMechanismAssemblyResultControl;
+        protected Func<FailureMechanismAssembly> GetFailureMechanismAssemblyFunc;
 
         private IEnumerable<TSectionResultRow> sectionResultRows;
         private bool rowUpdating;
@@ -112,7 +115,7 @@ namespace Ringtoets.Common.Forms.Views
             DataGridViewControl.CellFormatting += HandleCellStyling;
 
             UpdateDataGridViewDataSource();
-            UpdateFailureMechanismAssemblyResult();
+            UpdateFailureMechanismAssemblyResultControl();
         }
 
         /// <summary>
@@ -170,9 +173,23 @@ namespace Ringtoets.Common.Forms.Views
         protected abstract void AddDataGridColumns();
 
         /// <summary>
-        /// Updates the failure mechanism assembly result
+        /// Updates the failure mechanism assembly result control.
         /// </summary>
-        protected virtual void UpdateFailureMechanismAssemblyResult() {}
+        protected void UpdateFailureMechanismAssemblyResultControl()
+        {
+            if (FailureMechanismAssemblyResultControl != null && GetFailureMechanismAssemblyFunc != null)
+            {
+                try
+                {
+                    FailureMechanismAssemblyResultControl.SetAssemblyResult(GetFailureMechanismAssemblyFunc());
+                    FailureMechanismAssemblyResultControl.ClearError();
+                }
+                catch (Exception e)
+                {
+                    FailureMechanismAssemblyResultControl.SetError(e.Message);
+                }
+            }
+        }
 
         private void InitializeInfoIcon()
         {
@@ -198,7 +215,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             rowUpdating = true;
             DataGridViewControl.RefreshDataGridView();
-            UpdateFailureMechanismAssemblyResult();
+            UpdateFailureMechanismAssemblyResultControl();
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
@@ -216,7 +233,7 @@ namespace Ringtoets.Common.Forms.Views
             sectionResultRows.ForEachElementDo(row => row.Update());
             DataGridViewControl.RefreshDataGridView();
 
-            UpdateFailureMechanismAssemblyResult();
+            UpdateFailureMechanismAssemblyResultControl();
         }
     }
 }

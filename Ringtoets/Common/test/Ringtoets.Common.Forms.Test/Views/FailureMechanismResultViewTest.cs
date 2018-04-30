@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -29,8 +30,11 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -81,7 +85,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(1, tableLayoutPanel.RowCount);
                 Assert.IsInstanceOf<PictureBox>(tableLayoutPanel.GetControlFromPosition(1, 0));
-                Assert.IsNull(tableLayoutPanel.GetControlFromPosition(0, 0));
 
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
@@ -124,7 +127,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (ShowFailureMechanismResultsView(new ObservableList<TestFailureMechanismSectionResult>()))
             {
                 // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
 
                 Assert.AreEqual(1, dataGridView.ColumnCount);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[nameColumnIndex]);
@@ -179,7 +182,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var invalidated = false;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
                 view.AssemblyResultUpdated = false;
 
@@ -202,7 +205,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
 
                 // Precondition
                 Assert.AreEqual(0, dataGridView.RowCount);
@@ -230,7 +233,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var invalidated = false;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
                 view.AssemblyResultUpdated = false;
 
@@ -262,7 +265,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
                 DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[0];
                 definition.ReadOnly = readOnly;
@@ -294,7 +297,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
                 var invalidated = false;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
@@ -317,6 +320,71 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFailureMechanismResultsView_WhenExceptionThrownDuringUpdate_FailureMechanismAssemblyResultClearedAndErrorSet()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            {
+                // Precondition
+                BoxedLabel assemblyGroupLabel = GetGroupLabel();
+                FailureMechanismAssemblyResultControl resultControl = GetFailureMechanismAssemblyResultControl();
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
+                Assert.IsEmpty(errorProvider.GetError(resultControl));
+
+                // When
+                view.ThrowExceptionOnCalculate = true;
+                sectionResult.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
+                Assert.AreEqual("Message", errorProvider.GetError(resultControl));
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsViewWithFailureMechanismAssemblyError_WhenNoExceptionThrownDuringUpdate_ResultSetAndErrorCleared()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            {
+                view.ThrowExceptionOnCalculate = true;
+                sectionResult.NotifyObservers();
+
+                // Precondition
+                BoxedLabel assemblyGroupLabel = GetGroupLabel();
+                FailureMechanismAssemblyResultControl resultControl = GetFailureMechanismAssemblyResultControl();
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
+                Assert.AreEqual("Message", errorProvider.GetError(resultControl));
+
+                // When
+                view.ThrowExceptionOnCalculate = false;
+                sectionResult.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
+                Assert.IsEmpty(errorProvider.GetError(resultControl));
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultView_WhenSectionResultNotified_ThenAllRowsUpdatedAndViewInvalidated()
         {
             // Given
@@ -331,7 +399,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 var row1 = (TestRow) dataGridView.Rows[0].DataBoundItem;
                 var row2 = (TestRow) dataGridView.Rows[1].DataBoundItem;
                 var invalidated = false;
@@ -365,7 +433,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (ShowFailureMechanismResultsView(sectionResults))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
 
                 // Precondition
@@ -382,6 +450,21 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
+        private static DataGridView GetDataGridView()
+        {
+            return (DataGridView) new ControlTester("dataGridView").TheObject;
+        }
+
+        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyResultControl resultControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
+        }
+
+        private static FailureMechanismAssemblyResultControl GetFailureMechanismAssemblyResultControl()
+        {
+            return (FailureMechanismAssemblyResultControl) new ControlTester("FailureMechanismAssemblyResultControl").TheObject;
+        }
+
         private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
         {
             var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, new TestFailureMechanism());
@@ -391,10 +474,31 @@ namespace Ringtoets.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
+        private static BoxedLabel GetGroupLabel()
+        {
+            return (BoxedLabel) new ControlTester("GroupLabel").TheObject;
+        }
+
         private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
         {
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
-                : base(failureMechanismSectionResults, failureMechanism) {}
+                : base(failureMechanismSectionResults, failureMechanism)
+            {
+                FailureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultControl();
+                TableLayoutPanel.Controls.Add(FailureMechanismAssemblyResultControl, 0, 0);
+                GetFailureMechanismAssemblyFunc = () =>
+                {
+                    if (ThrowExceptionOnCalculate)
+                    {
+                        throw new Exception("Message");
+                    }
+
+                    AssemblyResultUpdated = true;
+                    return new FailureMechanismAssembly(1.0, FailureMechanismAssemblyCategoryGroup.IIIt);
+                };
+            }
+
+            public bool ThrowExceptionOnCalculate { get; set; }
 
             public bool AssemblyResultUpdated { get; set; }
 
@@ -406,11 +510,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             protected override void AddDataGridColumns()
             {
                 DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
-            }
-
-            protected override void UpdateFailureMechanismAssemblyResult()
-            {
-                AssemblyResultUpdated = true;
             }
         }
 

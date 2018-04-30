@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -53,7 +52,6 @@ namespace Ringtoets.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
-        private readonly FailureMechanismAssemblyResultWithProbabilityControl resultControl;
 
         /// <inheritdoc />
         /// <summary>
@@ -72,11 +70,9 @@ namespace Ringtoets.Piping.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            resultControl = new FailureMechanismAssemblyResultWithProbabilityControl
-            {
-                Dock = DockStyle.Left
-            };
-            TableLayoutPanel.Controls.Add(resultControl, 0, 0);
+            FailureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            GetFailureMechanismAssemblyFunc = () => PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
+            TableLayoutPanel.Controls.Add(FailureMechanismAssemblyResultControl, 0, 0);
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -91,19 +87,6 @@ namespace Ringtoets.Piping.Forms.Views
             CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
             calculationInputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
-        }
-
-        protected override void UpdateFailureMechanismAssemblyResult()
-        {
-            try
-            {
-                resultControl.SetAssemblyResult(PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
-                resultControl.ClearError();
-            }
-            catch (Exception e)
-            {
-                resultControl.SetError(e.Message);
-            }
         }
 
         protected override void Dispose(bool disposing)
@@ -195,7 +178,7 @@ namespace Ringtoets.Piping.Forms.Views
         private void UpdateView()
         {
             UpdateDataGridViewDataSource();
-            UpdateFailureMechanismAssemblyResult();
+            UpdateFailureMechanismAssemblyResultControl();
         }
     }
 }
