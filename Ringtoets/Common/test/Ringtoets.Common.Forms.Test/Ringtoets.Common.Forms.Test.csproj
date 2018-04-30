@@ -129,6 +129,7 @@
     <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\StructureEditorTest.cs" />
     <Compile Include="Views\CalculatableRowTest.cs" />
+    <Compile Include="Views\FailureMechanismSectionProbabilityAssessmentRowTest.cs" />
     <Compile Include="Views\FailureMechanismSectionRowTest.cs" />
     <Compile Include="Views\FailureMechanismSectionsProbabilityAssessmentViewTest.cs" />
     <Compile Include="Views\FailureMechanismSectionsViewTest.cs" />
