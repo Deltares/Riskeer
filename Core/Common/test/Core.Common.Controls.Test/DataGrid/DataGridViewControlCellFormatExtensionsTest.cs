@@ -102,8 +102,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 };
             }
 
-            // Property needs to have a setter, otherwise some tests will fail
-            public RoundedDouble TestRoundedDouble { get; set; }
+            public RoundedDouble TestRoundedDouble { get; }
 
             public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
         }
