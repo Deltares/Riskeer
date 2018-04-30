@@ -55,14 +55,14 @@ namespace Ringtoets.Common.Forms.Views
 
             this.probabilityAssessmentInput = probabilityAssessmentInput;
 
-            failureMechanismSectionsTable.AddTextBoxColumn(nameof(FailureMechanismSectionProbabilityAssessmentRow.N),
-                                                           Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName,
-                                                           true);
+            failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionProbabilityAssessmentRow.N),
+                                                                         Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName,
+                                                                         true);
         }
 
-        protected override void UpdateTableData()
+        protected override void SetDataGridViewControlData()
         {
-            failureMechanismSectionsTable.SetDataSource(
+            failureMechanismSectionsDataGridViewControl.SetDataSource(
                 sections.Select(section => new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput))
                         .ToArray());
         }

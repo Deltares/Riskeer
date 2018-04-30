@@ -105,16 +105,16 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
 
-                DataGridViewControl sectionsTable = GetSectionsTable(view);
-                Assert.NotNull(sectionsTable);
-                Assert.AreEqual(DockStyle.Fill, sectionsTable.Dock);
+                DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
+                Assert.NotNull(sectionsDataGridViewControl);
+                Assert.AreEqual(DockStyle.Fill, sectionsDataGridViewControl.Dock);
 
-                DataGridViewColumn nameColumn = sectionsTable.GetColumnFromIndex(nameColumnIndex);
+                DataGridViewColumn nameColumn = sectionsDataGridViewControl.GetColumnFromIndex(nameColumnIndex);
                 Assert.AreEqual("Vaknaam", nameColumn.HeaderText);
-                DataGridViewColumn lengthColumn = sectionsTable.GetColumnFromIndex(lengthColumnIndex);
+                DataGridViewColumn lengthColumn = sectionsDataGridViewControl.GetColumnFromIndex(lengthColumnIndex);
                 Assert.AreEqual("Lengte* [m]", lengthColumn.HeaderText);
 
-                Assert.Throws<ArgumentOutOfRangeException>(() => sectionsTable.GetColumnFromIndex(lengthColumnIndex + 1));
+                Assert.Throws<ArgumentOutOfRangeException>(() => sectionsDataGridViewControl.GetColumnFromIndex(lengthColumnIndex + 1));
             }
 
             mocks.VerifyAll();
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
-                CollectionAssert.IsEmpty(GetSectionsTable(view).Rows);
+                CollectionAssert.IsEmpty(GetSectionsDataGridViewControl(view).Rows);
             }
 
             mocks.VerifyAll();
@@ -159,16 +159,16 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
-                DataGridViewControl sectionsTable = GetSectionsTable(view);
+                DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
-                AssertSectionsTable(sections, sectionsTable);
+                AssertSectionsDataGridViewControl(sections, sectionsDataGridViewControl);
             }
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenViewWithSections_WhenSectionsUpdated_ThenTableUpdated()
+        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsUpdated_ThenTableUpdated()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -176,17 +176,40 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
-                DataGridViewControl sectionsTable = GetSectionsTable(view);
+                DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
                 // Precondition
-                AssertSectionsTable(failureMechanism.Sections.ToArray(), sectionsTable);
+                AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
 
                 // When
                 failureMechanism.AddSection(CreateFailureMechanismSection("b"));
                 failureMechanism.NotifyObservers();
 
                 // Then
-                AssertSectionsTable(failureMechanism.Sections.ToArray(), sectionsTable);
+                AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), sectionsDataGridViewControl);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndSectionsNotUpdated_ThenTableNotUpdated()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(CreateFailureMechanismSection("a"));
+
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
+            {
+                DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
+
+                var count = 0;
+
+                sectionsDataGridView.Invalidated += (s, e) => { count++; };
+
+                // When
+                failureMechanism.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(0, count);
             }
         }
 
@@ -200,19 +223,24 @@ namespace Ringtoets.Common.Forms.Test.Views
             });
         }
 
-        private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsView view)
+        private static DataGridViewControl GetSectionsDataGridViewControl(FailureMechanismSectionsView view)
         {
-            return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsTable").Single();
+            return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsDataGridViewControl").Single();
         }
 
-        private static void AssertSectionsTable(FailureMechanismSection[] sections, DataGridViewControl sectionsTable)
+        private static DataGridView GetSectionsDataGridView(FailureMechanismSectionsView view)
         {
-            Assert.AreEqual(sections.Length, sectionsTable.Rows.Count);
+            return ControlTestHelper.GetControls<DataGridView>(view, "dataGridView").Single();
+        }
 
-            for (var i = 0; i < sectionsTable.Rows.Count; i++)
+        private static void AssertSectionsDataGridViewControl(FailureMechanismSection[] sections, DataGridViewControl sectionsDataGridViewControl)
+        {
+            Assert.AreEqual(sections.Length, sectionsDataGridViewControl.Rows.Count);
+
+            for (var i = 0; i < sectionsDataGridViewControl.Rows.Count; i++)
             {
                 FailureMechanismSection section = sections[i];
-                DataGridViewCellCollection rowCells = sectionsTable.Rows[i].Cells;
+                DataGridViewCellCollection rowCells = sectionsDataGridViewControl.Rows[i].Cells;
 
                 Assert.AreEqual(section.Name, rowCells[nameColumnIndex].Value);
 

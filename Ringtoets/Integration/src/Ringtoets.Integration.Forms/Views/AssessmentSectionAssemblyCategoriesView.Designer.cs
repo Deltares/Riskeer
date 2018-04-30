@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
-
 namespace Ringtoets.Integration.Forms.Views
 {
     partial class AssessmentSectionAssemblyCategoriesView
@@ -43,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.assessmentSectionAssemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssessmentSectionAssemblyCategoriesTable();
             this.SuspendLayout();
             // 
-            // failureMechanismSectionsTable
+            // assessmentSectionAssemblyCategoriesTable
             // 
             resources.ApplyResources(this.assessmentSectionAssemblyCategoriesTable, "assessmentSectionAssemblyCategoriesTable");
             this.assessmentSectionAssemblyCategoriesTable.MultiSelect = true;

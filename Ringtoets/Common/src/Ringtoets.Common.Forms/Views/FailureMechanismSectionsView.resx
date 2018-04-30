@@ -118,30 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="failureMechanismSectionsTable.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="failureMechanismSectionsDataGridViewControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="failureMechanismSectionsTable.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="failureMechanismSectionsDataGridViewControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="failureMechanismSectionsTable.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="failureMechanismSectionsDataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
     <value>750, 420</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="failureMechanismSectionsTable.TabIndex" type="System.Int32, mscorlib">
+  <data name="failureMechanismSectionsDataGridViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;failureMechanismSectionsTable.Name" xml:space="preserve">
-    <value>failureMechanismSectionsTable</value>
+  <data name="&gt;&gt;failureMechanismSectionsDataGridViewControl.Name" xml:space="preserve">
+    <value>failureMechanismSectionsDataGridViewControl</value>
   </data>
-  <data name="&gt;&gt;failureMechanismSectionsTable.Type" xml:space="preserve">
-    <value>Ringtoets.Common.Forms.Views.FailureMechanismSectionsTable, Ringtoets.Common.Forms, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
+  <data name="&gt;&gt;failureMechanismSectionsDataGridViewControl.Type" xml:space="preserve">
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;failureMechanismSectionsTable.Parent" xml:space="preserve">
+  <data name="&gt;&gt;failureMechanismSectionsDataGridViewControl.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;failureMechanismSectionsTable.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;failureMechanismSectionsDataGridViewControl.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

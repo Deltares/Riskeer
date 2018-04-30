@@ -39,6 +39,8 @@ namespace Ringtoets.Common.Forms.Views
 
         private readonly Observer failureMechanismObserver;
 
+        private List<FailureMechanismSection> currentSections;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
         /// </summary>
@@ -59,14 +61,14 @@ namespace Ringtoets.Common.Forms.Views
 
             InitializeComponent();
 
-            failureMechanismSectionsTable.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Name),
-                                                           Resources.FailureMechanismSection_Name_DisplayName,
-                                                           true);
-            failureMechanismSectionsTable.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Length),
-                                                           Resources.FailureMechanismSection_Length_Rounded_DisplayName,
-                                                           true);
+            failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Name),
+                                                                         Resources.FailureMechanismSection_Name_DisplayName,
+                                                                         true);
+            failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionRow.Length),
+                                                                         Resources.FailureMechanismSection_Length_Rounded_DisplayName,
+                                                                         true);
 
-            failureMechanismObserver = new Observer(UpdateTableData)
+            failureMechanismObserver = new Observer(HandleFailureMechanismSectionsChange)
             {
                 Observable = failureMechanism
             };
@@ -84,7 +86,7 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void OnLoad(EventArgs e)
         {
-            UpdateTableData();
+            SetDataGridViewControlData();
         }
 
         protected override void Dispose(bool disposing)
@@ -100,11 +102,23 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Updates the data in the failure mechanism sections table.
+        /// Sets the data in the failure mechanism sections data grid view control.
         /// </summary>
-        protected virtual void UpdateTableData()
+        protected virtual void SetDataGridViewControlData()
         {
-            failureMechanismSectionsTable.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+            currentSections = sections.ToList();
+
+            failureMechanismSectionsDataGridViewControl.SetDataSource(sections.Select(section => new FailureMechanismSectionRow(section)).ToArray());
+        }
+
+        private void HandleFailureMechanismSectionsChange()
+        {
+            if (currentSections.SequenceEqual(sections))
+            {
+                return;
+            }
+
+            SetDataGridViewControlData();
         }
     }
 }

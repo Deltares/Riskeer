@@ -37,19 +37,19 @@ namespace Ringtoets.Common.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismSectionsView));
-            this.failureMechanismSectionsTable = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.failureMechanismSectionsDataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.SuspendLayout();
             // 
-            // failureMechanismSectionsTable
+            // failureMechanismSectionsDataGridViewControl
             // 
-            resources.ApplyResources(this.failureMechanismSectionsTable, "failureMechanismSectionsTable");
-            this.failureMechanismSectionsTable.MultiSelect = true;
-            this.failureMechanismSectionsTable.Name = "failureMechanismSectionsTable";
-            this.failureMechanismSectionsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            resources.ApplyResources(this.failureMechanismSectionsDataGridViewControl, "failureMechanismSectionsDataGridViewControl");
+            this.failureMechanismSectionsDataGridViewControl.MultiSelect = true;
+            this.failureMechanismSectionsDataGridViewControl.Name = "failureMechanismSectionsDataGridViewControl";
+            this.failureMechanismSectionsDataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
             // FailureMechanismSectionsView
             // 
-            this.Controls.Add(this.failureMechanismSectionsTable);
+            this.Controls.Add(this.failureMechanismSectionsDataGridViewControl);
             this.Name = "FailureMechanismSectionsView";
             resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
@@ -58,6 +58,6 @@ namespace Ringtoets.Common.Forms.Views
 
         #endregion
 
-        protected Core.Common.Controls.DataGrid.DataGridViewControl failureMechanismSectionsTable;
+        protected Core.Common.Controls.DataGrid.DataGridViewControl failureMechanismSectionsDataGridViewControl;
     }
 }

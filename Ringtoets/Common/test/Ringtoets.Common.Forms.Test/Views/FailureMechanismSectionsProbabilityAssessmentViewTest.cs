@@ -247,7 +247,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsProbabilityAssessmentView view)
         {
-            return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsTable").Single();
+            return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsDataGridViewControl").Single();
         }
 
         private static void AssertSectionsTable(FailureMechanismSection[] sections,
