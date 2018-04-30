@@ -28,9 +28,11 @@ using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
 
 namespace Ringtoets.Piping.Forms.Test.Views
@@ -199,16 +201,37 @@ namespace Ringtoets.Piping.Forms.Test.Views
             }
         }
 
-        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<PipingFailureMechanismSectionResult> sectionResults)
+        [TestFixture]
+        public class PipingFailureMechanismResultWithProbabilityTest : FailureMechanismResultWithProbabilityTester<
+            PipingFailureMechanismResultView,
+            PipingFailureMechanism,
+            PipingFailureMechanismSectionResult,
+            PipingFailureMechanismSectionResultRow,
+            PipingCalculationScenario,
+            PipingInput>
         {
-            return ShowFailureMechanismResultsView(new PipingFailureMechanism(), sectionResults);
+            protected override PipingFailureMechanismResultView CreateResultView(PipingFailureMechanism failureMechanism)
+            {
+                return new PipingFailureMechanismResultView(failureMechanism.SectionResults,
+                                                            failureMechanism,
+                                                            new AssessmentSectionStub());
+            }
+
+            protected override PipingCalculationScenario CreateCalculationScenario()
+            {
+                return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            }
+
+            protected override PipingInput GetInput(PipingCalculationScenario calculation)
+            {
+                return calculation.InputParameters;
+            }
         }
 
-        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(PipingFailureMechanism failureMechanism,
-                                                                                 IObservableEnumerable<PipingFailureMechanismSectionResult> sectionResults)
+        private PipingFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<PipingFailureMechanismSectionResult> sectionResults)
         {
             var failureMechanismResultView = new PipingFailureMechanismResultView(sectionResults,
-                                                                                  failureMechanism,
+                                                                                  new PipingFailureMechanism(),
                                                                                   new AssessmentSectionStub());
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

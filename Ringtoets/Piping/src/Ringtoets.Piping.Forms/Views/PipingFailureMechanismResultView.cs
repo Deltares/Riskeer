@@ -21,10 +21,12 @@
 
 using System;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 
@@ -49,9 +51,9 @@ namespace Ringtoets.Piping.Forms.Views
         private const int manualAssemblyProbabilityIndex = 12;
 
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
+        private readonly FailureMechanismAssemblyResultWithProbabilityControl resultControl;
 
         /// <inheritdoc />
         /// <summary>
@@ -70,31 +72,43 @@ namespace Ringtoets.Piping.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
+            resultControl = new FailureMechanismAssemblyResultWithProbabilityControl
+            {
+                Dock = DockStyle.Left
+            };
+            TableLayoutPanel.Controls.Add(resultControl, 0, 0);
+
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource,
+                UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<PipingCalculationScenario>()
                                                    .Select(c => c.InputParameters)));
-            calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
-                UpdateDataGridViewDataSource,
-                cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<PipingCalculationScenario>()
-                                                   .Select(c => c.Output)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateDataGridViewDataSource,
+                UpdateView,
                 c => c.Children);
 
             CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
             calculationInputObserver.Observable = observableGroup;
-            calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
+        }
+
+        protected override void UpdateFailureMechanismAssemblyResult()
+        {
+            try
+            {
+                resultControl.SetAssemblyResult(PipingFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
+                resultControl.ClearError();
+            }
+            catch (Exception e)
+            {
+                resultControl.SetError(e.Message);
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
             calculationInputObserver.Dispose();
-            calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
             base.Dispose(disposing);
@@ -176,6 +190,12 @@ namespace Ringtoets.Piping.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
                 nameof(PipingFailureMechanismSectionResultRow.ManualAssemblyProbability));
+        }
+
+        private void UpdateView()
+        {
+            UpdateDataGridViewDataSource();
+            UpdateFailureMechanismAssemblyResult();
         }
     }
 }
