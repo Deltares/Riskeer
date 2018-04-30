@@ -28,25 +28,25 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin.TestUtil;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ViewInfos
+namespace Ringtoets.Piping.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailureMechanismSectionsViewInfoTest
+    public class PipingFailureMechanismSectionsProbabilityAssessmentViewInfoTest
     {
         private static ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new PipingPlugin())
             {
-                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsView));
+                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsProbabilityAssessmentView));
             }
         }
 
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionsContext), info.DataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismSectionsContext), info.DataType);
             Assert.AreEqual(typeof(IEnumerable<FailureMechanismSection>), info.ViewDataType);
         }
 
@@ -76,8 +76,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanismSectionsContext = new PipingFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(failureMechanismSectionsContext);
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class FailureMechanismSectionsViewInfoCloseForDataTester : ShouldCloseFailureMechanismSectionsViewTester
+        public class PipingFailureMechanismSectionsProbabilityAssessmentViewInfoCloseForDataTester : ShouldCloseFailureMechanismSectionsViewTester
         {
             protected override bool ShouldCloseMethod(FailureMechanismSectionsView view, object o)
             {
@@ -107,7 +107,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             protected override FailureMechanismSectionsView GetView(IFailureMechanism failureMechanism)
             {
-                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
+                return new FailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
+                                                                             failureMechanism,
+                                                                             new PipingProbabilityAssessmentInput());
             }
         }
     }

@@ -41,9 +41,11 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
+using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
@@ -253,6 +255,17 @@ namespace Ringtoets.Piping.Plugin
                 CloseForData = ClosePipingScenariosViewForData,
                 CreateInstance = context => new PipingScenariosView(context.AssessmentSection),
                 AfterCreate = (view, context) => { view.PipingFailureMechanism = context.FailureMechanism; }
+            };
+
+            yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = RingtoetsCommonFormsResources.SectionsIcon,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView,
+                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
+                                                                                                  context.WrappedData,
+                                                                                                  ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput),
+                GetViewData = context => context.WrappedData.Sections
             };
         }
 

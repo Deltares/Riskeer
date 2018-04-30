@@ -68,6 +68,7 @@
     <Compile Include="TreeNodeInfos\PipingStochasticSoilProfileTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\PipingSurfaceLinesContextUpdateInfoTest.cs" />
     <Compile Include="UpdateInfos\PipingStochasticSoilModelCollectionContextUpdateInfoTest.cs" />
+    <Compile Include="ViewInfos\PipingFailureMechanismSectionsProbabilityAssessmentViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\PipingCalculationsViewInfoTest.cs" />
@@ -126,6 +127,10 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Plugin.TestUtil\Ringtoets.Common.Plugin.TestUtil.csproj">
+      <Project>{6346BADF-D331-4948-9772-08E8CD1E1FC9}</Project>
+      <Name>Ringtoets.Common.Plugin.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
