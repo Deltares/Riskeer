@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -36,6 +37,7 @@ namespace Ringtoets.Common.Forms.Controls
         public FailureMechanismAssemblyResultWithProbabilityControl()
         {
             InitializeComponent();
+            Dock = DockStyle.Left;
         }
 
         public override void SetAssemblyResult(FailureMechanismAssembly assembly)

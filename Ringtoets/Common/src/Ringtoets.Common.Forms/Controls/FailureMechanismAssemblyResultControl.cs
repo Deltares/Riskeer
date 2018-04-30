@@ -39,6 +39,7 @@ namespace Ringtoets.Common.Forms.Controls
         public FailureMechanismAssemblyResultControl()
         {
             InitializeComponent();
+            Dock = DockStyle.Left;
         }
 
         /// <summary>

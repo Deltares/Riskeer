@@ -47,6 +47,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
             Assert.AreEqual(2, resultControl.Controls.Count);
             Assert.IsInstanceOf<FailureMechanismAssemblyResultControl>(resultControl);
             Assert.IsTrue(resultControl.AutoSize);
+            Assert.AreEqual(DockStyle.Left, resultControl.Dock);
 
             TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
             Assert.AreEqual(2, groupPanel.ColumnCount);
