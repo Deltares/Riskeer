@@ -131,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
             Assert.AreEqual(error, errorProvider.GetError(resultControl));
 
             Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
-            Assert.AreEqual(string.Empty, groupLabel.Text);
+            Assert.IsEmpty(groupLabel.Text);
             Assert.AreEqual(Color.White, groupLabel.BackColor);
         }
 

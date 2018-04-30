@@ -145,7 +145,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
             Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
             Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
-            Assert.AreEqual(string.Empty, groupLabel.Text);
+            Assert.IsEmpty(groupLabel.Text);
             Assert.AreEqual(Color.White, groupLabel.BackColor);
             Assert.AreEqual("-", probabilityLabel.Text);
         }
