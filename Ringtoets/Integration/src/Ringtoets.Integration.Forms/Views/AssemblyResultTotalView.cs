@@ -39,7 +39,6 @@ using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using CommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
@@ -106,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeDataGridView()
         {
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Name),
-                                                 CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
+                                                 Resources.FailureMechanismContributionView_GridColumn_Assessment,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Code),

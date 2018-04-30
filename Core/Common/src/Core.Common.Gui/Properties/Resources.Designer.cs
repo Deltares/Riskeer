@@ -40,7 +40,7 @@ namespace Core.Common.Gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -697,51 +697,6 @@ namespace Core.Common.Gui.Properties {
         public static string ExportInfo_Default_category {
             get {
                 return ResourceManager.GetString("ExportInfo_Default_category", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsspoor.
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_Assessment {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_Assessment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Label.
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_AssessmentCode {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_AssessmentCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toegestane bijdrage aan faalkans [%].
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_Contribution {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_Contribution", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkansruimte [1/jaar].
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_ProbabilitySpace {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_ProbabilitySpace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Algemeen filter.
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_RelevancyFilter {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_RelevancyFilter", resourceCulture);
             }
         }
         

@@ -29,8 +29,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using CommonGuiResources = Core.Common.Gui.Properties.Resources;
-using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -211,7 +210,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             if (data != null)
             {
-                returnPeriodLabel.Text = string.Format(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_,
+                returnPeriodLabel.Text = string.Format(Resources.FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPeriod_0_,
                                                        Convert.ToInt32(1.0 / data.Norm));
             }
         }
@@ -221,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Views
             if (AssessmentSection != null)
             {
                 string assessmentSectionComposition = new EnumDisplayWrapper<AssessmentSectionComposition>(AssessmentSection.Composition).DisplayName;
-                assessmentSectionCompositionLabel.Text = string.Format(RingtoetsIntegrationFormsResources.FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_,
+                assessmentSectionCompositionLabel.Text = string.Format(Resources.FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_,
                                                                        assessmentSectionComposition);
             }
         }
@@ -229,22 +228,22 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeGridColumns()
         {
             probabilityDistributionGrid.AddCheckBoxColumn(nameof(FailureMechanismContributionItemRow.IsRelevant),
-                                                          CommonGuiResources.FailureMechanismContributionView_GridColumn_RelevancyFilter);
+                                                          Resources.FailureMechanismContributionView_GridColumn_RelevancyFilter);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Assessment),
-                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_Assessment,
+                                                         Resources.FailureMechanismContributionView_GridColumn_Assessment,
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Code),
-                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_AssessmentCode,
+                                                         Resources.FailureMechanismContributionView_GridColumn_AssessmentCode,
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Contribution),
-                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_Contribution,
+                                                         Resources.FailureMechanismContributionView_GridColumn_Contribution,
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.ProbabilitySpace),
-                                                         CommonGuiResources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
+                                                         Resources.FailureMechanismContributionView_GridColumn_ProbabilitySpace,
                                                          true,
                                                          DataGridViewAutoSizeColumnMode.Fill,
                                                          100,
@@ -265,7 +264,7 @@ namespace Ringtoets.Integration.Forms.Views
                 FailureMechanismContributionItem contributionItem = data.Distribution.ElementAt(e.RowIndex);
                 if (Math.Abs(contributionItem.Contribution) < 1e-6)
                 {
-                    e.Value = RingtoetsIntegrationFormsResources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
+                    e.Value = Resources.FailureMechanismContributionView_ProbabilityPerYear_Not_applicable;
                     e.FormattingApplied = true;
                 }
             }

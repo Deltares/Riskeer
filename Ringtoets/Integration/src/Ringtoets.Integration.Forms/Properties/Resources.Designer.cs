@@ -553,6 +553,51 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toetsspoor.
+        /// </summary>
+        public static string FailureMechanismContributionView_GridColumn_Assessment {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_Assessment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Label.
+        /// </summary>
+        public static string FailureMechanismContributionView_GridColumn_AssessmentCode {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_AssessmentCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toegestane bijdrage aan faalkans [%].
+        /// </summary>
+        public static string FailureMechanismContributionView_GridColumn_Contribution {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_Contribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkansruimte [1/jaar].
+        /// </summary>
+        public static string FailureMechanismContributionView_GridColumn_ProbabilitySpace {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_ProbabilitySpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Algemeen filter.
+        /// </summary>
+        public static string FailureMechanismContributionView_GridColumn_RelevancyFilter {
+            get {
+                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_RelevancyFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to n.v.t.
         /// </summary>
         public static string FailureMechanismContributionView_ProbabilityPerYear_Not_applicable {

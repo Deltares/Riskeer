@@ -384,4 +384,19 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultTotalView_RefreshAssemblyResultsButton_Text" xml:space="preserve">
     <value>Assemblageresultaat verversen</value>
   </data>
+  <data name="FailureMechanismContributionView_GridColumn_Assessment" xml:space="preserve">
+    <value>Toetsspoor</value>
+  </data>
+  <data name="FailureMechanismContributionView_GridColumn_AssessmentCode" xml:space="preserve">
+    <value>Label</value>
+  </data>
+  <data name="FailureMechanismContributionView_GridColumn_Contribution" xml:space="preserve">
+    <value>Toegestane bijdrage aan faalkans [%]</value>
+  </data>
+  <data name="FailureMechanismContributionView_GridColumn_ProbabilitySpace" xml:space="preserve">
+    <value>Faalkansruimte [1/jaar]</value>
+  </data>
+  <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">
+    <value>Algemeen filter</value>
+  </data>
 </root>
