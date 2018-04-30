@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(1, columnStateDefinitions.Count);
-            FailureMechanismSectionResultRowTestHelper.AssertColumnStateDefinition(columnStateDefinitions, categoryIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, categoryIndex);
 
             Assert.AreEqual(failureMechanismName, row.Name);
             Assert.AreEqual(failureMechanismCode, row.Code);
@@ -135,8 +135,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
-            FailureMechanismSectionResultRowTestHelper.AssertColumnWithColorState(columnStateDefinitions[categoryIndex],
-                                                                                  expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[categoryIndex],
+                                                                                          expectedBackgroundColor);
         }
 
         [Test]
@@ -183,8 +183,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private class TestFailureMechanismAssemblyResultRow : FailureMechanismAssemblyResultRowBase
         {
-            public bool TryGetDerivedDataExecuted { get; private set; }
-
             public TestFailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism) : base(failureMechanism) {}
 
             public TestFailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
@@ -193,6 +191,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 CategoryGroup = categoryGroup;
             }
+
+            public bool TryGetDerivedDataExecuted { get; private set; }
 
             public DataGridViewColumnStateDefinition GetCategoryGrouColumnStateDefinition()
             {

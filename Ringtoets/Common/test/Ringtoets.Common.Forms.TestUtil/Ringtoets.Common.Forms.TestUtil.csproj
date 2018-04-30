@@ -18,7 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyCategoryColorTestHelper.cs" />
-    <Compile Include="FailureMechanismSectionResultRowTestHelper.cs" />
+    <Compile Include="DataGridViewControlColumnStateDefinitionTestHelper.cs" />
     <Compile Include="CalculationsViewSynchronizationTester.cs" />
     <Compile Include="MapFeaturesTestHelper.cs" />
     <Compile Include="MapViewTestHelper.cs" />

@@ -23,15 +23,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to assert properties of a <see cref="FailureMechanismSectionResultRow{T}"/>.
+    /// Class that can be used to assert properties of a <see cref="DataGridViewColumnStateDefinition"/> of 
+    /// a cell in the <see cref="DataGridViewControl"/>.
     /// </summary>
-    public static class FailureMechanismSectionResultRowTestHelper
+    public static class DataGridViewControlColumnStateDefinitionTestHelper
     {
         /// <summary>
         /// Asserts the state of the <paramref name="columnStateDefinition"/>.
