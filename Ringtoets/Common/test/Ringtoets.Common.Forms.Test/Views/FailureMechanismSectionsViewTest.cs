@@ -42,6 +42,20 @@ namespace Ringtoets.Common.Forms.Test.Views
         private const int nameColumnIndex = 0;
         private const int lengthColumnIndex = 1;
 
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_SectionsNull_ThrowsArgumentNullException()
         {
@@ -82,7 +96,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -117,7 +131,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
 
             // Call
-            using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
                 CollectionAssert.IsEmpty(GetSectionsTable(view).Rows);
@@ -142,7 +156,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             };
 
             // Call
-            using (var view = new FailureMechanismSectionsView(sections, failureMechanism))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
@@ -160,7 +174,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
             failureMechanism.AddSection(CreateFailureMechanismSection("a"));
 
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
+            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
             {
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
 
@@ -205,6 +219,17 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
                 Assert.AreEqual(section.Length, sectionLength, sectionLength.GetAccuracy());
             }
+        }
+
+        private FailureMechanismSectionsView ShowFailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections,
+                                                                              IFailureMechanism failureMechanism)
+        {
+            var view = new FailureMechanismSectionsView(sections, failureMechanism);
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            return view;
         }
     }
 }

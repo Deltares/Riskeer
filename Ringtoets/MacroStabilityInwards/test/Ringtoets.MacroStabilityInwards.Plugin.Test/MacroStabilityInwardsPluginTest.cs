@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -26,8 +27,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
@@ -146,7 +149,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, viewInfos.Length);
+                Assert.AreEqual(7, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -182,6 +185,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test
                     typeof(MacroStabilityInwardsOutputContext),
                     typeof(MacroStabilityInwardsCalculationScenario),
                     typeof(MacroStabilityInwardsOutputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(MacroStabilityInwardsFailureMechanismSectionsContext),
+                    typeof(IEnumerable<FailureMechanismSection>),
+                    typeof(FailureMechanismSectionsProbabilityAssessmentView));
             }
         }
 

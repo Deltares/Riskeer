@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Core.Common.Base;
@@ -27,8 +28,10 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -149,7 +152,7 @@ namespace Ringtoets.Piping.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(5, viewInfos.Length);
+                Assert.AreEqual(6, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -179,6 +182,12 @@ namespace Ringtoets.Piping.Plugin.Test
                     typeof(PipingScenariosContext),
                     typeof(CalculationGroup),
                     typeof(PipingScenariosView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(PipingFailureMechanismSectionsContext),
+                    typeof(IEnumerable<FailureMechanismSection>),
+                    typeof(FailureMechanismSectionsProbabilityAssessmentView));
             }
         }
 
