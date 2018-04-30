@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Plugin.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
@@ -38,22 +39,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class FailureMechanismSectionsViewInfoTest
     {
-        private MockRepository mocks;
-        private RingtoetsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsView));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
+            info = GetViewInfo();
         }
 
         [Test]
@@ -78,6 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsFailureMechanismSections()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -102,125 +94,26 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.SectionsIcon, image);
         }
 
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        [TestFixture]
+        public class FailureMechanismSectionsViewInfoCloseForDataTester : ShouldCloseFailureMechanismSectionsViewTester
         {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism();
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
+            protected override bool ShouldCloseMethod(FailureMechanismSectionsView view, object o)
             {
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
+                return GetViewInfo().CloseForData(view, o);
             }
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
-        {
-            // Setup
-            var failureMechanism = new TestFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            protected override FailureMechanismSectionsView GetView(IFailureMechanism failureMechanism)
             {
-                failureMechanism
-            });
-            mocks.ReplayAll();
-
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var failureMechanism = new TestFailureMechanism();
-
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, new TestFailureMechanism());
-
-                // Assert
-                Assert.IsFalse(closeForData);
+                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
             }
         }
 
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
+        private static ViewInfo GetViewInfo()
         {
-            // Setup
-            var failureMechanism = new TestFailureMechanism();
-
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
+            using (var plugin = new RingtoetsPlugin())
             {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanism);
-
-                // Assert
-                Assert.IsTrue(closeForData);
+                return plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsView));
             }
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(new TestFailureMechanism(), assessmentSection);
-
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestFailureMechanism();
-            var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
-
-            using (var view = new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism))
-            {
-                // Call
-                bool closeForData = info.CloseForData(view, failureMechanismContext);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-
-            mocks.VerifyAll();
         }
     }
 }

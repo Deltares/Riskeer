@@ -541,7 +541,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
                 Image = RingtoetsCommonFormsResources.SectionsIcon,
-                CloseForData = CloseFailureMechanismSectionsViewForData,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
             };
@@ -1204,30 +1204,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 yield return calculation.Comments;
             }
-        }
-
-        #endregion
-
-        #region FailureMechanismSectionsView ViewInfo
-
-        private static bool CloseFailureMechanismSectionsViewForData(FailureMechanismSectionsView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
-            var failureMechanism = o as IFailureMechanism;
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (assessmentSection != null)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .FirstOrDefault(fm => fm == view.FailureMechanism);
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
         #endregion
