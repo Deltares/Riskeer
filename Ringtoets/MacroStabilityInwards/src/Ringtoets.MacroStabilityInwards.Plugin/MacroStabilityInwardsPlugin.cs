@@ -41,6 +41,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO.FileImporters.MessageProviders;
 using Ringtoets.Common.IO.SoilProfile;
 using Ringtoets.Common.IO.SurfaceLines;
@@ -269,7 +270,18 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new MacroStabilityInwardsOutputView(context.WrappedData,
-                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
+                                                                                () => GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData))
+            };
+
+            yield return new ViewInfo<MacroStabilityInwardsFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
+            {
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismSections_DisplayName,
+                Image = RingtoetsCommonFormsResources.SectionsIcon,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView,
+                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
+                                                                                                  context.WrappedData,
+                                                                                                  ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput),
+                GetViewData = context => context.WrappedData.Sections
             };
         }
 

@@ -67,6 +67,7 @@
     <Compile Include="TreeNodeInfos\MacroStabilityInwardsStochasticSoilProfileTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\MacroStabilityInwardsSurfaceLinesContextUpdateInfoTest.cs" />
     <Compile Include="UpdateInfos\MacroStabilityInwardsStochasticSoilModelCollectionContextUpdateInfoTest.cs" />
+    <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismSectionsProbabilityAssessmentViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsInputViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacroStabilityInwardsCalculationsViewInfoTest.cs" />
