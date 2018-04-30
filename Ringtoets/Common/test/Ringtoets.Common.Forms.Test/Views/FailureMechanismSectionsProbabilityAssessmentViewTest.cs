@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -57,42 +56,6 @@ namespace Ringtoets.Common.Forms.Test.Views
         public void TearDown()
         {
             testForm.Dispose();
-        }
-
-        [Test]
-        public void Constructor_SectionsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () =>
-            {
-                new FailureMechanismSectionsProbabilityAssessmentView(null,
-                                                                      failureMechanism,
-                                                                      new TestProbabilityAssessmentInput(1, 2));
-            };
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sections", paramName);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new FailureMechanismSectionsProbabilityAssessmentView(Enumerable.Empty<FailureMechanismSection>(),
-                                                                                            null,
-                                                                                            new TestProbabilityAssessmentInput(1, 2));
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
         }
 
         [Test]
@@ -130,13 +93,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
 
             // Call
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
-                                                                                                             failureMechanism,
-                                                                                                             probabilityAssessmentInput))
+            using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  probabilityAssessmentInput))
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
+                Assert.IsInstanceOf<FailureMechanismSectionsView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
@@ -170,9 +132,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
 
             // Call
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
-                                                                                                             failureMechanism,
-                                                                                                             probabilityAssessmentInput))
+            using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  probabilityAssessmentInput))
             {
                 // Assert
                 CollectionAssert.IsEmpty(GetSectionsTable(view).Rows);
@@ -199,14 +161,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
 
             // Call
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
-                                                                                                             failureMechanism,
-                                                                                                             probabilityAssessmentInput))
+            using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(sections,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  probabilityAssessmentInput))
             {
                 // Assert
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
 
-                AssertSectionsTable(sections, sectionsTable);
+                AssertSectionsTable(sections, probabilityAssessmentInput, sectionsTable);
             }
 
             mocks.VerifyAll();
@@ -221,21 +183,48 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
 
-            using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
-                                                                                                             failureMechanism,
-                                                                                                             probabilityAssessmentInput))
+            using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  probabilityAssessmentInput))
             {
                 DataGridViewControl sectionsTable = GetSectionsTable(view);
 
                 // Precondition
-                AssertSectionsTable(failureMechanism.Sections.ToArray(), sectionsTable);
+                AssertSectionsTable(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsTable);
 
                 // When
                 failureMechanism.AddSection(CreateFailureMechanismSection("b"));
                 failureMechanism.NotifyObservers();
 
                 // Then
-                AssertSectionsTable(failureMechanism.Sections.ToArray(), sectionsTable);
+                AssertSectionsTable(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsTable);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithSections_WhenProbabilityAssessmentInputChanged_ThenTableUpdated()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(CreateFailureMechanismSection("a"));
+
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(1, 2);
+
+            using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  probabilityAssessmentInput))
+            {
+                DataGridViewControl sectionsTable = GetSectionsTable(view);
+
+                // Precondition
+                AssertSectionsTable(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsTable);
+
+                // When
+                probabilityAssessmentInput.A = 0.5;
+                failureMechanism.NotifyObservers();
+
+                // Then
+                AssertSectionsTable(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsTable);
             }
         }
 
@@ -249,12 +238,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             });
         }
 
-        private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsView view)
+        private static DataGridViewControl GetSectionsTable(FailureMechanismSectionsProbabilityAssessmentView view)
         {
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsTable").Single();
         }
 
-        private static void AssertSectionsTable(FailureMechanismSection[] sections, DataGridViewControl sectionsTable)
+        private static void AssertSectionsTable(FailureMechanismSection[] sections,
+                                                ProbabilityAssessmentInput probabilityAssessmentInput,
+                                                DataGridViewControl sectionsTable)
         {
             Assert.AreEqual(sections.Length, sectionsTable.Rows.Count);
 
@@ -267,12 +258,15 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 var sectionLength = (RoundedDouble) rowCells[lengthColumnIndex].Value;
                 Assert.AreEqual(section.Length, sectionLength, sectionLength.GetAccuracy());
+
+                var lengthEffect = (RoundedDouble) rowCells[lengthEffectColumnIndex].Value;
+                Assert.AreEqual(probabilityAssessmentInput.GetN(section.Length), lengthEffect, lengthEffect.GetAccuracy());
             }
         }
 
-        private FailureMechanismSectionsView ShowFailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
-                                                                                                   IFailureMechanism failureMechanism,
-                                                                                                   ProbabilityAssessmentInput probabilityAssessmentInput)
+        private FailureMechanismSectionsProbabilityAssessmentView ShowFailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
+                                                                                                                        IFailureMechanism failureMechanism,
+                                                                                                                        ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             var view = new FailureMechanismSectionsProbabilityAssessmentView(sections, failureMechanism, probabilityAssessmentInput);
 
