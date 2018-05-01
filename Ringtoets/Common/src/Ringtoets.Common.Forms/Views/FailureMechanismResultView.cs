@@ -51,8 +51,8 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
-        protected FailureMechanismAssemblyResultControl FailureMechanismAssemblyResultControl;
-        protected Func<FailureMechanismAssembly> GetFailureMechanismAssemblyFunc;
+        private FailureMechanismAssemblyResultControl failureMechanismAssemblyResultControl;
+        private Action setFailureMechanismAssemblyFunc;
 
         private IEnumerable<TSectionResultRow> sectionResultRows;
         private bool rowUpdating;
@@ -173,18 +173,31 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateFailureMechanismAssemblyResultControl()
         {
-            if (FailureMechanismAssemblyResultControl != null && GetFailureMechanismAssemblyFunc != null)
+            if (failureMechanismAssemblyResultControl != null && setFailureMechanismAssemblyFunc != null)
             {
                 try
                 {
-                    FailureMechanismAssemblyResultControl.SetAssemblyResult(GetFailureMechanismAssemblyFunc());
-                    FailureMechanismAssemblyResultControl.ClearError();
+                    setFailureMechanismAssemblyFunc();
+                    failureMechanismAssemblyResultControl.ClearError();
                 }
                 catch (Exception e)
                 {
-                    FailureMechanismAssemblyResultControl.SetError(e.Message);
+                    failureMechanismAssemblyResultControl.SetError(e.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// Sets the correct failure mechanism assembly result control on the view.
+        /// </summary>
+        /// <param name="control">The control to set on the view.</param>
+        /// <param name="setFailureMechanismAssemblyFunc">The action to perform to update the data of the control.</param>
+        protected void SetFailureMechanismAssemblyResultControl(FailureMechanismAssemblyResultControl control,
+                                                                Action setFailureMechanismAssemblyFunc)
+        {
+            failureMechanismAssemblyResultControl = control;
+            this.setFailureMechanismAssemblyFunc = setFailureMechanismAssemblyFunc;
+            TableLayoutPanel.Controls.Add(failureMechanismAssemblyResultControl, 0, 0);
         }
 
         /// <summary>

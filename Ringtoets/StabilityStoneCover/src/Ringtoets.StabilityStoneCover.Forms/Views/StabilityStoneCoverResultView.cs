@@ -21,6 +21,7 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -51,7 +52,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// </summary>
         public StabilityStoneCoverResultView(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult> failureMechanismSectionResults,
                                              StabilityStoneCoverFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
+            : base(failureMechanismSectionResults, failureMechanism)
+        {
+            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
+            SetFailureMechanismAssemblyResultControl(
+                failureMechanismAssemblyResultWithProbabilityControl,
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism.SectionResults)));
+        }
 
         protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
         {

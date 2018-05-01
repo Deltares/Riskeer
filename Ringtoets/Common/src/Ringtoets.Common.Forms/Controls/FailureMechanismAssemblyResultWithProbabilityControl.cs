@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
+using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 
@@ -40,9 +43,20 @@ namespace Ringtoets.Common.Forms.Controls
             Dock = DockStyle.Left;
         }
 
-        public override void SetAssemblyResult(FailureMechanismAssembly assembly)
+        /// <summary>
+        /// Set the values of the <paramref name="assembly"/> to the control.
+        /// </summary>
+        /// <param name="assembly">The <see cref="FailureMechanismAssembly"/> to set on the control.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> is <c>null</c>.</exception>
+        public void SetAssemblyResult(FailureMechanismAssembly assembly)
         {
-            base.SetAssemblyResult(assembly);
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+
+            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group);
 
             probabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability);
         }

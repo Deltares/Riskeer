@@ -72,9 +72,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            FailureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
-            GetFailureMechanismAssemblyFunc = () => HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
-            TableLayoutPanel.Controls.Add(FailureMechanismAssemblyResultControl, 0, 0);
+            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            SetFailureMechanismAssemblyResultControl(
+                failureMechanismAssemblyResultWithProbabilityControl,
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(

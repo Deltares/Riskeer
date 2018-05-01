@@ -71,17 +71,12 @@ namespace Ringtoets.Common.Forms.Controls
         /// <summary>
         /// Set the values of the <paramref name="assembly"/> to the control.
         /// </summary>
-        /// <param name="assembly">The <see cref="FailureMechanismAssembly"/> to set on the control.</param>
+        /// <param name="assembly">The <see cref="FailureMechanismAssemblyCategoryGroup"/> to set on the control.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> is <c>null</c>.</exception>
-        public virtual void SetAssemblyResult(FailureMechanismAssembly assembly)
+        public void SetAssemblyResult(FailureMechanismAssemblyCategoryGroup assembly)
         {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException(nameof(assembly));
-            }
-
-            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName;
-            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group);
+            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly);
         }
     }
 }

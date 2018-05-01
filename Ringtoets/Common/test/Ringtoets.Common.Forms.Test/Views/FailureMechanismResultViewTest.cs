@@ -484,21 +484,21 @@ namespace Ringtoets.Common.Forms.Test.Views
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
                 : base(failureMechanismSectionResults, failureMechanism)
             {
-                FailureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultControl();
-                TableLayoutPanel.Controls.Add(FailureMechanismAssemblyResultControl, 0, 0);
-                GetFailureMechanismAssemblyFunc = () =>
-                {
-                    if (ThrowExceptionOnCalculate)
-                    {
-                        throw new Exception("Message");
-                    }
+                var failureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultControl();
+                SetFailureMechanismAssemblyResultControl(failureMechanismAssemblyResultControl,
+                                                         () =>
+                                                         {
+                                                             if (ThrowExceptionOnCalculate)
+                                                             {
+                                                                 throw new Exception("Message");
+                                                             }
 
-                    AssemblyResultUpdated = true;
-                    return new FailureMechanismAssembly(1.0, FailureMechanismAssemblyCategoryGroup.IIIt);
-                };
+                                                             failureMechanismAssemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
+                                                             AssemblyResultUpdated = true;
+                                                         });
             }
 
-            public bool ThrowExceptionOnCalculate { get; set; }
+            public bool ThrowExceptionOnCalculate { private get; set; }
 
             public bool AssemblyResultUpdated { get; set; }
 

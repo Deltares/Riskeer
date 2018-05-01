@@ -69,26 +69,11 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void SetAssemblyResult_AssemblyNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var resultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
-
-            // Call
-            TestDelegate test = () => resultControl.SetAssemblyResult(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assembly", exception.ParamName);
-        }
-
-        [Test]
         public void SetAssemblyResult_WithAssembly_SetsValues()
         {
             // Setup
             var random = new Random(39);
-            var assembly = new FailureMechanismAssembly(random.NextDouble(),
-                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            var assembly = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
             var resultControl = new FailureMechanismAssemblyResultControl();
 
             // Call
@@ -97,9 +82,9 @@ namespace Ringtoets.Common.Forms.Test.Controls
             // Assert
             Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
 
-            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName,
+            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly).DisplayName,
                             groupLabel.Text);
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group),
+            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly),
                             groupLabel.BackColor);
         }
 
