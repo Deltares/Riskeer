@@ -29,7 +29,9 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 
@@ -196,6 +198,33 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual("1/1", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
+            }
+        }
+
+        [TestFixture]
+        public class ClosingStructuresFailureMechanismResultWithProbabilityTest : FailureMechanismResultWithProbabilityTester<
+            ClosingStructuresFailureMechanismResultView,
+            ClosingStructuresFailureMechanism,
+            ClosingStructuresFailureMechanismSectionResult,
+            ClosingStructuresFailureMechanismSectionResultRow,
+            StructuresCalculation<ClosingStructuresInput>,
+            ClosingStructuresInput>
+        {
+            protected override ClosingStructuresFailureMechanismResultView CreateResultView(ClosingStructuresFailureMechanism failureMechanism)
+            {
+                return new ClosingStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                       failureMechanism,
+                                                                       new AssessmentSectionStub());
+            }
+
+            protected override StructuresCalculation<ClosingStructuresInput> CreateCalculation()
+            {
+                return new StructuresCalculation<ClosingStructuresInput>();
+            }
+
+            protected override ClosingStructuresInput GetInput(StructuresCalculation<ClosingStructuresInput> calculation)
+            {
+                return calculation.InputParameters;
             }
         }
 
