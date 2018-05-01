@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -71,19 +72,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
+            FailureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            GetFailureMechanismAssemblyFunc = () => GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
+            TableLayoutPanel.Controls.Add(FailureMechanismAssemblyResultControl, 0, 0);
+
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource,
+                UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<GrassCoverErosionInwardsCalculation>()
                                                    .Select(c => c.InputParameters)));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
-                UpdateDataGridViewDataSource,
+                UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<GrassCoverErosionInwardsCalculation>()
                                                    .Select(c => c.Output)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateDataGridViewDataSource,
+                UpdateView,
                 c => c.Children);
 
             CalculationGroup observableGroup = failureMechanism.CalculationsGroup;

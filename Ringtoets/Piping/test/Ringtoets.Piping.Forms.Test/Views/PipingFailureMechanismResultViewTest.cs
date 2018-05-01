@@ -217,7 +217,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
                                                             new AssessmentSectionStub());
             }
 
-            protected override PipingCalculationScenario CreateCalculationScenario()
+            protected override PipingCalculationScenario CreateCalculation()
             {
                 return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             }

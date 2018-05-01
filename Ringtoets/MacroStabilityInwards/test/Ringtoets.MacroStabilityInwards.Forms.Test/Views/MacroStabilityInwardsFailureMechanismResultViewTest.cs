@@ -217,7 +217,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                            new AssessmentSectionStub());
             }
 
-            protected override MacroStabilityInwardsCalculationScenario CreateCalculationScenario()
+            protected override MacroStabilityInwardsCalculationScenario CreateCalculation()
             {
                 return MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             }

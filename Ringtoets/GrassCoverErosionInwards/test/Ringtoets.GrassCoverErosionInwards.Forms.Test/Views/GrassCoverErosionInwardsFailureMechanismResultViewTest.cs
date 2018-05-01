@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -196,6 +197,33 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("1/1", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
+            }
+        }
+
+        [TestFixture]
+        public class GrassCoverErosionInwardsFailureMechanismResultWithProbabilityTest : FailureMechanismResultWithProbabilityTester<
+            GrassCoverErosionInwardsFailureMechanismResultView,
+            GrassCoverErosionInwardsFailureMechanism,
+            GrassCoverErosionInwardsFailureMechanismSectionResult,
+            GrassCoverErosionInwardsFailureMechanismSectionResultRow,
+            GrassCoverErosionInwardsCalculation,
+            GrassCoverErosionInwardsInput>
+        {
+            protected override GrassCoverErosionInwardsFailureMechanismResultView CreateResultView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+            {
+                return new GrassCoverErosionInwardsFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                              failureMechanism,
+                                                                              new AssessmentSectionStub());
+            }
+
+            protected override GrassCoverErosionInwardsCalculation CreateCalculation()
+            {
+                return new GrassCoverErosionInwardsCalculation();
+            }
+
+            protected override GrassCoverErosionInwardsInput GetInput(GrassCoverErosionInwardsCalculation calculation)
+            {
+                return calculation.InputParameters;
             }
         }
 

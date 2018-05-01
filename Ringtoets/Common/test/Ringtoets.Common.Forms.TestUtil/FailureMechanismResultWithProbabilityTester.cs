@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             var failureMechanism = new TFailureMechanism();
-            TCalculation calculation = CreateCalculationScenario();
+            TCalculation calculation = CreateCalculation();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -153,7 +153,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             var failureMechanism = new TFailureMechanism();
-            TCalculation calculation = CreateCalculationScenario();
+            TCalculation calculation = CreateCalculation();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -190,7 +190,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// Method for creating an instance of <typeparamref name="TCalculation"/>.
         /// </summary>
         /// <returns>A new <typeparamref name="TCalculation"/>.</returns>
-        protected abstract TCalculation CreateCalculationScenario();
+        protected abstract TCalculation CreateCalculation();
 
         /// <summary>
         /// Method to get the <typeparamref name="TCalculationInput"/> from a
