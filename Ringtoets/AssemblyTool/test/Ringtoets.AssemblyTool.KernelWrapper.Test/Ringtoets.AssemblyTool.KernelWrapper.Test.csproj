@@ -28,6 +28,7 @@
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorTest.cs" />
     <Compile Include="Creators\AssemblyCategoryCreatorTest.cs" />
+    <Compile Include="Creators\AssessmentSectionAssemblyInputCreatorTest.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreatorTest.cs" />
     <Compile Include="Creators\FailureMechanismAssemblyCreatorTest.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCreatorTest.cs" />
