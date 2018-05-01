@@ -68,7 +68,7 @@ namespace Ringtoets.Revetment.Service.Test
         public void Validate_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
@@ -92,7 +92,7 @@ namespace Ringtoets.Revetment.Service.Test
             var isValid = false;
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                      GetValidNormativeAssessmentLevel(),
                                                                                                                      string.Empty,
                                                                                                                      validPreprocessorDirectory,
@@ -119,7 +119,7 @@ namespace Ringtoets.Revetment.Service.Test
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                      GetValidNormativeAssessmentLevel(),
                                                                                                                      invalidFilePath,
                                                                                                                      validPreprocessorDirectory,
@@ -146,7 +146,7 @@ namespace Ringtoets.Revetment.Service.Test
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                      GetValidNormativeAssessmentLevel(),
                                                                                                                      validFilePath,
                                                                                                                      invalidPreprocessorDirectory,
@@ -173,7 +173,7 @@ namespace Ringtoets.Revetment.Service.Test
             string dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
 
             // Call
-            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new WaveConditionsInput(),
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                      GetValidNormativeAssessmentLevel(),
                                                                                                                      dbFilePath,
                                                                                                                      validPreprocessorDirectory,
@@ -198,7 +198,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
@@ -226,7 +226,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
@@ -265,7 +265,7 @@ namespace Ringtoets.Revetment.Service.Test
             // Setup
             var isValid = false;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 Orientation = (RoundedDouble) 0,
@@ -473,7 +473,7 @@ namespace Ringtoets.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
@@ -534,7 +534,7 @@ namespace Ringtoets.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
@@ -603,7 +603,7 @@ namespace Ringtoets.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),
@@ -662,7 +662,7 @@ namespace Ringtoets.Revetment.Service.Test
             var waterLevelUpperBoundaryRevetment = new RoundedDouble(2, 4.00);
             var waterLevelLowerBoundaryRevetment = new RoundedDouble(2, 3.00);
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
@@ -777,7 +777,7 @@ namespace Ringtoets.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
@@ -843,7 +843,7 @@ namespace Ringtoets.Revetment.Service.Test
             var b = (RoundedDouble) 0.8;
             var c = (RoundedDouble) 0.4;
             const double norm = 0.2;
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(),
@@ -880,7 +880,7 @@ namespace Ringtoets.Revetment.Service.Test
 
         private static WaveConditionsInput GetDefaultValidationInput()
         {
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
                 ForeshoreProfile = new TestForeshoreProfile(true),

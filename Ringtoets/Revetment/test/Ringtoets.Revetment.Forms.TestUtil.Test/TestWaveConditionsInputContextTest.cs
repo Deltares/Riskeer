@@ -24,7 +24,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 
@@ -37,7 +36,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
         public void Constructor_WithInput_ExpectedValues()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput();
+            var waveConditionsInput = new TestWaveConditionsInput();
 
             // Call
             var context = new TestWaveConditionsInputContext(waveConditionsInput);
@@ -54,7 +53,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
         public void Constructor_WithInputAndForeshoreProfilesAndAssessmentSection_ExpectedValues()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput();
+            var waveConditionsInput = new TestWaveConditionsInput();
             var profiles = new ForeshoreProfile[0];
             var assessmentSection = new AssessmentSectionStub();
 
@@ -77,7 +76,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var waveConditionsInput = new WaveConditionsInput();
+            var waveConditionsInput = new TestWaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
             var profiles = new ForeshoreProfile[0];
 

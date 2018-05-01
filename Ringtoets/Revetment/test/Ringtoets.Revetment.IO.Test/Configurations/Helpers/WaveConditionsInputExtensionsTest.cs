@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations.Helpers;
 
@@ -49,7 +50,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         public void ToConfiguration_WithoutName_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInput().ToConfiguration(null);
+            TestDelegate test = () => new TestWaveConditionsInput().ToConfiguration(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -63,7 +64,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             const string name = "name";
 
             // Call
-            WaveConditionsCalculationConfiguration configuration = new WaveConditionsInput().ToConfiguration(name);
+            WaveConditionsCalculationConfiguration configuration = new TestWaveConditionsInput().ToConfiguration(name);
 
             // Assert
             Assert.AreEqual(name, configuration.Name);
@@ -93,7 +94,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             const double upperBoundaryWaterLevels = 8.66;
             const int orientation = 122;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileName),
                 HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName),
