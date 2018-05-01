@@ -31,6 +31,9 @@ namespace Ringtoets.Common.Forms.Views
     /// </summary>
     public class FailureMechanismSectionProbabilityAssessmentRow : FailureMechanismSectionRow
     {
+        private readonly FailureMechanismSection section;
+        private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
+
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionProbabilityAssessmentRow"/>.
         /// </summary>
@@ -46,13 +49,20 @@ namespace Ringtoets.Common.Forms.Views
                 throw new ArgumentNullException(nameof(probabilityAssessmentInput));
             }
 
-            N = new RoundedDouble(2, probabilityAssessmentInput.GetN(section.Length));
+            this.section = section;
+            this.probabilityAssessmentInput = probabilityAssessmentInput;
         }
 
         /// <summary>
         /// Gets the N of the section.
         /// [-]
         /// </summary>
-        public RoundedDouble N { get; }
+        public RoundedDouble N
+        {
+            get
+            {
+                return new RoundedDouble(2, probabilityAssessmentInput.GetN(section.Length));
+            }
+        }
     }
 }

@@ -153,9 +153,9 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var sections = new[]
             {
-                CreateFailureMechanismSection("a"),
-                CreateFailureMechanismSection("b"),
-                CreateFailureMechanismSection("c")
+                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0),
+                CreateFailureMechanismSection("b", 1.0, 1.0, 2.0, 2.0),
+                CreateFailureMechanismSection("c", 2.0, 2.0, 3.0, 3.0)
             };
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(CreateFailureMechanismSection("a"));
+            failureMechanism.AddSection(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsDataGridViewControl);
 
                 // When
-                failureMechanism.AddSection(CreateFailureMechanismSection("b"));
+                failureMechanism.AddSection(CreateFailureMechanismSection("a", 1.0, 1.0, 2.0, 2.0));
                 failureMechanism.NotifyObservers();
 
                 // Then
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(CreateFailureMechanismSection("a"));
+            failureMechanism.AddSection(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
@@ -228,13 +228,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
         }
 
-        private static FailureMechanismSection CreateFailureMechanismSection(string name)
+        private static FailureMechanismSection CreateFailureMechanismSection(string name, double x1, double y1, double x2, double y2)
         {
-            var random = new Random(39);
-
             return new FailureMechanismSection(name, new[]
             {
-                new Point2D(random.NextDouble(), random.NextDouble())
+                new Point2D(x1, y1),
+                new Point2D(x2, y2)
             });
         }
 
