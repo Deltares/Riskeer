@@ -325,10 +325,4 @@
   <ItemGroup>
     <None Include="Resources\AddFolder-stand32.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AssemblyResultTotal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AssemblyResultPerSection.png" />
-  </ItemGroup>
 </Project>

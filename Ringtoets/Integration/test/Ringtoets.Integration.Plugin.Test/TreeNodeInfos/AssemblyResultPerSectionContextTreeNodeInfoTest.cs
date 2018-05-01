@@ -25,7 +25,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Forms.PresentationObjects;
-using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
@@ -90,7 +90,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsIntegrationFormsResources.AssemblyResultPerSection, image);
+                TestHelper.AssertImagesAreEqual(Resources.AssemblyResultPerSection, image);
             }
         }
 

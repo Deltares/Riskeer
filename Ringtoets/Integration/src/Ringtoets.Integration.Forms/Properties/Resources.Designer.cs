@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -115,44 +115,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string AssemblyResultCategoryTreeFolder_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyResultCategoryTreeFolder_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AssemblyResultPerSection {
-            get {
-                object obj = ResourceManager.GetObject("AssemblyResultPerSection", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd vakoordeel.
-        /// </summary>
-        public static string AssemblyResultPerSectionContext_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultPerSectionContext_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap AssemblyResultTotal {
-            get {
-                object obj = ResourceManager.GetObject("AssemblyResultTotal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd totaaloordeel.
-        /// </summary>
-        public static string AssemblyResultTotal_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotal_DisplayName", resourceCulture);
             }
         }
         
