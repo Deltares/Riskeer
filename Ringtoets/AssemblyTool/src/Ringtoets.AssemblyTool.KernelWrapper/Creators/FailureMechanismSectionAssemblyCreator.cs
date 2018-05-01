@@ -42,7 +42,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EFmSectionCategory"/>
         /// is a valid value, but unsupported.</exception>
-        internal static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResult result)
+        public static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResult result)
         {
             if (result == null)
             {
@@ -62,7 +62,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        internal static FailureMechanismSectionAssemblyCategoryGroup CreateFailureMechanismSectionAssemblyCategoryGroup(EFmSectionCategory category)
+        public static FailureMechanismSectionAssemblyCategoryGroup CreateFailureMechanismSectionAssemblyCategoryGroup(EFmSectionCategory category)
         {
             if (!Enum.IsDefined(typeof(EFmSectionCategory), category))
             {

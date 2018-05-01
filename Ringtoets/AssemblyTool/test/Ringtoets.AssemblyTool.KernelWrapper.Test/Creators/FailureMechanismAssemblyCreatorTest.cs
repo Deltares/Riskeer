@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Core.Common.TestUtil;
@@ -53,20 +54,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             TestDelegate test = () => FailureMechanismAssemblyCreator.Create(result);
 
             // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFailureMechanismCategory'.";
+            string expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EFailureMechanismCategory)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
         [Test]
-        [TestCase(EFailureMechanismCategory.Gr, FailureMechanismAssemblyCategoryGroup.None)]
-        [TestCase(EFailureMechanismCategory.Nvt, FailureMechanismAssemblyCategoryGroup.NotApplicable)]
-        [TestCase(EFailureMechanismCategory.It, FailureMechanismAssemblyCategoryGroup.It)]
-        [TestCase(EFailureMechanismCategory.IIt, FailureMechanismAssemblyCategoryGroup.IIt)]
-        [TestCase(EFailureMechanismCategory.IIIt, FailureMechanismAssemblyCategoryGroup.IIIt)]
-        [TestCase(EFailureMechanismCategory.IVt, FailureMechanismAssemblyCategoryGroup.IVt)]
-        [TestCase(EFailureMechanismCategory.Vt, FailureMechanismAssemblyCategoryGroup.Vt)]
-        [TestCase(EFailureMechanismCategory.VIt, FailureMechanismAssemblyCategoryGroup.VIt)]
-        [TestCase(EFailureMechanismCategory.VIIt, FailureMechanismAssemblyCategoryGroup.VIIt)]
+        [TestCaseSource(nameof(FailureMechanismAssemblyCategoryGroupCases))]
         public void Create_ValidResult_ReturnFailureMechanismAssembly(EFailureMechanismCategory originalGroup,
                                                                       FailureMechanismAssemblyCategoryGroup expectedGroup)
         {
@@ -105,20 +98,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             TestDelegate test = () => FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup((EFailureMechanismCategory) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFailureMechanismCategory'.";
+            string expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EFailureMechanismCategory)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
         [Test]
-        [TestCase(EFailureMechanismCategory.Gr, FailureMechanismAssemblyCategoryGroup.None)]
-        [TestCase(EFailureMechanismCategory.Nvt, FailureMechanismAssemblyCategoryGroup.NotApplicable)]
-        [TestCase(EFailureMechanismCategory.It, FailureMechanismAssemblyCategoryGroup.It)]
-        [TestCase(EFailureMechanismCategory.IIt, FailureMechanismAssemblyCategoryGroup.IIt)]
-        [TestCase(EFailureMechanismCategory.IIIt, FailureMechanismAssemblyCategoryGroup.IIIt)]
-        [TestCase(EFailureMechanismCategory.IVt, FailureMechanismAssemblyCategoryGroup.IVt)]
-        [TestCase(EFailureMechanismCategory.Vt, FailureMechanismAssemblyCategoryGroup.Vt)]
-        [TestCase(EFailureMechanismCategory.VIt, FailureMechanismAssemblyCategoryGroup.VIt)]
-        [TestCase(EFailureMechanismCategory.VIIt, FailureMechanismAssemblyCategoryGroup.VIIt)]
+        [TestCaseSource(nameof(FailureMechanismAssemblyCategoryGroupCases))]
         public void CreateFailureMechanismAssemblyCategoryGroup_ValidGroup_ReturnFailureMechanismAssemblyCategoryGroup(
             EFailureMechanismCategory originalGroup,
             FailureMechanismAssemblyCategoryGroup expectedGroup)
@@ -128,6 +113,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             Assert.AreEqual(expectedGroup, actualGroup);
+        }
+
+        private static IEnumerable<TestCaseData> FailureMechanismAssemblyCategoryGroupCases()
+        {
+            yield return new TestCaseData(EFailureMechanismCategory.Gr, FailureMechanismAssemblyCategoryGroup.None);
+            yield return new TestCaseData(EFailureMechanismCategory.Nvt, FailureMechanismAssemblyCategoryGroup.NotApplicable);
+            yield return new TestCaseData(EFailureMechanismCategory.It, FailureMechanismAssemblyCategoryGroup.It);
+            yield return new TestCaseData(EFailureMechanismCategory.IIt, FailureMechanismAssemblyCategoryGroup.IIt);
+            yield return new TestCaseData(EFailureMechanismCategory.IIIt, FailureMechanismAssemblyCategoryGroup.IIIt);
+            yield return new TestCaseData(EFailureMechanismCategory.IVt, FailureMechanismAssemblyCategoryGroup.IVt);
+            yield return new TestCaseData(EFailureMechanismCategory.Vt, FailureMechanismAssemblyCategoryGroup.Vt);
+            yield return new TestCaseData(EFailureMechanismCategory.VIt, FailureMechanismAssemblyCategoryGroup.VIt);
+            yield return new TestCaseData(EFailureMechanismCategory.VIIt, FailureMechanismAssemblyCategoryGroup.VIIt);
         }
     }
 }

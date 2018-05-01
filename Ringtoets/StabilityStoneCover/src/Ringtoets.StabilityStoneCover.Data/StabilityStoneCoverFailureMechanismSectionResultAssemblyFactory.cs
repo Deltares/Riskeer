@@ -209,7 +209,7 @@ namespace Ringtoets.StabilityStoneCover.Data
 
             try
             {  
-                return calculator.AssembleFailureMechanism(sectionAssemblies);
+                return calculator.Assemble(sectionAssemblies);
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {

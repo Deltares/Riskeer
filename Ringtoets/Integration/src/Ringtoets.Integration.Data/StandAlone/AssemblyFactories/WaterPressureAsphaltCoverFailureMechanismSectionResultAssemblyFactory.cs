@@ -174,7 +174,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {  
-                return calculator.AssembleFailureMechanism(sectionAssemblies);
+                return calculator.Assemble(sectionAssemblies);
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {

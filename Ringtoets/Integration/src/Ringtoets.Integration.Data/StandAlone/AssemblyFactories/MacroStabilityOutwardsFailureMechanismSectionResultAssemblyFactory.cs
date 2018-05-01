@@ -261,7 +261,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
             try
             {
-                return calculator.AssembleFailureMechanism(sectionAssemblies);
+                return calculator.Assemble(sectionAssemblies);
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {

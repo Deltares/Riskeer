@@ -36,7 +36,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories);
+        FailureMechanismAssemblyCategoryGroup Assemble(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories);
 
         /// <summary>
         /// Assembles the failure mechanism with failure probabilities using the given parameters.
@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        FailureMechanismAssembly AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
+        FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
                                                           AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }

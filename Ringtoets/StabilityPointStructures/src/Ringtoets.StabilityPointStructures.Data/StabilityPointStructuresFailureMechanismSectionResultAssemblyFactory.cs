@@ -267,7 +267,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 IFailureMechanismAssemblyCalculator calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                return calculator.AssembleFailureMechanism(sectionAssemblies, assemblyCategoriesInput);
+                return calculator.Assemble(sectionAssemblies, assemblyCategoriesInput);
             }
             catch (Exception e) when (e is FailureMechanismAssemblyCalculatorException || e is FailureMechanismSectionAssemblyCalculatorException)
             {
