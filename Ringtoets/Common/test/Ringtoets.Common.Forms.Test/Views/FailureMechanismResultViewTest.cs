@@ -485,17 +485,18 @@ namespace Ringtoets.Common.Forms.Test.Views
                 : base(failureMechanismSectionResults, failureMechanism)
             {
                 var failureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultControl();
-                SetFailureMechanismAssemblyResultControl(failureMechanismAssemblyResultControl,
-                                                         () =>
-                                                         {
-                                                             if (ThrowExceptionOnCalculate)
-                                                             {
-                                                                 throw new Exception("Message");
-                                                             }
+                SetFailureMechanismAssemblyResultControl(
+                    failureMechanismAssemblyResultControl,
+                    () =>
+                    {
+                        if (ThrowExceptionOnCalculate)
+                        {
+                            throw new Exception("Message");
+                        }
 
-                                                             failureMechanismAssemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
-                                                             AssemblyResultUpdated = true;
-                                                         });
+                        failureMechanismAssemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
+                        AssemblyResultUpdated = true;
+                    });
             }
 
             public bool ThrowExceptionOnCalculate { private get; set; }
