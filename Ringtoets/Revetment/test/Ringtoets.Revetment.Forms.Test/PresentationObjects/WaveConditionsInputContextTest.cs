@@ -41,7 +41,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput();
+            var waveConditionsInput = new TestWaveConditionsInput();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -62,7 +62,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput();
+            var waveConditionsInput = new TestWaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         public void Constructor_ValidInput_ExpectedValues()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput();
+            var waveConditionsInput = new TestWaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
             var assessmentSection = new AssessmentSectionStub();
 

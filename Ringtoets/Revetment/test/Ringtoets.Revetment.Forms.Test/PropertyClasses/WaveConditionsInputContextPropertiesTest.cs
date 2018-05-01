@@ -98,7 +98,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSectionStub();
 
             var context = new TestWaveConditionsInputContext(
-                new WaveConditionsInput(),
+                new TestWaveConditionsInput(),
                 Enumerable.Empty<ForeshoreProfile>(),
                 assessmentSection);
 
@@ -116,7 +116,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var context = new TestWaveConditionsInputContext(
-                new WaveConditionsInput(),
+                new TestWaveConditionsInput(),
                 Enumerable.Empty<ForeshoreProfile>(),
                 new AssessmentSectionStub());
 
@@ -165,7 +165,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                     X0 = -3
                 });
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = foreshoreProfile,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -224,7 +224,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var assessmentSection = new AssessmentSectionStub();
 
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             var foreshoreProfile = new TestForeshoreProfile();
 
             if (withForeshoreProfile)
@@ -377,7 +377,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var upperBoundaryWaterLevels = (RoundedDouble) 5.88;
             const WaveConditionsInputStepSize stepSize = WaveConditionsInputStepSize.Half;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryRevetment = upperBoundaryRevetment,
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
@@ -487,7 +487,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var assessmentSection = new AssessmentSectionStub();
 
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSection);
 
             var properties = new TestWaveConditionsInputContextProperties(inputContext,
@@ -521,7 +521,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 hydraulicBoundaryLocation
             });
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
             };
@@ -558,7 +558,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
@@ -601,7 +601,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 200643.312, 503347.25);
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                 ForeshoreProfile = new TestForeshoreProfile(new Point2D(200620.173572981, 503401.652985217))
@@ -650,7 +650,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
 
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSection);
 
             var properties = new TestWaveConditionsInputContextProperties(inputContext,
@@ -686,7 +686,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new HydraulicBoundaryLocation(2, "B", 0, 200)
             };
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -729,7 +729,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -778,7 +778,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new TestForeshoreProfile()
             };
 
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, foreshoreProfiles, assessmentSection);
 
             var properties = new TestWaveConditionsInputContextProperties(inputContext,
@@ -803,7 +803,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var calculation = new TestWaveConditionsCalculation();
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };

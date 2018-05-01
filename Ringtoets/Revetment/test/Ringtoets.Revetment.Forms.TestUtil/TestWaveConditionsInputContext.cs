@@ -41,7 +41,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         public TestWaveConditionsInputContext(WaveConditionsInput wrappedData)
-            : this(wrappedData,
+            : this(wrappedData, 
                    new ForeshoreProfile[0],
                    new AssessmentSectionStub()) {}
 

@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
 namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
@@ -55,7 +56,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             var properties = new WaveConditionsInputForeshoreProfileProperties();
 
             // Call
@@ -70,7 +71,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
@@ -103,7 +104,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             var properties = new WaveConditionsInputForeshoreProfileProperties
             {
                 Data = input
@@ -126,7 +127,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithOrWithoutForeshoreProfileAndForelands_ReturnExpectedValues(bool withDikeProfile, int forlands, bool expectedCoordinatesPropertyReadOnly)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             if (withDikeProfile)
             {
