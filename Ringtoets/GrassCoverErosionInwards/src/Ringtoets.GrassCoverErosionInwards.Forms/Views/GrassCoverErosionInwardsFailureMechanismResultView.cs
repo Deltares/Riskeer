@@ -51,7 +51,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         /// <inheritdoc />
@@ -82,25 +81,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<GrassCoverErosionInwardsCalculation>()
                                                    .Select(c => c.InputParameters)));
-            calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
-                UpdateView,
-                cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<GrassCoverErosionInwardsCalculation>()
-                                                   .Select(c => c.Output)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateView,
                 c => c.Children);
 
             CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
             calculationInputObserver.Observable = observableGroup;
-            calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
         }
 
         protected override void Dispose(bool disposing)
         {
             calculationInputObserver.Dispose();
-            calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
             base.Dispose(disposing);
