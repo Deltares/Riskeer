@@ -957,7 +957,10 @@ namespace Ringtoets.Integration.Plugin
             yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
             {
                 Text = context => Resources.AssemblyResultPerSection_DisplayName,
-                Image = context => Resources.AssemblyResultPerSection
+                Image = context => Resources.AssemblyResultPerSection,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
             };
         }
 
