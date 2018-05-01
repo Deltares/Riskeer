@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="FailureMechanismSection"/> with a section specific N.
     /// </summary>
-    public class FailureMechanismSectionProbabilityAssessmentRow : FailureMechanismSectionRow
+    internal class FailureMechanismSectionProbabilityAssessmentRow : FailureMechanismSectionRow
     {
         private readonly FailureMechanismSection section;
         private readonly ProbabilityAssessmentInput probabilityAssessmentInput;

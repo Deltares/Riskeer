@@ -86,6 +86,8 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             currentSections = sections.ToList();
 
             SetDataGridViewControlData();

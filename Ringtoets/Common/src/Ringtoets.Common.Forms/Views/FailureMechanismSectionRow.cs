@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class FailureMechanismSectionRow
+    internal class FailureMechanismSectionRow
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionRow"/>.

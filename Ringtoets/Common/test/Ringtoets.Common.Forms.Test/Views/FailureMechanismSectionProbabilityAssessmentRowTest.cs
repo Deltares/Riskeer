@@ -60,9 +60,10 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionRow>(sectionRow);
+
             Assert.AreEqual(section.Name, sectionRow.Name);
-            Assert.AreEqual(2, sectionRow.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(section.Length, sectionRow.Length, sectionRow.Length.GetAccuracy());
+
             Assert.AreEqual(2, sectionRow.N.NumberOfDecimalPlaces);
             AssertLengthEffect(probabilityAssessmentInput, section, sectionRow);
         }
