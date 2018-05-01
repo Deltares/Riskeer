@@ -64,16 +64,42 @@ namespace Ringtoets.Common.Forms.Test.Views
             Assert.AreEqual(2, sectionRow.Length.NumberOfDecimalPlaces);
             Assert.AreEqual(section.Length, sectionRow.Length, sectionRow.Length.GetAccuracy());
             Assert.AreEqual(2, sectionRow.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(probabilityAssessmentInput.GetN(section.Length), sectionRow.N, sectionRow.N.GetAccuracy());
+            AssertLengthEffect(probabilityAssessmentInput, section, sectionRow);
+        }
+
+        [Test]
+        public void GivenRow_WhenProbabilityAssessmentInputChanged_ThenNChangedAccordingly()
+        {
+            // Given
+            var random = new Random(39);
+            FailureMechanismSection section = GetTestFailureMechanismSection();
+            var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
+            var sectionRow = new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput);
+
+            // Precondition
+            AssertLengthEffect(probabilityAssessmentInput, section, sectionRow);
+
+            // When
+            probabilityAssessmentInput.A = random.NextDouble();
+
+            // Then
+            AssertLengthEffect(probabilityAssessmentInput, section, sectionRow);
         }
 
         private static FailureMechanismSection GetTestFailureMechanismSection()
         {
+            var random = new Random();
+
             return new FailureMechanismSection("test", new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(0.0, 10.0)
+                new Point2D(random.NextDouble(), random.NextDouble()),
+                new Point2D(random.NextDouble(), random.NextDouble())
             });
+        }
+
+        private static void AssertLengthEffect(ProbabilityAssessmentInput probabilityAssessmentInput, FailureMechanismSection section, FailureMechanismSectionProbabilityAssessmentRow sectionRow)
+        {
+            Assert.AreEqual(probabilityAssessmentInput.GetN(section.Length), sectionRow.N, sectionRow.N.GetAccuracy());
         }
     }
 }
