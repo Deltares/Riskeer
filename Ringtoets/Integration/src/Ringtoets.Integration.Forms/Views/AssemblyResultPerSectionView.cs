@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Integration.Data;
@@ -34,10 +35,24 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionView"/>.
         /// </summary>
-        public AssemblyResultPerSectionView()
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to create the view for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public AssemblyResultPerSectionView(AssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            AssessmentSection = assessmentSection;
             InitializeComponent();
         }
+
+        /// <summary>
+        /// Gets the <see cref="AssessmentSection"/> the view belongs to.
+        /// </summary>
+        public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
     }

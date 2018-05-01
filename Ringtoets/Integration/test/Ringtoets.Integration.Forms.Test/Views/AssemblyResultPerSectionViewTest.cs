@@ -19,9 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -30,15 +34,31 @@ namespace Ringtoets.Integration.Forms.Test.Views
     public class AssemblyResultPerSectionViewTest
     {
         [Test]
-        public void Constructor_WithAssessmentSection_ExpectedValuesSet()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new AssemblyResultPerSectionView())
+            TestDelegate call = () => new AssemblyResultPerSectionView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithAssessmentSection_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(39);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            // Call
+            using (var view = new AssemblyResultPerSectionView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
     }
