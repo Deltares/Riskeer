@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestWaveConditionsCalculationTest.cs" />
+    <Compile Include="TestWaveConditionsInputTest.cs" />
     <Compile Include="TestWaveConditionsOutputTest.cs" />
     <Compile Include="WaveConditionsOutputTestHelperTest.cs" />
   </ItemGroup>
