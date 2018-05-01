@@ -21,6 +21,7 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -51,7 +52,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         /// </summary>
         public WaveImpactAsphaltCoverFailureMechanismResultView(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                 WaveImpactAsphaltCoverFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
+            : base(failureMechanismSectionResults, failureMechanism)
+        {
+            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
+            SetFailureMechanismAssemblyResultControl(
+                failureMechanismAssemblyResultWithProbabilityControl,
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism.SectionResults)));
+        }
 
         protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(
             WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
