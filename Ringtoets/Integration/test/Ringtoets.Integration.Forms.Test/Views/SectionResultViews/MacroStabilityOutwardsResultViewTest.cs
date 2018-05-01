@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
@@ -197,6 +198,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
                 mocks.VerifyAll();
+            }
+        }
+
+        [TestFixture]
+        public class MacroStabilityOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+            MacroStabilityOutwardsResultView,
+            MacroStabilityOutwardsFailureMechanism,
+            MacroStabilityOutwardsFailureMechanismSectionResult,
+            MacroStabilityOutwardsSectionResultRow>
+        {
+            protected override MacroStabilityOutwardsResultView CreateResultView(MacroStabilityOutwardsFailureMechanism failureMechanism)
+            {
+                return new MacroStabilityOutwardsResultView(failureMechanism.SectionResults, failureMechanism, new AssessmentSectionStub());
             }
         }
     }
