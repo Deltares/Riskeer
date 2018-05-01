@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculation()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
             var context = new TestWaveConditionsInputContext(input,
                                                              calculation,
@@ -486,7 +486,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                        new WaveConditionsInput(),
+                        new FailureMechanismCategoryWaveConditionsInput(),
                         new GrassCoverErosionOutwardsWaveConditionsCalculation(),
                         new AssessmentSection(AssessmentSectionComposition.Dike),
                         new GrassCoverErosionOutwardsFailureMechanism()),
@@ -496,7 +496,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             yield return new TestCaseData(
                     new StabilityStoneCoverWaveConditionsInputContext(
-                        new WaveConditionsInput(),
+                        new AssessmentSectionCategoryWaveConditionsInput(),
                         new StabilityStoneCoverWaveConditionsCalculation(),
                         new AssessmentSection(AssessmentSectionComposition.Dike),
                         new ForeshoreProfile[0]),
@@ -506,7 +506,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             yield return new TestCaseData(
                     new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                        new WaveConditionsInput(),
+                        new AssessmentSectionCategoryWaveConditionsInput(),
                         new WaveImpactAsphaltCoverWaveConditionsCalculation(),
                         new AssessmentSection(AssessmentSectionComposition.Dike),
                         new ForeshoreProfile[0]),
@@ -520,11 +520,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             const double assessmentLevel = 2.2;
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var waveConditionsInput = new WaveConditionsInput
-            {
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation
-            };
 
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -540,7 +535,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             yield return new TestCaseData(
                     new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                        waveConditionsInput,
+                        new FailureMechanismCategoryWaveConditionsInput
+                        {
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                        },
                         new GrassCoverErosionOutwardsWaveConditionsCalculation
                         {
                             InputParameters =
@@ -555,7 +553,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             yield return new TestCaseData(
                     new StabilityStoneCoverWaveConditionsInputContext(
-                        waveConditionsInput,
+                        new AssessmentSectionCategoryWaveConditionsInput
+                        {
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                        },
                         new StabilityStoneCoverWaveConditionsCalculation
                         {
                             InputParameters =
@@ -570,7 +571,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             yield return new TestCaseData(
                     new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                        waveConditionsInput,
+                        new AssessmentSectionCategoryWaveConditionsInput
+                        {
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                        },
                         new WaveImpactAsphaltCoverWaveConditionsCalculation
                         {
                             InputParameters =

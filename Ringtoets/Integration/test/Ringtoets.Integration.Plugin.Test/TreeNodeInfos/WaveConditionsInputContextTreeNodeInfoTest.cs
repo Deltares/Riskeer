@@ -28,7 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.TestUtil;
 
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnName()
         {
             // Setup
-            var context = new TestWaveConditionsInputContext(new WaveConditionsInput());
+            var context = new TestWaveConditionsInputContext(new TestWaveConditionsInput());
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -89,7 +89,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnOutputIcon()
         {
             // Setup
-            var context = new TestWaveConditionsInputContext(new WaveConditionsInput());
+            var context = new TestWaveConditionsInputContext(new TestWaveConditionsInput());
             using (var plugin = new RingtoetsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var context = new TestWaveConditionsInputContext(new WaveConditionsInput());
+                var context = new TestWaveConditionsInputContext(new TestWaveConditionsInput());
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
