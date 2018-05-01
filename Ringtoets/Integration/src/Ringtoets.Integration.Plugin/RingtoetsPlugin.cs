@@ -572,6 +572,14 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseAssemblyResultTotalViewForData,
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
             };
+
+            yield return new ViewInfo<AssemblyResultPerSectionContext, AssessmentSection, AssemblyResultPerSectionView>
+            {
+                GetViewName = (view, context) => Resources.AssemblyResultPerSection_DisplayName,
+                Image = Resources.AssemblyResultPerSection,
+                CloseForData = CloseAssemblyResultPerSectionViewForData,
+                CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -1245,9 +1253,19 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region AssemblyTotalResultContext ViewInfo
+        #region AssemblyResultTotalContext ViewInfo
 
         private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object o)
+        {
+            var assessmentSection = o as AssessmentSection;
+            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+        }
+
+        #endregion
+
+        #region AssemblyResultPerSectionContext ViewInfo
+
+        private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object o)
         {
             var assessmentSection = o as AssessmentSection;
             return assessmentSection != null && assessmentSection == view.AssessmentSection;
