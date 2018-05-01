@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -52,7 +53,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
         private readonly IAssessmentSection assessmentSection;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         /// <inheritdoc />
@@ -73,25 +73,23 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
+            FailureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            GetFailureMechanismAssemblyFunc = () => StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
+            TableLayoutPanel.Controls.Add(FailureMechanismAssemblyResultControl, 0, 0);
+
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource,
+                UpdateView,
                 cg => cg.Children.Concat<object>(cg.Children
                                                    .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
                                                    .Select(c => c.InputParameters)));
-            calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
-                UpdateDataGridViewDataSource,
-                cg => cg.Children.Concat<object>(cg.Children
-                                                   .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                   .Select(c => c.Output)));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
-                UpdateDataGridViewDataSource,
+                UpdateView,
                 c => c.Children);
 
             CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
 
             calculationInputObserver.Observable = observableGroup;
-            calculationOutputObserver.Observable = observableGroup;
             calculationGroupObserver.Observable = observableGroup;
         }
 
@@ -120,7 +118,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         protected override void Dispose(bool disposing)
         {
             calculationInputObserver.Dispose();
-            calculationOutputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
             base.Dispose(disposing);

@@ -27,7 +27,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
@@ -198,6 +200,33 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual("1/1", cells[combinedAssemblyProbabilityIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useManualAssemblyProbabilityIndex].Value);
                 Assert.AreEqual("-", cells[manualAssemblyProbabilityIndex].FormattedValue);
+            }
+        }
+
+        [TestFixture]
+        public class StabilityPointStructuresFailureMechanismResultWithProbabilityTest : FailureMechanismResultWithProbabilityTester<
+            StabilityPointStructuresFailureMechanismResultView,
+            StabilityPointStructuresFailureMechanism,
+            StabilityPointStructuresFailureMechanismSectionResult,
+            StabilityPointStructuresFailureMechanismSectionResultRow,
+            StructuresCalculation<StabilityPointStructuresInput>,
+            StabilityPointStructuresInput>
+        {
+            protected override StabilityPointStructuresFailureMechanismResultView CreateResultView(StabilityPointStructuresFailureMechanism failureMechanism)
+            {
+                return new StabilityPointStructuresFailureMechanismResultView(failureMechanism.SectionResults,
+                                                                              failureMechanism,
+                                                                              new AssessmentSectionStub());
+            }
+
+            protected override StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
+            {
+                return new StructuresCalculation<StabilityPointStructuresInput>();
+            }
+
+            protected override StabilityPointStructuresInput GetInput(StructuresCalculation<StabilityPointStructuresInput> calculation)
+            {
+                return calculation.InputParameters;
             }
         }
 
