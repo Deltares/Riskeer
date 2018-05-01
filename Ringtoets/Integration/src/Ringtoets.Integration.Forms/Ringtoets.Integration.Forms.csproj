@@ -63,6 +63,12 @@
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="RingtoetsSettingsHelper.cs" />
+    <Compile Include="Views\AssemblyResultPerSectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionView.Designer.cs">
+      <DependentUpon>AssemblyResultPerSectionView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssemblyResultTotalView.cs">
       <SubType>UserControl</SubType>
     </Compile>
