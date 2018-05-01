@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Controls
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismAssemblyResultWithProbabilityControl));
-            this.probabilityLabel = new Ringtoets.Common.Forms.Controls.BoxedLabel();
+            this.probabilityLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
             this.probabilityPanel = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.probabilityPanel.SuspendLayout();
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         #endregion
-        private BoxedLabel probabilityLabel;
+        private BorderedLabel probabilityLabel;
         private System.Windows.Forms.TableLayoutPanel probabilityPanel;
     }
 }

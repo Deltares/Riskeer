@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
             Assert.AreEqual(ContentAlignment.MiddleLeft, description.TextAlign);
             Assert.AreEqual("Assemblageresultaat voor dit toetsspoor:", description.Text);
 
-            var groupLabel = (BoxedLabel) groupPanel.GetControlFromPosition(1, 0);
+            var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(1, 0);
             Assert.IsTrue(groupLabel.AutoSize);
             Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
             Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);

@@ -98,8 +98,8 @@ namespace Ringtoets.Common.Forms.TestUtil
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
-                BoxedLabel assemblyGroupLabel = GetGroupLabel();
-                BoxedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
+                BorderedLabel assemblyGroupLabel = GetGroupLabel();
+                BorderedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
                 Assert.AreEqual("1/1", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
                 Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
@@ -129,8 +129,8 @@ namespace Ringtoets.Common.Forms.TestUtil
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
-                BoxedLabel assemblyGroupLabel = GetGroupLabel();
-                BoxedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
+                BorderedLabel assemblyGroupLabel = GetGroupLabel();
+                BorderedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
                 Assert.AreEqual("1/1", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
                 Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
@@ -160,8 +160,8 @@ namespace Ringtoets.Common.Forms.TestUtil
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
-                BoxedLabel assemblyGroupLabel = GetGroupLabel();
-                BoxedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
+                BorderedLabel assemblyGroupLabel = GetGroupLabel();
+                BorderedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
                 Assert.AreEqual("1/1", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
                 Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
@@ -200,14 +200,14 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// <returns>A new <typeparamref name="TCalculationInput"/>.</returns>
         protected abstract TCalculationInput GetInput(TCalculation calculation);
 
-        private static BoxedLabel GetGroupLabel()
+        private static BorderedLabel GetGroupLabel()
         {
-            return (BoxedLabel) new ControlTester("GroupLabel").TheObject;
+            return (BorderedLabel) new ControlTester("GroupLabel").TheObject;
         }
 
-        private static BoxedLabel GetProbabilityLabelControl()
+        private static BorderedLabel GetProbabilityLabelControl()
         {
-            return (BoxedLabel) new ControlTester("probabilityLabel").TheObject;
+            return (BorderedLabel) new ControlTester("probabilityLabel").TheObject;
         }
 
         private TView ShowFailureMechanismResultsView(TFailureMechanism failureMechanism)

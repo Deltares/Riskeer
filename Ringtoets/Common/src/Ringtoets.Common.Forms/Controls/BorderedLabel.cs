@@ -21,28 +21,25 @@
 
 using System.Drawing;
 using System.Windows.Forms;
-using NUnit.Framework;
-using Ringtoets.Common.Forms.Controls;
 
-namespace Ringtoets.Common.Forms.Test.Controls
+namespace Ringtoets.Common.Forms.Controls
 {
-    [TestFixture]
-    public class BoxedLabelTest
+    /// <summary>
+    /// Custom <see cref="Label"/> control with a border.
+    /// </summary>
+    public sealed class BorderedLabel : Label
     {
-        [Test]
-        public void DefaultConstructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="BorderedLabel"/>.
+        /// </summary>
+        public BorderedLabel()
         {
-            // Call
-            var boxedLabel = new BoxedLabel();
-
-            // Assert
-            Assert.IsInstanceOf<Label>(boxedLabel);
-            Assert.IsTrue(boxedLabel.AutoSize);
-            Assert.AreEqual(BorderStyle.FixedSingle, boxedLabel.BorderStyle);
-            Assert.AreEqual(DockStyle.Fill, boxedLabel.Dock);
-            Assert.AreEqual(new Size(50, 0), boxedLabel.MinimumSize);
-            Assert.AreEqual(new Padding(5, 0, 5, 0), boxedLabel.Padding);
-            Assert.AreEqual(ContentAlignment.MiddleLeft, boxedLabel.TextAlign);
+            AutoSize = true;
+            BorderStyle = BorderStyle.FixedSingle;
+            Dock = DockStyle.Fill;
+            MinimumSize = new Size(50, 0);
+            Padding = new Padding(5, 0, 5, 0);
+            TextAlign = ContentAlignment.MiddleLeft;
         }
     }
 }

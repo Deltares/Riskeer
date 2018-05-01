@@ -334,7 +334,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 // Precondition
-                BoxedLabel assemblyGroupLabel = GetGroupLabel();
+                BorderedLabel assemblyGroupLabel = GetGroupLabel();
                 FailureMechanismAssemblyResultControl resultControl = GetFailureMechanismAssemblyResultControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
@@ -368,7 +368,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 sectionResult.NotifyObservers();
 
                 // Precondition
-                BoxedLabel assemblyGroupLabel = GetGroupLabel();
+                BorderedLabel assemblyGroupLabel = GetGroupLabel();
                 FailureMechanismAssemblyResultControl resultControl = GetFailureMechanismAssemblyResultControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
@@ -474,9 +474,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private static BoxedLabel GetGroupLabel()
+        private static BorderedLabel GetGroupLabel()
         {
-            return (BoxedLabel) new ControlTester("GroupLabel").TheObject;
+            return (BorderedLabel) new ControlTester("GroupLabel").TheObject;
         }
 
         private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>

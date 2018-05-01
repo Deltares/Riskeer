@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Forms.Controls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismAssemblyResultControl));
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
             this.description = new System.Windows.Forms.Label();
-            this.GroupLabel = new Ringtoets.Common.Forms.Controls.BoxedLabel();
+            this.GroupLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
             this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Controls
         #endregion
         private System.Windows.Forms.Label description;
         protected System.Windows.Forms.TableLayoutPanel GroupPanel;
-        protected BoxedLabel GroupLabel;
+        protected BorderedLabel GroupLabel;
         protected System.Windows.Forms.ErrorProvider ErrorProvider;
     }
 }

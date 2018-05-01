@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
-                var assemblyGroupLabel = (BoxedLabel) new ControlTester("GroupLabel").TheObject;
+                var assemblyGroupLabel = (BorderedLabel) new ControlTester("GroupLabel").TheObject;
                 Assert.AreEqual("IIt", assemblyGroupLabel.Text);
                 Assert.AreEqual(Color.FromArgb(118, 147, 60), assemblyGroupLabel.BackColor);
 
