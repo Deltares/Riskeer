@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Data.Test
 {
@@ -49,7 +50,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                                                      double designWaterLevel)
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput
+            var waveConditionsInput = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
@@ -69,7 +70,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void GetWaterLevels_WaveConditionsInputWithWithAllBoundariesAboveUpperBoundaryDesignWaterLevel_ReturnsEmptyEnumerable()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput
+            var waveConditionsInput = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 6,
                 UpperBoundaryRevetment = (RoundedDouble) 6.10,
@@ -89,7 +90,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void GetWaterLevels_AssessmentLevelNaN_ReturnsEmptyEnumerable()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput
+            var waveConditionsInput = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
@@ -116,7 +117,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                                          IEnumerable<RoundedDouble> expectedWaterLevels)
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput
+            var waveConditionsInput = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,

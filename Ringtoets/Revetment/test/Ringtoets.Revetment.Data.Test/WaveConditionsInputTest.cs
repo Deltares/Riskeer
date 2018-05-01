@@ -43,7 +43,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(input);
@@ -78,7 +78,7 @@ namespace Ringtoets.Revetment.Data.Test
             [Values(true, false)] bool withValidForeshore)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
@@ -139,7 +139,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Foreshore_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
@@ -188,7 +188,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void IsForeshoreProfileInputSynchronized_ForeshoreProfileNotSet_ReturnFalse()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             bool isSynchronized = input.IsForeshoreProfileInputSynchronized;
@@ -201,7 +201,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void IsForeshoreProfileInputSynchronized_ForeshoreProfileAndInputInSync_ReturnTrue()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -225,7 +225,7 @@ namespace Ringtoets.Revetment.Data.Test
             ForeshoreProfile modifiedProfile)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -243,7 +243,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void SynchronizeForeshoreProfileInput_ForeshoreProfileNotSet_ExpectedValues()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UseBreakWater = true,
                 UseForeshore = true,
@@ -277,7 +277,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                             Orientation = 123.0
                                                         });
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
@@ -303,7 +303,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Orientation_ValidValue_NewValueSet(double orientation)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             input.Orientation = (RoundedDouble) orientation;
@@ -324,7 +324,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Orientation_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             TestDelegate call = () => input.Orientation = (RoundedDouble) invalidValue;
@@ -338,7 +338,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryRevetment.NumberOfDecimalPlaces;
 
@@ -361,7 +361,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
@@ -382,7 +382,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
@@ -401,7 +401,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             input.LowerBoundaryRevetment = (RoundedDouble) newValue;
@@ -414,7 +414,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.UpperBoundaryRevetment.NumberOfDecimalPlaces;
 
@@ -437,7 +437,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
@@ -458,7 +458,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
@@ -477,7 +477,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             input.UpperBoundaryRevetment = (RoundedDouble) newValue;
@@ -490,7 +490,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryWaterLevels.NumberOfDecimalPlaces;
 
@@ -513,7 +513,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
@@ -534,7 +534,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
@@ -553,7 +553,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             input.LowerBoundaryWaterLevels = (RoundedDouble) newValue;
@@ -566,7 +566,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces;
 
@@ -589,7 +589,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels
             };
@@ -610,7 +610,7 @@ namespace Ringtoets.Revetment.Data.Test
             double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryWaterLevels
             };
@@ -629,7 +629,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             input.UpperBoundaryWaterLevels = (RoundedDouble) newValue;
@@ -642,7 +642,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new WaveConditionsInput();
+            var original = new TestWaveConditionsInput();
 
             WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
 
@@ -657,7 +657,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new WaveConditionsInput();
+            var original = new TestWaveConditionsInput();
 
             WaveConditionsTestDataGenerator.SetRandomDataToWaveConditionsInput(original);
 
@@ -674,7 +674,7 @@ namespace Ringtoets.Revetment.Data.Test
         private static void AssertForeshoreProfileInputProperties(ForeshoreProfile expectedForeshoreProfile,
                                                                   WaveConditionsInput input)
         {
-            var defaultInput = new WaveConditionsInput();
+            var defaultInput = new TestWaveConditionsInput();
             if (expectedForeshoreProfile == null)
             {
                 Assert.AreEqual(defaultInput.UseBreakWater, input.UseBreakWater);

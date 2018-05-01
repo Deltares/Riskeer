@@ -90,7 +90,7 @@ namespace Ringtoets.Revetment.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        private static void AreClones(WaveConditionsInput original, WaveConditionsInput clone)
+        public static void AreClones(WaveConditionsInput original, WaveConditionsInput clone)
         {
             CoreCloneAssert.AreObjectClones(original.BreakWater, clone.BreakWater, CommonCloneAssert.AreClones);
             Assert.AreSame(original.ForeshoreProfile, clone.ForeshoreProfile);
