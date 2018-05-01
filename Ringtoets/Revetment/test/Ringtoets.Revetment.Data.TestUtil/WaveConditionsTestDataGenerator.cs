@@ -55,9 +55,30 @@ namespace Ringtoets.Revetment.Data.TestUtil
         /// This method sets random data values to all properties of <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The input to set the random data values to.</param>
-        public static void SetRandomDataToWaveConditionsInput(WaveConditionsInput input)
+        public static void SetRandomDataToWaveConditionsInput(AssessmentSectionCategoryWaveConditionsInput input)
         {
             var random = new Random(21);
+
+            input.CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>();
+
+            SetRandomDataToWaveConditionsInput(input, random);
+        }
+
+        /// <summary>
+        /// This method sets random data values to all properties of <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToWaveConditionsInput(FailureMechanismCategoryWaveConditionsInput input)
+        {
+            var random = new Random(21);
+
+            input.CategoryType = random.NextEnumValue<FailureMechanismCategoryType>();
+
+            SetRandomDataToWaveConditionsInput(input, random);
+        }
+
+        private static void SetRandomDataToWaveConditionsInput(WaveConditionsInput input, Random random)
+        {
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             input.Orientation = random.NextRoundedDouble();
             input.LowerBoundaryRevetment = (RoundedDouble) random.Next(0, 2);
