@@ -27,8 +27,8 @@ using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.IO.WaveConditions;
 
 namespace Ringtoets.Revetment.IO.Test.WaveConditions
@@ -119,7 +119,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
             // Setup
             ExportableWaveConditions[] exportableWaveConditions =
             {
-                new ExportableWaveConditions("blocksName", new WaveConditionsInput
+                new ExportableWaveConditions("blocksName", new TestWaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
                     LowerBoundaryRevetment = (RoundedDouble) 5.68,
@@ -128,7 +128,7 @@ namespace Ringtoets.Revetment.IO.Test.WaveConditions
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
                 }, CreateWaveConditionsOutputForExport(1.11111, 2.22222, 3.33333, 4.4, 5.5555555), CoverType.StoneCoverBlocks),
-                new ExportableWaveConditions("columnsName", new WaveConditionsInput
+                new ExportableWaveConditions("columnsName", new TestWaveConditionsInput
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456),
                     LowerBoundaryRevetment = (RoundedDouble) 1.384,
