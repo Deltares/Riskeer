@@ -201,15 +201,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
 
-                var count = 0;
+                var invalidated = false;
 
-                sectionsDataGridView.Invalidated += (s, e) => { count++; };
+                sectionsDataGridView.Invalidated += (s, e) => { invalidated = true; };
 
                 // When
                 failureMechanism.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(0, count);
+                Assert.IsFalse(invalidated);
             }
         }
 

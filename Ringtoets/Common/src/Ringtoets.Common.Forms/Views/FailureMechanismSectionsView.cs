@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private readonly Observer failureMechanismObserver;
 
-        private List<FailureMechanismSection> currentSections;
+        private IEnumerable<FailureMechanismSection> currentSections;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Forms.Views
         {
             base.OnLoad(e);
 
-            currentSections = sections.ToList();
+            currentSections = sections.ToArray();
 
             SetDataGridViewControlData();
         }
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Forms.Views
                 return;
             }
 
-            currentSections = sections.ToList();
+            currentSections = sections.ToArray();
 
             SetDataGridViewControlData();
         }

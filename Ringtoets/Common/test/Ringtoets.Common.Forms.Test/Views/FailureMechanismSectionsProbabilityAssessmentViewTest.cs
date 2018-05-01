@@ -216,9 +216,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
 
-                var count = 0;
+                var dataSourceChanged = false;
 
-                sectionsDataGridView.DataSourceChanged += (s, e) => { count++; };
+                sectionsDataGridView.DataSourceChanged += (s, e) => { dataSourceChanged = true; };
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 failureMechanism.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(0, count);
+                Assert.IsFalse(dataSourceChanged);
                 AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsDataGridViewControl);
             }
         }
@@ -250,16 +250,15 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
 
-                var count = 0;
+                var invalidated = false;
 
-                sectionsDataGridView.Invalidated += (s, e) => { count++; };
+                sectionsDataGridView.Invalidated += (s, e) => { invalidated = true; };
 
                 // When
-                failureMechanism.Contribution = 50;
                 failureMechanism.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(0, count);
+                Assert.IsFalse(invalidated);
             }
         }
 
