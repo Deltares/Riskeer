@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRow_WhenProbabilityAssessmentInputChanged_ThenNChangedAccordingly()
+        public void GivenRow_WhenProbabilityAssessmentInputChanged_ThenLengthEffectChangedAccordingly()
         {
             // Given
             var random = new Random(39);

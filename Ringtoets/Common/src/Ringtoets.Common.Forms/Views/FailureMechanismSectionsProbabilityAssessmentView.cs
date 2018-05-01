@@ -37,6 +37,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
 
         private readonly Observer failureMechanismObserver;
+        private double currentA;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProbabilityAssessmentView"/>.
@@ -70,6 +71,8 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void SetDataGridViewControlData()
         {
+            currentA = probabilityAssessmentInput.A;
+
             failureMechanismSectionsDataGridViewControl.SetDataSource(
                 sections.Select(section => new FailureMechanismSectionProbabilityAssessmentRow(section, probabilityAssessmentInput))
                         .ToArray());
@@ -84,6 +87,13 @@ namespace Ringtoets.Common.Forms.Views
 
         private void HandleProbabilityAssessmentInputChange()
         {
+            if (currentA.Equals(probabilityAssessmentInput.A))
+            {
+                return;
+            }
+
+            currentA = probabilityAssessmentInput.A;
+
             failureMechanismSectionsDataGridViewControl.RefreshDataGridView();
         }
     }

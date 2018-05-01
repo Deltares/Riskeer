@@ -202,7 +202,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndProbabilityAssessmentInputChanged_ThenDataGridViewUpdated()
+        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeAndProbabilityAssessmentInputChanged_ThenDataGridViewRefreshed()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -214,6 +214,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                                                                                                                                   failureMechanism,
                                                                                                                                   probabilityAssessmentInput))
             {
+                DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
+
+                var count = 0;
+
+                sectionsDataGridView.DataSourceChanged += (s, e) => { count++; };
+
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
                 // Precondition
@@ -224,7 +230,36 @@ namespace Ringtoets.Common.Forms.Test.Views
                 failureMechanism.NotifyObservers();
 
                 // Then
+                Assert.AreEqual(0, count);
                 AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsDataGridViewControl);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithSections_WhenFailureMechanismNotifiesChangeButNothingRelevantChanged_ThenDataGridViewNotUpdated()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.AddSection(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
+
+            ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
+
+            using (FailureMechanismSectionsProbabilityAssessmentView view = ShowFailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
+                                                                                                                                  failureMechanism,
+                                                                                                                                  probabilityAssessmentInput))
+            {
+                DataGridView sectionsDataGridView = GetSectionsDataGridView(view);
+
+                var count = 0;
+
+                sectionsDataGridView.Invalidated += (s, e) => { count++; };
+
+                // When
+                failureMechanism.Contribution = 50;
+                failureMechanism.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(0, count);
             }
         }
 
@@ -247,6 +282,11 @@ namespace Ringtoets.Common.Forms.Test.Views
         private static DataGridViewControl GetSectionsDataGridViewControl(FailureMechanismSectionsProbabilityAssessmentView view)
         {
             return ControlTestHelper.GetControls<DataGridViewControl>(view, "failureMechanismSectionsDataGridViewControl").Single();
+        }
+
+        private static DataGridView GetSectionsDataGridView(FailureMechanismSectionsView view)
+        {
+            return ControlTestHelper.GetControls<DataGridView>(view, "dataGridView").Single();
         }
 
         private static void AssertSectionsDataGridViewControl(FailureMechanismSection[] sections,
