@@ -94,9 +94,9 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gecombineerd vakoordeel.
         /// </summary>
-        public static string AssemblyResultPerSectionContext_DisplayName {
+        public static string AssemblyResultPerSection_DisplayName {
             get {
-                return ResourceManager.GetString("AssemblyResultPerSectionContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyResultPerSection_DisplayName", resourceCulture);
             }
         }
         

@@ -948,7 +948,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
             {
-                Text = context => Resources.AssemblyResultPerSectionContext_DisplayName,
+                Text = context => Resources.AssemblyResultPerSection_DisplayName,
                 Image = context => Resources.AssemblyResultPerSection
             };
         }
