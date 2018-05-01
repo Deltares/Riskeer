@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// <summary>
         /// Gets the last created assessment section assembly kernel.
         /// </summary>
-        public AssessmentSectionAssemblyKernelStub LastCreatedAssessmentSectionAssemblyKernel { get; private set; }
+        public AssessmentSectionAssemblyKernelStub LastCreatedAssessmentSectionAssemblyKernel { get; }
 
         public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {

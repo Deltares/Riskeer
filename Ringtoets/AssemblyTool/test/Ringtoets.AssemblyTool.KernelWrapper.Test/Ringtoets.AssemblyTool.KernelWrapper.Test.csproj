@@ -21,6 +21,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
+    <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorExceptionTest.cs" />
+    <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorTest.cs" />
