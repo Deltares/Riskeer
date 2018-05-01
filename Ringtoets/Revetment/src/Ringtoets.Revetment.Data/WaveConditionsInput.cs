@@ -33,9 +33,9 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>
-    /// Class that holds all wave conditions calculation specific input parameters.
+    /// Abstract class that holds all wave conditions calculation specific input parameters.
     /// </summary>
-    public class WaveConditionsInput : CloneableObservable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
+    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const int orientationNumberOfDecimals = 2;
 
