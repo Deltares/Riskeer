@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.Factories;
 
 namespace Ringtoets.Revetment.Forms.Test.Factories
@@ -47,7 +48,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateForeshoreGeometryPoints_ForeshoreProfileNull_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UseForeshore = true
             };
@@ -63,7 +64,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateForeshoreGeometryPoints_ForeshoreProfileSetUseForeshoreFalse_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
@@ -89,7 +90,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
                 new Point2D(1.1, 2.2),
                 new Point2D(3.3, 4.4)
             };
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreGeometry),
                 UseForeshore = true
@@ -133,7 +134,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
@@ -157,7 +158,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -193,7 +194,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 9;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -248,7 +249,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
@@ -272,7 +273,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -308,7 +309,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             const double lowerBoundaryRevetment = 2;
             const double upperBoundaryRevetment = 8;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
                 UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
@@ -344,7 +345,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             const double upperBoundaryRevetment = 8;
             const double lowerBoundaryWaterLevels = -3;
 
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
                 LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
@@ -382,7 +383,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryRevetmentGeometryPoints_LowerBoundaryRevetmentNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryRevetmentGeometryPoints(new TestWaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -392,7 +393,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
@@ -413,7 +414,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -445,7 +446,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -480,7 +481,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryRevetmentGeometryPoints_UpperBoundaryRevetmentNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(new TestWaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -490,7 +491,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryRevetmentGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 9
             };
@@ -511,7 +512,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryRevetmentGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryRevetmentGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -543,7 +544,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 8,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -578,7 +579,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryWaterLevelsGeometryPoints_LowerBoundaryWaterLevelsNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(new TestWaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -588,7 +589,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) 3
             };
@@ -609,7 +610,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateLowerBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsLowerBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -641,7 +642,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryWaterLevels = (RoundedDouble) 3,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -676,7 +677,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryWaterLevelsGeometryPoints_UpperBoundaryWaterLevelsNaN_ReturnsEmptyPointsCollection()
         {
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(new WaveConditionsInput());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(new TestWaveConditionsInput());
 
             // Assert
             CollectionAssert.IsEmpty(points);
@@ -686,7 +687,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsUpperBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) 9
             };
@@ -707,7 +708,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateUpperBoundaryWaterLevelsGeometryPoints_UseForeshoreProfileFalse_ReturnsUpperBoundaryWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(new[]
@@ -739,7 +740,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UpperBoundaryWaterLevels = (RoundedDouble) 9,
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
@@ -774,7 +775,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateDesignWaterLevelGeometryPoints_NormativeAssessmentLevelNaN_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, RoundedDouble.NaN);
@@ -787,7 +788,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateDesignWaterLevelGeometryPoints_NoForeshoreProfile_ReturnsDesignWaterLevelGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidNormativeAssessmentLevel());
@@ -805,7 +806,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateDesignWaterLevelGeometryPoints_UseForeshoreProfileFalse_ReturnsDesignWaterLevelGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
@@ -837,7 +838,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Setup
             RoundedDouble normativeAssessmentLevel = GetValidNormativeAssessmentLevel();
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
             };
@@ -871,7 +872,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateWaterLevelsGeometryPoints_NoWaterLevels_ReturnsEmptyLinesList()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new TestWaveConditionsInput();
 
             // Call
             IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, RoundedDouble.NaN);
@@ -884,7 +885,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         public void CreateWaterLevelsGeometryPoints_NoForeshoreProfile_ReturnsWaterLevelsGeometryPointsCollection()
         {
             // Setup
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 5,
                 UpperBoundaryRevetment = (RoundedDouble) 7,
@@ -922,7 +923,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Setup
             var normativeAssessmentLevel = GetValidNormativeAssessmentLevel();
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry),
                 LowerBoundaryRevetment = (RoundedDouble) 5,
@@ -976,13 +977,13 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
 
         private static IEnumerable<TestCaseData> GetInputWithoutRevetmentBoundaries(string testNameFormat)
         {
-            yield return new TestCaseData(new WaveConditionsInput())
+            yield return new TestCaseData(new TestWaveConditionsInput())
                 .SetName(string.Format(testNameFormat, "NoRevetmentBoundaries"));
-            yield return new TestCaseData(new WaveConditionsInput
+            yield return new TestCaseData(new TestWaveConditionsInput
             {
                 LowerBoundaryRevetment = (RoundedDouble) 2
             }).SetName(string.Format(testNameFormat, "LowerBoundaryRevetmentSet"));
-            yield return new TestCaseData(new WaveConditionsInput
+            yield return new TestCaseData(new TestWaveConditionsInput
             {
                 UpperBoundaryRevetment = (RoundedDouble) 7
             }).SetName(string.Format(testNameFormat, "UpperBoundaryRevetmentSet"));

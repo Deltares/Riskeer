@@ -25,7 +25,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Styles;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.Factories;
 
 namespace Ringtoets.Revetment.Forms.Test.Factories
@@ -173,7 +173,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 UseForeshore = true
             };
@@ -190,7 +190,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile("profile name"),
                 UseForeshore = false
@@ -208,7 +208,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         {
             // Setup
             var chartData = new ChartLineData("test name");
-            var input = new WaveConditionsInput
+            var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile("profile name"),
                 UseForeshore = true

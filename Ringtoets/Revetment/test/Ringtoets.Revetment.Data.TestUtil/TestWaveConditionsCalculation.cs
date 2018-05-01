@@ -39,7 +39,7 @@ namespace Ringtoets.Revetment.Data.TestUtil
         public TestWaveConditionsCalculation()
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-            InputParameters = new WaveConditionsInput();
+            InputParameters = new TestWaveConditionsInput();
         }
 
         /// <summary>
