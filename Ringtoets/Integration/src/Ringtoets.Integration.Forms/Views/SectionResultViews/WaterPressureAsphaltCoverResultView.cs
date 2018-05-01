@@ -21,8 +21,10 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -48,7 +50,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public WaterPressureAsphaltCoverResultView(
             IObservableEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> failureMechanismSectionResults,
             WaterPressureAsphaltCoverFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
+            : base(failureMechanismSectionResults, failureMechanism)
+        {
+            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
+            SetFailureMechanismAssemblyResultControl(
+                failureMechanismAssemblyResultWithProbabilityControl,
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism.SectionResults)));
+        }
 
         protected override WaterPressureAsphaltCoverSectionResultRow CreateFailureMechanismSectionResultRow(WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult)
         {
@@ -82,7 +90,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultViewColumnBuilder.AddSimpleAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(WaterPressureAsphaltCoverSectionResultRow.SimpleAssemblyCategoryGroup));
-            
+
             FailureMechanismSectionResultViewColumnBuilder.AddTailorMadeAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(WaterPressureAsphaltCoverSectionResultRow.TailorMadeAssemblyCategoryGroup));

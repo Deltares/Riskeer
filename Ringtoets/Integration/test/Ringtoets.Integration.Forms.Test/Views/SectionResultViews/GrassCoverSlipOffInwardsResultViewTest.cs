@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone;
@@ -154,6 +155,20 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 Assert.AreEqual("IIv", cells[combinedAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(false, cells[useManualAssemblyCategoryGroupIndex].Value);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroup.None, cells[manualAssemblyCategoryGroupIndex].Value);
+            }
+        }
+
+        [TestFixture]
+        public class GrassCoverSlipOffInwardsFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+            GrassCoverSlipOffInwardsResultView,
+            GrassCoverSlipOffInwardsFailureMechanism,
+            GrassCoverSlipOffInwardsFailureMechanismSectionResult,
+            GrassCoverSlipOffInwardsSectionResultRow>
+        {
+            protected override GrassCoverSlipOffInwardsResultView CreateResultView(GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
+            {
+                return new GrassCoverSlipOffInwardsResultView(failureMechanism.SectionResults,
+                                                              failureMechanism);
             }
         }
     }

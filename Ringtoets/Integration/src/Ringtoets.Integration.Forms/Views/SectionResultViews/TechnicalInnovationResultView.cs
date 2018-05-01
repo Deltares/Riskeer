@@ -21,8 +21,10 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -48,7 +50,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public TechnicalInnovationResultView(
             IObservableEnumerable<TechnicalInnovationFailureMechanismSectionResult> failureMechanismSectionResults,
             TechnicalInnovationFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
+            : base(failureMechanismSectionResults, failureMechanism)
+        {
+            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
+            SetFailureMechanismAssemblyResultControl(
+                failureMechanismAssemblyResultWithProbabilityControl,
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(TechnicalInnovationFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism.SectionResults)));
+        }
 
         protected override TechnicalInnovationSectionResultRow CreateFailureMechanismSectionResultRow(TechnicalInnovationFailureMechanismSectionResult sectionResult)
         {

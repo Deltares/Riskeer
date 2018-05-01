@@ -21,8 +21,10 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Forms.Builders;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -49,7 +51,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public GrassCoverSlipOffInwardsResultView(IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
                                                   GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism) {}
+            : base(failureMechanismSectionResults, failureMechanism)
+        {
+            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
+            SetFailureMechanismAssemblyResultControl(
+                failureMechanismAssemblyResultWithProbabilityControl,
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism.SectionResults)));
+        }
 
         protected override GrassCoverSlipOffInwardsSectionResultRow CreateFailureMechanismSectionResultRow(
             GrassCoverSlipOffInwardsFailureMechanismSectionResult sectionResult)
