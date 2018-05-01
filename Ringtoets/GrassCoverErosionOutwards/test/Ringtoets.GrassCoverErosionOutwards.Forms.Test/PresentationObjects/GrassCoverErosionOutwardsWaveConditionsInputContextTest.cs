@@ -39,7 +39,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new FailureMechanismCategoryWaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
@@ -63,7 +63,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new WaveConditionsInput();
+            var input = new FailureMechanismCategoryWaveConditionsInput();
             var calculation = new TestWaveConditionsCalculation();
 
             var mocks = new MockRepository();

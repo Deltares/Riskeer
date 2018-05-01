@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var context = new StabilityStoneCoverWaveConditionsInputContext(
-                new WaveConditionsInput(),
+                new AssessmentSectionCategoryWaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
                 assessmentSection,
                 Enumerable.Empty<ForeshoreProfile>());

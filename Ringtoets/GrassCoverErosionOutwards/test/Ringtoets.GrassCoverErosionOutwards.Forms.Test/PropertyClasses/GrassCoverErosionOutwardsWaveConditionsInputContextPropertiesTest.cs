@@ -62,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new WaveConditionsInput(),
+                new FailureMechanismCategoryWaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
                 assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());
@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new WaveConditionsInput(),
+                new FailureMechanismCategoryWaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
                 assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());

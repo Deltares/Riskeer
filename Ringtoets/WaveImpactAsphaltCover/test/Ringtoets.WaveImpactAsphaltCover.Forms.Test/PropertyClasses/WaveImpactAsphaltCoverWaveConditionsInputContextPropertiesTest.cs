@@ -47,7 +47,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                new WaveConditionsInput(),
+                new AssessmentSectionCategoryWaveConditionsInput(),
                 new TestWaveConditionsCalculation(),
                 assessmentSection,
                 Enumerable.Empty<ForeshoreProfile>());
