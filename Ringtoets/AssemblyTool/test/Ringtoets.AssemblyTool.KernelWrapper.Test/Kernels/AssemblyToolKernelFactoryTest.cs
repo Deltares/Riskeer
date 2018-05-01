@@ -106,5 +106,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
             // Assert
             Assert.IsInstanceOf<FailureMechanismResultAssembler>(kernel);
         }
+
+        [Test]
+        public void CreateAssessmentSectionAssemblyKernel_Always_ReturnsKernelAssessmentSectionAssemblyCalculator()
+        {
+            // Setup
+            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+
+            // Call
+            IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
+
+            // Assert
+            Assert.IsInstanceOf<AssessmentGradeAssembler>(kernel);
+        }
     }
 }

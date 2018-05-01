@@ -59,5 +59,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Kernels
         {
             return new FailureMechanismResultAssembler();
         }
+
+        public IAssessmentGradeAssembler CreateAssessmentSectionAssemblyKernel()
+        {
+            return new AssessmentGradeAssembler();
+        }
     }
 }
