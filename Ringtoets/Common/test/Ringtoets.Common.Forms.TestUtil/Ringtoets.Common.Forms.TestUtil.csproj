@@ -23,7 +23,7 @@
   <ItemGroup>
     <Compile Include="AssemblyCategoryColorTestHelper.cs" />
     <Compile Include="FailureMechanismAssemblyResultControlTester.cs" />
-    <Compile Include="FailureMechanismResultWithProbabilityTester.cs" />
+    <Compile Include="FailureMechanismAssemblyResultWithProbabilityControlTester.cs" />
     <Compile Include="DataGridViewControlColumnStateDefinitionTestHelper.cs" />
     <Compile Include="CalculationsViewSynchronizationTester.cs" />
     <Compile Include="MapFeaturesTestHelper.cs" />

@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="TResultRow">The type of the presentation objects used in the view.</typeparam>
     /// <typeparam name="TCalculation">The type of calculations to get the input from.</typeparam>
     /// <typeparam name="TCalculationInput">The type of the  input of a calculation.</typeparam>
-    public abstract class FailureMechanismResultWithProbabilityTester<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation, TCalculationInput>
+    public abstract class FailureMechanismAssemblyResultWithProbabilityControlTester<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation, TCalculationInput>
         where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism, new()
         where TSectionResult : FailureMechanismSectionResult

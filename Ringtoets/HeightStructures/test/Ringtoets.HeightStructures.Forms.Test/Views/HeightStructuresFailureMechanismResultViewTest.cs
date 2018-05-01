@@ -203,7 +203,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [TestFixture]
-        public class HeightStructuresFailureMechanismResultWithProbabilityTest : FailureMechanismResultWithProbabilityTester<
+        public class HeightStructuresFailureMechanismAssemblyResultWithProbabilityControlTest : FailureMechanismAssemblyResultWithProbabilityControlTester<
             HeightStructuresFailureMechanismResultView,
             HeightStructuresFailureMechanism,
             HeightStructuresFailureMechanismSectionResult,
