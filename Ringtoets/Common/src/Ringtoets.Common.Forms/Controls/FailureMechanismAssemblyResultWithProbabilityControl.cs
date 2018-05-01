@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         /// <summary>
-        /// Set the values of the <paramref name="assembly"/> to the control.
+        /// Set the values of <paramref name="assembly"/> to the control.
         /// </summary>
         /// <param name="assembly">The <see cref="FailureMechanismAssembly"/> to set on the control.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> is <c>null</c>.</exception>

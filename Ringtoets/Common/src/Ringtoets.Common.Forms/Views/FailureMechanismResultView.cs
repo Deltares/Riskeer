@@ -27,7 +27,6 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Properties;
@@ -171,22 +170,6 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         protected abstract void AddDataGridColumns();
 
-        private void UpdateFailureMechanismAssemblyResultControl()
-        {
-            if (failureMechanismAssemblyResultControl != null && setFailureMechanismAssemblyResultAction != null)
-            {
-                try
-                {
-                    setFailureMechanismAssemblyResultAction();
-                    failureMechanismAssemblyResultControl.ClearError();
-                }
-                catch (Exception e)
-                {
-                    failureMechanismAssemblyResultControl.SetError(e.Message);
-                }
-            }
-        }
-
         /// <summary>
         /// Sets the correct failure mechanism assembly result control on the view.
         /// </summary>
@@ -207,6 +190,22 @@ namespace Ringtoets.Common.Forms.Views
         {
             UpdateDataGridViewDataSource();
             UpdateFailureMechanismAssemblyResultControl();
+        }
+
+        private void UpdateFailureMechanismAssemblyResultControl()
+        {
+            if (failureMechanismAssemblyResultControl != null && setFailureMechanismAssemblyResultAction != null)
+            {
+                try
+                {
+                    setFailureMechanismAssemblyResultAction();
+                    failureMechanismAssemblyResultControl.ClearError();
+                }
+                catch (Exception e)
+                {
+                    failureMechanismAssemblyResultControl.SetError(e.Message);
+                }
+            }
         }
 
         private void InitializeInfoIcon()

@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void SetAssemblyResult_WithAssembly_SetsValues()
+        public void SetAssemblyResult_WithCategory_SetsValues()
         {
             // Setup
             var random = new Random(39);
