@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -35,7 +34,6 @@ namespace Ringtoets.Common.Plugin.TestUtil
     /// Class for testing <see cref="ShouldCloseMethod"/> for failure mechanism sections views.
     /// </summary>
     [TestFixture]
-    [Apartment(ApartmentState.STA)]
     public abstract class ShouldCloseFailureMechanismSectionsViewTester
     {
         [Test]
