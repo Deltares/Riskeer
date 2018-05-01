@@ -42,7 +42,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             // Assert
             Assert.IsInstanceOf<IAssessmentGradeAssembler>(kernel);
             Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.AssessmentSection);
+            Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.PartialAssembly);
             Assert.IsNull(kernel.FailureMechanismAssemblyResults);
             Assert.IsNull(kernel.AssemblyResultNoFailureProbability);
@@ -133,7 +133,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsTrue(kernel.Calculated);
             Assert.AreEqual(partialAssembly, kernel.PartialAssembly);
             Assert.AreSame(assemblyResults, kernel.FailureMechanismAssemblyResults);
-            Assert.AreSame(assessmentSection, kernel.AssessmentSection);
+            Assert.AreSame(assessmentSection, kernel.AssessmentSectionInput);
         }
 
         [Test]

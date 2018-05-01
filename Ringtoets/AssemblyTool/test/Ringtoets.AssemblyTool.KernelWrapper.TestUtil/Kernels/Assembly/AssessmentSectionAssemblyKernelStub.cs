@@ -32,9 +32,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     public class AssessmentSectionAssemblyKernelStub : IAssessmentGradeAssembler
     {
         /// <summary>
-        /// Gets the <see cref="AssessmentSection"/> used as an input parameter for assembly methods.
+        /// Gets the <see cref="AssessmentSectionInput"/> used as an input parameter for assembly methods.
         /// </summary>
-        public AssessmentSection AssessmentSection { get; private set; }
+        public AssessmentSection AssessmentSectionInput { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
@@ -102,7 +102,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             }
 
             PartialAssembly = partialAssembly;
-            AssessmentSection = section;
+            AssessmentSectionInput = section;
             FailureMechanismAssemblyResults = failureMechanismAssemblyResults;
 
             Calculated = true;
