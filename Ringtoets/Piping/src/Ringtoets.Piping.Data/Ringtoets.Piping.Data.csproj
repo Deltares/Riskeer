@@ -14,7 +14,7 @@
     <Compile Include="DerivedPipingInput.cs" />
     <Compile Include="DerivedPipingOutputFactory.cs" />
     <Compile Include="GeneralPipingInput.cs" />
-    <Compile Include="PipingFailureMechanismSectionResultAssemblyFactory.cs" />
+    <Compile Include="PipingFailureMechanismAssemblyFactory.cs" />
     <Compile Include="PipingCalculation.cs" />
     <Compile Include="PipingCalculationScenario.cs" />
     <Compile Include="PipingCalculationScenarioExtensions.cs" />

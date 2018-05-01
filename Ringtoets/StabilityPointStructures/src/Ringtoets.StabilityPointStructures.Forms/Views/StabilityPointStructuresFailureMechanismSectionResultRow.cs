@@ -364,7 +364,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -377,7 +377,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
+                detailedAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -393,7 +393,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
+                tailorMadeAssemblyCategoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -410,7 +410,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         failureMechanism,
                         assessmentSection);

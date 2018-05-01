@@ -11,7 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.cs" />
+    <Compile Include="GrassCoverErosionInwardsFailureMechanismAssemblyFactory.cs" />
     <Compile Include="GrassCoverErosionInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.cs" />
     <Compile Include="GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.cs" />
     <Compile Include="OvertoppingOutput.cs" />

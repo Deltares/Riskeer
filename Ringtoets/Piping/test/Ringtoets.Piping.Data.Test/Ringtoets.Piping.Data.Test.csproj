@@ -23,7 +23,7 @@
     <Compile Include="DerivedPipingInputTest.cs" />
     <Compile Include="DerivedPipingOutputFactoryTest.cs" />
     <Compile Include="GeneralPipingInputTest.cs" />
-    <Compile Include="PipingFailureMechanismSectionResultAssemblyFactoryTest.cs" />
+    <Compile Include="PipingFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="PipingCalculationScenarioExtensionsTest.cs" />
     <Compile Include="PipingCalculationScenarioTest.cs" />
     <Compile Include="PipingCalculationTest.cs" />

@@ -358,7 +358,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -371,7 +371,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(SectionResult);
+                detailedAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -384,7 +384,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -397,7 +397,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         {
             try
             {
-                combinedAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                combinedAssemblyCategoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     SectionResult);
             }
             catch (AssemblyException e)

@@ -357,7 +357,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -370,7 +370,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(SectionResult);
+                detailedAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -383,7 +383,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -396,7 +396,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
         {
             try
             {
-                combinedAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                combinedAssemblyCategoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     SectionResult);
             }
             catch (AssemblyException e)

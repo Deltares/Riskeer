@@ -21,7 +21,7 @@
   <ItemGroup>
     <Compile Include="ClosingStructureInflowModelTypeTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest.cs" />
-    <Compile Include="ClosingStructuresFailureMechanismSectionResultAssemblyFactoryTest.cs" />
+    <Compile Include="ClosingStructuresFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismTest.cs" />
     <Compile Include="ClosingStructuresInputTest.cs" />

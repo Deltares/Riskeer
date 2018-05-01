@@ -362,7 +362,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -375,7 +375,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
+                detailedAssemblyCategoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -391,7 +391,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
+                tailorMadeAssemblyCategoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -408,7 +408,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         failureMechanism,
                         assessmentSection);

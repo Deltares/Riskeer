@@ -21,7 +21,7 @@
   <ItemGroup>
     <Compile Include="GeneralHeightStructuresInputTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismSectionResultDetailedAssessmentExtensionsTest.cs" />
-    <Compile Include="HeightStructuresFailureMechanismSectionResultAssemblyFactoryTest.cs" />
+    <Compile Include="HeightStructuresFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="HeightStructuresFailureMechanismTest.cs" />
     <Compile Include="HeightStructuresInputTest.cs" />

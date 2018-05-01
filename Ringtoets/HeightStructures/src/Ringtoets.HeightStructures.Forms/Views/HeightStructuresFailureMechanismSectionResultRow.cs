@@ -361,7 +361,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -374,7 +374,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
+                detailedAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -390,7 +390,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
+                tailorMadeAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -407,7 +407,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    HeightStructuresFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         failureMechanism,
                         assessmentSection);
