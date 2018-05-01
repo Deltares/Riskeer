@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculation : CloneableObservable, ICalculation<WaveConditionsInput>
+    public class GrassCoverErosionOutwardsWaveConditionsCalculation : CloneableObservable, ICalculation<FailureMechanismCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public GrassCoverErosionOutwardsWaveConditionsCalculation()
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-            InputParameters = new WaveConditionsInput();
+            InputParameters = new FailureMechanismCategoryWaveConditionsInput();
             Comments = new Comment();
         }
 
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public GrassCoverErosionOutwardsWaveConditionsOutput Output { get; set; }
 
-        public WaveConditionsInput InputParameters { get; private set; }
+        public FailureMechanismCategoryWaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
@@ -71,7 +71,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             var clone = (GrassCoverErosionOutwardsWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();
+            clone.InputParameters = (FailureMechanismCategoryWaveConditionsInput) InputParameters.Clone();
 
             if (Output != null)
             {

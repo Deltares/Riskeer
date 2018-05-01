@@ -30,7 +30,7 @@ namespace Ringtoets.StabilityStoneCover.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculation : CloneableObservable, ICalculation<WaveConditionsInput>
+    public class StabilityStoneCoverWaveConditionsCalculation : CloneableObservable, ICalculation<AssessmentSectionCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
@@ -38,7 +38,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         public StabilityStoneCoverWaveConditionsCalculation()
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-            InputParameters = new WaveConditionsInput();
+            InputParameters = new AssessmentSectionCategoryWaveConditionsInput();
             Comments = new Comment();
         }
 
@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public StabilityStoneCoverWaveConditionsOutput Output { get; set; }
 
-        public WaveConditionsInput InputParameters { get; private set; }
+        public AssessmentSectionCategoryWaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
@@ -71,7 +71,7 @@ namespace Ringtoets.StabilityStoneCover.Data
             var clone = (StabilityStoneCoverWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();
+            clone.InputParameters = (AssessmentSectionCategoryWaveConditionsInput) InputParameters.Clone();
 
             if (Output != null)
             {

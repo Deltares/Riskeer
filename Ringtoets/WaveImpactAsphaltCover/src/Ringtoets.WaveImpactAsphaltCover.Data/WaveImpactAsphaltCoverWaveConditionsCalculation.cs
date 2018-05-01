@@ -30,7 +30,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
     /// <summary>
     /// Class holding information about a wave conditions calculation for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculation : CloneableObservable, ICalculation<WaveConditionsInput>
+    public class WaveImpactAsphaltCoverWaveConditionsCalculation : CloneableObservable, ICalculation<AssessmentSectionCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
@@ -38,7 +38,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverWaveConditionsCalculation()
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-            InputParameters = new WaveConditionsInput();
+            InputParameters = new AssessmentSectionCategoryWaveConditionsInput();
             Comments = new Comment();
         }
 
@@ -47,7 +47,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// </summary>
         public WaveImpactAsphaltCoverWaveConditionsOutput Output { get; set; }
 
-        public WaveConditionsInput InputParameters { get; private set; }
+        public AssessmentSectionCategoryWaveConditionsInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
@@ -71,7 +71,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
             var clone = (WaveImpactAsphaltCoverWaveConditionsCalculation) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (WaveConditionsInput) InputParameters.Clone();
+            clone.InputParameters = (AssessmentSectionCategoryWaveConditionsInput) InputParameters.Clone();
 
             if (Output != null)
             {
