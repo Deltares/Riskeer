@@ -381,9 +381,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultTotalView_Probability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans</value>
   </data>
-  <data name="AssemblyResultTotalView_RefreshAssemblyResultsButton_Text" xml:space="preserve">
-    <value>Assemblageresultaat verversen</value>
-  </data>
   <data name="FailureMechanismContributionView_GridColumn_Assessment" xml:space="preserve">
     <value>Toetsspoor</value>
   </data>

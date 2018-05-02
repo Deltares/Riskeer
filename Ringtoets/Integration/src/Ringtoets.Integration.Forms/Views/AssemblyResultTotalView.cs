@@ -80,7 +80,6 @@ namespace Ringtoets.Integration.Forms.Views
         {
             base.OnLoad(e);
 
-            LocalizeControl();
             InitializeDataGridView();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
@@ -95,11 +94,6 @@ namespace Ringtoets.Integration.Forms.Views
                 components?.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private void LocalizeControl()
-        {
-            RefreshAssemblyResultsButton.Text = Resources.AssemblyResultTotalView_RefreshAssemblyResultsButton_Text;
         }
 
         private void InitializeDataGridView()

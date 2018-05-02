@@ -166,15 +166,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat verversen.
-        /// </summary>
-        public static string AssemblyResultTotalView_RefreshAssemblyResultsButton_Text {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_RefreshAssemblyResultsButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID van het traject..
         /// </summary>
         public static string AssessmentSection_Id_Description {
