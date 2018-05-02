@@ -30,6 +30,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -676,7 +677,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyTrue_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -700,45 +701,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                     assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly expectedAssembly = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    failureMechanism.SectionResults.Single(),
-                    failureMechanism,
-                    assessmentSection);
-                AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyFalse_SetsInputOnCalculator()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
-            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection,
-                    false);
-
-                // Assert
-                FailureMechanismSectionAssembly expectedAssembly = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    failureMechanism.SectionResults.Single(),
-                    failureMechanism,
-                    assessmentSection);
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssembly expectedAssembly = sectionCalculator.AssembleManual(sectionResult.ManualAssemblyProbability,
+                                                                                                    AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(
+                                                                                                        failureMechanism.GeneralInput.N,
+                                                                                                        failureMechanism,
+                                                                                                        assessmentSection));
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
                 mocks.VerifyAll();
             }

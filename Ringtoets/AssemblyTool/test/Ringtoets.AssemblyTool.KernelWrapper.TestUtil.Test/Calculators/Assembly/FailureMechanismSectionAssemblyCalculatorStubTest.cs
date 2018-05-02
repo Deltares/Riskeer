@@ -1111,8 +1111,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 CreateAssemblyCategoriesInput());
 
             // Assert
-            Assert.AreEqual(1.0, assembly.Probability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, assembly.Group);
+            Assert.AreEqual(0.0, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIv, assembly.Group);
         }
 
         [Test]
@@ -1189,8 +1189,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 CreateAssemblyCategoriesInput());
 
             // Assert
-            Assert.AreEqual(0.0, assembly.Probability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, assembly.Group);
+            Assert.AreEqual(1.0, assembly.Probability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIIv, assembly.Group);
         }
 
         [Test]

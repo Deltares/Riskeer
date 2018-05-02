@@ -677,7 +677,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyTrue_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -701,44 +701,8 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     assessmentSection);
 
                 // Assert
-                Assert.AreEqual(failureMechanism.SectionResults.Single().ManualAssemblyCategoryGroup,
+                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup,
                                 calculator.FailureMechanismSectionCategories.Single());
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyFalse_SetsInputOnCalculator()
-        {
-            // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            MacroStabilityOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyCategoryGroup = true;
-            sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Call
-                MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection,
-                    false);
-
-                // Assert
-                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                        failureMechanism.SectionResults.Single(),
-                        failureMechanism,
-                        assessmentSection);
-                Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
                 mocks.VerifyAll();
             }
         }

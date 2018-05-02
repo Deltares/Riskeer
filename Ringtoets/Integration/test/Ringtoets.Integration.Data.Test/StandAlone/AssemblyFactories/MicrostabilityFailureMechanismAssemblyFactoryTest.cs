@@ -406,7 +406,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyTrue_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
             var sectionResults = new[]
@@ -428,34 +428,6 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Assert
                 Assert.AreEqual(sectionResults.Single().ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyFalse_SetsInputOnCalculator()
-        {
-            // Setup
-            var sectionResults = new[]
-            {
-                new MicrostabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyCategoryGroup = true,
-                    ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
-                }
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Call
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults, false);
-
-                // Assert
-                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResults.Single());
-                Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 

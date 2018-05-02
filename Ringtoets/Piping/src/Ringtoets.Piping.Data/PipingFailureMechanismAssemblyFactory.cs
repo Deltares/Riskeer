@@ -26,10 +26,10 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.Piping.Data
 {
@@ -238,15 +238,13 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
         /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssembly"/>
         /// could not be created.</exception>
         public static FailureMechanismAssembly AssembleFailureMechanism(
             PipingFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection,
-            bool considerManualAssembly = true)
+            IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -259,52 +257,81 @@ namespace Ringtoets.Piping.Data
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator sectionCalculator =
-                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
-            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
+            IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = AssembleSections(failureMechanism,
+                                                                                              assessmentSection,
+                                                                                              assemblyCategoriesInput);
 
             try
             {
-                foreach (PipingFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
-                {
-                    if (sectionResult.UseManualAssemblyProbability && considerManualAssembly)
-                    {
-                        sectionAssemblies.Add(sectionCalculator.AssembleDetailedAssessment(
-                                                  DetailedAssessmentProbabilityOnlyResultType.Probability,
-                                                  sectionResult.ManualAssemblyProbability,
-                                                  failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
-                                                  assemblyCategoriesInput));
-                    }
-                    else
-                    {
-                        sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult,
-                                                                         failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
-                                                                         failureMechanism,
-                                                                         assessmentSection));
-                    }
-                }
-
                 IFailureMechanismAssemblyCalculator calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
                 return calculator.Assemble(sectionAssemblies, assemblyCategoriesInput);
             }
-            catch (Exception e) when (e is FailureMechanismAssemblyCalculatorException || e is FailureMechanismSectionAssemblyCalculatorException)
+            catch (FailureMechanismAssemblyCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
             }
         }
 
+        /// <summary>
+        /// Assembles the combined assembly for all sections in the <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
+        /// <param name="assemblyCategoriesInput">The object containing the input parameters for determining the assembly categories.</param>
+        /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        /// <returns>A collection of all section assembly results.</returns>
+        private static IEnumerable<FailureMechanismSectionAssembly> AssembleSections(PipingFailureMechanism failureMechanism,
+                                                                                     IAssessmentSection assessmentSection,
+                                                                                     AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator sectionCalculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
+
+            foreach (PipingFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
+            {
+                FailureMechanismSectionAssembly sectionAssembly;
+                if (sectionResult.UseManualAssemblyProbability)
+                {
+                    try
+                    {
+                        sectionAssembly = sectionCalculator.AssembleManual(sectionResult.ManualAssemblyProbability,
+                                                                           failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                                                               sectionResult.Section.Length),
+                                                                           assemblyCategoriesInput);
+                    }
+                    catch (FailureMechanismSectionAssemblyCalculatorException e)
+                    {
+                        throw new AssemblyException(e.Message, e);
+                    }
+                }
+                else
+                {
+                    sectionAssembly = AssembleCombinedAssessment(sectionResult,
+                                                                 failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                                                                 failureMechanism,
+                                                                 assessmentSection);
+                }
+
+                sectionAssemblies.Add(sectionAssembly);
+            }
+
+            return sectionAssemblies;
+        }
+
         private static AssemblyCategoriesInput CreateAssemblyCategoriesInput(PipingFailureMechanism failureMechanism,
                                                                              IAssessmentSection assessmentSection)
         {
-            return new AssemblyCategoriesInput(failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                                                   failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
-                                               failureMechanism.Contribution,
-                                               assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                               assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            return AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(failureMechanism.PipingProbabilityAssessmentInput.GetN(
+                                                                                    failureMechanism.PipingProbabilityAssessmentInput.SectionLength),
+                                                                                failureMechanism,
+                                                                                assessmentSection);
         }
     }
 }

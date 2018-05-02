@@ -16,6 +16,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyTool\AssemblyCategoriesInputFactory.cs" />
     <Compile Include="AssemblyTool\AssemblyToolCategoriesFactory.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionComposition.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionExtensions.cs" />

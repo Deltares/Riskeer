@@ -21,10 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
@@ -221,15 +223,13 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="considerManualAssembly">Indicator whether the manual assembly should be used in the assembly.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(
             MacroStabilityOutwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection,
-            bool considerManualAssembly = true)
+            IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -241,24 +241,17 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var sectionAssemblies = new List<FailureMechanismSectionAssemblyCategoryGroup>();
-            foreach (MacroStabilityOutwardsFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
-            {
-                if (sectionResult.UseManualAssemblyCategoryGroup && considerManualAssembly)
-                {
-                    sectionAssemblies.Add(sectionResult.ManualAssemblyCategoryGroup);
-                }
-                else
-                {
-                    sectionAssemblies.Add(AssembleCombinedAssessment(sectionResult,
-                                                                     failureMechanism,
-                                                                     assessmentSection));
-                }
-            }
+            IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
+                failureMechanism.SectionResults.Select(sectionResult => (sectionResult.UseManualAssemblyCategoryGroup
+                                                                             ? sectionResult.ManualAssemblyCategoryGroup
+                                                                             : AssembleCombinedAssessment(sectionResult,
+                                                                                                          failureMechanism,
+                                                                                                          assessmentSection))).ToArray();
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismAssemblyCalculator calculator =
                 calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
             try
             {
                 return calculator.Assemble(sectionAssemblies);
@@ -272,11 +265,10 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         private static AssemblyCategoriesInput CreateAssemblyCategoriesInput(MacroStabilityOutwardsFailureMechanism failureMechanism,
                                                                              IAssessmentSection assessmentSection)
         {
-            return new AssemblyCategoriesInput(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                                                   failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength),
-                                               failureMechanism.Contribution,
-                                               assessmentSection.FailureMechanismContribution.SignalingNorm,
-                                               assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            return AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                                                                                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength),
+                                                                                failureMechanism,
+                                                                                assessmentSection);
         }
     }
 }

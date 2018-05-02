@@ -427,7 +427,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyTrue_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
             var sectionResults = new[]
@@ -449,34 +449,6 @@ namespace Ringtoets.DuneErosion.Data.Test
 
                 // Assert
                 Assert.AreEqual(sectionResults.Single().ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyFalse_SetsInputOnCalculator()
-        {
-            // Setup
-            var sectionResults = new[]
-            {
-                new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyCategoryGroup = true,
-                    ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
-                }
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults, false);
-
-                // Assert
-                FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResults.Single());
-                Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 

@@ -30,6 +30,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -757,7 +758,7 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyTrue_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -781,47 +782,10 @@ namespace Ringtoets.Piping.Data.Test
                     assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssembly expectedAssembly = PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    failureMechanism.SectionResults.Single(),
-                    Enumerable.Empty<PipingCalculationScenario>(),
-                    failureMechanism,
-                    assessmentSection);
-                AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanism_WithManualInputConsiderManualAssemblyFalse_SetsInputOnCalculator()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.UseManualAssemblyProbability = true;
-            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Call
-                PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection,
-                    false);
-
-                // Assert
-                FailureMechanismSectionAssembly expectedAssembly = PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    failureMechanism.SectionResults.Single(),
-                    Enumerable.Empty<PipingCalculationScenario>(),
-                    failureMechanism,
-                    assessmentSection);
+                FailureMechanismSectionAssemblyCalculatorStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                FailureMechanismSectionAssembly expectedAssembly = sectionCalculator.AssembleManual(
+                    sectionResult.ManualAssemblyProbability,
+                    AssemblyCategoriesInputFactory.CreateAssemblyCategoriesInput(0.0, failureMechanism, assessmentSection));
                 AssemblyToolTestHelper.AssertAreEqual(expectedAssembly, calculator.FailureMechanismSectionAssemblies.Single());
                 mocks.VerifyAll();
             }

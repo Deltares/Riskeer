@@ -447,11 +447,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                 throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
             }
 
-            DetailedAssessmentProbabilityInput = probability;
+            ManualAssemblyProbabilityInput = probability;
             AssemblyCategoriesInput = assemblyCategoriesInput;
 
-            return DetailedAssessmentAssemblyOutput ??
-                   (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv));
+            return ManualAssemblyAssemblyOutput ??
+                   (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.IIv));
         }
 
         public FailureMechanismSectionAssembly AssembleManual(double probability, double n, AssemblyCategoriesInput assemblyCategoriesInput)
