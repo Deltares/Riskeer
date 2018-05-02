@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.Properties;
@@ -32,7 +33,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsInputContextProperties
-        : WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>
+        : WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext, AssessmentSectionCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsInputContextProperties"/>.

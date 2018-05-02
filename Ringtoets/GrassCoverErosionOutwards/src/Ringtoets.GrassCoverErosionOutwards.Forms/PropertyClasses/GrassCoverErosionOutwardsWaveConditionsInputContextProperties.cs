@@ -25,6 +25,7 @@ using Core.Common.Util.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
@@ -33,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     /// ViewModel of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsInputContextProperties
-        : WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>
+        : WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, FailureMechanismCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContextProperties"/>.
