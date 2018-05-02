@@ -1217,11 +1217,6 @@ namespace Ringtoets.Integration.Plugin
                 return new GrassCoverErosionOutwardsWaveConditionsInputViewStyle();
             }
 
-            if (context is WaveImpactAsphaltCoverWaveConditionsInputContext)
-            {
-                return new WaveImpactAsphaltCoverWaveConditionsInputViewStyle();
-            }
-
             return null;
         }
 

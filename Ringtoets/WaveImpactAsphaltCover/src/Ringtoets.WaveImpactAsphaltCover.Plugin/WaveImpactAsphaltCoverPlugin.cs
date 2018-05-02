@@ -40,7 +40,10 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
@@ -97,6 +100,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismResultView(
                     context.WrappedData,
                     (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism)
+            };
+
+            yield return new ViewInfo<WaveImpactAsphaltCoverWaveConditionsInputContext,
+                ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
+                WaveConditionsInputView>
+            {
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewData = context => context.Calculation,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CreateInstance = context => new WaveConditionsInputView(new WaveImpactAsphaltCoverWaveConditionsInputViewStyle(),
+                                                                        () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation))
             };
         }
 
