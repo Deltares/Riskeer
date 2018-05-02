@@ -223,28 +223,28 @@ namespace Ringtoets.Integration.Forms.Views
         {
             StabilityStoneCoverFailureMechanism stabilityStoneCover = AssessmentSection.StabilityStoneCover;
             return new FailureMechanismAssemblyCategoryGroupResultRow(stabilityStoneCover,
-                                                                      () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityStoneCover.SectionResults));
+                                                                      () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityStoneCover));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateWaveImpactFailureMechanismAssemblyResultRow()
         {
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = AssessmentSection.WaveImpactAsphaltCover;
             return new FailureMechanismAssemblyCategoryGroupResultRow(waveImpactAsphaltCover,
-                                                                      () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waveImpactAsphaltCover.SectionResults));
+                                                                      () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waveImpactAsphaltCover));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateGrassCoverErosionOutwardsFailureMechanismAssemblyResultRow()
         {
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = AssessmentSection.GrassCoverErosionOutwards;
             return new FailureMechanismAssemblyCategoryGroupResultRow(grassCoverErosionOutwards,
-                                                                      () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionOutwards.SectionResults));
+                                                                      () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionOutwards));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateDuneErosionFailureMechanismAssemblyResultRow()
         {
             DuneErosionFailureMechanism duneErosion = AssessmentSection.DuneErosion;
             return new FailureMechanismAssemblyCategoryGroupResultRow(duneErosion,
-                                                                      () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion.SectionResults));
+                                                                      () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion));
         }
 
         #endregion
@@ -263,49 +263,49 @@ namespace Ringtoets.Integration.Forms.Views
         {
             MicrostabilityFailureMechanism microstability = AssessmentSection.Microstability;
             return new FailureMechanismAssemblyCategoryGroupResultRow(microstability,
-                                                                      () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(microstability.SectionResults));
+                                                                      () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(microstability));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateWaterPressureAsphaltCoverFailureMechanismAssemblyResultRow()
         {
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover = AssessmentSection.WaterPressureAsphaltCover;
             return new FailureMechanismAssemblyCategoryGroupResultRow(waterPressureAsphaltCover,
-                                                                      () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waterPressureAsphaltCover.SectionResults));
+                                                                      () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waterPressureAsphaltCover));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateGrassCoverSlipOffOutwardsFailureMechanismAssemblyResultRow()
         {
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards = AssessmentSection.GrassCoverSlipOffOutwards;
             return new FailureMechanismAssemblyCategoryGroupResultRow(grassCoverSlipOffOutwards,
-                                                                      () => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverSlipOffOutwards.SectionResults));
+                                                                      () => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverSlipOffOutwards));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateGrassCoverSlipOffInwardsFailureMechanismAssemblyResultRow()
         {
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards = AssessmentSection.GrassCoverSlipOffInwards;
             return new FailureMechanismAssemblyCategoryGroupResultRow(grassCoverSlipOffInwards,
-                                                                      () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverSlipOffInwards.SectionResults));
+                                                                      () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverSlipOffInwards));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreatePipingStructureFailureMechanismAssemblyResultRow()
         {
             PipingStructureFailureMechanism pipingStructure = AssessmentSection.PipingStructure;
             return new FailureMechanismAssemblyCategoryGroupResultRow(pipingStructure,
-                                                                      () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure.SectionResults));
+                                                                      () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateStrengthStabilityLengthWiseConstructionFailureMechanismAssemblyResultRow()
         {
             StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = AssessmentSection.StrengthStabilityLengthwiseConstruction;
             return new FailureMechanismAssemblyCategoryGroupResultRow(strengthStabilityLengthwiseConstruction,
-                                                                      () => StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(strengthStabilityLengthwiseConstruction.SectionResults));
+                                                                      () => StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(strengthStabilityLengthwiseConstruction));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateTechnicalInnovationFailureMechanismAssemblyResultRow()
         {
             TechnicalInnovationFailureMechanism technicalInnovation = AssessmentSection.TechnicalInnovation;
             return new FailureMechanismAssemblyCategoryGroupResultRow(technicalInnovation,
-                                                                      () => TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(technicalInnovation.SectionResults));
+                                                                      () => TechnicalInnovationFailureMechanismAssemblyFactory.AssembleFailureMechanism(technicalInnovation));
         }
 
         #endregion

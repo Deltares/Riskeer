@@ -198,6 +198,11 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (!failureMechanism.IsRelevant)
+            {
+                return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
+            }
+
             FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
             FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = AssembleDetailedAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
@@ -239,6 +244,11 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (!failureMechanism.IsRelevant)
+            {
+                return FailureMechanismAssemblyCategoryGroup.NotApplicable;
             }
 
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =

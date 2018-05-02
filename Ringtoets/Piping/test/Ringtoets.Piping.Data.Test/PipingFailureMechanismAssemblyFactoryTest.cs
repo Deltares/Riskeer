@@ -726,6 +726,32 @@ namespace Ringtoets.Piping.Data.Test
         }
 
         [Test]
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismAssembly assembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyFactory.CreateNotApplicableAssembly(), assembly);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup

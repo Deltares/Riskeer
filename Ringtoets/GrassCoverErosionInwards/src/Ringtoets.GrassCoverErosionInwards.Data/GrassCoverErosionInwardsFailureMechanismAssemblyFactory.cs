@@ -238,6 +238,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (!failureMechanism.IsRelevant)
+            {
+                return FailureMechanismAssemblyFactory.CreateNotApplicableAssembly();
+            }
+
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
             IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = AssembleSections(failureMechanism,

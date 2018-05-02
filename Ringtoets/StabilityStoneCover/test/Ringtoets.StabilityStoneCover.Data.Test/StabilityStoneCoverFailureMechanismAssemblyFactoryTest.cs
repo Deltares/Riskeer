@@ -392,24 +392,41 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
+        public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismAssemblyCategoryGroup assembly = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+
+                // Assert                
+                Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, assembly);
+            }
         }
 
         [Test]
         public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResults = new[]
-            {
-                new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -417,11 +434,11 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults);
+                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResults.Single());
+                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanism.SectionResults.Single());
                 Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
             }
         }
@@ -430,14 +447,11 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResults = new[]
-            {
-                new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyCategoryGroup = true,
-                    ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
-                }
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -445,10 +459,10 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults);
+                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
                 // Assert
-                Assert.AreEqual(sectionResults.Single().ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -463,8 +477,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<StabilityStoneCoverFailureMechanismSectionResult>());
+                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(new StabilityStoneCoverFailureMechanism());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -482,8 +495,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<StabilityStoneCoverFailureMechanismSectionResult>());
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(new StabilityStoneCoverFailureMechanism());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

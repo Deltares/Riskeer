@@ -646,6 +646,32 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismAssembly assembly = HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyFactory.CreateNotApplicableAssembly(), assembly);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup

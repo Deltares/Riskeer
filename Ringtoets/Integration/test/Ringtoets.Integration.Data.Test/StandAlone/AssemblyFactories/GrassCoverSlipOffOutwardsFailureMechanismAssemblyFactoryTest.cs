@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -370,24 +371,41 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
+        public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismAssemblyCategoryGroup assembly = GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+
+                // Assert                
+                Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, assembly);
+            }
         }
 
         [Test]
         public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResults = new[]
-            {
-                new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -395,11 +413,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults);
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResults.Single());
+                    GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanism.SectionResults.Single());
                 Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
             }
         }
@@ -408,14 +426,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResults = new[]
-            {
-                new GrassCoverSlipOffOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyCategoryGroup = true,
-                    ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
-                }
-            };
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -423,10 +438,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults);
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
                 // Assert
-                Assert.AreEqual(sectionResults.Single().ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -441,8 +456,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>());
+                    GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(new GrassCoverSlipOffOutwardsFailureMechanism());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -460,8 +474,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>());
+                TestDelegate call = () => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(new GrassCoverSlipOffOutwardsFailureMechanism());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

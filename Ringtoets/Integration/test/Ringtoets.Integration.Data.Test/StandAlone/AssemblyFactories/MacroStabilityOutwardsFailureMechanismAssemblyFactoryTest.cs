@@ -645,6 +645,31 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismAssemblyCategoryGroup assembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
+                                                                                                                                                assessmentSection);
+
+                // Assert                
+                Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, assembly);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup

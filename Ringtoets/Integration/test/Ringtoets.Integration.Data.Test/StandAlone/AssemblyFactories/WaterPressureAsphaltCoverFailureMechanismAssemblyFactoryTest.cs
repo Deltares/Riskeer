@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -290,24 +291,41 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         #region Failure Mechanism Assembly
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
+        public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        {
+            // Setup
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism
+            {
+                IsRelevant = false
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismAssemblyCategoryGroup assembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+
+                // Assert                
+                Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, assembly);
+            }
         }
 
         [Test]
         public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResults = new[]
-            {
-                new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            };
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -315,11 +333,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults);
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup assemblyCategory =
-                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResults.Single());
+                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanism.SectionResults.Single());
                 Assert.AreEqual(assemblyCategory, calculator.FailureMechanismSectionCategories.Single());
             }
         }
@@ -328,14 +346,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResults = new[]
-            {
-                new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-                {
-                    UseManualAssemblyCategoryGroup = true,
-                    ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
-                }
-            };
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            WaterPressureAsphaltCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            sectionResult.UseManualAssemblyCategoryGroup = true;
+            sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -343,10 +358,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(sectionResults);
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
                 // Assert
-                Assert.AreEqual(sectionResults.Single().ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
+                Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
             }
         }
 
@@ -361,8 +376,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                        Enumerable.Empty<WaterPressureAsphaltCoverFailureMechanismSectionResult>());
+                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -380,8 +394,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    Enumerable.Empty<WaterPressureAsphaltCoverFailureMechanismSectionResult>());
+                TestDelegate call = () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
