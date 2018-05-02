@@ -119,6 +119,33 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kilometrering tot [km].
+        /// </summary>
+        public static string AssemblyResultPerSectionView_GridColumn_SectionEnd {
+            get {
+                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kilometrering van [km].
+        /// </summary>
+        public static string AssemblyResultPerSectionView_GridColumn_SectionStart {
+            get {
+                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totaal vakoordeel.
+        /// </summary>
+        public static string AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly {
+            get {
+                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assemblageresultaat verversen.
         /// </summary>
         public static string AssemblyResultTotalView_AssemblyResultTotalView_RefreshAssemblyResultsButton_Text {

@@ -24,6 +24,17 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Properties;
+using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
+using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
+using MacroStabilityInwardsDataResources = Ringtoets.MacroStabilityInwards.Data.Properties.Resources;
+using IntegrationDataResources = Ringtoets.Integration.Data.Properties.Resources;
+using StabilityStoneCoverDataResources = Ringtoets.StabilityStoneCover.Data.Properties.Resources;
+using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
+using GrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
+using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
+using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
+using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
+using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -62,11 +73,79 @@ namespace Ringtoets.Integration.Forms.Views
             base.OnLoad(e);
 
             LocalizeControl();
+            InitializeDataGridView();
         }
 
         private void LocalizeControl()
         {
             RefreshAssemblyResultsButton.Text = Resources.AssemblyResultTotalView_RefreshAssemblyResultsButton_Text;
+        }
+
+        private void InitializeDataGridView()
+        {
+            dataGridViewControl.AddTextBoxColumn("StartPoint",
+                                                 Resources.AssemblyResultPerSectionView_GridColumn_SectionStart,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("EndPoint",
+                                                 Resources.AssemblyResultPerSectionView_GridColumn_SectionEnd,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("TotalAssembly",
+                                                 Resources.AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("Piping",
+                                                 PipingDataResources.PipingFailureMechanism_DisplayCode,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("GrassCoverErosionInwards",
+                                                 GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayCode,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("MacroStabilityInwards",
+                                                 MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("MacroStabilityOutwards",
+                                                 IntegrationDataResources.MacroStabilityOutwardsFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("MicroStability",
+                                                 IntegrationDataResources.MicrostabilityFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("StabilityStoneCover",
+                                                 StabilityStoneCoverDataResources.StabilityStoneCoverFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("WaveImpactAsphaltCover",
+                                                 WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("WaterPressureAsphaltCover",
+                                                 IntegrationDataResources.WaterPressureAsphaltCoverFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("GrassCoverErosionOutwards",
+                                                 GrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("GrassCoverSlipOffOutwards",
+                                                 IntegrationDataResources.GrassCoverSlipOffOutwardsFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("GrassCoverSlipOffInwards",
+                                                 IntegrationDataResources.GrassCoverSlipOffInwardsFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("HeightStructures",
+                                                 HeightStructuresDataResources.HeightStructuresFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("ClosingStructures",
+                                                 ClosingStructuresDataResources.ClosingStructuresFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("PipingStructures",
+                                                 IntegrationDataResources.PipingStructureFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("StabilityPointStructures",
+                                                 StabilityPointStructuresDataResources.StabilityPointStructuresFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("StrengthStabilityLengthwise",
+                                                 IntegrationDataResources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("DuneErosion",
+                                                 DuneErosionDataResources.DuneErosionFailureMechanism_Code,
+                                                 true);
+            dataGridViewControl.AddTextBoxColumn("TechnicalInnovation",
+                                                 IntegrationDataResources.TechnicalInnovationFailureMechanism_Code,
+                                                 true);
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e) {}

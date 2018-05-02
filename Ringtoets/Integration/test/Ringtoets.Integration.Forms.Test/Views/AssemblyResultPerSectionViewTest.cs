@@ -34,6 +34,29 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyResultPerSectionViewTest
     {
+        private const int sectionStartColumnIndex = 0;
+        private const int sectionEndColumnIndex = 1;
+        private const int sectionTotalAssemblyResultColumnIndex = 2;
+        private const int pipingColumnIndex = 3;
+        private const int grassCoverErosionInwardsColumnIndex = 4;
+        private const int macroStabilityInwardsColumnIndex = 5;
+        private const int macroStabilityOutwardsColumnIndex = 6;
+        private const int microStabilityColumnIndex = 7;
+        private const int stabilityStoneCoverColumnIndex = 8;
+        private const int waveImpactAsphaltCoverColumnIndex = 9;
+        private const int waterPressureAsphaltCoverColumnIndex = 10;
+        private const int grassCoverErosionOutwardsColumnIndex = 11;
+        private const int grassCoverSlipOffOutwardsColumnIndex = 12;
+        private const int grassCoverSlipOffInwardsColumnIndex = 13;
+        private const int heightStructuresColumnIndex = 14;
+        private const int closingStructures = 15;
+        private const int pipingStructures = 16;
+        private const int stabilityPointStructuresColumnIndex = 17;
+        private const int strengthStabilityLengthwiseColumnIndex = 18;
+        private const int duneErosionColumnIndex = 19;
+        private const int technicalInnovationColumnIndex = 20;
+        private const int expectedColumnCount = 21;
+
         private Form testForm;
 
         [SetUp]
@@ -67,8 +90,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
+            using (var view = new AssemblyResultPerSectionView(assessmentSection))
             {
+                testForm.Controls.Add(view);
+                testForm.Show();
+
                 // Assert
                 Assert.AreEqual(2, view.Controls.Count);
 
@@ -83,8 +109,54 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
-        private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView(AssessmentSection assessmentSection)
+        [Test]
+        public void GivenWithAssemblyResultTotalView_ThenExpectedColumnsAreVisible()
         {
+            // Given
+            using (ShowAssemblyResultPerSectionView())
+            {
+                // Then
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
+
+                DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
+
+                AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Kilometrering van [km]");
+                AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Kilometrering tot [km]");
+                AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Totaal vakoordeel");
+                AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
+                AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
+                AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");
+                AssertColumn(dataGridViewColumns[macroStabilityOutwardsColumnIndex], "STBU");
+                AssertColumn(dataGridViewColumns[microStabilityColumnIndex], "STMI");
+                AssertColumn(dataGridViewColumns[stabilityStoneCoverColumnIndex], "ZST");
+                AssertColumn(dataGridViewColumns[waveImpactAsphaltCoverColumnIndex], "AGK");
+                AssertColumn(dataGridViewColumns[waterPressureAsphaltCoverColumnIndex], "AWO");
+                AssertColumn(dataGridViewColumns[grassCoverErosionOutwardsColumnIndex], "GEBU");
+                AssertColumn(dataGridViewColumns[grassCoverSlipOffOutwardsColumnIndex], "GABU");
+                AssertColumn(dataGridViewColumns[grassCoverSlipOffInwardsColumnIndex], "GABI");
+                AssertColumn(dataGridViewColumns[heightStructuresColumnIndex], "HTKW");
+                AssertColumn(dataGridViewColumns[closingStructures], "BSKW");
+                AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
+                AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
+                AssertColumn(dataGridViewColumns[strengthStabilityLengthwiseColumnIndex], "STKWl");
+                AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
+                AssertColumn(dataGridViewColumns[technicalInnovationColumnIndex], "INN");
+            }
+        }
+
+        private static void AssertColumn(DataGridViewColumn column, string headerText)
+        {
+            Assert.IsInstanceOf<DataGridViewTextBoxColumn>(column);
+            Assert.AreEqual(headerText, column.HeaderText);
+            Assert.IsTrue(column.ReadOnly);
+        }
+
+        private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView()
+        {
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
             var view = new AssemblyResultPerSectionView(assessmentSection);
             testForm.Controls.Add(view);
             testForm.Show();
