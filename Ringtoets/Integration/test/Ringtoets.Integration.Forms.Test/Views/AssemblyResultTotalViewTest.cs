@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -62,6 +62,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int failureMechanisProbabilityColumnIndex = 4;
 
         private Form testForm;
+
+        private static IEnumerable<TestCaseData> CellFormattingStates
+        {
+            get
+            {
+                yield return new TestCaseData(true, "", CellStyle.Disabled);
+                yield return new TestCaseData(false, "Error", CellStyle.Enabled);
+            }
+        }
 
         [SetUp]
         public void Setup()
@@ -194,11 +203,43 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var newCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
                 calculator.FailureMechanismAssemblyOutput = newAssemblyResult;
                 calculator.FailureMechanismAssemblyCategoryGroupOutput = newCategoryGroup;
+
                 var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
                 buttonTester.Click();
 
                 // Then 
                 AssertFailureMechanismRows(view.AssessmentSection, newAssemblyResult, newCategoryGroup, rows);
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(CellFormattingStates))]
+        public void GivenFormWithAssemblyResultTotalView_WhenCellFormattingEventFired_ThenCategoryColumnCellStyleSetToColumnDefinition(
+            bool readOnly, string errorText, CellStyle style)
+        {
+            // Given
+            using (ShowAssemblyResultTotalView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                dataGridView.CellFormatting += (sender, args) =>
+                {
+                    var row = (IHasColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem;
+                    DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[failureMechanismAssemblyCategoryColumnIndex];
+                    definition.ReadOnly = readOnly;
+                    definition.ErrorText = errorText;
+                    definition.Style = style;
+                };
+
+                // When
+                var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
+                buttonTester.Click();
+
+                // Then
+                DataGridViewCell cell = dataGridView.Rows[0].Cells[failureMechanismAssemblyCategoryColumnIndex];
+                Assert.AreEqual(readOnly, cell.ReadOnly);
+                Assert.AreEqual(errorText, cell.ErrorText);
+                Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
+                Assert.AreEqual(style.TextColor, cell.Style.ForeColor);
             }
         }
 
