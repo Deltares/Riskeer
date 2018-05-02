@@ -27,8 +27,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
 
@@ -46,9 +46,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
             var context = new StabilityStoneCoverWaveConditionsInputContext(
-                new AssessmentSectionCategoryWaveConditionsInput(),
-                new TestWaveConditionsCalculation(),
+                calculation.InputParameters,
+                calculation,
                 assessmentSection,
                 Enumerable.Empty<ForeshoreProfile>());
 
@@ -56,7 +57,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext, AssessmentSectionCategoryWaveConditionsInput>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Steen (blokken en zuilen)", properties.RevetmentType);
             mockRepository.VerifyAll();

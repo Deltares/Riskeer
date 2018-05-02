@@ -27,8 +27,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 
@@ -46,9 +46,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(
-                new AssessmentSectionCategoryWaveConditionsInput(),
-                new TestWaveConditionsCalculation(),
+                calculation.InputParameters,
+                calculation,
                 assessmentSection,
                 Enumerable.Empty<ForeshoreProfile>());
 
@@ -56,7 +57,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext, AssessmentSectionCategoryWaveConditionsInput>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Asfalt", properties.RevetmentType);
             mockRepository.VerifyAll();

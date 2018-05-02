@@ -30,7 +30,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
@@ -61,9 +60,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new FailureMechanismCategoryWaveConditionsInput(),
-                new TestWaveConditionsCalculation(),
+                calculation.InputParameters,
+                calculation,
                 assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());
 
@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                                                handler);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, FailureMechanismCategoryWaveConditionsInput>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Gras", properties.RevetmentType);
         }
@@ -82,9 +82,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_Always_OverriddenExpectedPropertyDescriptors()
         {
             // Setup
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new FailureMechanismCategoryWaveConditionsInput(),
-                new TestWaveConditionsCalculation(),
+                calculation.InputParameters,
+                calculation,
                 assessmentSection,
                 new GrassCoverErosionOutwardsFailureMechanism());
 
