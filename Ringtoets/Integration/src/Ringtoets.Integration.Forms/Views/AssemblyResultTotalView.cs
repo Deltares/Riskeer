@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
-           dataGridViewControl.FormatCellWithColumnStateDefinition<FailureMechanismAssemblyResultRowBase>(e.RowIndex, e.ColumnIndex);
+           dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         #region Failure mechanism assembly result rows
