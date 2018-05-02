@@ -23,6 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -55,5 +56,19 @@ namespace Ringtoets.Integration.Forms.Views
         public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            LocalizeControl();
+        }
+
+        private void LocalizeControl()
+        {
+            RefreshAssemblyResultsButton.Text = Resources.AssemblyResultTotalView_RefreshAssemblyResultsButton_Text;
+        }
+
+        private void RefreshAssemblyResults_Click(object sender, EventArgs e) {}
     }
 }

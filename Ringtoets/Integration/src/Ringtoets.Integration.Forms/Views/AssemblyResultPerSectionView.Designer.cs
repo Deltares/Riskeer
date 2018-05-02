@@ -49,10 +49,61 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.RefreshAssemblyResultsButton = new System.Windows.Forms.Button();
+            this.buttonGroupBox = new System.Windows.Forms.GroupBox();
+            this.buttonGroupBox.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // dataGridViewControl
+            // 
+            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewControl.Location = new System.Drawing.Point(0, 43);
+            this.dataGridViewControl.MultiSelect = true;
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.dataGridViewControl.Size = new System.Drawing.Size(789, 373);
+            this.dataGridViewControl.TabIndex = 3;
+            // 
+            // RefreshAssemblyResultsButton
+            // 
+            this.RefreshAssemblyResultsButton.AutoSize = true;
+            this.RefreshAssemblyResultsButton.Location = new System.Drawing.Point(3, 14);
+            this.RefreshAssemblyResultsButton.Name = "RefreshAssemblyResultsButton";
+            this.RefreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 23);
+            this.RefreshAssemblyResultsButton.TabIndex = 0;
+            this.RefreshAssemblyResultsButton.UseVisualStyleBackColor = true;
+            this.RefreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
+            // 
+            // buttonGroupBox
+            // 
+            this.buttonGroupBox.Controls.Add(this.RefreshAssemblyResultsButton);
+            this.buttonGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonGroupBox.Location = new System.Drawing.Point(0, 0);
+            this.buttonGroupBox.MinimumSize = new System.Drawing.Size(180, 43);
+            this.buttonGroupBox.Name = "buttonGroupBox";
+            this.buttonGroupBox.Size = new System.Drawing.Size(789, 43);
+            this.buttonGroupBox.TabIndex = 2;
+            this.buttonGroupBox.TabStop = false;
+            // 
+            // AssemblyResultPerSectionView
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dataGridViewControl);
+            this.Controls.Add(this.buttonGroupBox);
+            this.Name = "AssemblyResultPerSectionView";
+            this.Size = new System.Drawing.Size(789, 416);
+            this.buttonGroupBox.ResumeLayout(false);
+            this.buttonGroupBox.PerformLayout();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+        private System.Windows.Forms.Button RefreshAssemblyResultsButton;
+        private System.Windows.Forms.GroupBox buttonGroupBox;
     }
 }

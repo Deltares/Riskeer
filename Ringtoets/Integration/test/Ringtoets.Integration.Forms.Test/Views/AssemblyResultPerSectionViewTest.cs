@@ -23,6 +23,7 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
@@ -33,6 +34,20 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyResultPerSectionViewTest
     {
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -52,14 +67,29 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            using (var view = new AssemblyResultPerSectionView(assessmentSection))
+            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Assert
+                Assert.AreEqual(2, view.Controls.Count);
+
+                var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
+                Assert.AreEqual("Assemblageresultaat verversen", button.Text);
+                Assert.IsTrue(button.Enabled);
+
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
+        }
+
+        private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView(AssessmentSection assessmentSection)
+        {
+            var view = new AssemblyResultPerSectionView(assessmentSection);
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            return view;
         }
     }
 }
