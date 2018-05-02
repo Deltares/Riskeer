@@ -562,15 +562,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Label.
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_AssessmentCode {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_AssessmentCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toegestane bijdrage aan faalkans [%].
         /// </summary>
         public static string FailureMechanismContributionView_GridColumn_Contribution {
