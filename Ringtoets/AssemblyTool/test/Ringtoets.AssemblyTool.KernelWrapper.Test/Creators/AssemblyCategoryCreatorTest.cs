@@ -37,6 +37,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
     [TestFixture]
     public class AssemblyCategoryCreatorTest
     {
+        private static IEnumerable<TestCaseData> GetAssessmentSectionAssemblyCategoryGroupConversions
+        {
+            get
+            {
+                yield return new TestCaseData(EAssessmentGrade.APlus, AssessmentSectionAssemblyCategoryGroup.APlus);
+                yield return new TestCaseData(EAssessmentGrade.A, AssessmentSectionAssemblyCategoryGroup.A);
+                yield return new TestCaseData(EAssessmentGrade.B, AssessmentSectionAssemblyCategoryGroup.B);
+                yield return new TestCaseData(EAssessmentGrade.C, AssessmentSectionAssemblyCategoryGroup.C);
+                yield return new TestCaseData(EAssessmentGrade.D, AssessmentSectionAssemblyCategoryGroup.D);
+                yield return new TestCaseData(EAssessmentGrade.Gr, AssessmentSectionAssemblyCategoryGroup.None);
+                yield return new TestCaseData(EAssessmentGrade.Nvt, AssessmentSectionAssemblyCategoryGroup.NotApplicable);
+                yield return new TestCaseData(EAssessmentGrade.Ngo, AssessmentSectionAssemblyCategoryGroup.NotAssessed);
+            }
+        }
+
         [Test]
         public void CreateAssessmentSectionAssemblyCategories_CategoryLimitsNull_ThrowsArgumentNullException()
         {
@@ -87,14 +102,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(EAssessmentGrade.APlus, AssessmentSectionAssemblyCategoryGroup.APlus)]
-        [TestCase(EAssessmentGrade.A, AssessmentSectionAssemblyCategoryGroup.A)]
-        [TestCase(EAssessmentGrade.B, AssessmentSectionAssemblyCategoryGroup.B)]
-        [TestCase(EAssessmentGrade.C, AssessmentSectionAssemblyCategoryGroup.C)]
-        [TestCase(EAssessmentGrade.D, AssessmentSectionAssemblyCategoryGroup.D)]
-        [TestCase(EAssessmentGrade.Gr, AssessmentSectionAssemblyCategoryGroup.None)]
-        [TestCase(EAssessmentGrade.Nvt, AssessmentSectionAssemblyCategoryGroup.NotApplicable)]
-        [TestCase(EAssessmentGrade.Ngo, AssessmentSectionAssemblyCategoryGroup.NotAssessed)]
+        [TestCaseSource(nameof(GetAssessmentSectionAssemblyCategoryGroupConversions))]
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
@@ -112,6 +120,36 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             AssessmentSectionAssemblyCategory categoryResult = result.Single();
 
             Assert.AreEqual(expectedCategoryGroup, categoryResult.Group);
+        }
+
+        [Test]
+        public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var categoryLimits = new[]
+            {
+                new AssessmentSectionCategoryLimits((EAssessmentGrade) 99, 0, 0)
+            };
+
+            // Call
+            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory((EAssessmentGrade)99);
+
+            // Assert
+            const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EAssessmentGrade'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, exceptionMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetAssessmentSectionAssemblyCategoryGroupConversions))]
+        public void CreateAssessmentSectionAssemblyCategory_WithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
+            EAssessmentGrade categoryGroup,
+            AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
+        {
+            // Call
+            AssessmentSectionAssemblyCategoryGroup categoryResult = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(categoryGroup);
+
+            // Assert
+            Assert.AreEqual(expectedCategoryGroup, categoryResult);
         }
 
         [Test]
