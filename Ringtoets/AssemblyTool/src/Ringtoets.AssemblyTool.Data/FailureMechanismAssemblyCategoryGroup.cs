@@ -29,30 +29,57 @@ namespace Ringtoets.AssemblyTool.Data
     /// </summary>
     public enum FailureMechanismAssemblyCategoryGroup
     {
+        /// <summary>
+        /// Represents the assembly category GR (No result) for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_None_DisplayName))]
         None = 1,
 
+        /// <summary>
+        /// Represents the assembly category NVT (Not Applicable) for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_NotApplicable_DisplayName))]
         NotApplicable = 2,
 
+        /// <summary>
+        /// Represents the assembly category It for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_It_DisplayName))]
         It = 3,
 
+        /// <summary>
+        /// Represents the assembly category IIt for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_IIt_DisplayName))]
         IIt = 4,
 
+        /// <summary>
+        /// Represents the assembly category IIIt for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_IIIt_DisplayName))]
         IIIt = 5,
 
+        /// <summary>
+        /// Represents the assembly category IVt for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_IVt_DisplayName))]
         IVt = 6,
 
+        /// <summary>
+        /// Represents the assembly category Vt for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_Vt_DisplayName))]
         Vt = 7,
 
+        /// <summary>
+        /// Represents the assembly category VIt for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_VIt_DisplayName))]
         VIt = 8,
 
+        /// <summary>
+        /// Represents the assembly category VIIt for a failure mechanism.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_VIIt_DisplayName))]
         VIIt = 9
     }
