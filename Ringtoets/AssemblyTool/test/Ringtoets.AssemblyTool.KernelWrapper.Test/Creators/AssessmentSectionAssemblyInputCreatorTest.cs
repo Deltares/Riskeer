@@ -49,6 +49,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             }
         }
 
+        private static IEnumerable<TestCaseData> GetAssessmentSectionAssemblyCategoryGroupConversions
+        {
+            get
+            {
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.None, EAssessmentGrade.Gr);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotAssessed, EAssessmentGrade.Ngo);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotApplicable, EAssessmentGrade.Nvt);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.APlus, EAssessmentGrade.APlus);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.A, EAssessmentGrade.A);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.B, EAssessmentGrade.B);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.C, EAssessmentGrade.C);
+                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, EAssessmentGrade.D);
+            }
+        }
+
         [Test]
         public void CreateFailureMechanismAssemblyResult_FailureMechanismAssemblyNull_ThrowsArgumentNullException()
         {
@@ -113,6 +128,75 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Call
             FailureMechanismAssemblyResult result = AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult(originalGroup);
+
+            // Assert
+            Assert.AreEqual(expectedGroup, result.Category);
+            Assert.IsNull(result.FailureProbability);
+        }
+
+        [Test]
+        public void CreateAssessementSectionAssemblyResult_WithAssessmentSectionAssemblyAndInvalidEnumInput_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateAssessementSectionAssemblyResult_WithAssessmentSectionAssemblyAndInvalidEnumInput_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+            var input = new AssessmentSectionAssembly(random.NextDouble(), (AssessmentSectionAssemblyCategoryGroup) 99);
+
+            // Call
+            TestDelegate test = () => AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(input);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetAssessmentSectionAssemblyCategoryGroupConversions))]
+        public void CreateAssessementSectionAssemblyResult_WithValidAssessmentSectionAssembly_ThrowsInvalidEnumArgumentException(
+            AssessmentSectionAssemblyCategoryGroup originalGroup,
+            EAssessmentGrade expectedGroup)
+        {
+            // Setup
+            var random = new Random(21);
+            var input = new AssessmentSectionAssembly(random.NextDouble(), originalGroup);
+
+            // Call
+            AssessmentSectionAssemblyResult result = AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(input);
+
+            // Assert
+            Assert.AreEqual(expectedGroup, result.Category);
+            Assert.AreEqual(input.Probability, result.FailureProbability);
+        }
+
+        [Test]
+        public void CreateAssessementSectionAssemblyResult_WithInvalidEnumInput_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult((AssessmentSectionAssemblyCategoryGroup) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetAssessmentSectionAssemblyCategoryGroupConversions))]
+        public void CreateAssessementSectionAssemblyResult_WithValidEnumInput_ThrowsInvalidEnumArgumentException(
+            AssessmentSectionAssemblyCategoryGroup originalGroup,
+            EAssessmentGrade expectedGroup)
+        {
+            // Call
+            AssessmentSectionAssemblyResult result = AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(originalGroup);
 
             // Assert
             Assert.AreEqual(expectedGroup, result.Category);
