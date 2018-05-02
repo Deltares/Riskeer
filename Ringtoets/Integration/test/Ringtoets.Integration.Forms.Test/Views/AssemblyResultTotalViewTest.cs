@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithAssessmentSection_ExpectedValuesSet()
+        public void Constructor_WithAssessmentSection_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -170,7 +170,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResultsAndNoExceptionThrown_ThenRowsUpdatedToNewValues()
+        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenRowsUpdatedToNewValues()
         {
             // Given
             var random = new Random(21);
@@ -199,36 +199,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 // Then 
                 AssertFailureMechanismRows(view.AssessmentSection, newAssemblyResult, newCategoryGroup, rows);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalViewWithoutErrors_WhenRefreshingAssemblyResultsAndExceptionThrown_ThenErrorTextSet()
-        {
-            // Given
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
-            {
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Precondition
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRowsWithoutErrorText(view.AssessmentSection, rows);
-
-                // When
-                calculator.ThrowExceptionOnCalculate = true;
-                const string exceptionMessage = "Message";
-                var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
-                buttonTester.Click();
-
-                // Then 
-                AssertFailureMechanismRowsWithErrorText(view.AssessmentSection, exceptionMessage, rows);
             }
         }
 
@@ -317,31 +287,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             AssertAssemblyRow(technicalInnovation, assemblyCategoryGroup, rows[17].Cells);
         }
 
-        private static void AssertFailureMechanismRowsWithoutErrorText(AssessmentSection assessmentSection,
-                                                                       DataGridViewRowCollection rows)
-        {
-            Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
-
-            for (var i = 0; i < rows.Count; i++)
-            {
-                DataGridViewCell categoryGroupCell = GetCategoryGroupCellFromRow(rows[i].Cells);
-                Assert.IsEmpty(categoryGroupCell.ErrorText);
-            }
-        }
-
-        private static void AssertFailureMechanismRowsWithErrorText(AssessmentSection assessmentSection,
-                                                                    string errorText,
-                                                                    DataGridViewRowCollection rows)
-        {
-            Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
-
-            for (var i = 0; i < rows.Count; i++)
-            {
-                DataGridViewCell categoryGroupCell = GetCategoryGroupCellFromRow(rows[i].Cells);
-                Assert.AreEqual(errorText, categoryGroupCell.ErrorText);
-            }
-        }
-
         private static void AssertAssemblyRow(IFailureMechanism failureMechanism, DataGridViewCellCollection row)
         {
             Assert.AreEqual(expectedColumnCount, row.Count);
@@ -357,7 +302,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             AssertAssemblyRow(failureMechanism, row);
 
-            AssertCategoryGroupCell(assemblyOutput.Group, row);
+            Assert.AreEqual(assemblyOutput.Group, row[failureMechanismAssemblyCategoryColumnIndex].Value);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(assemblyOutput.Probability),
                             row[failureMechanisProbabilityColumnIndex].FormattedValue);
         }
@@ -368,27 +313,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             AssertAssemblyRow(failureMechanism, row);
 
-            AssertCategoryGroupCell(categoryGroup, row);
+            Assert.AreEqual(categoryGroup, row[failureMechanismAssemblyCategoryColumnIndex].Value);
             Assert.AreEqual("-", row[failureMechanisProbabilityColumnIndex].FormattedValue);
-        }
-
-        private static void AssertCategoryGroupCell(FailureMechanismAssemblyCategoryGroup categoryGroup, DataGridViewCellCollection row)
-        {
-            DataGridViewCell categoryColumnCell = GetCategoryGroupCellFromRow(row);
-
-            Assert.AreEqual(categoryGroup, categoryColumnCell.Value);
-            Assert.IsTrue(categoryColumnCell.ReadOnly);
-            Assert.IsEmpty(categoryColumnCell.ErrorText);
-
-            DataGridViewCellStyle categoryColumnCellStyle = categoryColumnCell.Style;
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(categoryGroup),
-                            categoryColumnCellStyle.BackColor);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), categoryColumnCellStyle.ForeColor);
-        }
-
-        private static DataGridViewCell GetCategoryGroupCellFromRow(DataGridViewCellCollection rowCells)
-        {
-            return rowCells[failureMechanismAssemblyCategoryColumnIndex];
         }
 
         private AssemblyResultTotalView ShowAssemblyResultTotalView()
