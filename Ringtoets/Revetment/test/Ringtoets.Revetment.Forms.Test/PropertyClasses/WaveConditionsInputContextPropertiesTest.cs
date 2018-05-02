@@ -181,7 +181,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var properties = new TestWaveConditionsInputContextProperties(inputContext, () => assessmentLevel, handler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext<TestWaveConditionsInput>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<TestWaveConditionsInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
 

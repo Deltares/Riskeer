@@ -89,7 +89,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
                                                              assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<WaveConditionsInput>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<TestWaveConditionsInput>>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
