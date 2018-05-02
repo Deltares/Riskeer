@@ -40,7 +40,10 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
@@ -97,6 +100,18 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 CreateInstance = context => new StabilityStoneCoverResultView(
                     context.WrappedData,
                     (StabilityStoneCoverFailureMechanism) context.FailureMechanism)
+            };
+
+            yield return new ViewInfo<StabilityStoneCoverWaveConditionsInputContext,
+                ICalculation<AssessmentSectionCategoryWaveConditionsInput>,
+                WaveConditionsInputView>
+            {
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewData = context => context.Calculation,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CreateInstance = context => new WaveConditionsInputView(new StabilityStoneCoverWaveConditionsInputViewStyle(),
+                                                                        () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation))
             };
         }
 
