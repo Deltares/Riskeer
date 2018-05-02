@@ -24,6 +24,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -52,7 +53,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
                                                                             foreshoreProfiles);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

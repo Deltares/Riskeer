@@ -39,20 +39,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var input = new FailureMechanismCategoryWaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
+            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                                   calculation,
                                                                                   assessmentSection,
                                                                                   failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
-            Assert.AreSame(input, context.WrappedData);
+            Assert.IsInstanceOf<WaveConditionsInputContext<FailureMechanismCategoryWaveConditionsInput>>(context);
+            Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -63,15 +62,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new FailureMechanismCategoryWaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(input,
+            TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
                                                                                               calculation,
                                                                                               assessmentSection,
                                                                                               null);
