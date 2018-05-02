@@ -896,17 +896,6 @@ namespace Ringtoets.Integration.Plugin
                 }
             };
 
-            yield return new TreeNodeInfo<WaveConditionsInputContext>
-            {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddOpenItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
             yield return new TreeNodeInfo<StructuresOutputContext>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,

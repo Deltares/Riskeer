@@ -25,7 +25,10 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PropertyClasses;
@@ -73,7 +76,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, viewInfos.Length);
+                Assert.AreEqual(3, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -85,6 +88,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                     typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResult>),
                     typeof(StabilityStoneCoverResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(StabilityStoneCoverWaveConditionsInputContext),
+                    typeof(ICalculation<AssessmentSectionCategoryWaveConditionsInput>),
+                    typeof(WaveConditionsInputView));
             }
         }
 
@@ -98,13 +107,14 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, treeNodeInfos.Length);
+                Assert.AreEqual(7, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyStabilityStoneCoverOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsInputContext)));
             }
         }
 

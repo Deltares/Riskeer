@@ -25,7 +25,10 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
@@ -86,7 +89,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, viewInfos.Length);
+                Assert.AreEqual(3, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -98,6 +101,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                     typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>),
                     typeof(IObservableEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult>),
                     typeof(WaveImpactAsphaltCoverFailureMechanismResultView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(WaveImpactAsphaltCoverWaveConditionsInputContext),
+                    typeof(ICalculation<AssessmentSectionCategoryWaveConditionsInput>),
+                    typeof(WaveConditionsInputView));
             }
         }
 
@@ -111,13 +120,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, treeNodeInfos.Length);
+                Assert.AreEqual(7, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyWaveImpactAsphaltCoverOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsInputContext)));
             }
         }
 

@@ -26,12 +26,15 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Views;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
 {
@@ -59,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, viewInfos.Length);
+                Assert.AreEqual(5, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -83,6 +86,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                     typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext),
                     typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
                     typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GrassCoverErosionOutwardsWaveConditionsInputContext),
+                    typeof(ICalculation<FailureMechanismCategoryWaveConditionsInput>),
+                    typeof(WaveConditionsInputView));
             }
         }
 
@@ -96,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(11, treeNodeInfos.Length);
+                Assert.AreEqual(12, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext)));
@@ -108,6 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsInputContext)));
             }
         }
 
