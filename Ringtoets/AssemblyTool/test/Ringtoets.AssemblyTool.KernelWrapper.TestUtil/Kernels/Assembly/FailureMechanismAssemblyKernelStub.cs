@@ -40,7 +40,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
         /// </summary>
-        public bool PartialAssembly { get; private set; }
+        public bool? PartialAssembly { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="AssessmentSection"/> used as input parameter for assembly methods.

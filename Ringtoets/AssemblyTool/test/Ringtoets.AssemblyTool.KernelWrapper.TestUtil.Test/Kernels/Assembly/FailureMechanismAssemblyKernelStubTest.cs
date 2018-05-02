@@ -43,6 +43,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             // Assert
             Assert.IsInstanceOf<IFailureMechanismResultAssembler>(kernel);
             Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.PartialAssembly);
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.FailureMechanismAssemblyResult);
@@ -104,7 +105,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsNull(kernel.FmSectionAssemblyResultsInput);
-            Assert.IsFalse(kernel.PartialAssembly);
+            Assert.IsNull(kernel.PartialAssembly);
             Assert.IsFalse(kernel.Calculated);
             Assert.AreEqual(EFailureMechanismCategory.It, kernel.FailureMechanismCategoryResult);
         }
@@ -190,7 +191,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.FmSectionAssemblyResultsInput);
-            Assert.IsFalse(kernel.PartialAssembly);
+            Assert.IsNull(kernel.PartialAssembly);
             Assert.IsFalse(kernel.Calculated);
             Assert.AreEqual(EFailureMechanismCategory.It, kernel.FailureMechanismCategoryResult);
         }
