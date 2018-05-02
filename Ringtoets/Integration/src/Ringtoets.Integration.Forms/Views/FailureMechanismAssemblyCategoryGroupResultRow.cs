@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <param name="getFailureMechanismAssemblyCategoryGroup">Gets the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal FailureMechanismAssemblyCategoryGroupResultRow(IFailureMechanism failureMechanism,
+        public FailureMechanismAssemblyCategoryGroupResultRow(IFailureMechanism failureMechanism,
                                                               Func<FailureMechanismAssemblyCategoryGroup> getFailureMechanismAssemblyCategoryGroup)
             : base(failureMechanism)
         {

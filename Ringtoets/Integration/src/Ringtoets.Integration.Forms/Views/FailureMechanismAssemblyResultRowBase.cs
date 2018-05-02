@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
-        internal FailureMechanismAssemblyResultRowBase(IFailureMechanism failureMechanism)
+        protected FailureMechanismAssemblyResultRowBase(IFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

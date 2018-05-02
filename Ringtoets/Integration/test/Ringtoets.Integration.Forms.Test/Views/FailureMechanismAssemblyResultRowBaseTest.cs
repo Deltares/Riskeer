@@ -121,7 +121,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             var row = new TestFailureMechanismAssemblyResultRow(failureMechanism, categoryGroup);
-            row.ColumnStateDefinitions[categoryIndex].ErrorText = "An error text";
 
             // Precondition 
             Assert.IsFalse(row.TryGetDerivedDataExecuted);
@@ -130,11 +129,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             row.Update();
 
             // Then
-            Assert.IsEmpty(row.ColumnStateDefinitions[categoryIndex].ErrorText);
             Assert.IsTrue(row.TryGetDerivedDataExecuted);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[categoryIndex],
                                                                                           expectedBackgroundColor);
         }
