@@ -82,9 +82,16 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.AreEqual(2, view.Controls.Count);
 
                 var tableLayoutPanel = (TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject;
-                Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
+                Assert.AreEqual(3, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(1, tableLayoutPanel.RowCount);
-                Assert.IsInstanceOf<PictureBox>(tableLayoutPanel.GetControlFromPosition(1, 0));
+
+                var assemblyResultLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 0);
+                Assert.IsTrue(assemblyResultLabel.AutoSize);
+                Assert.AreEqual(DockStyle.Fill, assemblyResultLabel.Dock);
+                Assert.AreEqual(ContentAlignment.MiddleLeft, assemblyResultLabel.TextAlign);
+                Assert.AreEqual("Assemblageresultaat voor dit toetsspoor:", assemblyResultLabel.Text);
+
+                Assert.IsInstanceOf<PictureBox>(tableLayoutPanel.GetControlFromPosition(2, 0));
 
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
@@ -335,7 +342,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             {
                 // Precondition
                 BorderedLabel assemblyGroupLabel = GetGroupLabel();
-                FailureMechanismAssemblyResultControl resultControl = GetFailureMechanismAssemblyResultControl();
+                FailureMechanismAssemblyCategoryGroupControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
@@ -369,7 +376,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Precondition
                 BorderedLabel assemblyGroupLabel = GetGroupLabel();
-                FailureMechanismAssemblyResultControl resultControl = GetFailureMechanismAssemblyResultControl();
+                FailureMechanismAssemblyCategoryGroupControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
@@ -455,14 +462,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyResultControl resultControl)
+        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyCategoryGroupControl resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
         }
 
-        private static FailureMechanismAssemblyResultControl GetFailureMechanismAssemblyResultControl()
+        private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyCategoryGroupControl()
         {
-            return (FailureMechanismAssemblyResultControl) new ControlTester("FailureMechanismAssemblyResultControl").TheObject;
+            return (FailureMechanismAssemblyCategoryGroupControl) new ControlTester("AssemblyResultControl").TheObject;
         }
 
         private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
@@ -484,7 +491,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
                 : base(failureMechanismSectionResults, failureMechanism)
             {
-                var failureMechanismAssemblyResultControl = new FailureMechanismAssemblyResultControl();
+                var failureMechanismAssemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
                 SetFailureMechanismAssemblyResultControl(
                     failureMechanismAssemblyResultControl,
                     () =>

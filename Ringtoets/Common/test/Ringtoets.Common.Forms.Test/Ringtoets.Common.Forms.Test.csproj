@@ -50,8 +50,9 @@
     <Compile Include="ChangeHandlers\FailureMechanismPropertyChangeHandlerTest.cs" />
     <Compile Include="ChangeHandlers\PropertyChangeHelperTest.cs" />
     <Compile Include="ChangeHandlers\CalculationChangeHandlerTest.cs" />
-    <Compile Include="Controls\FailureMechanismAssemblyResultWithProbabilityControlTest.cs" />
-    <Compile Include="Controls\FailureMechanismAssemblyResultControlTest.cs" />
+    <Compile Include="Controls\AssemblyResultControlTest.cs" />
+    <Compile Include="Controls\FailureMechanismAssemblyControlTest.cs" />
+    <Compile Include="Controls\FailureMechanismAssemblyCategoryGroupControlTest.cs" />
     <Compile Include="Controls\BorderedLabelTest.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactoryTest.cs" />
     <Compile Include="Factories\RingtoetsGraphNodeFactoryTest.cs" />

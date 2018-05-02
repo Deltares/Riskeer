@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             {
                 // Assert
                 var assemblyResultPanel = (TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject;
-                var assemblyResultControl = (FailureMechanismAssemblyCategoryGroupControl) assemblyResultPanel.GetControlFromPosition(0, 0);
+                var assemblyResultControl = (FailureMechanismAssemblyCategoryGroupControl) assemblyResultPanel.GetControlFromPosition(1, 0);
 
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoryGroupControl>(assemblyResultControl);
                 Assert.AreEqual(DockStyle.Left, assemblyResultControl.Dock);

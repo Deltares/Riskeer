@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
-        private FailureMechanismAssemblyResultControl failureMechanismAssemblyResultControl;
+        private AssemblyResultControl failureMechanismAssemblyResultControl;
         private Action setFailureMechanismAssemblyResultAction;
 
         private IEnumerable<TSectionResultRow> sectionResultRows;
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             InitializeComponent();
-            InitializeInfoIcon();
+            InitializeFailureMechanismAssemblyComponents();
 
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
@@ -175,12 +175,12 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="control">The control to set on the view.</param>
         /// <param name="setResultAction">The action to perform to update the data of the control.</param>
-        protected void SetFailureMechanismAssemblyResultControl(FailureMechanismAssemblyResultControl control,
+        protected void SetFailureMechanismAssemblyResultControl(AssemblyResultControl control,
                                                                 Action setResultAction)
         {
             failureMechanismAssemblyResultControl = control;
             setFailureMechanismAssemblyResultAction = setResultAction;
-            TableLayoutPanel.Controls.Add(failureMechanismAssemblyResultControl, 0, 0);
+            TableLayoutPanel.Controls.Add(failureMechanismAssemblyResultControl, 1, 0);
         }
 
         /// <summary>
@@ -208,10 +208,11 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private void InitializeInfoIcon()
+        private void InitializeFailureMechanismAssemblyComponents()
         {
             infoIcon.BackgroundImage = CoreCommonGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
+            failureMechanismAssemblyLabel.Text = Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;
         }
 
         private void RemoveSectionResultRowEvents()

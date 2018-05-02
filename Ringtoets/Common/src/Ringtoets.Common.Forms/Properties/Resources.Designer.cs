@@ -1590,6 +1590,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat voor dit toetsspoor:.
+        /// </summary>
+        public static string FailureMechanismResultView_FailureMechanismAssemblyLabel {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_FailureMechanismAssemblyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NVT - Niet Van Toepassing
         ///WVT - Wel Van Toepassing
         ///FV - Faalkans Verwaarloosbaar

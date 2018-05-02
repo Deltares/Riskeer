@@ -37,7 +37,7 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class for testing data and styling in a view with a <see cref="FailureMechanismAssemblyResultWithProbabilityControl"/>.
+    /// Class for testing data and styling in a view with a <see cref="FailureMechanismAssemblyControl"/>.
     /// </summary>
     /// <typeparam name="TView">The type of the view to test.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism the view belongs to.</typeparam>
@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="TResultRow">The type of the presentation objects used in the view.</typeparam>
     /// <typeparam name="TCalculation">The type of calculations to get the input from.</typeparam>
     /// <typeparam name="TCalculationInput">The type of the  input of a calculation.</typeparam>
-    public abstract class FailureMechanismAssemblyResultWithProbabilityControlTester<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation, TCalculationInput>
+    public abstract class FailureMechanismAssemblyControlTester<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation, TCalculationInput>
         where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism, new()
         where TSectionResult : FailureMechanismSectionResult
@@ -80,9 +80,9 @@ namespace Ringtoets.Common.Forms.TestUtil
             {
                 // Assert
                 var assemblyResultPanel = (TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject;
-                var assemblyResultControl = (FailureMechanismAssemblyResultWithProbabilityControl) assemblyResultPanel.GetControlFromPosition(0, 0);
+                var assemblyResultControl = (FailureMechanismAssemblyControl) assemblyResultPanel.GetControlFromPosition(1, 0);
 
-                Assert.IsInstanceOf<FailureMechanismAssemblyResultWithProbabilityControl>(assemblyResultControl);
+                Assert.IsInstanceOf<FailureMechanismAssemblyControl>(assemblyResultControl);
                 Assert.AreEqual(DockStyle.Left, assemblyResultControl.Dock);
             }
         }
