@@ -50,5 +50,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input);
+
+        /// <summary>
+        /// Assembles the assessment section for the given inputs.
+        /// </summary>
+        /// <param name="failureMechanismsWithoutProbability">The assembly result for 
+        /// failure mechanisms without probability to assemble for.</param>
+        /// <param name="failureMechanismsWithProbability">The assembly result for 
+        /// failure mechanisms with probability to assemble for.</param>
+        /// <returns>An <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
+                                                                         AssessmentSectionAssembly failureMechanismsWithProbability);
     }
 }

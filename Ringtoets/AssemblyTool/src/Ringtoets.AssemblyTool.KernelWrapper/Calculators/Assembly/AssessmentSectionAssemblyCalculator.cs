@@ -88,13 +88,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public void AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability, AssessmentSectionAssembly failureMechanismsWithProbability)
+        public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
+                                                                                AssessmentSectionAssembly failureMechanismsWithProbability)
         {
             try
             {
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
-                kernel.AssembleAssessmentSectionWbi2C1(AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithoutProbability),
-                                                       AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithProbability));
+                AssessmentSectionAssemblyResult output = kernel.AssembleAssessmentSectionWbi2C1(
+                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithoutProbability),
+                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithProbability));
+
+                return AssessmentSectionAssemblyCreator.CreateAssessmentSectionAssembly(output).Group;
             }
             catch (Exception e)
             {
