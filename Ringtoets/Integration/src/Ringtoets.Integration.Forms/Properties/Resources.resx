@@ -393,4 +393,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">
     <value>Algemeen filter</value>
   </data>
+  <data name="AssemblyResultTotalView_AssemblyResultTotalView_RefreshAssemblyResultsButton_Text" xml:space="preserve">
+    <value>Assemblageresultaat verversen</value>
+  </data>
 </root>
