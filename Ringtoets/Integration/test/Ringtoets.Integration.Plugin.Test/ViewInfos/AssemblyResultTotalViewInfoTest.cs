@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -54,11 +53,18 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            var context = new AssemblyResultTotalContext(assessmentSection);
+
+            // Call
+            var view = (AssemblyResultTotalView) info.CreateInstance(context);
+
             // Assert
-            Assert.AreEqual(typeof(AssemblyResultTotalContext), info.DataType);
-            Assert.AreEqual(typeof(AssessmentSection), info.ViewDataType);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
 
         [Test]
@@ -98,7 +104,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssemblyResultTotalView(assessmentSection))
             {
                 // Call
@@ -117,7 +122,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection1 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var assessmentSection2 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssemblyResultTotalView(assessmentSection1))
             {
                 // Call

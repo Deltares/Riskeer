@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
@@ -56,11 +55,24 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void Initialized_Always_ExpectedPropertiesSet()
+        public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
-            // Assert
-            Assert.AreEqual(typeof(NormContext), info.DataType);
-            Assert.AreEqual(typeof(FailureMechanismContribution), info.ViewDataType);
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks);
+            mocks.ReplayAll();
+
+            var context = new NormContext(assessmentSection.FailureMechanismContribution, assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var view = (AssessmentSectionAssemblyCategoriesView) info.CreateInstance(context);
+
+                // Assert
+                Assert.AreSame(assessmentSection.FailureMechanismContribution, view.FailureMechanismContribution);
+            }
+
+            mocks.VerifyAll();
         }
 
         [Test]
