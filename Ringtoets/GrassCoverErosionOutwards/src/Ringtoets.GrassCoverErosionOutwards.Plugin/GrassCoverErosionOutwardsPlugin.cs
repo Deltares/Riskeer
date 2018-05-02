@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms;
@@ -56,6 +57,7 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.Revetment.IO.Configurations;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -175,6 +177,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                                     context.GetNormFunc),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
+            };
+
+            yield return new ViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,
+                ICalculation<FailureMechanismCategoryWaveConditionsInput>,
+                WaveConditionsInputView>
+            {
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
+                GetViewData = context => context.Calculation,
+                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
+                CreateInstance = context => new WaveConditionsInputView(new GrassCoverErosionOutwardsWaveConditionsInputViewStyle(),
+                                                                        () => context.FailureMechanism.GetNormativeAssessmentLevel(
+                                                                            context.AssessmentSection,
+                                                                            context.Calculation.InputParameters.HydraulicBoundaryLocation))
             };
         }
 

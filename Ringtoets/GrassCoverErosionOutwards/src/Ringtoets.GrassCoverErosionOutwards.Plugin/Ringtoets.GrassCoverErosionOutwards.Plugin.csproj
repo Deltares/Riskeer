@@ -52,6 +52,11 @@
       <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
+      <Project>{2465CCA1-C505-4827-9454-4FD5FD9194CD}</Project>
+      <Name>Core.Components.Chart.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
@@ -75,6 +80,11 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Plugin\Ringtoets.Common.Plugin.csproj">
+      <Project>{8513B8D6-79C8-4173-B663-59C91AC65E5F}</Project>
+      <Name>Ringtoets.Common.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">

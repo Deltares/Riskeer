@@ -70,7 +70,6 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
@@ -95,17 +94,12 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.Revetment.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -544,16 +538,6 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
-            };
-
-            yield return new ViewInfo<WaveConditionsInputContext, ICalculation<WaveConditionsInput>, WaveConditionsInputView>
-            {
-                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
-                GetViewData = context => context.Calculation,
-                CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new WaveConditionsInputView(GetWaveConditionsInputViewStyle(context),
-                                                                        () => GetNormativeAssessmentLevel(context))
             };
 
             yield return new ViewInfo<StructuresOutputContext, IStructuresCalculation, GeneralResultFaultTreeIllustrationPointView>
@@ -1204,33 +1188,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 yield return calculation.Comments;
             }
-        }
-
-        #endregion
-
-        #region WaveConditionsInputViewInfo
-
-        private static IWaveConditionsInputViewStyle GetWaveConditionsInputViewStyle(WaveConditionsInputContext context)
-        {
-            if (context is GrassCoverErosionOutwardsWaveConditionsInputContext)
-            {
-                return new GrassCoverErosionOutwardsWaveConditionsInputViewStyle();
-            }
-
-            return null;
-        }
-
-        private static RoundedDouble GetNormativeAssessmentLevel(WaveConditionsInputContext context)
-        {
-            var grassCoverErosionOutwardsWaveConditionsInputContext = context as GrassCoverErosionOutwardsWaveConditionsInputContext;
-            if (grassCoverErosionOutwardsWaveConditionsInputContext != null)
-            {
-                return grassCoverErosionOutwardsWaveConditionsInputContext.FailureMechanism.GetNormativeAssessmentLevel(
-                    grassCoverErosionOutwardsWaveConditionsInputContext.AssessmentSection,
-                    grassCoverErosionOutwardsWaveConditionsInputContext.Calculation.InputParameters.HydraulicBoundaryLocation);
-            }
-
-            return context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         #endregion
