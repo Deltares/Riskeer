@@ -31,21 +31,21 @@ using Ringtoets.Revetment.Forms.PresentationObjects;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for <see cref="WaveConditionsInput"/> for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+    /// Presentation object for wave conditions input of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsInputContext : WaveConditionsInputContext
+    public class GrassCoverErosionOutwardsWaveConditionsInputContext : WaveConditionsInputContext<FailureMechanismCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
+        /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
         /// the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                                   ICalculation<WaveConditionsInput> calculation,
+        public GrassCoverErosionOutwardsWaveConditionsInputContext(FailureMechanismCategoryWaveConditionsInput wrappedData,
+                                                                   ICalculation<FailureMechanismCategoryWaveConditionsInput> calculation,
                                                                    IAssessmentSection assessmentSection,
                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(wrappedData, calculation, assessmentSection)

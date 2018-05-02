@@ -31,20 +31,20 @@ using Ringtoets.StabilityStoneCover.Data;
 namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for <see cref="WaveConditionsInput"/> for the <see cref="StabilityStoneCoverFailureMechanismContext"/>.
+    /// Presentation object for wave conditions input of the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsInputContext : WaveConditionsInputContext
+    public class StabilityStoneCoverWaveConditionsInputContext : WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsInputContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>>
+        /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="StabilityStoneCoverFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                             ICalculation<WaveConditionsInput> calculation,
+        public StabilityStoneCoverWaveConditionsInputContext(AssessmentSectionCategoryWaveConditionsInput wrappedData,
+                                                             ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation,
                                                              IAssessmentSection assessmentSection,
                                                              IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)

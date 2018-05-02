@@ -24,27 +24,27 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for <see cref="WaveConditionsInput"/> for the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.
+    /// Presentation object for wave conditions input of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsInputContext : WaveConditionsInputContext
+    public class WaveImpactAsphaltCoverWaveConditionsInputContext : WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
+        /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.</param>
+        /// <param name="foreshoreProfiles">The foreshore profiles of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                                ICalculation<WaveConditionsInput> calculation,
+        public WaveImpactAsphaltCoverWaveConditionsInputContext(AssessmentSectionCategoryWaveConditionsInput wrappedData,
+                                                                ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation,
                                                                 IAssessmentSection assessmentSection,
                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)
