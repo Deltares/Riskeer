@@ -181,7 +181,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var properties = new TestWaveConditionsInputContextProperties(inputContext, () => assessmentLevel, handler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext<TestWaveConditionsInput>>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
 
@@ -830,9 +830,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<WaveConditionsInputContext>
+        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput>
         {
-            public TestWaveConditionsInputContextProperties(WaveConditionsInputContext context,
+            public TestWaveConditionsInputContextProperties(TestWaveConditionsInputContext context,
                                                             Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                             IObservablePropertyChangeHandler handler)
                 : base(context, getNormativeAssessmentLevelFunc, handler) {}

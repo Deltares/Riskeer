@@ -96,10 +96,10 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations, context.HydraulicBoundaryLocations);
         }
 
-        private class TestWaveConditionsInputContext : WaveConditionsInputContext
+        private class TestWaveConditionsInputContext : WaveConditionsInputContext<TestWaveConditionsInput>
         {
-            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                  ICalculation<WaveConditionsInput> calculation,
+            public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData,
+                                                  ICalculation<TestWaveConditionsInput> calculation,
                                                   IAssessmentSection assessmentSection)
                 : base(wrappedData, calculation, assessmentSection) {}
 
