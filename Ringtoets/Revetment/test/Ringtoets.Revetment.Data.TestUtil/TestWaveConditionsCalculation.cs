@@ -31,20 +31,15 @@ namespace Ringtoets.Revetment.Data.TestUtil
     /// Creates a simple <see cref="ICalculation{T}"/> implementation for
     /// wave conditions, which can have an object set as output.
     /// </summary>
-    /// <typeparam name="T">The type of the wave conditions input contained
-    /// by the test calculation.</typeparam>
-    public class TestWaveConditionsCalculation<T> : Observable, ICalculation<T>
-        where T : WaveConditionsInput
+    public class TestWaveConditionsCalculation : Observable, ICalculation<TestWaveConditionsInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestWaveConditionsCalculation{T}"/>.
+        /// Creates a new instance of <see cref="TestWaveConditionsCalculation"/>.
         /// </summary>
-        /// <param name="waveConditionsInput">The wave conditions input to set to
-        /// the calculation.</param>
-        public TestWaveConditionsCalculation(T waveConditionsInput)
+        public TestWaveConditionsCalculation()
         {
             Name = RingtoetsCommonDataResources.Calculation_DefaultName;
-            InputParameters = waveConditionsInput;
+            InputParameters = new TestWaveConditionsInput();
         }
 
         /// <summary>
@@ -52,7 +47,7 @@ namespace Ringtoets.Revetment.Data.TestUtil
         /// </summary>
         public object Output { get; set; }
 
-        public T InputParameters { get; }
+        public TestWaveConditionsInput InputParameters { get; }
 
         public bool HasOutput
         {

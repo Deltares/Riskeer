@@ -35,7 +35,7 @@ namespace Ringtoets.Revetment.Data.TestUtil.Test
             var calculation = new TestWaveConditionsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation<WaveConditionsInput>>(calculation);
+            Assert.IsInstanceOf<ICalculation<TestWaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNull(calculation.Output);
