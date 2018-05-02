@@ -324,6 +324,70 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
+        [Test]
+        [TestCase(AssessmentSectionAssemblyCategoryGroup.None, (AssessmentSectionAssemblyCategoryGroup) 99, TestName = "Invalid Input Failure Mechanisms With Probability")]
+        [TestCase((AssessmentSectionAssemblyCategoryGroup) 99, AssessmentSectionAssemblyCategoryGroup.None, TestName = "Invalid Input Failure Mechanisms Without Probability")]
+        public void AssembleAssessmentSection_WithInvalidInput_ThrowsAssessmentSectionAssemblyCalculatorException(
+            AssessmentSectionAssemblyCategoryGroup categoryGroupInput1,
+            AssessmentSectionAssemblyCategoryGroup categoryGroupInput2)
+        {
+            // Setup
+            var random = new Random(39);
+            var failureMechanismsWithProbability = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                 categoryGroupInput1);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleAssessmentSection(categoryGroupInput2, failureMechanismsWithProbability);
+
+                // Assert
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<Exception>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_WithValidInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(39);
+            var failureMechanismsWithProbability = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                 random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+            var failureMechanismsWithoutProbability = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleAssessmentSection(failureMechanismsWithoutProbability, failureMechanismsWithProbability);
+
+                // Assert
+                AssessmentSectionAssemblyResult actualKernelInputNoFailureProbability = kernel.AssemblyResultNoFailureProbability;
+                AssessmentSectionAssemblyResult expectedKernelInputNoFailureProbability =
+                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithoutProbability);
+                Assert.AreEqual(expectedKernelInputNoFailureProbability.Category, actualKernelInputNoFailureProbability.Category);
+                Assert.AreEqual(expectedKernelInputNoFailureProbability.FailureProbability,
+                                actualKernelInputNoFailureProbability.FailureProbability);
+
+                AssessmentSectionAssemblyResult actualKernelInputFailureProbability = kernel.AssemblyResultWithFailureProbability;
+                AssessmentSectionAssemblyResult expectedKernelInputFailureProbability =
+                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithProbability);
+                Assert.AreEqual(expectedKernelInputFailureProbability.Category, actualKernelInputFailureProbability.Category);
+                Assert.AreEqual(expectedKernelInputFailureProbability.FailureProbability,
+                                actualKernelInputFailureProbability.FailureProbability);
+            }
+        }
+
         private static AssemblyCategoriesInput CreateAssemblyCategoriesInput()
         {
             var random = new Random(21);
