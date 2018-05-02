@@ -228,7 +228,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                simpleAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -241,7 +241,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -254,7 +254,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                combinedAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(SectionResult);
+                combinedAssemblyCategoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {

@@ -82,6 +82,44 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AssemblyResultPerSection {
+            get {
+                object obj = ResourceManager.GetObject("AssemblyResultPerSection", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gecombineerd vakoordeel.
+        /// </summary>
+        public static string AssemblyResultPerSection_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultPerSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AssemblyResultTotal {
+            get {
+                object obj = ResourceManager.GetObject("AssemblyResultTotal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gecombineerd totaaloordeel.
+        /// </summary>
+        public static string AssemblyResultTotal_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotal_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.

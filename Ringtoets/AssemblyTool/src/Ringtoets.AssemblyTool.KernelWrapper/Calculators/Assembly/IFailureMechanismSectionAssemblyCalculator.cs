@@ -207,5 +207,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
                                                                       FailureMechanismSectionAssemblyCategoryGroup detailedAssembly,
                                                                       FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly);
+
+        /// <summary>
+        /// Assembles the manual assembly based on the input parameters.
+        /// </summary>
+        /// <param name="probability">The calculated probability.</param>
+        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
+        /// determining the assembly categories.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssembly AssembleManual(double probability,
+                                                       AssemblyCategoriesInput assemblyCategoriesInput);
+
+        /// <summary>
+        /// Assembles the manual assembly based on the input parameters.
+        /// </summary>
+        /// <param name="probability">The calculated probability.</param>
+        /// <param name="n">The 'N' parameter of the failure mechanism section used to factor in the 'length effect'.</param>
+        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
+        /// determining the assembly categories.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        FailureMechanismSectionAssembly AssembleManual(double probability,
+                                                       double n,
+                                                       AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }

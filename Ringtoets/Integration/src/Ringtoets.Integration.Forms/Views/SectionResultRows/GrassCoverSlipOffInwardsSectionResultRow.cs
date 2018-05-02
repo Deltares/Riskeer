@@ -269,7 +269,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                simpleAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -282,7 +282,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                detailedAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(SectionResult);
+                detailedAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -295,7 +295,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -308,7 +308,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                combinedAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(SectionResult);
+                combinedAssemblyCategoryGroup = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {

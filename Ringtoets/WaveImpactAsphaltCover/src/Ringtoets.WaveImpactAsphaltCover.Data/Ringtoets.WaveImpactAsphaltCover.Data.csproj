@@ -18,7 +18,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.cs" />
+    <Compile Include="WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.cs" />
     <Compile Include="WaveImpactAsphaltCoverFailureMechanism.cs" />
     <Compile Include="WaveImpactAsphaltCoverFailureMechanismSectionResult.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculation.cs" />

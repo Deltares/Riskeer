@@ -260,5 +260,10 @@
   <ItemGroup>
     <None Include="Resources\Foreshore.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\AssemblyResultPerSection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AssemblyResultTotal.png" />
+  </ItemGroup>
 </Project>

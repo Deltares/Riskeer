@@ -366,18 +366,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultCategoryTreeFolder_DisplayName" xml:space="preserve">
     <value>Assemblage</value>
   </data>
-  <data name="AssemblyResultTotal_DisplayName" xml:space="preserve">
-    <value>Gecombineerd totaaloordeel</value>
-  </data>
-  <data name="AssemblyResultPerSectionContext_DisplayName" xml:space="preserve">
-    <value>Gecombineerd vakoordeel</value>
-  </data>
-  <data name="AssemblyResultPerSection" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AssemblyResultPerSection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AssemblyResultTotal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\AssemblyResultTotal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="AssemblyResultTotalView_Probability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans</value>
   </data>
@@ -392,5 +380,17 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_RelevancyFilter" xml:space="preserve">
     <value>Algemeen filter</value>
+  </data>
+  <data name="RefreshAssemblyResultsButton_Text" xml:space="preserve">
+    <value>Assemblageresultaat verversen</value>
+  </data>
+  <data name="AssemblyResultPerSectionView_GridColumn_SectionStart" xml:space="preserve">
+    <value>Kilometrering van [km]</value>
+  </data>
+  <data name="AssemblyResultPerSectionView_GridColumn_SectionEnd" xml:space="preserve">
+    <value>Kilometrering tot [km]</value>
+  </data>
+  <data name="AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly" xml:space="preserve">
+    <value>Totaal vakoordeel</value>
   </data>
 </root>

@@ -76,7 +76,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultWithProbabilityControl();
             SetFailureMechanismAssemblyResultControl(
                 failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(

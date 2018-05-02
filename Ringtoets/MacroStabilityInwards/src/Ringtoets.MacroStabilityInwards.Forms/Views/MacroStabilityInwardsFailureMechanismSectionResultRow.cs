@@ -403,7 +403,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -416,7 +416,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
+                detailedAssemblyCategoryGroup = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     calculations,
                     failureMechanism,
@@ -433,7 +433,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
+                tailorMadeAssemblyCategoryGroup = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -450,7 +450,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         calculations,
                         failureMechanism,

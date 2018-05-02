@@ -75,7 +75,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultWithProbabilityControl();
             SetFailureMechanismAssemblyResultControl(
                 failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(ClosingStructuresFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(

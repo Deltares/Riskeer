@@ -73,7 +73,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultWithProbabilityControl();
             SetFailureMechanismAssemblyResultControl(
                 failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(

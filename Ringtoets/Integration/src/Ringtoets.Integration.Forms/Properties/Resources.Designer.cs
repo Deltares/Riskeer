@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -119,40 +119,29 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Kilometrering tot [km].
         /// </summary>
-        public static System.Drawing.Bitmap AssemblyResultPerSection {
+        public static string AssemblyResultPerSectionView_GridColumn_SectionEnd {
             get {
-                object obj = ResourceManager.GetObject("AssemblyResultPerSection", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionEnd", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd vakoordeel.
+        ///   Looks up a localized string similar to Kilometrering van [km].
         /// </summary>
-        public static string AssemblyResultPerSectionContext_DisplayName {
+        public static string AssemblyResultPerSectionView_GridColumn_SectionStart {
             get {
-                return ResourceManager.GetString("AssemblyResultPerSectionContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionStart", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Totaal vakoordeel.
         /// </summary>
-        public static System.Drawing.Bitmap AssemblyResultTotal {
+        public static string AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly {
             get {
-                object obj = ResourceManager.GetObject("AssemblyResultTotal", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd totaaloordeel.
-        /// </summary>
-        public static string AssemblyResultTotal_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotal_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly", resourceCulture);
             }
         }
         
@@ -776,6 +765,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string ReferenceLineProperties_Geometry_DisplayName {
             get {
                 return ResourceManager.GetString("ReferenceLineProperties_Geometry_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat verversen.
+        /// </summary>
+        public static string RefreshAssemblyResultsButton_Text {
+            get {
+                return ResourceManager.GetString("RefreshAssemblyResultsButton_Text", resourceCulture);
             }
         }
         

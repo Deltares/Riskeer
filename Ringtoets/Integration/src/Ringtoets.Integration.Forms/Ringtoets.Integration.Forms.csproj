@@ -63,6 +63,12 @@
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="RingtoetsSettingsHelper.cs" />
+    <Compile Include="Views\AssemblyResultPerSectionView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\AssemblyResultPerSectionView.Designer.cs">
+      <DependentUpon>AssemblyResultPerSectionView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssemblyResultTotalView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -286,6 +292,9 @@
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\AssemblyResultPerSectionView.resx">
+      <DependentUpon>AssemblyResultPerSectionView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\AssemblyResultTotalView.resx">
       <DependentUpon>AssemblyResultTotalView.cs</DependentUpon>
     </EmbeddedResource>
@@ -324,11 +333,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AddFolder-stand32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AssemblyResultTotal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\AssemblyResultPerSection.png" />
   </ItemGroup>
 </Project>

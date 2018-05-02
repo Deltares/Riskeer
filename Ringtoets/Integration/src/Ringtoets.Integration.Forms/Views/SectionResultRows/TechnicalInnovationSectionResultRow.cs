@@ -228,7 +228,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                simpleAssemblyCategoryGroup = TechnicalInnovationFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -241,7 +241,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = TechnicalInnovationFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -254,7 +254,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         {
             try
             {
-                combinedAssemblyCategoryGroup = TechnicalInnovationFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(SectionResult);
+                combinedAssemblyCategoryGroup = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {

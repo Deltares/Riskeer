@@ -98,6 +98,7 @@
     <Compile Include="TreeNodeInfos\WaveHeightCalculationsGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\WaveHeightCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="UpdateInfos\ForeshoreProfileContextUpdateInfoTest.cs" />
+    <Compile Include="ViewInfos\AssemblyResultPerSectionViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssemblyResultTotalViewInfoTest.cs" />
     <Compile Include="ViewInfos\AssessmentSectionAssemblyCategoriesViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismSectionsViewInfoTest.cs" />

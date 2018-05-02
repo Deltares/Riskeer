@@ -52,7 +52,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories)
+        public FailureMechanismAssemblyCategoryGroup Assemble(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories)
         {
             try
             {
@@ -69,8 +69,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismAssembly AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
-                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
+                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {

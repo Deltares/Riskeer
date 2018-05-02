@@ -363,7 +363,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
+                simpleAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult).Group;
             }
             catch (AssemblyException e)
             {
@@ -376,7 +376,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(
+                detailedAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -392,7 +392,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(
+                tailorMadeAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                     SectionResult,
                     failureMechanism,
                     assessmentSection).Group;
@@ -409,7 +409,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             try
             {
                 FailureMechanismSectionAssembly combinedAssembly =
-                    GrassCoverErosionInwardsFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                    GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
                         failureMechanism,
                         assessmentSection);

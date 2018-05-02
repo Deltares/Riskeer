@@ -28,8 +28,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {

@@ -23,7 +23,7 @@
     <Compile Include="DerivedMacroStabilityInwardsInputTest.cs" />
     <Compile Include="DerivedMacroStabilityInwardsOutputFactoryTest.cs" />
     <Compile Include="DerivedMacroStabilityInwardsOutputTest.cs" />
-    <Compile Include="MacroStabilityInwardsFailureMechanismSectionResultAssemblyFactoryTest.cs" />
+    <Compile Include="MacroStabilityInwardsFailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioExtensionsTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenarioTest.cs" />
     <Compile Include="MacroStabilityInwardsCalculationTest.cs" />

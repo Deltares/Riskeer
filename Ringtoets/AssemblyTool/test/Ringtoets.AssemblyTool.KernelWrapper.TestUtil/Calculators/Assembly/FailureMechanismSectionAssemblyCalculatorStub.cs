@@ -182,6 +182,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public FailureMechanismSectionAssemblyCategoryGroup CombinedTailorMadeAssemblyGroupInput { get; private set; }
 
         /// <summary>
+        /// Gets or sets the output of the manual assembly calculation.
+        /// </summary>
+        public FailureMechanismSectionAssembly ManualAssemblyAssemblyOutput { get; set; }
+
+        /// <summary>
+        /// Gets the probability input of the manual assembly calculation.
+        /// </summary>
+        public double ManualAssemblyProbabilityInput { get; private set; }
+
+        /// <summary>
+        /// Gets the 'N' parameter input of the manual assembly calculation.
+        /// </summary>
+        public double ManualAssemblyNInput { get; private set; }
+
+        /// <summary>
         /// Gets the assembly categories input used in the assembly calculation methods.
         /// </summary>
         public AssemblyCategoriesInput AssemblyCategoriesInput { get; private set; }
@@ -423,6 +438,35 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             return CombinedAssemblyCategoryOutput.Value;
+        }
+
+        public FailureMechanismSectionAssembly AssembleManual(double probability, AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            ManualAssemblyProbabilityInput = probability;
+            AssemblyCategoriesInput = assemblyCategoriesInput;
+
+            return ManualAssemblyAssemblyOutput ??
+                   (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.IIv));
+        }
+
+        public FailureMechanismSectionAssembly AssembleManual(double probability, double n, AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            ManualAssemblyProbabilityInput = probability;
+            AssemblyCategoriesInput = assemblyCategoriesInput;
+            ManualAssemblyNInput = n;
+
+            return ManualAssemblyAssemblyOutput ??
+                   (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(1.0, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
         }
     }
 }

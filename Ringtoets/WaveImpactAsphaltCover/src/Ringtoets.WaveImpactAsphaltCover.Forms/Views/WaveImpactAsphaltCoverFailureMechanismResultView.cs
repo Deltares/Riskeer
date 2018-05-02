@@ -57,7 +57,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
             var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
             SetFailureMechanismAssemblyResultControl(
                 failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(WaveImpactAsphaltCoverFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism.SectionResults)));
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
         }
 
         protected override WaveImpactAsphaltCoverFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(

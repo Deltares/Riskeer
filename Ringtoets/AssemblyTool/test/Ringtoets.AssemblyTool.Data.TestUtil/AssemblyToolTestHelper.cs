@@ -41,5 +41,19 @@ namespace Ringtoets.AssemblyTool.Data.TestUtil
             Assert.AreEqual(expectedSectionAssembly.Group, actualSectionAssembly.Group);
             Assert.AreEqual(expectedSectionAssembly.Probability, actualSectionAssembly.Probability);
         }
+
+        /// <summary>
+        /// Asserts that two <see cref="FailureMechanismAssembly"/> are equal.
+        /// </summary>
+        /// <param name="expectedAssembly">The expected assembly.</param>
+        /// <param name="actualAssembly">The actual assembly.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actualAssembly"/> is not
+        /// equal to <paramref name="expectedAssembly"/>.</exception>
+        public static void AssertAreEqual(FailureMechanismAssembly expectedAssembly,
+                                          FailureMechanismAssembly actualAssembly)
+        {
+            Assert.AreEqual(expectedAssembly.Group, actualAssembly.Group);
+            Assert.AreEqual(expectedAssembly.Probability, actualAssembly.Probability);
+        }
     }
 }

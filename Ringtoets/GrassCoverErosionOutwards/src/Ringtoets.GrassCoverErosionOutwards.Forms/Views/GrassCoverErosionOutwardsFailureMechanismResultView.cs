@@ -58,7 +58,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
             SetFailureMechanismAssemblyResultControl(
                 failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(GrassCoverErosionOutwardsFailureMechanismSectionResultAssemblyFactory.AssembleFailureMechanism(FailureMechanism.SectionResults)));
+                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
         }
 
         protected override GrassCoverErosionOutwardsFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)

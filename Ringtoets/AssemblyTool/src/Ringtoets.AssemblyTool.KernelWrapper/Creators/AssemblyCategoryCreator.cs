@@ -48,7 +48,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// contains an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryLimits"/>
         /// contains a valid value, but unsupported.</exception>
-        internal static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(
+        public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(
             IEnumerable<AssessmentSectionCategoryLimits> categoryLimits)
         {
             if (categoryLimits == null)
@@ -76,7 +76,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// contains an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryLimits"/>
         /// contains a valid value, but unsupported.</exception>
-        internal static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionAssemblyCategories(
+        public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionAssemblyCategories(
             IEnumerable<FmSectionCategoryLimits> categoryLimits)
         {
             if (categoryLimits == null)

@@ -61,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories)
+        public FailureMechanismAssemblyCategoryGroup Assemble(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -78,7 +78,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return FailureMechanismAssemblyCategoryGroupOutput.Value;
         }
 
-        public FailureMechanismAssembly AssembleFailureMechanism(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
+        public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
                                                                  AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)

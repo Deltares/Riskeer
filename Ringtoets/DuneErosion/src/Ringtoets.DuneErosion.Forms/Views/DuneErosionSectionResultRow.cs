@@ -357,7 +357,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             try
             {
-                simpleAssemblyCategoryGroup = DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleSimpleAssessment(SectionResult);
+                simpleAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -370,7 +370,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             try
             {
-                detailedAssemblyCategoryGroup = DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleDetailedAssessment(SectionResult);
+                detailedAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -383,7 +383,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             try
             {
-                tailorMadeAssemblyCategoryGroup = DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
+                tailorMadeAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(SectionResult);
             }
             catch (AssemblyException e)
             {
@@ -396,7 +396,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             try
             {
-                combinedAssemblyCategoryGroup = DuneErosionFailureMechanismSectionResultAssemblyFactory.AssembleCombinedAssessment(
+                combinedAssemblyCategoryGroup = DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     SectionResult);
             }
             catch (AssemblyException e)
