@@ -47,11 +47,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             }
         }
 
-        protected override IDictionary<OvertoppingRateCalculationType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<OvertoppingRateCalculationType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<OvertoppingRateCalculationType, byte>
+                return new Dictionary<OvertoppingRateCalculationType, int>
                 {
                     {
                         OvertoppingRateCalculationType.NoCalculation, 1

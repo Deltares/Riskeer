@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -235,7 +236,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Code),
-                                                         Resources.FailureMechanismContributionView_GridColumn_AssessmentCode,
+                                                         RingtoetsCommonFormsResources.FailureMechanism_Code_DisplayName,
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Contribution),

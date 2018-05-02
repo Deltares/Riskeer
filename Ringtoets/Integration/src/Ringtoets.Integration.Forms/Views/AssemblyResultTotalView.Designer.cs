@@ -59,6 +59,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.RefreshAssemblyResultsButton.Name = "RefreshAssemblyResultsButton";
             this.RefreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 23);
             this.RefreshAssemblyResultsButton.TabIndex = 0;
+            this.RefreshAssemblyResultsButton.Text = "Assemblageresultaat verversen";
             this.RefreshAssemblyResultsButton.UseVisualStyleBackColor = true;
             this.RefreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
             // 

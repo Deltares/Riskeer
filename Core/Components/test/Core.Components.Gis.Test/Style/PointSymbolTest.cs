@@ -60,11 +60,11 @@ namespace Core.Components.Gis.Test.Style
             }
         }
 
-        protected override IDictionary<PointSymbol, byte> ExpectedValueForEnumValues
+        protected override IDictionary<PointSymbol, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<PointSymbol, byte>
+                return new Dictionary<PointSymbol, int>
                 {
                     {
                         PointSymbol.Circle, 0

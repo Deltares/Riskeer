@@ -60,11 +60,11 @@ namespace Core.Components.Chart.Test.Data
             }
         }
 
-        protected override IDictionary<ChartPointSymbol, byte> ExpectedValueForEnumValues
+        protected override IDictionary<ChartPointSymbol, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<ChartPointSymbol, byte>
+                return new Dictionary<ChartPointSymbol, int>
                 {
                     {
                         ChartPointSymbol.Circle, 0

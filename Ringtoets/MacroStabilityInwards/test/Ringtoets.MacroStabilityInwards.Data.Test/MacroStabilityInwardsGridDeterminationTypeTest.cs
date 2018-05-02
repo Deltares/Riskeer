@@ -44,11 +44,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             }
         }
 
-        protected override IDictionary<MacroStabilityInwardsGridDeterminationType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<MacroStabilityInwardsGridDeterminationType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<MacroStabilityInwardsGridDeterminationType, byte>
+                return new Dictionary<MacroStabilityInwardsGridDeterminationType, int>
                 {
                     {
                         MacroStabilityInwardsGridDeterminationType.Automatic, 1

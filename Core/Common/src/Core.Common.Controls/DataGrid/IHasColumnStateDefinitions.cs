@@ -24,8 +24,8 @@ using System.Collections.Generic;
 namespace Core.Common.Controls.DataGrid
 {
     /// <summary>
-    /// Interface for the row objects in a <see cref="DataGridViewControl"/> that have 
-    /// <see cref="DataGridViewColumnStateDefinition"/>.
+    /// Interface for the row objects in a <see cref="DataGridViewControl"/> that have an <see cref="IDictionary{TKey,TValue}"/>
+    /// of column indices with the belonging <see cref="DataGridViewColumnStateDefinition"/>.
     /// </summary>
     public interface IHasColumnStateDefinitions
     {

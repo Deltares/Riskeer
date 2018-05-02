@@ -14,6 +14,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculator.cs" />
+    <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorException.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculator.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismSectionAssemblyCalculator.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorException.cs" />
@@ -26,9 +28,11 @@
     <Compile Include="Calculators\Categories\IAssemblyCategoriesCalculator.cs" />
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Creators\AssemblyCategoryCreator.cs" />
+    <Compile Include="Creators\AssessmentSectionAssemblyInputCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreator.cs" />
     <Compile Include="Creators\FailureMechanismAssemblyCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCreator.cs" />
+    <Compile Include="Calculators\Assembly\IAssessmentSectionAssemblyCalculator.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactory.cs" />
     <Compile Include="Kernels\IAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

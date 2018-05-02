@@ -237,7 +237,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            DataGridViewControl.FormatCellWithColumnStateDefinition<FailureMechanismSectionResultRow<TSectionResult>>(e.RowIndex, e.ColumnIndex);
+            DataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         private void UpdateSectionResultRows()

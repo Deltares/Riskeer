@@ -13,6 +13,7 @@
   <ItemGroup>
     <Compile Include="AssemblyCategoriesInput.cs" />
     <Compile Include="AssemblyCategory.cs" />
+    <Compile Include="AssessmentSectionAssembly.cs" />
     <Compile Include="AssessmentSectionAssemblyCategory.cs" />
     <Compile Include="AssessmentSectionAssemblyCategoryGroup.cs" />
     <Compile Include="FailureMechanismAssembly.cs" />

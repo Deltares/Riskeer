@@ -57,11 +57,11 @@ namespace Core.Components.Gis.Test.Data
             }
         }
 
-        protected override IDictionary<WellKnownTileSource, byte> ExpectedValueForEnumValues
+        protected override IDictionary<WellKnownTileSource, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<WellKnownTileSource, byte>
+                return new Dictionary<WellKnownTileSource, int>
                 {
                     {
                         WellKnownTileSource.OpenStreetMap, 1

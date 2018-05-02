@@ -28,30 +28,42 @@ namespace Ringtoets.ClosingStructures.Data.Test
     [TestFixture]
     public class ClosingStructureInflowModelTypeTest : EnumWithDisplayNameTestFixture<ClosingStructureInflowModelType>
     {
-        protected override IDictionary<ClosingStructureInflowModelType, byte> ExpectedValueForEnumValues => new Dictionary<ClosingStructureInflowModelType, byte>
+        protected override IDictionary<ClosingStructureInflowModelType, int> ExpectedValueForEnumValues
         {
+            get
             {
-                ClosingStructureInflowModelType.VerticalWall, 1
-            },
-            {
-                ClosingStructureInflowModelType.LowSill, 2
-            },
-            {
-                ClosingStructureInflowModelType.FloodedCulvert, 3
+                return new Dictionary<ClosingStructureInflowModelType, int>
+                {
+                    {
+                        ClosingStructureInflowModelType.VerticalWall, 1
+                    },
+                    {
+                        ClosingStructureInflowModelType.LowSill, 2
+                    },
+                    {
+                        ClosingStructureInflowModelType.FloodedCulvert, 3
+                    }
+                };
             }
-        };
+        }
 
-        protected override IDictionary<ClosingStructureInflowModelType, string> ExpectedDisplayNameForEnumValues => new Dictionary<ClosingStructureInflowModelType, string>
+        protected override IDictionary<ClosingStructureInflowModelType, string> ExpectedDisplayNameForEnumValues
         {
+            get
             {
-                ClosingStructureInflowModelType.VerticalWall, "Verticale wand"
-            },
-            {
-                ClosingStructureInflowModelType.LowSill, "Lage drempel"
-            },
-            {
-                ClosingStructureInflowModelType.FloodedCulvert, "Verdronken koker"
+                return new Dictionary<ClosingStructureInflowModelType, string>
+                {
+                    {
+                        ClosingStructureInflowModelType.VerticalWall, "Verticale wand"
+                    },
+                    {
+                        ClosingStructureInflowModelType.LowSill, "Lage drempel"
+                    },
+                    {
+                        ClosingStructureInflowModelType.FloodedCulvert, "Verdronken koker"
+                    }
+                };
             }
-        };
+        }
     }
 }

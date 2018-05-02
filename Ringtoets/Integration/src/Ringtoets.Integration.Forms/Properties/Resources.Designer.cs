@@ -166,15 +166,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat verversen.
-        /// </summary>
-        public static string AssemblyResultTotalView_RefreshAssemblyResultsButton_Text {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_RefreshAssemblyResultsButton_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID van het traject..
         /// </summary>
         public static string AssessmentSection_Id_Description {
@@ -558,15 +549,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string FailureMechanismContributionView_GridColumn_Assessment {
             get {
                 return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_Assessment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Label.
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_AssessmentCode {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_AssessmentCode", resourceCulture);
             }
         }
         

@@ -54,11 +54,11 @@ namespace Core.Components.Gis.Test.Style
             }
         }
 
-        protected override IDictionary<LineDashStyle, byte> ExpectedValueForEnumValues
+        protected override IDictionary<LineDashStyle, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<LineDashStyle, byte>
+                return new Dictionary<LineDashStyle, int>
                 {
                     {
                         LineDashStyle.Solid, 0

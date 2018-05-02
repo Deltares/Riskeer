@@ -22,10 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Common.Controls.Test.DataGrid
 {
@@ -45,7 +44,7 @@ namespace Core.Common.Controls.Test.DataGrid
         public void FormatCellWithColumnStateDefinition_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((DataGridViewControl)null).FormatCellWithColumnStateDefinition<TestRow>(0, 0);
+            TestDelegate call = () => ((DataGridViewControl) null).FormatCellWithColumnStateDefinition(0, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -58,12 +57,22 @@ namespace Core.Common.Controls.Test.DataGrid
             bool isReadOnly, string errorText, CellStyle cellStyle)
         {
             // Setup
-            var random = new Random(21);
-            var row = new TestRow(random.NextRoundedDouble());
-            DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[0];
-            definition.ReadOnly = isReadOnly;
-            definition.ErrorText = errorText;
-            definition.Style = cellStyle;
+            var definition = new DataGridViewColumnStateDefinition
+            {
+                ReadOnly = isReadOnly,
+                ErrorText = errorText,
+                Style = cellStyle
+            };
+
+            var mocks = new MockRepository();
+            var row = mocks.Stub<IHasColumnStateDefinitions>();
+            row.Stub(r => r.ColumnStateDefinitions).Return(new Dictionary<int, DataGridViewColumnStateDefinition>
+            {
+                {
+                    0, definition
+                }
+            });
+            mocks.ReplayAll();
 
             using (var form = new Form())
             using (var dataGridViewControl = new DataGridViewControl())
@@ -71,14 +80,14 @@ namespace Core.Common.Controls.Test.DataGrid
                 form.Controls.Add(dataGridViewControl);
                 form.Show();
 
-                dataGridViewControl.AddTextBoxColumn(nameof(TestRow.TestRoundedDouble), "Test");
+                dataGridViewControl.AddTextBoxColumn(null, "Test");
                 dataGridViewControl.SetDataSource(new[]
                 {
                     row
                 });
 
                 // Call
-                dataGridViewControl.FormatCellWithColumnStateDefinition<TestRow>(0, 0);
+                dataGridViewControl.FormatCellWithColumnStateDefinition(0, 0);
 
                 // Assert
                 DataGridViewCell cell = dataGridViewControl.Rows[0].Cells[0];
@@ -87,24 +96,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(cellStyle.BackgroundColor, cell.Style.BackColor);
                 Assert.AreEqual(cellStyle.TextColor, cell.Style.ForeColor);
             }
-        }
-
-        private class TestRow : IHasColumnStateDefinitions
-        {
-            public TestRow(RoundedDouble testRoundedDouble)
-            {
-                TestRoundedDouble = testRoundedDouble;
-                ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
-                {
-                    {
-                        0, new DataGridViewColumnStateDefinition()
-                    }
-                };
-            }
-
-            public RoundedDouble TestRoundedDouble { get; }
-
-            public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
         }
     }
 }

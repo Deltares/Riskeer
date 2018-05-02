@@ -40,6 +40,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
             Assert.IsNotNull(factory.LastCreatedAssemblyCategoriesKernel);
             Assert.IsNotNull(factory.LastCreatedFailureMechanismSectionAssemblyKernel);
             Assert.IsNotNull(factory.LastCreatedFailureMechanismAssemblyKernel);
+            Assert.IsNotNull(factory.LastCreatedAssessmentSectionAssemblyKernel);
         }
 
         [Test]
@@ -79,6 +80,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels
 
             // Assert
             Assert.AreSame(factory.LastCreatedFailureMechanismAssemblyKernel, kernel);
+        }
+
+        [Test]
+        public void CreateAssessmentSectionAssemblyKernel_Always_ReturnLastCreatedAssessmentSectionAssemblyKernel()
+        {
+            // Setup
+            var factory = new TestAssemblyToolKernelFactory();
+
+            // Call
+            IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
+
+            // Assert
+            Assert.AreSame(factory.LastCreatedAssessmentSectionAssemblyKernel, kernel);
         }
     }
 }

@@ -50,11 +50,11 @@ namespace Ringtoets.MacroStabilityInwards.Primitives.Test
             }
         }
 
-        protected override IDictionary<MacroStabilityInwardsDikeSoilScenario, byte> ExpectedValueForEnumValues
+        protected override IDictionary<MacroStabilityInwardsDikeSoilScenario, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<MacroStabilityInwardsDikeSoilScenario, byte>
+                return new Dictionary<MacroStabilityInwardsDikeSoilScenario, int>
                 {
                     {
                         MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, 1

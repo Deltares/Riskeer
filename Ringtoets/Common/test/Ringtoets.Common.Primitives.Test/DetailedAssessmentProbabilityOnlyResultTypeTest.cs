@@ -28,11 +28,11 @@ namespace Ringtoets.Common.Primitives.Test
     [TestFixture]
     public class DetailedAssessmentProbabilityOnlyResultTypeTest : EnumWithDisplayNameTestFixture<DetailedAssessmentProbabilityOnlyResultType>
     {
-        protected override IDictionary<DetailedAssessmentProbabilityOnlyResultType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<DetailedAssessmentProbabilityOnlyResultType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<DetailedAssessmentProbabilityOnlyResultType, byte>
+                return new Dictionary<DetailedAssessmentProbabilityOnlyResultType, int>
                 {
                     {
                         DetailedAssessmentProbabilityOnlyResultType.Probability, 1

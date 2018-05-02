@@ -45,11 +45,11 @@ namespace Ringtoets.Common.Data.Test.Contribution
             }
         }
 
-        protected override IDictionary<NormType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<NormType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<NormType, byte>
+                return new Dictionary<NormType, int>
                 {
                     {
                         NormType.LowerLimit, 1

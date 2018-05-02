@@ -32,23 +32,21 @@ namespace Core.Common.Controls.DataGrid
         /// <summary>
         /// Formats a cell with the properties as defined in <see cref="DataGridViewColumnStateDefinition"/>.
         /// </summary>
-        /// <typeparam name="TRow">The type of row that the <see cref="DataGridViewControl"/> hosts.</typeparam>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> that needs to be formatted.</param>
-        /// <param name="rowIndex">The row index of the cell that should be formatted.</param>
+        /// <param name="rowIndex">The row index of the cell that needs to be formatted.</param>
         /// <param name="columnIndex">The column index of the cell that should be formatted.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dataGridViewControl"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="rowIndex"/>
         /// or the <paramref name="columnIndex"/> does not exist.</exception>
-        public static void FormatCellWithColumnStateDefinition<TRow>(this DataGridViewControl dataGridViewControl, int rowIndex, int columnIndex) 
-            where TRow : IHasColumnStateDefinitions
+        public static void FormatCellWithColumnStateDefinition(this DataGridViewControl dataGridViewControl, int rowIndex, int columnIndex) 
         {
             if (dataGridViewControl == null)
             {
                 throw new ArgumentNullException(nameof(dataGridViewControl));
             }
 
-            var row = (TRow) dataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
+            var row = (IHasColumnStateDefinitions) dataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
             if (row.ColumnStateDefinitions.ContainsKey(columnIndex))
             {
                 DataGridViewColumnStateDefinition columnStateDefinition = row.ColumnStateDefinitions[columnIndex];

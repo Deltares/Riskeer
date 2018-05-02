@@ -48,11 +48,11 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
             }
         }
 
-        protected override IDictionary<BreakWaterType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<BreakWaterType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<BreakWaterType, byte>
+                return new Dictionary<BreakWaterType, int>
                 {
                     {
                         BreakWaterType.Wall, 1

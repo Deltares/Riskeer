@@ -48,11 +48,11 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             }
         }
 
-        protected override IDictionary<AssessmentLayerTwoAResult, byte> ExpectedValueForEnumValues
+        protected override IDictionary<AssessmentLayerTwoAResult, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<AssessmentLayerTwoAResult, byte>
+                return new Dictionary<AssessmentLayerTwoAResult, int>
                 {
                     {
                         AssessmentLayerTwoAResult.NotCalculated, 1

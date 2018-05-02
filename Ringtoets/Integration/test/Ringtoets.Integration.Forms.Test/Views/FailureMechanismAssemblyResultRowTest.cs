@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenValidRow_WhenUpdating_ThenRemainsReadOnly()
+        public void GivenValidRow_WhenUpdating_ThenColumnReadOnlyStateRemainsUnchanged()
         {
             // Given
             var random = new Random(21);

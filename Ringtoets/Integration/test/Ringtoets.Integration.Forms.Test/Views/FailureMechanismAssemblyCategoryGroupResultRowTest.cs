@@ -179,6 +179,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             var row = new FailureMechanismAssemblyCategoryGroupResultRow(failureMechanism, () => categoryGroup);
+
             // When
             row.Update();
 
@@ -190,7 +191,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenValidRow_WhenUpdating_ThenColumnStyleAndReadOnlyRemainsUnchanged()
+        public void GivenValidRow_WhenUpdating_ThenColumnReadOnlyStateRemainsUnchanged()
         {
             // Given
             var random = new Random(21);

@@ -28,11 +28,11 @@ namespace Ringtoets.Common.Primitives.Test
     [TestFixture]
     public class TailorMadeAssessmentProbabilityAndDetailedCalculationResultTypeTest : EnumWithDisplayNameTestFixture<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType>
     {
-        protected override IDictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, byte>
+                return new Dictionary<TailorMadeAssessmentProbabilityAndDetailedCalculationResultType, int>
                 {
                     {
                         TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.None, 1

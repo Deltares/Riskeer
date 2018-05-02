@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -62,6 +63,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private Form testForm;
 
+        private static IEnumerable<TestCaseData> CellFormattingStates
+        {
+            get
+            {
+                yield return new TestCaseData(true, "", CellStyle.Disabled);
+                yield return new TestCaseData(false, "Error", CellStyle.Enabled);
+            }
+        }
+
         [SetUp]
         public void Setup()
         {
@@ -86,21 +96,27 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithAssessmentSection_ExpectedValuesSet()
+        public void Constructor_WithAssessmentSection_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            using (var view = new AssemblyResultTotalView(assessmentSection))
             {
+                testForm.Controls.Add(view);
+                testForm.Show();
+
                 // Assert
                 Assert.AreEqual(2, view.Controls.Count);
 
                 var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
                 Assert.AreEqual("Assemblageresultaat verversen", button.Text);
                 Assert.IsTrue(button.Enabled);
+
+                var datagridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
+                Assert.AreEqual(DockStyle.Fill, datagridViewControl.Dock);
 
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
@@ -116,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (ShowAssemblyResultTotalView())
             {
                 // Then
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
@@ -141,22 +157,19 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_ThenExpectedRowsVisible()
+        public void GivenFormWithAssemblyResultTotalView_ThenExpectedCellsVisible()
         {
             // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                using (ShowAssemblyResultTotalView(assessmentSection))
+                using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
                 {
                     // Then
-                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                    AssertFailureMechanismRows(assessmentSection,
+                    DataGridView dataGridView = GetDataGridView();
+                    AssertFailureMechanismRows(view.AssessmentSection,
                                                calculator.FailureMechanismAssemblyOutput,
                                                calculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
                                                dataGridView.Rows);
@@ -166,22 +179,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResultsAndNoExceptionThrown_ThenRowsUpdatedToNewValues()
+        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenDataGridViewInvalidatedAndCellsUpdatedToNewValues()
         {
             // Given
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
 
+                var invalidated = false;
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.Invalidated += (sender, args) => invalidated = true;
+
                 // Precondition
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                Assert.IsFalse(invalidated);
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(assessmentSection,
+                AssertFailureMechanismRows(view.AssessmentSection,
                                            calculator.FailureMechanismAssemblyOutput,
                                            calculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
                                            rows);
@@ -191,69 +207,74 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var newCategoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
                 calculator.FailureMechanismAssemblyOutput = newAssemblyResult;
                 calculator.FailureMechanismAssemblyCategoryGroupOutput = newCategoryGroup;
-                var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Click();
 
                 // Then 
-                AssertFailureMechanismRows(assessmentSection, newAssemblyResult, newCategoryGroup, rows);
+                Assert.IsTrue(invalidated);
+                AssertFailureMechanismRows(view.AssessmentSection, newAssemblyResult, newCategoryGroup, rows);
             }
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalViewWithoutErrors_WhenRefreshingAssemblyResultsAndExceptionThrown_ThenErrorTextSet()
-        {
-            // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
-            {
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                // Precondition
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRowsWithoutErrorText(assessmentSection, rows);
-
-                // When
-                calculator.ThrowExceptionOnCalculate = true;
-                const string exceptionMessage = "Message";
-                var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
-                buttonTester.Click();
-
-                // Then 
-                AssertFailureMechanismRowsWithErrorText(assessmentSection, exceptionMessage, rows);
-            }
-        }
-
-        [Test]
-        public void GivenAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenDataGridViewInvalidated()
+        [TestCaseSource(nameof(CellFormattingStates))]
+        public void GivenFormWithAssemblyResultTotalView_WhenCellFormattingEventFired_ThenCategoryColumnCellStyleSetToColumnDefinition(
+            bool readOnly, string errorText, CellStyle style)
         {
             // Given
             using (ShowAssemblyResultTotalView())
             {
-                var invalidated = false;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                dataGridView.Invalidated += (sender, args) => invalidated = true;
-
-                // Precondition
-                Assert.IsFalse(invalidated);
-
-                var buttonTester = new ButtonTester("RefreshAssemblyResultsButton", testForm);
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.CellFormatting += (sender, args) =>
+                {
+                    var row = (IHasColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem;
+                    DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[failureMechanismAssemblyCategoryColumnIndex];
+                    definition.ReadOnly = readOnly;
+                    definition.ErrorText = errorText;
+                    definition.Style = style;
+                };
 
                 // When
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Click();
 
                 // Then
-                Assert.IsTrue(invalidated);
+                DataGridViewCell cell = dataGridView.Rows[0].Cells[failureMechanismAssemblyCategoryColumnIndex];
+                Assert.AreEqual(readOnly, cell.ReadOnly);
+                Assert.AreEqual(errorText, cell.ErrorText);
+                Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
+                Assert.AreEqual(style.TextColor, cell.Style.ForeColor);
             }
         }
+
+        #region View test helpers
+
+        private AssemblyResultTotalView ShowAssemblyResultTotalView()
+        {
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            var view = new AssemblyResultTotalView(assessmentSection);
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            return view;
+        }
+
+        private ButtonTester GetRefreshAssemblyResultButtonTester()
+        {
+            return new ButtonTester("RefreshAssemblyResultsButton", testForm);
+        }
+
+        private static DataGridView GetDataGridView()
+        {
+            return (DataGridView) new ControlTester("dataGridView").TheObject;
+        }
+
+        #endregion
+
+        #region Asserts
 
         private static void AssertFailureMechanismRows(AssessmentSection assessmentSection,
                                                        FailureMechanismAssembly assemblyOutput,
@@ -263,149 +284,90 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
 
             PipingFailureMechanism piping = assessmentSection.Piping;
-            AssertAssemblyRow(piping, assemblyOutput, rows[0].Cells);
+            AssertAssemblyCells(piping, assemblyOutput, rows[0].Cells);
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards = assessmentSection.GrassCoverErosionInwards;
-            AssertAssemblyRow(grassCoverErosionInwards, assemblyOutput, rows[1].Cells);
+            AssertAssemblyCells(grassCoverErosionInwards, assemblyOutput, rows[1].Cells);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwards = assessmentSection.MacroStabilityInwards;
-            AssertAssemblyRow(macroStabilityInwards, assemblyOutput, rows[2].Cells);
+            AssertAssemblyCells(macroStabilityInwards, assemblyOutput, rows[2].Cells);
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = assessmentSection.MacroStabilityOutwards;
-            AssertAssemblyRow(macroStabilityOutwards, assemblyCategoryGroup, rows[3].Cells);
+            AssertAssemblyCells(macroStabilityOutwards, assemblyCategoryGroup, rows[3].Cells);
 
             MicrostabilityFailureMechanism microStability = assessmentSection.Microstability;
-            AssertAssemblyRow(microStability, assemblyCategoryGroup, rows[4].Cells);
+            AssertAssemblyCells(microStability, assemblyCategoryGroup, rows[4].Cells);
 
             StabilityStoneCoverFailureMechanism stabilityStoneCover = assessmentSection.StabilityStoneCover;
-            AssertAssemblyRow(stabilityStoneCover, assemblyCategoryGroup, rows[5].Cells);
+            AssertAssemblyCells(stabilityStoneCover, assemblyCategoryGroup, rows[5].Cells);
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = assessmentSection.WaveImpactAsphaltCover;
-            AssertAssemblyRow(waveImpactAsphaltCover, assemblyCategoryGroup, rows[6].Cells);
+            AssertAssemblyCells(waveImpactAsphaltCover, assemblyCategoryGroup, rows[6].Cells);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover = assessmentSection.WaterPressureAsphaltCover;
-            AssertAssemblyRow(waterPressureAsphaltCover, assemblyCategoryGroup, rows[7].Cells);
+            AssertAssemblyCells(waterPressureAsphaltCover, assemblyCategoryGroup, rows[7].Cells);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = assessmentSection.GrassCoverErosionOutwards;
-            AssertAssemblyRow(grassCoverErosionOutwards, assemblyCategoryGroup, rows[8].Cells);
+            AssertAssemblyCells(grassCoverErosionOutwards, assemblyCategoryGroup, rows[8].Cells);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards = assessmentSection.GrassCoverSlipOffOutwards;
-            AssertAssemblyRow(grassCoverSlipOffOutwards, assemblyCategoryGroup, rows[9].Cells);
+            AssertAssemblyCells(grassCoverSlipOffOutwards, assemblyCategoryGroup, rows[9].Cells);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards = assessmentSection.GrassCoverSlipOffInwards;
-            AssertAssemblyRow(grassCoverSlipOffInwards, assemblyCategoryGroup, rows[10].Cells);
+            AssertAssemblyCells(grassCoverSlipOffInwards, assemblyCategoryGroup, rows[10].Cells);
 
             HeightStructuresFailureMechanism heightStructures = assessmentSection.HeightStructures;
-            AssertAssemblyRow(heightStructures, assemblyOutput, rows[11].Cells);
+            AssertAssemblyCells(heightStructures, assemblyOutput, rows[11].Cells);
 
             ClosingStructuresFailureMechanism closingStructures = assessmentSection.ClosingStructures;
-            AssertAssemblyRow(closingStructures, assemblyOutput, rows[12].Cells);
+            AssertAssemblyCells(closingStructures, assemblyOutput, rows[12].Cells);
 
             PipingStructureFailureMechanism pipingStructure = assessmentSection.PipingStructure;
-            AssertAssemblyRow(pipingStructure, assemblyCategoryGroup, rows[13].Cells);
+            AssertAssemblyCells(pipingStructure, assemblyCategoryGroup, rows[13].Cells);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
-            AssertAssemblyRow(stabilityPointStructures, assemblyOutput, rows[14].Cells);
+            AssertAssemblyCells(stabilityPointStructures, assemblyOutput, rows[14].Cells);
 
             StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            AssertAssemblyRow(strengthStabilityLengthwiseConstruction, assemblyCategoryGroup, rows[15].Cells);
+            AssertAssemblyCells(strengthStabilityLengthwiseConstruction, assemblyCategoryGroup, rows[15].Cells);
 
             DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
-            AssertAssemblyRow(duneErosion, assemblyCategoryGroup, rows[16].Cells);
+            AssertAssemblyCells(duneErosion, assemblyCategoryGroup, rows[16].Cells);
 
             TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
-            AssertAssemblyRow(technicalInnovation, assemblyCategoryGroup, rows[17].Cells);
+            AssertAssemblyCells(technicalInnovation, assemblyCategoryGroup, rows[17].Cells);
         }
 
-        private static void AssertFailureMechanismRowsWithoutErrorText(AssessmentSection assessmentSection,
-                                                                       DataGridViewRowCollection rows)
+        private static void AssertAssemblyCells(IFailureMechanism failureMechanism, DataGridViewCellCollection cells)
         {
-            Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
+            Assert.AreEqual(expectedColumnCount, cells.Count);
 
-            for (var i = 0; i < rows.Count; i++)
-            {
-                DataGridViewCell categoryGroupCell = GetCategoryGroupCellFromRow(rows[i].Cells);
-                Assert.IsEmpty(categoryGroupCell.ErrorText);
-            }
+            Assert.AreEqual(failureMechanism.Name, cells[failureMechanismNameColumnIndex].Value);
+            Assert.AreEqual(failureMechanism.Code, cells[failureMechanismCodeColumnIndex].Value);
+            Assert.AreEqual(failureMechanism.Group, cells[failureMechanismGroupColumnIndex].Value);
         }
 
-        private static void AssertFailureMechanismRowsWithErrorText(AssessmentSection assessmentSection,
-                                                                    string errorText,
-                                                                    DataGridViewRowCollection rows)
+        private static void AssertAssemblyCells(IFailureMechanism failureMechanism,
+                                                FailureMechanismAssembly assemblyOutput,
+                                                DataGridViewCellCollection cells)
         {
-            Assert.AreEqual(assessmentSection.GetFailureMechanisms().Count(), rows.Count);
+            AssertAssemblyCells(failureMechanism, cells);
 
-            for (var i = 0; i < rows.Count; i++)
-            {
-                DataGridViewCell categoryGroupCell = GetCategoryGroupCellFromRow(rows[i].Cells);
-                Assert.AreEqual(errorText, categoryGroupCell.ErrorText);
-            }
-        }
-
-        private static void AssertAssemblyRow(IFailureMechanism failureMechanism, DataGridViewCellCollection row)
-        {
-            Assert.AreEqual(expectedColumnCount, row.Count);
-
-            Assert.AreEqual(failureMechanism.Name, row[failureMechanismNameColumnIndex].Value);
-            Assert.AreEqual(failureMechanism.Code, row[failureMechanismCodeColumnIndex].Value);
-            Assert.AreEqual(failureMechanism.Group, row[failureMechanismGroupColumnIndex].Value);
-        }
-
-        private static void AssertAssemblyRow(IFailureMechanism failureMechanism,
-                                              FailureMechanismAssembly assemblyOutput,
-                                              DataGridViewCellCollection row)
-        {
-            AssertAssemblyRow(failureMechanism, row);
-
-            AssertCategoryGroupCell(assemblyOutput.Group, row);
+            Assert.AreEqual(assemblyOutput.Group, cells[failureMechanismAssemblyCategoryColumnIndex].Value);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(assemblyOutput.Probability),
-                            row[failureMechanisProbabilityColumnIndex].FormattedValue);
+                            cells[failureMechanisProbabilityColumnIndex].FormattedValue);
         }
 
-        private static void AssertAssemblyRow(IFailureMechanism failureMechanism,
-                                              FailureMechanismAssemblyCategoryGroup categoryGroup,
-                                              DataGridViewCellCollection row)
+        private static void AssertAssemblyCells(IFailureMechanism failureMechanism,
+                                                FailureMechanismAssemblyCategoryGroup categoryGroup,
+                                                DataGridViewCellCollection cells)
         {
-            AssertAssemblyRow(failureMechanism, row);
+            AssertAssemblyCells(failureMechanism, cells);
 
-            AssertCategoryGroupCell(categoryGroup, row);
-            Assert.AreEqual("-", row[failureMechanisProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual(categoryGroup, cells[failureMechanismAssemblyCategoryColumnIndex].Value);
+            Assert.AreEqual("-", cells[failureMechanisProbabilityColumnIndex].FormattedValue);
         }
 
-        private static void AssertCategoryGroupCell(FailureMechanismAssemblyCategoryGroup categoryGroup, DataGridViewCellCollection row)
-        {
-            DataGridViewCell categoryColumnCell = GetCategoryGroupCellFromRow(row);
-
-            Assert.AreEqual(categoryGroup, categoryColumnCell.Value);
-            Assert.IsTrue(categoryColumnCell.ReadOnly);
-            Assert.IsEmpty(categoryColumnCell.ErrorText);
-
-            DataGridViewCellStyle categoryColumnCellStyle = categoryColumnCell.Style;
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(categoryGroup),
-                            categoryColumnCellStyle.BackColor);
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), categoryColumnCellStyle.ForeColor);
-        }
-
-        private static DataGridViewCell GetCategoryGroupCellFromRow(DataGridViewCellCollection rowCells)
-        {
-            return rowCells[failureMechanismAssemblyCategoryColumnIndex];
-        }
-
-        private AssemblyResultTotalView ShowAssemblyResultTotalView(AssessmentSection assessmentSection)
-        {
-            var view = new AssemblyResultTotalView(assessmentSection);
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            return view;
-        }
-
-        private AssemblyResultTotalView ShowAssemblyResultTotalView()
-        {
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            return ShowAssemblyResultTotalView(assessmentSection);
-        }
+        #endregion
     }
 }
