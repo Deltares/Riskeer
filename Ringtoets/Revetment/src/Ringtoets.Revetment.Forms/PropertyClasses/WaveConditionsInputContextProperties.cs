@@ -45,12 +45,15 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Revetment.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="WaveConditionsInputContext"/> for properties panel.
+    /// ViewModel of <see cref="WaveConditionsInputContext{T}"/> for properties panel.
     /// </summary>
-    public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>,
-                                                                    IHasHydraulicBoundaryLocationProperty,
-                                                                    IHasForeshoreProfileProperty
-        where T : WaveConditionsInputContext
+    /// <typeparam name="TContext">The type of the wave conditions input context.</typeparam>
+    /// <typeparam name="TInput">The type of the contained wave conditions input.</typeparam>
+    public abstract class WaveConditionsInputContextProperties<TContext, TInput> : ObjectProperties<TContext>,
+                                                                                   IHasHydraulicBoundaryLocationProperty,
+                                                                                   IHasForeshoreProfileProperty
+        where TContext : WaveConditionsInputContext<TInput>
+        where TInput : WaveConditionsInput
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int assessmentLevelPropertyIndex = 1;
@@ -73,13 +76,13 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{T}"/>.
+        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput}"/>.
         /// </summary>
-        /// <param name="context">The <see cref="WaveConditionsInputContext"/> for which the properties are shown.</param>
+        /// <param name="context">The <see cref="WaveConditionsInputContext{TInput}"/> for which the properties are shown.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected WaveConditionsInputContextProperties(T context,
+        protected WaveConditionsInputContextProperties(TContext context,
                                                        Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                        IObservablePropertyChangeHandler propertyChangeHandler)
         {
