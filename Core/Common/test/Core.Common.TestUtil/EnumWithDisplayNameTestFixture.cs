@@ -28,7 +28,7 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil
 {
     [TestFixture]
-    public abstract class EnumWithDisplayNameTestFixture<TEnum> : EnumValuesTestFixture<TEnum, byte>
+    public abstract class EnumWithDisplayNameTestFixture<TEnum> : EnumValuesTestFixture<TEnum, int>
     {
         protected abstract IDictionary<TEnum, string> ExpectedDisplayNameForEnumValues { get; }
 

@@ -48,11 +48,11 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             }
         }
 
-        protected override IDictionary<MacroStabilityInwardsShearStrengthModel, byte> ExpectedValueForEnumValues
+        protected override IDictionary<MacroStabilityInwardsShearStrengthModel, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<MacroStabilityInwardsShearStrengthModel, byte>
+                return new Dictionary<MacroStabilityInwardsShearStrengthModel, int>
                 {
                     {
                         MacroStabilityInwardsShearStrengthModel.SuCalculated, 1

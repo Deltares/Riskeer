@@ -28,11 +28,11 @@ namespace Ringtoets.Common.Primitives.Test
     [TestFixture]
     public class TailorMadeAssessmentResultTypeTest : EnumWithDisplayNameTestFixture<TailorMadeAssessmentResultType>
     {
-        protected override IDictionary<TailorMadeAssessmentResultType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<TailorMadeAssessmentResultType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<TailorMadeAssessmentResultType, byte>
+                return new Dictionary<TailorMadeAssessmentResultType, int>
                 {
                     {
                         TailorMadeAssessmentResultType.None, 1

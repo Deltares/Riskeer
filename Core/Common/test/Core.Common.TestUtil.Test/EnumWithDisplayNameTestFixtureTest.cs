@@ -36,7 +36,7 @@ namespace Core.Common.TestUtil.Test
             var displayNameEnumTest = new DisplayNameEnumTest();
 
             // Assert
-            Assert.IsInstanceOf<EnumValuesTestFixture<EnumDisplayName, byte>>(displayNameEnumTest);
+            Assert.IsInstanceOf<EnumValuesTestFixture<EnumDisplayName, int>>(displayNameEnumTest);
         }
 
         [TestFixture]
@@ -58,11 +58,11 @@ namespace Core.Common.TestUtil.Test
                 }
             }
 
-            protected override IDictionary<EnumDisplayName, byte> ExpectedValueForEnumValues
+            protected override IDictionary<EnumDisplayName, int> ExpectedValueForEnumValues
             {
                 get
                 {
-                    return new Dictionary<EnumDisplayName, byte>
+                    return new Dictionary<EnumDisplayName, int>
                     {
                         {
                             EnumDisplayName.NoDisplayName, 0

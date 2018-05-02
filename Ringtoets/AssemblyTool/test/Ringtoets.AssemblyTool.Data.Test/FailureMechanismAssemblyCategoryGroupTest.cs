@@ -28,11 +28,11 @@ namespace Ringtoets.AssemblyTool.Data.Test
     [TestFixture]
     public class FailureMechanismAssemblyCategoryGroupTest : EnumWithDisplayNameTestFixture<FailureMechanismAssemblyCategoryGroup>
     {
-        protected override IDictionary<FailureMechanismAssemblyCategoryGroup, byte> ExpectedValueForEnumValues
+        protected override IDictionary<FailureMechanismAssemblyCategoryGroup, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<FailureMechanismAssemblyCategoryGroup, byte>
+                return new Dictionary<FailureMechanismAssemblyCategoryGroup, int>
                 {
                     {
                         FailureMechanismAssemblyCategoryGroup.None, 1

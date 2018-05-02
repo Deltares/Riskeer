@@ -48,11 +48,11 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             }
         }
 
-        protected override IDictionary<AssessmentSectionComposition, byte> ExpectedValueForEnumValues
+        protected override IDictionary<AssessmentSectionComposition, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<AssessmentSectionComposition, byte>
+                return new Dictionary<AssessmentSectionComposition, int>
                 {
                     {
                         AssessmentSectionComposition.Dike, 1

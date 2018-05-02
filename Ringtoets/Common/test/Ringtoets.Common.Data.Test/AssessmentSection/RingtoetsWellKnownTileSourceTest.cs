@@ -57,11 +57,11 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             }
         }
 
-        protected override IDictionary<RingtoetsWellKnownTileSource, byte> ExpectedValueForEnumValues
+        protected override IDictionary<RingtoetsWellKnownTileSource, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<RingtoetsWellKnownTileSource, byte>
+                return new Dictionary<RingtoetsWellKnownTileSource, int>
                 {
                     {
                         RingtoetsWellKnownTileSource.OpenStreetMap, 1

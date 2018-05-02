@@ -54,11 +54,11 @@ namespace Core.Components.Chart.Test.Styles
             }
         }
 
-        protected override IDictionary<ChartLineDashStyle, byte> ExpectedValueForEnumValues
+        protected override IDictionary<ChartLineDashStyle, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<ChartLineDashStyle, byte>
+                return new Dictionary<ChartLineDashStyle, int>
                 {
                     {
                         ChartLineDashStyle.Solid, 0

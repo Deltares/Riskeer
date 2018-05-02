@@ -44,11 +44,11 @@ namespace Ringtoets.Piping.Primitives.Test
             }
         }
 
-        protected override IDictionary<SoilProfileType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<SoilProfileType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<SoilProfileType, byte>
+                return new Dictionary<SoilProfileType, int>
                 {
                     {
                         SoilProfileType.SoilProfile1D, 1

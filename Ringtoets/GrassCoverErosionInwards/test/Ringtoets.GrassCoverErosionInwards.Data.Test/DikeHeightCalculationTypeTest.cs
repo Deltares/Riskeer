@@ -47,11 +47,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             }
         }
 
-        protected override IDictionary<DikeHeightCalculationType, byte> ExpectedValueForEnumValues
+        protected override IDictionary<DikeHeightCalculationType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<DikeHeightCalculationType, byte>
+                return new Dictionary<DikeHeightCalculationType, int>
                 {
                     {
                         DikeHeightCalculationType.NoCalculation, 1
