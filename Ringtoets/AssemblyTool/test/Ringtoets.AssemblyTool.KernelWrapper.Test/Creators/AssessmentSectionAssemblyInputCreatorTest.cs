@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Core.Common.TestUtil;
@@ -32,6 +33,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
     [TestFixture]
     public class AssessmentSectionAssemblyInputCreatorTest
     {
+        private static IEnumerable<TestCaseData> GetFailureMechanismAssemblyCategoryGroupConversions
+        {
+            get
+            {
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.NotApplicable, EFailureMechanismCategory.Nvt);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.None, EFailureMechanismCategory.Gr);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.It, EFailureMechanismCategory.It);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIt, EFailureMechanismCategory.IIt);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIIt, EFailureMechanismCategory.IIIt);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IVt, EFailureMechanismCategory.IVt);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.Vt, EFailureMechanismCategory.Vt);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIt, EFailureMechanismCategory.VIt);
+                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIIt, EFailureMechanismCategory.VIIt);
+            }
+        }
+
         [Test]
         public void CreateFailureMechanismAssemblyResult_FailureMechanismAssemblyNull_ThrowsArgumentNullException()
         {
@@ -60,15 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.NotApplicable, EFailureMechanismCategory.Nvt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.None, EFailureMechanismCategory.Gr)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.It, EFailureMechanismCategory.It)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.IIt, EFailureMechanismCategory.IIt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.IIIt, EFailureMechanismCategory.IIIt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.IVt, EFailureMechanismCategory.IVt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.Vt, EFailureMechanismCategory.Vt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.VIt, EFailureMechanismCategory.VIt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.VIIt, EFailureMechanismCategory.VIIt)]
+        [TestCaseSource(nameof(GetFailureMechanismAssemblyCategoryGroupConversions))]
         public void CreateFailureMechanismAssemblyResult_WithValidFailureMechanismAssembly_ReturnsFailureMechanismAssemblyResult(
             FailureMechanismAssemblyCategoryGroup originalGroup,
             EFailureMechanismCategory expectedGroup)
@@ -97,15 +106,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.NotApplicable, EFailureMechanismCategory.Nvt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.None, EFailureMechanismCategory.Gr)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.It, EFailureMechanismCategory.It)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.IIt, EFailureMechanismCategory.IIt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.IIIt, EFailureMechanismCategory.IIIt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.IVt, EFailureMechanismCategory.IVt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.Vt, EFailureMechanismCategory.Vt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.VIt, EFailureMechanismCategory.VIt)]
-        [TestCase(FailureMechanismAssemblyCategoryGroup.VIIt, EFailureMechanismCategory.VIIt)]
+        [TestCaseSource(nameof(GetFailureMechanismAssemblyCategoryGroupConversions))]
         public void CreateFailureMechanismAssemblyResult_WithValidEnumInput_ReturnsFailureMechanismAssemblyResult(
             FailureMechanismAssemblyCategoryGroup originalGroup,
             EFailureMechanismCategory expectedGroup)

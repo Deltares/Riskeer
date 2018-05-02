@@ -22,11 +22,15 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
+    /// <summary>
+    /// Creates input instances to be used in the <see cref="IAssessmentGradeAssembler"/>.
+    /// </summary>
     internal static class AssessmentSectionAssemblyInputCreator
     {
         /// <summary>
