@@ -72,13 +72,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             base.OnLoad(e);
 
-            LocalizeControl();
             InitializeDataGridView();
-        }
-
-        private void LocalizeControl()
-        {
-            RefreshAssemblyResultsButton.Text = Resources.AssemblyResultTotalView_RefreshAssemblyResultsButton_Text;
         }
 
         private void InitializeDataGridView()

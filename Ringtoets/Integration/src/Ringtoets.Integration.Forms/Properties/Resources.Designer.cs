@@ -146,16 +146,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Assemblageresultaat verversen.
-        /// </summary>
-        public static string AssemblyResultTotalView_AssemblyResultTotalView_RefreshAssemblyResultsButton_Text {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_AssemblyResultTotalView_RefreshAssemblyResultsButton_Text" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Benaderde faalkans.
         /// </summary>
         public static string AssemblyResultTotalView_Probability_DisplayName {
@@ -775,6 +765,15 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string ReferenceLineProperties_Geometry_DisplayName {
             get {
                 return ResourceManager.GetString("ReferenceLineProperties_Geometry_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assemblageresultaat verversen.
+        /// </summary>
+        public static string RefreshAssemblyResultsButton_Text {
+            get {
+                return ResourceManager.GetString("RefreshAssemblyResultsButton_Text", resourceCulture);
             }
         }
         
