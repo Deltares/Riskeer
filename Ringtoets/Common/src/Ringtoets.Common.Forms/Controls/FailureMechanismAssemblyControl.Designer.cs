@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
-
 namespace Ringtoets.Common.Forms.Controls
 {
-    partial class FailureMechanismAssemblyResultWithProbabilityControl
+    partial class FailureMechanismAssemblyControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -51,30 +49,46 @@ namespace Ringtoets.Common.Forms.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismAssemblyResultWithProbabilityControl));
-            this.probabilityLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
             this.probabilityPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.probabilityLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.probabilityPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // probabilityLabel
-            // 
-            resources.ApplyResources(this.probabilityLabel, "probabilityLabel");
-            this.probabilityLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.probabilityLabel.Name = "probabilityLabel";
-            // 
             // probabilityPanel
             // 
-            resources.ApplyResources(this.probabilityPanel, "probabilityPanel");
+            this.probabilityPanel.ColumnCount = 1;
+            this.probabilityPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.probabilityPanel.Controls.Add(this.probabilityLabel, 0, 0);
+            this.probabilityPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.probabilityPanel.Location = new System.Drawing.Point(56, 0);
             this.probabilityPanel.Name = "probabilityPanel";
+            this.probabilityPanel.RowCount = 1;
+            this.probabilityPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.probabilityPanel.Size = new System.Drawing.Size(200, 796);
+            this.probabilityPanel.TabIndex = 1;
             // 
-            // FailureMechanismAssemblyResultWithProbabilityControl
+            // probabilityLabel
             // 
-            resources.ApplyResources(this, "$this");
+            this.probabilityLabel.AutoSize = true;
+            this.probabilityLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.probabilityLabel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.probabilityLabel.Location = new System.Drawing.Point(3, 3);
+            this.probabilityLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.probabilityLabel.MinimumSize = new System.Drawing.Size(50, 2);
+            this.probabilityLabel.Name = "probabilityLabel";
+            this.probabilityLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.probabilityLabel.Size = new System.Drawing.Size(50, 790);
+            this.probabilityLabel.TabIndex = 0;
+            this.probabilityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FailureMechanismAssemblyControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.probabilityPanel);
-            this.Name = "FailureMechanismAssemblyResultWithProbabilityControl";
+            this.Name = "FailureMechanismAssemblyControl";
+            this.Size = new System.Drawing.Size(256, 796);
             this.Controls.SetChildIndex(this.probabilityPanel, 0);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.probabilityPanel.ResumeLayout(false);
@@ -85,7 +99,8 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         #endregion
-        private BorderedLabel probabilityLabel;
+
         private System.Windows.Forms.TableLayoutPanel probabilityPanel;
+        private BorderedLabel probabilityLabel;
     }
 }

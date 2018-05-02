@@ -36,13 +36,13 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class for testing data and styling in a view with a <see cref="FailureMechanismAssemblyResultControl"/>.
+    /// Class for testing data and styling in a view with a <see cref="FailureMechanismAssemblyCategoryGroupControl"/>.
     /// </summary>
     /// <typeparam name="TView">The type of the view to test.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism the view belongs to.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results shown in the view.</typeparam>
     /// <typeparam name="TResultRow">The type of the presentation objects used in the view.</typeparam>
-    public abstract class FailureMechanismAssemblyResultControlTester<TView, TFailureMechanism, TSectionResult, TResultRow>
+    public abstract class FailureMechanismAssemblyCategoryGroupControlTester<TView, TFailureMechanism, TSectionResult, TResultRow>
         where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, new()
         where TSectionResult : FailureMechanismSectionResult
@@ -75,9 +75,9 @@ namespace Ringtoets.Common.Forms.TestUtil
             {
                 // Assert
                 var assemblyResultPanel = (TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject;
-                var assemblyResultControl = (FailureMechanismAssemblyResultControl) assemblyResultPanel.GetControlFromPosition(0, 0);
+                var assemblyResultControl = (FailureMechanismAssemblyCategoryGroupControl) assemblyResultPanel.GetControlFromPosition(0, 0);
 
-                Assert.IsInstanceOf<FailureMechanismAssemblyResultControl>(assemblyResultControl);
+                Assert.IsInstanceOf<FailureMechanismAssemblyCategoryGroupControl>(assemblyResultControl);
                 Assert.AreEqual(DockStyle.Left, assemblyResultControl.Dock);
             }
         }

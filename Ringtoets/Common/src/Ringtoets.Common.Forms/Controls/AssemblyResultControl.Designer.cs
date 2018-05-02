@@ -23,8 +23,13 @@ using System.Windows.Forms;
 
 namespace Ringtoets.Common.Forms.Controls
 {
-    partial class FailureMechanismAssemblyResultControl
-    {
+#if DEVELOPMENT
+     partial class AssemblyResultControl
+#else
+    abstract partial class AssemblyResultControl
+#endif    
+     
+     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -52,45 +57,55 @@ namespace Ringtoets.Common.Forms.Controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FailureMechanismAssemblyResultControl));
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.description = new System.Windows.Forms.Label();
-            this.GroupLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
             this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.GroupLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
             this.GroupPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // GroupPanel
             // 
-            resources.ApplyResources(this.GroupPanel, "GroupPanel");
-            this.GroupPanel.Controls.Add(this.description, 0, 0);
-            this.GroupPanel.Controls.Add(this.GroupLabel, 1, 0);
+            this.GroupPanel.AutoSize = true;
+            this.GroupPanel.ColumnCount = 1;
+            this.GroupPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.GroupPanel.Controls.Add(this.GroupLabel, 0, 0);
+            this.GroupPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.GroupPanel.Location = new System.Drawing.Point(0, 0);
             this.GroupPanel.Name = "GroupPanel";
-            // 
-            // description
-            // 
-            resources.ApplyResources(this.description, "description");
-            this.description.Name = "description";
-            // 
-            // GroupLabel
-            // 
-            resources.ApplyResources(this.GroupLabel, "GroupLabel");
-            this.GroupLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.GroupLabel.Name = "GroupLabel";
+            this.GroupPanel.RowCount = 1;
+            this.GroupPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.GroupPanel.Size = new System.Drawing.Size(56, 150);
+            this.GroupPanel.TabIndex = 0;
             // 
             // ErrorProvider
             // 
+            this.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.ErrorProvider.ContainerControl = this;
             this.ErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
-            this.ErrorProvider.BlinkStyle = ErrorBlinkStyle.NeverBlink;
             // 
-            // FailureMechanismAssemblyResultControl
+            // GroupLabel
             // 
-            resources.ApplyResources(this, "$this");
+            this.GroupLabel.AutoSize = true;
+            this.GroupLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.GroupLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GroupLabel.Location = new System.Drawing.Point(3, 3);
+            this.GroupLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.GroupLabel.MinimumSize = new System.Drawing.Size(50, 0);
+            this.GroupLabel.Name = "GroupLabel";
+            this.GroupLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.GroupLabel.Size = new System.Drawing.Size(50, 144);
+            this.GroupLabel.TabIndex = 1;
+            this.GroupLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // AssemblyResultControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.GroupPanel);
-            this.Name = "FailureMechanismAssemblyResultControl";
+            this.Name = "AssemblyResultControl";
+            this.Size = new System.Drawing.Size(274, 150);
             this.GroupPanel.ResumeLayout(false);
             this.GroupPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
@@ -100,9 +115,8 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         #endregion
-        private System.Windows.Forms.Label description;
         protected System.Windows.Forms.TableLayoutPanel GroupPanel;
-        protected BorderedLabel GroupLabel;
         protected System.Windows.Forms.ErrorProvider ErrorProvider;
+        protected BorderedLabel GroupLabel;
     }
 }

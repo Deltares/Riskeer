@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Windows.Forms;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
@@ -30,17 +29,13 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.Controls
 {
     /// <summary>
-    /// Custom control to display the assembly result and probability of a failure mechanism.
+    /// Custom control to display a <see cref="FailureMechanismAssembly"/>.
     /// </summary>
-    public partial class FailureMechanismAssemblyResultWithProbabilityControl : FailureMechanismAssemblyResultControl
+    public partial class FailureMechanismAssemblyControl : AssemblyResultControl
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultWithProbabilityControl"/>.
-        /// </summary>
-        public FailureMechanismAssemblyResultWithProbabilityControl()
+        public FailureMechanismAssemblyControl()
         {
             InitializeComponent();
-            Dock = DockStyle.Left;
         }
 
         /// <summary>

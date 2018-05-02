@@ -35,31 +35,25 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.Test.Controls
 {
     [TestFixture]
-    public class FailureMechanismAssemblyResultWithProbabilityControlTest
+    public class FailureMechanismAssemblyControlTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var resultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            var resultControl = new FailureMechanismAssemblyControl();
 
             // Assert
             Assert.AreEqual(2, resultControl.Controls.Count);
-            Assert.IsInstanceOf<FailureMechanismAssemblyResultControl>(resultControl);
+            Assert.IsInstanceOf<AssemblyResultControl>(resultControl);
             Assert.IsTrue(resultControl.AutoSize);
             Assert.AreEqual(DockStyle.Left, resultControl.Dock);
 
             TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
-            Assert.AreEqual(2, groupPanel.ColumnCount);
+            Assert.AreEqual(1, groupPanel.ColumnCount);
             Assert.AreEqual(1, groupPanel.RowCount);
 
-            var description = (Label) groupPanel.GetControlFromPosition(0, 0);
-            Assert.IsTrue(description.AutoSize);
-            Assert.AreEqual(DockStyle.Fill, description.Dock);
-            Assert.AreEqual(ContentAlignment.MiddleLeft, description.TextAlign);
-            Assert.AreEqual("Assemblageresultaat voor dit toetsspoor:", description.Text);
-
-            var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(1, 0);
+            var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
             Assert.IsTrue(groupLabel.AutoSize);
             Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
             Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
@@ -71,9 +65,9 @@ namespace Ringtoets.Common.Forms.Test.Controls
             Assert.AreEqual(1, probabilityPanel.ColumnCount);
             Assert.AreEqual(1, probabilityPanel.RowCount);
 
-            var probabilityLabel = (BorderedLabel) groupPanel.GetControlFromPosition(1, 0);
+            var probabilityLabel = (BorderedLabel) probabilityPanel.GetControlFromPosition(0, 0);
             Assert.IsTrue(probabilityLabel.AutoSize);
-            Assert.AreEqual(DockStyle.Fill, probabilityLabel.Dock);
+            Assert.AreEqual(DockStyle.Left, probabilityLabel.Dock);
             Assert.AreEqual(new Padding(5, 0, 5, 0), probabilityLabel.Padding);
         }
 
@@ -81,7 +75,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void SetAssemblyResult_AssemblyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var resultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            var resultControl = new FailureMechanismAssemblyControl();
 
             // Call
             TestDelegate test = () => resultControl.SetAssemblyResult(null);
@@ -98,13 +92,13 @@ namespace Ringtoets.Common.Forms.Test.Controls
             var random = new Random(39);
             var assembly = new FailureMechanismAssembly(random.NextDouble(),
                                                         random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
-            var resultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            var resultControl = new FailureMechanismAssemblyControl();
 
             // Call
             resultControl.SetAssemblyResult(assembly);
 
             // Assert
-            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
+            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
             Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
 
             Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName,
@@ -120,7 +114,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void SetError_ErrorNull_ThrowsArgumentNullException()
         {
             // Setup
-            var resultControl = new FailureMechanismAssemblyResultControl();
+            var resultControl = new FailureMechanismAssemblyControl();
 
             // Call
             TestDelegate test = () => resultControl.SetError(null);
@@ -135,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         {
             // Setup
             const string error = "random error 123";
-            var resultControl = new FailureMechanismAssemblyResultWithProbabilityControl();
+            var resultControl = new FailureMechanismAssemblyControl();
 
             // Call
             resultControl.SetError(error);
@@ -144,19 +138,19 @@ namespace Ringtoets.Common.Forms.Test.Controls
             var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
             Assert.AreEqual(error, errorProvider.GetError(resultControl));
 
-            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(1, 0);
+            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
             Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
             Assert.IsEmpty(groupLabel.Text);
             Assert.AreEqual(Color.White, groupLabel.BackColor);
             Assert.AreEqual("-", probabilityLabel.Text);
         }
 
-        private static TableLayoutPanel GetProbabilityPanel(FailureMechanismAssemblyResultWithProbabilityControl resultControl)
+        private static TableLayoutPanel GetProbabilityPanel(FailureMechanismAssemblyControl resultControl)
         {
             return TypeUtils.GetField<TableLayoutPanel>(resultControl, "probabilityPanel");
         }
 
-        private static TableLayoutPanel GetGroupPanel(FailureMechanismAssemblyResultWithProbabilityControl resultControl)
+        private static TableLayoutPanel GetGroupPanel(FailureMechanismAssemblyControl resultControl)
         {
             return TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
         }

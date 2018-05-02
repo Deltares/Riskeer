@@ -19,9 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Drawing;
-using System.Windows.Forms;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
@@ -29,45 +26,10 @@ using Ringtoets.Common.Forms.Helpers;
 namespace Ringtoets.Common.Forms.Controls
 {
     /// <summary>
-    /// Custom control to display the assembly result of a failure mechanism.
+    /// Custom control to display a <see cref="FailureMechanismAssemblyCategoryGroup"/>.
     /// </summary>
-    public partial class FailureMechanismAssemblyResultControl : UserControl
+    public class FailureMechanismAssemblyCategoryGroupControl : AssemblyResultControl
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultControl"/>.
-        /// </summary>
-        public FailureMechanismAssemblyResultControl()
-        {
-            InitializeComponent();
-            Dock = DockStyle.Left;
-        }
-
-        /// <summary>
-        /// Clears the error message of the control.
-        /// </summary>
-        public void ClearError()
-        {
-            ErrorProvider.SetError(this, string.Empty);
-        }
-
-        /// <summary>
-        /// Sets the error message of the control and clears its values.
-        /// </summary>
-        /// <param name="error">The error message to set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="error"/>
-        /// is <c>null</c>.</exception>
-        public virtual void SetError(string error)
-        {
-            if (error == null)
-            {
-                throw new ArgumentNullException(nameof(error));
-            }
-
-            ErrorProvider.SetError(this, error);
-            GroupLabel.Text = string.Empty;
-            GroupLabel.BackColor = Color.White;
-        }
-
         /// <summary>
         /// Set the value of <paramref name="category"/> to the control.
         /// </summary>
