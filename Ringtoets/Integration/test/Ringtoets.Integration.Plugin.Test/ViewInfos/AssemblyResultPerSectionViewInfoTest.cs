@@ -71,16 +71,6 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            Type viewType = info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(AssemblyResultPerSectionView), viewType);
-        }
-
-        [Test]
         public void Image_Always_ReturnsGenericInputOutputIcon()
         {
             // Call
