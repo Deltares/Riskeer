@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
+using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
@@ -104,7 +105,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
-                kernel.AssessmentGradeResult = new Random(39).NextEnumValue<EAssessmentGrade>();
+                kernel.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(random.NextEnumValue<EAssessmentGrade>(),
+                                                                                             random.NextDouble());
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
@@ -122,6 +124,59 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 FailureMechanismAssemblyResult actualFailureMechanismAssemblyInput = kernel.FailureMechanismAssemblyResults.Single();
                 Assert.AreEqual(GetGroup(failureMechanismAssembly.Group), actualFailureMechanismAssemblyInput.Category);
                 Assert.AreEqual(failureMechanismAssembly.Probability, actualFailureMechanismAssemblyInput.FailureProbability);
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanismWithProbability_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(39);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                kernel.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(random.NextEnumValue<EAssessmentGrade>(),
+                                                                                             random.NextDouble());
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                AssessmentSectionAssembly assembly = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
+                                                                                          CreateAssemblyCategoriesInput());
+
+                // Assert
+                AssessmentSectionAssemblyResult expectedResult = kernel.AssessmentSectionAssemblyResult;
+                Assert.AreEqual(expectedResult.FailureProbability, assembly.Probability);
+                Assert.AreEqual(AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(expectedResult.Category), assembly.Group);
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanismWithProbability_KernelWithInvalidOutput_ThrowsAssessmentSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(39);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                kernel.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult((EAssessmentGrade) 99,
+                                                                                             random.NextDouble());
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
+                                                                               CreateAssemblyCategoriesInput());
+
+                // Assert
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
 
@@ -154,13 +209,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
                 TestDelegate test = () => calculator.AssembleFailureMechanisms(new[]
                 {
-                    (FailureMechanismAssemblyCategoryGroup)99
+                    (FailureMechanismAssemblyCategoryGroup) 99
                 });
 
                 // Assert
@@ -180,7 +235,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
                 kernel.AssessmentGradeResult = new Random(39).NextEnumValue<EAssessmentGrade>();
 
@@ -202,12 +257,57 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
+        public void AssembleFailureMechanismWithoutProbability_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(39);
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                kernel.AssessmentGradeResult = random.NextEnumValue<EAssessmentGrade>();
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                AssessmentSectionAssemblyCategoryGroup assembly = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssemblyCategoryGroup>());
+
+                // Assert
+                Assert.AreEqual(AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentGradeResult), assembly);
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanismWithoutProbability_KernelWithInvalidOutput_ThrowsAssessmentSectionAssemblyCalculatorException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                kernel.AssessmentGradeResult = (EAssessmentGrade) 99;
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssemblyCategoryGroup>());
+
+                // Assert
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
         public void AssembleFailureMechanismsWithoutProbability_KernelThrowsException_ThrowsAssessmentSectionAssemblyCalculatorException()
         {
             // Setup
             using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactory)AssemblyToolKernelFactory.Instance;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
                 kernel.ThrowException = true;
 
