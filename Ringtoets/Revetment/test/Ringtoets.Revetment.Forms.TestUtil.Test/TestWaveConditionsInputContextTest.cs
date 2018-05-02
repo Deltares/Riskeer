@@ -42,7 +42,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             var context = new TestWaveConditionsInputContext(waveConditionsInput);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext<TestWaveConditionsInput>>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
             Assert.IsInstanceOf<AssessmentSectionStub>(context.AssessmentSection);
@@ -61,7 +61,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
             var context = new TestWaveConditionsInputContext(waveConditionsInput, profiles, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext<TestWaveConditionsInput>>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.IsInstanceOf<TestWaveConditionsCalculation>(context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
@@ -87,7 +87,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil.Test
                                                              profiles);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext<TestWaveConditionsInput>>(context);
             Assert.AreSame(waveConditionsInput, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

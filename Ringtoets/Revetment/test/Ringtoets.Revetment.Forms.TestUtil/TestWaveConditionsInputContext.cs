@@ -24,34 +24,33 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 
 namespace Ringtoets.Revetment.Forms.TestUtil
 {
     /// <summary>
-    /// Simple <see cref="WaveConditionsInputContext"/> implementation which can be used
+    /// Simple <see cref="WaveConditionsInputContext{T}"/> implementation which can be used
     /// for test purposes.
     /// </summary>
-    public class TestWaveConditionsInputContext : WaveConditionsInputContext
+    public class TestWaveConditionsInputContext : WaveConditionsInputContext<TestWaveConditionsInput>
     {
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
-        public TestWaveConditionsInputContext(WaveConditionsInput wrappedData)
-            : this(wrappedData, 
+        /// <param name="wrappedData">The wrapped wave conditions input.</param>
+        public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData)
+            : this(wrappedData,
                    new ForeshoreProfile[0],
                    new AssessmentSectionStub()) {}
 
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
+        /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
         /// <param name="assesmentSection">The assessment section.</param>
-        public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
+        public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                               IAssessmentSection assesmentSection)
             : this(wrappedData,
@@ -62,12 +61,12 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         /// <summary>
         /// Creates a new <see cref="TestWaveConditionsInputContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
+        /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation.</param>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                              ICalculation<WaveConditionsInput> calculation,
+        public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData,
+                                              ICalculation<TestWaveConditionsInput> calculation,
                                               IAssessmentSection assessmentSection,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(wrappedData, calculation, assessmentSection)
