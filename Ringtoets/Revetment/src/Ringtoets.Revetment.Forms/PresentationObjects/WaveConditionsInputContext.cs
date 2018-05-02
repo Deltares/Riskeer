@@ -31,19 +31,21 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.Revetment.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for the <see cref="WaveConditionsInput"/>.
+    /// Presentation object for wave conditions input.
     /// </summary>
-    public abstract class WaveConditionsInputContext : ObservableWrappedObjectContextBase<WaveConditionsInput>
+    /// <typeparam name="T">The type of the wave conditions input.</typeparam>
+    public abstract class WaveConditionsInputContext<T> : ObservableWrappedObjectContextBase<T>
+        where T : WaveConditionsInput
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WaveConditionsInputContext"/> class.
+        /// Initializes a new instance of <see cref="WaveConditionsInputContext{T}"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
+        /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="calculation">The calculation having <paramref name="wrappedData"/> as input.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        protected WaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                             ICalculation<WaveConditionsInput> calculation,
+        protected WaveConditionsInputContext(T wrappedData,
+                                             ICalculation<T> calculation,
                                              IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
@@ -62,9 +64,9 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the calculation containing the wrapped <see cref="WaveConditionsInput"/>.
+        /// Gets the calculation containing the wrapped wave conditions input.
         /// </summary>
-        public ICalculation<WaveConditionsInput> Calculation { get; }
+        public ICalculation<T> Calculation { get; }
 
         /// <summary>
         /// Gets the assessment section the context belongs to.
