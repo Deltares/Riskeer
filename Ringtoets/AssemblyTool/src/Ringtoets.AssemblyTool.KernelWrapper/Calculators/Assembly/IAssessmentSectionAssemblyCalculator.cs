@@ -35,18 +35,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="input">The collection of failure mechanism assemblies to assemble for.</param>
         /// <param name="assemblyCategoriesInput">The object containing the input parameters for
         /// performing the assembly.</param>
+        /// <returns>An <see cref="AssessmentSectionAssembly"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        void AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
-                                       AssemblyCategoriesInput assemblyCategoriesInput);
+        AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
+                                                            AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
         /// Assembles the failure mechanisms for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The collection of failure mechanism assembly category groups
         /// to assemble for.</param>
+        /// <returns>An <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
-        void AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input);
+        AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input);
+
+        /// <summary>
+        /// Assembles the assessment section for the given inputs.
+        /// </summary>
+        /// <param name="failureMechanismsWithoutProbability">The assembly result for 
+        /// failure mechanisms without probability to assemble for.</param>
+        /// <param name="failureMechanismsWithProbability">The assembly result for 
+        /// failure mechanisms with probability to assemble for.</param>
+        /// <returns>An <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs when performing the assembly.</exception>
+        AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
+                                                                         AssessmentSectionAssembly failureMechanismsWithProbability);
     }
 }

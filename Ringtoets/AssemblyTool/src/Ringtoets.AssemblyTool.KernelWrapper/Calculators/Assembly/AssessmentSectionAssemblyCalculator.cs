@@ -52,16 +52,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public void AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
-                                              AssemblyCategoriesInput assemblyCategoriesInput)
+        public AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
+                                                                   AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
             {
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
-                kernel.AssembleAssessmentSectionWbi2B1(
+                AssessmentSectionAssemblyResult output = kernel.AssembleAssessmentSectionWbi2B1(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     input.Select(AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult).ToArray(),
                     false);
+
+                return AssessmentSectionAssemblyCreator.CreateAssessmentSectionAssembly(output);
             }
             catch (Exception e)
             {
@@ -69,14 +71,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public void AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input)
+        public AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input)
         {
             try
             {
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
-                kernel.AssembleAssessmentSectionWbi2A1(
+                EAssessmentGrade output = kernel.AssembleAssessmentSectionWbi2A1(
                     input.Select(AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult).ToArray(),
                     false);
+
+                return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(output);
+            }
+            catch (Exception e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
+
+        public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
+                                                                                AssessmentSectionAssembly failureMechanismsWithProbability)
+        {
+            try
+            {
+                IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
+                AssessmentSectionAssemblyResult output = kernel.AssembleAssessmentSectionWbi2C1(
+                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithoutProbability),
+                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithProbability));
+
+                return AssessmentSectionAssemblyCreator.CreateAssessmentSectionAssembly(output).Group;
             }
             catch (Exception e)
             {

@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 categoriesOutput => new AssessmentSectionAssemblyCategory(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
-                    ConvertAssessmentSectionCategoryGroup(categoriesOutput.Category))).ToArray();
+                    CreateAssessmentSectionAssemblyCategory(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Converts a <see cref="EAssessmentGrade"/> into a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+        /// Creates a <see cref="AssessmentSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.
         /// </summary>
         /// <param name="category">The <see cref="EAssessmentGrade"/> to convert.</param>
         /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
@@ -100,7 +100,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        private static AssessmentSectionAssemblyCategoryGroup ConvertAssessmentSectionCategoryGroup(EAssessmentGrade category)
+        public static AssessmentSectionAssemblyCategoryGroup CreateAssessmentSectionAssemblyCategory(EAssessmentGrade category)
         {
             if (!Enum.IsDefined(typeof(EAssessmentGrade), category))
             {

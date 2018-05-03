@@ -53,6 +53,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Assert
+            Assert.AreEqual(typeof(AssemblyResultTotalContext), info.DataType);
+            Assert.AreEqual(typeof(AssessmentSection), info.ViewDataType);
+        }
+
+        [Test]
         public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
             // Setup

@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
@@ -52,6 +53,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void TearDown()
         {
             plugin.Dispose();
+        }
+
+        [Test]
+        public void Initialized_Always_ExpectedPropertiesSet()
+        {
+            // Assert
+            Assert.AreEqual(typeof(NormContext), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismContribution), info.ViewDataType);
         }
 
         [Test]
