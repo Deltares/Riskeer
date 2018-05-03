@@ -486,7 +486,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             return (BorderedLabel) new ControlTester("GroupLabel").TheObject;
         }
 
-        private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism>
+        private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
         {
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
                 : base(failureMechanismSectionResults, failureMechanism)

@@ -34,7 +34,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="MicrostabilityFailureMechanismSectionResult"/>.
     /// </summary>
     public class MicrostabilityResultView : FailureMechanismResultView<MicrostabilityFailureMechanismSectionResult,
-        MicrostabilitySectionResultRow, MicrostabilityFailureMechanism>
+        MicrostabilitySectionResultRow,
+        MicrostabilityFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;

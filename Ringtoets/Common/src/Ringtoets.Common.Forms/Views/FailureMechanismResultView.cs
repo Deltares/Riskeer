@@ -38,26 +38,28 @@ namespace Ringtoets.Common.Forms.Views
     /// The view for the <see cref="FailureMechanismSectionResult"/>.
     /// </summary>
     /// <typeparam name="TSectionResult">The type of results which are presented by the 
-    /// <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.</typeparam>
+    /// <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl}"/>.</typeparam>
     /// <typeparam name="TSectionResultRow">The type of the row that is used to show the data.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism this view belongs to.</typeparam>
-    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView
+    /// <typeparam name="TAssemblyResultControl">The type of the assembly result control in this view.</typeparam>
+    public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl> : UserControl, IView
         where TSectionResult : FailureMechanismSectionResult
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
         where TFailureMechanism : IFailureMechanism
+        where TAssemblyResultControl : AssemblyResultControl, new()
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
-        private AssemblyResultControl failureMechanismAssemblyResultControl;
+        private TAssemblyResultControl failureMechanismAssemblyResultControl;
         private Action setFailureMechanismAssemblyResultAction;
 
         private IEnumerable<TSectionResultRow> sectionResultRows;
         private bool rowUpdating;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl}"/>.
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
@@ -76,7 +78,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             InitializeComponent();
-            InitializeFailureMechanismAssemblyComponents();
+            InitializeInfoIcon();
 
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
@@ -118,7 +120,7 @@ namespace Ringtoets.Common.Forms.Views
 
         /// <summary>
         /// Creates a display object for <paramref name="sectionResult"/> which is added to the
-        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism}"/>.
+        /// <see cref="DataGridView"/> on the <see cref="FailureMechanismResultView{TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl}"/>.
         /// </summary>
         /// <param name="sectionResult">The <typeparamref name="TSectionResult"/> for which to create a
         /// display object.</param>
@@ -144,9 +146,38 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
+        /// Adds the columns to the view.
+        /// </summary>
+        protected abstract void AddDataGridColumns();
+
+        /// <summary>
+        /// Sets the correct failure mechanism assembly result control on the view.
+        /// </summary>
+        /// <param name="control">The control to set on the view.</param>
+        /// <param name="setResultAction">The action to perform to update the data of the control.</param>
+        protected void SetAssemblyResultControl(TAssemblyResultControl control,
+                                                Action setResultAction)
+        {
+            failureMechanismAssemblyResultControl = new TAssemblyResultControl();
+            setFailureMechanismAssemblyResultAction = setResultAction;
+            TableLayoutPanel.Controls.Add(failureMechanismAssemblyResultControl, 1, 0);
+        }
+
+        protected abstract void UpdateAssemblyResultControl();
+
+        /// <summary>
+        /// Updates all controls in the view.
+        /// </summary>
+        protected void UpdateView()
+        {
+            UpdateDataGridViewDataSource();
+            UpdateFailureMechanismAssemblyResultControl();
+        }
+
+        /// <summary>
         /// Updates the data source of the data grid view with the current known failure mechanism section results.
         /// </summary>
-        protected void UpdateDataGridViewDataSource()
+        private void UpdateDataGridViewDataSource()
         {
             DataGridViewControl.EndEdit();
 
@@ -165,33 +196,6 @@ namespace Ringtoets.Common.Forms.Views
             });
         }
 
-        /// <summary>
-        /// Adds the columns to the view.
-        /// </summary>
-        protected abstract void AddDataGridColumns();
-
-        /// <summary>
-        /// Sets the correct failure mechanism assembly result control on the view.
-        /// </summary>
-        /// <param name="control">The control to set on the view.</param>
-        /// <param name="setResultAction">The action to perform to update the data of the control.</param>
-        protected void SetAssemblyResultControl(AssemblyResultControl control,
-                                                                Action setResultAction)
-        {
-            failureMechanismAssemblyResultControl = control;
-            setFailureMechanismAssemblyResultAction = setResultAction;
-            TableLayoutPanel.Controls.Add(failureMechanismAssemblyResultControl, 1, 0);
-        }
-
-        /// <summary>
-        /// Updates all controls in the view.
-        /// </summary>
-        protected void UpdateView()
-        {
-            UpdateDataGridViewDataSource();
-            UpdateFailureMechanismAssemblyResultControl();
-        }
-
         private void UpdateFailureMechanismAssemblyResultControl()
         {
             if (failureMechanismAssemblyResultControl != null && setFailureMechanismAssemblyResultAction != null)
@@ -208,11 +212,10 @@ namespace Ringtoets.Common.Forms.Views
             }
         }
 
-        private void InitializeFailureMechanismAssemblyComponents()
+        private void InitializeInfoIcon()
         {
             infoIcon.BackgroundImage = CoreCommonGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
-            failureMechanismAssemblyLabel.Text = Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;
         }
 
         private void RemoveSectionResultRowEvents()

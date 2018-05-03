@@ -34,7 +34,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
     public class WaterPressureAsphaltCoverResultView : FailureMechanismResultView<WaterPressureAsphaltCoverFailureMechanismSectionResult,
-        WaterPressureAsphaltCoverSectionResultRow, WaterPressureAsphaltCoverFailureMechanism>
+        WaterPressureAsphaltCoverSectionResultRow,
+        WaterPressureAsphaltCoverFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int tailorMadeAssessmentResultIndex = 2;

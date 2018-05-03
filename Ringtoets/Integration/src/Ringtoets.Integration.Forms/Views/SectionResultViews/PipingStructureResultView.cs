@@ -34,7 +34,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="PipingStructureFailureMechanismSectionResult"/>.
     /// </summary>
     public class PipingStructureResultView : FailureMechanismResultView<PipingStructureFailureMechanismSectionResult,
-        PipingStructureSectionResultRow, PipingStructureFailureMechanism>
+        PipingStructureSectionResultRow,
+        PipingStructureFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;

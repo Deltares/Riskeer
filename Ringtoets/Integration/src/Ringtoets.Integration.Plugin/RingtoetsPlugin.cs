@@ -51,6 +51,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -446,7 +447,8 @@ namespace Ringtoets.Integration.Plugin
                 GrassCoverSlipOffInwardsFailureMechanism,
                 GrassCoverSlipOffInwardsFailureMechanismSectionResult,
                 GrassCoverSlipOffInwardsResultView,
-                GrassCoverSlipOffInwardsSectionResultRow>(
+                GrassCoverSlipOffInwardsSectionResultRow,
+                FailureMechanismAssemblyCategoryGroupControl>(
                 context => new GrassCoverSlipOffInwardsResultView(
                     context.WrappedData,
                     (GrassCoverSlipOffInwardsFailureMechanism) context.FailureMechanism));
@@ -455,7 +457,8 @@ namespace Ringtoets.Integration.Plugin
                 GrassCoverSlipOffOutwardsFailureMechanism,
                 GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
                 GrassCoverSlipOffOutwardsResultView,
-                GrassCoverSlipOffOutwardsSectionResultRow>(
+                GrassCoverSlipOffOutwardsSectionResultRow,
+                FailureMechanismAssemblyCategoryGroupControl>(
                 context => new GrassCoverSlipOffOutwardsResultView(
                     context.WrappedData,
                     (GrassCoverSlipOffOutwardsFailureMechanism) context.FailureMechanism));
@@ -464,7 +467,8 @@ namespace Ringtoets.Integration.Plugin
                 MicrostabilityFailureMechanism,
                 MicrostabilityFailureMechanismSectionResult,
                 MicrostabilityResultView,
-                MicrostabilitySectionResultRow>(
+                MicrostabilitySectionResultRow,
+                FailureMechanismAssemblyCategoryGroupControl>(
                 context => new MicrostabilityResultView(
                     context.WrappedData,
                     (MicrostabilityFailureMechanism) context.FailureMechanism));
@@ -473,7 +477,8 @@ namespace Ringtoets.Integration.Plugin
                 PipingStructureFailureMechanism,
                 PipingStructureFailureMechanismSectionResult,
                 PipingStructureResultView,
-                PipingStructureSectionResultRow>(
+                PipingStructureSectionResultRow,
+                FailureMechanismAssemblyCategoryGroupControl>(
                 context => new PipingStructureResultView(
                     context.WrappedData,
                     (PipingStructureFailureMechanism) context.FailureMechanism));
@@ -482,7 +487,8 @@ namespace Ringtoets.Integration.Plugin
                 TechnicalInnovationFailureMechanism,
                 TechnicalInnovationFailureMechanismSectionResult,
                 TechnicalInnovationResultView,
-                TechnicalInnovationSectionResultRow>(
+                TechnicalInnovationSectionResultRow,
+                FailureMechanismAssemblyCategoryGroupControl>(
                 context => new TechnicalInnovationResultView(
                     context.WrappedData,
                     (TechnicalInnovationFailureMechanism) context.FailureMechanism));
@@ -491,7 +497,8 @@ namespace Ringtoets.Integration.Plugin
                 StrengthStabilityLengthwiseConstructionFailureMechanism,
                 StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
                 StrengthStabilityLengthwiseConstructionResultView,
-                StrengthStabilityLengthwiseConstructionSectionResultRow>(
+                StrengthStabilityLengthwiseConstructionSectionResultRow,
+                FailureMechanismAssemblyCategoryGroupControl>(
                 context => new StrengthStabilityLengthwiseConstructionResultView(
                     context.WrappedData,
                     (StrengthStabilityLengthwiseConstructionFailureMechanism) context.FailureMechanism));
@@ -500,7 +507,8 @@ namespace Ringtoets.Integration.Plugin
                 WaterPressureAsphaltCoverFailureMechanism,
                 WaterPressureAsphaltCoverFailureMechanismSectionResult,
                 WaterPressureAsphaltCoverResultView,
-                WaterPressureAsphaltCoverSectionResultRow>(
+                WaterPressureAsphaltCoverSectionResultRow,
+                FailureMechanismAssemblyCategoryGroupControl>(
                 context => new WaterPressureAsphaltCoverResultView(
                     context.WrappedData,
                     (WaterPressureAsphaltCoverFailureMechanism) context.FailureMechanism));
@@ -515,7 +523,8 @@ namespace Ringtoets.Integration.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData<MacroStabilityOutwardsFailureMechanism,
                     MacroStabilityOutwardsFailureMechanismSectionResult,
                     MacroStabilityOutwardsResultView,
-                    MacroStabilityOutwardsSectionResultRow>,
+                    MacroStabilityOutwardsSectionResultRow,
+                    FailureMechanismAssemblyCategoryGroupControl>,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new MacroStabilityOutwardsResultView(
                     context.WrappedData,
@@ -938,12 +947,13 @@ namespace Ringtoets.Integration.Plugin
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<
-            TFailureMechanism, TResult, TView, TResultRow>(
+            TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(
             Func<FailureMechanismSectionResultContext<TResult>, TView> createInstanceFunc)
             where TResult : FailureMechanismSectionResult
-            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism>
+            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
             where TResultRow : FailureMechanismSectionResultRow<TResult>
+            where TAssemblyResultControl : AssemblyResultControl, new()
         {
             return new ViewInfo<
                 FailureMechanismSectionResultContext<TResult>,
@@ -952,7 +962,7 @@ namespace Ringtoets.Integration.Plugin
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
-                CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow>,
+                CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = createInstanceFunc
             };
@@ -1079,11 +1089,12 @@ namespace Ringtoets.Integration.Plugin
 
         #region FailureMechanismResults ViewInfo
 
-        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow>(TView view, object dataToCloseFor)
-            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism>
+        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TResult, TView, TResultRow, TAssemblyResultControl>(TView view, object dataToCloseFor)
+            where TView : FailureMechanismResultView<TResult, TResultRow, TFailureMechanism, TAssemblyResultControl>
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TResult>
             where TResult : FailureMechanismSectionResult
             where TResultRow : FailureMechanismSectionResultRow<TResult>
+            where TAssemblyResultControl : AssemblyResultControl, new()
         {
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as IFailureMechanism;

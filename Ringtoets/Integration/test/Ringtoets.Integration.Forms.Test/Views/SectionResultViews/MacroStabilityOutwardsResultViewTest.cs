@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -85,7 +86,9 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
-                    MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>>(view);
+                    MacroStabilityOutwardsSectionResultRow,
+                    MacroStabilityOutwardsFailureMechanism,
+                    FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
                 mocks.VerifyAll();

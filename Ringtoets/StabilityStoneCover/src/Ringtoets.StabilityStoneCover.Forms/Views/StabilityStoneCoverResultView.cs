@@ -31,7 +31,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     /// The view for a collection of <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
     /// </summary>
     public class StabilityStoneCoverResultView : FailureMechanismResultView<StabilityStoneCoverFailureMechanismSectionResult,
-        StabilityStoneCoverSectionResultRow, StabilityStoneCoverFailureMechanism>
+        StabilityStoneCoverSectionResultRow,
+        StabilityStoneCoverFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultForFactorizedSignalingNormIndex = 2;

@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="TSectionResult">The type of the section results shown in the view.</typeparam>
     /// <typeparam name="TResultRow">The type of the presentation objects used in the view.</typeparam>
     public abstract class FailureMechanismAssemblyCategoryGroupControlTester<TView, TFailureMechanism, TSectionResult, TResultRow>
-        where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism>
+        where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, new()
         where TSectionResult : FailureMechanismSectionResult
         where TResultRow : FailureMechanismSectionResultRow<TSectionResult>

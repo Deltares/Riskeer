@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -62,7 +63,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (var view = new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult, DuneErosionSectionResultRow, DuneErosionFailureMechanism>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<DuneErosionFailureMechanismSectionResult,
+                    DuneErosionSectionResultRow,
+                    DuneErosionFailureMechanism,
+                    FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
@@ -170,7 +174,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             protected override DuneErosionFailureMechanismResultView CreateResultView(DuneErosionFailureMechanism failureMechanism)
             {
                 return new DuneErosionFailureMechanismResultView(failureMechanism.SectionResults,
-                                                                            failureMechanism);
+                                                                 failureMechanism);
             }
         }
     }

@@ -34,7 +34,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
     /// </summary>
     public class TechnicalInnovationResultView : FailureMechanismResultView<TechnicalInnovationFailureMechanismSectionResult,
-        TechnicalInnovationSectionResultRow, TechnicalInnovationFailureMechanism>
+        TechnicalInnovationSectionResultRow,
+        TechnicalInnovationFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int tailorMadeAssessmentResultIndex = 2;

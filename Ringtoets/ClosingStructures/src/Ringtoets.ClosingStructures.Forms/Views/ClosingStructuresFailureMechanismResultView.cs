@@ -36,7 +36,9 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/> for closing structures.
     /// </summary>
     public class ClosingStructuresFailureMechanismResultView : FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult,
-        ClosingStructuresFailureMechanismSectionResultRow, ClosingStructuresFailureMechanism>
+        ClosingStructuresFailureMechanismSectionResultRow,
+        ClosingStructuresFailureMechanism,
+        FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;

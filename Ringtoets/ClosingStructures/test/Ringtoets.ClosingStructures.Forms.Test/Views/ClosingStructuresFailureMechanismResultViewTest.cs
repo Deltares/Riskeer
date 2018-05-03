@@ -31,6 +31,7 @@ using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -85,7 +86,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult,
                     ClosingStructuresFailureMechanismSectionResultRow,
-                    ClosingStructuresFailureMechanism>>(view);
+                    ClosingStructuresFailureMechanism,
+                    FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

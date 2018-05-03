@@ -31,7 +31,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// The view for a collection of <see cref="DuneErosionFailureMechanismSectionResult"/>.
     /// </summary>
     public class DuneErosionFailureMechanismResultView : FailureMechanismResultView
-        <DuneErosionFailureMechanismSectionResult, DuneErosionSectionResultRow, DuneErosionFailureMechanism>
+    <DuneErosionFailureMechanismSectionResult,
+        DuneErosionSectionResultRow,
+        DuneErosionFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultForFactorizedSignalingNormIndex = 2;

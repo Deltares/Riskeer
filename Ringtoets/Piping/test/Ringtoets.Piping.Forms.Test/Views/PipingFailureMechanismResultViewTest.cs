@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -98,7 +99,10 @@ namespace Ringtoets.Piping.Forms.Test.Views
             using (var view = new PipingFailureMechanismResultView(pipingFailureMechanism.SectionResults, pipingFailureMechanism, assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult, PipingFailureMechanismSectionResultRow, PipingFailureMechanism>>(view);
+                Assert.IsInstanceOf<FailureMechanismResultView<PipingFailureMechanismSectionResult,
+                    PipingFailureMechanismSectionResultRow,
+                    PipingFailureMechanism,
+                    FailureMechanismAssemblyControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(pipingFailureMechanism, view.FailureMechanism);
             }

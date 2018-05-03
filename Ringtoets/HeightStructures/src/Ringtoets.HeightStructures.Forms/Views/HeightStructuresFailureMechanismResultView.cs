@@ -36,7 +36,10 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// The view for the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
     /// </summary>
     public class HeightStructuresFailureMechanismResultView
-        : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult, HeightStructuresFailureMechanismSectionResultRow, HeightStructuresFailureMechanism>
+        : FailureMechanismResultView<HeightStructuresFailureMechanismSectionResult,
+            HeightStructuresFailureMechanismSectionResultRow,
+            HeightStructuresFailureMechanism,
+            FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;

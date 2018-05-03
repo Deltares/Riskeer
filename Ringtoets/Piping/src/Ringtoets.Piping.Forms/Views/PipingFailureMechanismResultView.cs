@@ -35,7 +35,9 @@ namespace Ringtoets.Piping.Forms.Views
     /// The view for the <see cref="PipingFailureMechanismSectionResult"/>.
     /// </summary>
     public class PipingFailureMechanismResultView : FailureMechanismResultView<PipingFailureMechanismSectionResult,
-        PipingFailureMechanismSectionResultRow, PipingFailureMechanism>
+        PipingFailureMechanismSectionResultRow,
+        PipingFailureMechanism,
+        FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;

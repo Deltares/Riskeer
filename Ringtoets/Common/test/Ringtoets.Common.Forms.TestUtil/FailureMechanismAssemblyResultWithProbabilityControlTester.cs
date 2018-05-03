@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="TCalculation">The type of calculations to get the input from.</typeparam>
     /// <typeparam name="TCalculationInput">The type of the  input of a calculation.</typeparam>
     public abstract class FailureMechanismAssemblyControlTester<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation, TCalculationInput>
-        where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism>
+        where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism, new()
         where TSectionResult : FailureMechanismSectionResult
         where TResultRow : FailureMechanismSectionResultRow<TSectionResult>

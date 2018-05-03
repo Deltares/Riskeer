@@ -34,7 +34,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public class GrassCoverSlipOffOutwardsResultView : FailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanismSectionResult,
-        GrassCoverSlipOffOutwardsSectionResultRow, GrassCoverSlipOffOutwardsFailureMechanism>
+        GrassCoverSlipOffOutwardsSectionResultRow,
+        GrassCoverSlipOffOutwardsFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;

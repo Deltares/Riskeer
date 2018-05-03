@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Primitives;
@@ -63,7 +64,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult,
-                    WaveImpactAsphaltCoverFailureMechanismSectionResultRow, WaveImpactAsphaltCoverFailureMechanism>>(view);
+                    WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
+                    WaveImpactAsphaltCoverFailureMechanism,
+                    FailureMechanismAssemblyCategoryGroupControl>>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }

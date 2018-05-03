@@ -37,7 +37,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// for stability point structures.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult,
-        StabilityPointStructuresFailureMechanismSectionResultRow, StabilityPointStructuresFailureMechanism>
+        StabilityPointStructuresFailureMechanismSectionResultRow,
+        StabilityPointStructuresFailureMechanism,
+        FailureMechanismAssemblyControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;

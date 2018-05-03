@@ -36,7 +36,8 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     public class StrengthStabilityLengthwiseConstructionResultView
         : FailureMechanismResultView<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,
             StrengthStabilityLengthwiseConstructionSectionResultRow,
-            StrengthStabilityLengthwiseConstructionFailureMechanism>
+            StrengthStabilityLengthwiseConstructionFailureMechanism,
+            FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int tailorMadeAssessmentResultIndex = 2;

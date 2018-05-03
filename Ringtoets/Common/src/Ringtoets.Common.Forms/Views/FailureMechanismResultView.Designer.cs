@@ -21,7 +21,7 @@
 
 namespace Ringtoets.Common.Forms.Views
 {
-    partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism>
+    partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism, TAssemblyResultControl>
     {
         /// <summary> 
         /// Required designer variable.
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Forms.Views
             this.failureMechanismAssemblyLabel.Name = "failureMechanismAssemblyLabel";
             this.failureMechanismAssemblyLabel.Size = new System.Drawing.Size(57, 30);
             this.failureMechanismAssemblyLabel.TabIndex = 2;
-            this.failureMechanismAssemblyLabel.Text = "Label Text";
+            this.failureMechanismAssemblyLabel.Text = global::Ringtoets.Common.Forms.Properties.Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;;
             this.failureMechanismAssemblyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // infoIcon

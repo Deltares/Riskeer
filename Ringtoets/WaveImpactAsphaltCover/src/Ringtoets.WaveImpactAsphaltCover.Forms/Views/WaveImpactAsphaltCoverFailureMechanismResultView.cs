@@ -31,7 +31,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     /// The view for a collection of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismResultView : FailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanismSectionResult,
-        WaveImpactAsphaltCoverFailureMechanismSectionResultRow, WaveImpactAsphaltCoverFailureMechanism>
+        WaveImpactAsphaltCoverFailureMechanismSectionResultRow,
+        WaveImpactAsphaltCoverFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultForFactorizedSignalingNormIndex = 2;

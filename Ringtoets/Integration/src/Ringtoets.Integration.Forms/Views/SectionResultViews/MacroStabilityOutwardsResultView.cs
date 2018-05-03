@@ -36,7 +36,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
     /// The view for a collection of <see cref="MacroStabilityOutwardsFailureMechanismSectionResult"/>.
     /// </summary>
     public class MacroStabilityOutwardsResultView : FailureMechanismResultView<MacroStabilityOutwardsFailureMechanismSectionResult,
-        MacroStabilityOutwardsSectionResultRow, MacroStabilityOutwardsFailureMechanism>
+        MacroStabilityOutwardsSectionResultRow,
+        MacroStabilityOutwardsFailureMechanism,
+        FailureMechanismAssemblyCategoryGroupControl>
     {
         private const int simpleAssessmentResultIndex = 1;
         private const int detailedAssessmentResultIndex = 2;
