@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Data.Test
     public class AssessmentSectionAssemblyFactoryTest
     {
         [Test]
-        public void AssemblyFailureMechanismsWithProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleFailureMechanismsWithProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(null);
@@ -74,16 +74,9 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
                 Assert.AreEqual(failureMechanismContribution.SignalingNorm, assessmentSectionAssemblyCalculator.SignalingNormInput);
 
-                IEnumerable<IFailureMechanism> expectedFailureMechanisms = assessmentSection.GetFailureMechanisms().Where(fm => fm.Group == 1 || fm.Group == 2);
-
-                IEnumerable<FailureMechanismAssembly> failureMechanismAssemblyInput = assessmentSectionAssemblyCalculator.FailureMechanismAssemblyInput;
-                Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
-                foreach (FailureMechanismAssembly failureMechanismAssembly in failureMechanismAssemblyInput)
-                {
-                    FailureMechanismAssembly expectedFailureMechanismAssembly = failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput;
-                    Assert.AreEqual(expectedFailureMechanismAssembly.Group, failureMechanismAssembly.Group);
-                    Assert.AreEqual(expectedFailureMechanismAssembly.Probability, failureMechanismAssembly.Probability);
-                }
+                AssertGroup1And2FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                                                       failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput,
+                                                       assessmentSectionAssemblyCalculator);
             }
         }
 
@@ -160,12 +153,9 @@ namespace Ringtoets.Integration.Data.Test
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
 
                 // Assert
-                IEnumerable<IFailureMechanism> expectedFailureMechanisms = assessmentSection.GetFailureMechanisms().Where(fm => fm.Group == 3 || fm.Group == 4);
-
-                IEnumerable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyInput = 
-                    assessmentSectionAssemblyCalculator.FailureMechanismAssemblyCategoryGroupInput;
-                Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
-                Assert.IsTrue(failureMechanismAssemblyInput.All(i => i == failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput));
+                AssertGroup3And4FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                                                       failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
+                                                       assessmentSectionAssemblyCalculator);
             }
         }
 
@@ -209,6 +199,122 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_WithAssessmentSection_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(21);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.AssessmentSectionAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                                                    random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+
+                // Call
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+
+                // Assert
+                AssertGroup1And2FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                                                       failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput,
+                                                       assessmentSectionAssemblyCalculator);
+
+                AssertGroup3And4FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                                                       failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
+                                                       assessmentSectionAssemblyCalculator);
+
+                Assert.AreSame(assessmentSectionAssemblyCalculator.AssessmentSectionAssemblyOutput,
+                               assessmentSectionAssemblyCalculator.FailureMechanismsWithProbabilityInput);
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput,
+                                assessmentSectionAssemblyCalculator.FailureMechanismsWithoutProbabilityInput);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.AssessmentSectionAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                           random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                calculator.AssembleAssessmentSectionOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+
+                // Call
+                AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+
+                // Assert
+                Assert.AreEqual(calculator.AssembleAssessmentSectionOutput, output);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        private static void AssertGroup1And2FailureMechanismInputs(IEnumerable<IFailureMechanism> failureMechanisms,
+                                                                   FailureMechanismAssembly expectedFailureMechanismAssembly,
+                                                                   AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator)
+        {
+            IEnumerable<IFailureMechanism> expectedFailureMechanisms = failureMechanisms.Where(fm => fm.Group == 1 || fm.Group == 2);
+            IEnumerable<FailureMechanismAssembly> failureMechanismAssemblyInput = assessmentSectionAssemblyCalculator.FailureMechanismAssemblyInput;
+            Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
+            foreach (FailureMechanismAssembly failureMechanismAssembly in failureMechanismAssemblyInput)
+            {
+                Assert.AreEqual(expectedFailureMechanismAssembly.Group, failureMechanismAssembly.Group);
+                Assert.AreEqual(expectedFailureMechanismAssembly.Probability, failureMechanismAssembly.Probability);
+            }
+        }
+
+        private static void AssertGroup3And4FailureMechanismInputs(IEnumerable<IFailureMechanism> failureMechanisms,
+                                                                   FailureMechanismAssemblyCategoryGroup expectedAssemblyCategoryGroup,
+                                                                   AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator)
+        {
+            IEnumerable<IFailureMechanism> expectedFailureMechanisms = failureMechanisms.Where(fm => fm.Group == 3 || fm.Group == 4);
+            IEnumerable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyInput =
+                assessmentSectionAssemblyCalculator.FailureMechanismAssemblyCategoryGroupInput;
+            Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
+            Assert.IsTrue(failureMechanismAssemblyInput.All(i => i == expectedAssemblyCategoryGroup));
         }
 
         private static AssessmentSection CreateAssessmentSection()

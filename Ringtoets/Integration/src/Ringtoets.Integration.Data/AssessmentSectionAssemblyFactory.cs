@@ -105,6 +105,35 @@ namespace Ringtoets.Integration.Data
             }
         }
 
+        /// <summary>
+        /// Assembles the assessment section.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
+        /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/> cannot be created.</exception>
+        public static AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            try
+            {
+                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssessmentSectionAssemblyCalculator calculator =
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                return calculator.AssembleAssessmentSection(AssembleFailureMechanismsWithoutProbability(assessmentSection),
+                                                            AssembleFailureMechanismsWithProbability(assessmentSection));
+            }
+            catch (AssessmentSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
         private static IEnumerable<FailureMechanismAssembly> GetFailureMechanismWithProbabilityAssemblyResults(AssessmentSection assessmentSection)
         {
             return new[]
