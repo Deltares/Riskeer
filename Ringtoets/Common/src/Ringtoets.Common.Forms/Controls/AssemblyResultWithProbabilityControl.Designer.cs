@@ -77,6 +77,7 @@ namespace Ringtoets.Common.Forms.Controls
             this.ProbabilityLabel.Margin = new System.Windows.Forms.Padding(3);
             this.ProbabilityLabel.MinimumSize = new System.Drawing.Size(50, 2);
             this.ProbabilityLabel.Name = "ProbabilityLabel";
+            this.ProbabilityLabel.BackColor = System.Drawing.Color.White;
             this.ProbabilityLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.ProbabilityLabel.Size = new System.Drawing.Size(50, 790);
             this.ProbabilityLabel.TabIndex = 0;

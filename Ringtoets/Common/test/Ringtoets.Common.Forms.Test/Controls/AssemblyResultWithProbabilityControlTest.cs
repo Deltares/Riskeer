@@ -65,6 +65,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
             Assert.IsTrue(probabilityLabel.AutoSize);
             Assert.AreEqual(DockStyle.Left, probabilityLabel.Dock);
             Assert.AreEqual(new Padding(5, 0, 5, 0), probabilityLabel.Padding);
+            Assert.AreEqual(Color.White, probabilityLabel.BackColor);
         }
 
         [Test]
