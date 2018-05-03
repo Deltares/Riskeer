@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class TechnicalInnovationFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class TechnicalInnovationFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             TechnicalInnovationResultView,
             TechnicalInnovationFailureMechanism,
             TechnicalInnovationFailureMechanismSectionResult,

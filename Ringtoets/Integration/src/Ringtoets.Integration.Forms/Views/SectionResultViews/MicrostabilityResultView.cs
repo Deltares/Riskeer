@@ -53,10 +53,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                                         MicrostabilityFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
-            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
-            SetFailureMechanismAssemblyResultControl(
-                failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
+            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
+            SetAssemblyResultControl(
+                assemblyResultControl,
+                () => assemblyResultControl.SetAssemblyResult(MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
         }
 
         protected override MicrostabilitySectionResultRow CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult)

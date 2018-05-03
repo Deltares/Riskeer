@@ -54,10 +54,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                                              StabilityStoneCoverFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
-            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
-            SetFailureMechanismAssemblyResultControl(
-                failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
+            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
+            SetAssemblyResultControl(
+                assemblyResultControl,
+                () => assemblyResultControl.SetAssemblyResult(StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
         }
 
         protected override StabilityStoneCoverSectionResultRow CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)

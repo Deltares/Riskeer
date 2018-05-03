@@ -53,10 +53,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                                                   GrassCoverSlipOffInwardsFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
-            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
-            SetFailureMechanismAssemblyResultControl(
-                failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
+            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
+            SetAssemblyResultControl(
+                assemblyResultControl,
+                () => assemblyResultControl.SetAssemblyResult(GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
         }
 
         protected override GrassCoverSlipOffInwardsSectionResultRow CreateFailureMechanismSectionResultRow(

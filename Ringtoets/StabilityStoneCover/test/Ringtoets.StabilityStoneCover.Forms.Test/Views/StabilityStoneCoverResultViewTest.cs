@@ -163,7 +163,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         }
 
         [TestFixture]
-        public class StabilityStoneCoverFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class StabilityStoneCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             StabilityStoneCoverResultView,
             StabilityStoneCoverFailureMechanism,
             StabilityStoneCoverFailureMechanismSectionResult,

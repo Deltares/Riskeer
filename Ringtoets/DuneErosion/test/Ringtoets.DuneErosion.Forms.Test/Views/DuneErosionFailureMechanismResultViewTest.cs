@@ -161,7 +161,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [TestFixture]
-        public class DuneErosionFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class DuneErosionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             DuneErosionFailureMechanismResultView,
             DuneErosionFailureMechanism,
             DuneErosionFailureMechanismSectionResult,

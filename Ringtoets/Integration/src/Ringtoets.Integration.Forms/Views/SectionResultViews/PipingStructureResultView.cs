@@ -53,10 +53,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                                          PipingStructureFailureMechanism failureMechanism)
             : base(failureMechanismSectionResults, failureMechanism)
         {
-            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
-            SetFailureMechanismAssemblyResultControl(
-                failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
+            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
+            SetAssemblyResultControl(
+                assemblyResultControl,
+                () => assemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
         }
 
         protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)

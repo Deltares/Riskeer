@@ -68,10 +68,10 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 
             this.assessmentSection = assessmentSection;
 
-            var failureMechanismAssemblyResultWithProbabilityControl = new FailureMechanismAssemblyResultControl();
-            SetFailureMechanismAssemblyResultControl(
-                failureMechanismAssemblyResultWithProbabilityControl,
-                () => failureMechanismAssemblyResultWithProbabilityControl.SetAssemblyResult(MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
+            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
+            SetAssemblyResultControl(
+                assemblyResultControl,
+                () => assemblyResultControl.SetAssemblyResult(MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
         }
 
         protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)

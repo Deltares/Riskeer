@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="control">The control to set on the view.</param>
         /// <param name="setResultAction">The action to perform to update the data of the control.</param>
-        protected void SetFailureMechanismAssemblyResultControl(AssemblyResultControl control,
+        protected void SetAssemblyResultControl(AssemblyResultControl control,
                                                                 Action setResultAction)
         {
             failureMechanismAssemblyResultControl = control;

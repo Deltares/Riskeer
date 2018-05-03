@@ -164,7 +164,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [TestFixture]
-        public class GrassCoverErosionOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class GrassCoverErosionOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             GrassCoverErosionOutwardsFailureMechanismResultView,
             GrassCoverErosionOutwardsFailureMechanism,
             GrassCoverErosionOutwardsFailureMechanismSectionResult,

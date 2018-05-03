@@ -159,7 +159,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class PipingStructureFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class PipingStructureFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             PipingStructureResultView,
             PipingStructureFailureMechanism,
             PipingStructureFailureMechanismSectionResult,

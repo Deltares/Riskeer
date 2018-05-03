@@ -202,7 +202,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class MacroStabilityOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class MacroStabilityOutwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             MacroStabilityOutwardsResultView,
             MacroStabilityOutwardsFailureMechanism,
             MacroStabilityOutwardsFailureMechanismSectionResult,

@@ -202,7 +202,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [TestFixture]
-        public class ClosingStructuresFailureMechanismAssemblyResultWithProbabilityControlTest : FailureMechanismAssemblyResultWithProbabilityControlTester<
+        public class ClosingStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyControlTester<
             ClosingStructuresFailureMechanismResultView,
             ClosingStructuresFailureMechanism,
             ClosingStructuresFailureMechanismSectionResult,

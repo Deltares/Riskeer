@@ -491,9 +491,9 @@ namespace Ringtoets.Common.Forms.Test.Views
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
                 : base(failureMechanismSectionResults, failureMechanism)
             {
-                var failureMechanismAssemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
-                SetFailureMechanismAssemblyResultControl(
-                    failureMechanismAssemblyResultControl,
+                var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
+                SetAssemblyResultControl(
+                    assemblyResultControl,
                     () =>
                     {
                         if (ThrowExceptionOnCalculate)
@@ -501,7 +501,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                             throw new Exception("Message");
                         }
 
-                        failureMechanismAssemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
+                        assemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
                         AssemblyResultUpdated = true;
                     });
             }

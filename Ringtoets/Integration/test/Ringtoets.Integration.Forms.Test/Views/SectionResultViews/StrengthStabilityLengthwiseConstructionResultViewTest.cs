@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class StrengthStabilityLengthwiseConstructionFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class StrengthStabilityLengthwiseConstructionFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             StrengthStabilityLengthwiseConstructionResultView,
             StrengthStabilityLengthwiseConstructionFailureMechanism,
             StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult,

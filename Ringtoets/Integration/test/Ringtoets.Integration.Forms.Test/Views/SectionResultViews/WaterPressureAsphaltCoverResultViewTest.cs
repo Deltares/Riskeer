@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class WaterPressureAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyResultControlTester<
+        public class WaterPressureAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
             WaterPressureAsphaltCoverResultView,
             WaterPressureAsphaltCoverFailureMechanism,
             WaterPressureAsphaltCoverFailureMechanismSectionResult,

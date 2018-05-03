@@ -204,7 +204,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         }
 
         [TestFixture]
-        public class StabilityPointStructuresFailureMechanismAssemblyResultWithProbabilityControlTest : FailureMechanismAssemblyResultWithProbabilityControlTester<
+        public class StabilityPointStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyControlTester<
             StabilityPointStructuresFailureMechanismResultView,
             StabilityPointStructuresFailureMechanism,
             StabilityPointStructuresFailureMechanismSectionResult,
