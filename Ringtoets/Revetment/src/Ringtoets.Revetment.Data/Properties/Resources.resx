@@ -132,4 +132,16 @@
   <data name="WaveConditionsInputStepSize_Two" xml:space="preserve">
     <value>2.0</value>
   </data>
+  <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>C-&gt;D</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName" xml:space="preserve">
+    <value>A+-&gt;A</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>B-&gt;C</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
+    <value>A-&gt;B</value>
+  </data>
 </root>

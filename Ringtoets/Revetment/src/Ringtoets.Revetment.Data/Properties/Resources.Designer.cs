@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.Data.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -78,6 +78,42 @@ namespace Ringtoets.Revetment.Data.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to C-&gt;D.
+        /// </summary>
+        internal static string AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A+-&gt;A.
+        /// </summary>
+        internal static string AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B-&gt;C.
+        /// </summary>
+        internal static string AssessmentSectionCategoryType_LowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A-&gt;B.
+        /// </summary>
+        internal static string AssessmentSectionCategoryType_SignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionCategoryType_SignalingNorm_DisplayName", resourceCulture);
             }
         }
         

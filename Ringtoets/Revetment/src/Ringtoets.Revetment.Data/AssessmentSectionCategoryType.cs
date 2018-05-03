@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Ringtoets.Revetment.Data.Properties;
+
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>
@@ -26,9 +29,16 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public enum AssessmentSectionCategoryType
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName))]
         FactorizedSignalingNorm,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_SignalingNorm_DisplayName))]
         SignalingNorm,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName))]
         LowerLimitNorm,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName))]
         FactorizedLowerLimitNorm
     }
 }
