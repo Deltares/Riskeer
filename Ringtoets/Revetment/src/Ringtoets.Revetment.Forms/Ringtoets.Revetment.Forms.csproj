@@ -13,6 +13,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PropertyClasses\AssessmentSectionCategoryWaveConditionsInputContextProperties.cs" />
     <Compile Include="Views\IWaveConditionsInputViewStyle.cs" />
     <Compile Include="PresentationObjects\WaveConditionsInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
