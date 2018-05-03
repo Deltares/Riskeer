@@ -53,13 +53,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         }
 
         public AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
-                                                                   AssemblyCategoriesInput assemblyCategoriesInput)
+                                                                   double signalingNorm,
+                                                                   double lowerLimitNorm)
         {
             try
             {
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
                 AssessmentSectionAssemblyResult output = kernel.AssembleAssessmentSectionWbi2B1(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                    new AssessmentSection(1, signalingNorm, lowerLimitNorm),
                     input.Select(AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult).ToArray(),
                     false);
 

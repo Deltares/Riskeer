@@ -70,6 +70,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
+            double signalingNorm = random.NextDouble(0, 0.5);
+            double lowerLimitNorm = random.NextDouble(0.5, 1);
+
             var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(), (FailureMechanismAssemblyCategoryGroup) 99);
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -81,7 +84,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 TestDelegate test = () => calculator.AssembleFailureMechanisms(new[]
                 {
                     failureMechanismAssembly
-                }, CreateAssemblyCategoriesInput());
+                }, signalingNorm, lowerLimitNorm);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
@@ -96,7 +99,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
-            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
+            double signalingNorm = random.NextDouble(0, 0.5);
+            double lowerLimitNorm = random.NextDouble(0.5, 1);
 
             var failureMechanismAssembly = new FailureMechanismAssembly(random.NextDouble(),
                                                                         random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
@@ -114,12 +118,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleFailureMechanisms(new[]
                 {
                     failureMechanismAssembly
-                }, assemblyCategoriesInput);
+                }, signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.IsFalse(kernel.PartialAssembly);
-                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.AssessmentSectionInput.FailureProbabilityLowerLimit);
-                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.AssessmentSectionInput.FailureProbabilitySignallingLimit);
+                Assert.AreEqual(signalingNorm, kernel.AssessmentSectionInput.FailureProbabilitySignallingLimit);
+                Assert.AreEqual(lowerLimitNorm, kernel.AssessmentSectionInput.FailureProbabilityLowerLimit);
 
                 FailureMechanismAssemblyResult actualFailureMechanismAssemblyInput = kernel.FailureMechanismAssemblyResults.Single();
                 Assert.AreEqual(GetGroup(failureMechanismAssembly.Group), actualFailureMechanismAssemblyInput.Category);
@@ -132,6 +136,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
+            double signalingNorm = random.NextDouble(0, 0.5);
+            double lowerLimitNorm = random.NextDouble(0.5, 1);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -144,7 +150,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 AssessmentSectionAssembly assembly = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
-                                                                                          CreateAssemblyCategoriesInput());
+                                                                                          signalingNorm,
+                                                                                          lowerLimitNorm);
 
                 // Assert
                 AssessmentSectionAssemblyResult expectedResult = kernel.AssessmentSectionAssemblyResult;
@@ -158,6 +165,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(39);
+            double signalingNorm = random.NextDouble(0, 0.5);
+            double lowerLimitNorm = random.NextDouble(0.5, 1);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -170,7 +179,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 TestDelegate test = () => calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
-                                                                               CreateAssemblyCategoriesInput());
+                                                                               signalingNorm,
+                                                                               lowerLimitNorm);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
@@ -184,6 +194,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismsWithProbability_KernelThrowsException_ThrowsAssessmentSectionAssemblyCalculatorException()
         {
             // Setup
+            var random = new Random(21);
+            double signalingNorm = random.NextDouble(0, 0.5);
+            double lowerLimitNorm = random.NextDouble(0.5, 1);
+
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -193,7 +207,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(), CreateAssemblyCategoriesInput());
+                TestDelegate test = () => calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssembly>(),
+                                                                               signalingNorm,
+                                                                               lowerLimitNorm);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
@@ -471,15 +487,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsInstanceOf<Exception>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
-        }
-
-        private static AssemblyCategoriesInput CreateAssemblyCategoriesInput()
-        {
-            var random = new Random(21);
-            return new AssemblyCategoriesInput(random.NextDouble(1.0, 5.0),
-                                               random.NextDouble(),
-                                               random.NextDouble(0.0, 0.5),
-                                               random.NextDouble(0.5, 1.0));
         }
 
         private static EFailureMechanismCategory GetGroup(FailureMechanismAssemblyCategoryGroup originalGroup)

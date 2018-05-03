@@ -32,10 +32,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class AssessmentSectionAssemblyCalculatorStub : IAssessmentSectionAssemblyCalculator
     {
         /// <summary>
-        /// Gets the assembly categories input when assembling the assessment section with 
-        /// failure mechanisms with probability.
+        /// Gets the lower norm input when assembling the assessment section with failure mechanisms
+        /// with probability;
         /// </summary>
-        public AssemblyCategoriesInput AssemblyCategoriesInput { get; private set; }
+        public double LowerLimitNormInput { get; private set; }
+
+        /// <summary>
+        /// Gets the lower norm input when assembling the assessment section with failure mechanisms
+        /// with probability;
+        /// </summary>
+        public double SignalingNormInput { get; private set; }
 
         /// <summary>
         /// Gets the collection of failure mechanism assembly input when assembling the
@@ -77,7 +83,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         public AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
-                                                                   AssemblyCategoriesInput assemblyCategoriesInput)
+                                                                   double signalingNorm,
+                                                                   double lowerLimitNorm)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -85,7 +92,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             FailureMechanismAssemblyInput = input;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            LowerLimitNormInput = lowerLimitNorm;
+            SignalingNormInput = signalingNorm;
 
             return AssessmentSectionAssemblyOutput ??
                    new AssessmentSectionAssembly(0.75, AssessmentSectionAssemblyCategoryGroup.D);

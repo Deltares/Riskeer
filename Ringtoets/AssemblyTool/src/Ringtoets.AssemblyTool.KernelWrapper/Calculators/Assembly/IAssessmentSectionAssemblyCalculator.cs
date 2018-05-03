@@ -33,13 +33,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the failure mechanisms for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The collection of failure mechanism assemblies to assemble for.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// performing the assembly.</param>
+        /// <param name="signalingNorm">The signaling norm to calculate with.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
         /// <returns>An <see cref="AssessmentSectionAssembly"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
-                                                            AssemblyCategoriesInput assemblyCategoriesInput);
+                                                            double signalingNorm,
+                                                            double lowerLimitNorm);
 
         /// <summary>
         /// Assembles the failure mechanisms for the given <paramref name="input"/>.
