@@ -42,7 +42,6 @@ using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.Revetment.Forms.TestUtil;
 
@@ -52,21 +51,22 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
     public class WaveConditionsInputContextPropertiesTest
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int assessmentLevelPropertyIndex = 1;
-        private const int upperBoundaryDesignWaterLevelPropertyIndex = 2;
-        private const int upperBoundaryRevetmentPropertyIndex = 3;
-        private const int lowerBoundaryRevetmentPropertyIndex = 4;
-        private const int upperBoundaryWaterLevelsPropertyIndex = 5;
-        private const int lowerBoundaryWaterLevelsPropertyIndex = 6;
-        private const int stepSizePropertyIndex = 7;
-        private const int waterLevelsPropertyIndex = 8;
+        private const int categoryTypePropertyIndex = 1;
+        private const int assessmentLevelPropertyIndex = 2;
+        private const int upperBoundaryDesignWaterLevelPropertyIndex = 3;
+        private const int upperBoundaryRevetmentPropertyIndex = 4;
+        private const int lowerBoundaryRevetmentPropertyIndex = 5;
+        private const int upperBoundaryWaterLevelsPropertyIndex = 6;
+        private const int lowerBoundaryWaterLevelsPropertyIndex = 7;
+        private const int stepSizePropertyIndex = 8;
+        private const int waterLevelsPropertyIndex = 9;
 
-        private const int foreshoreProfilePropertyIndex = 9;
-        private const int worldReferencePointPropertyIndex = 10;
-        private const int orientationPropertyIndex = 11;
-        private const int breakWaterPropertyIndex = 12;
-        private const int foreshoreGeometryPropertyIndex = 13;
-        private const int revetmentTypePropertyIndex = 14;
+        private const int foreshoreProfilePropertyIndex = 10;
+        private const int worldReferencePointPropertyIndex = 11;
+        private const int orientationPropertyIndex = 12;
+        private const int breakWaterPropertyIndex = 13;
+        private const int foreshoreGeometryPropertyIndex = 14;
+        private const int revetmentTypePropertyIndex = 15;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -201,6 +201,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual("Test", properties.RevetmentType);
 
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
+            Assert.AreEqual(TestCategoryType.Category1, properties.CategoryType);
             Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
             Assert.AreSame(foreshoreProfile, properties.ForeshoreProfile);
             Assert.AreEqual(worldX, properties.WorldReferencePoint.X, 0.5);
@@ -244,7 +245,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(15, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
             const string hydraulicParametersCategory = "Hydraulische gegevens";
             const string schematizationCategory = "Schematisatie";
@@ -255,6 +256,13 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicParametersCategory, hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
+
+            PropertyDescriptor categoryTypeProperty = dynamicProperties[categoryTypePropertyIndex];
+            Assert.IsNotNull(categoryTypeProperty);
+            Assert.IsFalse(categoryTypeProperty.IsReadOnly);
+            Assert.AreEqual(hydraulicParametersCategory, categoryTypeProperty.Category);
+            Assert.AreEqual("Categoriegrens", categoryTypeProperty.DisplayName);
+            Assert.AreEqual("Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd.", categoryTypeProperty.Description);
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
             Assert.IsNotNull(assessmentLevelProperty);
@@ -403,6 +411,13 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new TestHydraulicBoundaryLocation(), new Point2D(0, 0));
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(
                 properties => properties.SelectedHydraulicBoundaryLocation = propertiesSelectedHydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void CategoryType_Always_InputChangedAndObservablesNotified()
+        {
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(
+                properties => properties.CategoryType = TestCategoryType.Category2);
         }
 
         [Test]
@@ -830,8 +845,10 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput>
+        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, TestCategoryType>
         {
+            private TestCategoryType type = TestCategoryType.Category1;
+
             public TestWaveConditionsInputContextProperties(TestWaveConditionsInputContext context,
                                                             Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                             IObservablePropertyChangeHandler handler)
@@ -844,6 +861,22 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                     return "Test";
                 }
             }
+
+            protected override TestCategoryType GetCategoryType()
+            {
+                return type;
+            }
+
+            protected override void SetCategoryType(TestCategoryType categoryType)
+            {
+                type = categoryType;
+            }
+        }
+
+        private enum TestCategoryType
+        {
+            Category1,
+            Category2
         }
     }
 }
