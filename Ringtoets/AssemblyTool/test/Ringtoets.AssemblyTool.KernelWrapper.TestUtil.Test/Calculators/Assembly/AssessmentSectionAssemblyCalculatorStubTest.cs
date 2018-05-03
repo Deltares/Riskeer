@@ -44,6 +44,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.IsNull(calculator.FailureMechanismAssemblyInput);
             Assert.IsNull(calculator.FailureMechanismAssemblyCategoryGroupInput);
             Assert.IsNull(calculator.AssemblyCategoriesInput);
+            Assert.IsNull(calculator.FailureMechanismsWithProbabilityInput);
+            Assert.AreEqual((AssessmentSectionAssemblyCategoryGroup) 0,
+                            calculator.FailureMechanismsWithoutProbabilityInput);
         }
 
         [Test]
@@ -151,7 +154,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         {
             // Setup
             IEnumerable<FailureMechanismAssemblyCategoryGroup> failureMechanisms = Enumerable.Empty<FailureMechanismAssemblyCategoryGroup>();
-
             var calculator = new AssessmentSectionAssemblyCalculatorStub();
 
             // Call
@@ -172,6 +174,83 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate call = () => calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssemblyCategoryGroup>());
+
+            // Assert
+            var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(call);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculator = new AssessmentSectionAssemblyCalculatorStub();
+
+            // Call
+            AssessmentSectionAssemblyCategoryGroup output =
+                calculator.AssembleAssessmentSection(random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>(),
+                                                     new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                   random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()));
+
+            // Assert
+            Assert.AreEqual(AssessmentSectionAssemblyCategoryGroup.C, output);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculator = new AssessmentSectionAssemblyCalculatorStub
+            {
+                AssessmentSectionAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()
+            };
+
+            // Call
+            AssessmentSectionAssemblyCategoryGroup output =
+                calculator.AssembleAssessmentSection(random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>(),
+                                                     new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                   random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()));
+
+            // Assert
+            Assert.AreEqual(calculator.AssessmentSectionAssemblyCategoryGroupOutput, output);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanismsWithoutProbability = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+            var failureMechanismsWithProbability = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                 random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+            var calculator = new AssessmentSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleAssessmentSection(failureMechanismsWithoutProbability, failureMechanismsWithProbability);
+
+            // Assert
+            Assert.AreEqual(failureMechanismsWithoutProbability, calculator.FailureMechanismsWithoutProbabilityInput);
+            Assert.AreSame(failureMechanismsWithProbability, calculator.FailureMechanismsWithProbabilityInput);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_ThrowExceptionOnCalculateTrue_ThrowsAssessmentSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculator = new AssessmentSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate call = () =>
+                calculator.AssembleAssessmentSection(random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>(),
+                                                     new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                   random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()));
 
             // Assert
             var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(call);

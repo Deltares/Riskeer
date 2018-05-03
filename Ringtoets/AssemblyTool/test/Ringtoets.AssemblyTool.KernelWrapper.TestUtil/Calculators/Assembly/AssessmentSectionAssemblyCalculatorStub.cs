@@ -44,10 +44,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<FailureMechanismAssembly> FailureMechanismAssemblyInput { get; private set; }
 
         /// <summary>
-        /// Gets the collection of failure mechanism assembly input when assembling the 
-        /// assessment section with failure mechanisms without probability
+        /// Gets the collection of failure mechanism assembly category group input when assembling the 
+        /// assessment section with failure mechanisms without probability.
         /// </summary>
         public IEnumerable<FailureMechanismAssemblyCategoryGroup> FailureMechanismAssemblyCategoryGroupInput { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanisms without probability input when assembling the assessment section.
+        /// </summary>
+        public AssessmentSectionAssemblyCategoryGroup FailureMechanismsWithoutProbabilityInput { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanisms with probability input when assembling the assessment section.
+        /// </summary>
+        public AssessmentSectionAssembly FailureMechanismsWithProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of the assessment section assembly for failure
@@ -56,8 +66,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public AssessmentSectionAssembly AssessmentSectionAssemblyOutput { get; set; }
 
         /// <summary>
-        /// Gets or sets the output of the assessment section assembly for failure 
-        /// mechanisms without probability.
+        /// Gets or sets the output of the assessment section assembly category group for failure 
+        /// mechanisms without probability or for assembling the assessment section.
         /// </summary>
         public AssessmentSectionAssemblyCategoryGroup? AssessmentSectionAssemblyCategoryGroupOutput { get; set; }
 
@@ -96,7 +106,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
                                                                                 AssessmentSectionAssembly failureMechanismsWithProbability)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            FailureMechanismsWithoutProbabilityInput = failureMechanismsWithoutProbability;
+            FailureMechanismsWithProbabilityInput = failureMechanismsWithProbability;
+
+            return AssessmentSectionAssemblyCategoryGroupOutput ?? AssessmentSectionAssemblyCategoryGroup.C;
         }
     }
 }
