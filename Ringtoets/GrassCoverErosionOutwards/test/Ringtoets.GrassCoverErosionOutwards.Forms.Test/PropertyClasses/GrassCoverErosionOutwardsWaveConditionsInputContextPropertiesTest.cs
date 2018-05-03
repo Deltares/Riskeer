@@ -29,7 +29,6 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
@@ -73,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                                                                                                handler);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext, FailureMechanismCategoryWaveConditionsInput>>(properties);
+            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Gras", properties.RevetmentType);
         }
