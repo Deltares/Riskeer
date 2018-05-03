@@ -40,7 +40,7 @@ namespace Ringtoets.Revetment.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -213,6 +213,24 @@ namespace Ringtoets.Revetment.Forms.Properties {
         public static string WaveConditionsChartDataFactory_WaterLevels_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsChartDataFactory_WaterLevels_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd..
+        /// </summary>
+        public static string WaveConditionsInput_CategoryType_Description {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_CategoryType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoriegrens.
+        /// </summary>
+        public static string WaveConditionsInput_CategoryType_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveConditionsInput_CategoryType_DisplayName", resourceCulture);
             }
         }
         

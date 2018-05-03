@@ -270,4 +270,10 @@
   <data name="WaveConditionsChartDataFactory_RevetmentBase_DisplayName" xml:space="preserve">
     <value>Hulplijn bekleding</value>
   </data>
+  <data name="WaveConditionsInput_CategoryType_Description" xml:space="preserve">
+    <value>Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd.</value>
+  </data>
+  <data name="WaveConditionsInput_CategoryType_DisplayName" xml:space="preserve">
+    <value>Categoriegrens</value>
+  </data>
 </root>

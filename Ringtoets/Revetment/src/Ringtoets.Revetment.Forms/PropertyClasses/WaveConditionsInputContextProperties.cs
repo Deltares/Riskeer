@@ -49,34 +49,37 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// </summary>
     /// <typeparam name="TContext">The type of the wave conditions input context.</typeparam>
     /// <typeparam name="TInput">The type of the contained wave conditions input.</typeparam>
-    public abstract class WaveConditionsInputContextProperties<TContext, TInput> : ObjectProperties<TContext>,
-                                                                                   IHasHydraulicBoundaryLocationProperty,
-                                                                                   IHasForeshoreProfileProperty
+    /// <typeparam name="TCategory">The category type contained by the wave conditions input.</typeparam>
+    public abstract class WaveConditionsInputContextProperties<TContext, TInput, TCategory>
+        : ObjectProperties<TContext>,
+          IHasHydraulicBoundaryLocationProperty,
+          IHasForeshoreProfileProperty
         where TContext : WaveConditionsInputContext<TInput>
         where TInput : WaveConditionsInput
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int assessmentLevelPropertyIndex = 1;
-        private const int upperBoundaryDesignWaterLevelPropertyIndex = 2;
-        private const int upperBoundaryRevetmentPropertyIndex = 3;
-        private const int lowerBoundaryRevetmentPropertyIndex = 4;
-        private const int upperBoundaryWaterLevelsPropertyIndex = 5;
-        private const int lowerBoundaryWaterLevelsPropertyIndex = 6;
-        private const int stepSizePropertyIndex = 7;
-        private const int waterLevelsPropertyIndex = 8;
+        private const int categoryTypePropertyIndex = 1;
+        private const int assessmentLevelPropertyIndex = 2;
+        private const int upperBoundaryDesignWaterLevelPropertyIndex = 3;
+        private const int upperBoundaryRevetmentPropertyIndex = 4;
+        private const int lowerBoundaryRevetmentPropertyIndex = 5;
+        private const int upperBoundaryWaterLevelsPropertyIndex = 6;
+        private const int lowerBoundaryWaterLevelsPropertyIndex = 7;
+        private const int stepSizePropertyIndex = 8;
+        private const int waterLevelsPropertyIndex = 9;
 
-        private const int foreshoreProfilePropertyIndex = 9;
-        private const int worldReferencePointPropertyIndex = 10;
-        private const int orientationPropertyIndex = 11;
-        private const int breakWaterPropertyIndex = 12;
-        private const int foreshoreGeometryPropertyIndex = 13;
-        private const int revetmentTypePropertyIndex = 14;
+        private const int foreshoreProfilePropertyIndex = 10;
+        private const int worldReferencePointPropertyIndex = 11;
+        private const int orientationPropertyIndex = 12;
+        private const int breakWaterPropertyIndex = 13;
+        private const int foreshoreGeometryPropertyIndex = 14;
+        private const int revetmentTypePropertyIndex = 15;
 
         private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput}"/>.
+        /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput,TCategory}"/>.
         /// </summary>
         /// <param name="context">The <see cref="WaveConditionsInputContext{TInput}"/> for which the properties are shown.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
@@ -106,6 +109,13 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
             this.propertyChangeHandler = propertyChangeHandler;
         }
+
+        [PropertyOrder(categoryTypePropertyIndex)]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_CategoryType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_CategoryType_Description))]
+        public abstract TCategory CategoryType { get; set; }
 
         [PropertyOrder(assessmentLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
