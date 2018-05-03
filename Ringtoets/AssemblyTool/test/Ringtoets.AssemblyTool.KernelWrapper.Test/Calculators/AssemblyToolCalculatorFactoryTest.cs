@@ -120,5 +120,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculator>(calculator);
             }
         }
+
+        [Test]
+        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_ReturnsAssessmentSectionAssemblyCalculator()
+        {
+            // Setup
+            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                // Call
+                IAssessmentSectionAssemblyCalculator calculator =
+                    factory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                // Assert
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculator>(calculator);
+            }
+        }
     }
 }
