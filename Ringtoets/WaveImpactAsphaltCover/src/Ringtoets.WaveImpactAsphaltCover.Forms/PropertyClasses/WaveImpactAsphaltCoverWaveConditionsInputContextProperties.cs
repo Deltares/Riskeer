@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
@@ -33,7 +32,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
     /// ViewModel of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContextProperties
-        : WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext, AssessmentSectionCategoryWaveConditionsInput>
+        : AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContextProperties"/>.

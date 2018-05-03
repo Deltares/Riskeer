@@ -26,7 +26,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
@@ -57,7 +56,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             var properties = new StabilityStoneCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext, AssessmentSectionCategoryWaveConditionsInput>>(properties);
+            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Steen (blokken en zuilen)", properties.RevetmentType);
             mockRepository.VerifyAll();

@@ -26,7 +26,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -57,7 +56,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var properties = new WaveImpactAsphaltCoverWaveConditionsInputContextProperties(context, () => (RoundedDouble) 1.1, handler);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext, AssessmentSectionCategoryWaveConditionsInput>>(properties);
+            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>>(properties);
             Assert.AreSame(context, properties.Data);
             Assert.AreEqual("Asfalt", properties.RevetmentType);
             mockRepository.VerifyAll();
