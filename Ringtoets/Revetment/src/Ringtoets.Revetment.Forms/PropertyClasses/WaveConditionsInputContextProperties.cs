@@ -115,7 +115,17 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveConditionsInput_CategoryType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveConditionsInput_CategoryType_Description))]
-        public abstract TCategory CategoryType { get; set; }
+        public TCategory CategoryType
+        {
+            get
+            {
+                return GetCategoryType();
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => SetCategoryType(value), propertyChangeHandler);
+            }
+        }
 
         [PropertyOrder(assessmentLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_HydraulicData))]
@@ -349,5 +359,17 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.HydraulicBoundaryLocations, referenceLocation);
         }
+
+        /// <summary>
+        /// Gets the category type that is set to the wave conditions input.
+        /// </summary>
+        /// <returns>The category type at stake.</returns>
+        protected abstract TCategory GetCategoryType();
+
+        /// <summary>
+        /// Sets the provided category type to the wave conditions input.
+        /// </summary>
+        /// <param name="categoryType">The category type to set.</param>
+        protected abstract void SetCategoryType(TCategory categoryType);
     }
 }
