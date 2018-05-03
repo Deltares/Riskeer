@@ -105,7 +105,6 @@ namespace Ringtoets.Common.Forms.Controls
             this.AutoSize = true;
             this.Controls.Add(this.GroupPanel);
             this.Name = "AssemblyResultControl";
-            this.Size = new System.Drawing.Size(274, 150);
             this.GroupPanel.ResumeLayout(false);
             this.GroupPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();

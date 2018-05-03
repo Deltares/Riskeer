@@ -53,13 +53,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public PipingStructureResultView(IObservableEnumerable<PipingStructureFailureMechanismSectionResult> failureMechanismSectionResults,
                                          PipingStructureFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override PipingStructureSectionResultRow CreateFailureMechanismSectionResultRow(PipingStructureFailureMechanismSectionResult sectionResult)
         {
@@ -119,6 +113,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(PipingStructureSectionResultRow.ManualAssemblyCategoryGroup));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
         }
     }
 }

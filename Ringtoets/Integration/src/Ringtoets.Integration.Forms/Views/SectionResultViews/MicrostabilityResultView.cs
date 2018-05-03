@@ -53,13 +53,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public MicrostabilityResultView(IObservableEnumerable<MicrostabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                         MicrostabilityFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override MicrostabilitySectionResultRow CreateFailureMechanismSectionResultRow(MicrostabilityFailureMechanismSectionResult sectionResult)
         {
@@ -119,6 +113,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MicrostabilitySectionResultRow.ManualAssemblyCategoryGroup));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
         }
     }
 }

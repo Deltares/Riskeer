@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Properties;
@@ -52,8 +53,7 @@ namespace Ringtoets.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
-        private TAssemblyResultControl failureMechanismAssemblyResultControl;
-        private Action setFailureMechanismAssemblyResultAction;
+        protected TAssemblyResultControl FailureMechanismAssemblyResultControl;
 
         private IEnumerable<TSectionResultRow> sectionResultRows;
         private bool rowUpdating;
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Forms.Views
             }
 
             InitializeComponent();
-            InitializeInfoIcon();
+            InitializeFailureMechanismAssemblyResultPanel();
 
             FailureMechanism = failureMechanism;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
@@ -151,18 +151,10 @@ namespace Ringtoets.Common.Forms.Views
         protected abstract void AddDataGridColumns();
 
         /// <summary>
-        /// Sets the correct failure mechanism assembly result control on the view.
+        /// Updates the content of the <see cref="FailureMechanismAssemblyResultControl"/>.
         /// </summary>
-        /// <param name="control">The control to set on the view.</param>
-        /// <param name="setResultAction">The action to perform to update the data of the control.</param>
-        protected void SetAssemblyResultControl(TAssemblyResultControl control,
-                                                Action setResultAction)
-        {
-            failureMechanismAssemblyResultControl = new TAssemblyResultControl();
-            setFailureMechanismAssemblyResultAction = setResultAction;
-            TableLayoutPanel.Controls.Add(failureMechanismAssemblyResultControl, 1, 0);
-        }
-
+        /// <exception cref="AssemblyException">Thrown when the assembly result
+        /// could not be created.</exception>
         protected abstract void UpdateAssemblyResultControl();
 
         /// <summary>
@@ -198,24 +190,24 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateFailureMechanismAssemblyResultControl()
         {
-            if (failureMechanismAssemblyResultControl != null && setFailureMechanismAssemblyResultAction != null)
+            try
             {
-                try
-                {
-                    setFailureMechanismAssemblyResultAction();
-                    failureMechanismAssemblyResultControl.ClearError();
-                }
-                catch (Exception e)
-                {
-                    failureMechanismAssemblyResultControl.SetError(e.Message);
-                }
+                UpdateAssemblyResultControl();
+                FailureMechanismAssemblyResultControl.ClearError();
+            }
+            catch (AssemblyException e)
+            {
+                FailureMechanismAssemblyResultControl.SetError(e.Message);
             }
         }
 
-        private void InitializeInfoIcon()
+        private void InitializeFailureMechanismAssemblyResultPanel()
         {
             infoIcon.BackgroundImage = CoreCommonGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.FailureMechanismResultView_InfoToolTip);
+
+            FailureMechanismAssemblyResultControl = new TAssemblyResultControl();
+            TableLayoutPanel.Controls.Add(FailureMechanismAssemblyResultControl, 1, 0);
         }
 
         private void RemoveSectionResultRowEvents()

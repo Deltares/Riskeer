@@ -75,11 +75,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            var assemblyResultControl = new FailureMechanismAssemblyControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
@@ -179,6 +174,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
                 nameof(StabilityPointStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
     }
 }

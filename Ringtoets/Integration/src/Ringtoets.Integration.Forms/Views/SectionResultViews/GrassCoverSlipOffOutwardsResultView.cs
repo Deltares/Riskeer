@@ -54,13 +54,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         public GrassCoverSlipOffOutwardsResultView(
             IObservableEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override GrassCoverSlipOffOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult)
         {
@@ -120,6 +114,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(GrassCoverSlipOffOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
         }
     }
 }

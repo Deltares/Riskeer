@@ -69,11 +69,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             }
 
             this.assessmentSection = assessmentSection;
-
-            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
         }
 
         protected override MacroStabilityOutwardsSectionResultRow CreateFailureMechanismSectionResultRow(MacroStabilityOutwardsFailureMechanismSectionResult sectionResult)
@@ -144,6 +139,11 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityOutwardsSectionResultRow.ManualAssemblyCategoryGroup));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
     }
 }

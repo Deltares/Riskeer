@@ -74,9 +74,9 @@ namespace Ringtoets.Common.Forms.Views
             this.failureMechanismAssemblyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.failureMechanismAssemblyLabel.Location = new System.Drawing.Point(3, 0);
             this.failureMechanismAssemblyLabel.Name = "failureMechanismAssemblyLabel";
-            this.failureMechanismAssemblyLabel.Size = new System.Drawing.Size(57, 30);
+            this.failureMechanismAssemblyLabel.Size = new System.Drawing.Size(197, 30);
             this.failureMechanismAssemblyLabel.TabIndex = 2;
-            this.failureMechanismAssemblyLabel.Text = global::Ringtoets.Common.Forms.Properties.Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;;
+            this.failureMechanismAssemblyLabel.Text = global::Ringtoets.Common.Forms.Properties.Resources.FailureMechanismResultView_FailureMechanismAssemblyLabel;
             this.failureMechanismAssemblyLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // infoIcon

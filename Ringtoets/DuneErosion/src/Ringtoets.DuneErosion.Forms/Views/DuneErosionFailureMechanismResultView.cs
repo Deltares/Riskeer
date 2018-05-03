@@ -56,13 +56,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         public DuneErosionFailureMechanismResultView(
             IObservableEnumerable<DuneErosionFailureMechanismSectionResult> failureMechanismSectionResults,
             DuneErosionFailureMechanism failureMechanism)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism)));
-        }
+            : base(failureMechanismSectionResults, failureMechanism) {}
 
         protected override DuneErosionSectionResultRow CreateFailureMechanismSectionResultRow(DuneErosionFailureMechanismSectionResult sectionResult)
         {
@@ -142,6 +136,11 @@ namespace Ringtoets.DuneErosion.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyCategoryGroupColumn(
                 DataGridViewControl,
                 nameof(DuneErosionSectionResultRow.ManualAssemblyCategoryGroup));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism));
         }
     }
 }

@@ -75,11 +75,6 @@ namespace Ringtoets.HeightStructures.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            var assemblyResultControl = new FailureMechanismAssemblyControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
@@ -179,6 +174,11 @@ namespace Ringtoets.HeightStructures.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
                 nameof(HeightStructuresFailureMechanismSectionResultRow.ManualAssemblyProbability));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
     }
 }

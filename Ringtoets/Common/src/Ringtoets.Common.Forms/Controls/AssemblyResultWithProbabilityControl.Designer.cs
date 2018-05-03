@@ -63,9 +63,9 @@ namespace Ringtoets.Common.Forms.Controls
             this.probabilityPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.probabilityPanel.Location = new System.Drawing.Point(56, 0);
             this.probabilityPanel.Name = "probabilityPanel";
+            this.probabilityPanel.AutoSize = true;
             this.probabilityPanel.RowCount = 1;
             this.probabilityPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.probabilityPanel.Size = new System.Drawing.Size(200, 796);
             this.probabilityPanel.TabIndex = 1;
             // 
             // ProbabilityLabel
@@ -88,7 +88,6 @@ namespace Ringtoets.Common.Forms.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.probabilityPanel);
             this.Name = "FailureMechanismAssemblyControl";
-            this.Size = new System.Drawing.Size(256, 796);
             this.Controls.SetChildIndex(this.probabilityPanel, 0);
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.probabilityPanel.ResumeLayout(false);

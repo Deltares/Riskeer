@@ -72,11 +72,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
             this.assessmentSection = assessmentSection;
 
-            var assemblyResultControl = new FailureMechanismAssemblyControl();
-            SetAssemblyResultControl(
-                assemblyResultControl,
-                () => assemblyResultControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection)));
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateView,
@@ -177,6 +172,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddManualAssemblyProbabilityColumn(
                 DataGridViewControl,
                 nameof(MacroStabilityInwardsFailureMechanismSectionResultRow.ManualAssemblyProbability));
+        }
+
+        protected override void UpdateAssemblyResultControl()
+        {
+            FailureMechanismAssemblyResultControl.SetAssemblyResult(MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection));
         }
     }
 }

@@ -32,6 +32,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Controls;
@@ -489,22 +490,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
         {
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
-                : base(failureMechanismSectionResults, failureMechanism)
-            {
-                var assemblyResultControl = new FailureMechanismAssemblyCategoryGroupControl();
-                SetAssemblyResultControl(
-                    assemblyResultControl,
-                    () =>
-                    {
-                        if (ThrowExceptionOnCalculate)
-                        {
-                            throw new Exception("Message");
-                        }
-
-                        assemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
-                        AssemblyResultUpdated = true;
-                    });
-            }
+                : base(failureMechanismSectionResults, failureMechanism) {}
 
             public bool ThrowExceptionOnCalculate { private get; set; }
 
@@ -518,6 +504,17 @@ namespace Ringtoets.Common.Forms.Test.Views
             protected override void AddDataGridColumns()
             {
                 DataGridViewControl.AddTextBoxColumn("Name", "Test", true);
+            }
+
+            protected override void UpdateAssemblyResultControl()
+            {
+                if (ThrowExceptionOnCalculate)
+                {
+                    throw new AssemblyException("Message");
+                }
+
+                FailureMechanismAssemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
+                AssemblyResultUpdated = true;
             }
         }
 
