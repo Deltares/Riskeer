@@ -89,7 +89,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.Assemble(sectionResults);
 
             // Assert
-            Assert.AreEqual(sectionResults, calculator.FailureMechanismSectionCategories);
+            Assert.AreSame(sectionResults, calculator.FailureMechanismSectionCategories);
         }
 
         [Test]
@@ -156,8 +156,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.Assemble(sectionResults, assemblyCategoriesInput);
 
             // Assert
-            Assert.AreEqual(sectionResults, calculator.FailureMechanismSectionAssemblies);
-            Assert.AreEqual(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
+            Assert.AreSame(sectionResults, calculator.FailureMechanismSectionAssemblies);
+            Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
         }
 
         [Test]
