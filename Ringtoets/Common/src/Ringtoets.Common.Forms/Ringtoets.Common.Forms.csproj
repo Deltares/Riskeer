@@ -33,11 +33,14 @@
     <Compile Include="Controls\AssemblyResultControl.Designer.cs">
       <DependentUpon>AssemblyResultControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FailureMechanismAssemblyControl.cs">
+    <Compile Include="Controls\AssemblyResultWithProbabilityControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\FailureMechanismAssemblyControl.Designer.cs">
-      <DependentUpon>FailureMechanismAssemblyControl.cs</DependentUpon>
+    <Compile Include="Controls\AssemblyResultWithProbabilityControl.Designer.cs">
+      <DependentUpon>AssemblyResultWithProbabilityControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FailureMechanismAssemblyControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Controls\FailureMechanismAssemblyCategoryGroupControl.cs">
       <SubType>UserControl</SubType>
@@ -247,8 +250,8 @@
     <EmbeddedResource Include="Controls\AssemblyResultControl.resx">
       <DependentUpon>AssemblyResultControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\FailureMechanismAssemblyControl.resx">
-      <DependentUpon>FailureMechanismAssemblyControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\AssemblyResultWithProbabilityControl.resx">
+      <DependentUpon>AssemblyResultWithProbabilityControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

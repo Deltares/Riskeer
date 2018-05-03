@@ -57,17 +57,12 @@ namespace Ringtoets.Common.Forms.Test.Controls
             resultControl.SetAssemblyResult(assembly);
 
             // Assert
-            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
+            Control groupLabel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel").GetControlFromPosition(0, 0);
 
             Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly).DisplayName,
                             groupLabel.Text);
             Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly),
                             groupLabel.BackColor);
-        }
-
-        private static TableLayoutPanel GetGroupPanel(FailureMechanismAssemblyCategoryGroupControl resultControl)
-        {
-            return TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
         }
     }
 }

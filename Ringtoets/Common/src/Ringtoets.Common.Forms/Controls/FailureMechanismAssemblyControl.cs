@@ -23,7 +23,6 @@ using System;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Controls
@@ -31,13 +30,8 @@ namespace Ringtoets.Common.Forms.Controls
     /// <summary>
     /// Custom control to display a <see cref="FailureMechanismAssembly"/>.
     /// </summary>
-    public partial class FailureMechanismAssemblyControl : AssemblyResultControl
+    public class FailureMechanismAssemblyControl : AssemblyResultWithProbabilityControl
     {
-        public FailureMechanismAssemblyControl()
-        {
-            InitializeComponent();
-        }
-
         /// <summary>
         /// Set the values of <paramref name="assembly"/> to the control.
         /// </summary>
@@ -53,13 +47,7 @@ namespace Ringtoets.Common.Forms.Controls
             GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName;
             GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group);
 
-            probabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability);
-        }
-
-        public override void SetError(string error)
-        {
-            base.SetError(error);
-            probabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
+            ProbabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability);
         }
     }
 }

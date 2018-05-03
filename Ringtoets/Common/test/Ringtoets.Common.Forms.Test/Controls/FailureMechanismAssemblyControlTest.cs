@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.TestUtil;
 using Core.Common.Util;
@@ -29,7 +28,6 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.Controls
@@ -45,30 +43,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
             // Assert
             Assert.AreEqual(2, resultControl.Controls.Count);
-            Assert.IsInstanceOf<AssemblyResultControl>(resultControl);
-            Assert.IsTrue(resultControl.AutoSize);
-            Assert.AreEqual(DockStyle.Left, resultControl.Dock);
-
-            TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
-            Assert.AreEqual(1, groupPanel.ColumnCount);
-            Assert.AreEqual(1, groupPanel.RowCount);
-
-            var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
-            Assert.IsTrue(groupLabel.AutoSize);
-            Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
-            Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
-
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
-            TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
-
-            TableLayoutPanel probabilityPanel = GetProbabilityPanel(resultControl);
-            Assert.AreEqual(1, probabilityPanel.ColumnCount);
-            Assert.AreEqual(1, probabilityPanel.RowCount);
-
-            var probabilityLabel = (BorderedLabel) probabilityPanel.GetControlFromPosition(0, 0);
-            Assert.IsTrue(probabilityLabel.AutoSize);
-            Assert.AreEqual(DockStyle.Left, probabilityLabel.Dock);
-            Assert.AreEqual(new Padding(5, 0, 5, 0), probabilityLabel.Padding);
+            Assert.IsInstanceOf<AssemblyResultWithProbabilityControl>(resultControl);
         }
 
         [Test]
@@ -98,8 +73,8 @@ namespace Ringtoets.Common.Forms.Test.Controls
             resultControl.SetAssemblyResult(assembly);
 
             // Assert
-            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
-            Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
+            Control groupLabel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel").GetControlFromPosition(0, 0);
+            Control probabilityLabel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "probabilityPanel").GetControlFromPosition(0, 0);
 
             Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName,
                             groupLabel.Text);
@@ -108,51 +83,6 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
             Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability),
                             probabilityLabel.Text);
-        }
-
-        [Test]
-        public void SetError_ErrorNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var resultControl = new FailureMechanismAssemblyControl();
-
-            // Call
-            TestDelegate test = () => resultControl.SetError(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("error", exception.ParamName);
-        }
-
-        [Test]
-        public void SetError_WithError_SetsErrorOnControl()
-        {
-            // Setup
-            const string error = "random error 123";
-            var resultControl = new FailureMechanismAssemblyControl();
-
-            // Call
-            resultControl.SetError(error);
-
-            // Assert
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
-            Assert.AreEqual(error, errorProvider.GetError(resultControl));
-
-            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
-            Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
-            Assert.IsEmpty(groupLabel.Text);
-            Assert.AreEqual(Color.White, groupLabel.BackColor);
-            Assert.AreEqual("-", probabilityLabel.Text);
-        }
-
-        private static TableLayoutPanel GetProbabilityPanel(FailureMechanismAssemblyControl resultControl)
-        {
-            return TypeUtils.GetField<TableLayoutPanel>(resultControl, "probabilityPanel");
-        }
-
-        private static TableLayoutPanel GetGroupPanel(FailureMechanismAssemblyControl resultControl)
-        {
-            return TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
         }
     }
 }

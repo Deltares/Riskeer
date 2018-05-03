@@ -207,7 +207,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
         private static BorderedLabel GetProbabilityLabelControl()
         {
-            return (BorderedLabel) new ControlTester("probabilityLabel").TheObject;
+            return (BorderedLabel) new ControlTester("ProbabilityLabel").TheObject;
         }
 
         private TView ShowFailureMechanismResultsView(TFailureMechanism failureMechanism)
