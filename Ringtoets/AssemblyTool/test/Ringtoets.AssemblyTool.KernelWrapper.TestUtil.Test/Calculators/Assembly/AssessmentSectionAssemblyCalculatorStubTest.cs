@@ -147,14 +147,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var random = new Random(21);
             var calculator = new AssessmentSectionAssemblyCalculatorStub
             {
-                AssessmentSectionAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()
+                AssembleFailureMechanismsAssemblyOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()
             };
 
             // Call
             AssessmentSectionAssemblyCategoryGroup output = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssemblyCategoryGroup>());
 
             // Assert
-            Assert.AreEqual(calculator.AssessmentSectionAssemblyCategoryGroupOutput, output);
+            Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyOutput, output);
         }
 
         [Test]
@@ -213,7 +213,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             var random = new Random(21);
             var calculator = new AssessmentSectionAssemblyCalculatorStub
             {
-                AssessmentSectionAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()
+                AssembleAssessmentSectionOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()
             };
 
             // Call
@@ -223,7 +223,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                                                                                    random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>()));
 
             // Assert
-            Assert.AreEqual(calculator.AssessmentSectionAssemblyCategoryGroupOutput, output);
+            Assert.AreEqual(calculator.AssembleAssessmentSectionOutput, output);
         }
 
         [Test]

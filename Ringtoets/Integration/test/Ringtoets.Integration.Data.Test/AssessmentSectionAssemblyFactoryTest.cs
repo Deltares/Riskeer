@@ -180,13 +180,13 @@ namespace Ringtoets.Integration.Data.Test
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssessmentSectionAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+                calculator.AssembleFailureMechanismsAssemblyOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
 
                 // Call
                 AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
 
                 // Assert
-                Assert.AreEqual(calculator.AssessmentSectionAssemblyCategoryGroupOutput, output);
+                Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyOutput, output);
             }
         }
 

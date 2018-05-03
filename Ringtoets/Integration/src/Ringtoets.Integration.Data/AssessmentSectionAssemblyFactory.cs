@@ -47,7 +47,7 @@ namespace Ringtoets.Integration.Data
     public static class AssessmentSectionAssemblyFactory
     {
         /// <summary>
-        /// Assembles the results of the assessment section based on the failure mechanisms with a probability.
+        /// Assembles the results of the failure mechanisms with probability within the assessment sections.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
         /// <returns>A <see cref="AssessmentSectionAssembly"/>.</returns>
@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Data
         }
 
         /// <summary>
-        /// Assembles the results of the assessment section based on the failure mechanisms without a probability.
+        /// Assembles the results of failure mechanisms without probability within the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
         /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>

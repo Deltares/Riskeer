@@ -72,10 +72,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public AssessmentSectionAssembly AssessmentSectionAssemblyOutput { get; set; }
 
         /// <summary>
-        /// Gets or sets the output of the assessment section assembly category group for failure 
-        /// mechanisms without probability or for assembling the assessment section.
+        /// Gets or sets the output of the assessment section assembly category group when assembling failure 
+        /// mechanisms without probability.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup? AssessmentSectionAssemblyCategoryGroupOutput { get; set; }
+        public AssessmentSectionAssemblyCategoryGroup? AssembleFailureMechanismsAssemblyOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the output of the assessment section assembly category group 
+        /// when assembling an assessment section.
+        /// </summary>
+        public AssessmentSectionAssemblyCategoryGroup? AssembleAssessmentSectionOutput { get; set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a calculation.
@@ -108,7 +114,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             FailureMechanismAssemblyCategoryGroupInput = input;
 
-            return AssessmentSectionAssemblyCategoryGroupOutput ?? AssessmentSectionAssemblyCategoryGroup.D;
+            return AssembleFailureMechanismsAssemblyOutput ?? AssessmentSectionAssemblyCategoryGroup.D;
         }
 
         public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
@@ -122,7 +128,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             FailureMechanismsWithoutProbabilityInput = failureMechanismsWithoutProbability;
             FailureMechanismsWithProbabilityInput = failureMechanismsWithProbability;
 
-            return AssessmentSectionAssemblyCategoryGroupOutput ?? AssessmentSectionAssemblyCategoryGroup.C;
+            return AssembleAssessmentSectionOutput ?? AssessmentSectionAssemblyCategoryGroup.C;
         }
     }
 }
