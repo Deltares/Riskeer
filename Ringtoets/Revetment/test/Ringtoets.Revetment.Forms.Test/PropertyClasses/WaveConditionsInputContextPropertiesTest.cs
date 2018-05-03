@@ -201,7 +201,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual("Test", properties.RevetmentType);
 
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
-            Assert.AreEqual(TestCategoryType.Category1, properties.CategoryType);
             Assert.AreEqual(assessmentLevel.Value, properties.AssessmentLevel.Value, properties.AssessmentLevel.GetAccuracy());
             Assert.AreSame(foreshoreProfile, properties.ForeshoreProfile);
             Assert.AreEqual(worldX, properties.WorldReferencePoint.X, 0.5);
@@ -416,8 +415,10 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         [Test]
         public void CategoryType_Always_InputChangedAndObservablesNotified()
         {
+            var categoryType = new Random(21).NextEnumValue<TestCategoryType>();
+
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(
-                properties => properties.CategoryType = TestCategoryType.Category2);
+                properties => properties.CategoryType = categoryType);
         }
 
         [Test]
@@ -847,8 +848,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
         private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, TestCategoryType>
         {
-            private TestCategoryType type = TestCategoryType.Category1;
-
             public TestWaveConditionsInputContextProperties(TestWaveConditionsInputContext context,
                                                             Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                             IObservablePropertyChangeHandler handler)
@@ -864,19 +863,16 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             protected override TestCategoryType GetCategoryType()
             {
-                return type;
+                return 0;
             }
 
-            protected override void SetCategoryType(TestCategoryType categoryType)
-            {
-                type = categoryType;
-            }
+            protected override void SetCategoryType(TestCategoryType categoryType) {}
         }
 
         private enum TestCategoryType
         {
-            Category1,
-            Category2
+            Type1,
+            Type2
         }
     }
 }
