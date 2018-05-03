@@ -130,6 +130,87 @@ namespace Ringtoets.Integration.Data.Test
             }
         }
 
+        [Test]
+        public void AssemblyFailureMechanismsWithoutProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleFailureMechanismsWithoutProbability_WithAssessmentSection_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(21);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
+
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Call
+                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
+
+                // Assert
+                IEnumerable<IFailureMechanism> expectedFailureMechanisms = assessmentSection.GetFailureMechanisms().Where(fm => fm.Group == 3 || fm.Group == 4);
+
+                IEnumerable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyInput = 
+                    assessmentSectionAssemblyCalculator.FailureMechanismAssemblyCategoryGroupInput;
+                Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
+                Assert.IsTrue(failureMechanismAssemblyInput.All(i => i == failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput));
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanismsWithoutProbability_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.AssessmentSectionAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+
+                // Call
+                AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
+
+                // Assert
+                Assert.AreEqual(calculator.AssessmentSectionAssemblyCategoryGroupOutput, output);
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanismsWithoutProbability_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(CreateAssessmentSection());
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
         private static AssessmentSection CreateAssessmentSection()
         {
             var random = new Random(21);
