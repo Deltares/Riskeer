@@ -28,7 +28,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 
@@ -63,7 +62,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         {
             // Setup
             var waveConditionsInput = new TestWaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(waveConditionsInput);
 
             // Call
             TestDelegate call = () => new TestWaveConditionsInputContext(waveConditionsInput,
@@ -80,7 +79,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         {
             // Setup
             var waveConditionsInput = new TestWaveConditionsInput();
-            var calculation = new TestWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(waveConditionsInput);
             var assessmentSection = new AssessmentSectionStub();
 
             // Call

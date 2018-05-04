@@ -31,16 +31,19 @@ namespace Ringtoets.Revetment.Data.TestUtil.Test
         [Test]
         public void DefaultConstructor_PropertiesSet()
         {
+            // Setup
+            var input = new TestWaveConditionsInput();
+
             // Call
-            var calculation = new TestWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(input);
 
             // Assert
             Assert.IsInstanceOf<ICalculation<TestWaveConditionsInput>>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
+            Assert.AreSame(input, calculation.InputParameters);
             Assert.IsNull(calculation.Output);
             Assert.IsFalse(calculation.HasOutput);
-            Assert.IsNotNull(calculation.InputParameters);
         }
     }
 }

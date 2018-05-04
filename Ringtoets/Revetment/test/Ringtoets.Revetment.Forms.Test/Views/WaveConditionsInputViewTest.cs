@@ -140,7 +140,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
                                                           AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
             {
-                var calculation = new TestWaveConditionsCalculation();
+                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
 
                 // Call
                 view.Data = calculation;
@@ -174,7 +174,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
                                                           AssessmentSectionHelper.GetTestNormativeAssessmentLevel)
             {
-                Data = new TestWaveConditionsCalculation()
+                Data = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
             })
             {
                 // Precondition
@@ -200,7 +200,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => normativeAssessmentLevel))
             {
-                var calculation = new TestWaveConditionsCalculation
+                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
                 {
                     Name = calculationName,
                     InputParameters =
@@ -269,7 +269,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new TestWaveConditionsCalculation
+                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
                 {
                     Name = initialName
                 };
@@ -299,7 +299,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
 
-                var calculation = new TestWaveConditionsCalculation
+                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
                 {
                     Name = initialName
                 };
@@ -309,7 +309,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
-                view.Data = new TestWaveConditionsCalculation
+                view.Data = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
                 {
                     Name = initialName
                 };
@@ -334,7 +334,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             mocks.ReplayAll();
 
             var normativeAssessmentLevel = (RoundedDouble) 6;
-            var calculation = new TestWaveConditionsCalculation
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
             {
                 InputParameters =
                 {
@@ -437,7 +437,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var calculation = new TestWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
 
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
                                                           AssessmentSectionHelper.GetTestNormativeAssessmentLevel)
@@ -447,7 +447,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             {
                 ((ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex)).Attach(observer);
 
-                view.Data = new TestWaveConditionsCalculation();
+                view.Data = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
 
                 calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new[]
                 {
@@ -475,7 +475,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 new Point2D(1.0, 1.0),
                 new Point2D(2.0, 2.0)
             });
-            var calculation = new TestWaveConditionsCalculation
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
             {
                 InputParameters =
                 {

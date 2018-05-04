@@ -750,7 +750,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 ForeshoreProfile = new TestForeshoreProfile()
             };
 
-            var calculation = new TestWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(input);
             var inputContext = new TestWaveConditionsInputContext(input, calculation, assessmentSection, new ForeshoreProfile[0]);
 
             var otherProfile = new TestForeshoreProfile(new Point2D(0, 190));
@@ -818,11 +818,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            var calculation = new TestWaveConditionsCalculation();
             var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile()
             };
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(input);
 
             var context = new TestWaveConditionsInputContext(input,
                                                              calculation,
