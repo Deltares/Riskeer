@@ -27,7 +27,6 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -35,6 +34,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
@@ -56,7 +56,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var assessmentSection = new AssessmentSectionStub();
             var input = new AssessmentSectionCategoryWaveConditionsInput();
-            var calculation = new TestAssessmentSectionCategoryWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(input);
             var inputContext = new TestAssessmentSectionCategoryWaveConditionsInputContext(input, calculation, assessmentSection);
 
             // Call
@@ -88,7 +88,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
             };
-            var calculation = new TestAssessmentSectionCategoryWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(input);
             var inputContext = new TestAssessmentSectionCategoryWaveConditionsInputContext(input, calculation, assessmentSection);
             var properties = new TestAssessmentSectionCategoryWaveConditionsInputContextProperties(inputContext, () => assessmentLevel, handler);
 
@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var assessmentSection = new AssessmentSectionStub();
             var input = new AssessmentSectionCategoryWaveConditionsInput();
-            var calculation = new TestAssessmentSectionCategoryWaveConditionsCalculation();
+            var calculation = new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(input);
             var inputContext = new TestAssessmentSectionCategoryWaveConditionsInputContext(input, calculation, assessmentSection);
             var properties = new TestAssessmentSectionCategoryWaveConditionsInputContextProperties(inputContext, () => assessmentLevel, handler);
             var newAssessmentSectionCategoryType = random.NextEnumValue<AssessmentSectionCategoryType>();
@@ -158,44 +158,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 {
                     return new ForeshoreProfile[0];
                 }
-            }
-        }
-
-        private class TestAssessmentSectionCategoryWaveConditionsCalculation : ICalculation<AssessmentSectionCategoryWaveConditionsInput>
-        {
-            public IEnumerable<IObserver> Observers { get; }
-
-            public string Name { get; set; }
-
-            public bool HasOutput { get; }
-
-            public Comment Comments { get; }
-
-            public AssessmentSectionCategoryWaveConditionsInput InputParameters { get; }
-
-            public void Attach(IObserver observer)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Detach(IObserver observer)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void NotifyObservers()
-            {
-                throw new NotImplementedException();
-            }
-
-            public object Clone()
-            {
-                throw new NotImplementedException();
-            }
-
-            public void ClearOutput()
-            {
-                throw new NotImplementedException();
             }
         }
     }
