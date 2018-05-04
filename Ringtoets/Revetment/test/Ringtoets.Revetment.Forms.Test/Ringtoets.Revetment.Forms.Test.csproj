@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="PresentationObjects\WaveConditionsInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismCategoryWaveConditionsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionCategoryWaveConditionsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GeneralWaveConditionsInputPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveConditionsInputContextPropertiesTest.cs" />
