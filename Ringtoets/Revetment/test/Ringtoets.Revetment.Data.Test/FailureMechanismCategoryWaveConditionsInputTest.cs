@@ -21,6 +21,7 @@
 
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.Revetment.Data.Test

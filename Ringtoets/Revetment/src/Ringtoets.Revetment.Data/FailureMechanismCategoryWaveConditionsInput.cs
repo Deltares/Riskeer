@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Common.Data.FailureMechanism;
+
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>

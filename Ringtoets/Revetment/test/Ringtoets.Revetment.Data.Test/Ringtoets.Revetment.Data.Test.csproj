@@ -15,7 +15,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FailureMechanismCategoryTypeTest.cs" />
     <Compile Include="FailureMechanismCategoryWaveConditionsInputTest.cs" />
     <Compile Include="AssessmentSectionCategoryWaveConditionsInputTest.cs" />
     <Compile Include="GeneralWaveConditionsInputTest.cs" />

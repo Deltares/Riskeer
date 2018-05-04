@@ -497,6 +497,52 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vv-&gt;VIv.
+        /// </summary>
+        public static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IVv-&gt;Vv.
+        /// </summary>
+        public static string FailureMechanismCategoryType_LowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iv-&gt;IIv.
+        /// </summary>
+        public static string FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIIv-&gt;IVv.
+        /// </summary>
+        public static string FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIv-&gt;IIIv.
+        /// </summary>
+        public static string FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde..
         /// </summary>
         public static string FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm {

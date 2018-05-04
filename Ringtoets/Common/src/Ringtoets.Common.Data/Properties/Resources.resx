@@ -423,4 +423,19 @@
   <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
     <value>C-&gt;D</value>
   </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
+    <value>Iv-&gt;IIv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName" xml:space="preserve">
+    <value>IIv-&gt;IIIv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>IIIv-&gt;IVv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>IVv-&gt;Vv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>Vv-&gt;VIv</value>
+  </data>
 </root>

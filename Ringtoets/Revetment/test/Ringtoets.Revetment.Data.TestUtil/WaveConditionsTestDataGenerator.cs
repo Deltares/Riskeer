@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 

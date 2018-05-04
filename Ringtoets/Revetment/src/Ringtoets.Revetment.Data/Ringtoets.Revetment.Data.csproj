@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSectionCategoryWaveConditionsInput.cs" />
-    <Compile Include="FailureMechanismCategoryType.cs" />
     <Compile Include="FailureMechanismCategoryWaveConditionsInput.cs" />
     <Compile Include="GeneralWaveConditionsInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
