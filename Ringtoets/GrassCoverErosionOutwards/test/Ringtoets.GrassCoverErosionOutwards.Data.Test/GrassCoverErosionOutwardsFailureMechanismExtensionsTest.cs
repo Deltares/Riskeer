@@ -89,6 +89,58 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
+        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
+
+            // Call
+            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, null);
+
+            // Assert
+            Assert.IsNaN(normativeAssessmentLevel);
+        }
+
+        [Test]
+        public void GetNormativeAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
+
+            // Call
+            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, new TestHydraulicBoundaryLocation());
+
+            // Assert
+            Assert.IsNaN(normativeAssessmentLevel);
+        }
+
+        [Test]
+        public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.IsNaN(normativeAssessmentLevel);
+        }
+
+        [Test]
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeSignaling_ReturnsCorrespondingAssessmentLevel()
         {
             // Setup
@@ -134,59 +186,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.AreEqual(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result, normativeAssessmentLevel);
-        }
-
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN(NormType normType)
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, null);
-
-            // Assert
-            Assert.IsNaN(normativeAssessmentLevel);
-        }
-
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
-        public void GetNormativeAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN(NormType normType)
-        {
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, new TestHydraulicBoundaryLocation());
-
-            // Assert
-            Assert.IsNaN(normativeAssessmentLevel);
-        }
-
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
-        public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN(NormType normType)
-        {
-            var assessmentSection = new AssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            });
-
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
-
-            // Assert
-            Assert.IsNaN(normativeAssessmentLevel);
         }
     }
 }
