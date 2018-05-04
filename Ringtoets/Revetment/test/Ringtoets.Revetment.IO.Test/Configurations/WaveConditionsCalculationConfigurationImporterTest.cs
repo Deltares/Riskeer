@@ -46,7 +46,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 "",
                 new CalculationGroup(),
                 null,
@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -100,7 +100,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, file);
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -124,7 +124,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -148,7 +148,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationContainingUnknownForeshoreProfile.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -172,7 +172,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationContainingWaveReductionWithoutForeshoreProfile.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -197,7 +197,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
             var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -225,7 +225,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
             var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -240,7 +240,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new TestWaveConditionsCalculation
+            var expectedCalculation = new TestTargetTestWaveConditionsCalculation
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -274,7 +274,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 Name = "VoorlandProfielName"
             });
 
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestWaveConditionsCalculation>(
+            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
                 filePath,
                 calculationGroup,
                 new[]
@@ -292,7 +292,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new TestWaveConditionsCalculation
+            var expectedCalculation = new TestTargetTestWaveConditionsCalculation
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -334,6 +334,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
+        }
+
+        private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<TestWaveConditionsInput>
+        {
+            public TestTargetTestWaveConditionsCalculation() : base(new TestWaveConditionsInput()) {}
         }
     }
 }

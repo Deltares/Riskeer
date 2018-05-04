@@ -54,7 +54,7 @@ namespace Ringtoets.Revetment.Forms.TestUtil
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles,
                                               IAssessmentSection assesmentSection)
             : this(wrappedData,
-                   new TestWaveConditionsCalculation(),
+                   new TestWaveConditionsCalculation<TestWaveConditionsInput>(wrappedData),
                    assesmentSection,
                    foreshoreProfiles) {}
 
