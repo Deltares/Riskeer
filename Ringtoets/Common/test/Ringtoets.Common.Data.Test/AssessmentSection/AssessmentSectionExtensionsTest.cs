@@ -104,12 +104,13 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.AreEqual(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result, normativeAssessmentLevel);
         }
 
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN(NormType normType)
+        [Test]
+        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
+
+            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(null);
@@ -118,13 +119,12 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.IsNaN(normativeAssessmentLevel);
         }
 
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
-        public void GetNormativeAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN(NormType normType)
+        [Test]
+        public void GetNormativeAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
         {
             var assessmentSection = new AssessmentSectionStub();
 
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
@@ -133,14 +133,13 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.IsNaN(normativeAssessmentLevel);
         }
 
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
-        public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN(NormType normType)
+        [Test]
+        public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN()
         {
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -151,6 +150,83 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
 
             // Assert
             Assert.IsNaN(normativeAssessmentLevel);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => AssessmentSectionExtensions.GetAssessmentLevel(null,
+                                                                                     new TestHydraulicBoundaryLocation(),
+                                                                                     AssessmentSectionCategoryType.FactorizedLowerLimitNorm);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_InvalidAssessmentSectionCategoryType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 9999;
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            TestDelegate test = () => assessmentSection.GetAssessmentLevel(new TestHydraulicBoundaryLocation(),
+                                                                           (AssessmentSectionCategoryType) invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            Assert.AreEqual("categoryType", parameterName);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(null,
+                                                                                 new Random(32).NextEnumValue<AssessmentSectionCategoryType>());
+
+            // Assert
+            Assert.IsNaN(assessmentLevel);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(new TestHydraulicBoundaryLocation(),
+                                                                                 new Random(32).NextEnumValue<AssessmentSectionCategoryType>());
+
+            // Assert
+            Assert.IsNaN(assessmentLevel);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            // Call
+            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(hydraulicBoundaryLocation,
+                                                                                 new Random(32).NextEnumValue<AssessmentSectionCategoryType>());
+
+            // Assert
+            Assert.IsNaN(assessmentLevel);
         }
     }
 }
