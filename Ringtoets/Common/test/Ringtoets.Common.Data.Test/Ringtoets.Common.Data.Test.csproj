@@ -23,6 +23,7 @@
     <Compile Include="AssemblyTool\FailureMechanismAssemblyFactoryTest.cs" />
     <Compile Include="AssemblyTool\AssemblyCategoriesInputFactoryTest.cs" />
     <Compile Include="AssemblyTool\AssemblyToolCategoriesFactoryTest.cs" />
+    <Compile Include="AssessmentSection\AssessmentSectionCategoryTypeTest.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionCompositionTest.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionExtensionsTest.cs" />
     <Compile Include="AssessmentSection\BackgroundDataTest.cs" />

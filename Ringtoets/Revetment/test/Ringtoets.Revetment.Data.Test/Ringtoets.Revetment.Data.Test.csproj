@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FailureMechanismCategoryTypeTest.cs" />
-    <Compile Include="AssessmentSectionCategoryTypeTest.cs" />
     <Compile Include="FailureMechanismCategoryWaveConditionsInputTest.cs" />
     <Compile Include="AssessmentSectionCategoryWaveConditionsInputTest.cs" />
     <Compile Include="GeneralWaveConditionsInputTest.cs" />

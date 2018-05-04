@@ -22,8 +22,9 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Ringtoets.Revetment.Data.Test
+namespace Ringtoets.Common.Data.Test.AssessmentSection
 {
     [TestFixture]
     public class AssessmentSectionCategoryTypeTest : EnumWithDisplayNameTestFixture<AssessmentSectionCategoryType>

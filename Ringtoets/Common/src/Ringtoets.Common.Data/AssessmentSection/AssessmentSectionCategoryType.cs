@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Ringtoets.Revetment.Data.Properties;
+using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Revetment.Data
+namespace Ringtoets.Common.Data.AssessmentSection
 {
     /// <summary>
     /// Enumeration that defines the possible assessment section categories.

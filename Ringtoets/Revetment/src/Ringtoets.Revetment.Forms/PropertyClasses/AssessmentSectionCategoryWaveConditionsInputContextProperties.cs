@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
