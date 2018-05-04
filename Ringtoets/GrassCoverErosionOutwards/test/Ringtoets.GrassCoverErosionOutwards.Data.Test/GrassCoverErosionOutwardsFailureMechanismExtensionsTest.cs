@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
@@ -47,7 +48,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetNormativeAssessmentLevel(null, assessmentSection,
+            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetNormativeAssessmentLevel(null,
+                                                                                                                      assessmentSection,
                                                                                                                       new TestHydraulicBoundaryLocation());
 
             // Assert
@@ -63,7 +65,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetNormativeAssessmentLevel(null, new TestHydraulicBoundaryLocation());
+            TestDelegate test = () => failureMechanism.GetNormativeAssessmentLevel(null,
+                                                                                   new TestHydraulicBoundaryLocation());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -82,7 +85,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.GetNormativeAssessmentLevel(assessmentSection, new TestHydraulicBoundaryLocation());
+            TestDelegate test = () => failureMechanism.GetNormativeAssessmentLevel(assessmentSection,
+                                                                                   new TestHydraulicBoundaryLocation());
 
             // Assert
             string expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
@@ -100,7 +104,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
 
             // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, null);
+            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection,
+                                                                                                  null);
 
             // Assert
             Assert.IsNaN(normativeAssessmentLevel);
@@ -115,7 +120,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
 
             // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, new TestHydraulicBoundaryLocation());
+            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection,
+                                                                                                  new TestHydraulicBoundaryLocation());
 
             // Assert
             Assert.IsNaN(normativeAssessmentLevel);
@@ -136,7 +142,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
+            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection,
+                                                                                                  hydraulicBoundaryLocation);
 
             // Assert
             Assert.IsNaN(normativeAssessmentLevel);
@@ -155,10 +162,120 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
 
             // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
+            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection,
+                                                                                                  hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreEqual(expectedNormativeAssessmentLevel, normativeAssessmentLevel);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_FailureMechanismnNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetAssessmentLevel(null,
+                                                                                                             assessmentSection,
+                                                                                                             new TestHydraulicBoundaryLocation(),
+                                                                                                             FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAssessmentLevel_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate test = () => failureMechanism.GetAssessmentLevel(null,
+                                                                          new TestHydraulicBoundaryLocation(),
+                                                                          FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_InvalidAssessmentSectionCategoryType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 9999;
+
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate test = () => failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                          new TestHydraulicBoundaryLocation(),
+                                                                          (FailureMechanismCategoryType) invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            Assert.AreEqual("categoryType", parameterName);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_HydraulicBoundaryLocationNull_ReturnsNaN()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                null,
+                                                                                new Random(32).NextEnumValue<FailureMechanismCategoryType>());
+
+            // Assert
+            Assert.IsNaN(assessmentLevel);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                new TestHydraulicBoundaryLocation(),
+                                                                                new Random(32).NextEnumValue<FailureMechanismCategoryType>());
+
+            // Assert
+            Assert.IsNaN(assessmentLevel);
+        }
+
+        [Test]
+        public void GetAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                hydraulicBoundaryLocation,
+                                                                                new Random(32).NextEnumValue<FailureMechanismCategoryType>());
+
+            // Assert
+            Assert.IsNaN(assessmentLevel);
         }
 
         private static IEnumerable DifferentNormTypes()
