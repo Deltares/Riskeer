@@ -26,14 +26,49 @@ namespace Ringtoets.AssemblyTool.Data
     /// </summary>
     public enum FailureMechanismSectionAssemblyCategoryGroup
     {
+        /// <summary>
+        /// Represents the assembly category GR (No result) for a failure mechanism section.
+        /// </summary>
         None = 1,
+
+        /// <summary>
+        /// Represents the assembly category NVT (Not applicable) for a failure mechanism section.
+        /// </summary>
         NotApplicable = 2,
+
+        /// <summary>
+        /// Represents the assembly category Iv for a failure mechanism section.
+        /// </summary>
         Iv = 3,
+
+        /// <summary>
+        /// Represents the assembly category IIv for a failure mechanism section.
+        /// </summary>
         IIv = 4,
+
+        /// <summary>
+        /// Represents the assembly category IIIV for a failure mechanism section.
+        /// </summary>
         IIIv = 5,
+
+        /// <summary>
+        /// Represents the assembly category IVv for a failure mechanism section.
+        /// </summary>
         IVv = 6,
+
+        /// <summary>
+        /// Represents the assembly category Vv for a failure mechanism section.
+        /// </summary>
         Vv = 7,
+
+        /// <summary>
+        /// Represents the assembly category VIv for a failure mechanism section.
+        /// </summary>
         VIv = 8,
+
+        /// <summary>
+        /// Represents the assembly category VIIv for a failure mechanism section.
+        /// </summary>
         VIIv = 9
     }
 }

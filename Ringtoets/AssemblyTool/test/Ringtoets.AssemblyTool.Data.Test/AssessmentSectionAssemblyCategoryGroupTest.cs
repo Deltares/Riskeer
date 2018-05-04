@@ -38,25 +38,25 @@ namespace Ringtoets.AssemblyTool.Data.Test
                         AssessmentSectionAssemblyCategoryGroup.None, 1
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.APlus, 2
+                        AssessmentSectionAssemblyCategoryGroup.NotApplicable, 2
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.A, 3
+                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, 3
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.B, 4
+                        AssessmentSectionAssemblyCategoryGroup.APlus, 4
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.C, 5
+                        AssessmentSectionAssemblyCategoryGroup.A, 5
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.D, 6
+                        AssessmentSectionAssemblyCategoryGroup.B, 6
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.NotApplicable, 7
+                        AssessmentSectionAssemblyCategoryGroup.C, 7
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, 8
+                        AssessmentSectionAssemblyCategoryGroup.D, 8
                     }
                 };
             }

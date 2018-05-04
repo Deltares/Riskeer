@@ -29,28 +29,52 @@ namespace Ringtoets.AssemblyTool.Data
     /// </summary>
     public enum AssessmentSectionAssemblyCategoryGroup
     {
+        /// <summary>
+        /// Represents the category group GR (No result) for an assessment section.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_None_DisplayName))]
         None = 1,
 
+        /// <summary>
+        /// Represents the category group NVT (Not applicable) for an assessment section.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName))]
+        NotApplicable = 2,
+
+        /// <summary>
+        /// Represents the category group NGO (Not assessed) for an assessment section.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName))]
+        NotAssessed = 3,
+
+        /// <summary>
+        /// Represents the category group A+ for an assessment section.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_APlus_DisplayName))]
-        APlus = 2,
+        APlus = 4,
 
+        /// <summary>
+        /// Represents the category group A+ for an assessment section.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_A_DisplayName))]
-        A = 3,
+        A = 5,
 
+        /// <summary>
+        /// Represents the category group B for an assessment section.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_B_DisplayName))]
-        B = 4,
+        B = 6,
 
+        /// <summary>
+        /// Represents the category group C for an assessment section.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_C_DisplayName))]
-        C = 5,
+        C = 7,
 
+        /// <summary>
+        /// Represents the category group D for an assessment section.
+        /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_D_DisplayName))]
-        D = 6,
-
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName))]
-        NotApplicable = 7,
-
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName))]
-        NotAssessed = 8
+        D = 8
     }
 }

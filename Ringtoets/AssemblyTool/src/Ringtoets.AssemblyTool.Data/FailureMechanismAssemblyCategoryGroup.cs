@@ -36,7 +36,7 @@ namespace Ringtoets.AssemblyTool.Data
         None = 1,
 
         /// <summary>
-        /// Represents the assembly category NVT (Not Applicable) for a failure mechanism.
+        /// Represents the assembly category NVT (Not applicable) for a failure mechanism.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoryGroup_NotApplicable_DisplayName))]
         NotApplicable = 2,
