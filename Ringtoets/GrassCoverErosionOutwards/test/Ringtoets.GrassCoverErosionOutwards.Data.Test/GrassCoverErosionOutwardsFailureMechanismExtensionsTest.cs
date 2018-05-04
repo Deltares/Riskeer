@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -28,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
@@ -141,36 +143,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeSignaling_ReturnsCorrespondingAssessmentLevel()
+        [TestCaseSource(nameof(DifferentNormTypes))]
+        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
+            IAssessmentSection assessmentSection,
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            NormType normType,
+            RoundedDouble expectedNormativeAssessmentLevel)
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = NormType.Signaling;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism, assessmentSection,
-                new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
 
             // Call
             RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
 
             // Assert
-            Assert.AreEqual(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0).Output.Result, normativeAssessmentLevel);
+            Assert.AreEqual(expectedNormativeAssessmentLevel, normativeAssessmentLevel);
         }
 
-        [Test]
-        public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutputAndNormTypeLowerLimit_ReturnsCorrespondingAssessmentLevel()
+        private static IEnumerable DifferentNormTypes()
         {
-            // Setup
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = NormType.LowerLimit;
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
@@ -181,11 +174,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                     hydraulicBoundaryLocation
                 }, true);
 
-            // Call
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, hydraulicBoundaryLocation);
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                NormType.Signaling,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("SignalingNorm");
 
-            // Assert
-            Assert.AreEqual(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result, normativeAssessmentLevel);
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                NormType.LowerLimit,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("LowerLimitNorm");
         }
     }
 }
