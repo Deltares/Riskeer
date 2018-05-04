@@ -118,6 +118,52 @@ namespace Ringtoets.Revetment.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vv-&gt;VIv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IVv-&gt;Vv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_LowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iv-&gt;IIv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIIv-&gt;IVv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIv-&gt;IIIv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De bovengrens van de bekleding moet boven de ondergrens liggen..
         /// </summary>
         internal static string WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment {

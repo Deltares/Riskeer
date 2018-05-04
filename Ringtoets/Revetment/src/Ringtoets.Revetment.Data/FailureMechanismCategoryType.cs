@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Ringtoets.Revetment.Data.Properties;
+
 namespace Ringtoets.Revetment.Data
 {
     /// <summary>
@@ -26,10 +29,19 @@ namespace Ringtoets.Revetment.Data
     /// </summary>
     public enum FailureMechanismCategoryType
     {
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName))]
         MechanismSpecificFactorizedSignalingNorm,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName))]
         MechanismSpecificSignalingNorm,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName))]
         MechanismSpecificLowerLimitNorm,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName))]
         LowerLimitNorm,
+
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName))]
         FactorizedLowerLimitNorm
     }
 }
