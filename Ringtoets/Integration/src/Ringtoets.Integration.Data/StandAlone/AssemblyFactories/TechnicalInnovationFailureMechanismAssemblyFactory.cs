@@ -159,9 +159,9 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             }
 
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                failureMechanism.SectionResults.Select(sectionResult => (sectionResult.UseManualAssemblyCategoryGroup
-                                                                             ? sectionResult.ManualAssemblyCategoryGroup
-                                                                             : AssembleCombinedAssessment(sectionResult))).ToArray();
+                failureMechanism.SectionResults.Select(sectionResult => sectionResult.UseManualAssemblyCategoryGroup
+                                                                            ? sectionResult.ManualAssemblyCategoryGroup
+                                                                            : AssembleCombinedAssessment(sectionResult)).ToArray();
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismAssemblyCalculator calculator =

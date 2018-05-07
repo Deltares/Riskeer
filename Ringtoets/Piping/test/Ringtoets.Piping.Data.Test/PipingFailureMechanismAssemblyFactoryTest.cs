@@ -738,17 +738,14 @@ namespace Ringtoets.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                FailureMechanismAssembly assembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection);
+            // Call
+            FailureMechanismAssembly assembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                failureMechanism,
+                assessmentSection);
 
-                // Assert
-                AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly(), assembly);
-                mocks.VerifyAll();
-            }
+            // Assert
+            AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly(), assembly);
+            mocks.VerifyAll();
         }
 
         [Test]

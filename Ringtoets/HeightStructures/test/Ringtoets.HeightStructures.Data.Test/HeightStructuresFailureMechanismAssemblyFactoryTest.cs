@@ -658,17 +658,14 @@ namespace Ringtoets.HeightStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                FailureMechanismAssembly assembly = HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection);
+            // Call
+            FailureMechanismAssembly assembly = HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                failureMechanism,
+                assessmentSection);
 
-                // Assert
-                AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly(), assembly);
-                mocks.VerifyAll();
-            }
+            // Assert
+            AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly(), assembly);
+            mocks.VerifyAll();
         }
 
         [Test]

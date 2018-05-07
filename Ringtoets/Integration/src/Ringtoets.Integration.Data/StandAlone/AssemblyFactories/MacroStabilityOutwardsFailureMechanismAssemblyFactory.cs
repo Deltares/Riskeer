@@ -198,11 +198,6 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!failureMechanism.IsRelevant)
-            {
-                return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-            }
-
             FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
             FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = AssembleDetailedAssessment(
                 failureMechanismSectionResult, failureMechanism, assessmentSection);
@@ -252,11 +247,11 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             }
 
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                failureMechanism.SectionResults.Select(sectionResult => (sectionResult.UseManualAssemblyCategoryGroup
-                                                                             ? sectionResult.ManualAssemblyCategoryGroup
-                                                                             : AssembleCombinedAssessment(sectionResult,
-                                                                                                          failureMechanism,
-                                                                                                          assessmentSection))).ToArray();
+                failureMechanism.SectionResults.Select(sectionResult => sectionResult.UseManualAssemblyCategoryGroup
+                                                                            ? sectionResult.ManualAssemblyCategoryGroup
+                                                                            : AssembleCombinedAssessment(sectionResult,
+                                                                                                         failureMechanism,
+                                                                                                         assessmentSection)).ToArray();
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismAssemblyCalculator calculator =

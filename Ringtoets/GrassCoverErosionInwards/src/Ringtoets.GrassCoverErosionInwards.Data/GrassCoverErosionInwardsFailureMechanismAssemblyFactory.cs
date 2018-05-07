@@ -268,17 +268,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
+        /// <returns>A collection of all section assembly results.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        /// <returns>A collection of all section assembly results.</returns>
         private static IEnumerable<FailureMechanismSectionAssembly> AssembleSections(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                                      IAssessmentSection assessmentSection,
                                                                                      AssemblyCategoriesInput assemblyCategoriesInput)
         {
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismSectionAssemblyCalculator sectionCalculator =
-                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
             var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
 
             foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
@@ -286,14 +282,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 FailureMechanismSectionAssembly sectionAssembly;
                 if (sectionResult.UseManualAssemblyProbability)
                 {
-                    try
-                    {
-                        sectionAssembly = sectionCalculator.AssembleManual(sectionResult.ManualAssemblyProbability, assemblyCategoriesInput);
-                    }
-                    catch (FailureMechanismSectionAssemblyCalculatorException e)
-                    {
-                        throw new AssemblyException(e.Message, e);
-                    }
+                    sectionAssembly = AssembleManualAssessment(sectionResult, assemblyCategoriesInput);
                 }
                 else
                 {
@@ -306,6 +295,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
 
             return sectionAssemblies;
+        }
+
+        /// <summary>
+        /// Assembles the manual assembly.
+        /// </summary>
+        /// <param name="sectionResult">The failure mechanism section result to assemble the 
+        /// manual assembly for.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        private static FailureMechanismSectionAssembly AssembleManualAssessment(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+                                                                                AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+            IFailureMechanismSectionAssemblyCalculator calculator =
+                calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+            try
+            {
+                return calculator.AssembleManual(sectionResult.ManualAssemblyProbability, assemblyCategoriesInput);
+            }
+            catch (FailureMechanismSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
         }
 
         private static AssemblyCategoriesInput CreateAssemblyCategoriesInput(GrassCoverErosionInwardsFailureMechanism failureMechanism,
