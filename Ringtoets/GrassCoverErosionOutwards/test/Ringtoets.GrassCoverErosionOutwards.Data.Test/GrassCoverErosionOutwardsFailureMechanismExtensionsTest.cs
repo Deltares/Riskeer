@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -40,22 +39,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
     public class GrassCoverErosionOutwardsFailureMechanismExtensionsTest
     {
         [Test]
-        public void GetNormativeAssessmentLevel_FailureMechanismnNull_ThrowsArgumentNullException()
+        public void GetNormativeAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetNormativeAssessmentLevel(null,
-                                                                                                                      assessmentSection,
+                                                                                                                      new AssessmentSectionStub(),
                                                                                                                       new TestHydraulicBoundaryLocation());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -170,23 +163,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLevel_FailureMechanismnNull_ThrowsArgumentNullException()
+        public void GetAssessmentLevel_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetAssessmentLevel(null,
-                                                                                                             assessmentSection,
+                                                                                                             new AssessmentSectionStub(),
                                                                                                              new TestHydraulicBoundaryLocation(),
                                                                                                              FailureMechanismCategoryType.FactorizedLowerLimitNorm);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -278,6 +265,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.IsNaN(assessmentLevel);
         }
 
+        [Test]
+        [TestCaseSource(nameof(DifferentCategoryTypes))]
+        public void GetAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
+            IAssessmentSection assessmentSection,
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            FailureMechanismCategoryType categoryType,
+            RoundedDouble expectedAssessmentLevel)
+        {
+            // Call
+            RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                hydraulicBoundaryLocation,
+                                                                                categoryType);
+
+            // Assert
+            Assert.AreEqual(expectedAssessmentLevel, assessmentLevel);
+        }
+
         private static IEnumerable DifferentNormTypes()
         {
             var assessmentSection = new AssessmentSectionStub();
@@ -306,6 +311,61 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 NormType.LowerLimit,
                 failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result
             ).SetName("LowerLimitNorm");
+        }
+
+        private static IEnumerable DifferentCategoryTypes()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("MechanismSpecificFactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("MechanismSpecificSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("MechanismSpecificLowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.LowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("FactorizedLowerLimitNorm");
         }
     }
 }
