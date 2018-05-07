@@ -23,6 +23,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BorderedLabelTest.cs" />
     <Compile Include="DataGrid\CellStyleTest.cs" />
     <Compile Include="DataGrid\DataGridViewColorCellTest.cs" />
     <Compile Include="DataGrid\DataGridViewColorColumnTest.cs" />

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Controls;
+
 namespace Ringtoets.Common.Forms.Controls
 {
     partial class AssemblyResultWithProbabilityControl
@@ -50,7 +52,7 @@ namespace Ringtoets.Common.Forms.Controls
         private void InitializeComponent()
         {
             this.probabilityPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.ProbabilityLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
+            this.ProbabilityLabel = new BorderedLabel();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.probabilityPanel.SuspendLayout();
             this.SuspendLayout();

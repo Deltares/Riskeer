@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;

@@ -13,6 +13,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BorderedLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="DataGrid\CellStyle.cs" />
     <Compile Include="DataGrid\DataGridViewColorCell.cs" />

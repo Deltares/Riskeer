@@ -22,6 +22,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;

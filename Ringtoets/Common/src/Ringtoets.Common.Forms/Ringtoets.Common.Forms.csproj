@@ -150,9 +150,6 @@
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
-    <Compile Include="Controls\BorderedLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Views\CalculatableRow.cs" />
     <Compile Include="Views\FailureMechanismSectionProbabilityAssessmentRow.cs" />
     <Compile Include="Views\FailureMechanismSectionRow.cs" />

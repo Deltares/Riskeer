@@ -19,16 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
+using Core.Common.Controls;
 
 namespace Ringtoets.Common.Forms.Controls
 {
-#if DEVELOPMENT
-     partial class AssemblyResultControl
-#else
-    abstract partial class AssemblyResultControl
-#endif    
-     
+     abstract partial class AssemblyResultControl   
      {
         /// <summary> 
         /// Required designer variable.
@@ -59,7 +54,7 @@ namespace Ringtoets.Common.Forms.Controls
             this.components = new System.ComponentModel.Container();
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.GroupLabel = new Ringtoets.Common.Forms.Controls.BorderedLabel();
+            this.GroupLabel = new BorderedLabel();
             this.GroupPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.SuspendLayout();
