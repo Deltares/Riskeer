@@ -44,7 +44,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual((SimpleAssessmentValidityOnlyResultType) 0, calculator.SimpleAssessmentValidityOnlyInput);
             Assert.IsNull(calculator.SimpleAssessmentAssemblyOutput);
 
-            Assert.AreEqual(0.0, calculator.DetailedAssessmentNInput);
+            Assert.AreEqual(0.0, calculator.DetailedAssessmentFailureMechanismSectionNInput);
             Assert.AreEqual(0.0, calculator.DetailedAssessmentProbabilityInput);
             Assert.AreEqual((DetailedAssessmentProbabilityOnlyResultType) 0, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.IsNull(calculator.DetailedAssessmentAssemblyOutput);
@@ -429,7 +429,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             Assert.AreEqual(detailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
             Assert.AreEqual(probability, calculator.DetailedAssessmentProbabilityInput);
-            Assert.AreEqual(n, calculator.DetailedAssessmentNInput);
+            Assert.AreEqual(n, calculator.DetailedAssessmentFailureMechanismSectionNInput);
             Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
         }
 
@@ -843,7 +843,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
             Assert.AreEqual(probability, calculator.TailorMadeAssessmentProbabilityInput);
-            Assert.AreEqual(n, calculator.TailorMadeAssessmentNInput);
+            Assert.AreEqual(n, calculator.TailorMadeAssessmentFailureMechanismSectionNInput);
             Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
         }
 

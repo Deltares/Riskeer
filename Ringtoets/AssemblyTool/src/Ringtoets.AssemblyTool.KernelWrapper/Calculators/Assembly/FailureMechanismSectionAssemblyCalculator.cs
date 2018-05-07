@@ -116,10 +116,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
-                                                                          double n,
+                                                                          double failureMechanismSectionN,
                                                                           AssemblyCategoriesInput assemblyCategoriesInput)
         {
-            return GetDetailedAssembly(detailedAssessmentResult, probability, n, assemblyCategoriesInput);
+            return GetDetailedAssembly(detailedAssessmentResult, probability, failureMechanismSectionN, assemblyCategoriesInput);
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
@@ -146,6 +146,57 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
             }
+        }
+
+        private FailureMechanismSectionAssembly GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                    double probability,
+                                                                    AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G3(
+                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
+                    GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
+                    probability);
+
+                return FailureMechanismSectionAssemblyCreator.Create(output);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
+
+        private FailureMechanismSectionAssembly GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
+                                                                    double probability,
+                                                                    double failureMechanismSectionN,
+                                                                    AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            try
+            {
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G5(
+                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
+                    failureMechanismSectionN,
+                    GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
+                    probability);
+
+                return FailureMechanismSectionAssemblyCreator.Create(output);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
+
+        private static EAssessmentResultTypeG2 GetAssessmentResultTypeG2(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult, double probability)
+        {
+            return double.IsNaN(probability) && detailedAssessmentResult == DetailedAssessmentProbabilityOnlyResultType.Probability
+                       ? EAssessmentResultTypeG2.Gr
+                       : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult);
         }
 
         #endregion
@@ -217,7 +268,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
-                                                                            double n,
+                                                                            double failureMechanismSectionN,
                                                                             AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
@@ -226,7 +277,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T5(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    n,
+                    failureMechanismSectionN,
                     double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityCalculationResultType.Probability
                         ? EAssessmentResultTypeT3.Gr
                         : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
@@ -326,57 +377,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssembly AssembleManual(double probability, AssemblyCategoriesInput assemblyCategoriesInput)
+        #endregion
+
+        #region Manual Assembly
+
+        public FailureMechanismSectionAssembly AssembleManual(double probability,
+                                                              AssemblyCategoriesInput assemblyCategoriesInput)
         {
             return GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType.Probability, probability, assemblyCategoriesInput);
         }
 
-        public FailureMechanismSectionAssembly AssembleManual(double probability, double n, AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssembly AssembleManual(double probability,
+                                                              double failureMechanismSectionN,
+                                                              AssemblyCategoriesInput assemblyCategoriesInput)
         {
-            return GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType.Probability, probability, n, assemblyCategoriesInput);
-        }
-
-        private FailureMechanismSectionAssembly GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult, double probability, AssemblyCategoriesInput assemblyCategoriesInput)
-        {
-            try
-            {
-                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G3(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    double.IsNaN(probability) && detailedAssessmentResult == DetailedAssessmentProbabilityOnlyResultType.Probability
-                        ? EAssessmentResultTypeG2.Gr
-                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
-                    probability);
-
-                return FailureMechanismSectionAssemblyCreator.Create(output);
-            }
-            catch (Exception e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
-            }
-        }
-
-        private FailureMechanismSectionAssembly GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult, double probability, double n, AssemblyCategoriesInput assemblyCategoriesInput)
-        {
-            try
-            {
-                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G5(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    n,
-                    double.IsNaN(probability) && detailedAssessmentResult == DetailedAssessmentProbabilityOnlyResultType.Probability
-                        ? EAssessmentResultTypeG2.Gr
-                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult),
-                    probability);
-
-                return FailureMechanismSectionAssemblyCreator.Create(output);
-            }
-            catch (Exception e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(e.Message, e);
-            }
+            return GetDetailedAssembly(DetailedAssessmentProbabilityOnlyResultType.Probability, probability, failureMechanismSectionN, assemblyCategoriesInput);
         }
 
         #endregion

@@ -62,9 +62,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
         /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="detailedAssessmentResult"/> is
         /// an invalid <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
@@ -80,16 +79,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the detailed assessment based on the input parameters.
         /// </summary>
         /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="n">The 'N' parameter of the failure mechanism section used to factor in the 'length effect'.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="failureMechanismSectionN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                    double probability,
-                                                                   double n,
+                                                                   double failureMechanismSectionN,
                                                                    AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
@@ -130,9 +128,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>
         /// to assemble for.</param>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
@@ -145,9 +142,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>
         /// to assemble for.</param>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
@@ -160,16 +156,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>
         /// to assemble for.</param>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="n">The 'N' parameter of the failure mechanism section used to factor in the 'length effect'.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="failureMechanismSectionN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                      double probability,
-                                                                     double n,
+                                                                     double failureMechanismSectionN,
                                                                      AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
@@ -211,9 +206,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the manual assembly based on the input parameters.
         /// </summary>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
@@ -223,15 +217,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the manual assembly based on the input parameters.
         /// </summary>
-        /// <param name="probability">The calculated probability.</param>
-        /// <param name="n">The 'N' parameter of the failure mechanism section used to factor in the 'length effect'.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="probability">The probability to calculate with.</param>
+        /// <param name="failureMechanismSectionN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs when performing the assembly.</exception>
         FailureMechanismSectionAssembly AssembleManual(double probability,
-                                                       double n,
+                                                       double failureMechanismSectionN,
                                                        AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }

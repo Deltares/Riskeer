@@ -259,7 +259,7 @@ namespace Ringtoets.Piping.Data.Test
                                     assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
-                                calculator.DetailedAssessmentNInput);
+                                calculator.DetailedAssessmentFailureMechanismSectionNInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
             }
         }
@@ -427,7 +427,7 @@ namespace Ringtoets.Piping.Data.Test
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentProbabilityCalculationResultInput);
                 Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length),
-                                calculator.TailorMadeAssessmentNInput);
+                                calculator.TailorMadeAssessmentFailureMechanismSectionNInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.AssemblyCategoriesInput);
                 mocks.VerifyAll();
             }

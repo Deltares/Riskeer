@@ -265,7 +265,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for determining the assembly categories.</param>
+        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         /// <returns>A collection of all section assembly results.</returns>

@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the 'N' parameter input of the detailed assessment calculation.
         /// </summary>
-        public double DetailedAssessmentNInput { get; private set; }
+        public double DetailedAssessmentFailureMechanismSectionNInput { get; private set; }
 
         /// <summary>
         /// Gets the detailed assessment result input for cat Iv - IIv.
@@ -129,7 +129,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the 'N' parameter input of the tailor made assessment calculation.
         /// </summary>
-        public double TailorMadeAssessmentNInput { get; private set; }
+        public double TailorMadeAssessmentFailureMechanismSectionNInput { get; private set; }
 
         /// <summary>
         /// Gets the category group input of the tailor made assessment calculation.
@@ -273,7 +273,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                           double probability,
-                                                                          double n,
+                                                                          double failureMechanismSectionN,
                                                                           AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
@@ -284,7 +284,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             DetailedAssessmentProbabilityOnlyResultInput = detailedAssessmentResult;
             DetailedAssessmentProbabilityInput = probability;
             AssemblyCategoriesInput = assemblyCategoriesInput;
-            DetailedAssessmentNInput = n;
+            DetailedAssessmentFailureMechanismSectionNInput = failureMechanismSectionN;
 
             return DetailedAssessmentAssemblyOutput ??
                    (DetailedAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.VIv));
@@ -369,7 +369,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
-                                                                            double n,
+                                                                            double failureMechanismSectionN,
                                                                             AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
@@ -380,7 +380,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             TailorMadeAssessmentProbabilityCalculationResultInput = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
             AssemblyCategoriesInput = assemblyCategoriesInput;
-            TailorMadeAssessmentNInput = n;
+            TailorMadeAssessmentFailureMechanismSectionNInput = failureMechanismSectionN;
 
             return TailorMadeAssessmentAssemblyOutput ??
                    (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
@@ -454,7 +454,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                    (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(0, FailureMechanismSectionAssemblyCategoryGroup.IIv));
         }
 
-        public FailureMechanismSectionAssembly AssembleManual(double probability, double n, AssemblyCategoriesInput assemblyCategoriesInput)
+        public FailureMechanismSectionAssembly AssembleManual(double probability, double failureMechanismSectionN, AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -463,7 +463,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             ManualAssemblyProbabilityInput = probability;
             AssemblyCategoriesInput = assemblyCategoriesInput;
-            ManualAssemblyNInput = n;
+            ManualAssemblyNInput = failureMechanismSectionN;
 
             return ManualAssemblyAssemblyOutput ??
                    (ManualAssemblyAssemblyOutput = new FailureMechanismSectionAssembly(1.0, FailureMechanismSectionAssemblyCategoryGroup.VIIv));
