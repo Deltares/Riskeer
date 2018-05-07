@@ -28,6 +28,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -383,7 +384,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism
@@ -391,14 +392,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 IsRelevant = false
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                FailureMechanismAssemblyCategoryGroup assembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
+            // Call
+            FailureMechanismAssemblyCategoryGroup category = MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism);
 
-                // Assert                
-                Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, assembly);
-            }
+            // Assert
+            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
         }
 
         [Test]

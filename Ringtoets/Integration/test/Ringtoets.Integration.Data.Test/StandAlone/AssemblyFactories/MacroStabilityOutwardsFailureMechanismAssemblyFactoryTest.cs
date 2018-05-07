@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -645,7 +646,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableAssembly()
+        public void AssembleFailureMechanism_FailureMechanismIsNotRelevant_ReturnsNotApplicableCategory()
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism
@@ -657,16 +658,13 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                FailureMechanismAssemblyCategoryGroup assembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                                                                assessmentSection);
+            // Call
+            FailureMechanismAssemblyCategoryGroup category = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
+                                                                                                                                            assessmentSection);
 
-                // Assert                
-                Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, assembly);
-                mocks.VerifyAll();
-            }
+            // Assert
+            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
+            mocks.VerifyAll();
         }
 
         [Test]

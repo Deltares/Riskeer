@@ -280,7 +280,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             // Call
             TestDelegate call = () => converter.ConvertFrom(null);
 
-            // Assert        
+            // Assert
             Assert.Throws<NotSupportedException>(call);
         }
     }
