@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -27,9 +28,11 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Plugin.TestUtil;
@@ -135,33 +138,26 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_StabilityStoneCoverWaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel()
+        [TestCaseSource(nameof(DifferentCategoryTypes))]
+        public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ReturnViewWithCorrespondingAssessmentLevel(
+            IAssessmentSection assessmentSection,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            AssessmentSectionCategoryType categoryType,
+            RoundedDouble expectedAssessmentLevel)
         {
             // Setup
-            const double assessmentLevel = 2.2;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                hydraulicBoundaryLocation
-            });
-
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(assessmentLevel);
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = categoryType
+                }
+            };
 
             var context = new StabilityStoneCoverWaveConditionsInputContext(
-                new AssessmentSectionCategoryWaveConditionsInput
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                new StabilityStoneCoverWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                    }
-                },
+                calculation.InputParameters,
+                calculation,
                 assessmentSection,
                 new ForeshoreProfile[0]);
 
@@ -172,7 +168,46 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
-            Assert.AreEqual(assessmentLevel, designWaterLevelChartData.Points.First().Y);
+            Assert.AreEqual(expectedAssessmentLevel, designWaterLevelChartData.Points.First().Y);
+        }
+
+        private static IEnumerable DifferentCategoryTypes()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.FactorizedSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("FactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.SignalingNorm,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("SignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.LowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("FactorizedLowerLimitNorm");
         }
 
         #region ShouldCloseViewWithCalculationDataTester

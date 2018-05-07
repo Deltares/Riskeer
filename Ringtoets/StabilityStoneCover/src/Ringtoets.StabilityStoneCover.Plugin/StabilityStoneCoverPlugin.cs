@@ -112,7 +112,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 GetViewData = context => context.Calculation,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(new StabilityStoneCoverWaveConditionsInputViewStyle(),
-                                                                        () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation))
+                                                                        () => context.AssessmentSection.GetAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                           context.Calculation.InputParameters.CategoryType))
             };
         }
 
