@@ -27,12 +27,12 @@ using Assembly.Kernel.Model;
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
-    /// Assessment section assembly kernel stub for testing purposes
+    /// Assessment section assembly kernel stub for testing purposes.
     /// </summary>
     public class AssessmentSectionAssemblyKernelStub : IAssessmentGradeAssembler
     {
         /// <summary>
-        /// Gets the <see cref="AssessmentSectionInput"/> used as an input parameter for assembly methods.
+        /// Gets the <see cref="AssessmentSection"/> used as an input parameter for assembly methods.
         /// </summary>
         public AssessmentSection AssessmentSectionInput { get; private set; }
 
