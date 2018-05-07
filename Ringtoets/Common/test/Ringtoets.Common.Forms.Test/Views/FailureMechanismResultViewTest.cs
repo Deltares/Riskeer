@@ -352,7 +352,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 view.ThrowExceptionOnCalculate = true;
                 sectionResult.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
             }
@@ -386,7 +386,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 view.ThrowExceptionOnCalculate = false;
                 sectionResult.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
             }

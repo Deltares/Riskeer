@@ -22,6 +22,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -88,7 +89,61 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenResultChangedAndSectionResultNotified_FailureMechanismAssemblyResultUpdated()
+        public void GivenFailureMechanismResultsView_WhenNoExceptionThrownByCalculator_ErrorSetToControl()
+        {
+            // Given
+            var failureMechanism = new TFailureMechanism();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Precondition
+                FailureMechanismAssemblyControl assemblyControl = GetFailureMechanismAssemblyControl();
+                ErrorProvider errorProvider = GetErrorProvider(assemblyControl);
+                Assert.IsEmpty(errorProvider.GetError(assemblyControl));
+
+                // When
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+                failureMechanism.NotifyObservers();
+
+                // Then
+                Assert.AreEqual("Message", errorProvider.GetError(assemblyControl));
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsView_WhenNoExceptionThrownByCalculator_ErrorCleared()
+        {
+            // Given
+            var failureMechanism = new TFailureMechanism();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                calculator.ThrowExceptionOnCalculate = true;
+                failureMechanism.NotifyObservers();
+
+                // Precondition
+                FailureMechanismAssemblyControl assemblyControl = GetFailureMechanismAssemblyControl();
+                ErrorProvider errorProvider = GetErrorProvider(assemblyControl);
+                Assert.AreEqual("Message", errorProvider.GetError(assemblyControl));
+
+                // When
+                calculator.ThrowExceptionOnCalculate = false;
+                failureMechanism.NotifyObservers();
+
+                // Then
+                Assert.IsEmpty(errorProvider.GetError(assemblyControl));
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenFailureMechanismAssemblyResultChangedAndSectionResultNotified_FailureMechanismAssemblyResultUpdated()
         {
             // Given
             var failureMechanism = new TFailureMechanism();
@@ -102,7 +157,6 @@ namespace Ringtoets.Common.Forms.TestUtil
                 BorderedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
                 Assert.AreEqual("1/1", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
 
                 // When
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -110,15 +164,14 @@ namespace Ringtoets.Common.Forms.TestUtil
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
                 failureMechanism.SectionResults.Single().NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.AreEqual("1/2", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("VIt", assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.FromArgb(255, 0, 0), assemblyGroupLabel.BackColor);
             }
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenResultChangedAndCalculationNotified_FailureMechanismAssemblyResultUpdated()
+        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenFailureMechanismAssemblyResultChangedAndCalculationNotified_FailureMechanismAssemblyResultUpdated()
         {
             // Given
             var failureMechanism = new TFailureMechanism();
@@ -133,7 +186,6 @@ namespace Ringtoets.Common.Forms.TestUtil
                 BorderedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
                 Assert.AreEqual("1/1", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
 
                 // When
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -141,15 +193,14 @@ namespace Ringtoets.Common.Forms.TestUtil
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
                 calculation.NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.AreEqual("1/2", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("VIt", assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.FromArgb(255, 0, 0), assemblyGroupLabel.BackColor);
             }
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenResultChangedAndCalculationInputNotified_FailureMechanismAssemblyResultUpdated()
+        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenFailureMechanismAssemblyResultChangedAndCalculationInputNotified_FailureMechanismAssemblyResultUpdated()
         {
             // Given
             var failureMechanism = new TFailureMechanism();
@@ -164,18 +215,16 @@ namespace Ringtoets.Common.Forms.TestUtil
                 BorderedLabel assemblyProbabilityLabel = GetProbabilityLabelControl();
                 Assert.AreEqual("1/1", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
 
                 // When
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
-                GetInput(failureMechanism.CalculationsGroup.Children.Cast<TCalculation>().Single()).NotifyObservers();
+                GetInput(calculation).NotifyObservers();
 
-                // Assert
+                // Then
                 Assert.AreEqual("1/2", assemblyProbabilityLabel.Text);
                 Assert.AreEqual("VIt", assemblyGroupLabel.Text);
-                Assert.AreEqual(Color.FromArgb(255, 0, 0), assemblyGroupLabel.BackColor);
             }
         }
 
@@ -208,6 +257,16 @@ namespace Ringtoets.Common.Forms.TestUtil
         private static BorderedLabel GetProbabilityLabelControl()
         {
             return (BorderedLabel) new ControlTester("ProbabilityLabel").TheObject;
+        }
+
+        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyControl control)
+        {
+            return TypeUtils.GetField<ErrorProvider>(control, "ErrorProvider");
+        }
+
+        private static FailureMechanismAssemblyControl GetFailureMechanismAssemblyControl()
+        {
+            return (FailureMechanismAssemblyControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
         }
 
         private TView ShowFailureMechanismResultsView(TFailureMechanism failureMechanism)
