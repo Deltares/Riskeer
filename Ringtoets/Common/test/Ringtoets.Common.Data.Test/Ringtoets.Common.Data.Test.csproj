@@ -20,7 +20,7 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyTool\FailureMechanismAssemblyFactoryTest.cs" />
+    <Compile Include="AssemblyTool\FailureMechanismAssemblyResultFactoryTest.cs" />
     <Compile Include="AssemblyTool\AssemblyCategoriesInputFactoryTest.cs" />
     <Compile Include="AssemblyTool\AssemblyToolCategoriesFactoryTest.cs" />
     <Compile Include="AssessmentSection\AssessmentSectionCategoryTypeTest.cs" />

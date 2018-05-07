@@ -19,22 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssemblyTool;
 
-namespace Ringtoets.Common.Data.AssemblyTool
+namespace Ringtoets.Common.Data.Test.AssemblyTool
 {
-    /// <summary>
-    /// Factory for creating instances of <see cref="FailureMechanismAssembly"/>.
-    /// </summary>
-    public static class FailureMechanismAssemblyFactory
+    [TestFixture]
+    public class FailureMechanismAssemblyResultFactoryTest
     {
-        /// <summary>
-        /// Creates an instance of <see cref="FailureMechanismAssembly"/> which
-        /// represents a not applicable result.
-        /// </summary>
-        public static FailureMechanismAssembly CreateNotApplicableAssembly()
+        [Test]
+        public void CreateNotApplicableAssembly_Always_ReturnsExpectedFailureMechanismAssembly()
         {
-            return new FailureMechanismAssembly(double.NaN, FailureMechanismAssemblyCategoryGroup.NotApplicable);
+            // Call
+            FailureMechanismAssembly assembly = FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly();
+
+            // Assert
+            Assert.IsNaN(assembly.Probability);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, assembly.Group);
+        }
+
+        [Test]
+        public void CreateNotApplicableCategory_Always_ReturnsExpectedFailureMechanismAssembly()
+        {
+            // Call
+            FailureMechanismAssemblyCategoryGroup category = FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
+
+            // Assert
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, category);
         }
     }
 }
