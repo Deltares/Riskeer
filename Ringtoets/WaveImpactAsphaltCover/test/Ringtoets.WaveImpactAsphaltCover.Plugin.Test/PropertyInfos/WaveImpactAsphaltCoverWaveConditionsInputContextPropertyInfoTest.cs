@@ -19,12 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -51,23 +54,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        public void CreateInstance_WithContextAndNormTypeSignaling_ExpectedProperties()
+        [TestCaseSource(nameof(DifferentCategoryTypes))]
+        public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
+            IAssessmentSection assessmentSection,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            AssessmentSectionCategoryType categoryType,
+            RoundedDouble expectedAssessmentLevel)
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.Signaling
-                }
-            };
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = categoryType
                 }
             };
 
@@ -75,11 +75,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                                                                                calculation,
                                                                                assessmentSection,
                                                                                new ForeshoreProfile[0]);
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
@@ -92,54 +87,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
 
-                double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result;
-                Assert.AreEqual(expectedAssessmentLevel, ((WaveImpactAsphaltCoverWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
-            }
-        }
-
-        [Test]
-        public void CreateInstance_WithContextAndNormTypeLowerLimit_ExpectedProperties()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.LowerLimit
-                }
-            };
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(calculation.InputParameters,
-                                                                               calculation,
-                                                                               assessmentSection,
-                                                                               new ForeshoreProfile[0]);
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
-
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                PropertyInfo info = GetInfo(plugin);
-
-                // Call
-                IObjectProperties objectProperties = info.CreateInstance(context);
-
-                // Assert
-                Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsInputContextProperties>(objectProperties);
-                Assert.AreSame(context, objectProperties.Data);
-
-                double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result;
                 Assert.AreEqual(expectedAssessmentLevel, ((WaveImpactAsphaltCoverWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }
@@ -147,6 +94,45 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
         private static PropertyInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
             return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsInputContext));
+        }
+
+        private static IEnumerable DifferentCategoryTypes()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.FactorizedSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("FactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.SignalingNorm,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("SignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.LowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("FactorizedLowerLimitNorm");
         }
     }
 }

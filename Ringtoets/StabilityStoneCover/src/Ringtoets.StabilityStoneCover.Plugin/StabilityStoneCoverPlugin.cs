@@ -73,7 +73,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             {
                 CreateInstance = context => new StabilityStoneCoverWaveConditionsInputContextProperties(
                     context,
-                    () => context.AssessmentSection.GetNormativeAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation),
+                    () => context.AssessmentSection.GetAssessmentLevel(context.Calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                       context.Calculation.InputParameters.CategoryType),
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
         }
