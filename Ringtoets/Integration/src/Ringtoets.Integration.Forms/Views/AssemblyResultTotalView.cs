@@ -26,6 +26,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -93,6 +94,7 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 components?.Dispose();
             }
+
             base.Dispose(disposing);
         }
 
@@ -152,11 +154,45 @@ namespace Ringtoets.Integration.Forms.Views
         {
             assemblyResultRows.ForEachElementDo(row => row.Update());
             dataGridViewControl.RefreshDataGridView();
+            UpdateAssemblyResultControls();
+        }
+
+        private void UpdateAssemblyResultControls()
+        {
+            try
+            {
+                totalAssemblyCategoryGroupControl.SetData(AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
+                totalAssemblyCategoryGroupControl.ClearError();
+            }
+            catch (AssemblyException e)
+            {
+                totalAssemblyCategoryGroupControl.SetError(e.Message);
+            }
+
+            try
+            {
+                failureMechanismsWithProbabilityAssemblyControl.SetData(AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(AssessmentSection));
+                failureMechanismsWithProbabilityAssemblyControl.ClearError();
+            }
+            catch (AssemblyException e)
+            {
+                failureMechanismsWithProbabilityAssemblyControl.SetError(e.Message);
+            }
+
+            try
+            {
+                failureMechanismsWithoutProbabilityAssemblyControl.SetData(AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(AssessmentSection));
+                failureMechanismsWithoutProbabilityAssemblyControl.ClearError();
+            }
+            catch (AssemblyException e)
+            {
+                failureMechanismsWithoutProbabilityAssemblyControl.SetError(e.Message);
+            }
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
-           dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
+            dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         #region Failure mechanism assembly result rows
@@ -168,7 +204,7 @@ namespace Ringtoets.Integration.Forms.Views
             ClosingStructuresFailureMechanism closingStructures = AssessmentSection.ClosingStructures;
             return new FailureMechanismAssemblyResultRow(closingStructures,
                                                          () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(closingStructures,
-                                                                                                                                                      AssessmentSection));
+                                                                                                                                         AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateHeightStructuresFailureMechanismAssemblyResultRow()
@@ -176,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Views
             HeightStructuresFailureMechanism heightStructures = AssessmentSection.HeightStructures;
             return new FailureMechanismAssemblyResultRow(heightStructures,
                                                          () => HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(heightStructures,
-                                                                                                                                                     AssessmentSection));
+                                                                                                                                        AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow()
@@ -184,7 +220,7 @@ namespace Ringtoets.Integration.Forms.Views
             StabilityPointStructuresFailureMechanism stabilityPointStructures = AssessmentSection.StabilityPointStructures;
             return new FailureMechanismAssemblyResultRow(stabilityPointStructures,
                                                          () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityPointStructures,
-                                                                                                                                                             AssessmentSection));
+                                                                                                                                                AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow()
@@ -192,7 +228,7 @@ namespace Ringtoets.Integration.Forms.Views
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards = AssessmentSection.GrassCoverErosionInwards;
             return new FailureMechanismAssemblyResultRow(grassCoverErosionInwards,
                                                          () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionInwards,
-                                                                                                                                                             AssessmentSection));
+                                                                                                                                                AssessmentSection));
         }
 
         #endregion
@@ -204,7 +240,7 @@ namespace Ringtoets.Integration.Forms.Views
             PipingFailureMechanism piping = AssessmentSection.Piping;
             return new FailureMechanismAssemblyResultRow(piping,
                                                          () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(piping,
-                                                                                                                                           AssessmentSection));
+                                                                                                                              AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRowBase CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow()
@@ -212,7 +248,7 @@ namespace Ringtoets.Integration.Forms.Views
             MacroStabilityInwardsFailureMechanism macroStabilityInwards = AssessmentSection.MacroStabilityInwards;
             return new FailureMechanismAssemblyResultRow(macroStabilityInwards,
                                                          () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(macroStabilityInwards,
-                                                                                                                                                          AssessmentSection));
+                                                                                                                                             AssessmentSection));
         }
 
         #endregion
@@ -256,7 +292,7 @@ namespace Ringtoets.Integration.Forms.Views
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwards = AssessmentSection.MacroStabilityOutwards;
             return new FailureMechanismAssemblyCategoryGroupResultRow(macroStabilityOutwards,
                                                                       () => MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(macroStabilityOutwards,
-                                                                                                                                                                        AssessmentSection));
+                                                                                                                                                           AssessmentSection));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateMicrostabilityFailureMechanismAssemblyResultRow()

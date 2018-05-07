@@ -1,4 +1,4 @@
-﻿﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -146,11 +146,47 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gecombineerd veiligheidsoordeel.
+        /// </summary>
+        public static string AssemblyResultTotalView_AssemblyResultGroupBox_Text {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalView_AssemblyResultGroupBox_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groepen 3 en 4.
+        /// </summary>
+        public static string AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Groepen 1 en 2.
+        /// </summary>
+        public static string AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Benaderde faalkans.
         /// </summary>
         public static string AssemblyResultTotalView_Probability_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyResultTotalView_Probability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Totaal.
+        /// </summary>
+        public static string AssemblyResultTotalView_TotalResultLabel_Text {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotalView_TotalResultLabel_Text", resourceCulture);
             }
         }
         

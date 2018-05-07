@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 testForm.Show();
 
                 // Assert
-                Assert.AreEqual(2, view.Controls.Count);
+                Assert.AreEqual(3, view.Controls.Count);
 
                 var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
                 Assert.AreEqual("Assemblageresultaat verversen", button.Text);
