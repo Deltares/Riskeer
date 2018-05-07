@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class GrassCoverSlipOffInwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
+        public class GrassCoverSlipOffInwardsFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             GrassCoverSlipOffInwardsResultView,
             GrassCoverSlipOffInwardsFailureMechanism,
             GrassCoverSlipOffInwardsFailureMechanismSectionResult,

@@ -162,7 +162,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [TestFixture]
-        public class MicrostabilityFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
+        public class MicrostabilityFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             MicrostabilityResultView,
             MicrostabilityFailureMechanism,
             MicrostabilityFailureMechanismSectionResult,

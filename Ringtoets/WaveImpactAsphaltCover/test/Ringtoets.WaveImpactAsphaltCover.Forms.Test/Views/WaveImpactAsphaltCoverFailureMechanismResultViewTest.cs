@@ -166,7 +166,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.Views
         }
 
         [TestFixture]
-        public class WaveImpactAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTester<
+        public class WaveImpactAsphaltCoverFailureMechanismResultControlTest : FailureMechanismAssemblyCategoryGroupControlTestFixture<
             WaveImpactAsphaltCoverFailureMechanismResultView,
             WaveImpactAsphaltCoverFailureMechanism,
             WaveImpactAsphaltCoverFailureMechanismSectionResult,

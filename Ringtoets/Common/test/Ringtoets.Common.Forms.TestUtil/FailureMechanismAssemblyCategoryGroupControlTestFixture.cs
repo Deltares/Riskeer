@@ -37,13 +37,14 @@ using Ringtoets.Common.Forms.Views;
 namespace Ringtoets.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class for testing data and styling in a view with a <see cref="FailureMechanismAssemblyCategoryGroupControl"/>.
+    /// Test fixture class for testing data and styling in a view with a <see cref="FailureMechanismAssemblyCategoryGroupControl"/>.
     /// </summary>
     /// <typeparam name="TView">The type of the view to test.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism the view belongs to.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results shown in the view.</typeparam>
     /// <typeparam name="TResultRow">The type of the presentation objects used in the view.</typeparam>
-    public abstract class FailureMechanismAssemblyCategoryGroupControlTester<TView, TFailureMechanism, TSectionResult, TResultRow>
+    [TestFixture]
+    public abstract class FailureMechanismAssemblyCategoryGroupControlTestFixture<TView, TFailureMechanism, TSectionResult, TResultRow>
         where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, new()
         where TSectionResult : FailureMechanismSectionResult

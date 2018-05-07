@@ -205,7 +205,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [TestFixture]
-        public class HeightStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyControlTester<
+        public class HeightStructuresFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             HeightStructuresFailureMechanismResultView,
             HeightStructuresFailureMechanism,
             HeightStructuresFailureMechanismSectionResult,

@@ -206,7 +206,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [TestFixture]
-        public class MacroStabilityInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyControlTester<
+        public class MacroStabilityInwardsFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             MacroStabilityInwardsFailureMechanismResultView,
             MacroStabilityInwardsFailureMechanism,
             MacroStabilityInwardsFailureMechanismSectionResult,

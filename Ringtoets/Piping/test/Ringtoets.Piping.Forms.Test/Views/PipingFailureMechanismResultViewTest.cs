@@ -206,7 +206,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         }
 
         [TestFixture]
-        public class PipingFailureMechanismAssemblyControlTest : FailureMechanismAssemblyControlTester<
+        public class PipingFailureMechanismAssemblyControlTest : FailureMechanismAssemblyResultWithProbabilityControlTestFixture<
             PipingFailureMechanismResultView,
             PipingFailureMechanism,
             PipingFailureMechanismSectionResult,
