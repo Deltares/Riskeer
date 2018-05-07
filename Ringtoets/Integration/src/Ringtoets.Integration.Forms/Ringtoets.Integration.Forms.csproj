@@ -27,6 +27,12 @@
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
+    <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AssessmentSectionAssemblyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContext.cs" />
