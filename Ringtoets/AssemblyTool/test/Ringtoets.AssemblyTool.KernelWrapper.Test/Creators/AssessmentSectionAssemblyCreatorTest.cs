@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -59,14 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(EAssessmentGrade.APlus, AssessmentSectionAssemblyCategoryGroup.APlus)]
-        [TestCase(EAssessmentGrade.A, AssessmentSectionAssemblyCategoryGroup.A)]
-        [TestCase(EAssessmentGrade.B, AssessmentSectionAssemblyCategoryGroup.B)]
-        [TestCase(EAssessmentGrade.C, AssessmentSectionAssemblyCategoryGroup.C)]
-        [TestCase(EAssessmentGrade.D, AssessmentSectionAssemblyCategoryGroup.D)]
-        [TestCase(EAssessmentGrade.Gr, AssessmentSectionAssemblyCategoryGroup.None)]
-        [TestCase(EAssessmentGrade.Nvt, AssessmentSectionAssemblyCategoryGroup.NotApplicable)]
-        [TestCase(EAssessmentGrade.Ngo, AssessmentSectionAssemblyCategoryGroup.NotAssessed)]
+        [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AsssementGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyWithProbability_WithValidEnum_ReturnsExpectedValues(EAssessmentGrade originalGroup,
                                                                                                        AssessmentSectionAssemblyCategoryGroup expectedGroup)
         {

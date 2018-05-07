@@ -37,21 +37,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
     [TestFixture]
     public class AssemblyCategoryCreatorTest
     {
-        private static IEnumerable<TestCaseData> GetAssessmentSectionAssemblyCategoryGroupConversions
-        {
-            get
-            {
-                yield return new TestCaseData(EAssessmentGrade.APlus, AssessmentSectionAssemblyCategoryGroup.APlus);
-                yield return new TestCaseData(EAssessmentGrade.A, AssessmentSectionAssemblyCategoryGroup.A);
-                yield return new TestCaseData(EAssessmentGrade.B, AssessmentSectionAssemblyCategoryGroup.B);
-                yield return new TestCaseData(EAssessmentGrade.C, AssessmentSectionAssemblyCategoryGroup.C);
-                yield return new TestCaseData(EAssessmentGrade.D, AssessmentSectionAssemblyCategoryGroup.D);
-                yield return new TestCaseData(EAssessmentGrade.Gr, AssessmentSectionAssemblyCategoryGroup.None);
-                yield return new TestCaseData(EAssessmentGrade.Nvt, AssessmentSectionAssemblyCategoryGroup.NotApplicable);
-                yield return new TestCaseData(EAssessmentGrade.Ngo, AssessmentSectionAssemblyCategoryGroup.NotAssessed);
-            }
-        }
-
         [Test]
         public void CreateAssessmentSectionAssemblyCategories_CategoryLimitsNull_ThrowsArgumentNullException()
         {
@@ -102,7 +87,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCaseSource(nameof(GetAssessmentSectionAssemblyCategoryGroupConversions))]
+        [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AsssementGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
@@ -140,7 +125,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCaseSource(nameof(GetAssessmentSectionAssemblyCategoryGroupConversions))]
+        [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AsssementGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyCategory_WithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)

@@ -17,6 +17,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentGradeConversionTestHelperTest.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfigTest.cs" />
     <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorStubTest.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorStubTest.cs" />

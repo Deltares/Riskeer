@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyCategoryAssert.cs" />
+    <Compile Include="AssessmentGradeConversionTestHelper.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryConfig.cs" />
     <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorStub.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculatorStub.cs" />
