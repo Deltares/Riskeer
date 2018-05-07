@@ -210,7 +210,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [TestCaseSource(nameof(DifferentCategoryTypes))]
+        [TestCaseSource(typeof(AssessmentSectionHelper), nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
         public void GetAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -247,45 +247,6 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
                 NormType.LowerLimit,
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
             ).SetName("LowerLimitNorm");
-        }
-
-        private static IEnumerable DifferentCategoryTypes()
-        {
-            var assessmentSection = new AssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.FactorizedSignalingNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0).Output.Result
-            ).SetName("FactorizedSignalingNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.SignalingNorm,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result
-            ).SetName("SignalingNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("LowerLimitNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("FactorizedLowerLimitNorm");
         }
     }
 }

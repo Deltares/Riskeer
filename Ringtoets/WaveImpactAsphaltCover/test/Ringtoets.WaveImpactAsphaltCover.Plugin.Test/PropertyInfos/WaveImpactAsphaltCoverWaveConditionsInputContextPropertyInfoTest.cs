@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
@@ -54,7 +53,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(DifferentCategoryTypes))]
+        [TestCaseSource(typeof(AssessmentSectionHelper), nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -94,45 +93,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
         private static PropertyInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
             return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsInputContext));
-        }
-
-        private static IEnumerable DifferentCategoryTypes()
-        {
-            var assessmentSection = new AssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.FactorizedSignalingNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0).Output.Result
-            ).SetName("FactorizedSignalingNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.SignalingNorm,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result
-            ).SetName("SignalingNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("LowerLimitNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("FactorizedLowerLimitNorm");
         }
     }
 }
