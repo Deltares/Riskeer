@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -29,6 +30,7 @@ using Core.Components.Chart.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Plugin.TestUtil;
@@ -135,36 +137,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel()
+        [TestCaseSource(nameof(DifferentCategoryTypes))]
+        public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel(
+            AssessmentSectionStub assessmentSection,
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            FailureMechanismCategoryType categoryType,
+            RoundedDouble expectedAssessmentLevel)
         {
-            // Setup
-            const double assessmentLevel = 2.2;
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            var assessmentSection = new AssessmentSectionStub();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism, assessmentSection,
-                new[]
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
                 {
-                    hydraulicBoundaryLocation
-                });
-
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(assessmentLevel);
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = categoryType
+                }
+            };
 
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(
-                new FailureMechanismCategoryWaveConditionsInput
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                },
-                new GrassCoverErosionOutwardsWaveConditionsCalculation
-                {
-                    InputParameters =
-                    {
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                    }
-                },
+                calculation.InputParameters,
+                calculation,
                 assessmentSection,
                 failureMechanism);
 
@@ -175,7 +167,63 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
-            Assert.AreEqual(assessmentLevel, designWaterLevelChartData.Points.First().Y);
+
+            Assert.AreEqual(expectedAssessmentLevel, designWaterLevelChartData.Points.First().Y);
+        }
+
+        private static IEnumerable DifferentCategoryTypes()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
+                failureMechanism,
+                assessmentSection,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                }, true);
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("MechanismSpecificFactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0).Output.Result
+            ).SetName("MechanismSpecificSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("MechanismSpecificLowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.LowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                failureMechanism,
+                hydraulicBoundaryLocation,
+                FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
+            ).SetName("FactorizedLowerLimitNorm");
         }
 
         #region ShouldCloseViewWithCalculationDataTester

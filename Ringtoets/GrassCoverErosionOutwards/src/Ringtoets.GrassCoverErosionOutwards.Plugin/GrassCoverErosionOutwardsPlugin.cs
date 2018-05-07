@@ -190,9 +190,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewData = context => context.Calculation,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(new GrassCoverErosionOutwardsWaveConditionsInputViewStyle(),
-                                                                        () => context.FailureMechanism.GetNormativeAssessmentLevel(
+                                                                        () => context.FailureMechanism.GetAssessmentLevel(
                                                                             context.AssessmentSection,
-                                                                            context.Calculation.InputParameters.HydraulicBoundaryLocation))
+                                                                            context.Calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                            context.Calculation.InputParameters.CategoryType))
             };
         }
 
