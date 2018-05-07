@@ -69,7 +69,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateAssemblyCategoriesKernel_Always_ReturnsKernelCategoriesCalculator()
+        public void CreateAssemblyCategoriesKernel_Always_ReturnsKernelCategoryLimitsCalculator()
         {
             // Setup
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
@@ -82,7 +82,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelFailureMechanismSectionAssemblyCalculator()
+        public void CreateFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelAssessmentResultsTranslator()
         {
             // Setup
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
@@ -95,7 +95,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateFailureMechanismAssemblyKernel_Always_ReturnsKernelFailureMechanismAssemblyCalculator()
+        public void CreateFailureMechanismAssemblyKernel_Always_ReturnsKernelFailureMechanismResultAssembler()
         {
             // Setup
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
@@ -108,7 +108,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyKernel_Always_ReturnsKernelAssessmentSectionAssemblyCalculator()
+        public void CreateAssessmentSectionAssemblyKernel_Always_ReturnsKernelAssessmentGradeAssembler()
         {
             // Setup
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
@@ -118,6 +118,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Kernels
 
             // Assert
             Assert.IsInstanceOf<AssessmentGradeAssembler>(kernel);
+        }
+
+        [Test]
+        public void CreateCombinedFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelCommonFailureMechanismSectionAssembler()
+        {
+            // Setup
+            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+
+            // Call
+            ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
+
+            // Assert
+            Assert.IsInstanceOf<CommonFailureMechanismSectionAssembler>(kernel);
         }
     }
 }
