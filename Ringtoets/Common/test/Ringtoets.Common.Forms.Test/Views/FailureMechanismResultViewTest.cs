@@ -24,15 +24,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
-using Core.Common.Controls;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -338,14 +335,11 @@ namespace Ringtoets.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 // Precondition
-                BorderedLabel assemblyGroupLabel = GetGroupLabel();
                 FailureMechanismAssemblyCategoryGroupControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
-                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
 
                 // When
@@ -353,7 +347,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 sectionResult.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
             }
         }
@@ -369,17 +362,14 @@ namespace Ringtoets.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 view.ThrowExceptionOnCalculate = true;
                 sectionResult.NotifyObservers();
 
                 // Precondition
-                BorderedLabel assemblyGroupLabel = GetGroupLabel();
                 FailureMechanismAssemblyCategoryGroupControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
-                Assert.AreEqual(Color.White, assemblyGroupLabel.BackColor);
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
 
                 // When
@@ -387,7 +377,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 sectionResult.NotifyObservers();
 
                 // Then
-                Assert.AreEqual(Color.FromArgb(255, 255, 0), assemblyGroupLabel.BackColor);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
             }
         }
@@ -465,7 +454,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
         private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyCategoryGroupControl resultControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
         }
 
         private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyCategoryGroupControl()
@@ -480,11 +469,6 @@ namespace Ringtoets.Common.Forms.Test.Views
             testForm.Show();
 
             return failureMechanismResultView;
-        }
-
-        private static BorderedLabel GetGroupLabel()
-        {
-            return (BorderedLabel) new ControlTester("GroupLabel").TheObject;
         }
 
         private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
@@ -513,7 +497,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                     throw new AssemblyException("Message");
                 }
 
-                FailureMechanismAssemblyResultControl.SetAssemblyResult(FailureMechanismAssemblyCategoryGroup.IIIt);
                 AssemblyResultUpdated = true;
             }
         }

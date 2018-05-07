@@ -37,9 +37,13 @@ namespace Ringtoets.Common.Forms.Test.Controls
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Call
+            // Setup & Call
+            using (var form = new Form())
             using (var resultControl = new TestAssemblyResultControl())
             {
+                form.Controls.Add(resultControl);
+                form.Show();
+
                 // Assert
                 Assert.AreEqual(1, resultControl.Controls.Count);
                 Assert.IsInstanceOf<UserControl>(resultControl);
@@ -55,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
                 Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
 
-                var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
+                var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
                 TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
@@ -141,7 +145,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
         private static ErrorProvider GetErrorProvider(AssemblyResultControl resultControl)
         {
-            return TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
         }
 
         private static TableLayoutPanel GetGroupPanel(AssemblyResultControl resultControl)

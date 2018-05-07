@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.TestUtil
             using (ShowFailureMechanismResultsView(failureMechanism))
             {
                 // Precondition
-                FailureMechanismAssemblyControl assemblyControl = GetFailureMechanismAssemblyControl();
+                FailureMechanismAssemblyCategoryGroupControl assemblyControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(assemblyControl);
                 Assert.IsEmpty(errorProvider.GetError(assemblyControl));
 
@@ -106,6 +106,30 @@ namespace Ringtoets.Common.Forms.TestUtil
 
                 // Assert
                 Assert.AreEqual("Message", errorProvider.GetError(assemblyControl));
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenCalculatorThrowsException_FailureMechanismAssemblyResultCleared()
+        {
+            // Given
+            var failureMechanism = new TFailureMechanism();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Precondition
+                var assemblyGroupLabel = (BorderedLabel) new ControlTester("GroupLabel").TheObject;
+                Assert.AreEqual("IIt", assemblyGroupLabel.Text);
+
+                // When
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.IsEmpty(assemblyGroupLabel.Text);
             }
         }
 
@@ -125,7 +149,7 @@ namespace Ringtoets.Common.Forms.TestUtil
                 failureMechanism.NotifyObservers();
 
                 // Precondition
-                FailureMechanismAssemblyControl assemblyControl = GetFailureMechanismAssemblyControl();
+                FailureMechanismAssemblyCategoryGroupControl assemblyControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(assemblyControl);
                 Assert.AreEqual("Message", errorProvider.GetError(assemblyControl));
 
@@ -179,14 +203,14 @@ namespace Ringtoets.Common.Forms.TestUtil
             return failureMechanismResultView;
         }
 
-        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyControl control)
+        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyCategoryGroupControl control)
         {
-            return TypeUtils.GetField<ErrorProvider>(control, "ErrorProvider");
+            return TypeUtils.GetField<ErrorProvider>(control, "errorProvider");
         }
 
-        private static FailureMechanismAssemblyControl GetFailureMechanismAssemblyControl()
+        private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyCategoryGroupControl()
         {
-            return (FailureMechanismAssemblyControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
+            return (FailureMechanismAssemblyCategoryGroupControl) ((TableLayoutPanel) new ControlTester("TableLayoutPanel").TheObject).GetControlFromPosition(1, 0);
         }
     }
 }

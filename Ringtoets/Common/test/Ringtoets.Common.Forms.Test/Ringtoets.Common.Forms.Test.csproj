@@ -248,10 +248,6 @@
       <Project>{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1}</Project>
       <Name>Ringtoets.AssemblyTool.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\AssemblyTool\test\Ringtoets.AssemblyTool.KernelWrapper.TestUtil\Ringtoets.AssemblyTool.KernelWrapper.TestUtil.csproj">
-      <Project>{0AB432BB-E2CC-42EA-A72C-7AFEF7536B38}</Project>
-      <Name>Ringtoets.AssemblyTool.KernelWrapper.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>

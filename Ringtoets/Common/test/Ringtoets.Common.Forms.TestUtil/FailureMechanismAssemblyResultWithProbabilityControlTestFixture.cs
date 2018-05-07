@@ -115,6 +115,33 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
+        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenCalculatorThrowsException_FailureMechanismAssemblyResultCleared()
+        {
+            // Given
+            var failureMechanism = new TFailureMechanism();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowFailureMechanismResultsView(failureMechanism))
+            {
+                // Precondition
+                BorderedLabel assemblyGroupLabel = GetGroupLabel();
+                BorderedLabel probabilityLabel = GetProbabilityLabelControl();
+                Assert.AreEqual("1/1", probabilityLabel.Text);
+                Assert.AreEqual("IIIt", assemblyGroupLabel.Text);
+
+                // When
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.AreEqual("-", probabilityLabel.Text);
+                Assert.IsEmpty(assemblyGroupLabel.Text);
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultsView_WhenNoExceptionThrownByCalculator_ErrorCleared()
         {
             // Given
@@ -262,7 +289,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
         private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyControl control)
         {
-            return TypeUtils.GetField<ErrorProvider>(control, "ErrorProvider");
+            return TypeUtils.GetField<ErrorProvider>(control, "errorProvider");
         }
 
         private static FailureMechanismAssemblyControl GetFailureMechanismAssemblyControl()

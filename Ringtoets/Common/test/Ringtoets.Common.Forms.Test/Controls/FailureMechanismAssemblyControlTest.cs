@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void SetAssemblyResult_AssemblyNull_ThrowsArgumentNullException()
+        public void SetAssemblyResult_ResultNull_ThrowsArgumentNullException()
         {
             // Setup
             using (var resultControl = new FailureMechanismAssemblyControl())
@@ -59,12 +59,12 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("assembly", exception.ParamName);
+                Assert.AreEqual("result", exception.ParamName);
             }
         }
 
         [Test]
-        public void SetAssemblyResult_WithAssembly_SetsValuesOnControl()
+        public void SetAssemblyResult_WithResult_SetsValuesOnControl()
         {
             // Setup
             var random = new Random(39);
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
                 // Assert
                 Control groupLabel = GetGroupLabel(resultControl);
-                Control probabilityLabel = GetGroupLabel(resultControl);
+                Control probabilityLabel = GetProbabilityLabel(resultControl);
 
                 Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName,
                                 groupLabel.Text);

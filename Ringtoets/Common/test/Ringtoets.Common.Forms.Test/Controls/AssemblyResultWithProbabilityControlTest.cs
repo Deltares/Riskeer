@@ -33,9 +33,13 @@ namespace Ringtoets.Common.Forms.Test.Controls
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Call
+            // Setup & Call
+            using (var form = new Form())
             using (var resultControl = new TestAssemblyResultWithProbabilityControl())
             {
+                form.Controls.Add(resultControl);
+                form.Show();
+
                 // Assert
                 Assert.AreEqual(2, resultControl.Controls.Count);
                 Assert.IsInstanceOf<AssemblyResultControl>(resultControl);

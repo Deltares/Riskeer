@@ -31,13 +31,13 @@ namespace Ringtoets.Common.Forms.Controls
     public class FailureMechanismAssemblyCategoryGroupControl : AssemblyResultControl
     {
         /// <summary>
-        /// Set the value of <paramref name="category"/> to the control.
+        /// Set the value of <paramref name="result"/> on the control.
         /// </summary>
-        /// <param name="category">The <see cref="FailureMechanismAssemblyCategoryGroup"/> to set on the control.</param>
-        public void SetAssemblyResult(FailureMechanismAssemblyCategoryGroup category)
+        /// <param name="result">The <see cref="FailureMechanismAssemblyCategoryGroup"/> to set on the control.</param>
+        public void SetAssemblyResult(FailureMechanismAssemblyCategoryGroup result)
         {
-            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(category).DisplayName;
-            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(category);
+            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(result).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(result);
         }
     }
 }

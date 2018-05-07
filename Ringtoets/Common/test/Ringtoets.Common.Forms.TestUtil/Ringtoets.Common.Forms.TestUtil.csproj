@@ -22,8 +22,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyCategoryColorTestHelper.cs" />
-    <Compile Include="FailureMechanismAssemblyCategoryGroupControlTester.cs" />
-    <Compile Include="FailureMechanismAssemblyResultWithProbabilityControlTester.cs" />
+    <Compile Include="FailureMechanismAssemblyCategoryGroupControlTestFixture.cs" />
+    <Compile Include="FailureMechanismAssemblyResultWithProbabilityControlTestFixture.cs" />
     <Compile Include="DataGridViewControlColumnStateDefinitionTestHelper.cs" />
     <Compile Include="CalculationsViewSynchronizationTester.cs" />
     <Compile Include="MapFeaturesTestHelper.cs" />

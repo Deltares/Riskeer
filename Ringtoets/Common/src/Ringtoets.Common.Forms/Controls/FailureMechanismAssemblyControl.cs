@@ -33,21 +33,21 @@ namespace Ringtoets.Common.Forms.Controls
     public class FailureMechanismAssemblyControl : AssemblyResultWithProbabilityControl
     {
         /// <summary>
-        /// Set the values of <paramref name="assembly"/> to the control.
+        /// Set the values of <paramref name="result"/> on the control.
         /// </summary>
-        /// <param name="assembly">The <see cref="FailureMechanismAssembly"/> to set on the control.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/> is <c>null</c>.</exception>
-        public void SetAssemblyResult(FailureMechanismAssembly assembly)
+        /// <param name="result">The <see cref="FailureMechanismAssembly"/> to set on the control.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        public void SetAssemblyResult(FailureMechanismAssembly result)
         {
-            if (assembly == null)
+            if (result == null)
             {
-                throw new ArgumentNullException(nameof(assembly));
+                throw new ArgumentNullException(nameof(result));
             }
 
-            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName;
-            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group);
+            GroupLabel.Text = new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(result.Group).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(result.Group);
 
-            ProbabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability);
+            ProbabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(result.Probability);
         }
     }
 }
