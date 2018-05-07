@@ -189,18 +189,18 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>h(IIv-&gt;IIIv)</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>hs(Vv-&gt;VIv)</value>
+    <value>Hs(Vv-&gt;VIv)</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForLowerLimitNorm" xml:space="preserve">
-    <value>hs(IVv-&gt;Vv)</value>
+    <value>Hs(IVv-&gt;Vv)</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>hs(Iv-&gt;IIv)</value>
+    <value>Hs(Iv-&gt;IIv)</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>hs(IIIv-&gt;IVv)</value>
+    <value>Hs(IIIv-&gt;IVv)</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>hs(IIv-&gt;IIIv)</value>
+    <value>Hs(IIv-&gt;IIIv)</value>
   </data>
 </root>

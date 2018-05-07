@@ -133,18 +133,18 @@
     <value>h II-III</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForFactorizedLowerLimitNorm" xml:space="preserve">
-    <value>hs V-VI</value>
+    <value>Hs V-VI</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForLowerLimitNorm" xml:space="preserve">
-    <value>hs IV-V</value>
+    <value>Hs IV-V</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
-    <value>hs I-II</value>
+    <value>Hs I-II</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificLowerLimitNorm" xml:space="preserve">
-    <value>hs III-IV</value>
+    <value>Hs III-IV</value>
   </data>
   <data name="MetaData_WaveHeightCalculationForMechanismSpecificSignalingNorm" xml:space="preserve">
-    <value>hs II-III</value>
+    <value>Hs II-III</value>
   </data>
 </root>
