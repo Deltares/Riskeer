@@ -33,9 +33,9 @@ namespace Ringtoets.Common.Forms.Controls
             InitializeComponent();
         }
 
-        public override void SetError(string error)
+        public override void ClearData()
         {
-            base.SetError(error);
+            base.ClearData();
             ProbabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
         }
     }

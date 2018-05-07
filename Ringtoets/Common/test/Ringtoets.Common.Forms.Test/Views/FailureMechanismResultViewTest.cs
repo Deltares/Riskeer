@@ -99,8 +99,6 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
-
-                Assert.IsTrue(view.AssemblyResultUpdated);
             }
         }
 
@@ -197,6 +195,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
                 // Precondition
                 Assert.IsFalse(invalidated);
+                Assert.IsFalse(view.AssemblyResultUpdated);
 
                 // When
                 view.FailureMechanism.NotifyObservers();

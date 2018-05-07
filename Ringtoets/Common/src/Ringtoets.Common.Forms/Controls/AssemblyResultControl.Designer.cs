@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
 using Core.Common.Controls;
 
 namespace Ringtoets.Common.Forms.Controls
@@ -53,10 +54,10 @@ namespace Ringtoets.Common.Forms.Controls
         {
             this.components = new System.ComponentModel.Container();
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.ErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.GroupLabel = new BorderedLabel();
+            this.GroupLabel = new Core.Common.Controls.BorderedLabel();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // GroupPanel
@@ -70,14 +71,8 @@ namespace Ringtoets.Common.Forms.Controls
             this.GroupPanel.Name = "GroupPanel";
             this.GroupPanel.RowCount = 1;
             this.GroupPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.GroupPanel.Size = new System.Drawing.Size(56, 150);
+            this.GroupPanel.Size = new System.Drawing.Size(56, 796);
             this.GroupPanel.TabIndex = 0;
-            // 
-            // ErrorProvider
-            // 
-            this.ErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.ErrorProvider.ContainerControl = this;
-            this.ErrorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
             // 
             // GroupLabel
             // 
@@ -86,12 +81,18 @@ namespace Ringtoets.Common.Forms.Controls
             this.GroupLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.GroupLabel.Location = new System.Drawing.Point(3, 3);
             this.GroupLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.GroupLabel.MinimumSize = new System.Drawing.Size(50, 0);
+            this.GroupLabel.MinimumSize = new System.Drawing.Size(50, 2);
             this.GroupLabel.Name = "GroupLabel";
             this.GroupLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.GroupLabel.Size = new System.Drawing.Size(50, 144);
+            this.GroupLabel.Size = new System.Drawing.Size(50, 790);
             this.GroupLabel.TabIndex = 1;
             this.GroupLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
             // 
             // AssemblyResultControl
             // 
@@ -100,9 +101,10 @@ namespace Ringtoets.Common.Forms.Controls
             this.AutoSize = true;
             this.Controls.Add(this.GroupPanel);
             this.Name = "AssemblyResultControl";
+            this.Size = new System.Drawing.Size(1361, 796);
             this.GroupPanel.ResumeLayout(false);
             this.GroupPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,7 +112,7 @@ namespace Ringtoets.Common.Forms.Controls
 
         #endregion
         protected System.Windows.Forms.TableLayoutPanel GroupPanel;
-        protected System.Windows.Forms.ErrorProvider ErrorProvider;
+        private System.Windows.Forms.ErrorProvider errorProvider;
         protected BorderedLabel GroupLabel;
     }
 }

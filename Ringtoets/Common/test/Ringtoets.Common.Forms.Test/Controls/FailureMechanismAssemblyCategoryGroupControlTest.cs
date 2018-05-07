@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls;
 using Core.Common.TestUtil;
 using Core.Common.Util;
-using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
@@ -38,11 +39,12 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var resultControl = new FailureMechanismAssemblyCategoryGroupControl();
-
-            // Assert
-            Assert.AreEqual(1, resultControl.Controls.Count);
-            Assert.IsInstanceOf<AssemblyResultControl>(resultControl);
+            using (var resultControl = new FailureMechanismAssemblyCategoryGroupControl())
+            {
+                // Assert
+                Assert.AreEqual(1, resultControl.Controls.Count);
+                Assert.IsInstanceOf<AssemblyResultControl>(resultControl);
+            }
         }
 
         [Test]
@@ -51,18 +53,39 @@ namespace Ringtoets.Common.Forms.Test.Controls
             // Setup
             var random = new Random(39);
             var assembly = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
-            var resultControl = new FailureMechanismAssemblyCategoryGroupControl();
+            using (var resultControl = new FailureMechanismAssemblyCategoryGroupControl())
+            {
+                // Call
+                resultControl.SetAssemblyResult(assembly);
 
-            // Call
-            resultControl.SetAssemblyResult(assembly);
+                // Assert
+                BorderedLabel groupLabel = GetGroupLabel(resultControl);
+                Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly).DisplayName,
+                                groupLabel.Text);
+                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly),
+                                groupLabel.BackColor);
+            }
+        }
 
-            // Assert
-            Control groupLabel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel").GetControlFromPosition(0, 0);
+        [Test]
+        public void ClearData_Always_ClearsDataOnControl()
+        {
+            // Setup
+            using (var resultControl = new FailureMechanismAssemblyCategoryGroupControl())
+            {
+                // Call
+                resultControl.ClearData();
 
-            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly).DisplayName,
-                            groupLabel.Text);
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly),
-                            groupLabel.BackColor);
+                // Assert
+                BorderedLabel groupLabel = GetGroupLabel(resultControl);
+                Assert.IsEmpty(groupLabel.Text);
+                Assert.AreEqual(Color.White, groupLabel.BackColor);
+            }
+        }
+
+        private static BorderedLabel GetGroupLabel(AssemblyResultControl resultControl)
+        {
+            return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
         }
     }
 }

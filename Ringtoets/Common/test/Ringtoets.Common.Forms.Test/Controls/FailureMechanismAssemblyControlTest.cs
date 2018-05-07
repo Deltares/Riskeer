@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
+using Core.Common.Controls;
 using Core.Common.TestUtil;
 using Core.Common.Util;
-using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
@@ -39,25 +40,27 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var resultControl = new FailureMechanismAssemblyControl();
-
-            // Assert
-            Assert.AreEqual(2, resultControl.Controls.Count);
-            Assert.IsInstanceOf<AssemblyResultWithProbabilityControl>(resultControl);
+            using (var resultControl = new FailureMechanismAssemblyControl())
+            {
+                // Assert
+                Assert.AreEqual(2, resultControl.Controls.Count);
+                Assert.IsInstanceOf<AssemblyResultWithProbabilityControl>(resultControl);
+            }
         }
 
         [Test]
         public void SetAssemblyResult_AssemblyNull_ThrowsArgumentNullException()
         {
             // Setup
-            var resultControl = new FailureMechanismAssemblyControl();
+            using (var resultControl = new FailureMechanismAssemblyControl())
+            {
+                // Call
+                TestDelegate test = () => resultControl.SetAssemblyResult(null);
 
-            // Call
-            TestDelegate test = () => resultControl.SetAssemblyResult(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assembly", exception.ParamName);
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("assembly", exception.ParamName);
+            }
         }
 
         [Test]
@@ -67,22 +70,51 @@ namespace Ringtoets.Common.Forms.Test.Controls
             var random = new Random(39);
             var assembly = new FailureMechanismAssembly(random.NextDouble(),
                                                         random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
-            var resultControl = new FailureMechanismAssemblyControl();
+            using (var resultControl = new FailureMechanismAssemblyControl())
+            {
+                // Call
+                resultControl.SetAssemblyResult(assembly);
 
-            // Call
-            resultControl.SetAssemblyResult(assembly);
+                // Assert
+                Control groupLabel = GetGroupLabel(resultControl);
+                Control probabilityLabel = GetGroupLabel(resultControl);
 
-            // Assert
-            Control groupLabel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel").GetControlFromPosition(0, 0);
-            Control probabilityLabel = TypeUtils.GetField<TableLayoutPanel>(resultControl, "probabilityPanel").GetControlFromPosition(0, 0);
+                Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName,
+                                groupLabel.Text);
+                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group),
+                                groupLabel.BackColor);
 
-            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(assembly.Group).DisplayName,
-                            groupLabel.Text);
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assembly.Group),
-                            groupLabel.BackColor);
+                Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability),
+                                probabilityLabel.Text);
+            }
+        }
 
-            Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability),
-                            probabilityLabel.Text);
+        [Test]
+        public void ClearData_Always_ClearsDataOnControl()
+        {
+            // Setup
+            using (var resultControl = new FailureMechanismAssemblyControl())
+            {
+                // Call
+                resultControl.ClearData();
+
+                // Assert
+                BorderedLabel groupLabel = GetGroupLabel(resultControl);
+                BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
+                Assert.IsEmpty(groupLabel.Text);
+                Assert.AreEqual(Color.White, groupLabel.BackColor);
+                Assert.AreEqual("-", probabilityLabel.Text);
+            }
+        }
+
+        private static BorderedLabel GetGroupLabel(AssemblyResultControl resultControl)
+        {
+            return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
+        }
+
+        private static BorderedLabel GetProbabilityLabel(AssemblyResultControl resultControl)
+        {
+            return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["probabilityPanel"]).GetControlFromPosition(0, 0);
         }
     }
 }

@@ -190,10 +190,12 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateFailureMechanismAssemblyResultControl()
         {
+            FailureMechanismAssemblyResultControl.ClearData();
+            FailureMechanismAssemblyResultControl.ClearError();
+
             try
             {
                 UpdateAssemblyResultControl();
-                FailureMechanismAssemblyResultControl.ClearError();
             }
             catch (AssemblyException e)
             {

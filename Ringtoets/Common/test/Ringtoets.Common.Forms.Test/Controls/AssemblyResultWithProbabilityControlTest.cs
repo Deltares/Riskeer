@@ -19,15 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
-using Core.Common.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Controls;
-using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.Test.Controls
 {
@@ -38,80 +34,61 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var resultControl = new TestAssemblyResultWithProbabilityControl();
+            using (var resultControl = new TestAssemblyResultWithProbabilityControl())
+            {
+                // Assert
+                Assert.AreEqual(2, resultControl.Controls.Count);
+                Assert.IsInstanceOf<AssemblyResultControl>(resultControl);
+                Assert.IsTrue(resultControl.AutoSize);
+                Assert.AreEqual(DockStyle.Left, resultControl.Dock);
 
-            // Assert
-            Assert.AreEqual(2, resultControl.Controls.Count);
-            Assert.IsInstanceOf<AssemblyResultControl>(resultControl);
-            Assert.IsTrue(resultControl.AutoSize);
-            Assert.AreEqual(DockStyle.Left, resultControl.Dock);
+                TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
+                Assert.AreEqual(1, groupPanel.ColumnCount);
+                Assert.AreEqual(1, groupPanel.RowCount);
 
-            TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
-            Assert.AreEqual(1, groupPanel.ColumnCount);
-            Assert.AreEqual(1, groupPanel.RowCount);
+                var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
+                Assert.IsTrue(groupLabel.AutoSize);
+                Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
 
-            var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
-            Assert.IsTrue(groupLabel.AutoSize);
-            Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
-            Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
+                TableLayoutPanel probabilityPanel = GetProbabilityPanel(resultControl);
+                Assert.AreEqual(1, probabilityPanel.ColumnCount);
+                Assert.AreEqual(1, probabilityPanel.RowCount);
 
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
-            TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
-
-            TableLayoutPanel probabilityPanel = GetProbabilityPanel(resultControl);
-            Assert.AreEqual(1, probabilityPanel.ColumnCount);
-            Assert.AreEqual(1, probabilityPanel.RowCount);
-
-            var probabilityLabel = (BorderedLabel) probabilityPanel.GetControlFromPosition(0, 0);
-            Assert.IsTrue(probabilityLabel.AutoSize);
-            Assert.AreEqual(DockStyle.Left, probabilityLabel.Dock);
-            Assert.AreEqual(new Padding(5, 0, 5, 0), probabilityLabel.Padding);
-            Assert.AreEqual(Color.White, probabilityLabel.BackColor);
+                var probabilityLabel = (BorderedLabel) probabilityPanel.GetControlFromPosition(0, 0);
+                Assert.IsTrue(probabilityLabel.AutoSize);
+                Assert.AreEqual(DockStyle.Left, probabilityLabel.Dock);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), probabilityLabel.Padding);
+                Assert.AreEqual(Color.White, probabilityLabel.BackColor);
+            }
         }
 
         [Test]
-        public void SetError_ErrorNull_ThrowsArgumentNullException()
+        public void ClearData_Always_ClearsDataOnControl()
         {
             // Setup
-            var resultControl = new TestAssemblyResultWithProbabilityControl();
+            using (var resultControl = new TestAssemblyResultWithProbabilityControl())
+            {
+                // Call
+                resultControl.ClearData();
 
-            // Call
-            TestDelegate test = () => resultControl.SetError(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("error", exception.ParamName);
-        }
-
-        [Test]
-        public void SetError_WithError_SetsErrorOnControl()
-        {
-            // Setup
-            const string error = "random error 123";
-            var resultControl = new TestAssemblyResultWithProbabilityControl();
-
-            // Call
-            resultControl.SetError(error);
-
-            // Assert
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
-            Assert.AreEqual(error, errorProvider.GetError(resultControl));
-
-            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
-            Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
-            Assert.IsEmpty(groupLabel.Text);
-            Assert.AreEqual(Color.White, groupLabel.BackColor);
-            Assert.AreEqual("-", probabilityLabel.Text);
+                // Assert
+                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
+                Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
+                Assert.IsEmpty(groupLabel.Text);
+                Assert.AreEqual(Color.White, groupLabel.BackColor);
+                Assert.AreEqual("-", probabilityLabel.Text);
+            }
         }
 
         private static TableLayoutPanel GetProbabilityPanel(AssemblyResultWithProbabilityControl resultControl)
         {
-            return TypeUtils.GetField<TableLayoutPanel>(resultControl, "probabilityPanel");
+            return (TableLayoutPanel) resultControl.Controls["probabilityPanel"];
         }
 
         private static TableLayoutPanel GetGroupPanel(AssemblyResultWithProbabilityControl resultControl)
         {
-            return TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
+            return (TableLayoutPanel) resultControl.Controls["GroupPanel"];
         }
 
         private class TestAssemblyResultWithProbabilityControl : AssemblyResultWithProbabilityControl {}

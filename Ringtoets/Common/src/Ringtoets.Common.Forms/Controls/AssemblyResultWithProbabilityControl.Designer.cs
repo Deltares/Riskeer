@@ -53,7 +53,6 @@ namespace Ringtoets.Common.Forms.Controls
         {
             this.probabilityPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ProbabilityLabel = new BorderedLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).BeginInit();
             this.probabilityPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -92,7 +91,6 @@ namespace Ringtoets.Common.Forms.Controls
             this.Controls.Add(this.probabilityPanel);
             this.Name = "FailureMechanismAssemblyControl";
             this.Controls.SetChildIndex(this.probabilityPanel, 0);
-            ((System.ComponentModel.ISupportInitialize)(this.ErrorProvider)).EndInit();
             this.probabilityPanel.ResumeLayout(false);
             this.probabilityPanel.PerformLayout();
             this.ResumeLayout(false);

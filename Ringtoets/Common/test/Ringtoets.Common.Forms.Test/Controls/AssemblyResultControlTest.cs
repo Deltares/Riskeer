@@ -38,72 +38,105 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var resultControl = new TestAssemblyResultControl();
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                // Assert
+                Assert.AreEqual(1, resultControl.Controls.Count);
+                Assert.IsInstanceOf<UserControl>(resultControl);
+                Assert.IsTrue(resultControl.AutoSize);
+                Assert.AreEqual(DockStyle.Left, resultControl.Dock);
 
-            // Assert
-            Assert.AreEqual(1, resultControl.Controls.Count);
-            Assert.IsInstanceOf<UserControl>(resultControl);
-            Assert.IsTrue(resultControl.AutoSize);
-            Assert.AreEqual(DockStyle.Left, resultControl.Dock);
+                TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
+                Assert.AreEqual(1, groupPanel.ColumnCount);
+                Assert.AreEqual(1, groupPanel.RowCount);
 
-            TableLayoutPanel groupPanel = GetGroupPanel(resultControl);
-            Assert.AreEqual(1, groupPanel.ColumnCount);
-            Assert.AreEqual(1, groupPanel.RowCount);
+                var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
+                Assert.IsTrue(groupLabel.AutoSize);
+                Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
 
-            var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
-            Assert.IsTrue(groupLabel.AutoSize);
-            Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
-            Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
-
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
-            TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
+                var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "ErrorProvider");
+                TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
+                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
+                Assert.IsEmpty(errorProvider.GetError(resultControl));
+            }
         }
 
         [Test]
-        public void SetError_ErrorNull_ThrowsArgumentNullException()
+        public void SetError_ErrorMessageNull_ThrowsArgumentNullException()
         {
             // Setup
-            var resultControl = new TestAssemblyResultControl();
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                // Call
+                TestDelegate test = () => resultControl.SetError(null);
 
-            // Call
-            TestDelegate test = () => resultControl.SetError(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("error", exception.ParamName);
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("errorMessage", exception.ParamName);
+            }
         }
 
         [Test]
-        public void SetError_WithError_SetsErrorOnControl()
+        public void SetError_WithErrorMessage_SetsErrorMessageOnControl()
         {
             // Setup
             const string error = "random error 123";
-            var resultControl = new TestAssemblyResultControl();
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                // Call
+                resultControl.SetError(error);
 
-            // Call
-            resultControl.SetError(error);
-
-            // Assert
-            ErrorProvider errorProvider = GetErrorProvider(resultControl);
-            Assert.AreEqual(error, errorProvider.GetError(resultControl));
-
-            Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
-            Assert.IsEmpty(groupLabel.Text);
-            Assert.AreEqual(Color.White, groupLabel.BackColor);
+                // Assert
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.AreEqual(error, errorProvider.GetError(resultControl));
+            }
         }
 
         [Test]
-        public void ClearError_Always_ClearsErrorOnControl()
+        public void SetError_WithEmptyErrorMessage_SetsErrorMessageOnControl()
         {
             // Setup
-            var resultControl = new TestAssemblyResultControl();
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                // Call
+                resultControl.SetError(string.Empty);
 
-            // Call
-            resultControl.ClearError();
+                // Assert
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.IsEmpty(errorProvider.GetError(resultControl));
+            }
+        }
 
-            // Assert
-            ErrorProvider errorProvider = GetErrorProvider(resultControl);
-            Assert.AreEqual(string.Empty, errorProvider.GetError(resultControl));
+        [Test]
+        public void ClearError_Always_ClearsErrorMessageOnControl()
+        {
+            // Setup
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                // Call
+                resultControl.ClearError();
+
+                // Assert
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
+                Assert.IsEmpty(errorProvider.GetError(resultControl));
+            }
+        }
+
+        [Test]
+        public void ClearData_Always_ClearsDataOnControl()
+        {
+            // Setup
+            using (var resultControl = new TestAssemblyResultControl())
+            {
+                // Call
+                resultControl.ClearData();
+
+                // Assert
+                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
+                Assert.IsEmpty(groupLabel.Text);
+                Assert.AreEqual(Color.White, groupLabel.BackColor);
+            }
         }
 
         private static ErrorProvider GetErrorProvider(AssemblyResultControl resultControl)
@@ -113,7 +146,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
         private static TableLayoutPanel GetGroupPanel(AssemblyResultControl resultControl)
         {
-            return TypeUtils.GetField<TableLayoutPanel>(resultControl, "GroupPanel");
+            return (TableLayoutPanel) resultControl.Controls["GroupPanel"];
         }
 
         private class TestAssemblyResultControl : AssemblyResultControl {}

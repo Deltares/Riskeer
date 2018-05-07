@@ -36,7 +36,28 @@ namespace Ringtoets.Common.Forms.Controls
         protected AssemblyResultControl()
         {
             InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             Dock = DockStyle.Left;
+        }
+
+        /// <summary>
+        /// Sets the error message of the control.
+        /// </summary>
+        /// <param name="errorMessage">The error message to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="errorMessage"/>
+        /// is <c>null</c>.</exception>
+        public void SetError(string errorMessage)
+        {
+            if (errorMessage == null)
+            {
+                throw new ArgumentNullException(nameof(errorMessage));
+            }
+
+            errorProvider.SetError(this, errorMessage);
         }
 
         /// <summary>
@@ -44,23 +65,14 @@ namespace Ringtoets.Common.Forms.Controls
         /// </summary>
         public void ClearError()
         {
-            ErrorProvider.SetError(this, string.Empty);
+            errorProvider.SetError(this, string.Empty);
         }
 
         /// <summary>
-        /// Sets the error message of the control and clears its values.
+        /// Clears the data of the control.
         /// </summary>
-        /// <param name="error">The error message to set.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="error"/>
-        /// is <c>null</c>.</exception>
-        public virtual void SetError(string error)
+        public virtual void ClearData()
         {
-            if (error == null)
-            {
-                throw new ArgumentNullException(nameof(error));
-            }
-
-            ErrorProvider.SetError(this, error);
             GroupLabel.Text = string.Empty;
             GroupLabel.BackColor = Color.White;
         }
