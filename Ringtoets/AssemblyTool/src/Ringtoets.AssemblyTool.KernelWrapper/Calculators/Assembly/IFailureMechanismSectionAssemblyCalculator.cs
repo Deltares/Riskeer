@@ -37,7 +37,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="input">The <see cref="SimpleAssessmentResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentResultType input);
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="input">The <see cref="SimpleAssessmentValidityOnlyResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleSimpleAssessment(SimpleAssessmentValidityOnlyResultType input);
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(DetailedAssessmentResultType detailedAssessmentResult);
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <exception cref="NotSupportedException">Thrown when <see cref="detailedAssessmentResult"/> contains
         /// a valid but unsupported <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                    double probability,
                                                                    AssemblyCategoriesInput assemblyCategoriesInput);
@@ -84,7 +84,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleDetailedAssessment(DetailedAssessmentProbabilityOnlyResultType detailedAssessmentResult,
                                                                    double probability,
                                                                    double failureMechanismSectionN,
@@ -105,7 +105,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <see cref="DetailedAssessmentResultType"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedSignalingNorm,
             DetailedAssessmentResultType detailedAssessmentResultForSignalingNorm,
@@ -120,7 +120,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(TailorMadeAssessmentResultType tailorMadeAssessmentResult);
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
                                                                      double probability,
                                                                      AssemblyCategoriesInput assemblyCategoriesInput);
@@ -146,7 +146,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                      double probability,
                                                                      AssemblyCategoriesInput assemblyCategoriesInput);
@@ -161,7 +161,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityCalculationResultType tailorMadeAssessmentResult,
                                                                      double probability,
                                                                      double failureMechanismSectionN,
@@ -174,7 +174,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssessmentResult);
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="tailorMadeAssembly">The tailor made assembly.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
                                                          FailureMechanismSectionAssembly detailedAssembly,
                                                          FailureMechanismSectionAssembly tailorMadeAssembly);
@@ -198,7 +198,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="tailorMadeAssembly">The tailor made assembly.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
                                                                       FailureMechanismSectionAssemblyCategoryGroup detailedAssembly,
                                                                       FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly);
@@ -210,7 +210,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleManual(double probability,
                                                        AssemblyCategoriesInput assemblyCategoriesInput);
 
@@ -222,7 +222,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleManual(double probability,
                                                        double failureMechanismSectionN,
                                                        AssemblyCategoriesInput assemblyCategoriesInput);

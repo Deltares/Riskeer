@@ -37,7 +37,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
         /// <returns>An <see cref="AssessmentSectionAssembly"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
                                                             double signalingNorm,
                                                             double lowerLimitNorm);
@@ -49,7 +49,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// to assemble for.</param>
         /// <returns>An <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input);
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// failure mechanisms with probability to assemble for.</param>
         /// <returns>An <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
                                                                          AssessmentSectionAssembly failureMechanismsWithProbability);
     }

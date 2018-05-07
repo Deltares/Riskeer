@@ -35,7 +35,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="sectionCategories">The collection of <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismAssemblyCategoryGroup Assemble(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories);
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// determining the assembly categories.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when
-        /// an error occurs when performing the assembly.</exception>
+        /// an error occurs while assembling.</exception>
         FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
                                                           AssemblyCategoriesInput assemblyCategoriesInput);
     }

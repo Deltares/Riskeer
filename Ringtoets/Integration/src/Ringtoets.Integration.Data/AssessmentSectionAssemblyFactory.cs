@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Data
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                return calculator.AssembleFailureMechanisms(GetFailureMechanismsWihtoutProbabilityAssemblyResults(assessmentSection));
+                return calculator.AssembleFailureMechanisms(GetFailureMechanismsWithoutProbabilityAssemblyResults(assessmentSection));
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {
@@ -147,7 +147,7 @@ namespace Ringtoets.Integration.Data
             };
         }
 
-        private static IEnumerable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismsWihtoutProbabilityAssemblyResults(AssessmentSection assessmentSection)
+        private static IEnumerable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismsWithoutProbabilityAssemblyResults(AssessmentSection assessmentSection)
         {
             return new[]
             {

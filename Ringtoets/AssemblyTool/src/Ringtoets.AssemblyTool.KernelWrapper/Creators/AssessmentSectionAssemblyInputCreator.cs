@@ -36,7 +36,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="FailureMechanismAssemblyResult"/> based on the given parameters.
         /// </summary>
-        /// <param name="input">The assembly to create a <see cref="FailureMechanismAssemblyResult"/> from.</param>
+        /// <param name="input">The assembly to create a <see cref="FailureMechanismAssemblyResult"/> for.</param>
         /// <returns>The created <see cref="FailureMechanismAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
         /// is <c>null</c>.</exception>
@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="FailureMechanismAssemblyResult"/> based on the given parameters.
         /// </summary>
-        /// <param name="input">The assembly to create a <see cref="FailureMechanismAssemblyResult"/> from.</param>
+        /// <param name="input">The assembly to create a <see cref="FailureMechanismAssemblyResult"/> for.</param>
         /// <returns>The created <see cref="FailureMechanismAssemblyResult"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="input"/> contains
         /// an invalid <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
@@ -74,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="AssessmentSectionAssembly"/> based on the given parameters.
         /// </summary>
-        /// <param name="input">The assembly to create a <see cref="AssessmentSectionAssembly"/> from.</param>
+        /// <param name="input">The assembly to create a <see cref="AssessmentSectionAssembly"/> for.</param>
         /// <returns>The created <see cref="AssessmentSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="input"/> contains
@@ -95,7 +95,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="AssessmentSectionAssembly"/> based on the given parameters.
         /// </summary>
-        /// <param name="input">The assembly to create a <see cref="AssessmentSectionAssembly"/> from.</param>
+        /// <param name="input">The assembly to create a <see cref="AssessmentSectionAssembly"/> for.</param>
         /// <returns>The created <see cref="AssessmentSectionAssemblyResult"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="input"/> contains
         /// an invalid <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
