@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
@@ -188,7 +189,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             if (!failureMechanism.IsRelevant)
             {
-                return FailureMechanismAssemblyCategoryGroup.NotApplicable;
+                return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
             }
 
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =

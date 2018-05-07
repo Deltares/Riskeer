@@ -248,7 +248,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             if (!failureMechanism.IsRelevant)
             {
-                return FailureMechanismAssemblyCategoryGroup.NotApplicable;
+                return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
             }
 
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =

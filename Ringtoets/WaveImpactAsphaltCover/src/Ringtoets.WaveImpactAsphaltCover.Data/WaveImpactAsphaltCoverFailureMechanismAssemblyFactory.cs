@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data
@@ -189,7 +190,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
 
             if (!failureMechanism.IsRelevant)
             {
-                return FailureMechanismAssemblyCategoryGroup.NotApplicable;
+                return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
             }
 
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =

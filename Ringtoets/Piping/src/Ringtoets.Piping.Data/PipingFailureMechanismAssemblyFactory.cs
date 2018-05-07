@@ -258,7 +258,7 @@ namespace Ringtoets.Piping.Data
 
             if (!failureMechanism.IsRelevant)
             {
-                return FailureMechanismAssemblyFactory.CreateNotApplicableAssembly();
+                return FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly();
             }
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;

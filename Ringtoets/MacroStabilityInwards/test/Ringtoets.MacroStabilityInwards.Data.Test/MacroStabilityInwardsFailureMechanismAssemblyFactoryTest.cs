@@ -745,7 +745,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
                     assessmentSection);
 
                 // Assert
-                AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyFactory.CreateNotApplicableAssembly(), assembly);
+                AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly(), assembly);
                 mocks.VerifyAll();
             }
         }
