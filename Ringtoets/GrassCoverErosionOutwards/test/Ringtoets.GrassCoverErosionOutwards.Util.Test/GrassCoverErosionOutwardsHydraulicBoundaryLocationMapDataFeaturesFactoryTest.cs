@@ -72,11 +72,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Util.Test
             const string waterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName = "h3";
             const string waterLevelCalculationForLowerLimitNormAttributeName = "h4";
             const string waterLevelCalculationForFactorizedLowerLimitNormAttributeName = "h5";
-            const string waveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName = "hs1";
-            const string waveHeightCalculationForMechanismSpecificSignalingNormAttributeName = "hs2";
-            const string waveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName = "hs3";
-            const string waveHeightCalculationForLowerLimitNormAttributeName = "hs4";
-            const string waveHeightCalculationForFactorizedLowerLimitNormAttributeName = "hs5";
+            const string waveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName = "Hs1";
+            const string waveHeightCalculationForMechanismSpecificSignalingNormAttributeName = "Hs2";
+            const string waveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName = "Hs3";
+            const string waveHeightCalculationForLowerLimitNormAttributeName = "Hs4";
+            const string waveHeightCalculationForFactorizedLowerLimitNormAttributeName = "Hs5";
 
             var mocks = new MockRepository();
             var nameProvider = mocks.StrictMock<IGrassCoverErosionOutwardsHydraulicBoundaryLocationMetaDataAttributeNameProvider>();

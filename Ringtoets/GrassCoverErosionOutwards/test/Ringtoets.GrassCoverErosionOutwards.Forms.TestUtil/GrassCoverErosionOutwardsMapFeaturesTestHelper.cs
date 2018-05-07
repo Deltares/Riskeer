@@ -88,19 +88,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "hs(Iv->IIv)");
+                    mapFeature, "Hs(Iv->IIv)");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, hydraulicBoundaryLocation),
-                    mapFeature, "hs(IIv->IIIv)");
+                    mapFeature, "Hs(IIv->IIIv)");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "hs(IIIv->IVv)");
+                    mapFeature, "Hs(IIIv->IVv)");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "hs(IVv->Vv)");
+                    mapFeature, "Hs(IVv->Vv)");
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
-                    mapFeature, "hs(Vv->VIv)");
+                    mapFeature, "Hs(Vv->VIv)");
             }
         }
 

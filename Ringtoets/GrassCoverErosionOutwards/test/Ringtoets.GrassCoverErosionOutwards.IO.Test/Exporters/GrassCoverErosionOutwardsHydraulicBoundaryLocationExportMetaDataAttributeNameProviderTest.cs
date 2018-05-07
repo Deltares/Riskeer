@@ -41,11 +41,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
             Assert.AreEqual("h III-IV", nameProvider.WaterLevelCalculationForMechanismSpecificLowerLimitNormAttributeName);
             Assert.AreEqual("h IV-V", nameProvider.WaterLevelCalculationForLowerLimitNormAttributeName);
             Assert.AreEqual("h V-VI", nameProvider.WaterLevelCalculationForFactorizedLowerLimitNormAttributeName);
-            Assert.AreEqual("hs I-II", nameProvider.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
-            Assert.AreEqual("hs II-III", nameProvider.WaveHeightCalculationForMechanismSpecificSignalingNormAttributeName);
-            Assert.AreEqual("hs III-IV", nameProvider.WaveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName);
-            Assert.AreEqual("hs IV-V", nameProvider.WaveHeightCalculationForLowerLimitNormAttributeName);
-            Assert.AreEqual("hs V-VI", nameProvider.WaveHeightCalculationForFactorizedLowerLimitNormAttributeName);
+            Assert.AreEqual("Hs I-II", nameProvider.WaveHeightCalculationForMechanismSpecificFactorizedSignalingNormAttributeName);
+            Assert.AreEqual("Hs II-III", nameProvider.WaveHeightCalculationForMechanismSpecificSignalingNormAttributeName);
+            Assert.AreEqual("Hs III-IV", nameProvider.WaveHeightCalculationForMechanismSpecificLowerLimitNormAttributeName);
+            Assert.AreEqual("Hs IV-V", nameProvider.WaveHeightCalculationForLowerLimitNormAttributeName);
+            Assert.AreEqual("Hs V-VI", nameProvider.WaveHeightCalculationForFactorizedLowerLimitNormAttributeName);
         }
     }
 }
