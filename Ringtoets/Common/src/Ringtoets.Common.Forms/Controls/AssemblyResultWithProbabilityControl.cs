@@ -24,7 +24,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.Controls
 {
     /// <summary>
-    /// Custom control to display an assembly result with probability.
+    /// Control to display an assembly result with probability.
     /// </summary>
     public abstract partial class AssemblyResultWithProbabilityControl : AssemblyResultControl
     {

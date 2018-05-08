@@ -21,12 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Controls;
@@ -155,6 +157,10 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <exception cref="AssemblyException">Thrown when the assembly result
         /// could not be created.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the result
+        /// has an invalid value for <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the result has a value for
+        /// <see cref="FailureMechanismAssemblyCategoryGroup"/> that is not supported.</exception>
         protected abstract void UpdateAssemblyResultControl();
 
         /// <summary>

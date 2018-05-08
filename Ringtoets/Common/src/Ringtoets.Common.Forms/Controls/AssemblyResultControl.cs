@@ -26,7 +26,7 @@ using System.Windows.Forms;
 namespace Ringtoets.Common.Forms.Controls
 {
     /// <summary>
-    /// Custom base control to display an assembly result.
+    /// Base control to display an assembly result.
     /// </summary>
     public abstract partial class AssemblyResultControl : UserControl
     {

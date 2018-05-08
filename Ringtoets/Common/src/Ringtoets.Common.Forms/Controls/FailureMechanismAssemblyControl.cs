@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
@@ -28,7 +29,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.Controls
 {
     /// <summary>
-    /// Custom control to display a <see cref="FailureMechanismAssembly"/>.
+    /// Control to display a <see cref="FailureMechanismAssembly"/>.
     /// </summary>
     public class FailureMechanismAssemblyControl : AssemblyResultWithProbabilityControl
     {
@@ -37,6 +38,10 @@ namespace Ringtoets.Common.Forms.Controls
         /// </summary>
         /// <param name="result">The <see cref="FailureMechanismAssembly"/> to set on the control.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>
+        /// has an invalid value for <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="result"/>
+        /// has a category that is not supported.</exception>
         public void SetAssemblyResult(FailureMechanismAssembly result)
         {
             if (result == null)

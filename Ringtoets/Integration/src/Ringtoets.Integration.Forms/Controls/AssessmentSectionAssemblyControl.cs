@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
@@ -29,7 +30,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Integration.Forms.Controls
 {
     /// <summary>
-    /// Custom control to display a <see cref="AssessmentSectionAssembly"/>.
+    /// Control to display a <see cref="AssessmentSectionAssembly"/>.
     /// </summary>
     public class AssessmentSectionAssemblyControl : AssemblyResultWithProbabilityControl
     {
@@ -38,6 +39,10 @@ namespace Ringtoets.Integration.Forms.Controls
         /// </summary>
         /// <param name="result">The <see cref="AssessmentSectionAssembly"/> to set on the control.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>
+        /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="result"/>
+        /// has a category that is not supported.</exception>
         public void SetAssemblyResult(AssessmentSectionAssembly result)
         {
             if (result == null)

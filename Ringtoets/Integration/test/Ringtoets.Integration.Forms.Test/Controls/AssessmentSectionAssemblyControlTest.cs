@@ -76,16 +76,11 @@ namespace Ringtoets.Integration.Forms.Test.Controls
                 resultControl.SetAssemblyResult(result);
 
                 // Assert
-                Control groupLabel = GetGroupLabel(resultControl);
-                Control probabilityLabel = GetProbabilityLabel(resultControl);
+                BorderedLabel groupLabel = GetGroupLabel(resultControl);
+                BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
 
-                Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.Group).DisplayName,
-                                groupLabel.Text);
-                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.Group),
-                                groupLabel.BackColor);
-
-                Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(result.Probability),
-                                probabilityLabel.Text);
+                AssertGroupLabel(result, groupLabel);
+                AssertProbabilityLabel(result, probabilityLabel);
             }
         }
 
@@ -93,18 +88,41 @@ namespace Ringtoets.Integration.Forms.Test.Controls
         public void ClearData_Always_ClearsDataOnControl()
         {
             // Setup
+            var random = new Random(39);
+
             using (var resultControl = new AssessmentSectionAssemblyControl())
             {
+                var result = new AssessmentSectionAssembly(random.NextDouble(),
+                                                           random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                resultControl.SetAssemblyResult(result);
+
+                // Precondition
+                BorderedLabel groupLabel = GetGroupLabel(resultControl);
+                BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
+                AssertGroupLabel(result, groupLabel);
+                AssertProbabilityLabel(result, probabilityLabel);
                 // Call
                 resultControl.ClearData();
 
                 // Assert
-                BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
                 Assert.IsEmpty(groupLabel.Text);
                 Assert.AreEqual(Color.White, groupLabel.BackColor);
                 Assert.AreEqual("-", probabilityLabel.Text);
             }
+        }
+
+        private static void AssertProbabilityLabel(AssessmentSectionAssembly result, BorderedLabel probabilityLabel)
+        {
+            Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(result.Probability),
+                            probabilityLabel.Text);
+        }
+
+        private static void AssertGroupLabel(AssessmentSectionAssembly result, BorderedLabel groupLabel)
+        {
+            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.Group).DisplayName,
+                            groupLabel.Text);
+            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.Group),
+                            groupLabel.BackColor);
         }
 
         private static BorderedLabel GetGroupLabel(AssessmentSectionAssemblyControl resultControl)

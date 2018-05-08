@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
@@ -27,7 +29,7 @@ using Ringtoets.Common.Forms.Helpers;
 namespace Ringtoets.Integration.Forms.Controls
 {
     /// <summary>
-    /// Custom control to display a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+    /// Control to display a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
     /// </summary>
     public class AssessmentSectionAssemblyCategoryGroupControl : AssemblyResultControl
     {
@@ -35,6 +37,10 @@ namespace Ringtoets.Integration.Forms.Controls
         /// Set the value of <paramref name="result"/> on the control.
         /// </summary>
         /// <param name="result">The <see cref="AssessmentSectionAssemblyCategoryGroup"/> to set on the control.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>
+        /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="result"/>
+        /// is not supported.</exception>
         public void SetAssemblyResult(AssessmentSectionAssemblyCategoryGroup result)
         {
             GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName;

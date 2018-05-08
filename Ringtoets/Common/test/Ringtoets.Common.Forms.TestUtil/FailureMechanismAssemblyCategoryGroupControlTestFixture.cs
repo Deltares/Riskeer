@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenCalculatorThrowsException_ErrorSetToControl()
+        public void GivenFailureMechanismResultsView_WhenCalculatorThrowsException_ThenErrorSetToControl()
         {
             // Given
             var failureMechanism = new TFailureMechanism();
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenCalculatorThrowsException_FailureMechanismAssemblyResultCleared()
+        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenCalculatorThrowsException_ThenFailureMechanismAssemblyResultCleared()
         {
             // Given
             var failureMechanism = new TFailureMechanism();
@@ -134,7 +134,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenNoExceptionThrownByCalculator_ErrorCleared()
+        public void GivenFailureMechanismResultsViewWithError_WhenNoExceptionThrownByCalculator_ThenErrorCleared()
         {
             // Given
             var failureMechanism = new TFailureMechanism();
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Forms.TestUtil
         }
 
         [Test]
-        public void GivenFailureMechanismResultsViewWithAssemblyResult_FailureMechanismAssemblyResultChangedAndSectionResultNotified_FailureMechanismAssemblyResultUpdated()
+        public void GivenFailureMechanismResultsViewWithAssemblyResult_WhenFailureMechanismAssemblyResultChangedAndSectionResultNotified_ThenFailureMechanismAssemblyResultUpdated()
         {
             // Given
             var failureMechanism = new TFailureMechanism();

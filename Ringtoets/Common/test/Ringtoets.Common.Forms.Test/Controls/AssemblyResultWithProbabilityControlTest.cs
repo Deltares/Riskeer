@@ -33,8 +33,9 @@ namespace Ringtoets.Common.Forms.Test.Controls
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup & Call
+            // Setup
             using (var form = new Form())
+            // Call
             using (var resultControl = new TestAssemblyResultWithProbabilityControl())
             {
                 form.Controls.Add(resultControl);
@@ -73,12 +74,16 @@ namespace Ringtoets.Common.Forms.Test.Controls
             // Setup
             using (var resultControl = new TestAssemblyResultWithProbabilityControl())
             {
+                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
+                Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
+                groupLabel.Text = "abcd";
+                groupLabel.BackColor = Color.Yellow;
+                probabilityLabel.Text = "1/245";
+
                 // Call
                 resultControl.ClearData();
 
                 // Assert
-                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
-                Control probabilityLabel = GetProbabilityPanel(resultControl).GetControlFromPosition(0, 0);
                 Assert.IsEmpty(groupLabel.Text);
                 Assert.AreEqual(Color.White, groupLabel.BackColor);
                 Assert.AreEqual("-", probabilityLabel.Text);

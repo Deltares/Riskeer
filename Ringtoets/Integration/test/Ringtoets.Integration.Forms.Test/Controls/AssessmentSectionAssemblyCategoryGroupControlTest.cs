@@ -60,10 +60,7 @@ namespace Ringtoets.Integration.Forms.Test.Controls
 
                 // Assert
                 BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName,
-                                groupLabel.Text);
-                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result),
-                                groupLabel.BackColor);
+                AssertGroupLabel(result, groupLabel);
             }
         }
 
@@ -71,16 +68,32 @@ namespace Ringtoets.Integration.Forms.Test.Controls
         public void ClearData_Always_ClearsDataOnControl()
         {
             // Setup
+            var random = new Random(39);
+
             using (var resultControl = new AssessmentSectionAssemblyCategoryGroupControl())
             {
+                var result = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+                resultControl.SetAssemblyResult(result);
+
+                // Precondition
+                BorderedLabel groupLabel = GetGroupLabel(resultControl);
+                AssertGroupLabel(result, groupLabel);
+
                 // Call
                 resultControl.ClearData();
 
                 // Assert
-                BorderedLabel groupLabel = GetGroupLabel(resultControl);
                 Assert.IsEmpty(groupLabel.Text);
                 Assert.AreEqual(Color.White, groupLabel.BackColor);
             }
+        }
+
+        private static void AssertGroupLabel(AssessmentSectionAssemblyCategoryGroup result, BorderedLabel groupLabel)
+        {
+            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName,
+                            groupLabel.Text);
+            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result),
+                            groupLabel.BackColor);
         }
 
         private static BorderedLabel GetGroupLabel(AssessmentSectionAssemblyCategoryGroupControl resultControl)

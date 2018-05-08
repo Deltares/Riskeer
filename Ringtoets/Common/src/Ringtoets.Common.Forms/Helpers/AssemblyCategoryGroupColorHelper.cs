@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
         /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyCategoryGroup"/>
-        /// has an invalid value for <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
+        /// has an invalid value for <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyCategoryGroup"/>
         /// is not supported.</exception>
         public static Color GetFailureMechanismAssemblyCategoryGroupColor(FailureMechanismAssemblyCategoryGroup assemblyCategoryGroup)

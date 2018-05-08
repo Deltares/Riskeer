@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
                 Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
 
-                var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
+                ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
@@ -133,11 +133,14 @@ namespace Ringtoets.Common.Forms.Test.Controls
             // Setup
             using (var resultControl = new TestAssemblyResultControl())
             {
+                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
+                groupLabel.Text = "abcd";
+                groupLabel.BackColor = Color.Yellow;
+
                 // Call
                 resultControl.ClearData();
 
                 // Assert
-                Control groupLabel = GetGroupPanel(resultControl).GetControlFromPosition(0, 0);
                 Assert.IsEmpty(groupLabel.Text);
                 Assert.AreEqual(Color.White, groupLabel.BackColor);
             }

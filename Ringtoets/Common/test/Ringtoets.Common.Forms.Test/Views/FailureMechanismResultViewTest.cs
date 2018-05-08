@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Controls;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
@@ -173,7 +174,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultUpdated()
+        public void GivenFailureMechanismResultView_WhenFailureMechanismNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultControlUpdated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -188,18 +189,18 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
-                view.AssemblyResultUpdated = false;
+                view.AssemblyResultControlUpdated = false;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
-                Assert.IsFalse(view.AssemblyResultUpdated);
+                Assert.IsFalse(view.AssemblyResultControlUpdated);
 
                 // When
                 view.FailureMechanism.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(invalidated);
-                Assert.IsTrue(view.AssemblyResultUpdated);
+                Assert.IsTrue(view.AssemblyResultControlUpdated);
             }
         }
 
@@ -225,7 +226,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultUpdated()
+        public void GivenFailureMechanismResultView_WhenSingleFailureMechanismSectionResultNotifiesObservers_ThenDataGridViewInvalidatedAndAssemblyResultControlUpdated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -240,18 +241,18 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
-                view.AssemblyResultUpdated = false;
+                view.AssemblyResultControlUpdated = false;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
-                Assert.IsFalse(view.AssemblyResultUpdated);
+                Assert.IsFalse(view.AssemblyResultControlUpdated);
 
                 // When
                 sectionResult.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(invalidated);
-                Assert.IsTrue(view.AssemblyResultUpdated);
+                Assert.IsTrue(view.AssemblyResultControlUpdated);
             }
         }
 
@@ -290,7 +291,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenRowUpdatedEventFiredAndSectionResultNotified_ThenRowNotUpdatedAndViewInvalidatedAndAssemblyResultUpdated()
+        public void GivenFailureMechanismResultView_WhenRowUpdatedEventFiredAndSectionResultNotified_ThenRowNotUpdatedAndViewInvalidatedAndAssemblyResultControlUpdated()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -306,7 +307,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
                 var invalidated = false;
                 dataGridView.Invalidated += (sender, args) => invalidated = true;
-                view.AssemblyResultUpdated = false;
+                view.AssemblyResultControlUpdated = false;
 
                 // Precondition
                 Assert.IsFalse(invalidated);
@@ -320,12 +321,12 @@ namespace Ringtoets.Common.Forms.Test.Views
                 // Then
                 Assert.IsTrue(invalidated);
                 Assert.IsFalse(row.Updated);
-                Assert.IsTrue(view.AssemblyResultUpdated);
+                Assert.IsTrue(view.AssemblyResultControlUpdated);
             }
         }
 
         [Test]
-        public void GivenFailureMechanismResultsView_WhenExceptionThrownDuringUpdate_FailureMechanismAssemblyResultClearedAndErrorSet()
+        public void GivenFailureMechanismResultsView_WhenExceptionThrownDuringUpdate_ThenErrorSet()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -338,12 +339,12 @@ namespace Ringtoets.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 // Precondition
-                FailureMechanismAssemblyCategoryGroupControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
+                TestAssemblyResultControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
 
                 // When
-                view.ThrowExceptionOnCalculate = true;
+                view.ThrowExceptionOnUpdate = true;
                 sectionResult.NotifyObservers();
 
                 // Then
@@ -352,7 +353,31 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultsViewWithFailureMechanismAssemblyError_WhenNoExceptionThrownDuringUpdate_ResultSetAndErrorCleared()
+        public void GivenFailureMechanismResultsView_WhenFailureMechanismAssemblyControlUpdated_ThenDataCleared()
+        {
+            // Given
+            TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
+
+            var sectionResults = new ObservableList<TestFailureMechanismSectionResult>
+            {
+                sectionResult
+            };
+
+            using (ShowFailureMechanismResultsView(sectionResults))
+            {
+                var groupLabel = (BorderedLabel) new ControlTester("GroupLabel").TheObject;
+                groupLabel.Text = "aaa";
+
+                // When
+                sectionResult.NotifyObservers();
+
+                // Then
+                Assert.IsEmpty(groupLabel.Text);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultsViewWithFailureMechanismAssemblyError_WhenNoExceptionThrownDuringUpdate_ThenErrorCleared()
         {
             // Given
             TestFailureMechanismSectionResult sectionResult = FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult();
@@ -364,16 +389,16 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
-                view.ThrowExceptionOnCalculate = true;
+                view.ThrowExceptionOnUpdate = true;
                 sectionResult.NotifyObservers();
 
                 // Precondition
-                FailureMechanismAssemblyCategoryGroupControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
+                TestAssemblyResultControl resultControl = GetFailureMechanismAssemblyCategoryGroupControl();
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.AreEqual("Message", errorProvider.GetError(resultControl));
 
                 // When
-                view.ThrowExceptionOnCalculate = false;
+                view.ThrowExceptionOnUpdate = false;
                 sectionResult.NotifyObservers();
 
                 // Then
@@ -452,14 +477,14 @@ namespace Ringtoets.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private static ErrorProvider GetErrorProvider(FailureMechanismAssemblyCategoryGroupControl resultControl)
+        private static ErrorProvider GetErrorProvider(TestAssemblyResultControl resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
         }
 
-        private static FailureMechanismAssemblyCategoryGroupControl GetFailureMechanismAssemblyCategoryGroupControl()
+        private static TestAssemblyResultControl GetFailureMechanismAssemblyCategoryGroupControl()
         {
-            return (FailureMechanismAssemblyCategoryGroupControl) new ControlTester("AssemblyResultControl").TheObject;
+            return (TestAssemblyResultControl) new ControlTester("AssemblyResultControl").TheObject;
         }
 
         private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
@@ -471,16 +496,21 @@ namespace Ringtoets.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult, FailureMechanismSectionResultRow<FailureMechanismSectionResult>, TestFailureMechanism, FailureMechanismAssemblyCategoryGroupControl>
+        private class TestFailureMechanismResultView : FailureMechanismResultView<FailureMechanismSectionResult,
+            FailureMechanismSectionResultRow<FailureMechanismSectionResult>,
+            TestFailureMechanism,
+            TestAssemblyResultControl>
         {
-            public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults, TestFailureMechanism failureMechanism)
+            public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults,
+                                                  TestFailureMechanism failureMechanism)
                 : base(failureMechanismSectionResults, failureMechanism) {}
 
-            public bool ThrowExceptionOnCalculate { private get; set; }
+            public bool ThrowExceptionOnUpdate { private get; set; }
 
-            public bool AssemblyResultUpdated { get; set; }
+            public bool AssemblyResultControlUpdated { get; set; }
 
-            protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(FailureMechanismSectionResult sectionResult)
+            protected override FailureMechanismSectionResultRow<FailureMechanismSectionResult> CreateFailureMechanismSectionResultRow(
+                FailureMechanismSectionResult sectionResult)
             {
                 return new TestRow(sectionResult);
             }
@@ -492,14 +522,16 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             protected override void UpdateAssemblyResultControl()
             {
-                if (ThrowExceptionOnCalculate)
+                if (ThrowExceptionOnUpdate)
                 {
                     throw new AssemblyException("Message");
                 }
 
-                AssemblyResultUpdated = true;
+                AssemblyResultControlUpdated = true;
             }
         }
+
+        private class TestAssemblyResultControl : AssemblyResultControl {}
 
         private class TestRow : FailureMechanismSectionResultRow<FailureMechanismSectionResult>
         {

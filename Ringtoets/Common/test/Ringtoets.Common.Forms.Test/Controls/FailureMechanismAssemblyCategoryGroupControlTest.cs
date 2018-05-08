@@ -60,10 +60,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
 
                 // Assert
                 BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(result).DisplayName,
-                                groupLabel.Text);
-                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(result),
-                                groupLabel.BackColor);
+                AssertGroupLabel(result, groupLabel);
             }
         }
 
@@ -71,16 +68,32 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void ClearData_Always_ClearsDataOnControl()
         {
             // Setup
+            var random = new Random(39);
+
             using (var resultControl = new FailureMechanismAssemblyCategoryGroupControl())
             {
+                var result = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
+                resultControl.SetAssemblyResult(result);
+
+                // Precondition
+                BorderedLabel groupLabel = GetGroupLabel(resultControl);
+                AssertGroupLabel(result, groupLabel);
+
                 // Call
                 resultControl.ClearData();
 
                 // Assert
-                BorderedLabel groupLabel = GetGroupLabel(resultControl);
                 Assert.IsEmpty(groupLabel.Text);
                 Assert.AreEqual(Color.White, groupLabel.BackColor);
             }
+        }
+
+        private static void AssertGroupLabel(FailureMechanismAssemblyCategoryGroup result, BorderedLabel groupLabel)
+        {
+            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(result).DisplayName,
+                            groupLabel.Text);
+            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(result),
+                            groupLabel.BackColor);
         }
 
         private static BorderedLabel GetGroupLabel(FailureMechanismAssemblyCategoryGroupControl resultControl)

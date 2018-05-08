@@ -21,10 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.DuneErosion.Data;
@@ -151,6 +153,15 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.SetDataSource(assemblyResultRows);
         }
 
+        /// <summary>
+        /// Event handler for a click event on the <see cref="RefreshAssemblyResultsButton"/>.
+        /// </summary>
+        /// <param name="sender">The sender of the event.</param>
+        /// <param name="e">The event arguments.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the result
+        /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the result has a value for
+        /// <see cref="AssessmentSectionAssemblyCategoryGroup"/> that is not supported.</exception>
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
             assemblyResultRows.ForEachElementDo(row => row.Update());
@@ -158,6 +169,13 @@ namespace Ringtoets.Integration.Forms.Views
             UpdateAssemblyResultControls();
         }
 
+        /// <summary>
+        /// Updates the assembly result controls.
+        /// </summary>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when the result
+        /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the result has a value for
+        /// <see cref="AssessmentSectionAssemblyCategoryGroup"/> that is not supported.</exception>
         private void UpdateAssemblyResultControls()
         {
             totalAssemblyCategoryGroupControl.ClearData();
