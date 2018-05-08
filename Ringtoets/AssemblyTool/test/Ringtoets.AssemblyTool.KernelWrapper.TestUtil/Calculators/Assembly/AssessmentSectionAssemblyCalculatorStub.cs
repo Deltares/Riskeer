@@ -66,6 +66,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public AssessmentSectionAssembly FailureMechanismsWithProbabilityInput { get; private set; }
 
         /// <summary>
+        /// Gets the combined failure mechanism sections input.
+        /// </summary>
+        public IEnumerable<IEnumerable<FailureMechanismSectionAssemblyCategoryGroup>> CombinedFailureMechanismSectionsInput { get; private set; }
+
+        /// <summary>
         /// Gets or sets the output of the assessment section assembly for failure
         ///  mechanisms with probability.
         /// </summary>
@@ -82,6 +87,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// when assembling an assessment section.
         /// </summary>
         public AssessmentSectionAssemblyCategoryGroup? AssembleAssessmentSectionCategoryGroupOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the output of the combined failure mechanism section assembly.
+        /// </summary>
+        public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a calculation.
@@ -139,6 +149,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             return AssembleAssessmentSectionCategoryGroupOutput.Value;
+        }
+
+        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<FailureMechanismSectionAssemblyCategoryGroup>> input)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CombinedFailureMechanismSectionsInput = input;
+
+            return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
+            {
+                new CombinedFailureMechanismSectionAssembly(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv, new[]
+                {
+                    FailureMechanismSectionAssemblyCategoryGroup.VIv
+                }),
+            });
         }
     }
 }

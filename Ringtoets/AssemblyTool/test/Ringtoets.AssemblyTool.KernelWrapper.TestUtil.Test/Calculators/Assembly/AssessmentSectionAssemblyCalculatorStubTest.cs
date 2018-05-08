@@ -265,5 +265,87 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
         }
+
+        [Test]
+        public void AssembleCombinedFailureMechanismSections_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var calculator = new AssessmentSectionAssemblyCalculatorStub();
+
+            // Call
+            CombinedFailureMechanismSectionAssembly[] output =
+                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>()).ToArray();
+
+            // Assert
+            var expectedOutput = new[]
+            {
+                new CombinedFailureMechanismSectionAssembly(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv, new[]
+                {
+                    FailureMechanismSectionAssemblyCategoryGroup.VIv
+                }),
+            };
+            Assert.AreEqual(expectedOutput[0].SectionStart, output[0].SectionStart);
+            Assert.AreEqual(expectedOutput[0].SectionEnd, output[0].SectionEnd);
+            Assert.AreEqual(expectedOutput[0].CombinedResult, output[0].CombinedResult);
+            CollectionAssert.AreEqual(expectedOutput[0].FailureMechanismResults, output[0].FailureMechanismResults);
+        }
+
+        [Test]
+        public void AssembleCombinedFailureMechanismSections_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculator = new AssessmentSectionAssemblyCalculatorStub
+            {
+                CombinedFailureMechanismSectionAssemblyOutput = new[]
+                {
+                    new CombinedFailureMechanismSectionAssembly(
+                        random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                        new[]
+                        {
+                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                        })
+                }
+            };
+
+            // Call
+            IEnumerable<CombinedFailureMechanismSectionAssembly> output =
+                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>());
+
+            // Assert
+            Assert.AreSame(calculator.CombinedFailureMechanismSectionAssemblyOutput, output);
+        }
+
+        [Test]
+        public void AssembleCombinedFailureMechanismSections_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            IEnumerable<IEnumerable<FailureMechanismSectionAssemblyCategoryGroup>> failureMechanismSections = Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>();
+            var calculator = new AssessmentSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleCombinedFailureMechanismSections(failureMechanismSections);
+
+            // Assert
+            Assert.AreSame(failureMechanismSections, calculator.CombinedFailureMechanismSectionsInput);
+        }
+
+        [Test]
+        public void AssembleCombinedFailureMechanismSections_ThrowExceptionOnCalculateTrue_ThrowsAssessmentSectionAssemblyException()
+        {
+            // Setup
+            var calculator = new AssessmentSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate call = () => calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>());
+
+            // Assert
+            var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(call);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
     }
 }
