@@ -212,9 +212,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // When
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssembleAssessmentSectionOutput = AssessmentSectionAssemblyCategoryGroup.A;
-                calculator.AssessmentSectionAssemblyOutput = new AssessmentSectionAssembly(0.5, AssessmentSectionAssemblyCategoryGroup.APlus);
-                calculator.AssembleFailureMechanismsAssemblyOutput = AssessmentSectionAssemblyCategoryGroup.B;
+                calculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
+                calculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(0.5, AssessmentSectionAssemblyCategoryGroup.APlus);
+                calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.B;
 
                 GetRefreshAssemblyResultButtonTester().Click();
 
