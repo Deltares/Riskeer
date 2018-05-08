@@ -210,7 +210,9 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionHelper), nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
+        [TestCaseSource(
+            typeof(AssessmentSectionHelper),
+            nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
         public void GetAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,

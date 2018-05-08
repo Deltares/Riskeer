@@ -137,7 +137,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionHelper), nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
+        [TestCaseSource(
+            typeof(AssessmentSectionHelper),
+            nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ReturnViewWithCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,

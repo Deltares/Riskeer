@@ -53,7 +53,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentSectionHelper), nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
+        [TestCaseSource(
+            typeof(AssessmentSectionHelper),
+            nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,

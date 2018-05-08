@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -137,7 +136,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(DifferentCategoryTypes))]
+        [TestCaseSource(
+            typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
+            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetAssessmentLevelConfigurationPerFailureMechanismCategoryType))]
         public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel(
             AssessmentSectionStub assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
@@ -169,61 +170,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
 
             Assert.AreEqual(expectedAssessmentLevel, designWaterLevelChartData.Points.First().Y);
-        }
-
-        private static IEnumerable DifferentCategoryTypes()
-        {
-            var assessmentSection = new AssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
-                failureMechanism,
-                assessmentSection,
-                new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                failureMechanism,
-                hydraulicBoundaryLocation,
-                FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0).Output.Result
-            ).SetName("MechanismSpecificFactorizedSignalingNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                failureMechanism,
-                hydraulicBoundaryLocation,
-                FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0).Output.Result
-            ).SetName("MechanismSpecificSignalingNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                failureMechanism,
-                hydraulicBoundaryLocation,
-                FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("MechanismSpecificLowerLimitNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                failureMechanism,
-                hydraulicBoundaryLocation,
-                FailureMechanismCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("LowerLimitNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                failureMechanism,
-                hydraulicBoundaryLocation,
-                FailureMechanismCategoryType.FactorizedLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("FactorizedLowerLimitNorm");
         }
 
         #region ShouldCloseViewWithCalculationDataTester
