@@ -75,18 +75,18 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         private const int foreshoreGeometryPropertyIndex = 14;
         private const int revetmentTypePropertyIndex = 15;
 
-        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+        private readonly Func<RoundedDouble> getAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextProperties{TContext,TInput,TCategory}"/>.
         /// </summary>
         /// <param name="context">The <see cref="WaveConditionsInputContext{TInput}"/> for which the properties are shown.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="getAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected WaveConditionsInputContextProperties(TContext context,
-                                                       Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                       Func<RoundedDouble> getAssessmentLevelFunc,
                                                        IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (context == null)
@@ -94,9 +94,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
                 throw new ArgumentNullException(nameof(context));
             }
 
-            if (getNormativeAssessmentLevelFunc == null)
+            if (getAssessmentLevelFunc == null)
             {
-                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+                throw new ArgumentNullException(nameof(getAssessmentLevelFunc));
             }
 
             if (propertyChangeHandler == null)
@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
 
             Data = context;
 
-            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+            this.getAssessmentLevelFunc = getAssessmentLevelFunc;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
@@ -135,7 +135,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return getNormativeAssessmentLevelFunc();
+                return getAssessmentLevelFunc();
             }
         }
 
@@ -241,7 +241,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.GetWaterLevels(getNormativeAssessmentLevelFunc()).ToArray();
+                return data.WrappedData.GetWaterLevels(getAssessmentLevelFunc()).ToArray();
             }
         }
 

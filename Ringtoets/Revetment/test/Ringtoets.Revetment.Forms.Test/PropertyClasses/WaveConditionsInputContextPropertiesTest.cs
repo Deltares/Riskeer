@@ -88,7 +88,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        public void Constructor_GetAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -107,7 +107,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
+            Assert.AreEqual("getAssessmentLevelFunc", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -849,9 +849,9 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<TestWaveConditionsInputContext, TestWaveConditionsInput, TestCategoryType>
         {
             public TestWaveConditionsInputContextProperties(TestWaveConditionsInputContext context,
-                                                            Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                            Func<RoundedDouble> getAssessmentLevelFunc,
                                                             IObservablePropertyChangeHandler handler)
-                : base(context, getNormativeAssessmentLevelFunc, handler) {}
+                : base(context, getAssessmentLevelFunc, handler) {}
 
             public override string RevetmentType
             {

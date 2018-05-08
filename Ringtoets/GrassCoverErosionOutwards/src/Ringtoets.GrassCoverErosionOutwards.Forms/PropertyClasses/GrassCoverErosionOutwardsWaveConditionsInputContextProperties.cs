@@ -40,13 +40,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
         /// </summary>
         /// <param name="context">The <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for which 
         /// the properties are shown.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="getAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsInputContextProperties(GrassCoverErosionOutwardsWaveConditionsInputContext context,
-                                                                             Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                                             Func<RoundedDouble> getAssessmentLevelFunc,
                                                                              IObservablePropertyChangeHandler propertyChangeHandler)
-            : base(context, getNormativeAssessmentLevelFunc, propertyChangeHandler) {}
+            : base(context, getAssessmentLevelFunc, propertyChangeHandler) {}
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description))]

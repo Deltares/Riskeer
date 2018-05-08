@@ -128,10 +128,10 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             : FailureMechanismCategoryWaveConditionsInputContextProperties<TestFailureMechanismCategoryWaveConditionsInputContext>
         {
             public TestFailureMechanismCategoryWaveConditionsInputContextProperties(TestFailureMechanismCategoryWaveConditionsInputContext context,
-                                                                                    Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                                                    Func<RoundedDouble> getAssessmentLevelFunc,
                                                                                     IObservablePropertyChangeHandler propertyChangeHandler)
                 : base(context,
-                       getNormativeAssessmentLevelFunc,
+                       getAssessmentLevelFunc,
                        propertyChangeHandler) {}
 
             public override string RevetmentType
