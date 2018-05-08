@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
@@ -35,6 +37,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -42,6 +45,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Forms.Controls;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
@@ -60,7 +64,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int failureMechanismGroupColumnIndex = 2;
         private const int failureMechanismAssemblyCategoryColumnIndex = 3;
         private const int failureMechanisProbabilityColumnIndex = 4;
-
+        private const string totalControlName = "totalAssemblyCategoryGroupControl";
+        private const string failureMechanismsWithProbabilityControlName = "failureMechanismsWithProbabilityAssemblyControl";
+        private const string failureMechanismsWithoutProbabilityControlName = "failureMechanismsWithoutProbabilityAssemblyControl";
         private Form testForm;
 
         private static IEnumerable<TestCaseData> CellFormattingStates
@@ -126,7 +132,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenWithAssemblyResultTotalView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithAssemblyResultTotalView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (ShowAssemblyResultTotalView())
@@ -174,6 +180,79 @@ namespace Ringtoets.Integration.Forms.Test.Views
                                                calculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
                                                dataGridView.Rows);
                 }
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalView_ThenExpectedAssessmentSectionAssemblyResultsVisible()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultTotalView())
+            {
+                // Then
+                AssertAssessmentSectionAssemblyCategoryGroupControl("totalAssemblyCategoryGroupControl", "C");
+                AssertAssessmentSectionAssemblyControl("failureMechanismsWithProbabilityAssemblyControl", "D", "1/1");
+                AssertAssessmentSectionAssemblyCategoryGroupControl("failureMechanismsWithoutProbabilityAssemblyControl", "D");
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenAssessmentSectionAssemblyResultsUpdatedToNewValues()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultTotalView())
+            {
+                // Precondition
+                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "D");
+
+                // When
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.AssembleAssessmentSectionOutput = AssessmentSectionAssemblyCategoryGroup.A;
+                calculator.AssessmentSectionAssemblyOutput = new AssessmentSectionAssembly(0.5, AssessmentSectionAssemblyCategoryGroup.APlus);
+                calculator.AssembleFailureMechanismsAssemblyOutput = AssessmentSectionAssemblyCategoryGroup.B;
+
+                GetRefreshAssemblyResultButtonTester().Click();
+
+                // Then
+                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "A");
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "A+", "1/2");
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "B");
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResultsThrowsException_ThenAssessmentSectionAssemblyResultsClearedAndErrorSet()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultTotalView())
+            {
+                // Precondition
+                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "D");
+
+                // When
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                GetRefreshAssemblyResultButtonTester().Click();
+
+                // Then
+                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(totalControlName)));
+                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, string.Empty);
+
+                Assert.AreEqual("Message", GetError(GetAssemblyControl(failureMechanismsWithProbabilityControlName)));
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, string.Empty, "-");
+
+                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName)));
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, string.Empty);
             }
         }
 
@@ -246,6 +325,45 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
                 Assert.AreEqual(style.TextColor, cell.Style.ForeColor);
             }
+        }
+
+        private static void AssertAssessmentSectionAssemblyCategoryGroupControl(string controlName, string expectedGroup)
+        {
+            AssessmentSectionAssemblyCategoryGroupControl control = GetAssemblyCategoryGroupControl(controlName);
+            Assert.AreEqual(expectedGroup, GetGroupLabel(control).Text);
+        }
+
+        private static AssessmentSectionAssemblyCategoryGroupControl GetAssemblyCategoryGroupControl(string controlName)
+        {
+            return (AssessmentSectionAssemblyCategoryGroupControl) new ControlTester(controlName).TheObject;
+        }
+
+        private static void AssertAssessmentSectionAssemblyControl(string controlName, string expectedGroup, string expectedProbability)
+        {
+            AssessmentSectionAssemblyControl control = GetAssemblyControl(controlName);
+            Assert.AreEqual(expectedGroup, GetGroupLabel(control).Text);
+            Assert.AreEqual(expectedProbability, GetProbabilityLabel(control).Text);
+        }
+
+        private static AssessmentSectionAssemblyControl GetAssemblyControl(string controlName)
+        {
+            return (AssessmentSectionAssemblyControl) new ControlTester(controlName).TheObject;
+        }
+
+        private static BorderedLabel GetGroupLabel(AssemblyResultControl control)
+        {
+            return (BorderedLabel) ((TableLayoutPanel) control.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
+        }
+
+        private static BorderedLabel GetProbabilityLabel(AssemblyResultWithProbabilityControl control)
+        {
+            return (BorderedLabel) ((TableLayoutPanel) control.Controls["probabilityPanel"]).GetControlFromPosition(0, 0);
+        }
+
+        private static string GetError(AssemblyResultControl resultControl)
+        {
+            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
+            return errorProvider.GetError(resultControl);
         }
 
         #region View test helpers
