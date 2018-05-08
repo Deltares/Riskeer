@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -36,66 +35,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// </summary>
     public static class GrassCoverErosionOutwardsFailureMechanismExtensions
     {
-        /// <summary>
-        /// Gets the normative assessment level for a <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to get the normative assessment level from.</param>
-        /// <param name="failureMechanism">The failure mechanism to get the normative assessment level from.</param>
-        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the normative assessment level for.</param>
-        /// <returns>The normative assessment level or <see cref="RoundedDouble.NaN"/> when:
-        /// <list type="bullet">
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="failureMechanism"/>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation output.</item>
-        /// </list>
-        /// </returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
-        /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSection"/>
-        /// contains an invalid value of <see cref="NormType"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSection"/>
-        /// contains a valid value of <see cref="NormType"/>, but unsupported.</exception>
-        public static RoundedDouble GetNormativeAssessmentLevel(this GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                IAssessmentSection assessmentSection,
-                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            NormType normType = assessmentSection.FailureMechanismContribution.NormativeNorm;
-
-            if (!Enum.IsDefined(typeof(NormType), normType))
-            {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int) normType,
-                                                       typeof(NormType));
-            }
-
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
-
-            switch (normType)
-            {
-                case NormType.Signaling:
-                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm;
-                    break;
-                case NormType.LowerLimit:
-                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-
-            return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation, calculations);
-        }
-
         /// <summary>
         /// Gets the assessment level for a <see cref="HydraulicBoundaryLocation"/> based on <see cref="FailureMechanismCategoryType"/>.
         /// </summary>
