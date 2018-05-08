@@ -127,15 +127,17 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             double norm = assessmentSection.FailureMechanismContribution.Norm;
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
 
-            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel).Count() * 2;
+            RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                 calculation.InputParameters.CategoryType);
+
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
 
             try
             {
                 log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_blocks_started);
                 IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculation.InputParameters,
-                                                                                          normativeAssessmentLevel,
+                                                                                          assessmentLevel,
                                                                                           aBlocks,
                                                                                           bBlocks,
                                                                                           cBlocks,
@@ -149,7 +151,7 @@ namespace Ringtoets.StabilityStoneCover.Service
                 {
                     log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_for_columns_started);
                     columnsOutputs = CalculateWaveConditions(calculation.InputParameters,
-                                                             normativeAssessmentLevel,
+                                                             assessmentLevel,
                                                              aColumns,
                                                              bColumns,
                                                              cColumns,

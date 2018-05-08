@@ -39,7 +39,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -1827,10 +1826,6 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = new AssessmentSectionStub
             {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.LowerLimit
-                },
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
@@ -1858,6 +1853,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

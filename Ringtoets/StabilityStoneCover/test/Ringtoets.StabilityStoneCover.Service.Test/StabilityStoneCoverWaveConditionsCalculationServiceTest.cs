@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -1181,10 +1180,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             var assessmentSection = new AssessmentSectionStub
             {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.LowerLimit
-                },
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
@@ -1212,6 +1207,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1240,7 +1236,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
         private static IEnumerable<RoundedDouble> GetWaterLevels(StabilityStoneCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection)
         {
-            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
+            return calculation.InputParameters.GetWaterLevels(assessmentSection.GetAssessmentLevel(
+                                                                  calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                  calculation.InputParameters.CategoryType));
         }
     }
 }
