@@ -157,10 +157,6 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <exception cref="AssemblyException">Thrown when the assembly result
         /// could not be created.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when the result
-        /// has an invalid value for <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the result has a value for
-        /// <see cref="FailureMechanismAssemblyCategoryGroup"/> that is not supported.</exception>
         protected abstract void UpdateAssemblyResultControl();
 
         /// <summary>
