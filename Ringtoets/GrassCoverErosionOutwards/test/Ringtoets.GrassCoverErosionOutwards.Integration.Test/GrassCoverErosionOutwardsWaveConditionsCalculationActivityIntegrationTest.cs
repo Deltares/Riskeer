@@ -29,8 +29,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
@@ -676,6 +676,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -692,10 +693,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             return new AssessmentSectionStub
             {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.LowerLimit
-                },
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath
@@ -707,7 +704,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                  GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                  IAssessmentSection assessmentSection)
         {
-            return calculation.InputParameters.GetWaterLevels(failureMechanism.GetNormativeAssessmentLevel(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation));
+            return calculation.InputParameters.GetWaterLevels(failureMechanism.GetAssessmentLevel(
+                                                                  assessmentSection,
+                                                                  calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                  calculation.InputParameters.CategoryType));
         }
     }
 }

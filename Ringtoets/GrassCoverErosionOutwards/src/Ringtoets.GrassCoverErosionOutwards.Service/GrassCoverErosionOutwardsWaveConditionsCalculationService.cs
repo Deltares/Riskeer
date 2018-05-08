@@ -127,14 +127,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-            RoundedDouble normativeAssessmentLevel = failureMechanism.GetNormativeAssessmentLevel(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation);
 
-            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel).Count();
+            RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                calculation.InputParameters.CategoryType);
+
+            TotalWaterLevelCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
 
             try
             {
                 IEnumerable<WaveConditionsOutput> outputs = CalculateWaveConditions(calculation.InputParameters,
-                                                                                    normativeAssessmentLevel,
+                                                                                    assessmentLevel,
                                                                                     a,
                                                                                     b,
                                                                                     c,
