@@ -1003,6 +1003,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             if (validCalculation)
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+                calculation.InputParameters.CategoryType = AssessmentSectionCategoryType.LowerLimitNorm;
                 calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) 1.0;
                 calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) 10.0;
                 calculation.InputParameters.StepSize = WaveConditionsInputStepSize.One;
@@ -1081,6 +1082,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1157,6 +1159,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1233,6 +1236,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,

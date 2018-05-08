@@ -57,14 +57,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (hlcdFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -83,7 +86,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         protected override bool Validate()
         {
             return WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                   assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                                   assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                        calculation.InputParameters.CategoryType),
                                                                                    hlcdFilePath,
                                                                                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

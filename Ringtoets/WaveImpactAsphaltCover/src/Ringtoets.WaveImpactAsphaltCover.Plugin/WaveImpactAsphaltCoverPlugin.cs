@@ -527,7 +527,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
                 WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                                assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                     calculation.InputParameters.CategoryType),
                                                                                 assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                 assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             }
@@ -632,7 +633,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(context.WrappedData,
-                                                                            context.AssessmentSection.GetNormativeAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation),
+                                                                            context.AssessmentSection.GetAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                         context.WrappedData.InputParameters.CategoryType),
                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
