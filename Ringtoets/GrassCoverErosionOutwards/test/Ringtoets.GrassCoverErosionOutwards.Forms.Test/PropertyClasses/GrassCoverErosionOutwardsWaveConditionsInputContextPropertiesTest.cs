@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context,
-                                                                                               AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                                               AssessmentSectionHelper.GetTestAssessmentLevel,
                                                                                                handler);
 
             // Assert
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties(context,
-                                                                                               AssessmentSectionHelper.GetTestNormativeAssessmentLevel,
+                                                                                               AssessmentSectionHelper.GetTestAssessmentLevel,
                                                                                                handler);
 
             // Assert

@@ -82,7 +82,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Call
             TestDelegate test = () => new WaveConditionsInputView(null,
-                                                                  AssessmentSectionHelper.GetTestNormativeAssessmentLevel);
+                                                                  AssessmentSectionHelper.GetTestAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -105,7 +105,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Call
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -121,7 +121,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Call
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
@@ -138,7 +138,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
 
@@ -155,7 +155,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 var calculation = new object();
 
@@ -172,7 +172,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel)
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel)
             {
                 Data = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
             })
@@ -264,7 +264,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -294,7 +294,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 const string initialName = "Initial name";
                 const string updatedName = "Updated name";
@@ -440,7 +440,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
 
             using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestNormativeAssessmentLevel)
+                                                          AssessmentSectionHelper.GetTestAssessmentLevel)
             {
                 Data = calculation
             })

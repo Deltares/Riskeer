@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -39,7 +38,7 @@ namespace Ringtoets.Common.Data.TestUtil
     /// </summary>
     public static class AssessmentSectionHelper
     {
-        private static readonly RoundedDouble testNormativeAssessmentLevel = new Random(21).NextRoundedDouble();
+        private static readonly RoundedDouble testAssessmentLevel = new Random(21).NextRoundedDouble();
 
         /// <summary>
         /// Creates a stub of <see cref="IAssessmentSection"/> with a <see cref="HydraulicBoundaryDatabase"/> that is not linked.
@@ -85,13 +84,13 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a random normative assessment level for testing purposes.
+        /// Gets a random assessment level for testing purposes.
         /// </summary>
-        /// <returns>The normative assessment level.</returns>
+        /// <returns>The assessment level.</returns>
         /// <remarks>The returned assessment level is random, though always the same.</remarks>
-        public static RoundedDouble GetTestNormativeAssessmentLevel()
+        public static RoundedDouble GetTestAssessmentLevel()
         {
-            return testNormativeAssessmentLevel;
+            return testAssessmentLevel;
         }
 
         /// <summary>

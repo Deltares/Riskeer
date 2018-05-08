@@ -147,7 +147,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void GetTestNormativeAssessmentLevel_Always_ReturnsTheSameRandomValue()
         {
             // Call & Assert
-            Assert.AreEqual(AssessmentSectionHelper.GetTestNormativeAssessmentLevel(), AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
+            Assert.AreEqual(AssessmentSectionHelper.GetTestAssessmentLevel(), AssessmentSectionHelper.GetTestAssessmentLevel());
         }
 
         [Test]

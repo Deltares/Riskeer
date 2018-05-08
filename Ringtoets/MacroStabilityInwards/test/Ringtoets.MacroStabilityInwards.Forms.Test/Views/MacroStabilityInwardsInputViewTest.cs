@@ -71,7 +71,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsInputView(null,
-                                                                         AssessmentSectionHelper.GetTestNormativeAssessmentLevel);
+                                                                         AssessmentSectionHelper.GetTestAssessmentLevel);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -97,7 +97,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -126,7 +126,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyChartData(view.Chart.Data);
@@ -141,7 +141,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 CollectionAssert.IsEmpty(GetSoilLayerTable(view).Rows);
@@ -166,7 +166,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
@@ -192,7 +192,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 ChartData[] chartData = view.Chart.Data.Collection.ToArray();
@@ -224,7 +224,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 ChartDataCollection chartData = view.Chart.Data;
@@ -264,7 +264,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -297,7 +297,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
                 var surfaceLineChartData = (ChartLineData) chartDataList[surfaceLineIndex];
@@ -343,7 +343,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
                 var surfaceLineChartData = (ChartDataCollection) chartDataList[soilProfileIndex];
@@ -397,7 +397,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = view.Chart.Data;
 
@@ -505,7 +505,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = view.Chart.Data;
                 List<ChartData> chartDataList = chartData.Collection.ToList();
@@ -543,7 +543,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = view.Chart.Data;
                 List<ChartData> chartDataList = chartData.Collection.ToList();
@@ -605,7 +605,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable = GetSoilLayerTable(view);
 
@@ -642,7 +642,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             SetGridValues(input.RightGrid);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Precondition
                 ChartDataCollection chartData = view.Chart.Data;
@@ -690,7 +690,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Precondition
                 ChartDataCollection chartData = view.Chart.Data;
@@ -737,7 +737,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 ChartDataCollection chartData = view.Chart.Data;
 
@@ -780,7 +780,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Precondition
                 ChartData[] chartData = view.Chart.Data.Collection.ToArray();
@@ -816,7 +816,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Precondition
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
@@ -854,7 +854,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Precondition
                 ChartData[] chartData = view.Chart.Data.Collection.ToArray();
@@ -896,7 +896,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestNormativeAssessmentLevel))
+                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, view.Chart.Data);
