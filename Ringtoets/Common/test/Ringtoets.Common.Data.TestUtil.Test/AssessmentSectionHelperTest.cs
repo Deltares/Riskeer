@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -146,6 +148,48 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             // Call & Assert
             Assert.AreEqual(AssessmentSectionHelper.GetTestNormativeAssessmentLevel(), AssessmentSectionHelper.GetTestNormativeAssessmentLevel());
+        }
+
+        [Test]
+        public void GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
+        {
+            // Call
+            TestCaseData[] testCaseDataCollection = AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType().ToArray();
+
+            // Assert
+            AssertTestCaseData(testCaseDataCollection,
+                               "FactorizedSignalingNorm",
+                               AssessmentSectionCategoryType.FactorizedSignalingNorm,
+                               a => a.WaterLevelCalculationsForFactorizedSignalingNorm);
+            AssertTestCaseData(testCaseDataCollection,
+                               "SignalingNorm",
+                               AssessmentSectionCategoryType.SignalingNorm,
+                               a => a.WaterLevelCalculationsForSignalingNorm);
+            AssertTestCaseData(testCaseDataCollection,
+                               "LowerLimitNorm",
+                               AssessmentSectionCategoryType.LowerLimitNorm,
+                               a => a.WaterLevelCalculationsForLowerLimitNorm);
+            AssertTestCaseData(testCaseDataCollection,
+                               "FactorizedLowerLimitNorm",
+                               AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                               a => a.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+        }
+
+        private static void AssertTestCaseData(IEnumerable<TestCaseData> testCaseDataCollection,
+                                               string expectedTestName,
+                                               AssessmentSectionCategoryType categoryType,
+                                               Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
+        {
+            TestCaseData testCaseData = testCaseDataCollection.Single(td => categoryType.Equals(td.Arguments.ElementAt(2)));
+
+            Assert.AreEqual(expectedTestName, testCaseData.TestName);
+
+            var assessmentSection = (IAssessmentSection) testCaseData.Arguments.ElementAt(0);
+            var hydraulicBoundaryLocation = (HydraulicBoundaryLocation) testCaseData.Arguments.ElementAt(1);
+            var assessmentLevel = (RoundedDouble) testCaseData.Arguments.ElementAt(3);
+
+            RoundedDouble expectedAssessmentLevel = getCalculationsFunc(assessmentSection).First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)).Output.Result;
+            Assert.AreEqual(expectedAssessmentLevel, assessmentLevel);
         }
     }
 }

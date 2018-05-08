@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -106,7 +107,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// of the before-mentioned assessment section, hydraulic boundary location and category type).</item>
         /// </list>
         /// </returns>
-        public static IEnumerable GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType()
+        public static IEnumerable<TestCaseData> GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType()
         {
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
