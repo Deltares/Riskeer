@@ -67,7 +67,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Call
             TestDelegate test = () => StabilityStoneCoverWaveConditionsCalculationService.Validate(null,
-                                                                                                   GetValidNormativeAssessmentLevel(),
+                                                                                                   GetValidAssessmentLevel(),
                                                                                                    validFilePath,
                                                                                                    validPreprocessorDirectory);
 
@@ -93,7 +93,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                           GetValidNormativeAssessmentLevel(),
+                                                                                                           GetValidAssessmentLevel(),
                                                                                                            testFilePath,
                                                                                                            validPreprocessorDirectory);
 
@@ -129,7 +129,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                           GetValidNormativeAssessmentLevel(),
+                                                                                                           GetValidAssessmentLevel(),
                                                                                                            invalidFilePath,
                                                                                                            validPreprocessorDirectory);
 
@@ -165,7 +165,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                           GetValidNormativeAssessmentLevel(),
+                                                                                                           GetValidAssessmentLevel(),
                                                                                                            validFilePath,
                                                                                                            invalidPreprocessorDirectory);
 
@@ -201,7 +201,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                           GetValidNormativeAssessmentLevel(),
+                                                                                                           GetValidAssessmentLevel(),
                                                                                                            testFilePath,
                                                                                                            validPreprocessorDirectory);
 
@@ -236,7 +236,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                           GetValidNormativeAssessmentLevel(),
+                                                                                                           GetValidAssessmentLevel(),
                                                                                                            validFilePath,
                                                                                                            validPreprocessorDirectory);
 
@@ -256,7 +256,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Validate_NormativeAssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
+        public void Validate_AssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -310,7 +310,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                           GetValidNormativeAssessmentLevel(),
+                                                                                                           GetValidAssessmentLevel(),
                                                                                                            validFilePath,
                                                                                                            validPreprocessorDirectory);
 
@@ -351,7 +351,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                                                           GetValidNormativeAssessmentLevel(),
+                                                                                                           GetValidAssessmentLevel(),
                                                                                                            validFilePath,
                                                                                                            validPreprocessorDirectory);
 
@@ -1229,7 +1229,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             return calculation;
         }
 
-        private static RoundedDouble GetValidNormativeAssessmentLevel()
+        private static RoundedDouble GetValidAssessmentLevel()
         {
             return (RoundedDouble) 9.3;
         }

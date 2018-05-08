@@ -523,7 +523,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
                 StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
-                                                                             assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                             assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                  calculation.InputParameters.CategoryType),
                                                                              assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                              assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             }
@@ -629,7 +630,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
             StabilityStoneCoverWaveConditionsCalculationService.Validate(context.WrappedData,
-                                                                         context.AssessmentSection.GetNormativeAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation),
+                                                                         context.AssessmentSection.GetAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                      context.WrappedData.InputParameters.CategoryType),
                                                                          context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                          context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }
