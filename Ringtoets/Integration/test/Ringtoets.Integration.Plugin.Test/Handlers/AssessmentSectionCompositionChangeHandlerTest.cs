@@ -36,7 +36,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PropertyClasses;

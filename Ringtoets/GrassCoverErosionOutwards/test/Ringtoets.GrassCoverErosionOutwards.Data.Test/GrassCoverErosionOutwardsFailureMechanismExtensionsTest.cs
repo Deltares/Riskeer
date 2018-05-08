@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 {

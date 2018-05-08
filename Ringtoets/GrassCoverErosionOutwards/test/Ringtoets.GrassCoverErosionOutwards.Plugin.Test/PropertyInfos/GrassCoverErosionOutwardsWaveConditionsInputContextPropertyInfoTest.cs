@@ -30,9 +30,9 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {

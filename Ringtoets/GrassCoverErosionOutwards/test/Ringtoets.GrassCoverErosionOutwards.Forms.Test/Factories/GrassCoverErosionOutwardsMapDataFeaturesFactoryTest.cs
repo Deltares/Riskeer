@@ -31,9 +31,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Factories;
 using Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Factories
 {

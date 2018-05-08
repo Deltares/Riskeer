@@ -31,8 +31,8 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Exporters
 {

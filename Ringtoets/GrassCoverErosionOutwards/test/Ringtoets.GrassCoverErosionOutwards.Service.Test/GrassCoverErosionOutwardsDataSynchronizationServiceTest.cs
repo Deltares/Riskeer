@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test

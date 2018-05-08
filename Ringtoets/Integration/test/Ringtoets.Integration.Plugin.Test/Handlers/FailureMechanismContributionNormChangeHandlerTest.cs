@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Util.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.TestUtil;
