@@ -1062,6 +1062,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             if (validCalculation)
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+                calculation.InputParameters.CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
                 calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) 1.0;
                 calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) 10.0;
                 calculation.InputParameters.StepSize = WaveConditionsInputStepSize.One;
@@ -1143,6 +1144,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1222,6 +1224,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
@@ -1301,6 +1304,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
                     LowerBoundaryRevetment = (RoundedDouble) 1.0,
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,

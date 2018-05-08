@@ -799,8 +799,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
                 GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                   failureMechanism.GetNormativeAssessmentLevel(assessmentSection,
-                                                                                                                                calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                                   failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                                                       calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                       calculation.InputParameters.CategoryType),
                                                                                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                    assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
             }
@@ -940,8 +941,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(context.WrappedData,
-                                                                               context.FailureMechanism.GetNormativeAssessmentLevel(context.AssessmentSection,
-                                                                                                                                    context.WrappedData.InputParameters.HydraulicBoundaryLocation),
+                                                                               context.FailureMechanism.GetAssessmentLevel(context.AssessmentSection,
+                                                                                                                           context.WrappedData.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                           context.WrappedData.InputParameters.CategoryType),
                                                                                context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

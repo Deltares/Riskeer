@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -58,14 +57,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (hlcdFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hlcdFilePath));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -84,7 +86,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         protected override bool Validate()
         {
             return GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                      failureMechanism.GetNormativeAssessmentLevel(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation),
+                                                                                      failureMechanism.GetAssessmentLevel(assessmentSection,
+                                                                                                                          calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                          calculation.InputParameters.CategoryType),
                                                                                       hlcdFilePath,
                                                                                       assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
         }

@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Call
             TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(null,
-                                                                                                         GetValidNormativeAssessmentLevel(),
+                                                                                                         GetValidAssessmentLevel(),
                                                                                                          validFilePath,
                                                                                                          validPreprocessorDirectory);
 
@@ -96,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                                                 GetValidNormativeAssessmentLevel(),
+                                                                                                                 GetValidAssessmentLevel(),
                                                                                                                  testFilePath,
                                                                                                                  validPreprocessorDirectory);
 
@@ -132,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                                                 GetValidNormativeAssessmentLevel(),
+                                                                                                                 GetValidAssessmentLevel(),
                                                                                                                  invalidFilePath,
                                                                                                                  validPreprocessorDirectory);
 
@@ -168,7 +168,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                                                 GetValidNormativeAssessmentLevel(),
+                                                                                                                 GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
                                                                                                                  invalidPreprocessorDirectory);
 
@@ -204,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                                                 GetValidNormativeAssessmentLevel(),
+                                                                                                                 GetValidAssessmentLevel(),
                                                                                                                  testFilePath,
                                                                                                                  validPreprocessorDirectory);
 
@@ -240,7 +240,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                                                 GetValidNormativeAssessmentLevel(),
+                                                                                                                 GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
                                                                                                                  validPreprocessorDirectory);
 
@@ -260,7 +260,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void Validate_NormativeAssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
+        public void Validate_AssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -314,7 +314,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                                                 GetValidNormativeAssessmentLevel(),
+                                                                                                                 GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
                                                                                                                  validPreprocessorDirectory);
 
@@ -355,7 +355,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                                                                 GetValidNormativeAssessmentLevel(),
+                                                                                                                 GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
                                                                                                                  validPreprocessorDirectory);
 
@@ -1099,7 +1099,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             return calculation;
         }
 
-        private static RoundedDouble GetValidNormativeAssessmentLevel()
+        private static RoundedDouble GetValidAssessmentLevel()
         {
             return (RoundedDouble) 9.3;
         }
