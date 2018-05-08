@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Data.Test
                 Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
                 Assert.AreEqual(failureMechanismContribution.SignalingNorm, assessmentSectionAssemblyCalculator.SignalingNormInput);
 
-                AssertGroup1And2FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                AssertGroup1And2FailureMechanismInputs(assessmentSection,
                                                        failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput,
                                                        assessmentSectionAssemblyCalculator);
             }
@@ -91,14 +91,14 @@ namespace Ringtoets.Integration.Data.Test
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssessmentSectionAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
-                                                                                           random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                calculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                                   random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
 
                 // Call
                 AssessmentSectionAssembly output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection);
 
                 // Assert
-                Assert.AreSame(calculator.AssessmentSectionAssemblyOutput, output);
+                Assert.AreSame(calculator.AssembleFailureMechanismsAssemblyOutput, output);
             }
         }
 
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Data.Test
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
 
                 // Assert
-                AssertGroup3And4FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                AssertGroup3And4FailureMechanismInputs(assessmentSection,
                                                        failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
                                                        assessmentSectionAssemblyCalculator);
             }
@@ -170,13 +170,13 @@ namespace Ringtoets.Integration.Data.Test
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssembleFailureMechanismsAssemblyOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+                calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
 
                 // Call
                 AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
 
                 // Assert
-                Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyOutput, output);
+                Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, output);
             }
         }
 
@@ -225,25 +225,25 @@ namespace Ringtoets.Integration.Data.Test
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.AssessmentSectionAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
-                                                                                                                    random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
-                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                                                            random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
 
                 // Call
                 AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
 
                 // Assert
-                AssertGroup1And2FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                AssertGroup1And2FailureMechanismInputs(assessmentSection,
                                                        failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput,
                                                        assessmentSectionAssemblyCalculator);
 
-                AssertGroup3And4FailureMechanismInputs(assessmentSection.GetFailureMechanisms(),
+                AssertGroup3And4FailureMechanismInputs(assessmentSection,
                                                        failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value,
                                                        assessmentSectionAssemblyCalculator);
 
-                Assert.AreSame(assessmentSectionAssemblyCalculator.AssessmentSectionAssemblyOutput,
+                Assert.AreSame(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput,
                                assessmentSectionAssemblyCalculator.FailureMechanismsWithProbabilityInput);
-                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput,
+                Assert.AreEqual(assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput,
                                 assessmentSectionAssemblyCalculator.FailureMechanismsWithoutProbabilityInput);
             }
         }
@@ -259,15 +259,15 @@ namespace Ringtoets.Integration.Data.Test
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssessmentSectionAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
-                                                                                           random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
-                calculator.AssembleAssessmentSectionOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+                calculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(random.NextDouble(),
+                                                                                                   random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                calculator.AssembleAssessmentSectionCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
 
                 // Call
                 AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
 
                 // Assert
-                Assert.AreEqual(calculator.AssembleAssessmentSectionOutput, output);
+                Assert.AreEqual(calculator.AssembleAssessmentSectionCategoryGroupOutput, output);
             }
         }
 
@@ -292,11 +292,11 @@ namespace Ringtoets.Integration.Data.Test
             }
         }
 
-        private static void AssertGroup1And2FailureMechanismInputs(IEnumerable<IFailureMechanism> failureMechanisms,
+        private static void AssertGroup1And2FailureMechanismInputs(AssessmentSection assessmentSection,
                                                                    FailureMechanismAssembly expectedFailureMechanismAssembly,
                                                                    AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator)
         {
-            IEnumerable<IFailureMechanism> expectedFailureMechanisms = failureMechanisms.Where(fm => fm.Group == 1 || fm.Group == 2);
+            IEnumerable<IFailureMechanism> expectedFailureMechanisms = GetExpectedGroup1And2FailureMechanisms(assessmentSection);
             IEnumerable<FailureMechanismAssembly> failureMechanismAssemblyInput = assessmentSectionAssemblyCalculator.FailureMechanismAssemblyInput;
             Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
             foreach (FailureMechanismAssembly failureMechanismAssembly in failureMechanismAssemblyInput)
@@ -306,11 +306,11 @@ namespace Ringtoets.Integration.Data.Test
             }
         }
 
-        private static void AssertGroup3And4FailureMechanismInputs(IEnumerable<IFailureMechanism> failureMechanisms,
+        private static void AssertGroup3And4FailureMechanismInputs(AssessmentSection assessmentSection,
                                                                    FailureMechanismAssemblyCategoryGroup expectedAssemblyCategoryGroup,
                                                                    AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator)
         {
-            IEnumerable<IFailureMechanism> expectedFailureMechanisms = failureMechanisms.Where(fm => fm.Group == 3 || fm.Group == 4);
+            IEnumerable<IFailureMechanism> expectedFailureMechanisms = GetExpectedGroup3And4FailureMechanisms(assessmentSection);
             IEnumerable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyInput =
                 assessmentSectionAssemblyCalculator.FailureMechanismAssemblyCategoryGroupInput;
             Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
@@ -321,6 +321,38 @@ namespace Ringtoets.Integration.Data.Test
         {
             var random = new Random(21);
             return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+        }
+
+        private static IEnumerable<IFailureMechanism> GetExpectedGroup1And2FailureMechanisms(AssessmentSection assessmentSection)
+        {
+            return new IFailureMechanism[]
+            {
+                assessmentSection.GrassCoverErosionInwards,
+                assessmentSection.HeightStructures,
+                assessmentSection.ClosingStructures,
+                assessmentSection.StabilityPointStructures,
+                assessmentSection.Piping,
+                assessmentSection.MacroStabilityInwards
+            };
+        }
+
+        private static IEnumerable<IFailureMechanism> GetExpectedGroup3And4FailureMechanisms(AssessmentSection assessmentSection)
+        {
+            return new IFailureMechanism[]
+            {
+                assessmentSection.StabilityStoneCover,
+                assessmentSection.WaveImpactAsphaltCover,
+                assessmentSection.GrassCoverErosionOutwards,
+                assessmentSection.DuneErosion,
+                assessmentSection.MacroStabilityOutwards,
+                assessmentSection.Microstability,
+                assessmentSection.WaterPressureAsphaltCover,
+                assessmentSection.GrassCoverSlipOffOutwards,
+                assessmentSection.GrassCoverSlipOffInwards,
+                assessmentSection.PipingStructure,
+                assessmentSection.StrengthStabilityLengthwiseConstruction,
+                assessmentSection.TechnicalInnovation
+            };
         }
     }
 }
