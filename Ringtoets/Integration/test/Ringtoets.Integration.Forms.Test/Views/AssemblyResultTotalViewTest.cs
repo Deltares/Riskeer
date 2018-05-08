@@ -257,6 +257,45 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
+        public void GivenFormWithAssemblyResultTotalViewAndErrorOnAssemblyResult_WhenRefreshingAssemblyResultsWithoutException_ThenAssessmentSectionAssemblyResultsSetAndErrorCleared()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultTotalView())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Click();
+
+                // Precondition
+                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(totalControlName)));
+                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, string.Empty);
+
+                Assert.AreEqual("Message", GetError(GetAssemblyControl(failureMechanismsWithProbabilityControlName)));
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, string.Empty, "-");
+
+                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName)));
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, string.Empty);
+
+                // When
+                calculator.ThrowExceptionOnCalculate = false;
+                buttonTester.Click();
+
+                // Then
+                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
+                Assert.IsEmpty(GetError(GetAssemblyCategoryGroupControl(totalControlName)));
+
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
+                Assert.IsEmpty(GetError(GetAssemblyControl(failureMechanismsWithProbabilityControlName)));
+
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "D");
+                Assert.IsEmpty(GetError(GetAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName)));
+            }
+        }
+
+        [Test]
         [SetCulture("nl-NL")]
         public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenDataGridViewInvalidatedAndCellsUpdatedToNewValues()
         {
