@@ -772,7 +772,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateDesignWaterLevelGeometryPoints_NormativeAssessmentLevelNaN_ReturnsEmptyPointsCollection()
+        public void CreateDesignWaterLevelGeometryPoints_AssessmentLevelNaN_ReturnsEmptyPointsCollection()
         {
             // Setup
             var input = new TestWaveConditionsInput();
@@ -791,7 +791,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             var input = new TestWaveConditionsInput();
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidNormativeAssessmentLevel());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -817,7 +817,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidNormativeAssessmentLevel());
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, GetValidAssessmentLevel());
 
             // Assert
             var expectedPoints = new[]
@@ -837,18 +837,18 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            RoundedDouble normativeAssessmentLevel = GetValidNormativeAssessmentLevel();
+            RoundedDouble assessmentLevel = GetValidAssessmentLevel();
             var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry)
             };
 
             // Call
-            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, normativeAssessmentLevel);
+            IEnumerable<Point2D> points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, assessmentLevel);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
-            double endPointX = (normativeAssessmentLevel - lastGeometryPoint.Y) / 3;
+            double endPointX = (assessmentLevel - lastGeometryPoint.Y) / 3;
 
             var expectedPoints = new[]
             {
@@ -922,7 +922,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             IEnumerable<Point2D> foreshoreProfileGeometry)
         {
             // Setup
-            var normativeAssessmentLevel = GetValidNormativeAssessmentLevel();
+            RoundedDouble assessmentLevel = GetValidAssessmentLevel();
             var input = new TestWaveConditionsInput
             {
                 ForeshoreProfile = new TestForeshoreProfile(foreshoreProfileGeometry),
@@ -932,12 +932,12 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             };
 
             // Call
-            IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, normativeAssessmentLevel);
+            IEnumerable<IEnumerable<Point2D>> lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, assessmentLevel);
 
             // Assert
             Point2D lastGeometryPoint = foreshoreProfileGeometry.Last();
 
-            IEnumerable<RoundedDouble> waterLevels = input.GetWaterLevels(normativeAssessmentLevel);
+            IEnumerable<RoundedDouble> waterLevels = input.GetWaterLevels(assessmentLevel);
 
             var expectedLines = new[]
             {
@@ -1010,7 +1010,7 @@ namespace Ringtoets.Revetment.Forms.Test.Factories
             }).SetName(string.Format(testNameFormat, "ForeshoreProfilePositiveCoordinates"));
         }
 
-        private static RoundedDouble GetValidNormativeAssessmentLevel()
+        private static RoundedDouble GetValidAssessmentLevel()
         {
             return (RoundedDouble) 6;
         }

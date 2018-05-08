@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Chart.Data;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;
 
@@ -192,19 +191,19 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create design water level geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the design water level geometry points for.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level to use while determining water levels.</param>
+        /// <param name="assessmentLevel">The assessment level to use while determining water levels.</param>
         /// <returns>A collection of points in 2D space or an empty collection when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item><see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item>the normative assessment level is <see cref="RoundedDouble.NaN"/>.</item>
+        /// <item>the assessment level is <see cref="RoundedDouble.NaN"/>.</item>
         /// </list>
         /// </returns>
         public static IEnumerable<Point2D> CreateDesignWaterLevelGeometryPoints(WaveConditionsInput input,
-                                                                                RoundedDouble normativeAssessmentLevel)
+                                                                                RoundedDouble assessmentLevel)
         {
             return input != null
-                       ? CreateGeometryPoints(input, () => normativeAssessmentLevel)
+                       ? CreateGeometryPoints(input, () => assessmentLevel)
                        : new Point2D[0];
         }
 
@@ -212,16 +211,16 @@ namespace Ringtoets.Revetment.Forms.Factories
         /// Create water levels geometry points in 2D space based on the provided <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaveConditionsInput"/> to create the water levels geometry points for.</param>
-        /// <param name="normativeAssessmentLevel">The normative assessment level to use while determining water levels.</param>
+        /// <param name="assessmentLevel">The assessment level to use while determining water levels.</param>
         /// <returns>A collection with collections of points in 2D space or an empty list when:
         /// <list type="bullet">
         /// <item><paramref name="input"/> is <c>null</c>;</item>
         /// <item>no water levels could be determined.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<IEnumerable<Point2D>> CreateWaterLevelsGeometryPoints(WaveConditionsInput input, RoundedDouble normativeAssessmentLevel)
+        public static IEnumerable<IEnumerable<Point2D>> CreateWaterLevelsGeometryPoints(WaveConditionsInput input, RoundedDouble assessmentLevel)
         {
-            return input?.GetWaterLevels(normativeAssessmentLevel)
+            return input?.GetWaterLevels(assessmentLevel)
                         .Select(waterLevel => CreateGeometryPoints(input, () => waterLevel))
                         .ToArray() ?? new IEnumerable<Point2D>[0];
         }
