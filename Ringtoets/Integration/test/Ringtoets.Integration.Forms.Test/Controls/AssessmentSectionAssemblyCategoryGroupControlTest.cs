@@ -29,17 +29,17 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Integration.Forms.Controls;
 
-namespace Ringtoets.Common.Forms.Test.Controls
+namespace Ringtoets.Integration.Forms.Test.Controls
 {
-    [TestFixture]
-    public class FailureMechanismAssemblyCategoryGroupControlTest
+    public class AssessmentSectionAssemblyCategoryGroupControlTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var resultControl = new FailureMechanismAssemblyCategoryGroupControl())
+            using (var resultControl = new AssessmentSectionAssemblyCategoryGroupControl())
             {
                 // Assert
                 Assert.AreEqual(1, resultControl.Controls.Count);
@@ -52,17 +52,17 @@ namespace Ringtoets.Common.Forms.Test.Controls
         {
             // Setup
             var random = new Random(39);
-            var result = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
-            using (var resultControl = new FailureMechanismAssemblyCategoryGroupControl())
+            var result = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+            using (var resultControl = new AssessmentSectionAssemblyCategoryGroupControl())
             {
                 // Call
                 resultControl.SetAssemblyResult(result);
 
                 // Assert
                 BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(result).DisplayName,
+                Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName,
                                 groupLabel.Text);
-                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(result),
+                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result),
                                 groupLabel.BackColor);
             }
         }
@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void ClearData_Always_ClearsDataOnControl()
         {
             // Setup
-            using (var resultControl = new FailureMechanismAssemblyCategoryGroupControl())
+            using (var resultControl = new AssessmentSectionAssemblyCategoryGroupControl())
             {
                 // Call
                 resultControl.ClearData();
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
             }
         }
 
-        private static BorderedLabel GetGroupLabel(FailureMechanismAssemblyCategoryGroupControl resultControl)
+        private static BorderedLabel GetGroupLabel(AssessmentSectionAssemblyCategoryGroupControl resultControl)
         {
             return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
         }

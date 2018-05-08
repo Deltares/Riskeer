@@ -30,17 +30,17 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Integration.Forms.Controls;
 
-namespace Ringtoets.Common.Forms.Test.Controls
+namespace Ringtoets.Integration.Forms.Test.Controls
 {
-    [TestFixture]
-    public class FailureMechanismAssemblyControlTest
+    public class AssessmentSectionAssemblyControlTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            using (var resultControl = new FailureMechanismAssemblyControl())
+            using (var resultControl = new AssessmentSectionAssemblyControl())
             {
                 // Assert
                 Assert.AreEqual(2, resultControl.Controls.Count);
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void SetAssemblyResult_ResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            using (var resultControl = new FailureMechanismAssemblyControl())
+            using (var resultControl = new AssessmentSectionAssemblyControl())
             {
                 // Call
                 TestDelegate test = () => resultControl.SetAssemblyResult(null);
@@ -68,9 +68,9 @@ namespace Ringtoets.Common.Forms.Test.Controls
         {
             // Setup
             var random = new Random(39);
-            var result = new FailureMechanismAssembly(random.NextDouble(),
-                                                      random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
-            using (var resultControl = new FailureMechanismAssemblyControl())
+            var result = new AssessmentSectionAssembly(random.NextDouble(),
+                                                       random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+            using (var resultControl = new AssessmentSectionAssemblyControl())
             {
                 // Call
                 resultControl.SetAssemblyResult(result);
@@ -79,9 +79,9 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 Control groupLabel = GetGroupLabel(resultControl);
                 Control probabilityLabel = GetProbabilityLabel(resultControl);
 
-                Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(result.Group).DisplayName,
+                Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.Group).DisplayName,
                                 groupLabel.Text);
-                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(result.Group),
+                Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.Group),
                                 groupLabel.BackColor);
 
                 Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(result.Probability),
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         public void ClearData_Always_ClearsDataOnControl()
         {
             // Setup
-            using (var resultControl = new FailureMechanismAssemblyControl())
+            using (var resultControl = new AssessmentSectionAssemblyControl())
             {
                 // Call
                 resultControl.ClearData();
@@ -107,12 +107,12 @@ namespace Ringtoets.Common.Forms.Test.Controls
             }
         }
 
-        private static BorderedLabel GetGroupLabel(FailureMechanismAssemblyControl resultControl)
+        private static BorderedLabel GetGroupLabel(AssessmentSectionAssemblyControl resultControl)
         {
             return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
         }
 
-        private static BorderedLabel GetProbabilityLabel(FailureMechanismAssemblyControl resultControl)
+        private static BorderedLabel GetProbabilityLabel(AssessmentSectionAssemblyControl resultControl)
         {
             return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["probabilityPanel"]).GetControlFromPosition(0, 0);
         }

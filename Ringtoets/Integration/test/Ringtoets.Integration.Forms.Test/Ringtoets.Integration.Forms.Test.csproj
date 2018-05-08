@@ -36,6 +36,8 @@
     <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
+    <Compile Include="Controls\AssessmentSectionAssemblyControlTest.cs" />
+    <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControlTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />

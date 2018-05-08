@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Controls;
@@ -27,14 +28,27 @@ using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Integration.Forms.Controls
 {
+    /// <summary>
+    /// Custom control to display a <see cref="AssessmentSectionAssembly"/>.
+    /// </summary>
     public class AssessmentSectionAssemblyControl : AssemblyResultWithProbabilityControl
     {
-        public void SetData(AssessmentSectionAssembly assembly)
+        /// <summary>
+        /// Set the values of <paramref name="result"/> on the control.
+        /// </summary>
+        /// <param name="result">The <see cref="AssessmentSectionAssembly"/> to set on the control.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        public void SetAssemblyResult(AssessmentSectionAssembly result)
         {
-            GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(assembly.Group).DisplayName;
-            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assembly.Group);
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
 
-            ProbabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(assembly.Probability);
+            GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.Group).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.Group);
+
+            ProbabilityLabel.Text = new NoProbabilityValueDoubleConverter().ConvertToString(result.Probability);
         }
     }
 }

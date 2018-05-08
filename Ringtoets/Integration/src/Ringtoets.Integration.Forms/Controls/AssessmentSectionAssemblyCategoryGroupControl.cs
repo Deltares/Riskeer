@@ -26,12 +26,19 @@ using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Integration.Forms.Controls
 {
+    /// <summary>
+    /// Custom control to display a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+    /// </summary>
     public class AssessmentSectionAssemblyCategoryGroupControl : AssemblyResultControl
     {
-        public void SetData(AssessmentSectionAssemblyCategoryGroup category)
+        /// <summary>
+        /// Set the value of <paramref name="result"/> on the control.
+        /// </summary>
+        /// <param name="result">The <see cref="AssessmentSectionAssemblyCategoryGroup"/> to set on the control.</param>
+        public void SetAssemblyResult(AssessmentSectionAssemblyCategoryGroup result)
         {
-            GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(category).DisplayName;
-            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category);
+            GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result);
         }
     }
 }
