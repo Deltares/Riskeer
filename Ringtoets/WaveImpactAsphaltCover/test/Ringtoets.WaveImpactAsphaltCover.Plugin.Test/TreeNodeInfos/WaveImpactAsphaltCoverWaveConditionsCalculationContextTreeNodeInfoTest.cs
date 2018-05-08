@@ -1588,8 +1588,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
 
-                RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
-                IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(normativeAssessmentLevel);
+                RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                     calculation.InputParameters.CategoryType);
+                IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(assessmentLevel);
                 int nrOfCalculators = waterLevels.Count();
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty))

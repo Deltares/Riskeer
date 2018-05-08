@@ -1237,7 +1237,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 int nrOfCalculators = failureMechanism.Calculations
                                                       .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                      .Sum(c => c.InputParameters.GetWaterLevels(assessmentSection.GetNormativeAssessmentLevel(c.InputParameters.HydraulicBoundaryLocation)).Count());
+                                                      .Sum(c => c.InputParameters.GetWaterLevels(assessmentSection.GetAssessmentLevel(c.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                                      c.InputParameters.CategoryType)).Count());
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty))
                                  .Return(new TestWaveConditionsCosineCalculator())
