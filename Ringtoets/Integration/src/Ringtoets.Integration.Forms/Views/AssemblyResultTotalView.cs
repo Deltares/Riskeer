@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
     /// The view for the combined assembly result for all failure mechanisms of 
-    /// the <see cref="AssessmentSection"/>. 
+    /// the <see cref="AssessmentSection"/>.
     /// </summary>
     public partial class AssemblyResultTotalView : UserControl, IView
     {
@@ -82,6 +82,7 @@ namespace Ringtoets.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
+            UpdateAssemblyResultControls();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
@@ -159,9 +160,11 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateAssemblyResultControls()
         {
+            totalAssemblyCategoryGroupControl.ClearData();
             try
             {
-                totalAssemblyCategoryGroupControl.SetData(AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
+                totalAssemblyCategoryGroupControl.SetAssemblyResult(
+                    AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
                 totalAssemblyCategoryGroupControl.ClearError();
             }
             catch (AssemblyException e)
@@ -169,9 +172,11 @@ namespace Ringtoets.Integration.Forms.Views
                 totalAssemblyCategoryGroupControl.SetError(e.Message);
             }
 
+            failureMechanismsWithProbabilityAssemblyControl.ClearData();
             try
             {
-                failureMechanismsWithProbabilityAssemblyControl.SetData(AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(AssessmentSection));
+                failureMechanismsWithProbabilityAssemblyControl.SetAssemblyResult(
+                    AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(AssessmentSection));
                 failureMechanismsWithProbabilityAssemblyControl.ClearError();
             }
             catch (AssemblyException e)
@@ -179,9 +184,11 @@ namespace Ringtoets.Integration.Forms.Views
                 failureMechanismsWithProbabilityAssemblyControl.SetError(e.Message);
             }
 
+            failureMechanismsWithoutProbabilityAssemblyControl.ClearData();
             try
             {
-                failureMechanismsWithoutProbabilityAssemblyControl.SetData(AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(AssessmentSection));
+                failureMechanismsWithoutProbabilityAssemblyControl.SetAssemblyResult(
+                    AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(AssessmentSection));
                 failureMechanismsWithoutProbabilityAssemblyControl.ClearError();
             }
             catch (AssemblyException e)
