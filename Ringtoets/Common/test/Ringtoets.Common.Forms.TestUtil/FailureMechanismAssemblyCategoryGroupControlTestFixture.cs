@@ -140,25 +140,25 @@ namespace Ringtoets.Common.Forms.TestUtil
             var failureMechanism = new TFailureMechanism();
 
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism))
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
-
                 calculator.ThrowExceptionOnCalculate = true;
-                failureMechanism.NotifyObservers();
 
-                // Precondition
-                FailureMechanismAssemblyCategoryGroupControl assemblyControl = GetFailureMechanismAssemblyCategoryGroupControl();
-                ErrorProvider errorProvider = GetErrorProvider(assemblyControl);
-                Assert.AreEqual("Message", errorProvider.GetError(assemblyControl));
+                using (ShowFailureMechanismResultsView(failureMechanism))
+                {
+                    // Precondition
+                    FailureMechanismAssemblyCategoryGroupControl assemblyControl = GetFailureMechanismAssemblyCategoryGroupControl();
+                    ErrorProvider errorProvider = GetErrorProvider(assemblyControl);
+                    Assert.AreEqual("Message", errorProvider.GetError(assemblyControl));
 
-                // When
-                calculator.ThrowExceptionOnCalculate = false;
-                failureMechanism.NotifyObservers();
+                    // When
+                    calculator.ThrowExceptionOnCalculate = false;
+                    failureMechanism.NotifyObservers();
 
-                // Then
-                Assert.IsEmpty(errorProvider.GetError(assemblyControl));
+                    // Then
+                    Assert.IsEmpty(errorProvider.GetError(assemblyControl));
+                }
             }
         }
 
