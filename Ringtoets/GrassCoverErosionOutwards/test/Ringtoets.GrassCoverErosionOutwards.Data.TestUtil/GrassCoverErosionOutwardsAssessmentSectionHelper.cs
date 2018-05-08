@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -48,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
         /// category type).</item>
         /// </list>
         /// </returns>
-        public static IEnumerable GetAssessmentLevelConfigurationPerFailureMechanismCategoryType()
+        public static IEnumerable<TestCaseData> GetAssessmentLevelConfigurationPerFailureMechanismCategoryType()
         {
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
