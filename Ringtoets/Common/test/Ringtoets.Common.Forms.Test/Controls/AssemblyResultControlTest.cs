@@ -37,8 +37,9 @@ namespace Ringtoets.Common.Forms.Test.Controls
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // Setup & Call
+            // Setup
             using (var form = new Form())
+            // Call
             using (var resultControl = new TestAssemblyResultControl())
             {
                 form.Controls.Add(resultControl);
