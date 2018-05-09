@@ -121,6 +121,26 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual("Assemblageresultaat verversen", button.Text);
                 Assert.IsTrue(button.Enabled);
 
+                var groupBox = (GroupBox) new ControlTester("assemblyResultGroupBox").TheObject;
+                Assert.AreEqual(1, groupBox.Controls.Count);
+                Assert.AreEqual(DockStyle.Top, groupBox.Dock);
+                Assert.AreEqual("Gecombineerd veiligheidsoordeel", groupBox.Text);
+
+                var tableLayOutPanel = (TableLayoutPanel) groupBox.Controls["assemblyResultTableLayoutPanel"];
+                Assert.AreEqual(2, tableLayOutPanel.ColumnCount);
+                Assert.AreEqual(3, tableLayOutPanel.RowCount);
+                Assert.AreEqual(DockStyle.Fill, tableLayOutPanel.Dock);
+
+                var totalResultLabel = (Label) tableLayOutPanel.GetControlFromPosition(0, 0);
+                Assert.AreEqual("Totaal", totalResultLabel.Text);
+                var failureMechanismsWithProbabilityLabel = (Label)tableLayOutPanel.GetControlFromPosition(0, 1);
+                Assert.AreEqual("Groepen 1 en 2", failureMechanismsWithProbabilityLabel.Text);
+                var failureMechanismsWithoutProbablityLabel = (Label)tableLayOutPanel.GetControlFromPosition(0, 2);
+                Assert.AreEqual("Groepen 3 en 4", failureMechanismsWithoutProbablityLabel.Text);
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCategoryGroupControl>(tableLayOutPanel.GetControlFromPosition(1, 0));
+                Assert.IsInstanceOf<AssessmentSectionAssemblyControl>(tableLayOutPanel.GetControlFromPosition(1, 1));
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCategoryGroupControl>(tableLayOutPanel.GetControlFromPosition(1, 2));
+
                 var datagridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
                 Assert.AreEqual(DockStyle.Fill, datagridViewControl.Dock);
 
@@ -191,9 +211,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (ShowAssemblyResultTotalView())
             {
                 // Then
-                AssertAssessmentSectionAssemblyCategoryGroupControl("totalAssemblyCategoryGroupControl", "C");
-                AssertAssessmentSectionAssemblyControl("failureMechanismsWithProbabilityAssemblyControl", "D", "1/1");
-                AssertAssessmentSectionAssemblyCategoryGroupControl("failureMechanismsWithoutProbabilityAssemblyControl", "D");
+                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "D");
             }
         }
 
@@ -245,14 +265,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 GetRefreshAssemblyResultButtonTester().Click();
 
                 // Then
-                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(totalControlName)));
-                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, string.Empty);
-
-                Assert.AreEqual("Message", GetError(GetAssemblyControl(failureMechanismsWithProbabilityControlName)));
-                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, string.Empty, "-");
-
-                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName)));
-                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, string.Empty);
+                AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(totalControlName);
+                AssertAssessmentSectionAssemblyWithProbabilityControlWithError(failureMechanismsWithProbabilityControlName);
+                AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(failureMechanismsWithoutProbabilityControlName);
             }
         }
 
@@ -261,37 +276,32 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultTotalView())
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                buttonTester.Click();
 
-                // Precondition
-                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(totalControlName)));
-                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, string.Empty);
+                using (ShowAssemblyResultTotalView())
+                {
+                    // Precondition
+                    AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(totalControlName);
+                    AssertAssessmentSectionAssemblyWithProbabilityControlWithError(failureMechanismsWithProbabilityControlName);
+                    AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(failureMechanismsWithoutProbabilityControlName);
 
-                Assert.AreEqual("Message", GetError(GetAssemblyControl(failureMechanismsWithProbabilityControlName)));
-                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, string.Empty, "-");
+                    // When
+                    calculator.ThrowExceptionOnCalculate = false;
+                    GetRefreshAssemblyResultButtonTester().Click();
 
-                Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName)));
-                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, string.Empty);
+                    // Then
+                    AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
+                    Assert.IsEmpty(GetError(GetAssemblyCategoryGroupControl(totalControlName)));
 
-                // When
-                calculator.ThrowExceptionOnCalculate = false;
-                buttonTester.Click();
+                    AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
+                    Assert.IsEmpty(GetError(GetAssemblyControl(failureMechanismsWithProbabilityControlName)));
 
-                // Then
-                AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
-                Assert.IsEmpty(GetError(GetAssemblyCategoryGroupControl(totalControlName)));
-
-                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
-                Assert.IsEmpty(GetError(GetAssemblyControl(failureMechanismsWithProbabilityControlName)));
-
-                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "D");
-                Assert.IsEmpty(GetError(GetAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName)));
+                    AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "D");
+                    Assert.IsEmpty(GetError(GetAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName)));
+                }
             }
         }
 
@@ -366,45 +376,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
-        private static void AssertAssessmentSectionAssemblyCategoryGroupControl(string controlName, string expectedGroup)
-        {
-            AssessmentSectionAssemblyCategoryGroupControl control = GetAssemblyCategoryGroupControl(controlName);
-            Assert.AreEqual(expectedGroup, GetGroupLabel(control).Text);
-        }
-
-        private static AssessmentSectionAssemblyCategoryGroupControl GetAssemblyCategoryGroupControl(string controlName)
-        {
-            return (AssessmentSectionAssemblyCategoryGroupControl) new ControlTester(controlName).TheObject;
-        }
-
-        private static void AssertAssessmentSectionAssemblyControl(string controlName, string expectedGroup, string expectedProbability)
-        {
-            AssessmentSectionAssemblyControl control = GetAssemblyControl(controlName);
-            Assert.AreEqual(expectedGroup, GetGroupLabel(control).Text);
-            Assert.AreEqual(expectedProbability, GetProbabilityLabel(control).Text);
-        }
-
-        private static AssessmentSectionAssemblyControl GetAssemblyControl(string controlName)
-        {
-            return (AssessmentSectionAssemblyControl) new ControlTester(controlName).TheObject;
-        }
-
-        private static BorderedLabel GetGroupLabel(AssemblyResultControl control)
-        {
-            return (BorderedLabel) ((TableLayoutPanel) control.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
-        }
-
-        private static BorderedLabel GetProbabilityLabel(AssemblyResultWithProbabilityControl control)
-        {
-            return (BorderedLabel) ((TableLayoutPanel) control.Controls["probabilityPanel"]).GetControlFromPosition(0, 0);
-        }
-
-        private static string GetError(AssemblyResultControl resultControl)
-        {
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
-            return errorProvider.GetError(resultControl);
-        }
-
         #region View test helpers
 
         private AssemblyResultTotalView ShowAssemblyResultTotalView()
@@ -429,9 +400,35 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
+        private static AssessmentSectionAssemblyCategoryGroupControl GetAssemblyCategoryGroupControl(string controlName)
+        {
+            return (AssessmentSectionAssemblyCategoryGroupControl) new ControlTester(controlName).TheObject;
+        }
+
+        private static AssessmentSectionAssemblyControl GetAssemblyControl(string controlName)
+        {
+            return (AssessmentSectionAssemblyControl) new ControlTester(controlName).TheObject;
+        }
+
+        private static BorderedLabel GetGroupLabel(AssemblyResultControl control)
+        {
+            return (BorderedLabel) ((TableLayoutPanel) control.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
+        }
+
+        private static BorderedLabel GetProbabilityLabel(AssemblyResultWithProbabilityControl control)
+        {
+            return (BorderedLabel) ((TableLayoutPanel) control.Controls["probabilityPanel"]).GetControlFromPosition(0, 0);
+        }
+
+        private static string GetError(AssemblyResultControl resultControl)
+        {
+            var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
+            return errorProvider.GetError(resultControl);
+        }
+
         #endregion
 
-        #region Asserts
+        #region Asserts datagrid control
 
         private static void AssertFailureMechanismRows(AssessmentSection assessmentSection,
                                                        FailureMechanismAssembly assemblyOutput,
@@ -523,6 +520,35 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             Assert.AreEqual(categoryGroup, cells[failureMechanismAssemblyCategoryColumnIndex].Value);
             Assert.AreEqual("-", cells[failureMechanisProbabilityColumnIndex].FormattedValue);
+        }
+
+        #endregion
+
+        #region Asserts total assembly control
+
+        private static void AssertAssessmentSectionAssemblyWithProbabilityControlWithError(string controlName)
+        {
+            Assert.AreEqual("Message", GetError(GetAssemblyControl(controlName)));
+            AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, string.Empty, "-");
+        }
+
+        private static void AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(string controlName)
+        {
+            Assert.AreEqual("Message", GetError(GetAssemblyCategoryGroupControl(controlName)));
+            AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, string.Empty);
+        }
+
+        private static void AssertAssessmentSectionAssemblyCategoryGroupControl(string controlName, string expectedGroup)
+        {
+            AssessmentSectionAssemblyCategoryGroupControl control = GetAssemblyCategoryGroupControl(controlName);
+            Assert.AreEqual(expectedGroup, GetGroupLabel(control).Text);
+        }
+
+        private static void AssertAssessmentSectionAssemblyControl(string controlName, string expectedGroup, string expectedProbability)
+        {
+            AssessmentSectionAssemblyControl control = GetAssemblyControl(controlName);
+            Assert.AreEqual(expectedGroup, GetGroupLabel(control).Text);
+            Assert.AreEqual(expectedProbability, GetProbabilityLabel(control).Text);
         }
 
         #endregion
