@@ -20,13 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -38,26 +39,15 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensionsTest
     {
-        private static IEnumerable<TestCaseData> ValidWaveConditionsInputs
+        [Test]
+        public void Create_CalculationNull_ThrowsArgumentNullException()
         {
-            get
-            {
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueStepSizeHalf");
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueStepSizeOne");
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueStepSizeTwo");
+            // Call
+            TestDelegate call = () => ((GrassCoverErosionOutwardsWaveConditionsCalculation)null).Create(new PersistenceRegistry(), 0);
 
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseStepSizeHalf");
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseStepSizeOne");
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseStepSizeTwo");
-
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWTrueStepSizeHalf");
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWTrueStepSizeOne");
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWTrueStepSizeTwo");
-
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWFalseStepSizeHalf");
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWFalseStepSizeOne");
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWFalseStepSizeTwo");
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("calculation", exception.ParamName);
         }
 
         [Test]
@@ -75,33 +65,24 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidWaveConditionsInputs))]
-        public void Create_CalculationWithPropertiesSet_ReturnCalculationEntity(
-            double orientation, bool useBreakWater, double lowerBoundaryRevetment,
-            double upperBoundaryRevetment, double lowerBoundaryWaterLevels,
-            double upperBoundaryWaterLevels, WaveConditionsInputStepSize stepSize)
+        public void Create_CalculationWithPropertiesSet_ReturnCalculationEntity()
         {
             // Setup
-            const string name = "Name";
-            const string comments = "comments";
+            var random = new Random(21);
             const int order = 1234;
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Name = name,
-                Comments =
-                {
-                    Body = comments
-                },
                 InputParameters =
                 {
-                    Orientation = (RoundedDouble) orientation,
-                    UseBreakWater = useBreakWater,
-                    UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
-                    LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
-                    UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels,
-                    LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
-                    StepSize = stepSize
+                    Orientation = random.NextRoundedDouble(0, 360),
+                    UseBreakWater = random.NextBoolean(),
+                    UpperBoundaryRevetment = (RoundedDouble) 6.10,
+                    LowerBoundaryRevetment = (RoundedDouble) 3.58,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 3.40,
+                    StepSize = random.NextEnumValue<WaveConditionsInputStepSize>(),
+                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
                 }
             };
 
@@ -111,25 +92,56 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, order);
 
             // Assert
-            Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual(comments, entity.Comments);
-
-            WaveConditionsInput input = calculation.InputParameters;
+            FailureMechanismCategoryWaveConditionsInput input = calculation.InputParameters;
             Assert.AreEqual(input.Orientation.Value, entity.Orientation);
-            Assert.AreEqual(Convert.ToByte(useBreakWater), entity.UseBreakWater);
-            Assert.AreEqual(Convert.ToByte(false), entity.UseForeshore);
+            Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
+            Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
             Assert.AreEqual(input.UpperBoundaryRevetment, entity.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
             Assert.AreEqual(input.LowerBoundaryRevetment, entity.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
             Assert.AreEqual(input.UpperBoundaryWaterLevels, entity.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(input.LowerBoundaryWaterLevels, entity.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
+            Assert.AreEqual(Convert.ToByte(input.CategoryType), entity.CategoryType);
 
             Assert.AreEqual(order, entity.Order);
-            Assert.AreEqual(0, entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntityId);
             Assert.IsNull(entity.CalculationGroupEntity);
-            Assert.AreEqual(0, entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Count);
+            CollectionAssert.IsEmpty(entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities);
             Assert.IsNull(entity.ForeshoreProfileEntity);
             Assert.IsNull(entity.HydraulicLocationEntity);
+        }
+
+        [Test]
+        public void Create_CalculationWithNaNProperties_ReturnCalculationEntity()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    Orientation = RoundedDouble.NaN,
+                    UpperBoundaryRevetment = RoundedDouble.NaN,
+                    LowerBoundaryRevetment = RoundedDouble.NaN,
+                    UpperBoundaryWaterLevels = RoundedDouble.NaN,
+                    LowerBoundaryWaterLevels = RoundedDouble.NaN,
+                    BreakWater =
+                    {
+                        Height = RoundedDouble.NaN
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 1234);
+
+            // Assert
+            Assert.IsNull(entity.Orientation);
+            Assert.IsNull(entity.UpperBoundaryRevetment);
+            Assert.IsNull(entity.LowerBoundaryRevetment);
+            Assert.IsNull(entity.UpperBoundaryWaterLevels);
+            Assert.IsNull(entity.LowerBoundaryWaterLevels);
+            Assert.IsNull(entity.BreakWaterHeight);
         }
 
         [Test]
@@ -153,13 +165,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreNotSame(name, entity.Name,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(name, entity.Name);
-
-            Assert.AreNotSame(comments, entity.Comments,
-                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
-            Assert.AreEqual(comments, entity.Comments);
+            TestHelper.AssertAreEqualButNotSame(calculation.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(calculation.Comments.Body, entity.Comments);
         }
 
         [Test]
@@ -167,7 +174,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
-            
+
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =

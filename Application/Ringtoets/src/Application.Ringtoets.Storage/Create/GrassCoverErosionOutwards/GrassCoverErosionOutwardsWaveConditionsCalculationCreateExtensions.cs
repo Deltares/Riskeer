@@ -42,10 +42,15 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static GrassCoverErosionOutwardsWaveConditionsCalculationEntity Create(this GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                                                                         PersistenceRegistry registry, int order)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
@@ -78,16 +83,17 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
                 entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
             }
 
-            entity.Orientation = calculation.InputParameters.Orientation;
+            entity.Orientation = calculation.InputParameters.Orientation.ToNaNAsNull();
             entity.UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater);
             entity.BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type;
-            entity.BreakWaterHeight = calculation.InputParameters.BreakWater.Height;
+            entity.BreakWaterHeight = calculation.InputParameters.BreakWater.Height.ToNaNAsNull();
             entity.UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore);
-            entity.UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment;
-            entity.LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment;
-            entity.UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels;
-            entity.LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels;
+            entity.UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment.ToNaNAsNull();
+            entity.LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment.ToNaNAsNull();
+            entity.UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels.ToNaNAsNull();
+            entity.LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels.ToNaNAsNull();
             entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
+            entity.CategoryType = Convert.ToByte(calculation.InputParameters.CategoryType);
         }
 
         private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
