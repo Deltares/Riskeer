@@ -190,7 +190,7 @@ namespace Ringtoets.Common.Forms.Views
 
         private void UpdateFailureMechanismAssemblyResultControl()
         {
-            FailureMechanismAssemblyResultControl.ClearData();
+            FailureMechanismAssemblyResultControl.ClearAssemblyResult();
             FailureMechanismAssemblyResultControl.ClearError();
 
             try

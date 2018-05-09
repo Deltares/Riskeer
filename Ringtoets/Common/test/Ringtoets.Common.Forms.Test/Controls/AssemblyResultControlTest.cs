@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void ClearData_Always_ClearsDataOnControl()
+        public void ClearAssemblyResult_Always_ClearsResultOnControl()
         {
             // Setup
             using (var resultControl = new TestAssemblyResultControl())
@@ -139,7 +139,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 groupLabel.BackColor = Color.Yellow;
 
                 // Call
-                resultControl.ClearData();
+                resultControl.ClearAssemblyResult();
 
                 // Assert
                 Assert.IsEmpty(groupLabel.Text);

@@ -33,9 +33,9 @@ namespace Ringtoets.Common.Forms.Controls
             InitializeComponent();
         }
 
-        public override void ClearData()
+        public override void ClearAssemblyResult()
         {
-            base.ClearData();
+            base.ClearAssemblyResult();
             ProbabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
         }
     }

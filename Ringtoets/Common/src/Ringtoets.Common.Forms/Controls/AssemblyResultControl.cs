@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.Controls
         /// <summary>
         /// Clears the data of the control.
         /// </summary>
-        public virtual void ClearData()
+        public virtual void ClearAssemblyResult()
         {
             GroupLabel.Text = string.Empty;
             GroupLabel.BackColor = Color.White;

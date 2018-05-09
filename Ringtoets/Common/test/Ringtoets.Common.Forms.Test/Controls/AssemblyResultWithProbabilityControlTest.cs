@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
         }
 
         [Test]
-        public void ClearData_Always_ClearsDataOnControl()
+        public void ClearAssemblyResult_Always_ClearsResultOnControl()
         {
             // Setup
             using (var resultControl = new TestAssemblyResultWithProbabilityControl())
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.Controls
                 probabilityLabel.Text = "1/245";
 
                 // Call
-                resultControl.ClearData();
+                resultControl.ClearAssemblyResult();
 
                 // Assert
                 Assert.IsEmpty(groupLabel.Text);
