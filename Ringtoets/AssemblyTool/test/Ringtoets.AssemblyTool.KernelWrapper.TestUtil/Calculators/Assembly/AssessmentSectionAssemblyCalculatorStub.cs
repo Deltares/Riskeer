@@ -162,10 +162,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
             {
-                new CombinedFailureMechanismSectionAssembly(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv, new[]
-                {
-                    FailureMechanismSectionAssemblyCategoryGroup.VIv
-                }),
+                new CombinedFailureMechanismSectionAssembly(
+                    new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
+                    new[]
+                    {
+                        FailureMechanismSectionAssemblyCategoryGroup.VIv
+                    })
             });
         }
     }

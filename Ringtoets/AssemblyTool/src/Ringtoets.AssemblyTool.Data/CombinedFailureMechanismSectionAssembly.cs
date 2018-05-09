@@ -32,43 +32,30 @@ namespace Ringtoets.AssemblyTool.Data
         /// <summary>
         /// Creates a new instance of <see cref="CombinedFailureMechanismSectionAssembly"/>.
         /// </summary>
-        /// <param name="sectionStart">The start of the section from the beginning of the reference line.</param>
-        /// <param name="sectionEnd">The end of the section from the beginning of the reference line.</param>
-        /// <param name="combinedResult">The combined assembly result.</param>
+        /// <param name="section">The section of the assembly.</param>
         /// <param name="failureMechanismResults">The assembly results per failure mechanism.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismResults"/>
-        /// is <c>null</c>.</exception>
-        public CombinedFailureMechanismSectionAssembly(double sectionStart, double sectionEnd,
-                                                       FailureMechanismSectionAssemblyCategoryGroup combinedResult,
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public CombinedFailureMechanismSectionAssembly(CombinedAssemblyFailureMechanismSection section,
                                                        IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults)
         {
+            if (section == null)
+            {
+                throw new ArgumentNullException(nameof(section));
+            }
+
             if (failureMechanismResults == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismResults));
             }
 
-            SectionStart = sectionStart;
-            SectionEnd = sectionEnd;
-            CombinedResult = combinedResult;
+            Section = section;
             FailureMechanismResults = failureMechanismResults;
         }
-
+        
         /// <summary>
-        /// Gets the start of the section from the beginning of the reference line.
-        /// [m]
+        /// Gets the section of the assembly.
         /// </summary>
-        public double SectionStart { get; }
-
-        /// <summary>
-        /// Gets the end of the section from the beginning of the reference line.
-        /// [m]
-        /// </summary>
-        public double SectionEnd { get; }
-
-        /// <summary>
-        /// Gets the combined assembly result.
-        /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup CombinedResult { get; }
+        public CombinedAssemblyFailureMechanismSection Section { get; }
 
         /// <summary>
         /// Gets the assembly results per failure mechanism.

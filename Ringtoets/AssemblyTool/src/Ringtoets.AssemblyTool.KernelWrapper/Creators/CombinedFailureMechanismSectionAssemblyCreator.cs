@@ -54,8 +54,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             {
                 FmSectionWithDirectCategory section = result.CombinedSectionResult.ElementAt(i);
                 sectionAssemblies.Add(new CombinedFailureMechanismSectionAssembly(
-                                          section.SectionStart, section.SectionEnd,
-                                          FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(section.Category),
+                                          CreateSection(section),
                                           result.ResultPerFailureMechanism
                                                 .Select(failureMechanismSectionList =>
                                                             (FmSectionWithDirectCategory) failureMechanismSectionList.Results.ElementAt(i))
@@ -65,6 +64,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return sectionAssemblies;
+        }
+
+        private static CombinedAssemblyFailureMechanismSection CreateSection(FmSectionWithDirectCategory section)
+        {
+            return new CombinedAssemblyFailureMechanismSection(
+                section.SectionStart, section.SectionEnd,
+                FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(section.Category));
         }
     }
 }

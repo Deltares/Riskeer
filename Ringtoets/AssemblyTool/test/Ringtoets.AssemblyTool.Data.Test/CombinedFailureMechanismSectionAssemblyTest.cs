@@ -31,15 +31,26 @@ namespace Ringtoets.AssemblyTool.Data.Test
     public class CombinedFailureMechanismSectionAssemblyTest
     {
         [Test]
+        public void Constructor_SectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new CombinedFailureMechanismSectionAssembly(null, Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_FailureMechanismResultsNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
+            var section = new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(),
+                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Call
-            TestDelegate call = () => new CombinedFailureMechanismSectionAssembly(random.NextDouble(), random.NextDouble(),
-                                                                                  random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                                                                                  null);
+            TestDelegate call = () => new CombinedFailureMechanismSectionAssembly(section, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,18 +62,15 @@ namespace Ringtoets.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(21);
-            double sectionStart = random.NextDouble();
-            double sectionEnd = random.NextDouble();
-            var combinedResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var section = new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(),
+                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults = Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var assembly = new CombinedFailureMechanismSectionAssembly(sectionStart, sectionEnd, combinedResult, failureMechanismResults);
+            var assembly = new CombinedFailureMechanismSectionAssembly(section, failureMechanismResults);
 
             // Assert
-            Assert.AreEqual(sectionStart, assembly.SectionStart);
-            Assert.AreEqual(sectionEnd, assembly.SectionEnd);
-            Assert.AreEqual(combinedResult, assembly.CombinedResult);
+            Assert.AreSame(section, assembly.Section);
             Assert.AreSame(failureMechanismResults, assembly.FailureMechanismResults);
         }
     }

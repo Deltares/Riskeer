@@ -92,9 +92,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(3, results.Length);
             for (var i = 0; i < results.Length; i++)
             {
-                Assert.AreEqual(sections[i].Item1, results[i].SectionStart);
-                Assert.AreEqual(sections[i].Item2, results[i].SectionEnd);
-                Assert.AreEqual(GetResultGroup(combinedResults[i].Category), results[i].CombinedResult);
+                Assert.AreEqual(sections[i].Item1, results[i].Section.SectionStart);
+                Assert.AreEqual(sections[i].Item2, results[i].Section.SectionEnd);
+                Assert.AreEqual(GetResultGroup(combinedResults[i].Category), results[i].Section.CategoryGroup);
                 Assert.AreEqual(failureMechanismResults.Length, results[i].FailureMechanismResults.Count());
 
                 for (var j = 0; j < failureMechanismResults.Length; j++)

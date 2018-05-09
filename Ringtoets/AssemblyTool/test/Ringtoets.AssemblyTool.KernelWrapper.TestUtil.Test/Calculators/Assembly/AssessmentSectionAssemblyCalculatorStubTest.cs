@@ -279,14 +279,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Assert
             var expectedOutput = new[]
             {
-                new CombinedFailureMechanismSectionAssembly(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv, new[]
-                {
-                    FailureMechanismSectionAssemblyCategoryGroup.VIv
-                }),
+                new CombinedFailureMechanismSectionAssembly(
+                    new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                    , new[]
+                    {
+                        FailureMechanismSectionAssemblyCategoryGroup.VIv
+                    })
             };
-            Assert.AreEqual(expectedOutput[0].SectionStart, output[0].SectionStart);
-            Assert.AreEqual(expectedOutput[0].SectionEnd, output[0].SectionEnd);
-            Assert.AreEqual(expectedOutput[0].CombinedResult, output[0].CombinedResult);
+            Assert.AreEqual(expectedOutput[0].Section.SectionStart, output[0].Section.SectionStart);
+            Assert.AreEqual(expectedOutput[0].Section.SectionEnd, output[0].Section.SectionEnd);
+            Assert.AreEqual(expectedOutput[0].Section.CategoryGroup, output[0].Section.CategoryGroup);
             CollectionAssert.AreEqual(expectedOutput[0].FailureMechanismResults, output[0].FailureMechanismResults);
         }
 
@@ -300,7 +302,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
                 CombinedFailureMechanismSectionAssemblyOutput = new[]
                 {
                     new CombinedFailureMechanismSectionAssembly(
-                        random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                        new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(),
+                                                                    random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                         new[]
                         {
                             random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
