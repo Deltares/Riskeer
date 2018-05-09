@@ -58,6 +58,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? UpperBoundaryWaterLevels { get; set; }
         public double? LowerBoundaryWaterLevels { get; set; }
         public byte StepSize { get; set; }
+        public byte CategoryType { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
