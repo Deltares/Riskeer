@@ -21,12 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.DuneErosion.Data;
@@ -160,45 +158,58 @@ namespace Ringtoets.Integration.Forms.Views
             UpdateAssemblyResultControls();
         }
 
-        /// <summary>
-        /// Updates the assembly result controls.
-        /// </summary>
         private void UpdateAssemblyResultControls()
         {
-            totalAssemblyCategoryGroupControl.ClearData();
+            UpdateTotalAssemblyCategoryGroupControl();
+            UpdateFailureMechanismsWithProbabilityAssemblyControl();
+            UpdateFailureMechanismsWithoutProbabilityAssemblyControl();
+        }
+
+        private void UpdateFailureMechanismsWithoutProbabilityAssemblyControl()
+        {
+            failureMechanismsWithoutProbabilityAssemblyControl.ClearData();
+            failureMechanismsWithoutProbabilityAssemblyControl.ClearError();
+
             try
             {
-                totalAssemblyCategoryGroupControl.SetAssemblyResult(
-                    AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
-                totalAssemblyCategoryGroupControl.ClearError();
+                failureMechanismsWithoutProbabilityAssemblyControl.SetAssemblyResult(
+                    AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(AssessmentSection));
             }
             catch (AssemblyException e)
             {
-                totalAssemblyCategoryGroupControl.SetError(e.Message);
+                failureMechanismsWithoutProbabilityAssemblyControl.SetError(e.Message);
             }
+        }
 
+        private void UpdateFailureMechanismsWithProbabilityAssemblyControl()
+        {
             failureMechanismsWithProbabilityAssemblyControl.ClearData();
+            failureMechanismsWithProbabilityAssemblyControl.ClearError();
+
             try
             {
                 failureMechanismsWithProbabilityAssemblyControl.SetAssemblyResult(
                     AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(AssessmentSection));
-                failureMechanismsWithProbabilityAssemblyControl.ClearError();
             }
             catch (AssemblyException e)
             {
                 failureMechanismsWithProbabilityAssemblyControl.SetError(e.Message);
             }
+        }
 
-            failureMechanismsWithoutProbabilityAssemblyControl.ClearData();
+        private void UpdateTotalAssemblyCategoryGroupControl()
+        {
+            totalAssemblyCategoryGroupControl.ClearData();
+            totalAssemblyCategoryGroupControl.ClearError();
+
             try
             {
-                failureMechanismsWithoutProbabilityAssemblyControl.SetAssemblyResult(
-                    AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(AssessmentSection));
-                failureMechanismsWithoutProbabilityAssemblyControl.ClearError();
+                totalAssemblyCategoryGroupControl.SetAssemblyResult(
+                    AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
             }
             catch (AssemblyException e)
             {
-                failureMechanismsWithoutProbabilityAssemblyControl.SetError(e.Message);
+                totalAssemblyCategoryGroupControl.SetError(e.Message);
             }
         }
 

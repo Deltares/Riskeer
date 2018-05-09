@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Forms.Controls
     public class AssessmentSectionAssemblyCategoryGroupControl : AssemblyResultControl
     {
         /// <summary>
-        /// Set the value of <paramref name="result"/> on the control.
+        /// Sets the value of <paramref name="result"/> on the control.
         /// </summary>
         /// <param name="result">The <see cref="AssessmentSectionAssemblyCategoryGroup"/> to set on the control.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>

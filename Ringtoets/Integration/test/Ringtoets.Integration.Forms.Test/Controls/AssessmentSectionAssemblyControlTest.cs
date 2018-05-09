@@ -101,6 +101,7 @@ namespace Ringtoets.Integration.Forms.Test.Controls
                 BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
                 AssertGroupLabel(result, groupLabel);
                 AssertProbabilityLabel(result, probabilityLabel);
+
                 // Call
                 resultControl.ClearData();
 

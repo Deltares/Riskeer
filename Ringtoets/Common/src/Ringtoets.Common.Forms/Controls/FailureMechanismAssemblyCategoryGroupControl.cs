@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.Controls
     public class FailureMechanismAssemblyCategoryGroupControl : AssemblyResultControl
     {
         /// <summary>
-        /// Set the value of <paramref name="result"/> on the control.
+        /// Sets the value of <paramref name="result"/> on the control.
         /// </summary>
         /// <param name="result">The <see cref="FailureMechanismAssemblyCategoryGroup"/> to set on the control.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>

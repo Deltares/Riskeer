@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Forms.Controls
     public class AssessmentSectionAssemblyControl : AssemblyResultWithProbabilityControl
     {
         /// <summary>
-        /// Set the values of <paramref name="result"/> on the control.
+        /// Sets the value of <paramref name="result"/> on the control.
         /// </summary>
         /// <param name="result">The <see cref="AssessmentSectionAssembly"/> to set on the control.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
