@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Primitives.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Common.Primitives.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to VN.
         /// </summary>
-        internal static string AssessmentResultType_Insufficient {
+        public static string AssessmentResultType_Insufficient {
             get {
                 return ResourceManager.GetString("AssessmentResultType_Insufficient", resourceCulture);
             }
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to &lt;selecteer&gt;.
         /// </summary>
-        internal static string AssessmentResultType_None {
+        public static string AssessmentResultType_None {
             get {
                 return ResourceManager.GetString("AssessmentResultType_None", resourceCulture);
             }
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to NGO.
         /// </summary>
-        internal static string AssessmentResultType_NotAssessed {
+        public static string AssessmentResultType_NotAssessed {
             get {
                 return ResourceManager.GetString("AssessmentResultType_NotAssessed", resourceCulture);
             }
@@ -111,7 +111,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Faalkans.
         /// </summary>
-        internal static string AssessmentResultType_Probability {
+        public static string AssessmentResultType_Probability {
             get {
                 return ResourceManager.GetString("AssessmentResultType_Probability", resourceCulture);
             }
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to FV.
         /// </summary>
-        internal static string AssessmentResultType_ProbabilityNegligible {
+        public static string AssessmentResultType_ProbabilityNegligible {
             get {
                 return ResourceManager.GetString("AssessmentResultType_ProbabilityNegligible", resourceCulture);
             }
@@ -129,16 +129,61 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to V.
         /// </summary>
-        internal static string AssessmentResultType_Sufficient {
+        public static string AssessmentResultType_Sufficient {
             get {
                 return ResourceManager.GetString("AssessmentResultType_Sufficient", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IIIv.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIv.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IVv.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIv.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vv.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VB.
         /// </summary>
-        internal static string SimpleAssessmentResultType_AssessFurther {
+        public static string SimpleAssessmentResultType_AssessFurther {
             get {
                 return ResourceManager.GetString("SimpleAssessmentResultType_AssessFurther", resourceCulture);
             }
@@ -147,7 +192,7 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to NVT.
         /// </summary>
-        internal static string SimpleAssessmentResultType_NotApplicable {
+        public static string SimpleAssessmentResultType_NotApplicable {
             get {
                 return ResourceManager.GetString("SimpleAssessmentResultType_NotApplicable", resourceCulture);
             }
@@ -156,9 +201,27 @@ namespace Ringtoets.Common.Primitives.Properties {
         /// <summary>
         ///   Looks up a localized string similar to WVT.
         /// </summary>
-        internal static string SimpleAssessmentValidityOnlyResultType_Applicable {
+        public static string SimpleAssessmentValidityOnlyResultType_Applicable {
             get {
                 return ResourceManager.GetString("SimpleAssessmentValidityOnlyResultType_Applicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iv (FV).
+        /// </summary>
+        public static string TailorMadeAssessmentCategoryGroupResultType_Iv_FV_DisplayName {
+            get {
+                return ResourceManager.GetString("TailorMadeAssessmentCategoryGroupResultType_Iv_FV_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VIIv (NGO).
+        /// </summary>
+        public static string TailorMadeAssessmentCategoryGroupResultType_VIIv_NGO_DisplayName {
+            get {
+                return ResourceManager.GetString("TailorMadeAssessmentCategoryGroupResultType_VIIv_NGO_DisplayName", resourceCulture);
             }
         }
     }

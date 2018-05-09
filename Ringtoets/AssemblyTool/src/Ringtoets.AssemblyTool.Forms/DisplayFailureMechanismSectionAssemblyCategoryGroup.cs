@@ -21,6 +21,7 @@
 
 using Core.Common.Util.Attributes;
 using Ringtoets.AssemblyTool.Forms.Properties;
+using RingtoetsCommonPrimitivesResources = Ringtoets.Common.Primitives.Properties.Resources;
 
 namespace Ringtoets.AssemblyTool.Forms
 {
@@ -38,19 +39,19 @@ namespace Ringtoets.AssemblyTool.Forms
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName))]
         Iv = 3,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName))]
         IIv = 4,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName))]
         IIIv = 5,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName))]
         IVv = 6,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName))]
         Vv = 7,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonPrimitivesResources), nameof(RingtoetsCommonPrimitivesResources.FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName))]
         VIv = 8,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName))]

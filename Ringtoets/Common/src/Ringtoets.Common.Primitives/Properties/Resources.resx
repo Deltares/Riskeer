@@ -144,4 +144,25 @@
   <data name="AssessmentResultType_Sufficient" xml:space="preserve">
     <value>V</value>
   </data>
+  <data name="TailorMadeAssessmentCategoryGroupResultType_Iv_FV_DisplayName" xml:space="preserve">
+    <value>Iv (FV)</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName" xml:space="preserve">
+    <value>IIv</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName" xml:space="preserve">
+    <value>IIIv</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName" xml:space="preserve">
+    <value>IVv</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName" xml:space="preserve">
+    <value>Vv</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName" xml:space="preserve">
+    <value>VIv</value>
+  </data>
+  <data name="TailorMadeAssessmentCategoryGroupResultType_VIIv_NGO_DisplayName" xml:space="preserve">
+    <value>VIIv (NGO)</value>
+  </data>
 </root>

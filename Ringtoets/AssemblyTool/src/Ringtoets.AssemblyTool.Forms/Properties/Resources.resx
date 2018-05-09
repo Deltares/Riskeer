@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName" xml:space="preserve">
-    <value>IIIv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName" xml:space="preserve">
-    <value>IIv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName" xml:space="preserve">
-    <value>IVv</value>
-  </data>
   <data name="FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName" xml:space="preserve">
     <value>Iv</value>
   </data>
@@ -137,12 +128,6 @@
   </data>
   <data name="FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName" xml:space="preserve">
     <value>VIIv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName" xml:space="preserve">
-    <value>VIv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName" xml:space="preserve">
-    <value>Vv</value>
   </data>
   <data name="SelectableFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
     <value>&lt;selecteer&gt;</value>

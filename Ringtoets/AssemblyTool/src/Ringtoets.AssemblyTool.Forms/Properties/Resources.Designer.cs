@@ -100,24 +100,6 @@ namespace Ringtoets.AssemblyTool.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IIIv.
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IIv.
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Iv.
         /// </summary>
         internal static string FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName {
@@ -127,38 +109,11 @@ namespace Ringtoets.AssemblyTool.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IVv.
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VIIv.
         /// </summary>
         internal static string FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VIv.
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vv.
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName", resourceCulture);
             }
         }
         

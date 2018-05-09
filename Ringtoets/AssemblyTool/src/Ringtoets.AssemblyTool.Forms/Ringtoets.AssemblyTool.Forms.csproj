@@ -33,6 +33,11 @@
       <Name>Core.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
+      <Project>{78aa56f5-431d-465c-ac50-3173d7e90ac1}</Project>
+      <Name>Ringtoets.Common.Primitives</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
       <Project>{420ED9C3-0C33-47EA-B893-121A9C0DB4F1}</Project>
       <Name>Ringtoets.AssemblyTool.Data</Name>
