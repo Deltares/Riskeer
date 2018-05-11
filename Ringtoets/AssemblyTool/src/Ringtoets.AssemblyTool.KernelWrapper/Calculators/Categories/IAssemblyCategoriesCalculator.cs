@@ -44,7 +44,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <summary>
         /// Performs the calculation for getting the failure mechanism categories.
         /// </summary>
-        ///  <param name="assemblyCategoriesInput">The object containing the input parameters for
+        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
         /// determining the assembly categories.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismAssemblyCategory"/>.</returns>

@@ -22,7 +22,7 @@
 namespace Ringtoets.AssemblyTool.Data
 {
     /// <summary>
-    /// Assembly category for failure mechanism section.
+    /// Assembly category for a failure mechanism.
     /// </summary>
     public class FailureMechanismAssemblyCategory : AssemblyCategory
     {

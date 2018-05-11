@@ -102,9 +102,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
 
             // Assert
-            AssessmentSectionAssemblyCategory categoryResult = result.Single();
-
-            Assert.AreEqual(expectedCategoryGroup, categoryResult.Group);
+            Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
         }
 
         [Test]
@@ -210,9 +208,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimits);
 
             // Assert
-            FailureMechanismAssemblyCategory categoryResult = result.Single();
-
-            Assert.AreEqual(expectedCategoryGroup, categoryResult.Group);
+            Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
         }
 
         [Test]
@@ -288,9 +284,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimits);
 
             // Assert
-            FailureMechanismSectionAssemblyCategory categoryResult = result.Single();
-
-            Assert.AreEqual(expectedCategoryGroup, categoryResult.Group);
+            Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
         }
     }
 }
