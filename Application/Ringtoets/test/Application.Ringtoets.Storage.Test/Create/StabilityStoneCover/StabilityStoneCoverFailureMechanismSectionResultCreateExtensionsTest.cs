@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var detailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
             var detailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
             var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-            var tailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
