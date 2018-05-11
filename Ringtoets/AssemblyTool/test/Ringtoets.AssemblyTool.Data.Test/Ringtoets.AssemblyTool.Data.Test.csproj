@@ -21,6 +21,7 @@
     <Compile Include="AssessmentSectionAssemblyTest.cs" />
     <Compile Include="FailureMechanismAssemblyCategoryGroupTest.cs" />
     <Compile Include="FailureMechanismSectionAssemblyCategoryGroupTest.cs" />
+    <Compile Include="FailureMechanismAssemblyCategoryTest.cs" />
     <Compile Include="FailureMechanismSectionAssemblyCategoryTest.cs" />
     <Compile Include="FailureMechanismAssemblyTest.cs" />
     <Compile Include="FailureMechanismSectionAssemblyTest.cs" />
