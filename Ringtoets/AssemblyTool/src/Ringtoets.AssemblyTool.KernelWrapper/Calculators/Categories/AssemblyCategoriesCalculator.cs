@@ -68,6 +68,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             }
         }
 
+        public IEnumerable<FailureMechanismAssemblyCategory> CalculateFailureMechanismCategories(AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            try
+            {
+                ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
+                IEnumerable<FailureMechanismCategoryLimits> output = kernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
+                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
+
+                return AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(output);
+            }
+            catch (Exception e)
+            {
+                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+            }
+        }
+
         public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
             AssemblyCategoriesInput assemblyCategoriesInput)
         {

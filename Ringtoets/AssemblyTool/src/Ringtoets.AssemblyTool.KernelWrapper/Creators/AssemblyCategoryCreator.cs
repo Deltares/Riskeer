@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
-using Assembly.Kernel.Model.FmSectionTypes;
 using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
@@ -39,9 +38,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// Creates a collection of <see cref="AssessmentSectionAssemblyCategory"/>
         /// based on the information given in the <paramref name="categoryLimits"/>.
         /// </summary>
-        /// <param name="categoryLimits">The collection of <see cref="AssessmentSectionAssemblyCategory"/> to
+        /// <param name="categoryLimits">The collection of <see cref="AssessmentSectionCategoryLimits"/> to
         /// create the result for.</param>
-        /// <returns>A collection of <see cref="AssessmentSectionCategoryLimits"/>
+        /// <returns>A collection of <see cref="AssessmentSectionAssemblyCategory"/>
         /// with information taken from the <paramref name="categoryLimits"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="categoryLimits"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryLimits"/>
@@ -61,6 +60,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
                     CreateAssessmentSectionAssemblyCategory(categoriesOutput.Category))).ToArray();
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="FailureMechanismAssemblyCategory"/>
+        /// based on the information given in the <paramref name="categoryLimits"/>.
+        /// </summary>
+        /// <param name="categoryLimits">The collection of <see cref="FailureMechanismCategoryLimits"/> to
+        /// create the result for.</param>
+        /// <returns>A collection of <see cref="FailureMechanismAssemblyCategory"/>
+        /// with information taken from the <paramref name="categoryLimits"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categoryLimits"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryLimits"/>
+        /// contains an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryLimits"/>
+        /// contains a valid value, but unsupported.</exception>
+        public static IEnumerable<FailureMechanismAssemblyCategory> CreateFailureMechanismAssemblyCategories(
+            IEnumerable<FailureMechanismCategoryLimits> categoryLimits)
+        {
+            if (categoryLimits == null)
+            {
+                throw new ArgumentNullException(nameof(categoryLimits));
+            }
+
+            return categoryLimits.Select(
+                categoriesOutput => new FailureMechanismAssemblyCategory(
+                    categoriesOutput.LowerLimit,
+                    categoriesOutput.UpperLimit,
+                    FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>
@@ -88,7 +115,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 categoriesOutput => new FailureMechanismSectionAssemblyCategory(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
-                    ConvertFailureMechanismSectionCategoryGroup(categoriesOutput.Category))).ToArray();
+                    FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>
@@ -127,49 +154,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     return AssessmentSectionAssemblyCategoryGroup.NotAssessed;
                 case EAssessmentGrade.Nvt:
                     return AssessmentSectionAssemblyCategoryGroup.NotApplicable;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="EFmSectionCategory"/> into a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
-        /// </summary>
-        /// <param name="category">The <see cref="EFmSectionCategory"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
-        /// is a valid value, but unsupported.</exception>
-        private static FailureMechanismSectionAssemblyCategoryGroup ConvertFailureMechanismSectionCategoryGroup(EFmSectionCategory category)
-        {
-            if (!Enum.IsDefined(typeof(EFmSectionCategory), category))
-            {
-                throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int) category,
-                                                       typeof(EFmSectionCategory));
-            }
-
-            switch (category)
-            {
-                case EFmSectionCategory.Iv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case EFmSectionCategory.IIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case EFmSectionCategory.IIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case EFmSectionCategory.IVv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case EFmSectionCategory.Vv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case EFmSectionCategory.VIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case EFmSectionCategory.VIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case EFmSectionCategory.NotApplicable:
-                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-                case EFmSectionCategory.Gr:
-                    return FailureMechanismSectionAssemblyCategoryGroup.None;
                 default:
                     throw new NotSupportedException();
             }

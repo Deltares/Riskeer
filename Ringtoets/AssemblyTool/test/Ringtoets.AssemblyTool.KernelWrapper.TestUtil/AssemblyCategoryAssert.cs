@@ -55,6 +55,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
+        /// <param name="original">The original collection of <see cref="FailureMechanismCategoryLimits"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="FailureMechanismAssemblyCategory"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="original"/>.</exception>
+        public static void AssertFailureMechanismAssemblyCategories(IEnumerable<FailureMechanismCategoryLimits> original,
+                                                                    IEnumerable<FailureMechanismAssemblyCategory> actual)
+        {
+            Assert.AreEqual(original.Count(), actual.Count());
+
+            CollectionAssert.AreEqual(original.Select(o => GetFailureMechanismCategoryGroup(o.Category)), actual.Select(r => r.Group));
+            CollectionAssert.AreEqual(original.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
+        /// </summary>
         /// <param name="original">The original collection of <see cref="FmSectionCategoryLimits"/>.</param>
         /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
@@ -89,6 +106,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
                     return AssessmentSectionAssemblyCategoryGroup.NotAssessed;
                 case EAssessmentGrade.Nvt:
                     return AssessmentSectionAssemblyCategoryGroup.NotApplicable;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private static FailureMechanismAssemblyCategoryGroup GetFailureMechanismCategoryGroup(EFailureMechanismCategory category)
+        {
+            switch (category)
+            {
+                case EFailureMechanismCategory.It:
+                    return FailureMechanismAssemblyCategoryGroup.It;
+                case EFailureMechanismCategory.IIt:
+                    return FailureMechanismAssemblyCategoryGroup.IIt;
+                case EFailureMechanismCategory.IIIt:
+                    return FailureMechanismAssemblyCategoryGroup.IIIt;
+                case EFailureMechanismCategory.IVt:
+                    return FailureMechanismAssemblyCategoryGroup.IVt;
+                case EFailureMechanismCategory.Vt:
+                    return FailureMechanismAssemblyCategoryGroup.Vt;
+                case EFailureMechanismCategory.VIt:
+                    return FailureMechanismAssemblyCategoryGroup.VIt;
+                case EFailureMechanismCategory.VIIt:
+                    return FailureMechanismAssemblyCategoryGroup.VIIt;
+                case EFailureMechanismCategory.Nvt:
+                    return FailureMechanismAssemblyCategoryGroup.NotApplicable;
+                case EFailureMechanismCategory.Gr:
+                    return FailureMechanismAssemblyCategoryGroup.None;
                 default:
                     throw new NotSupportedException();
             }

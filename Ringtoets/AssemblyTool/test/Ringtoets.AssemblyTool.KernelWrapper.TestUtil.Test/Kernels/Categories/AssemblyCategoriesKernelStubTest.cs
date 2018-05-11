@@ -115,6 +115,79 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
+        public void CalculateFailureMechanismCategoryLimitsWbi11_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        {
+            // Setup
+            var random = new Random(11);
+            double lowerLimitNorm = random.NextDouble(0.5, 0.9);
+            double signalingNorm = random.NextDouble(0.0, 0.4);
+            double failureMechanismContribution = random.NextDouble();
+            double n = random.NextDouble(1, 5);
+
+            var kernel = new AssemblyCategoriesKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            kernel.CalculateFailureMechanismCategoryLimitsWbi11(new AssessmentSection(random.NextDouble(), signalingNorm, lowerLimitNorm),
+                                                                new FailureMechanism(n, failureMechanismContribution));
+
+            // Assert
+            Assert.IsTrue(kernel.Calculated);
+
+            Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
+            Assert.AreEqual(failureMechanismContribution, kernel.FailureMechanismContribution);
+            Assert.AreEqual(n, kernel.N);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategoryLimitsWbi11_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        {
+            // Setup
+            var random = new Random(11);
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                FailureMechanismCategoriesOutput = Enumerable.Empty<FailureMechanismCategoryLimits>()
+            };
+
+            // Call
+            IEnumerable<FailureMechanismCategoryLimits> output = kernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
+                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
+
+            // Assert
+            Assert.AreSame(kernel.FailureMechanismCategoriesOutput, output);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategoryLimitsWbi11_ThrowExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(11);
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
+                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
+
+            // Assert
+            var exception = Assert.Throws<Exception>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismCategoriesOutput);
+        }
+
+        [Test]
         public void CalculateFmSectionCategoryLimitsWbi01_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
@@ -258,22 +331,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
-        }
-
-        [Test]
-        public void CalculateFailureMechanismCategoryLimitsWbi11_Always_ThrowsNotImplementedException()
-        {
-            // Setup
-            var random = new Random(11);
-            var kernel = new AssemblyCategoriesKernelStub();
-
-            // Call
-            TestDelegate test = () => kernel.CalculateFailureMechanismCategoryLimitsWbi11(
-                new AssessmentSection(random.NextDouble(), random.NextDouble(0.0, 0.4), random.NextDouble(0.5, 0.9)),
-                new FailureMechanism(random.NextDouble(1, 5), random.NextDouble()));
-
-            // Assert
-            Assert.Throws<NotImplementedException>(test);
         }
     }
 }

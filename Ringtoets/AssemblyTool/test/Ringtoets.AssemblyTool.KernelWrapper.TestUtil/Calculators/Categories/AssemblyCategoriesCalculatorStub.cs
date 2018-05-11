@@ -52,9 +52,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; set; }
 
         /// <summary>
+        /// Gets or sets the output of the <see cref="FailureMechanismAssemblyCategory"/> calculation.
+        /// </summary>
+        public IEnumerable<FailureMechanismAssemblyCategory> FailureMechanismCategoriesOutput { get; set; }
+
+        /// <summary>
         /// Gets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; private set; }
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; set; }
 
         /// <summary>
         /// Indicator whether an exception must be thrown when performing the calculation.
@@ -77,6 +82,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
                               new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
                               new AssessmentSectionAssemblyCategory(2.01, 3, AssessmentSectionAssemblyCategoryGroup.B),
                               new AssessmentSectionAssemblyCategory(3.01, 4, AssessmentSectionAssemblyCategoryGroup.C)
+                          });
+        }
+
+        public IEnumerable<FailureMechanismAssemblyCategory> CalculateFailureMechanismCategories(AssemblyCategoriesInput assemblyCategoriesInput)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssemblyCategoriesCalculatorException("Message", new Exception());
+            }
+
+            AssemblyCategoriesInput = assemblyCategoriesInput;
+
+            return FailureMechanismCategoriesOutput
+                   ?? (FailureMechanismCategoriesOutput = new[]
+                          {
+                              new FailureMechanismAssemblyCategory(1, 2, FailureMechanismAssemblyCategoryGroup.It),
+                              new FailureMechanismAssemblyCategory(2.01, 3, FailureMechanismAssemblyCategoryGroup.IIt),
+                              new FailureMechanismAssemblyCategory(3.01, 4, FailureMechanismAssemblyCategoryGroup.IIIt)
                           });
         }
 

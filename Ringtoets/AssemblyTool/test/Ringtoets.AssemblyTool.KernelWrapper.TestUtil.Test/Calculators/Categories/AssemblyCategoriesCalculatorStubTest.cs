@@ -82,11 +82,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         public void CalculateAssessmentSectionCategories_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnsCategories()
         {
             // Setup
-            var calculator = new AssemblyCategoriesCalculatorStub();
-            calculator.AssessmentSectionCategoriesOutput = new[]
+            var calculator = new AssemblyCategoriesCalculatorStub
             {
-                new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
-                new AssessmentSectionAssemblyCategory(4.01, 5, AssessmentSectionAssemblyCategoryGroup.D)
+                AssessmentSectionCategoriesOutput = new[]
+                {
+                    new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
+                    new AssessmentSectionAssemblyCategory(4.01, 5, AssessmentSectionAssemblyCategoryGroup.D)
+                }
             };
 
             // Call
@@ -133,7 +135,92 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalse_ReturnsCategories()
+        public void CalculateFailureMechanismCategories_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnsCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            FailureMechanismAssemblyCategory[] result = calculator.CalculateFailureMechanismCategories(CreateAssemblyCategoriesInput()).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, result.Length);
+            CollectionAssert.AreEqual(new[]
+            {
+                1,
+                2.01,
+                3.01
+            }, result.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                2,
+                3,
+                4
+            }, result.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(new[]
+            {
+                FailureMechanismAssemblyCategoryGroup.It,
+                FailureMechanismAssemblyCategoryGroup.IIt,
+                FailureMechanismAssemblyCategoryGroup.IIIt
+            }, result.Select(r => r.Group));
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategories_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnsCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                FailureMechanismCategoriesOutput = new[]
+                {
+                    new FailureMechanismAssemblyCategory(1, 2, FailureMechanismAssemblyCategoryGroup.IIIt),
+                    new FailureMechanismAssemblyCategory(4.01, 5, FailureMechanismAssemblyCategoryGroup.VIt)
+                }
+            };
+
+            // Call
+            IEnumerable<FailureMechanismAssemblyCategory> result = calculator.CalculateFailureMechanismCategories(CreateAssemblyCategoriesInput());
+
+            // Assert
+            Assert.AreSame(calculator.FailureMechanismCategoriesOutput, result);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategories_ThrowExceptionOnCalculateFalse_SetsInput()
+        {
+            // Setup
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput();
+
+            var calculator = new AssemblyCategoriesCalculatorStub();
+
+            // Call
+            calculator.CalculateFailureMechanismCategories(
+                assemblyCategoriesInput);
+
+            // Assert
+            Assert.AreSame(assemblyCategoriesInput, calculator.AssemblyCategoriesInput);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategories_ThrowExceptionOnCalculateTrue_ThrowsAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                ThrowExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.CalculateFailureMechanismCategories(CreateAssemblyCategoriesInput());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnsCategories()
         {
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub();
@@ -161,6 +248,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
                 FailureMechanismSectionAssemblyCategoryGroup.IIv,
                 FailureMechanismSectionAssemblyCategoryGroup.IIIv
             }, result.Select(r => r.Group));
+        }
+
+        [Test]
+        public void CalculateFailureMechanismSectionCategories_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnsCategories()
+        {
+            // Setup
+            var calculator = new AssemblyCategoriesCalculatorStub
+            {
+                FailureMechanismSectionCategoriesOutput = new[]
+                {
+                    new FailureMechanismSectionAssemblyCategory(1, 2, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
+                    new FailureMechanismSectionAssemblyCategory(4.01, 5, FailureMechanismSectionAssemblyCategoryGroup.VIv)
+                }
+            };
+
+            // Call
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateFailureMechanismSectionCategories(CreateAssemblyCategoriesInput());
+
+            // Assert
+            Assert.AreSame(calculator.FailureMechanismSectionCategoriesOutput, result);
         }
 
         [Test]

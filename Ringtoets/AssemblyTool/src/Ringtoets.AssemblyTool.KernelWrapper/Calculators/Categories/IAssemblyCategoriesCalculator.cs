@@ -42,6 +42,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             double signalingNorm, double lowerLimitNorm);
 
         /// <summary>
+        /// Performs the calculation for getting the failure mechanism categories.
+        /// </summary>
+        ///  <param name="assemblyCategoriesInput">The object containing the input parameters for
+        /// determining the assembly categories.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
+        /// <see cref="FailureMechanismAssemblyCategory"/>.</returns>
+        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
+        /// when performing the calculation.</exception>
+        IEnumerable<FailureMechanismAssemblyCategory> CalculateFailureMechanismCategories(AssemblyCategoriesInput assemblyCategoriesInput);
+
+        /// <summary>
         /// Performs the calculation for getting the failure mechanism section categories.
         /// </summary>
         /// <param name="assemblyCategoriesInput">The object containing the input parameters for

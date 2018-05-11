@@ -143,6 +143,77 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
+        public void CalculateFailureMechanismCategories_WithInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            AssemblyCategoriesInput assemblyCategoriesInput = CreateRandomAssemblyCategoriesInput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.FailureMechanismCategoriesOutput = CreateFailureMechanismCategoryKernelOutput();
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                calculator.CalculateFailureMechanismCategories(assemblyCategoriesInput);
+
+                // Assert
+                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.LowerLimitNorm);
+                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.SignalingNorm);
+                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismContribution);
+                Assert.AreEqual(assemblyCategoriesInput.N, kernel.N);
+            }
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            IEnumerable<FailureMechanismCategoryLimits> output = CreateFailureMechanismCategoryKernelOutput();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.FailureMechanismCategoriesOutput = output;
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                IEnumerable<FailureMechanismAssemblyCategory> result = calculator.CalculateFailureMechanismCategories(
+                    CreateRandomAssemblyCategoriesInput());
+
+                // Assert
+                AssemblyCategoryAssert.AssertFailureMechanismAssemblyCategories(output, result);
+            }
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new AssemblyCategoriesCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.CalculateFailureMechanismCategories(
+                    CreateRandomAssemblyCategoriesInput());
+
+                // Assert
+                var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(test);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
         public void CalculateFailureMechanismSectionCategories_WithInput_InputCorrectlySetToKernel()
         {
             // Setup
@@ -311,6 +382,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             yield return new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
             yield return new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
             yield return new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
+        }
+
+        private static IEnumerable<FailureMechanismCategoryLimits> CreateFailureMechanismCategoryKernelOutput()
+        {
+            var random = new Random(11);
+
+            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
+            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
+            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
+            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
         }
     }
 }

@@ -68,6 +68,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public IEnumerable<AssessmentSectionCategoryLimits> AssessmentSectionCategoriesOutput { get; set; }
 
         /// <summary>
+        /// Gets or sets the failure mechanism categories output.
+        /// </summary>
+        public IEnumerable<FailureMechanismCategoryLimits> FailureMechanismCategoriesOutput { get; set; }
+
+        /// <summary>
         /// Gets or sets the failure mechanism section categories output.
         /// </summary>
         public IEnumerable<FmSectionCategoryLimits> FailureMechanismSectionCategoriesOutput { get; set; }
@@ -89,7 +94,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<FailureMechanismCategoryLimits> CalculateFailureMechanismCategoryLimitsWbi11(AssessmentSection section, FailureMechanism failureMechanism)
         {
-            throw new NotImplementedException();
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            SignalingNorm = section.FailureProbabilitySignallingLimit;
+            LowerLimitNorm = section.FailureProbabilityLowerLimit;
+            FailureMechanismContribution = failureMechanism.FailureProbabilityMarginFactor;
+            N = failureMechanism.LengthEffectFactor;
+
+            Calculated = true;
+
+            return FailureMechanismCategoriesOutput;
         }
 
         public IEnumerable<FmSectionCategoryLimits> CalculateFmSectionCategoryLimitsWbi01(AssessmentSection section, FailureMechanism failureMechanism)
