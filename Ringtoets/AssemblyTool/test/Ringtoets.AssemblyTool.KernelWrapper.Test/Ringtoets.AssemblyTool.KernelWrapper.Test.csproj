@@ -36,6 +36,7 @@
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreatorTest.cs" />
     <Compile Include="Creators\FailureMechanismAssemblyCreatorTest.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCreatorTest.cs" />
+    <Compile Include="Creators\FailureMechanismSectionListCreatorTest.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
