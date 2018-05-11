@@ -348,16 +348,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates a <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> from a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
+        /// Creates a <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> from a <see cref="TailorMadeAssessmentCategoryGroupResultType"/>.
         /// </summary>
-        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to create the result for.</param>
+        /// <param name="category">The <see cref="TailorMadeAssessmentCategoryGroupResultType"/> to create the result for.</param>
         /// <returns>A <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> CreateAssessmentResultTypeT3WithSectionCategory(
-            FailureMechanismSectionAssemblyCategoryGroup category)
+        public static Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> CreateAssessmentResultTypeT3WithCategoryGroupResult(
+            TailorMadeAssessmentCategoryGroupResultType category)
         {
             EFmSectionCategory result = CreateFailureMechanismSectionCategory(category);
             return result == EFmSectionCategory.Gr
@@ -404,6 +404,49 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
                     return EFmSectionCategory.NotApplicable;
                 case FailureMechanismSectionAssemblyCategoryGroup.None:
+                    return EFmSectionCategory.Gr;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Creates a <see cref="EFmSectionCategory"/> from a <see cref="TailorMadeAssessmentCategoryGroupResultType"/>.
+        /// </summary>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentCategoryGroupResultType"/> to create
+        /// a <see cref="EFmSectionCategory"/>.</param>
+        /// <returns>A <see cref="EFmSectionCategory"/> based on <paramref name="tailorMadeAssessmentResult"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
+        /// is a valid value, but unsupported.</exception>
+        private static EFmSectionCategory CreateFailureMechanismSectionCategory(
+            TailorMadeAssessmentCategoryGroupResultType tailorMadeAssessmentResult)
+        {
+            if (!Enum.IsDefined(typeof(TailorMadeAssessmentCategoryGroupResultType), tailorMadeAssessmentResult))
+            {
+                throw new InvalidEnumArgumentException(nameof(tailorMadeAssessmentResult),
+                                                       (int) tailorMadeAssessmentResult,
+                                                       typeof(TailorMadeAssessmentCategoryGroupResultType));
+            }
+
+            switch (tailorMadeAssessmentResult)
+            {
+                case TailorMadeAssessmentCategoryGroupResultType.Iv:
+                    return EFmSectionCategory.Iv;
+                case TailorMadeAssessmentCategoryGroupResultType.IIv:
+                    return EFmSectionCategory.IIv;
+                case TailorMadeAssessmentCategoryGroupResultType.IIIv:
+                    return EFmSectionCategory.IIIv;
+                case TailorMadeAssessmentCategoryGroupResultType.IVv:
+                    return EFmSectionCategory.IVv;
+                case TailorMadeAssessmentCategoryGroupResultType.Vv:
+                    return EFmSectionCategory.Vv;
+                case TailorMadeAssessmentCategoryGroupResultType.VIv:
+                    return EFmSectionCategory.VIv;
+                case TailorMadeAssessmentCategoryGroupResultType.VIIv:
+                    return EFmSectionCategory.VIIv;
+                case TailorMadeAssessmentCategoryGroupResultType.None:
                     return EFmSectionCategory.Gr;
                 default:
                     throw new NotSupportedException();

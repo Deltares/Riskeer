@@ -871,7 +871,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
-        public void AssembleTailorMadeAssessmentWithCategoryGroup_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
+        public void AssembleTailorMadeAssessmentWithCategoryGroupResult_ThrowExceptionOnCalculateFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup
             var random = new Random(39);
@@ -879,14 +879,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleTailorMadeAssessment(
-                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>());
 
             // Assert
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.Iv, assembly);
         }
 
         [Test]
-        public void AssembleTailorMadeAssessmentWithCategoryGroup_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
+        public void AssembleTailorMadeAssessmentWithCategoryGroupResult_ThrowExceptionOnCalculateFalseAndOutputSet_ReturnOutput()
         {
             // Setup
             var random = new Random(39);
@@ -897,18 +897,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             FailureMechanismSectionAssemblyCategoryGroup assembly = calculator.AssembleTailorMadeAssessment(
-                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+                random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>());
 
             // Assert
             Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, assembly);
         }
 
         [Test]
-        public void AssembleTailorMadeAssessmentWithCategoryGroup_ThrowExceptionOnCalculateFalse_SetsInput()
+        public void AssembleTailorMadeAssessmentWithCategoryGroupResult_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
             var random = new Random(39);
-            var tailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
 
             var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
 
@@ -916,11 +916,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
 
             // Assert
-            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentGroupInput);
+            Assert.AreEqual(tailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
         }
 
         [Test]
-        public void AssembleTailorMadeAssessmentWithCategoryGroup_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        public void AssembleTailorMadeAssessmentWithCategoryGroupResult_ThrowExceptionOnCalculateTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(39);
@@ -930,7 +930,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             };
 
             // Call
-            TestDelegate test = () => calculator.AssembleTailorMadeAssessment(random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            TestDelegate test = () => calculator.AssembleTailorMadeAssessment(random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>());
 
             // Assert
             var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);

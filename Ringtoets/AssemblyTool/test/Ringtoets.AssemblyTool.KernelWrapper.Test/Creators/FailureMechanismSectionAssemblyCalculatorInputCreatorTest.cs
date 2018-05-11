@@ -346,23 +346,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         #region Tailor Made Assessment
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.NotApplicable)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.None, EAssessmentResultTypeT3.Gr, null)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Iv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Iv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IIIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIIv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.IVv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IVv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.Vv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Vv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIv)]
-        [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIIv)]
-        public void CreateAssessmentResultTypeT3WithSectionCategory_ValidGroup_ReturnsExpectedItems(
-            FailureMechanismSectionAssemblyCategoryGroup originalGroup,
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.None, EAssessmentResultTypeT3.Gr, null)]
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.Iv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Iv)]
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.IIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIv)]
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.IIIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IIIv)]
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.IVv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.IVv)]
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.Vv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.Vv)]
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.VIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIv)]
+        [TestCase(TailorMadeAssessmentCategoryGroupResultType.VIIv, EAssessmentResultTypeT3.ResultSpecified, EFmSectionCategory.VIIv)]
+        public void CreateAssessmentResultTypeT3WithCategoryGroupResult_ValidGroup_ReturnsExpectedItems(
+            TailorMadeAssessmentCategoryGroupResultType originalGroup,
             EAssessmentResultTypeT3 expectedResult,
             EFmSectionCategory? expectedGroup)
         {
             // Call
             Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> actualGroup =
-                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithSectionCategory(originalGroup);
+                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithCategoryGroupResult(originalGroup);
 
             // Assert
             Assert.AreEqual(expectedResult, actualGroup.Item1);
@@ -370,14 +369,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateAssessmentResultTypeT3WithSectionCategory_InvalidGroup_ThrowInvalidEnumArgumentException()
+        public void CreateAssessmentResultTypeT3WithCategoryGroupResult_InvalidGroup_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithSectionCategory(
-                (FailureMechanismSectionAssemblyCategoryGroup) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithCategoryGroupResult(
+                (TailorMadeAssessmentCategoryGroupResultType) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
+            string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentCategoryGroupResultType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
