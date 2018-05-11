@@ -209,15 +209,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// </summary>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public SelectableFailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult
+        public TailorMadeAssessmentCategoryGroupResultType TailorMadeAssessmentResult
         {
             get
             {
-                return SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(SectionResult.TailorMadeAssessmentResult);
+                return SectionResult.TailorMadeAssessmentResult;
             }
             set
             {
-                SectionResult.TailorMadeAssessmentResult = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(value);
+                SectionResult.TailorMadeAssessmentResult = value;
                 UpdateInternalData();
             }
         }

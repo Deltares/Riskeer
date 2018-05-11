@@ -236,7 +236,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(failureMechanismSection)
             {
-                TailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -248,7 +248,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentGroupInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
             }
         }
 

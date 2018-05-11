@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForLowerLimitNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedLowerLimitNorm);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.TailorMadeAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentCategoryGroupResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }
