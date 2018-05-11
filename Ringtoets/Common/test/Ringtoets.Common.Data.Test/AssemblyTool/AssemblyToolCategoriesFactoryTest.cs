@@ -104,6 +104,88 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         }
 
         [Test]
+        public void CreateFailureMechanismAssemblyCategories_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                // Call
+                AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(signalingNorm,
+                                                                                       lowerLimitNorm,
+                                                                                       failureMechanismContribution,
+                                                                                       n);
+
+                // Assert
+                AssemblyCategoriesInput assemblyCategoriesInput = calculator.AssemblyCategoriesInput;
+                Assert.AreEqual(signalingNorm, assemblyCategoriesInput.SignalingNorm);
+                Assert.AreEqual(lowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution / 100, assemblyCategoriesInput.FailureMechanismContribution);
+                Assert.AreEqual(n, assemblyCategoriesInput.N);
+            }
+        }
+
+        [Test]
+        public void CreateFailureMechanismAssemblyCategories_CalculatorRan_ReturnsOutput()
+        {
+            // Setup
+            var random = new Random(11);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = random.NextDouble();
+            double failureMechanismContribution = random.NextDouble();
+            double n = random.NextDouble();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                // Call
+                FailureMechanismAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(
+                    signalingNorm,
+                    lowerLimitNorm,
+                    failureMechanismContribution,
+                    n).ToArray();
+
+                // Assert
+                FailureMechanismAssemblyCategory[] calculatorOutput = calculator.FailureMechanismCategoriesOutput.ToArray();
+
+                Assert.AreEqual(calculatorOutput.Length, output.Length);
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+            }
+        }
+
+        [Test]
+        public void CreateFailureMechanismAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate test = () => AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(0, 0, 0, 0);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(test);
+                Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
         public void CreateFailureMechanismSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
         {
             // Setup
