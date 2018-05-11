@@ -274,7 +274,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             CombinedFailureMechanismSectionAssembly[] output =
-                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>()).ToArray();
+                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
+                                                                    new Random(21).Next()).ToArray();
 
             // Assert
             var expectedOutput = new[]
@@ -313,7 +314,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             IEnumerable<CombinedFailureMechanismSectionAssembly> output =
-                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>());
+                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
+                                                                    random.Next());
 
             // Assert
             Assert.AreSame(calculator.CombinedFailureMechanismSectionAssemblyOutput, output);
@@ -323,14 +325,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         public void AssembleCombinedFailureMechanismSections_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
-            IEnumerable<IEnumerable<FailureMechanismSectionAssemblyCategoryGroup>> failureMechanismSections = Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>();
+            IEnumerable<CombinedAssemblyFailureMechanismInput> failureMechanismSections = Enumerable.Empty<CombinedAssemblyFailureMechanismInput>();
+            int assessmentSectionLength = new Random(21).Next();
             var calculator = new AssessmentSectionAssemblyCalculatorStub();
 
             // Call
-            calculator.AssembleCombinedFailureMechanismSections(failureMechanismSections);
+            calculator.AssembleCombinedFailureMechanismSections(failureMechanismSections, assessmentSectionLength);
 
             // Assert
             Assert.AreSame(failureMechanismSections, calculator.CombinedFailureMechanismSectionsInput);
+            Assert.AreEqual(assessmentSectionLength, calculator.AssessmentSectionLength);
         }
 
         [Test]
@@ -343,7 +347,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             };
 
             // Call
-            TestDelegate call = () => calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup[]>());
+            TestDelegate call = () => calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
+                                                                                          new Random(21).Next());
 
             // Assert
             var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(call);
