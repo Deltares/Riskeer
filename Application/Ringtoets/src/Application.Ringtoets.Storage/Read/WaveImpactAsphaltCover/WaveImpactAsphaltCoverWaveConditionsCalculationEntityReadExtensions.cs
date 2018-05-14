@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
@@ -44,9 +45,15 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
         /// to create <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static WaveImpactAsphaltCoverWaveConditionsCalculation Read(this WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal static WaveImpactAsphaltCoverWaveConditionsCalculation Read(this WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity, 
+                                                                             ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -66,7 +73,9 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             return calculation;
         }
 
-        private static void ReadInputParameters(WaveConditionsInput inputParameters, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadInputParameters(AssessmentSectionCategoryWaveConditionsInput inputParameters,
+                                                WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity,
+                                                ReadConversionCollector collector)
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
             inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
@@ -80,6 +89,7 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             inputParameters.UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
+            inputParameters.CategoryType = (AssessmentSectionCategoryType) entity.CategoryType;
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
