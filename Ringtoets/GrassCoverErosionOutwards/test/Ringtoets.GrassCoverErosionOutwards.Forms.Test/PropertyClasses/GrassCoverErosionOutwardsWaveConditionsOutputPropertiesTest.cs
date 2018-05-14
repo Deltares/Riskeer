@@ -110,12 +110,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor itemsProperty = dynamicProperties[0];
-            Assert.IsNotNull(itemsProperty);
-            Assert.IsTrue(itemsProperty.IsReadOnly);
-            Assert.IsInstanceOf<ExpandableArrayConverter>(itemsProperty.Converter);
-            Assert.AreEqual("Resultaat", itemsProperty.Category);
-            Assert.AreEqual("Hydraulische randvoorwaarden voor gras", itemsProperty.DisplayName);
-            Assert.AreEqual("Berekende resultaten voor de hydraulische randvoorwaarden voor gras.", itemsProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(itemsProperty,
+                                                                            "Resultaat",
+                                                                            "Hydraulische randvoorwaarden voor gras",
+                                                                            "Berekende resultaten voor de hydraulische randvoorwaarden voor gras.",
+                                                                            true);
         }
     }
 }
