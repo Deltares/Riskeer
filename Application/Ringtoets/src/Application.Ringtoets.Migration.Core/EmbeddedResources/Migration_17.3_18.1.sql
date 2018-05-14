@@ -567,7 +567,54 @@ SELECT
 	0,
 	1
 FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
-INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
+INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity(
+	[StabilityStoneCoverWaveConditionsCalculationEntityId],
+    [CalculationGroupEntityId],
+    [ForeshoreProfileEntityId],
+    [HydraulicLocationEntityId],
+    [Order],
+    [Name],
+    [Comments],
+    [UseBreakWater],
+    [BreakWaterType],
+    [BreakWaterHeight],
+    [UseForeshore],
+    [Orientation],
+    [UpperBoundaryRevetment],
+    [LowerBoundaryRevetment],
+    [UpperBoundaryWaterLevels],
+    [LowerBoundaryWaterLevels],
+    [StepSize],
+	[CategoryType]
+) 
+SELECT 
+	[StabilityStoneCoverWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	calc.'Order',
+	calc.Name,
+	calc.Comments,
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize],
+	CASE
+		WHEN [NormativeNormType] = 1 
+			THEN 2
+		ELSE 
+			1
+	END
+FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity calc
+JOIN [SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId)
+JOIN [SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId)
+JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId);
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
@@ -686,7 +733,54 @@ SELECT
 	0,
 	1
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;
-INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
+INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity (
+	[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize],
+	[CategoryType]
+) 
+SELECT 
+	[WaveImpactAsphaltCoverWaveConditionsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	calc.'Order',
+	calc.Name,
+	calc.Comments,
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[UseForeshore],
+	[Orientation],
+	[UpperBoundaryRevetment],
+	[LowerBoundaryRevetment],
+	[UpperBoundaryWaterLevels],
+	[LowerBoundaryWaterLevels],
+	[StepSize],
+	CASE
+		WHEN [NormativeNormType] = 1 
+			THEN 2
+		ELSE 
+			1
+	END
+FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity calc
+JOIN [SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId)
+JOIN [SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId)
+JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId);
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
 /*
@@ -1161,15 +1255,16 @@ INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
 	[LowerBoundaryRevetment],
 	[UpperBoundaryWaterLevels],
 	[LowerBoundaryWaterLevels],
-	[StepSize])
+	[StepSize],
+	[CategoryType])
 SELECT
 	[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
 	[CalculationGroupEntityId],
 	[ForeshoreProfileEntityId],
 	lookup.HydraulicLocationEntityId,
-	[Order],
-	[Name],
-	[Comments],
+	calc.'Order',
+	calc.Name,
+	calc.Comments,
 	[UseBreakWater],
 	[BreakWaterType],
 	[BreakWaterHeight],
@@ -1179,9 +1274,18 @@ SELECT
 	[LowerBoundaryRevetment],
 	[UpperBoundaryWaterLevels],
 	[LowerBoundaryWaterLevels],
-	[StepSize]
+	[StepSize],
+	CASE
+		WHEN [NormativeNormType] = 1
+			THEN 2
+		ELSE
+			1
+	END
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity calc
-LEFT JOIN TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable lookup USING(GrassCoverErosionOutwardsHydraulicLocationEntityId);
+LEFT JOIN TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable lookup USING(GrassCoverErosionOutwardsHydraulicLocationEntityId)
+JOIN CalculationGroupEntity USING(CalculationGroupEntityId)
+JOIN FailureMechanismEntity USING(CalculationGroupEntityId)
+JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId);
 
 -- Cleanup
 DROP TABLE TempCalculationTypes;
