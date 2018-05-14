@@ -196,7 +196,8 @@ namespace Ringtoets.Common.Data.AssessmentSection
             }
         }
 
-        private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                        IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))?.Output?.Result
                    ?? RoundedDouble.NaN;

@@ -104,7 +104,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation, calculations);
         }
 
-        private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation, IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                        IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))?.Output?.Result
                    ?? RoundedDouble.NaN;

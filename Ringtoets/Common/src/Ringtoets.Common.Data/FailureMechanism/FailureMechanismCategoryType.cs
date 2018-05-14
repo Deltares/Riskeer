@@ -30,18 +30,18 @@ namespace Ringtoets.Common.Data.FailureMechanism
     public enum FailureMechanismCategoryType
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName))]
-        MechanismSpecificFactorizedSignalingNorm,
+        MechanismSpecificFactorizedSignalingNorm = 1,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName))]
-        MechanismSpecificSignalingNorm,
+        MechanismSpecificSignalingNorm = 2,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName))]
-        MechanismSpecificLowerLimitNorm,
+        MechanismSpecificLowerLimitNorm = 3,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName))]
-        LowerLimitNorm,
+        LowerLimitNorm = 4,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName))]
-        FactorizedLowerLimitNorm
+        FactorizedLowerLimitNorm = 5
     }
 }

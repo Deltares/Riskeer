@@ -30,15 +30,15 @@ namespace Ringtoets.Common.Data.AssessmentSection
     public enum AssessmentSectionCategoryType
     {
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName))]
-        FactorizedSignalingNorm,
+        FactorizedSignalingNorm = 1,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_SignalingNorm_DisplayName))]
-        SignalingNorm,
+        SignalingNorm = 2,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName))]
-        LowerLimitNorm,
+        LowerLimitNorm = 3,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName))]
-        FactorizedLowerLimitNorm
+        FactorizedLowerLimitNorm = 4
     }
 }
