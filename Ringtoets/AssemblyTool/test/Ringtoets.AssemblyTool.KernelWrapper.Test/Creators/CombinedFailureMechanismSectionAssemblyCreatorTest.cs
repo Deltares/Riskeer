@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
@@ -28,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -50,8 +50,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            var failureMechanism1 = new FailureMechanism(random.NextDouble(1, 2), random.NextDouble());
-            var failureMechanism2 = new FailureMechanism(random.NextDouble(1, 2), random.NextDouble());
 
             var sections = new[]
             {
@@ -62,25 +60,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var failureMechanismResults = new[]
             {
-                new FailureMechanismSectionList(failureMechanism1, new []
+                new FailureMechanismSectionList(new FailureMechanism(random.NextDouble(1, 2), random.NextDouble()), new[]
                 {
-                    new FmSectionWithDirectCategory(sections[0].Item1, sections[0].Item2, random.NextEnumValue<EFmSectionCategory>()),
-                    new FmSectionWithDirectCategory(sections[1].Item1, sections[1].Item2, random.NextEnumValue<EFmSectionCategory>()),
-                    new FmSectionWithDirectCategory(sections[2].Item1, sections[2].Item2, random.NextEnumValue<EFmSectionCategory>()),
+                    CreateCategory(sections[0], random),
+                    CreateCategory(sections[1], random),
+                    CreateCategory(sections[2], random)
                 }),
-                new FailureMechanismSectionList(failureMechanism2, new []
+                new FailureMechanismSectionList(new FailureMechanism(random.NextDouble(1, 2), random.NextDouble()), new[]
                 {
-                    new FmSectionWithDirectCategory(sections[0].Item1, sections[0].Item2, random.NextEnumValue<EFmSectionCategory>()),
-                    new FmSectionWithDirectCategory(sections[1].Item1, sections[1].Item2, random.NextEnumValue<EFmSectionCategory>()),
-                    new FmSectionWithDirectCategory(sections[2].Item1, sections[2].Item2, random.NextEnumValue<EFmSectionCategory>()),
+                    CreateCategory(sections[0], random),
+                    CreateCategory(sections[1], random),
+                    CreateCategory(sections[2], random)
                 })
             };
 
             var combinedResults = new[]
             {
-                new FmSectionWithDirectCategory(sections[0].Item1, sections[0].Item2, random.NextEnumValue<EFmSectionCategory>()),
-                new FmSectionWithDirectCategory(sections[1].Item1, sections[1].Item2, random.NextEnumValue<EFmSectionCategory>()),
-                new FmSectionWithDirectCategory(sections[2].Item1, sections[2].Item2, random.NextEnumValue<EFmSectionCategory>()),
+                CreateCategory(sections[0], random),
+                CreateCategory(sections[1], random),
+                CreateCategory(sections[2], random)
             };
 
             var assembly = new AssemblyResult(failureMechanismResults, combinedResults);
@@ -89,47 +87,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             CombinedFailureMechanismSectionAssembly[] results = CombinedFailureMechanismSectionAssemblyCreator.Create(assembly).ToArray();
 
             // Assert
-            Assert.AreEqual(3, results.Length);
-            for (var i = 0; i < results.Length; i++)
-            {
-                Assert.AreEqual(sections[i].Item1, results[i].Section.SectionStart);
-                Assert.AreEqual(sections[i].Item2, results[i].Section.SectionEnd);
-                Assert.AreEqual(GetResultGroup(combinedResults[i].Category), results[i].Section.CategoryGroup);
-                Assert.AreEqual(failureMechanismResults.Length, results[i].FailureMechanismResults.Count());
-
-                for (var j = 0; j < failureMechanismResults.Length; j++)
-                {
-                    FailureMechanismSectionAssemblyCategoryGroup expectedGroup = GetResultGroup(((FmSectionWithDirectCategory) failureMechanismResults[j].Results[i]).Category);
-                    Assert.AreEqual(expectedGroup, results[i].FailureMechanismResults.ElementAt(j));
-                }
-            }
+            CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(assembly, results);
         }
 
-        private static FailureMechanismSectionAssemblyCategoryGroup GetResultGroup(EFmSectionCategory combinedResult)
+        private static FmSectionWithDirectCategory CreateCategory(Tuple<double, double> section, Random random)
         {
-            switch (combinedResult)
-            {
-                case EFmSectionCategory.Iv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case EFmSectionCategory.IIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case EFmSectionCategory.IIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case EFmSectionCategory.IVv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case EFmSectionCategory.Vv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case EFmSectionCategory.VIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case EFmSectionCategory.VIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case EFmSectionCategory.Gr:
-                    return FailureMechanismSectionAssemblyCategoryGroup.None;
-                case EFmSectionCategory.NotApplicable:
-                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-                default:
-                    throw new NotSupportedException();
-            }
+            return new FmSectionWithDirectCategory(section.Item1, section.Item2, random.NextEnumValue<EFmSectionCategory>());
         }
     }
 }
