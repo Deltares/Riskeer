@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [TestCaseSource(nameof(DifferentNormTypes))]
+        [TestCaseSource(nameof(GetNormativeAssessementLevelConfigurationPerNormType))]
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -230,7 +230,50 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.AreEqual(expectedAssessmentLevel, assessmentLevel);
         }
 
-        private static IEnumerable DifferentNormTypes()
+        [Test]
+        public void GetNorm_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => AssessmentSectionExtensions.GetNorm(null,
+                                                                          AssessmentSectionCategoryType.FactorizedLowerLimitNorm);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void GetNorm_InvalidAssessmentSectionCategoryType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 9999;
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            // Call
+            TestDelegate test = () => assessmentSection.GetNorm((AssessmentSectionCategoryType) invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            Assert.AreEqual("categoryType", parameterName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetNormConfigurationPerAssessmentSectionCategoryType))]
+        public void GetNorm_AssessmentSectionWithNormDefinition_ReturnsCorrespondingNorm(
+            IAssessmentSection assessmentSection,
+            AssessmentSectionCategoryType categoryType,
+            double expectedNorm)
+        {
+            // Call
+            double norm = assessmentSection.GetNorm(categoryType);
+
+            // Assert
+            Assert.AreEqual(expectedNorm, norm);
+        }
+
+        private static IEnumerable GetNormativeAssessementLevelConfigurationPerNormType()
         {
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -253,6 +296,45 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
                 NormType.LowerLimit,
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
             ).SetName("LowerLimitNorm");
+        }
+
+        private static IEnumerable GetNormConfigurationPerAssessmentSectionCategoryType()
+        {
+            const double signalingNorm = 0.002;
+            const double lowerLimitNorm = 0.005;
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = lowerLimitNorm,
+                    SignalingNorm = signalingNorm
+                }
+            };
+
+            yield return new TestCaseData(
+                assessmentSection,
+                AssessmentSectionCategoryType.FactorizedSignalingNorm,
+                signalingNorm / 30
+            ).SetName("FactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                AssessmentSectionCategoryType.SignalingNorm,
+                signalingNorm
+            ).SetName("SignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                AssessmentSectionCategoryType.LowerLimitNorm,
+                lowerLimitNorm
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                lowerLimitNorm * 30
+            ).SetName("FactorizedLowerLimitNorm");
         }
     }
 }
