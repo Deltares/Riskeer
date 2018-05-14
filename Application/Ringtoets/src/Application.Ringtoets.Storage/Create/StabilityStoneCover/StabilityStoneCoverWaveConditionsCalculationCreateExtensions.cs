@@ -41,10 +41,15 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static StabilityStoneCoverWaveConditionsCalculationEntity Create(this StabilityStoneCoverWaveConditionsCalculation calculation,
                                                                                   PersistenceRegistry registry, int order)
         {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
@@ -57,33 +62,36 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
                 Comments = calculation.Comments.Body.DeepClone()
             };
 
-            SetInputParameters(entity, calculation, registry);
+            SetInputParameters(entity, calculation.InputParameters, registry);
             SetOutputEntities(entity, calculation);
 
             return entity;
         }
 
-        private static void SetInputParameters(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation, PersistenceRegistry registry)
+        private static void SetInputParameters(StabilityStoneCoverWaveConditionsCalculationEntity entity,
+                                               AssessmentSectionCategoryWaveConditionsInput calculationInput,
+                                               PersistenceRegistry registry)
         {
-            if (calculation.InputParameters.HydraulicBoundaryLocation != null)
+            if (calculationInput.HydraulicBoundaryLocation != null)
             {
-                entity.HydraulicLocationEntity = calculation.InputParameters.HydraulicBoundaryLocation.Create(registry, 0);
+                entity.HydraulicLocationEntity = calculationInput.HydraulicBoundaryLocation.Create(registry, 0);
             }
-            if (calculation.InputParameters.ForeshoreProfile != null)
+            if (calculationInput.ForeshoreProfile != null)
             {
-                entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
+                entity.ForeshoreProfileEntity = calculationInput.ForeshoreProfile.Create(registry, 0);
             }
 
-            entity.Orientation = calculation.InputParameters.Orientation;
-            entity.UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater);
-            entity.BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type;
-            entity.BreakWaterHeight = calculation.InputParameters.BreakWater.Height;
-            entity.UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore);
-            entity.UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment;
-            entity.LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment;
-            entity.UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels;
-            entity.LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels;
-            entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
+            entity.Orientation = calculationInput.Orientation.ToNaNAsNull();
+            entity.UseBreakWater = Convert.ToByte(calculationInput.UseBreakWater);
+            entity.BreakWaterType = Convert.ToByte(calculationInput.BreakWater.Type);
+            entity.BreakWaterHeight = calculationInput.BreakWater.Height.ToNaNAsNull();
+            entity.UseForeshore = Convert.ToByte(calculationInput.UseForeshore);
+            entity.UpperBoundaryRevetment = calculationInput.UpperBoundaryRevetment.ToNaNAsNull();
+            entity.LowerBoundaryRevetment = calculationInput.LowerBoundaryRevetment.ToNaNAsNull();
+            entity.UpperBoundaryWaterLevels = calculationInput.UpperBoundaryWaterLevels.ToNaNAsNull();
+            entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
+            entity.StepSize = Convert.ToByte(calculationInput.StepSize);
+            entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
         }
 
         private static void SetOutputEntities(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)
