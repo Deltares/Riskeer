@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
@@ -29,7 +28,9 @@ using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -41,59 +42,15 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest
     {
-        private static IEnumerable<TestCaseData> ValidWaveConditionsInputs
+        [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
         {
-            get
-            {
-                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueFSTrueStepSizeHalf");
-                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Dam, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueFSTrueStepSizeOne");
-                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Wall, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueFSTrueStepSizeTwo");
+            // Call
+            TestDelegate call = () => ((StabilityStoneCoverWaveConditionsCalculationEntity) null).Read(new ReadConversionCollector());
 
-                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Wall, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueFSFalseStepSizeHalf");
-                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Dam, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueFSFalseStepSizeOne");
-                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueFSFalseStepSizeTwo");
-
-                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseFSTrueStepSizeHalf");
-                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseFSTrueStepSizeOne");
-                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseFSTrueStepSizeTwo");
-
-                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseFSFalseStepSizeHalf");
-                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseFSFalseStepSizeOne");
-                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseFSFalseStepSizeTwo");
-
-                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesWTrueFSTrueStepSizeHalf");
-                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesWTrueFSTrueStepSizeOne");
-                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesWTrueFSTrueStepSizeTwo");
-
-                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesWTrueFSFalseStepSizeHalf");
-                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesWTrueFSFalseStepSizeOne");
-                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesWTrueFSFalseStepSizeTwo");
-
-                yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesWFalseFSTrueStepSizeHalf");
-                yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesWFalseFSFalseStepSizeOne");
-                yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesWFalseFSFalseStepSizeTwo");
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
         }
 
         [Test]
@@ -111,20 +68,31 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         }
 
         [Test]
-        [TestCaseSource(nameof(ValidWaveConditionsInputs))]
-        public void Read_ValidEntity_ReturnCalculation(
-            string name, string comments,
-            double orientation, bool useBreakWater, BreakWaterType breakWaterType, double breakWaterHeight, bool useForeshore, double lowerBoundaryRevetment,
-            double upperBoundaryRevetment, double lowerBoundaryWaterLevels,
-            double upperBoundaryWaterLevels, WaveConditionsInputStepSize stepSize)
+        public void Read_ValidEntity_ReturnCalculation()
         {
             // Setup
+            const string name = "Calculation Name";
+            const string comments = "Calculation Comment";
+
+            var random = new Random(21);
+            double orientation = random.NextDouble();
+            bool useBreakWater = random.NextBoolean();
+            var breakWaterType = random.NextEnumValue<BreakWaterType>();
+            double breakWaterHeight = random.NextDouble();
+            bool useForeshore = random.NextBoolean();
+            const double lowerBoundaryRevetment = 3.58;
+            const double upperBoundaryRevetment = 6.10;
+            const double lowerBoundaryWaterLevels = 3.40;
+            const double upperBoundaryWaterLevels = 5.88;
+            var stepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
+            var categoryType = random.NextEnumValue<AssessmentSectionCategoryType>();
+
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
                 Name = name,
                 Comments = comments,
                 UseBreakWater = Convert.ToByte(useBreakWater),
-                BreakWaterType = (byte) breakWaterType,
+                BreakWaterType = Convert.ToByte(breakWaterType),
                 BreakWaterHeight = breakWaterHeight,
                 UseForeshore = Convert.ToByte(useForeshore),
                 Orientation = orientation,
@@ -132,7 +100,8 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
-                StepSize = (byte) stepSize
+                StepSize = Convert.ToByte(stepSize),
+                CategoryType = Convert.ToByte(categoryType)
             };
 
             var collector = new ReadConversionCollector();
@@ -143,19 +112,45 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             // Assert
             Assert.AreEqual(name, calculation.Name);
             Assert.AreEqual(comments, calculation.Comments.Body);
-            Assert.AreEqual(useBreakWater, calculation.InputParameters.UseBreakWater);
-            Assert.AreEqual(breakWaterType, calculation.InputParameters.BreakWater.Type);
-            AssertRoundedDouble(breakWaterHeight, calculation.InputParameters.BreakWater.Height);
-            Assert.AreEqual(useForeshore, calculation.InputParameters.UseForeshore);
-            AssertRoundedDouble(orientation, calculation.InputParameters.Orientation);
-            AssertRoundedDouble(upperBoundaryRevetment, calculation.InputParameters.UpperBoundaryRevetment);
-            AssertRoundedDouble(lowerBoundaryRevetment, calculation.InputParameters.LowerBoundaryRevetment);
-            AssertRoundedDouble(upperBoundaryWaterLevels, calculation.InputParameters.UpperBoundaryWaterLevels);
-            AssertRoundedDouble(lowerBoundaryWaterLevels, calculation.InputParameters.LowerBoundaryWaterLevels);
-            Assert.AreEqual(stepSize, calculation.InputParameters.StepSize);
 
-            Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
+            AssessmentSectionCategoryWaveConditionsInput calculationInput = calculation.InputParameters;
+            Assert.AreEqual(useBreakWater, calculationInput.UseBreakWater);
+            Assert.AreEqual(breakWaterType, calculationInput.BreakWater.Type);
+            AssertRoundedDouble(breakWaterHeight, calculationInput.BreakWater.Height);
+            Assert.AreEqual(useForeshore, calculationInput.UseForeshore);
+            AssertRoundedDouble(orientation, calculationInput.Orientation);
+            AssertRoundedDouble(upperBoundaryRevetment, calculationInput.UpperBoundaryRevetment);
+            AssertRoundedDouble(lowerBoundaryRevetment, calculationInput.LowerBoundaryRevetment);
+            AssertRoundedDouble(upperBoundaryWaterLevels, calculationInput.UpperBoundaryWaterLevels);
+            AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
+            Assert.AreEqual(stepSize, calculationInput.StepSize);
+            Assert.AreEqual(categoryType, calculationInput.CategoryType);
+        }
+
+        [Test]
+        public void Read_EntityWithNullValues_ReturnCalculationWithNaNValues()
+        {
+            // Setup
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity();
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNull(calculation.Name);
+            Assert.IsNull(calculation.Comments.Body);
+
+            AssessmentSectionCategoryWaveConditionsInput calculationInput = calculation.InputParameters;
+            Assert.IsNaN(calculationInput.BreakWater.Height);
+            Assert.IsNaN(calculationInput.Orientation);
+            Assert.IsNaN(calculationInput.UpperBoundaryRevetment);
+            Assert.IsNaN(calculationInput.LowerBoundaryRevetment);
+            Assert.IsNaN(calculationInput.UpperBoundaryWaterLevels);
+            Assert.IsNaN(calculationInput.LowerBoundaryWaterLevels);
+
+            Assert.IsNull(calculationInput.HydraulicBoundaryLocation);
+            Assert.IsNull(calculationInput.ForeshoreProfile);
             Assert.IsNull(calculation.Output);
         }
 

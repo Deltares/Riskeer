@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Revetment.Data;
@@ -45,9 +46,14 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
         /// to create <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static StabilityStoneCoverWaveConditionsCalculation Read(this StabilityStoneCoverWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -67,7 +73,9 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
             return calculation;
         }
 
-        private static void ReadCalculationInputs(WaveConditionsInput inputParameters, StabilityStoneCoverWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadCalculationInputs(AssessmentSectionCategoryWaveConditionsInput inputParameters, 
+                                                  StabilityStoneCoverWaveConditionsCalculationEntity entity, 
+                                                  ReadConversionCollector collector)
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
             inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
@@ -81,6 +89,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
             inputParameters.UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
+            inputParameters.CategoryType = (AssessmentSectionCategoryType) entity.CategoryType;
         }
 
         private static void ReadCalculationOutputs(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)
