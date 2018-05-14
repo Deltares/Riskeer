@@ -607,9 +607,9 @@ SELECT
 	[StepSize],
 	CASE
 		WHEN [NormativeNormType] = 1 
-			THEN 2
+			THEN 3
 		ELSE 
-			1
+			2
 	END
 FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity calc
 JOIN [SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId)
@@ -773,9 +773,9 @@ SELECT
 	[StepSize],
 	CASE
 		WHEN [NormativeNormType] = 1 
-			THEN 2
+			THEN 3
 		ELSE 
-			1
+			2
 	END
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity calc
 JOIN [SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId)
@@ -1277,9 +1277,9 @@ SELECT
 	[StepSize],
 	CASE
 		WHEN [NormativeNormType] = 1
-			THEN 2
+			THEN 3
 		ELSE
-			1
+			2
 	END
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity calc
 LEFT JOIN TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable lookup USING(GrassCoverErosionOutwardsHydraulicLocationEntityId)
