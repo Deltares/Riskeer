@@ -114,8 +114,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup actualCategoryGroup =
                     FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(kernel.FmSectionAssemblyResultsInput.Single().Result);
-                Assert.AreEqual(categoryGroups.Single(),
-                                actualCategoryGroup);
+                Assert.AreEqual(categoryGroups.Single(), actualCategoryGroup);
                 Assert.IsFalse(kernel.PartialAssembly);
             }
         }
@@ -137,8 +136,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     new List<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Assert
-                Assert.AreEqual(FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(kernel.FailureMechanismCategoryResult),
-                                category);
+                FailureMechanismAssemblyCategoryGroup expectedCategory = FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(kernel.FailureMechanismCategoryResult);
+                Assert.AreEqual(expectedCategory, category);
             }
         }
 
@@ -262,8 +261,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                         CreateAssemblyCategoriesInput());
 
                 // Assert
-                Assert.AreEqual(FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(kernel.FailureMechanismAssemblyResult.Category),
-                                assembly.Group);
+                FailureMechanismAssemblyCategoryGroup expectedGroup = FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(kernel.FailureMechanismAssemblyResult.Category);
+                Assert.AreEqual(expectedGroup, assembly.Group);
                 Assert.AreEqual(kernel.FailureMechanismAssemblyResult.FailureProbability, assembly.Probability);
             }
         }
@@ -319,8 +318,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         private static void AssertCalculatorOutput(FailureMechanismSectionAssembly expectedSectionAssembly,
                                                    FmSectionAssemblyDirectResult actualResult)
         {
-            Assert.AreEqual(expectedSectionAssembly.Group,
-                            FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(actualResult.Result));
+            FailureMechanismSectionAssemblyCategoryGroup actualGroup = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(actualResult.Result);
+            Assert.AreEqual(expectedSectionAssembly.Group, actualGroup);
             Assert.AreEqual(expectedSectionAssembly.Probability, actualResult.FailureProbability);
         }
 

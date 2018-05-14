@@ -109,7 +109,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.AssessmentSectionInput.FailureProbabilitySignallingLimit);
         }
 
-        private AssemblyCategoriesInput CreateAssemblyCategoriesInput()
+        private static AssemblyCategoriesInput CreateAssemblyCategoriesInput()
         {
             var random = new Random(39);
             return new AssemblyCategoriesInput(random.NextDouble(1.0, 5.0),
@@ -160,8 +160,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleSimpleAssessment(assessmentResult);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1(assessmentResult),
-                                kernel.AssessmentResultTypeE1Input);
+                EAssessmentResultTypeE1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1(assessmentResult);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeE1Input);
             }
         }
 
@@ -275,8 +275,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleSimpleAssessment(assessmentResult);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(assessmentResult),
-                                kernel.AssessmentResultTypeE2Input);
+                EAssessmentResultTypeE2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(assessmentResult);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeE2Input);
             }
         }
 
@@ -393,8 +393,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleDetailedAssessment(detailedAssessmentResult);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(detailedAssessmentResult),
-                                kernel.AssessmentResultTypeG1Input);
+                EAssessmentResultTypeG1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(detailedAssessmentResult);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG1Input);
             }
         }
 
@@ -522,10 +522,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     assemblyCategoriesInput);
 
                 // Assert
+                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment),
-                                kernel.AssessmentResultTypeG2Input);
-
+                
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
             }
         }
@@ -694,8 +694,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment),
-                                kernel.AssessmentResultTypeG2Input);
+                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
             }
         }
@@ -1029,8 +1029,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(tailorMadeAssessmentResult),
-                                kernel.AssessmentResultTypeT1Input);
+                EAssessmentResultTypeT1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(tailorMadeAssessmentResult);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT1Input);
             }
         }
 
@@ -1155,8 +1155,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, assemblyCategoriesInput);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult),
-                                kernel.AssessmentResultTypeT4Input);
+                EAssessmentResultTypeT4 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT4Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
             }
@@ -1316,8 +1316,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, assemblyCategoriesInput);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
-                                kernel.AssessmentResultTypeT3Input);
+                EAssessmentResultTypeT3 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT3Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);
             }
@@ -1479,8 +1479,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, n, assemblyCategoriesInput);
 
                 // Assert
-                Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
-                                kernel.AssessmentResultTypeT3Input);
+                EAssessmentResultTypeT3 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult);
+                Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT3Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput, kernel);

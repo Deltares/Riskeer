@@ -157,8 +157,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 AssessmentSectionAssemblyResult expectedResult = kernel.AssessmentSectionAssemblyResult;
+                AssessmentSectionAssemblyCategoryGroup expectedGroup = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(expectedResult.Category);
                 Assert.AreEqual(expectedResult.FailureProbability, assembly.Probability);
-                Assert.AreEqual(AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(expectedResult.Category), assembly.Group);
+                Assert.AreEqual(expectedGroup, assembly.Group);
             }
         }
 
@@ -292,7 +293,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 AssessmentSectionAssemblyCategoryGroup assembly = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssemblyCategoryGroup>());
 
                 // Assert
-                Assert.AreEqual(AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentGradeResult), assembly);
+                AssessmentSectionAssemblyCategoryGroup expectedAssembly = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentGradeResult);
+                Assert.AreEqual(expectedAssembly, assembly);
             }
         }
 
@@ -429,7 +431,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                                                        failureMechanismsWithProbability);
 
                 // Assert
-                Assert.AreEqual(AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentGradeResult), assembly);
+                AssessmentSectionAssemblyCategoryGroup expectedAssembly = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentGradeResult);
+                Assert.AreEqual(expectedAssembly, assembly);
             }
         }
 
