@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var random = new Random(21);
-            const int order = 1234;
+            int order = random.Next();
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -77,6 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
                 {
                     Orientation = random.NextRoundedDouble(0, 360),
                     UseBreakWater = random.NextBoolean(),
+                    UseForeshore = random.NextBoolean(),
                     UpperBoundaryRevetment = (RoundedDouble) 6.10,
                     LowerBoundaryRevetment = (RoundedDouble) 3.58,
                     UpperBoundaryWaterLevels = (RoundedDouble) 5.88,
@@ -93,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             FailureMechanismCategoryWaveConditionsInput input = calculation.InputParameters;
-            Assert.AreEqual(input.Orientation.Value, entity.Orientation);
+            Assert.AreEqual(input.Orientation, entity.Orientation, input.Orientation.GetAccuracy());
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
             Assert.AreEqual(input.UpperBoundaryRevetment, entity.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());

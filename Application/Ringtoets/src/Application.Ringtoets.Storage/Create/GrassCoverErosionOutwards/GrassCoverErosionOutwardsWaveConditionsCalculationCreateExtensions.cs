@@ -63,40 +63,41 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
                 Comments = calculation.Comments.Body.DeepClone()
             };
 
-            SetInputParameters(entity, calculation, registry);
+            SetInputParameters(entity, calculation.InputParameters, registry);
             SetOutputEntities(entity, calculation);
 
             return entity;
         }
 
         private static void SetInputParameters(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, 
-                                               GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                               FailureMechanismCategoryWaveConditionsInput calculationInput,
                                                PersistenceRegistry registry)
         {
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = calculation.InputParameters.HydraulicBoundaryLocation;
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = calculationInput.HydraulicBoundaryLocation;
             if (hydraulicBoundaryLocation != null)
             {
                 entity.HydraulicLocationEntity = registry.Get(hydraulicBoundaryLocation);
             }
-            if (calculation.InputParameters.ForeshoreProfile != null)
+            if (calculationInput.ForeshoreProfile != null)
             {
-                entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
+                entity.ForeshoreProfileEntity = calculationInput.ForeshoreProfile.Create(registry, 0);
             }
 
-            entity.Orientation = calculation.InputParameters.Orientation.ToNaNAsNull();
-            entity.UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater);
-            entity.BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type;
-            entity.BreakWaterHeight = calculation.InputParameters.BreakWater.Height.ToNaNAsNull();
-            entity.UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore);
-            entity.UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment.ToNaNAsNull();
-            entity.LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment.ToNaNAsNull();
-            entity.UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels.ToNaNAsNull();
-            entity.LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels.ToNaNAsNull();
-            entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
-            entity.CategoryType = Convert.ToByte(calculation.InputParameters.CategoryType);
+            entity.Orientation = calculationInput.Orientation.ToNaNAsNull();
+            entity.UseBreakWater = Convert.ToByte(calculationInput.UseBreakWater);
+            entity.BreakWaterType = (byte) calculationInput.BreakWater.Type;
+            entity.BreakWaterHeight = calculationInput.BreakWater.Height.ToNaNAsNull();
+            entity.UseForeshore = Convert.ToByte(calculationInput.UseForeshore);
+            entity.UpperBoundaryRevetment = calculationInput.UpperBoundaryRevetment.ToNaNAsNull();
+            entity.LowerBoundaryRevetment = calculationInput.LowerBoundaryRevetment.ToNaNAsNull();
+            entity.UpperBoundaryWaterLevels = calculationInput.UpperBoundaryWaterLevels.ToNaNAsNull();
+            entity.LowerBoundaryWaterLevels = calculationInput.LowerBoundaryWaterLevels.ToNaNAsNull();
+            entity.StepSize = Convert.ToByte(calculationInput.StepSize);
+            entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
         }
 
-        private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, 
+                                              GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
             if (calculation.HasOutput)
             {
