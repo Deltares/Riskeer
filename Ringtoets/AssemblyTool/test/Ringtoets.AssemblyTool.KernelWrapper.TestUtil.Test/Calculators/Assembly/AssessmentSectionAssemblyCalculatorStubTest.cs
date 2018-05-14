@@ -275,7 +275,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Call
             CombinedFailureMechanismSectionAssembly[] output =
                 calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
-                                                                    new Random(21).Next()).ToArray();
+                                                                    new Random(21).NextDouble()).ToArray();
 
             // Assert
             var expectedOutput = new[]
@@ -315,7 +315,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             // Call
             IEnumerable<CombinedFailureMechanismSectionAssembly> output =
                 calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
-                                                                    random.Next());
+                                                                    random.NextDouble());
 
             // Assert
             Assert.AreSame(calculator.CombinedFailureMechanismSectionAssemblyOutput, output);
@@ -326,7 +326,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         {
             // Setup
             IEnumerable<CombinedAssemblyFailureMechanismInput> failureMechanismSections = Enumerable.Empty<CombinedAssemblyFailureMechanismInput>();
-            int assessmentSectionLength = new Random(21).Next();
+            double assessmentSectionLength = new Random(21).NextDouble();
             var calculator = new AssessmentSectionAssemblyCalculatorStub();
 
             // Call
@@ -348,7 +348,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             TestDelegate call = () => calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
-                                                                                          new Random(21).Next());
+                                                                                          new Random(21).NextDouble());
 
             // Assert
             var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(call);
