@@ -48,6 +48,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
         FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
-                                                          AssemblyCategoriesInput assemblyCategoriesInput);
+                                          AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }
