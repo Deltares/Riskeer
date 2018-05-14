@@ -125,6 +125,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             AssertRoundedDouble(lowerBoundaryWaterLevels, calculationInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(stepSize, calculationInput.StepSize);
             Assert.AreEqual(categoryType, calculationInput.CategoryType);
+
+            Assert.IsNull(calculationInput.HydraulicBoundaryLocation);
+            Assert.IsNull(calculationInput.ForeshoreProfile);
+            Assert.IsNull(calculation.Output);
         }
 
         [Test]
