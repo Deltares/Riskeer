@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -51,25 +52,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            var failureMechanism = new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+            var combinedAssemblyFailureMechanismInputs = new[]
             {
-                new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
-                new CombinedAssemblyFailureMechanismSection(1, 2, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-            });
+                new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                {
+                    new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
+                    new CombinedAssemblyFailureMechanismSection(1, 2, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                })
+            };
 
             // Call
-            FailureMechanismSectionList[] failureMechanismSectionLists = FailureMechanismSectionListCreator.Create(new[]
-            {
-                failureMechanism
-            }).ToArray();
+            FailureMechanismSectionList[] failureMechanismSectionLists = FailureMechanismSectionListCreator.Create(combinedAssemblyFailureMechanismInputs).ToArray();
 
             // Assert
-            Assert.AreEqual(1, failureMechanismSectionLists.Length);
-            FailureMechanismSectionList sectionList = failureMechanismSectionLists[0];
-            Assert.AreEqual(failureMechanism.N, sectionList.FailureMechanism.LengthEffectFactor);
-            Assert.AreEqual(failureMechanism.FailureMechanismContribution, sectionList.FailureMechanism.FailureProbabilityMarginFactor);
-
-            AssertSections(failureMechanism.Sections.ToArray(), sectionList.Results.ToArray());
+            CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(combinedAssemblyFailureMechanismInputs, failureMechanismSectionLists);
         }
 
         [Test]
@@ -118,44 +114,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             Assert.AreEqual(expectedGroup, ((FmSectionWithDirectCategory) output.First().Results.First()).Category);
-        }
-
-        private static void AssertSections(CombinedAssemblyFailureMechanismSection[] originalSections, FmSectionWithCategory[] fmSectionWithCategories)
-        {
-            Assert.AreEqual(originalSections.Length, fmSectionWithCategories.Length);
-            Assert.IsTrue(fmSectionWithCategories.All(r => r.GetType() == typeof(FmSectionWithDirectCategory)));
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), fmSectionWithCategories.Select(r => r.SectionStart));
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), fmSectionWithCategories.Select(r => r.SectionEnd));
-            CollectionAssert.AreEqual(originalSections.Select(s => ConvertCategoryGroup(s.CategoryGroup)),
-                                      fmSectionWithCategories.Select(r => (FmSectionWithDirectCategory) r)
-                                                             .Select(category => category.Category));
-        }
-
-        private static EFmSectionCategory ConvertCategoryGroup(FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
-        {
-            switch (categoryGroup)
-            {
-                case FailureMechanismSectionAssemblyCategoryGroup.None:
-                    return EFmSectionCategory.Gr;
-                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                    return EFmSectionCategory.NotApplicable;
-                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return EFmSectionCategory.Iv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return EFmSectionCategory.IIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return EFmSectionCategory.IIIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return EFmSectionCategory.IVv;
-                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return EFmSectionCategory.Vv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return EFmSectionCategory.VIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                    return EFmSectionCategory.VIIv;
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }
