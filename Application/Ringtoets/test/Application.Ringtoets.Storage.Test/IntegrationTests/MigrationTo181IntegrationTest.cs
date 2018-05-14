@@ -97,7 +97,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     AssertStabilityPointStructuresOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
-                    AssertGrassCoverErosionOutwardsWaveConditionsCalculationEntity(reader, sourceFilePath);
 
                     AssertHeightStructuresSectionResultEntity(reader, sourceFilePath);
                     AssertClosingStructuresSectionResultEntity(reader, sourceFilePath);
@@ -723,281 +722,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
-        }
-
-        private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculationEntity(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            string validateMetaEntity =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity) " +
-                "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
-                "LEFT JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId) " +
-                "JOIN ( " +
-                "SELECT " +
-                "[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId], " +
-                "[LocationId], " +
-                "[AssessmentSectionEntityId], " +
-                "calc.CalculationGroupEntityId, " +
-                "[ForeshoreProfileEntityId], " +
-                "calc.'Order', " +
-                "calc.Name, " +
-                "[Comments], " +
-                "[UseBreakWater], " +
-                "[BreakWaterType], " +
-                "[BreakWaterHeight], " +
-                "[UseForeshore], " +
-                "[Orientation], " +
-                "[UpperBoundaryRevetment], " +
-                "[LowerBoundaryRevetment], " +
-                "[UpperBoundaryWaterLevels], " +
-                "[LowerBoundaryWaterLevels], " +
-                "[StepSize] " +
-                "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity calc " +
-                "LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
-                "LEFT JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
-                ") OLD USING (GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
-                "WHERE OLD.LocationId IS hl.LocationId " +
-                "AND OLD.AssessmentSectionEntityId IS hl.AssessmentSectionEntityId " +
-                "AND OLD.CalculationGroupEntityId = NEW.CalculationGroupEntityId " +
-                "AND OLD.ForeshoreProfileEntityId IS NEW.ForeshoreProfileEntityId " +
-                "AND OLD.'Order' = NEW.'Order' " +
-                "AND OLD.Name IS NEW.Name " +
-                "AND OLD.Comments IS NEW.Comments " +
-                "AND OLD.UseBreakWater = NEW.UseBreakWater " +
-                "AND OLD.BreakWaterType = NEW.BreakWaterType " +
-                "AND OLD.BreakWaterHeight IS NEW.BreakWaterHeight " +
-                "AND OLD.UseForeshore = NEW.UseForeshore " +
-                "AND OLD.Orientation IS NEW.Orientation " +
-                "AND OLD.UpperBoundaryRevetment IS NEW.UpperBoundaryRevetment " +
-                "AND OLD.LowerBoundaryRevetment IS NEW.LowerBoundaryRevetment " +
-                "AND OLD.UpperBoundaryWaterLevels IS NEW.UpperBoundaryWaterLevels " +
-                "AND OLD.LowerBoundaryWaterLevels IS NEW.LowerBoundaryWaterLevels " +
-                "AND OLD.StepSize = New.StepSize; " +
-                "DETACH DATABASE SOURCEPROJECT;";
-
-            reader.AssertReturnedDataIsValid(validateMetaEntity);
-        }
-
-        private static void AssertWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            var queryGenerator = new WaveConditionsCalculationValidationQueryGenerator(sourceFilePath);
-
-            reader.AssertReturnedDataIsValid(queryGenerator.GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType.SignalingNorm));
-
-            reader.AssertReturnedDataIsValid(queryGenerator.GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType.SignalingNorm));
-
-            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType.LowerLimitNorm));
-            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType.SignalingNorm));
-        }
-
-        /// <summary>
-        /// Class to generate queries which can be used if the wave conditions calculations
-        /// are correctly migrated.
-        /// </summary>
-        private class WaveConditionsCalculationValidationQueryGenerator
-        {
-            private readonly string sourceFilePath;
-
-            /// <summary>
-            /// Creates a new instance of <see cref="WaveConditionsCalculationValidationQueryGenerator"/>.
-            /// </summary>
-            /// <param name="sourceFilePath">The file path of the original database.</param>
-            /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFilePath"/>
-            /// is <c>null</c> or empty.</exception>
-            public WaveConditionsCalculationValidationQueryGenerator(string sourceFilePath)
-            {
-                if (string.IsNullOrWhiteSpace(sourceFilePath))
-                {
-                    throw new ArgumentException(@"Sourcefile path cannot be null or empty",
-                                                nameof(sourceFilePath));
-                }
-
-                this.sourceFilePath = sourceFilePath;
-            }
-
-            /// <summary>
-            /// Generates a query to validate if the grass cover erosion outwards calculations are migrated correctly.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the grass cover erosion outwards calculations.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
-            public string GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType normType)
-            {
-                FailureMechanismCategoryType categoryType = ConvertToFailureMechanismCategoryType(normType);
-
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT  " +
-                       "COUNT() = " +
-                       "(" +
-                       "SELECT COUNT() " +
-                       "FROM[SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity " +
-                       "JOIN[SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId) " +
-                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId) " +
-                       "JOIN[SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE NormativeNormType = {(int) normType}" +
-                       ") " +
-                       "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
-                       "JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity OLD USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
-                       GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
-                       $"AND NEW.CategoryType = {(int) categoryType}; " +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
-            /// Generates a query to validate if the stability stone cover calculations are migrated correctly.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the migrated stability stone cover calculations.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
-            public string GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType normType)
-            {
-                AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
-
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT  " +
-                       "COUNT() = " +
-                       "(" +
-                       "SELECT COUNT() " +
-                       "FROM[SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity " +
-                       "JOIN[SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId) " +
-                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId) " +
-                       "JOIN[SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE NormativeNormType = {(int) normType}" +
-                       ") " +
-                       "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW " +
-                       "JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
-                       GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
-                       "AND NEW.HydraulicLocationEntityId IS OLD.HydraulicLocationEntityId " +
-                       $"AND NEW.CategoryType = {(int) categoryType}; " +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
-            /// Generates a query to validate if the stability stone cover calculations are migrated correctly.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the migrated stability stone cover calculations.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
-            public string GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType normType)
-            {
-                AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
-
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT  " +
-                       "COUNT() = " +
-                       "(" +
-                       "SELECT COUNT() " +
-                       "FROM[SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity " +
-                       "JOIN[SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId) " +
-                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId) " +
-                       "JOIN[SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE NormativeNormType = {(int) normType}" +
-                       ") " +
-                       "FROM WaveImpactAsphaltCoverWaveConditionsCalculationEntity NEW " +
-                       "JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity OLD USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId) " +
-                       GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
-                       "AND NEW.HydraulicLocationEntityId IS OLD.HydraulicLocationEntityId " +
-                       $"AND NEW.CategoryType = {(int) categoryType}; " +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
-            /// </summary>
-            /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
-            private static FailureMechanismCategoryType ConvertToFailureMechanismCategoryType(NormativeNormType normType)
-            {
-                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
-                {
-                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
-                }
-
-                FailureMechanismCategoryType categoryType;
-                switch (normType)
-                {
-                    case NormativeNormType.SignalingNorm:
-                        categoryType = FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
-                        break;
-                    case NormativeNormType.LowerLimitNorm:
-                        categoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
-
-                return categoryType;
-            }
-
-            private static string GetCommonWaveConditionsCalculationPropertiesValidationString(NormativeNormType normType)
-            {
-                return "JOIN CalculationGroupEntity USING(CalculationGroupEntityId) " +
-                       "JOIN FailureMechanismEntity USING(CalculationGroupEntityId) " +
-                       "JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)" +
-                       $"WHERE NormativeNormType = {(int) normType} " +
-                       "AND NEW.CalculationGroupEntityId = OLD.CalculationGroupEntityId " +
-                       "AND NEW.ForeshoreProfileEntityId IS OLD.ForeshoreProfileEntityId " +
-                       "AND NEW.\"Order\" = OLD.\"Order\" " +
-                       "AND NEW.Name IS OLD.Name " +
-                       "AND NEW.Comments IS OLD.Comments " +
-                       "AND NEW.UseBreakWater = OLD.UseBreakWater " +
-                       "AND NEW.BreakWaterType = OLD.BreakWaterType " +
-                       "AND NEW.BreakWaterHeight IS OLD.BreakWaterHeight " +
-                       "AND NEW.UseForeshore = OLD.UseForeshore " +
-                       "AND NEW.Orientation IS OLD.Orientation " +
-                       "AND NEW.UpperBoundaryRevetment IS OLD.UpperBoundaryRevetment " +
-                       "AND NEW.LowerBoundaryRevetment IS OLD.LowerBoundaryRevetment " +
-                       "AND NEW.UpperBoundaryWaterLevels IS OLD.UpperBoundaryWaterLevels " +
-                       "AND NEW.LowerBoundaryWaterLevels IS OLD.LowerBoundaryWaterLevels " +
-                       "AND NEW.StepSize = OLD.StepSize ";
-            }
-
-            /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="AssessmentSectionCategoryType"/>.
-            /// </summary>
-            /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="AssessmentSectionCategoryType"/>.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
-            private static AssessmentSectionCategoryType ConvertToAssessmentSectionCategoryType(NormativeNormType normType)
-            {
-                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
-                {
-                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
-                }
-
-                AssessmentSectionCategoryType categoryType;
-                switch (normType)
-                {
-                    case NormativeNormType.SignalingNorm:
-                        categoryType = AssessmentSectionCategoryType.SignalingNorm;
-                        break;
-                    case NormativeNormType.LowerLimitNorm:
-                        categoryType = AssessmentSectionCategoryType.LowerLimitNorm;
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
-
-                return categoryType;
-            }
         }
 
         #region Failure Mechanism Section Result Entities
@@ -2145,6 +1869,260 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     default:
                         throw new NotSupportedException();
                 }
+            }
+        }
+
+        #endregion
+
+        #region Migrated Wave Condition Calculations
+
+        private static void AssertWaveConditionsCalculations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            var queryGenerator = new WaveConditionsCalculationValidationQueryGenerator(sourceFilePath);
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType.SignalingNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType.SignalingNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType.LowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType.SignalingNorm));
+        }
+
+        /// <summary>
+        /// Class to generate queries which can be used if the wave conditions calculations
+        /// are correctly migrated.
+        /// </summary>
+        private class WaveConditionsCalculationValidationQueryGenerator
+        {
+            private readonly string sourceFilePath;
+
+            /// <summary>
+            /// Creates a new instance of <see cref="ArgumentException.WaveConditionsCalculationValidationQueryGenerator"/>.
+            /// </summary>
+            /// <param name="sourceFilePath">The file path of the original database.</param>
+            /// <exception cref="Application.Ringtoets">Thrown when <paramref name="sourceFilePath"/>
+            /// is <c>null</c> or empty.</exception>
+            public WaveConditionsCalculationValidationQueryGenerator(string sourceFilePath)
+            {
+                if (string.IsNullOrWhiteSpace(sourceFilePath))
+                {
+                    throw new ArgumentException(@"Sourcefile path cannot be null or empty",
+                                                nameof(sourceFilePath));
+                }
+
+                this.sourceFilePath = sourceFilePath;
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the grass cover erosion outwards calculations are migrated correctly.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the grass cover erosion outwards calculations.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType normType)
+            {
+                FailureMechanismCategoryType categoryType = ConvertToFailureMechanismCategoryType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() = " +
+                       "(" +
+                       "SELECT COUNT() " +
+                       "FROM[SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity " +
+                       "JOIN[SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId) " +
+                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId) " +
+                       "JOIN[SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
+                       $"WHERE NormativeNormType = {(int) normType}" +
+                       ") " +
+                       "FROM GrassCoverErosionOutwardsWaveConditionsCalculationEntity NEW " +
+                       "JOIN CalculationGroupEntity USING(CalculationGroupEntityId) " +
+                       "JOIN FailureMechanismEntity USING(CalculationGroupEntityId) " +
+                       "JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
+                       "LEFT JOIN HydraulicLocationEntity hl USING(HydraulicLocationEntityId) " +
+                       "JOIN ( " +
+                       "SELECT " +
+                       "[GrassCoverErosionOutwardsWaveConditionsCalculationEntityId], " +
+                       "[LocationId], " +
+                       "[AssessmentSectionEntityId], " +
+                       "calc.CalculationGroupEntityId, " +
+                       "[ForeshoreProfileEntityId], " +
+                       "calc.'Order', " +
+                       "calc.Name, " +
+                       "[Comments], " +
+                       "[UseBreakWater], " +
+                       "[BreakWaterType], " +
+                       "[BreakWaterHeight], " +
+                       "[UseForeshore], " +
+                       "[Orientation], " +
+                       "[UpperBoundaryRevetment], " +
+                       "[LowerBoundaryRevetment], " +
+                       "[UpperBoundaryWaterLevels], " +
+                       "[LowerBoundaryWaterLevels], " +
+                       "[StepSize] " +
+                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity calc " +
+                       "LEFT JOIN [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity USING(GrassCoverErosionOutwardsHydraulicLocationEntityId) " +
+                       "LEFT JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       ") OLD USING(GrassCoverErosionOutwardsWaveConditionsCalculationEntityId) " +
+                       GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
+                       "AND OLD.LocationId IS hl.LocationId " +
+                       $"AND NEW.CategoryType = {(int) categoryType}; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the stability stone cover calculations are migrated correctly.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the migrated stability stone cover calculations.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType normType)
+            {
+                AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() = " +
+                       "(" +
+                       "SELECT COUNT() " +
+                       "FROM[SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity " +
+                       "JOIN[SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId) " +
+                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId) " +
+                       "JOIN[SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
+                       $"WHERE NormativeNormType = {(int) normType}" +
+                       ") " +
+                       "FROM StabilityStoneCoverWaveConditionsCalculationEntity NEW " +
+                       "JOIN [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity OLD USING(StabilityStoneCoverWaveConditionsCalculationEntityId) " +
+                       GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
+                       "AND NEW.HydraulicLocationEntityId IS OLD.HydraulicLocationEntityId " +
+                       $"AND NEW.CategoryType = {(int) categoryType}; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the stability stone cover calculations are migrated correctly.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the migrated stability stone cover calculations.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType normType)
+            {
+                AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
+
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() = " +
+                       "(" +
+                       "SELECT COUNT() " +
+                       "FROM[SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity " +
+                       "JOIN[SOURCEPROJECT].CalculationGroupEntity USING(CalculationGroupEntityId) " +
+                       "JOIN[SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId) " +
+                       "JOIN[SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
+                       $"WHERE NormativeNormType = {(int) normType}" +
+                       ") " +
+                       "FROM WaveImpactAsphaltCoverWaveConditionsCalculationEntity NEW " +
+                       "JOIN [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity OLD USING(WaveImpactAsphaltCoverWaveConditionsCalculationEntityId) " +
+                       GetCommonWaveConditionsCalculationPropertiesValidationString(normType) +
+                       "AND NEW.HydraulicLocationEntityId IS OLD.HydraulicLocationEntityId " +
+                       $"AND NEW.CategoryType = {(int) categoryType}; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but is unsupported.</exception>
+            private static FailureMechanismCategoryType ConvertToFailureMechanismCategoryType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                FailureMechanismCategoryType categoryType;
+                switch (normType)
+                {
+                    case NormativeNormType.SignalingNorm:
+                        categoryType = FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                        break;
+                    case NormativeNormType.LowerLimitNorm:
+                        categoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+
+                return categoryType;
+            }
+
+            private static string GetCommonWaveConditionsCalculationPropertiesValidationString(NormativeNormType normType)
+            {
+                return "JOIN CalculationGroupEntity USING(CalculationGroupEntityId) " +
+                       "JOIN FailureMechanismEntity USING(CalculationGroupEntityId) " +
+                       "JOIN AssessmentSectionEntity ase USING(AssessmentSectionEntityId)" +
+                       $"WHERE ase.NormativeNormType = {(int) normType} " +
+                       "AND NEW.CalculationGroupEntityId = OLD.CalculationGroupEntityId " +
+                       "AND NEW.ForeshoreProfileEntityId IS OLD.ForeshoreProfileEntityId " +
+                       "AND NEW.\"Order\" = OLD.\"Order\" " +
+                       "AND NEW.Name IS OLD.Name " +
+                       "AND NEW.Comments IS OLD.Comments " +
+                       "AND NEW.UseBreakWater = OLD.UseBreakWater " +
+                       "AND NEW.BreakWaterType = OLD.BreakWaterType " +
+                       "AND NEW.BreakWaterHeight IS OLD.BreakWaterHeight " +
+                       "AND NEW.UseForeshore = OLD.UseForeshore " +
+                       "AND NEW.Orientation IS OLD.Orientation " +
+                       "AND NEW.UpperBoundaryRevetment IS OLD.UpperBoundaryRevetment " +
+                       "AND NEW.LowerBoundaryRevetment IS OLD.LowerBoundaryRevetment " +
+                       "AND NEW.UpperBoundaryWaterLevels IS OLD.UpperBoundaryWaterLevels " +
+                       "AND NEW.LowerBoundaryWaterLevels IS OLD.LowerBoundaryWaterLevels " +
+                       "AND NEW.StepSize = OLD.StepSize ";
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="AssessmentSectionCategoryType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="AssessmentSectionCategoryType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but is unsupported.</exception>
+            private static AssessmentSectionCategoryType ConvertToAssessmentSectionCategoryType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                AssessmentSectionCategoryType categoryType;
+                switch (normType)
+                {
+                    case NormativeNormType.SignalingNorm:
+                        categoryType = AssessmentSectionCategoryType.SignalingNorm;
+                        break;
+                    case NormativeNormType.LowerLimitNorm:
+                        categoryType = AssessmentSectionCategoryType.LowerLimitNorm;
+                        break;
+                    default:
+                        throw new NotSupportedException();
+                }
+
+                return categoryType;
             }
         }
 
