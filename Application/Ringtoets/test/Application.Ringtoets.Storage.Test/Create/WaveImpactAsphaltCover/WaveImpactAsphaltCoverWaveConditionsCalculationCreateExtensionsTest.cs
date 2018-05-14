@@ -68,7 +68,6 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         public void Create_CalculationWithPropertiesSet_ReturnCalculationEntity()
         {
             // Setup
-
             var random = new Random(21);
             int order = random.Next();
 
