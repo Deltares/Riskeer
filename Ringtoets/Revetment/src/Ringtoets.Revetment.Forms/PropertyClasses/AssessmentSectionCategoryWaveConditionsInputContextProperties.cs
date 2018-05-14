@@ -40,13 +40,10 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             AssessmentSectionCategoryType>
         where TContext : WaveConditionsInputContext<AssessmentSectionCategoryWaveConditionsInput>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsInputContextProperties{TContext}"/>.
         /// </summary>
-        /// <param name="context">The <see cref="WaveConditionsInputContext{TInput}"/> for which the properties are shown.</param>
-        /// <param name="getAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the assessment level.</param>
-        /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected AssessmentSectionCategoryWaveConditionsInputContextProperties(TContext context,
                                                                                 Func<RoundedDouble> getAssessmentLevelFunc,
                                                                                 IObservablePropertyChangeHandler propertyChangeHandler)

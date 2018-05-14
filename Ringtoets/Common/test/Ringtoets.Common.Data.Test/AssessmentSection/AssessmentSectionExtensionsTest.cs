@@ -84,6 +84,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         [Test]
         public void GetNormativeAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
         {
+            // Setup
             var assessmentSection = new AssessmentSectionStub();
 
             assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
@@ -98,6 +99,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         [Test]
         public void GetNormativeAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN()
         {
+            // Setup
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -180,6 +182,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         [Test]
         public void GetAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
         {
+            // Setup
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
@@ -193,6 +196,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         [Test]
         public void GetAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN()
         {
+            // Setup
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 

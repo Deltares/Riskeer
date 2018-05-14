@@ -46,25 +46,17 @@ namespace Ringtoets.Revetment.Data.TestUtil
             InputParameters = input;
         }
 
-        /// <summary>
-        /// Gets or sets an object that represents some output of this calculation.
-        /// </summary>
-        public object Output { get; set; }
-
         public T InputParameters { get; }
 
         public bool HasOutput
         {
             get
             {
-                return Output != null;
+                return false;
             }
         }
 
-        public void ClearOutput()
-        {
-            Output = null;
-        }
+        public void ClearOutput() {}
 
         #region Irrelevant for test
 

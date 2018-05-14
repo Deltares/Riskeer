@@ -250,120 +250,112 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
-            Assert.IsNotNull(hydraulicBoundaryLocationProperty);
-            Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, hydraulicBoundaryLocationProperty.Category);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
-            Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Locatie met hydraulische randvoorwaarden",
+                                                                            "De locatie met hydraulische randvoorwaarden.");
 
             PropertyDescriptor categoryTypeProperty = dynamicProperties[categoryTypePropertyIndex];
-            Assert.IsNotNull(categoryTypeProperty);
-            Assert.IsFalse(categoryTypeProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, categoryTypeProperty.Category);
-            Assert.AreEqual("Categoriegrens", categoryTypeProperty.DisplayName);
-            Assert.AreEqual("Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd.", categoryTypeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryTypeProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Categoriegrens",
+                                                                            "Categoriegrens (kans) waarvoor de berekening moet worden uitgevoerd.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
-            Assert.IsNotNull(assessmentLevelProperty);
-            Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, assessmentLevelProperty.Category);
-            Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
-            Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Toetspeil [m+NAP]",
+                                                                            "Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.",
+                                                                            true);
 
             PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[upperBoundaryDesignWaterLevelPropertyIndex];
-            Assert.IsNotNull(upperBoundaryDesignWaterLevelProperty);
-            Assert.IsTrue(upperBoundaryDesignWaterLevelProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, upperBoundaryDesignWaterLevelProperty.Category);
-            Assert.AreEqual("Bovengrens op basis van toetspeil [m+NAP]", upperBoundaryDesignWaterLevelProperty.DisplayName);
-            Assert.AreEqual("Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie.", upperBoundaryDesignWaterLevelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryDesignWaterLevelProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Bovengrens op basis van toetspeil [m+NAP]",
+                                                                            "Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie.",
+                                                                            true);
 
             PropertyDescriptor upperBoundaryRevetmentProperty = dynamicProperties[upperBoundaryRevetmentPropertyIndex];
-            Assert.IsNotNull(upperBoundaryRevetmentProperty);
-            Assert.IsTrue(upperBoundaryDesignWaterLevelProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, upperBoundaryRevetmentProperty.Category);
-            Assert.AreEqual("Bovengrens bekleding [m+NAP]", upperBoundaryRevetmentProperty.DisplayName);
-            Assert.AreEqual("Bovengrens van de bekleding.", upperBoundaryRevetmentProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryRevetmentProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Bovengrens bekleding [m+NAP]",
+                                                                            "Bovengrens van de bekleding.");
 
             PropertyDescriptor lowerBoundaryRevetmentProperty = dynamicProperties[lowerBoundaryRevetmentPropertyIndex];
-            Assert.IsNotNull(lowerBoundaryRevetmentProperty);
-            Assert.IsFalse(lowerBoundaryRevetmentProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, lowerBoundaryRevetmentProperty.Category);
-            Assert.AreEqual("Ondergrens bekleding [m+NAP]", lowerBoundaryRevetmentProperty.DisplayName);
-            Assert.AreEqual("Ondergrens van de bekleding.", lowerBoundaryRevetmentProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryRevetmentProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Ondergrens bekleding [m+NAP]",
+                                                                            "Ondergrens van de bekleding.");
 
             PropertyDescriptor upperBoundaryWaterLevelsProperty = dynamicProperties[upperBoundaryWaterLevelsPropertyIndex];
-            Assert.IsNotNull(upperBoundaryWaterLevelsProperty);
-            Assert.IsFalse(upperBoundaryWaterLevelsProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, upperBoundaryWaterLevelsProperty.Category);
-            Assert.AreEqual("Bovengrens waterstanden [m+NAP]", upperBoundaryWaterLevelsProperty.DisplayName);
-            Assert.AreEqual("Een aangepaste bovengrens voor de waterstanden.", upperBoundaryWaterLevelsProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryWaterLevelsProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Bovengrens waterstanden [m+NAP]",
+                                                                            "Een aangepaste bovengrens voor de waterstanden.");
 
             PropertyDescriptor lowerBoundaryWaterLevelsProperty = dynamicProperties[lowerBoundaryWaterLevelsPropertyIndex];
-            Assert.IsNotNull(lowerBoundaryWaterLevelsProperty);
-            Assert.IsFalse(lowerBoundaryWaterLevelsProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, lowerBoundaryWaterLevelsProperty.Category);
-            Assert.AreEqual("Ondergrens waterstanden [m+NAP]", lowerBoundaryWaterLevelsProperty.DisplayName);
-            Assert.AreEqual("Een aangepaste ondergrens voor de waterstanden.", lowerBoundaryWaterLevelsProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryWaterLevelsProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Ondergrens waterstanden [m+NAP]",
+                                                                            "Een aangepaste ondergrens voor de waterstanden.");
 
             PropertyDescriptor stepSizeProperty = dynamicProperties[stepSizePropertyIndex];
-            Assert.IsNotNull(stepSizeProperty);
             Assert.IsInstanceOf<EnumTypeConverter>(stepSizeProperty.Converter);
-            Assert.IsFalse(stepSizeProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, stepSizeProperty.Category);
-            Assert.AreEqual("Stapgrootte [m]", stepSizeProperty.DisplayName);
-            Assert.AreEqual("Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald.", stepSizeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(stepSizeProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Stapgrootte [m]",
+                                                                            "Grootte van de stappen waarmee de waterstanden in de berekening worden bepaald.");
 
             PropertyDescriptor waterLevelsProperty = dynamicProperties[waterLevelsPropertyIndex];
-            Assert.IsNotNull(waterLevelsProperty);
             Assert.IsInstanceOf<ExpandableReadOnlyArrayConverter>(waterLevelsProperty.Converter);
-            Assert.IsTrue(waterLevelsProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, waterLevelsProperty.Category);
-            Assert.AreEqual("Waterstanden in berekening [m+NAP]", waterLevelsProperty.DisplayName);
-            Assert.AreEqual("De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.", waterLevelsProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelsProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Waterstanden in berekening [m+NAP]",
+                                                                            "De waterstanden waarvoor gerekend moet worden. Deze zijn afgeleid van de opgegeven boven- en ondergrenzen, en van de stapgrootte.",
+                                                                            true);
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
-            Assert.IsNotNull(foreshoreProfileProperty);
-            Assert.IsFalse(foreshoreProfileProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, foreshoreProfileProperty.Category);
-            Assert.AreEqual("Voorlandprofiel", foreshoreProfileProperty.DisplayName);
-            Assert.AreEqual("De schematisatie van het voorlandprofiel.", foreshoreProfileProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(foreshoreProfileProperty,
+                                                                            schematizationCategory,
+                                                                            "Voorlandprofiel",
+                                                                            "De schematisatie van het voorlandprofiel.");
 
             PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
-            Assert.IsNotNull(worldReferencePointProperty);
-            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, worldReferencePointProperty.Category);
-            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(worldReferencePointProperty,
+                                                                            schematizationCategory,
+                                                                            "Locatie (RD) [m]",
+                                                                            "De coördinaten van de locatie van het voorlandprofiel in het Rijksdriehoeksstelsel.",
+                                                                            true);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
-            Assert.IsNotNull(orientationProperty);
-            Assert.IsFalse(orientationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, orientationProperty.Category);
-            Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van de dijknormaal ten opzichte van het noorden.", orientationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(orientationProperty,
+                                                                            schematizationCategory,
+                                                                            "Oriëntatie [°]",
+                                                                            "Oriëntatie van de dijknormaal ten opzichte van het noorden.");
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
-            Assert.IsNotNull(breakWaterProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(breakWaterProperty.Converter);
-            Assert.IsTrue(breakWaterProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, breakWaterProperty.Category);
-            Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterProperty,
+                                                                            schematizationCategory,
+                                                                            "Dam",
+                                                                            "Eigenschappen van de dam.",
+                                                                            true);
 
             PropertyDescriptor foreshoreGeometryProperty = dynamicProperties[foreshoreGeometryPropertyIndex];
-            Assert.IsNotNull(foreshoreGeometryProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreGeometryProperty.Converter);
-            Assert.IsTrue(foreshoreGeometryProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, foreshoreGeometryProperty.Category);
-            Assert.AreEqual("Voorlandgeometrie", foreshoreGeometryProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreGeometryProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(foreshoreGeometryProperty,
+                                                                            schematizationCategory,
+                                                                            "Voorlandgeometrie",
+                                                                            "Eigenschappen van de voorlandgeometrie.",
+                                                                            true);
 
             PropertyDescriptor revetmentTypeProperty = dynamicProperties[revetmentTypePropertyIndex];
-            Assert.IsNotNull(revetmentTypeProperty);
-            Assert.IsTrue(revetmentTypeProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, revetmentTypeProperty.Category);
-            Assert.AreEqual("Type bekleding", revetmentTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de bekleding waarvoor berekend wordt.", revetmentTypeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(revetmentTypeProperty,
+                                                                            schematizationCategory,
+                                                                            "Type bekleding",
+                                                                            "Het type van de bekleding waarvoor berekend wordt.",
+                                                                            true);
+
             mocks.VerifyAll();
         }
 

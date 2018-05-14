@@ -19,26 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.Properties;
+using System;
+using Core.Common.TestUtil;
+using NUnit.Framework;
 
-namespace Ringtoets.Common.Data.AssessmentSection
+namespace Ringtoets.AssemblyTool.Data.Test
 {
-    /// <summary>
-    /// Enumeration that defines the possible assessment section categories.
-    /// </summary>
-    public enum AssessmentSectionCategoryType
+    [TestFixture]
+    public class CombinedAssemblyFailureMechanismSectionTest
     {
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName))]
-        FactorizedSignalingNorm = 1,
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
+            var categoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_SignalingNorm_DisplayName))]
-        SignalingNorm = 2,
+            // Call
+            var assembly = new CombinedAssemblyFailureMechanismSection(sectionStart, sectionEnd, categoryGroup);
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName))]
-        LowerLimitNorm = 3,
-
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName))]
-        FactorizedLowerLimitNorm = 4
+            // Assert
+            Assert.AreEqual(sectionStart, assembly.SectionStart);
+            Assert.AreEqual(sectionEnd, assembly.SectionEnd);
+            Assert.AreEqual(categoryGroup, assembly.CategoryGroup);
+        }
     }
 }

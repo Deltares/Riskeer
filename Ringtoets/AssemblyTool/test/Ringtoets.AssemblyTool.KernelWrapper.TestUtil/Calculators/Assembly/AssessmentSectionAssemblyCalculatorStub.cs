@@ -66,6 +66,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public AssessmentSectionAssembly FailureMechanismsWithProbabilityInput { get; private set; }
 
         /// <summary>
+        /// Gets the combined failure mechanism sections input.
+        /// </summary>
+        public IEnumerable<CombinedAssemblyFailureMechanismInput> CombinedFailureMechanismSectionsInput { get; private set; }
+
+        /// <summary>
+        /// Gets the assessment section length input.
+        /// </summary>
+        public double AssessmentSectionLength { get; private set; }
+
+        /// <summary>
         /// Gets or sets the output of the assessment section assembly for failure
         ///  mechanisms with probability.
         /// </summary>
@@ -82,6 +92,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// when assembling an assessment section.
         /// </summary>
         public AssessmentSectionAssemblyCategoryGroup? AssembleAssessmentSectionCategoryGroupOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the output of the combined failure mechanism section assembly.
+        /// </summary>
+        public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown when performing a calculation.
@@ -114,7 +129,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             FailureMechanismAssemblyCategoryGroupInput = input;
 
-            return AssembleFailureMechanismsAssemblyCategoryGroupOutput ?? AssessmentSectionAssemblyCategoryGroup.D;
+            if (AssembleFailureMechanismsAssemblyCategoryGroupOutput == null)
+            {
+                AssembleFailureMechanismsAssemblyCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.D;
+            }
+
+            return AssembleFailureMechanismsAssemblyCategoryGroupOutput.Value;
         }
 
         public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
@@ -128,7 +148,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             FailureMechanismsWithoutProbabilityInput = failureMechanismsWithoutProbability;
             FailureMechanismsWithProbabilityInput = failureMechanismsWithProbability;
 
-            return AssembleAssessmentSectionCategoryGroupOutput ?? AssessmentSectionAssemblyCategoryGroup.C;
+            if (AssembleAssessmentSectionCategoryGroupOutput == null)
+            {
+                AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.C;
+            }
+
+            return AssembleAssessmentSectionCategoryGroupOutput.Value;
+        }
+
+        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(IEnumerable<CombinedAssemblyFailureMechanismInput> input,
+                                                                                                             double assessmentSectionLength)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CombinedFailureMechanismSectionsInput = input;
+            AssessmentSectionLength = assessmentSectionLength;
+
+            return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
+            {
+                new CombinedFailureMechanismSectionAssembly(
+                    new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
+                    new[]
+                    {
+                        FailureMechanismSectionAssemblyCategoryGroup.VIv
+                    })
+            });
         }
     }
 }

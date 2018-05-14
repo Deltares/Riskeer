@@ -100,18 +100,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             const string hydraulicParametersCategory = "Hydraulische gegevens";
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[2];
-            Assert.IsNotNull(assessmentLevelProperty);
-            Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, assessmentLevelProperty.Category);
-            Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", assessmentLevelProperty.DisplayName);
-            Assert.AreEqual("Berekende waterstand bij doorsnede-eis op de geselecteerde locatie.", assessmentLevelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Waterstand bij doorsnede-eis [m+NAP]",
+                                                                            "Berekende waterstand bij doorsnede-eis op de geselecteerde locatie.",
+                                                                            true);
 
             PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[3];
-            Assert.IsNotNull(upperBoundaryDesignWaterLevelProperty);
-            Assert.IsTrue(upperBoundaryDesignWaterLevelProperty.IsReadOnly);
-            Assert.AreEqual(hydraulicParametersCategory, upperBoundaryDesignWaterLevelProperty.Category);
-            Assert.AreEqual("Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]", upperBoundaryDesignWaterLevelProperty.DisplayName);
-            Assert.AreEqual("Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.", upperBoundaryDesignWaterLevelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryDesignWaterLevelProperty,
+                                                                            hydraulicParametersCategory,
+                                                                            "Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]",
+                                                                            "Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.",
+                                                                            true);
         }
     }
 }

@@ -89,11 +89,11 @@ namespace Ringtoets.Revetment.Data.TestUtil
 
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             input.Orientation = random.NextRoundedDouble();
-            input.LowerBoundaryRevetment = (RoundedDouble) random.Next(0, 2);
-            input.UpperBoundaryRevetment = (RoundedDouble) random.Next(2, 4);
+            input.LowerBoundaryRevetment = random.NextRoundedDouble(0, 2);
+            input.UpperBoundaryRevetment = random.NextRoundedDouble(2, 4);
             input.StepSize = random.NextEnumValue<WaveConditionsInputStepSize>();
-            input.LowerBoundaryWaterLevels = (RoundedDouble) random.Next(0, 2);
-            input.UpperBoundaryWaterLevels = (RoundedDouble) random.Next(2, 4);
+            input.LowerBoundaryWaterLevels = random.NextRoundedDouble(0, 2);
+            input.UpperBoundaryWaterLevels = random.NextRoundedDouble(2, 4);
             input.UseBreakWater = random.NextBoolean();
             input.UseForeshore = random.NextBoolean();
             input.ForeshoreProfile = new TestForeshoreProfile();

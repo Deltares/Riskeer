@@ -106,5 +106,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
             }
         }
+
+        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
+            IEnumerable<CombinedAssemblyFailureMechanismInput> input, double assessmentSectionLength)
+        {
+            try
+            {
+                ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
+                AssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
+
+                return CombinedFailureMechanismSectionAssemblyCreator.Create(output).ToArray();
+            }
+            catch (Exception e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
+            }
+        }
     }
 }

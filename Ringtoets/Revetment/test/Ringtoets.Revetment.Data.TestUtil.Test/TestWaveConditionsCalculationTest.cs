@@ -29,7 +29,7 @@ namespace Ringtoets.Revetment.Data.TestUtil.Test
     public class TestWaveConditionsCalculationTest
     {
         [Test]
-        public void DefaultConstructor_PropertiesSet()
+        public void ParameteredConstructor_PropertiesSet()
         {
             // Setup
             var input = new TestWaveConditionsInput();
@@ -42,7 +42,6 @@ namespace Ringtoets.Revetment.Data.TestUtil.Test
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.AreSame(input, calculation.InputParameters);
-            Assert.IsNull(calculation.Output);
             Assert.IsFalse(calculation.HasOutput);
         }
     }

@@ -61,19 +61,19 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 return new Dictionary<FailureMechanismCategoryType, int>
                 {
                     {
-                        FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, 0
+                        FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, 1
                     },
                     {
-                        FailureMechanismCategoryType.MechanismSpecificSignalingNorm, 1
+                        FailureMechanismCategoryType.MechanismSpecificSignalingNorm, 2
                     },
                     {
-                        FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, 2
+                        FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, 3
                     },
                     {
-                        FailureMechanismCategoryType.LowerLimitNorm, 3
+                        FailureMechanismCategoryType.LowerLimitNorm, 4
                     },
                     {
-                        FailureMechanismCategoryType.FactorizedLowerLimitNorm, 4
+                        FailureMechanismCategoryType.FactorizedLowerLimitNorm, 5
                     }
                 };
             }

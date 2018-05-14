@@ -30,10 +30,12 @@
     <Compile Include="Creators\AssemblyCategoryCreator.cs" />
     <Compile Include="Creators\AssessmentSectionAssemblyCreator.cs" />
     <Compile Include="Creators\AssessmentSectionAssemblyInputCreator.cs" />
+    <Compile Include="Creators\CombinedFailureMechanismSectionAssemblyCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreator.cs" />
     <Compile Include="Creators\FailureMechanismAssemblyCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCreator.cs" />
     <Compile Include="Calculators\Assembly\IAssessmentSectionAssemblyCalculator.cs" />
+    <Compile Include="Creators\FailureMechanismSectionListCreator.cs" />
     <Compile Include="Kernels\AssemblyToolKernelFactory.cs" />
     <Compile Include="Kernels\IAssemblyToolKernelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -104,6 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void GetAssessmentLevel_NoCorrespondingCalculation_ReturnsNaN()
         {
+            // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
@@ -119,6 +120,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         [Test]
         public void GetAssessmentLevel_NoCorrespondingAssessmentLevelOutput_ReturnsNaN()
         {
+            // Setup
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
