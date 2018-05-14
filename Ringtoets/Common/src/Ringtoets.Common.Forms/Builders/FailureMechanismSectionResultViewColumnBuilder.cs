@@ -413,8 +413,25 @@ namespace Ringtoets.Common.Forms.Builders
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void AddTailorMadeAssessmentCategoryGroupColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
-            AddSelectableAssemblyCategoryGroupColumn(dataGridViewControl, dataPropertyName,
-                                                     Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName);
+            if (dataGridViewControl == null)
+            {
+                throw new ArgumentNullException(nameof(dataGridViewControl));
+            }
+
+            if (dataPropertyName == null)
+            {
+                throw new ArgumentNullException(nameof(dataPropertyName));
+            }
+
+            IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentCategoryGroupResultType>> dataSource =
+                CreateEnumDisplayWrappers<TailorMadeAssessmentCategoryGroupResultType>();
+
+            dataGridViewControl.AddComboBoxColumn(
+                dataPropertyName,
+                Resources.FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentCategoryGroupResultType>.Value),
+                nameof(EnumDisplayWrapper<TailorMadeAssessmentCategoryGroupResultType>.DisplayName));
         }
 
         /// <summary>

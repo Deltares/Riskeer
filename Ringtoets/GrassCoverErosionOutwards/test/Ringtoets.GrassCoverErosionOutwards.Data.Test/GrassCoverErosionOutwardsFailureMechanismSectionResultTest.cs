@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -41,13 +41,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.AreSame(section, result.Section);
             Assert.AreEqual(SimpleAssessmentResultType.None, result.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedSignalingNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForSignalingNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForLowerLimitNorm);
             Assert.AreEqual(DetailedAssessmentResultType.None, result.DetailedAssessmentResultForFactorizedLowerLimitNorm);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.TailorMadeAssessmentResult);
+            Assert.AreEqual(TailorMadeAssessmentCategoryGroupResultType.None, result.TailorMadeAssessmentResult);
             Assert.IsFalse(result.UseManualAssemblyCategoryGroup);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ManualAssemblyCategoryGroup);
         }

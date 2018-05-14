@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.Data
         IIv = 4,
 
         /// <summary>
-        /// Represents the assembly category IIIV for a failure mechanism section.
+        /// Represents the assembly category IIIv for a failure mechanism section.
         /// </summary>
         IIIv = 5,
 

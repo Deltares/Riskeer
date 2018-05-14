@@ -88,8 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 Assert.AreEqual(result.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm, row.DetailedAssessmentResultForSignalingNorm);
                 Assert.AreEqual(result.DetailedAssessmentResultForLowerLimitNorm, row.DetailedAssessmentResultForLowerLimitNorm);
                 Assert.AreEqual(result.DetailedAssessmentResultForFactorizedLowerLimitNorm, row.DetailedAssessmentResultForFactorizedLowerLimitNorm);
-                Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.TailorMadeAssessmentResult),
-                                row.TailorMadeAssessmentResult);
+                Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(result.UseManualAssemblyCategoryGroup, row.UseManualAssemblyCategoryGroup);
                 Assert.AreEqual(SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertTo(result.ManualAssemblyCategoryGroup),
                                 row.ManualAssemblyCategoryGroup);
@@ -629,7 +628,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mocks.ReplayAll();
 
             var random = new Random(39);
-            var newValue = random.NextEnumValue<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
+            var newValue = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
@@ -643,8 +642,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 row.TailorMadeAssessmentResult = newValue;
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup = SelectableFailureMechanismSectionAssemblyCategoryGroupConverter.ConvertFrom(newValue);
-                Assert.AreEqual(expectedCategoryGroup, result.TailorMadeAssessmentResult);
+                Assert.AreEqual(newValue, result.TailorMadeAssessmentResult);
                 mocks.VerifyAll();
             }
         }

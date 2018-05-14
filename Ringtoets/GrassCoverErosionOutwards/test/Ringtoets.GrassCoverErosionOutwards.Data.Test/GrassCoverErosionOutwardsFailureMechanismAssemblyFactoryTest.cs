@@ -236,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(failureMechanismSection)
             {
-                TailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -248,7 +248,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentGroupInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
             }
         }
 

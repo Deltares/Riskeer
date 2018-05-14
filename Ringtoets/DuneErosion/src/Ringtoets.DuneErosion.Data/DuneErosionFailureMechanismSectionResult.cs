@@ -43,7 +43,7 @@ namespace Ringtoets.DuneErosion.Data
             DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForLowerLimitNorm = DetailedAssessmentResultType.None;
             DetailedAssessmentResultForFactorizedLowerLimitNorm = DetailedAssessmentResultType.None;
-            TailorMadeAssessmentResult = FailureMechanismSectionAssemblyCategoryGroup.None;
+            TailorMadeAssessmentResult = TailorMadeAssessmentCategoryGroupResultType.None;
             ManualAssemblyCategoryGroup = FailureMechanismSectionAssemblyCategoryGroup.None;
         }
 
@@ -85,7 +85,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Gets or sets the tailor made assessment result.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup TailorMadeAssessmentResult { get; set; }
+        public TailorMadeAssessmentCategoryGroupResultType TailorMadeAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets or sets the indicator whether the combined assembly should be overwritten by <see cref="ManualAssemblyCategoryGroup"/>.

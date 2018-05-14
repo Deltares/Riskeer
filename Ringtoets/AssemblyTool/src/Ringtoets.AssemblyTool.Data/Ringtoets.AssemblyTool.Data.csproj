@@ -18,6 +18,7 @@
     <Compile Include="AssessmentSectionAssemblyCategoryGroup.cs" />
     <Compile Include="FailureMechanismAssembly.cs" />
     <Compile Include="FailureMechanismSectionAssembly.cs" />
+    <Compile Include="FailureMechanismAssemblyCategory.cs" />
     <Compile Include="FailureMechanismSectionAssemblyCategory.cs" />
     <Compile Include="FailureMechanismAssemblyCategoryGroup.cs" />
     <Compile Include="FailureMechanismSectionAssemblyCategoryGroup.cs" />

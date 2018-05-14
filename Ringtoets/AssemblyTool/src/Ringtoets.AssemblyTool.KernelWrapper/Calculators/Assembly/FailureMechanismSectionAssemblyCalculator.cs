@@ -292,13 +292,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
-            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssessmentResult)
+            TailorMadeAssessmentCategoryGroupResultType tailorMadeAssessmentResult)
         {
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> input =
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithSectionCategory(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithCategoryGroupResult(
                         tailorMadeAssessmentResult);
 
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T4(input.Item1, input.Item2);

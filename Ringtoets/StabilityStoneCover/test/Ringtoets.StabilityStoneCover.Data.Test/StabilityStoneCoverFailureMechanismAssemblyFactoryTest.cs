@@ -236,7 +236,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(failureMechanismSection)
             {
-                TailorMadeAssessmentResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+                TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>()
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -248,7 +248,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
-                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentGroupInput);
+                Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
             }
         }
 

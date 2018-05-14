@@ -872,9 +872,9 @@ namespace Ringtoets.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>> expectedDataSource =
-                    CreateExpectedEnumDisplayWrappers<SelectableFailureMechanismSectionAssemblyCategoryGroup>();
-                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<SelectableFailureMechanismSectionAssemblyCategoryGroup>[]) columnData.DataSource);
+                IEnumerable<EnumDisplayWrapper<TailorMadeAssessmentCategoryGroupResultType>> expectedDataSource =
+                    CreateExpectedEnumDisplayWrappers<TailorMadeAssessmentCategoryGroupResultType>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<TailorMadeAssessmentCategoryGroupResultType>[]) columnData.DataSource);
             }
         }
 

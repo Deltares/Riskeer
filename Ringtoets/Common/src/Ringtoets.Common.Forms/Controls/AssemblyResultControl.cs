@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Forms.Controls
         }
 
         /// <summary>
-        /// Clears the data of the control.
+        /// Clears the assembly result of the control.
         /// </summary>
         public virtual void ClearAssemblyResult()
         {
