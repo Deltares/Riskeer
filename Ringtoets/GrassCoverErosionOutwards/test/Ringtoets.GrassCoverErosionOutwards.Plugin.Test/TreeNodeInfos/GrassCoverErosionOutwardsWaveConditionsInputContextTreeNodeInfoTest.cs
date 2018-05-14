@@ -116,8 +116,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocks.ReplayAll();
 
                 using (var plugin = new GrassCoverErosionOutwardsPlugin())
