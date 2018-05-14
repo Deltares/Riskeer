@@ -261,7 +261,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
 
         [Test]
         [TestCaseSource(nameof(GetNormConfigurationPerAssessmentSectionCategoryType))]
-        public void GetNorm_AssessmentSectionWithNormDefinition_ReturnsCorrespondingNorm(
+        public void GetNorm_AssessmentSectionWithNormConfiguration_ReturnsCorrespondingNorm(
             IAssessmentSection assessmentSection,
             AssessmentSectionCategoryType categoryType,
             double expectedNorm)
