@@ -1904,7 +1904,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                             LowerBoundaryRevetment = (RoundedDouble) (-3.2),
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm
                         }
                     }
                 }
@@ -1937,7 +1938,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                         LowerBoundaryRevetment = (RoundedDouble) (-3.5),
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
-                        StepSize = WaveConditionsInputStepSize.One
+                        StepSize = WaveConditionsInputStepSize.One,
+                        CategoryType = FailureMechanismCategoryType.LowerLimitNorm
                     },
                     Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
                     {
@@ -2038,7 +2040,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                             LowerBoundaryRevetment = (RoundedDouble) (-3.2),
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
                         }
                     }
                 }
@@ -2071,7 +2074,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                         LowerBoundaryRevetment = (RoundedDouble) (-3.5),
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
-                        StepSize = WaveConditionsInputStepSize.One
+                        StepSize = WaveConditionsInputStepSize.One,
+                        CategoryType = AssessmentSectionCategoryType.SignalingNorm
                     },
                     Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                     {
@@ -2139,7 +2143,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                             LowerBoundaryRevetment = (RoundedDouble) (-3.2),
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CategoryType = AssessmentSectionCategoryType.SignalingNorm
                         }
                     }
                 }
@@ -2172,7 +2177,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                         LowerBoundaryRevetment = (RoundedDouble) (-3.5),
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
-                        StepSize = WaveConditionsInputStepSize.One
+                        StepSize = WaveConditionsInputStepSize.One,
+                        CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                     {
