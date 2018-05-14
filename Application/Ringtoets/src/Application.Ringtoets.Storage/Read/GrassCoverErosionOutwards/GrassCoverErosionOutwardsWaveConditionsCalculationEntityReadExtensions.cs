@@ -25,6 +25,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
@@ -45,9 +46,15 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
         /// to create <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionOutwardsWaveConditionsCalculation Read(this GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal static GrassCoverErosionOutwardsWaveConditionsCalculation Read(this GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
+                                                                                ReadConversionCollector collector)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -67,7 +74,9 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             return calculation;
         }
 
-        private static void ReadCalculationInputs(WaveConditionsInput inputParameters, GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadCalculationInputs(FailureMechanismCategoryWaveConditionsInput inputParameters,
+                                                  GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
+                                                  ReadConversionCollector collector)
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
             inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
@@ -81,9 +90,11 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             inputParameters.UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
             inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
+            inputParameters.CategoryType = (FailureMechanismCategoryType) entity.CategoryType;
         }
 
-        private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity)
+        private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                   GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity)
         {
             if (!entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Any())
             {
@@ -97,7 +108,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveConditionsOutputs);
         }
 
-        private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
+        private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity,
+                                                            ReadConversionCollector collector)
         {
             return foreshoreProfileEntity?.Read(collector);
         }
@@ -106,8 +118,8 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             HydraulicLocationEntity hydraulicLocationEntity,
             ReadConversionCollector collector)
         {
-            return hydraulicLocationEntity != null 
-                       ? collector.Get(hydraulicLocationEntity) 
+            return hydraulicLocationEntity != null
+                       ? collector.Get(hydraulicLocationEntity)
                        : null;
         }
     }
