@@ -33,8 +33,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data.Assembly;
 
-namespace Ringtoets.Integration.Data.Test
+namespace Ringtoets.Integration.Data.Test.Assembly
 {
     [TestFixture]
     public class AssessmentSectionAssemblyFactoryTest

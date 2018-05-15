@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.AssemblyTool.Data;
 
-namespace Ringtoets.Integration.Data
+namespace Ringtoets.Integration.Data.Assembly
 {
     /// <summary>
     /// Assembly result for the combined failure mechanism section.

@@ -12,8 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssessmentSection.cs" />
-    <Compile Include="AssessmentSectionAssemblyFactory.cs" />
-    <Compile Include="CombinedFailureMechanismSectionAssemblyResult.cs" />
+    <Compile Include="Assembly\AssessmentSectionAssemblyFactory.cs" />
+    <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResult.cs" />
     <Compile Include="RingtoetsProjectFactory.cs" />
     <Compile Include="RingtoetsProject.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.cs" />

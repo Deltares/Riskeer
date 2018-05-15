@@ -23,8 +23,9 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Integration.Data.Assembly;
 
-namespace Ringtoets.Integration.Data.Test
+namespace Ringtoets.Integration.Data.Test.Assembly
 {
     [TestFixture]
     public class CombinedFailureMechanismSectionAssemblyResultTest

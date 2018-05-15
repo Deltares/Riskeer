@@ -39,7 +39,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Ringtoets.Integration.Data
+namespace Ringtoets.Integration.Data.Assembly
 {
     /// <summary>
     /// Factory for assembling the assembly results for an assessment section.
