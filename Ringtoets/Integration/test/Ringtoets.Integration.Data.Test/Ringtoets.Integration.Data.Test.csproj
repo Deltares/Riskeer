@@ -20,6 +20,7 @@
   <ItemGroup>
     <Compile Include="AssessmentSectionAssemblyFactoryTest.cs" />
     <Compile Include="AssessmentSectionTest.cs" />
+    <Compile Include="CombinedFailureMechanismSectionAssemblyResultTest.cs" />
     <Compile Include="RingtoetsProjectFactoryTest.cs" />
     <Compile Include="RingtoetsProjectTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryTest.cs" />
