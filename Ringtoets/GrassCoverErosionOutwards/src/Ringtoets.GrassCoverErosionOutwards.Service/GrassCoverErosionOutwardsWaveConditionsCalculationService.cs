@@ -122,10 +122,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             RoundedDouble b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
             RoundedDouble c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
 
-            double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                assessmentSection.FailureMechanismContribution.Norm,
-                failureMechanism.Contribution,
-                failureMechanism.GeneralInput.N);
+            double norm = failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType);
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
 
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
@@ -141,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                                                     a,
                                                                                     b,
                                                                                     c,
-                                                                                    mechanismSpecificNorm,
+                                                                                    norm,
                                                                                     hlcdFilePath,
                                                                                     preprocessorDirectory);
 

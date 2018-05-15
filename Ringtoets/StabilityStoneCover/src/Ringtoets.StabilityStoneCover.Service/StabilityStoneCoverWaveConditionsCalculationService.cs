@@ -125,7 +125,7 @@ namespace Ringtoets.StabilityStoneCover.Service
             RoundedDouble bColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.B;
             RoundedDouble cColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C;
 
-            double norm = assessmentSection.FailureMechanismContribution.Norm;
+            double norm = assessmentSection.GetNorm(calculation.InputParameters.CategoryType);
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
 
             RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,

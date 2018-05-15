@@ -117,7 +117,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             RoundedDouble b = generalWaveConditionsInput.B;
             RoundedDouble c = generalWaveConditionsInput.C;
 
-            double norm = assessmentSection.FailureMechanismContribution.Norm;
+            double norm = assessmentSection.GetNorm(calculation.InputParameters.CategoryType);
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
 
             RoundedDouble assessmentLevel = assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
