@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         }
 
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
         {
             // Setup
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();

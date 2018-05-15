@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         public void Create_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((GrassCoverErosionOutwardsWaveConditionsCalculation)null).Create(new PersistenceRegistry(), 0);
+            TestDelegate call = () => ((GrassCoverErosionOutwardsWaveConditionsCalculation) null).Create(new PersistenceRegistry(), 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
         {
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();

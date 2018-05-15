@@ -1899,10 +1899,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             private readonly string sourceFilePath;
 
             /// <summary>
-            /// Creates a new instance of <see cref="ArgumentException.WaveConditionsCalculationValidationQueryGenerator"/>.
+            /// Creates a new instance of <see cref="WaveConditionsCalculationValidationQueryGenerator"/>.
             /// </summary>
             /// <param name="sourceFilePath">The file path of the original database.</param>
-            /// <exception cref="Application.Ringtoets">Thrown when <paramref name="sourceFilePath"/>
+            /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFilePath"/>
             /// is <c>null</c> or empty.</exception>
             public WaveConditionsCalculationValidationQueryGenerator(string sourceFilePath)
             {
@@ -1922,7 +1922,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the grass cover erosion outwards calculations.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
             /// but is unsupported.</exception>
             public string GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType normType)
             {
@@ -1981,7 +1981,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the migrated stability stone cover calculations.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
             /// but is unsupported.</exception>
             public string GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType normType)
             {
@@ -2007,13 +2007,13 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
 
             /// <summary>
-            /// Generates a query to validate if the stability stone cover calculations are migrated correctly.
+            /// Generates a query to validate if the wave impact asphalt cover calculations are migrated correctly.
             /// </summary>
             /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the migrated stability stone cover calculations.</returns>
+            /// <returns>A query to validate the migrated wave impact asphalt cover calculations.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
             /// but is unsupported.</exception>
             public string GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType normType)
             {
@@ -2036,38 +2036,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "AND NEW.HydraulicLocationEntityId IS OLD.HydraulicLocationEntityId " +
                        $"AND NEW.CategoryType = {(int) categoryType}; " +
                        "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
-            /// </summary>
-            /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
-            private static FailureMechanismCategoryType ConvertToFailureMechanismCategoryType(NormativeNormType normType)
-            {
-                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
-                {
-                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
-                }
-
-                FailureMechanismCategoryType categoryType;
-                switch (normType)
-                {
-                    case NormativeNormType.SignalingNorm:
-                        categoryType = FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
-                        break;
-                    case NormativeNormType.LowerLimitNorm:
-                        categoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
-                        break;
-                    default:
-                        throw new NotSupportedException();
-                }
-
-                return categoryType;
             }
 
             private static string GetCommonWaveConditionsCalculationPropertiesValidationString(NormativeNormType normType)
@@ -2094,6 +2062,33 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
 
             /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but is unsupported.</exception>
+            private static FailureMechanismCategoryType ConvertToFailureMechanismCategoryType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                switch (normType)
+                {
+                    case NormativeNormType.SignalingNorm:
+                        return FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                    case NormativeNormType.LowerLimitNorm:
+                        return FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+
+            /// <summary>
             /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="AssessmentSectionCategoryType"/>.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
@@ -2109,20 +2104,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
                 }
 
-                AssessmentSectionCategoryType categoryType;
                 switch (normType)
                 {
                     case NormativeNormType.SignalingNorm:
-                        categoryType = AssessmentSectionCategoryType.SignalingNorm;
-                        break;
+                        return AssessmentSectionCategoryType.SignalingNorm;
                     case NormativeNormType.LowerLimitNorm:
-                        categoryType = AssessmentSectionCategoryType.LowerLimitNorm;
-                        break;
+                        return AssessmentSectionCategoryType.LowerLimitNorm;
                     default:
                         throw new NotSupportedException();
                 }
-
-                return categoryType;
             }
         }
 

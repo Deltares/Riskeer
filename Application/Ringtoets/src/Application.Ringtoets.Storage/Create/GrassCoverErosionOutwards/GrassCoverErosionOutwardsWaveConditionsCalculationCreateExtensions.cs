@@ -85,7 +85,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 
             entity.Orientation = calculationInput.Orientation.ToNaNAsNull();
             entity.UseBreakWater = Convert.ToByte(calculationInput.UseBreakWater);
-            entity.BreakWaterType = (byte) calculationInput.BreakWater.Type;
+            entity.BreakWaterType = Convert.ToByte(calculationInput.BreakWater.Type);
             entity.BreakWaterHeight = calculationInput.BreakWater.Height.ToNaNAsNull();
             entity.UseForeshore = Convert.ToByte(calculationInput.UseForeshore);
             entity.UpperBoundaryRevetment = calculationInput.UpperBoundaryRevetment.ToNaNAsNull();
