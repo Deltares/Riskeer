@@ -613,8 +613,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
 
-                    double mechanismSpecificNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                        assessmentSection.FailureMechanismContribution.Norm,
+                    double expectedNorm = RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                        assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
                         failureMechanism.Contribution,
                         failureMechanism.GeneralInput.N);
 
@@ -622,7 +622,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 mechanismSpecificNorm,
+                                                                                 expectedNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  GetWaterLevels(calculation, failureMechanism, assessmentSection).ElementAt(waterLevelIndex++),
@@ -927,7 +927,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 WaveConditionsOutput[] waveConditionsOutputs = calculation.Output.Items.ToArray();
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
-                double targetNorm = CalculateTargetNorm(assessmentSection.FailureMechanismContribution.Norm,
+                double targetNorm = CalculateTargetNorm(assessmentSection.FailureMechanismContribution.SignalingNorm / 30,
                                                         failureMechanism.Contribution,
                                                         failureMechanism.GeneralInput.N);
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
@@ -1062,7 +1062,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         private static void ConfigureFailureMechanismWithHydraulicBoundaryOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             failureMechanism.Contribution = 20;
-            failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
         }
 
         private static double CalculateTargetNorm(double norm, double contribution, RoundedDouble N)
@@ -1077,7 +1077,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
-                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
