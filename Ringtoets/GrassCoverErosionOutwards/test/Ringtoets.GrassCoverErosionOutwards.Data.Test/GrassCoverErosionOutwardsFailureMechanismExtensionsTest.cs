@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -28,6 +29,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
@@ -66,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetAssessmentLevel_InvalidAssessmentSectionCategoryType_ThrowsInvalidEnumArgumentException()
+        public void GetAssessmentLevel_InvalidFailureMechanismCategoryType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const int invalidValue = 9999;
@@ -189,7 +191,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void GetNorm_InvalidAssessmentSectionCategoryType_ThrowsInvalidEnumArgumentException()
+        public void GetNorm_InvalidFailureMechanismCategoryType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const int invalidValue = 9999;
@@ -205,6 +207,85 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
             Assert.AreEqual("categoryType", parameterName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetNormConfigurationPerFailureMechanismCategoryType))]
+        public void GetNorm_AssessmentSectionWithNormConfiguration_ReturnsCorrespondingNorm(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection,
+            FailureMechanismCategoryType categoryType,
+            double expectedNorm)
+        {
+            // Call
+            double norm = failureMechanism.GetNorm(assessmentSection, categoryType);
+
+            // Assert
+            Assert.AreEqual(expectedNorm, norm);
+        }
+
+        private static IEnumerable GetNormConfigurationPerFailureMechanismCategoryType()
+        {
+            const double signalingNorm = 0.002;
+            const double lowerLimitNorm = 0.005;
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = lowerLimitNorm,
+                    SignalingNorm = signalingNorm
+                }
+            };
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 25
+            };
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                GetMechanismSpecificNorm(failureMechanism, signalingNorm / 30)
+            ).SetName("MechanismSpecificFactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
+                GetMechanismSpecificNorm(failureMechanism, signalingNorm)
+            ).SetName("MechanismSpecificSignalingNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
+                GetMechanismSpecificNorm(failureMechanism, lowerLimitNorm)
+            ).SetName("MechanismSpecificLowerLimitNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.LowerLimitNorm,
+                lowerLimitNorm
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                lowerLimitNorm * 30
+            ).SetName("FactorizedLowerLimitNorm");
+        }
+
+        private static double GetMechanismSpecificNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                       double norm)
+        {
+            return RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                norm,
+                failureMechanism.Contribution,
+                failureMechanism.GeneralInput.N);
         }
     }
 }
