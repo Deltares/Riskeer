@@ -599,7 +599,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSection.FailureMechanismContribution.Norm,
+                                                                                 assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  GetWaterLevels(calculation, assessmentSection).ElementAt(waterLevelIndex++),
@@ -879,7 +879,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 WaveConditionsOutput[] waveConditionsOutputs = calculation.Output.Items.ToArray();
                 Assert.AreEqual(3, waveConditionsOutputs.Length);
 
-                double targetNorm = assessmentSection.FailureMechanismContribution.Norm;
+                double targetNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
                                                                   targetNorm,
                                                                   waveConditionsOutputs[0]);
@@ -1007,7 +1007,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }
@@ -1019,7 +1019,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

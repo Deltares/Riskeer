@@ -656,13 +656,15 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
                 WaveConditionsInput input = calculation.InputParameters;
 
+                double expectedNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
+
                 var waterLevelIndex = 0;
                 for (var i = 0; i < testWaveConditionsInputs.Length / 2; i++)
                 {
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSection.FailureMechanismContribution.Norm,
+                                                                                 expectedNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels.ElementAt(waterLevelIndex++),
@@ -679,7 +681,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSection.FailureMechanismContribution.Norm,
+                                                                                 expectedNorm,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels.ElementAt(waterLevelIndex++),
@@ -966,7 +968,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 WaveConditionsOutput[] blocksWaveConditionsOutputs = calculation.Output.BlocksOutput.ToArray();
                 Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
 
-                double targetNorm = assessmentSection.FailureMechanismContribution.Norm;
+                double targetNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
                                                                   targetNorm,
                                                                   blocksWaveConditionsOutputs[0]);
@@ -1073,7 +1075,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
 
-                double targetNorm = assessmentSection.FailureMechanismContribution.Norm;
+                double targetNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
                                                                   targetNorm,
                                                                   columnsWaveConditionsOutputs[0]);
@@ -1195,7 +1197,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }
@@ -1207,7 +1209,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
