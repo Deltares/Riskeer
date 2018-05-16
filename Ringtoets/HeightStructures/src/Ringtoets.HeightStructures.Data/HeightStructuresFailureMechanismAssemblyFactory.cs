@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -216,6 +217,38 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
+        /// Gets the assembly category group of the given <paramref name="failureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
+        /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+                                                                                                   HeightStructuresFailureMechanism failureMechanism,
+                                                                                                   IAssessmentSection assessmentSection)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return GetSectionAssembly(failureMechanismSectionResult, failureMechanism, assessmentSection).Group;
+        }
+
+        /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
@@ -245,9 +278,9 @@ namespace Ringtoets.HeightStructures.Data
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
-            IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = AssembleSections(failureMechanism,
-                                                                                              assessmentSection,
-                                                                                              assemblyCategoriesInput);
+            IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResults
+                                                                                             .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection))
+                                                                                             .ToArray();
 
             try
             {
@@ -263,38 +296,32 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
-        /// Assembles the combined assembly for all sections in the <paramref name="failureMechanism"/>.
+        /// Gets the assembly of the given <paramref name="failureMechanismSectionResult"/>.
         /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A collection of all section assembly results.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static IEnumerable<FailureMechanismSectionAssembly> AssembleSections(HeightStructuresFailureMechanism failureMechanism,
-                                                                                     IAssessmentSection assessmentSection,
-                                                                                     AssemblyCategoriesInput assemblyCategoriesInput)
+        private static FailureMechanismSectionAssembly GetSectionAssembly(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+                                                                          HeightStructuresFailureMechanism failureMechanism,
+                                                                          IAssessmentSection assessmentSection)
         {
-            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
-
-            foreach (HeightStructuresFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
+            FailureMechanismSectionAssembly sectionAssembly;
+            if (failureMechanismSectionResult.UseManualAssemblyProbability)
             {
-                FailureMechanismSectionAssembly sectionAssembly;
-                if (sectionResult.UseManualAssemblyProbability)
-                {
-                    sectionAssembly = AssembleManualAssessment(sectionResult, assemblyCategoriesInput);
-                }
-                else
-                {
-                    sectionAssembly = AssembleCombinedAssessment(sectionResult,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-                }
-
-                sectionAssemblies.Add(sectionAssembly);
+                sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
+                                                           CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
+            }
+            else
+            {
+                sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                             failureMechanism,
+                                                             assessmentSection);
             }
 
-            return sectionAssemblies;
+            return sectionAssembly;
         }
 
         /// <summary>
