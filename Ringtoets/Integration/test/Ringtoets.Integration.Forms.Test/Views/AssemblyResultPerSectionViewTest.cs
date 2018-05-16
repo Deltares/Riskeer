@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -58,6 +60,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int expectedColumnCount = 21;
 
         private Form testForm;
+
+        private static IEnumerable<TestCaseData> CellFormattingStates
+        {
+            get
+            {
+                yield return new TestCaseData(true, "", CellStyle.Disabled);
+                yield return new TestCaseData(false, "Error", CellStyle.Enabled);
+            }
+        }
 
         [SetUp]
         public void Setup()
@@ -110,7 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenWithAssemblyResultTotalView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (ShowAssemblyResultPerSectionView())
@@ -143,6 +154,47 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
                 AssertColumn(dataGridViewColumns[technicalInnovationColumnIndex], "INN");
             }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(CellFormattingStates))]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenRefreshingAssemblyResults_ThenCategoryColumnSetToColumnStateDefinition(
+            bool readOnly, string errorText, CellStyle style)
+        {
+            // Given
+            using (ShowAssemblyResultPerSectionView())
+            {
+                DataGridView dataGridView = GetDataGridView();
+                dataGridView.CellFormatting += (sender, args) =>
+                {
+                    var row = (IHasColumnStateDefinitions)dataGridView.Rows[0].DataBoundItem;
+                    DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[sectionTotalAssemblyResultColumnIndex];
+                    definition.ReadOnly = readOnly;
+                    definition.ErrorText = errorText;
+                    definition.Style = style;
+                };
+
+                // When
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Click();
+
+                // Then
+                DataGridViewCell cell = dataGridView.Rows[0].Cells[sectionTotalAssemblyResultColumnIndex];
+                Assert.AreEqual(readOnly, cell.ReadOnly);
+                Assert.AreEqual(errorText, cell.ErrorText);
+                Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
+                Assert.AreEqual(style.TextColor, cell.Style.ForeColor);
+            }
+        }
+
+        private ButtonTester GetRefreshAssemblyResultButtonTester()
+        {
+            return new ButtonTester("RefreshAssemblyResultsButton", testForm);
+        }
+
+        private static DataGridView GetDataGridView()
+        {
+            return (DataGridView)new ControlTester("dataGridView").TheObject;
         }
 
         private static void AssertColumn(DataGridViewColumn column, string headerText)

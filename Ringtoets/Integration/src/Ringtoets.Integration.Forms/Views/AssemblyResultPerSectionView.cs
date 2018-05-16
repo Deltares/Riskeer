@@ -20,9 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Properties;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
@@ -73,6 +78,25 @@ namespace Ringtoets.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
+
+            dataGridViewControl.CellFormatting += HandleCellStyling;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            dataGridViewControl.CellFormatting -= HandleCellStyling;
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         private void InitializeDataGridView()
@@ -140,8 +164,66 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TechnicalInnovation),
                                                  IntegrationDataResources.TechnicalInnovationFailureMechanism_Code,
                                                  true);
+
+            SetDataSource();
         }
 
-        private void RefreshAssemblyResults_Click(object sender, EventArgs e) {}
+        private void RefreshAssemblyResults_Click(object sender, EventArgs e)
+        {
+            SetDataSource();
+        }
+
+        private void SetDataSource()
+        {
+            CreateResult();
+
+            dataGridViewControl.SetDataSource(CreateResults().Select(r => new CombinedFailureMechanismSectionAssemblyResultRow(r))
+                                                             .ToArray());
+        }
+
+        private static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> CreateResults()
+        {
+            var random = new Random();
+
+            return Enumerable.Repeat(CreateResult(), random.Next(1, 5)).ToArray();
+        }
+
+        private static CombinedFailureMechanismSectionAssemblyResult CreateResult()
+        {
+            var random = new Random();
+            return new CombinedFailureMechanismSectionAssemblyResult(
+                random.NextDouble(),
+                random.NextDouble(),
+                GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                {
+                    Piping = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    GrassCoverErosionInwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    MacroStabilityInwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    MacroStabilityOutwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    Microstability = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    StabilityStoneCover = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    WaveImpactAsphaltCover = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    WaterPressureAsphaltCover = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    GrassCoverErosionOutwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    GrassCoverSlipOffOutwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    GrassCoverSlipOffInwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    HeightStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    ClosingStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    PipingStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    StabilityPointStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    StrengthStabilityLengthwise = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    DuneErosion = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    TechnicalInnovation = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random)
+                });
+        }
+
+        private static FailureMechanismSectionAssemblyCategoryGroup GetRandomFailureMechanismSectionAssemblyCategoryGroup(Random random)
+        {
+            var failureMechanismSectionAssemblyCategoryGroups =
+                (FailureMechanismSectionAssemblyCategoryGroup[]) Enum.GetValues(typeof(FailureMechanismSectionAssemblyCategoryGroup));
+
+            return failureMechanismSectionAssemblyCategoryGroups[random.Next(failureMechanismSectionAssemblyCategoryGroups.Length)];
+        }
     }
 }
