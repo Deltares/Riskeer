@@ -57,12 +57,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public IEnumerable<FailureMechanismAssemblyCategory> FailureMechanismCategoriesOutput { get; set; }
 
         /// <summary>
-        /// Gets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
+        /// Gets or sets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
         /// </summary>
         public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// Sets an indicator whether an exception must be thrown while performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 

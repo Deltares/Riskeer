@@ -202,12 +202,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public AssemblyCategoriesInput AssemblyCategoriesInput { get; private set; }
 
         /// <summary>
-        /// Sets an indicator whether an exception must be thrown when performing a calculation.
+        /// Sets an indicator whether an exception must be thrown while performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Sets an indicator whether an exception must be thrown when performing a combined assembly calculation.
+        /// Sets an indicator whether an exception must be thrown while performing a combined assembly calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculateCombinedAssembly { private get; set; }
 

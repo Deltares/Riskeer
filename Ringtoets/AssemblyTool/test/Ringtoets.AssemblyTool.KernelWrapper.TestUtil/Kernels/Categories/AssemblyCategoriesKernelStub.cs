@@ -58,7 +58,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public double N { get; private set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// Sets an indicator whether an exception must be thrown while performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 

@@ -99,7 +99,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
         /// <summary>
-        /// Sets an indicator whether an exception must be thrown when performing a calculation.
+        /// Sets an indicator whether an exception must be thrown while performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 

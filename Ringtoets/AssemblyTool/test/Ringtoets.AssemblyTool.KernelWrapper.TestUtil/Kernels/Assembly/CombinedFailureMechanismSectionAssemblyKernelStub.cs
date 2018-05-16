@@ -32,7 +32,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     public class CombinedFailureMechanismSectionAssemblyKernelStub : ICommonFailureMechanismSectionAssembler
     {
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing a calculation.
+        /// Sets an indicator whether an exception must be thrown while performing a calculation.
         /// </summary>
         public bool ThrowException { private get; set; }
 

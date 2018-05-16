@@ -37,7 +37,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
-        /// when performing the calculation.</exception>
+        /// while performing the calculation.</exception>
         IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(
             double signalingNorm, double lowerLimitNorm);
 
@@ -49,7 +49,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
-        /// when performing the calculation.</exception>
+        /// while performing the calculation.</exception>
         IEnumerable<FailureMechanismAssemblyCategory> CalculateFailureMechanismCategories(AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
-        /// when performing the calculation.</exception>
+        /// while performing the calculation.</exception>
         IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateFailureMechanismSectionCategories(
             AssemblyCategoriesInput assemblyCategoriesInput);
 
@@ -72,7 +72,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
-        /// when performing the calculation.</exception>
+        /// while performing the calculation.</exception>
         IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
             AssemblyCategoriesInput assemblyCategoriesInput);
     }
