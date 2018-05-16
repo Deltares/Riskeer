@@ -234,6 +234,53 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
+        /// Gets the assembly category group of the given <paramref name="failureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
+        /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(PipingFailureMechanismSectionResult failureMechanismSectionResult,
+                                                                                                   PipingFailureMechanism failureMechanism,
+                                                                                                   IAssessmentSection assessmentSection)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            FailureMechanismSectionAssembly sectionAssembly;
+            if (failureMechanismSectionResult.UseManualAssemblyProbability)
+            {
+                sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
+                                                           failureMechanism,
+                                                           CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
+            }
+            else
+            {
+                sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                             failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                                                             failureMechanism,
+                                                             assessmentSection);
+            }
+
+            return sectionAssembly.Group;
+        }
+
+        /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
