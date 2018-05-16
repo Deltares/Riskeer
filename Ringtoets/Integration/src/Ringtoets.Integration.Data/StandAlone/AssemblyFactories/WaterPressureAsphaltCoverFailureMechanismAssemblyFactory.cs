@@ -138,6 +138,27 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
         }
 
         /// <summary>
+        /// Gets the assembly category group of the given <paramref name="failureMechanismSectionResult"/>.
+        /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly category group for.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// could not be created.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
+            WaterPressureAsphaltCoverFailureMechanismSectionResult failureMechanismSectionResult)
+        {
+            if (failureMechanismSectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            return failureMechanismSectionResult.UseManualAssemblyCategoryGroup
+                       ? failureMechanismSectionResult.ManualAssemblyCategoryGroup
+                       : AssembleCombinedAssessment(failureMechanismSectionResult);
+        }
+
+        /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
@@ -159,9 +180,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
             }
 
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                failureMechanism.SectionResults.Select(sectionResult => sectionResult.UseManualAssemblyCategoryGroup
-                                                                            ? sectionResult.ManualAssemblyCategoryGroup
-                                                                            : AssembleCombinedAssessment(sectionResult)).ToArray();
+                failureMechanism.SectionResults.Select(GetSectionAssemblyCategoryGroup).ToArray();
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismAssemblyCalculator calculator =

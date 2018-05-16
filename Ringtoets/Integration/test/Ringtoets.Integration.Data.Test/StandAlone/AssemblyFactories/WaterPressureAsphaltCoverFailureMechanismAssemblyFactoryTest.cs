@@ -289,6 +289,109 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
 
         #endregion
 
+        #region GetSectionAssemblyCategoryGroup
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithoutManualInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
+                    sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                    sectionResult);
+
+                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+            }
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedAssembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult);
+                Assert.AreEqual(categoryGroup, expectedAssembly);
+            }
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithManualInput_ReturnsOutput()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyCategoryGroup = true,
+                ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+            };
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                sectionResult);
+
+            // Assert
+            Assert.AreEqual(categoryGroup, sectionResult.ManualAssemblyCategoryGroup);
+        }
+
+        [Test]
+        public void GetSectionAssemblyCategoryGroup_WithoutManualInputAndCalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
+
+                // Call
+                TestDelegate call = () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
+
         #region Failure Mechanism Assembly
 
         [Test]
