@@ -262,22 +262,7 @@ namespace Ringtoets.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            FailureMechanismSectionAssembly sectionAssembly;
-            if (failureMechanismSectionResult.UseManualAssemblyProbability)
-            {
-                sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
-                                                           failureMechanism,
-                                                           CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
-            }
-            else
-            {
-                sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                             failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
-                                                             failureMechanism,
-                                                             assessmentSection);
-            }
-
-            return sectionAssembly.Group;
+            return GetSectionAssembly(failureMechanismSectionResult, failureMechanism, assessmentSection).Group;
         }
 
         /// <summary>
@@ -310,9 +295,9 @@ namespace Ringtoets.Piping.Data
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
-            IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = AssembleSections(failureMechanism,
-                                                                                              assessmentSection,
-                                                                                              assemblyCategoriesInput);
+            IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResults
+                                                                                             .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection))
+                                                                                             .ToArray();
 
             try
             {
@@ -328,41 +313,34 @@ namespace Ringtoets.Piping.Data
         }
 
         /// <summary>
-        /// Assembles the combined assembly for all sections in the <paramref name="failureMechanism"/>.
+        /// Gets the assembly of the given <paramref name="failureMechanismSectionResult"/>.
         /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A collection of all section assembly results.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static IEnumerable<FailureMechanismSectionAssembly> AssembleSections(PipingFailureMechanism failureMechanism,
-                                                                                     IAssessmentSection assessmentSection,
-                                                                                     AssemblyCategoriesInput assemblyCategoriesInput)
+        private static FailureMechanismSectionAssembly GetSectionAssembly(PipingFailureMechanismSectionResult failureMechanismSectionResult,
+                                                                          PipingFailureMechanism failureMechanism,
+                                                                          IAssessmentSection assessmentSection)
         {
-            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
-
-            foreach (PipingFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
+            FailureMechanismSectionAssembly sectionAssembly;
+            if (failureMechanismSectionResult.UseManualAssemblyProbability)
             {
-                FailureMechanismSectionAssembly sectionAssembly;
-                if (sectionResult.UseManualAssemblyProbability)
-                {
-                    sectionAssembly = AssembleManualAssessment(sectionResult,
-                                                               failureMechanism,
-                                                               assemblyCategoriesInput);
-                }
-                else
-                {
-                    sectionAssembly = AssembleCombinedAssessment(sectionResult,
-                                                                 failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-                }
-
-                sectionAssemblies.Add(sectionAssembly);
+                sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
+                                                           failureMechanism,
+                                                           CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
+            }
+            else
+            {
+                sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                             failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                                                             failureMechanism,
+                                                             assessmentSection);
             }
 
-            return sectionAssemblies;
+            return sectionAssembly;
         }
 
         /// <summary>

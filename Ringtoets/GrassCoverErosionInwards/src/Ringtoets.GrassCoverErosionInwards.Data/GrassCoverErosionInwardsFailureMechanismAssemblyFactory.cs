@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -244,20 +245,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            FailureMechanismSectionAssembly sectionAssembly;
-            if (failureMechanismSectionResult.UseManualAssemblyProbability)
-            {
-                sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
-                                                           CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
-            }
-            else
-            {
-                sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                             failureMechanism,
-                                                             assessmentSection);
-            }
-
-            return sectionAssembly.Group;
+            return GetSectionAssembly(failureMechanismSectionResult, failureMechanism, assessmentSection).Group;
         }
 
         /// <summary>
@@ -290,9 +278,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             AssemblyCategoriesInput assemblyCategoriesInput = CreateAssemblyCategoriesInput(failureMechanism, assessmentSection);
-            IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = AssembleSections(failureMechanism,
-                                                                                              assessmentSection,
-                                                                                              assemblyCategoriesInput);
+            IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies = failureMechanism.SectionResults
+                                                                                             .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection))
+                                                                                             .ToArray();
 
             try
             {
@@ -308,38 +296,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Assembles the combined assembly for all sections in the <paramref name="failureMechanism"/>.
+        /// Gets the assembly of the given <paramref name="failureMechanismSectionResult"/>.
         /// </summary>
+        /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
         /// <returns>A collection of all section assembly results.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
-        private static IEnumerable<FailureMechanismSectionAssembly> AssembleSections(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                                     IAssessmentSection assessmentSection,
-                                                                                     AssemblyCategoriesInput assemblyCategoriesInput)
+        private static FailureMechanismSectionAssembly GetSectionAssembly(GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+                                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                          IAssessmentSection assessmentSection)
         {
-            var sectionAssemblies = new List<FailureMechanismSectionAssembly>();
-
-            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)
+            FailureMechanismSectionAssembly sectionAssembly;
+            if (failureMechanismSectionResult.UseManualAssemblyProbability)
             {
-                FailureMechanismSectionAssembly sectionAssembly;
-                if (sectionResult.UseManualAssemblyProbability)
-                {
-                    sectionAssembly = AssembleManualAssessment(sectionResult, assemblyCategoriesInput);
-                }
-                else
-                {
-                    sectionAssembly = AssembleCombinedAssessment(sectionResult,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-                }
-
-                sectionAssemblies.Add(sectionAssembly);
+                sectionAssembly = AssembleManualAssessment(failureMechanismSectionResult,
+                                                           CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
+            }
+            else
+            {
+                sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                             failureMechanism,
+                                                             assessmentSection);
             }
 
-            return sectionAssemblies;
+            return sectionAssembly;
         }
 
         /// <summary>
