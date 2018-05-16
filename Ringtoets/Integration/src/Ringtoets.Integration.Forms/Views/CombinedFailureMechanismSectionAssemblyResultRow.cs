@@ -21,10 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data.Assembly;
@@ -107,228 +105,209 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Gets the total assembly result.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup TotalResult
+        public string TotalResult
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.TotalResult;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.TotalResult);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for piping.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup Piping
+        public string Piping
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.Piping;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.Piping);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion inwards.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverErosionInwards
+        public string GrassCoverErosionInwards
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for macro stability inwards.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityInwards
+        public string MacroStabilityInwards
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for macro stability outwards.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityOutwards
+        public string MacroStabilityOutwards
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.MacroStabilityOutwards;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.MacroStabilityOutwards);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for microstability.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup Microstability
+        public string Microstability
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.Microstability;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.Microstability);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for stability stone cover.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup StabilityStoneCover
+        public string StabilityStoneCover
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for wave impact asphalt cover.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup WaveImpactAsphaltCover
+        public string WaveImpactAsphaltCover
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for water pressure asphalt cover.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup WaterPressureAsphaltCover
+        public string WaterPressureAsphaltCover
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion outwards.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverErosionOutwards
+        public string GrassCoverErosionOutwards
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off outwards.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverSlipOffOutwards
+        public string GrassCoverSlipOffOutwards
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off inwards.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverSlipOffInwards
+        public string GrassCoverSlipOffInwards
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for height structures.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup HeightStructures
+        public string HeightStructures
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.HeightStructures;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for closing structures.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup ClosingStructures
+        public string ClosingStructures
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.ClosingStructures;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for piping structures.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup PipingStructures
+        public string PipingStructures
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.PipingStructures;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.PipingStructures);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for stability point structures.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup StabilityPointStructures
+        public string StabilityPointStructures
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for strength stability lengthwise.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup StrengthStabilityLengthwise
+        public string StrengthStabilityLengthwise
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwise;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwise);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for dune erosion.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup DuneErosion
+        public string DuneErosion
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.DuneErosion;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
             }
         }
 
         /// <summary>
         /// Gets the assembly result for technical innovation.
         /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismSectionAssemblyCategoryGroup TechnicalInnovation
+        public string TechnicalInnovation
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation;
+                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
             }
         }
 

@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Views;
@@ -68,68 +68,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Class_Always_ExpectedTypeConverters()
-        {
-            // Assert
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.Piping));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverErosionInwards));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.MacroStabilityInwards));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.MacroStabilityOutwards));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.Microstability));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.StabilityStoneCover));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.WaveImpactAsphaltCover));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.WaterPressureAsphaltCover));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverErosionOutwards));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverSlipOffOutwards));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverSlipOffInwards));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.HeightStructures));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.ClosingStructures));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.PipingStructures));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.StabilityPointStructures));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.StrengthStabilityLengthwise));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.DuneErosion));
-
-            TestHelper.AssertTypeConverter<CombinedFailureMechanismSectionAssemblyResultRow, EnumTypeConverter>(
-                nameof(CombinedFailureMechanismSectionAssemblyResultRow.TechnicalInnovation));
-        }
-
-        [Test]
         public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedValues()
         {
             // Setup
@@ -165,25 +103,25 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             Assert.AreEqual(result.SectionStart, row.SectionStart);
             Assert.AreEqual(result.SectionEnd, row.SectionEnd);
-            Assert.AreEqual(result.TotalResult, row.TotalResult);
-            Assert.AreEqual(result.Piping, row.Piping);
-            Assert.AreEqual(result.GrassCoverErosionInwards, row.GrassCoverErosionInwards);
-            Assert.AreEqual(result.MacroStabilityInwards, row.MacroStabilityInwards);
-            Assert.AreEqual(result.MacroStabilityOutwards, row.MacroStabilityOutwards);
-            Assert.AreEqual(result.Microstability, row.Microstability);
-            Assert.AreEqual(result.StabilityStoneCover, row.StabilityStoneCover);
-            Assert.AreEqual(result.WaveImpactAsphaltCover, row.WaveImpactAsphaltCover);
-            Assert.AreEqual(result.WaterPressureAsphaltCover, row.WaterPressureAsphaltCover);
-            Assert.AreEqual(result.GrassCoverErosionOutwards, row.GrassCoverErosionOutwards);
-            Assert.AreEqual(result.GrassCoverSlipOffOutwards, row.GrassCoverSlipOffOutwards);
-            Assert.AreEqual(result.GrassCoverSlipOffInwards, row.GrassCoverSlipOffInwards);
-            Assert.AreEqual(result.HeightStructures, row.HeightStructures);
-            Assert.AreEqual(result.ClosingStructures, row.ClosingStructures);
-            Assert.AreEqual(result.PipingStructures, row.PipingStructures);
-            Assert.AreEqual(result.StabilityPointStructures, row.StabilityPointStructures);
-            Assert.AreEqual(result.StrengthStabilityLengthwise, row.StrengthStabilityLengthwise);
-            Assert.AreEqual(result.DuneErosion, row.DuneErosion);
-            Assert.AreEqual(result.TechnicalInnovation, row.TechnicalInnovation);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.TotalResult), row.TotalResult);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.Piping), row.Piping);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.MacroStabilityInwards), row.MacroStabilityInwards);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.MacroStabilityOutwards), row.MacroStabilityOutwards);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.Microstability), row.Microstability);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.StabilityStoneCover), row.StabilityStoneCover);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.WaterPressureAsphaltCover), row.WaterPressureAsphaltCover);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.GrassCoverErosionOutwards), row.GrassCoverErosionOutwards);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.GrassCoverSlipOffOutwards), row.GrassCoverSlipOffOutwards);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.HeightStructures), row.HeightStructures);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.ClosingStructures), row.ClosingStructures);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.PipingStructures), row.PipingStructures);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.StabilityPointStructures), row.StabilityPointStructures);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.StrengthStabilityLengthwise), row.StrengthStabilityLengthwise);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.DuneErosion), row.DuneErosion);
+            Assert.AreEqual(FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(result.TechnicalInnovation), row.TechnicalInnovation);
         }
 
         [Test]
