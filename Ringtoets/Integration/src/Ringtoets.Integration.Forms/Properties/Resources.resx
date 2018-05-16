@@ -397,10 +397,10 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Assemblageresultaat verversen</value>
   </data>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionStart" xml:space="preserve">
-    <value>Kilometrering van [km]</value>
+    <value>Kilometrering* van [km]</value>
   </data>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionEnd" xml:space="preserve">
-    <value>Kilometrering tot [km]</value>
+    <value>Kilometrering* tot [km]</value>
   </data>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly" xml:space="preserve">
     <value>Totaal vakoordeel</value>

@@ -26,6 +26,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data.Assembly;
@@ -101,8 +102,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, technicalInnovationIndex);
 
-            Assert.AreEqual(result.SectionStart, row.SectionStart);
-            Assert.AreEqual(result.SectionEnd, row.SectionEnd);
+            Assert.AreEqual(3, row.SectionStart.NumberOfDecimalPlaces);
+            Assert.AreEqual(result.SectionStart, row.SectionStart, row.SectionStart.GetAccuracy());
+            Assert.AreEqual(3, row.SectionStart.NumberOfDecimalPlaces);
+            Assert.AreEqual(result.SectionEnd, row.SectionEnd, row.SectionEnd.GetAccuracy());
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.TotalResult), row.TotalResult);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.Piping), row.Piping);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);

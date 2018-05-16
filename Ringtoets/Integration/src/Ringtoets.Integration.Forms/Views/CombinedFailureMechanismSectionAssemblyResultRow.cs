@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.Helpers;
@@ -82,11 +83,11 @@ namespace Ringtoets.Integration.Forms.Views
         /// Gets the start of the section from the beginning of the reference line.
         /// [m]
         /// </summary>
-        public double SectionStart
+        public RoundedDouble SectionStart
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.SectionStart;
+                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionStart);
             }
         }
 
@@ -94,11 +95,11 @@ namespace Ringtoets.Integration.Forms.Views
         /// Gets the end of the section from the beginning of the reference line.
         /// [m]
         /// </summary>
-        public double SectionEnd
+        public RoundedDouble SectionEnd
         {
             get
             {
-                return combinedFailureMechanismSectionAssemblyResult.SectionEnd;
+                return new RoundedDouble(3, combinedFailureMechanismSectionAssemblyResult.SectionEnd);
             }
         }
 
