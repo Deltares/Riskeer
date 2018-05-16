@@ -77,67 +77,67 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddTextBoxColumn("StartPoint",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionStart),
                                                  Resources.AssemblyResultPerSectionView_GridColumn_SectionStart,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("EndPoint",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionEnd),
                                                  Resources.AssemblyResultPerSectionView_GridColumn_SectionEnd,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("TotalAssembly",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
                                                  Resources.AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("Piping",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.Piping),
                                                  PipingDataResources.PipingFailureMechanism_DisplayCode,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("GrassCoverErosionInwards",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverErosionInwards),
                                                  GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsFailureMechanism_DisplayCode,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("MacroStabilityInwards",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.MacroStabilityInwards),
                                                  MacroStabilityInwardsDataResources.MacroStabilityInwardsFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("MacroStabilityOutwards",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.MacroStabilityOutwards),
                                                  IntegrationDataResources.MacroStabilityOutwardsFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("MicroStability",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.Microstability),
                                                  IntegrationDataResources.MicrostabilityFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("StabilityStoneCover",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.StabilityStoneCover),
                                                  StabilityStoneCoverDataResources.StabilityStoneCoverFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("WaveImpactAsphaltCover",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.WaveImpactAsphaltCover),
                                                  WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("WaterPressureAsphaltCover",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.WaterPressureAsphaltCover),
                                                  IntegrationDataResources.WaterPressureAsphaltCoverFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("GrassCoverErosionOutwards",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverErosionOutwards),
                                                  GrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("GrassCoverSlipOffOutwards",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverSlipOffOutwards),
                                                  IntegrationDataResources.GrassCoverSlipOffOutwardsFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("GrassCoverSlipOffInwards",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.GrassCoverSlipOffInwards),
                                                  IntegrationDataResources.GrassCoverSlipOffInwardsFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("HeightStructures",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.HeightStructures),
                                                  HeightStructuresDataResources.HeightStructuresFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("ClosingStructures",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.ClosingStructures),
                                                  ClosingStructuresDataResources.ClosingStructuresFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("PipingStructures",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.PipingStructures),
                                                  IntegrationDataResources.PipingStructureFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("StabilityPointStructures",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.StabilityPointStructures),
                                                  StabilityPointStructuresDataResources.StabilityPointStructuresFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("StrengthStabilityLengthwise",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.StrengthStabilityLengthwise),
                                                  IntegrationDataResources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("DuneErosion",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.DuneErosion),
                                                  DuneErosionDataResources.DuneErosionFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn("TechnicalInnovation",
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TechnicalInnovation),
                                                  IntegrationDataResources.TechnicalInnovationFailureMechanism_Code,
                                                  true);
         }
