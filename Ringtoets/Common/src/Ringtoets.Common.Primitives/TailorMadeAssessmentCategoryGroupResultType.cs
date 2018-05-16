@@ -26,7 +26,7 @@ namespace Ringtoets.Common.Primitives
 {
     /// <summary>
     /// This enum defines the possible result types for a tailor made assessment 
-    /// on a failure mechanism section where a category group can be selected.
+    /// on a failure mechanism section in case only a category group is relevant.
     /// </summary>
     public enum TailorMadeAssessmentCategoryGroupResultType
     {

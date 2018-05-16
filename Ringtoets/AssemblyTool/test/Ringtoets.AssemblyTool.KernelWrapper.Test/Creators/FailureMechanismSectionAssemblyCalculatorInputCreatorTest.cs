@@ -45,7 +45,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1((SimpleAssessmentResultType) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentResultType'.";
+            string expectedMessage = $"The value of argument 'input' (99) is invalid for Enum type '{nameof(SimpleAssessmentResultType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
@@ -71,7 +71,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2((SimpleAssessmentValidityOnlyResultType) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'SimpleAssessmentValidityOnlyResultType'.";
+            string expectedMessage = $"The value of argument 'input' (99) is invalid for Enum type '{nameof(SimpleAssessmentValidityOnlyResultType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
@@ -302,7 +302,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 new FailureMechanismSectionAssembly(0, (FailureMechanismSectionAssemblyCategoryGroup) 99));
 
             // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
+            string expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyCategoryGroup)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
@@ -337,7 +337,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'category' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
+            string expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyCategoryGroup)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
