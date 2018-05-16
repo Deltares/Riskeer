@@ -38,10 +38,13 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.RefreshAssemblyResultsButton = new System.Windows.Forms.Button();
             this.buttonGroupBox = new System.Windows.Forms.GroupBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -61,7 +64,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.RefreshAssemblyResultsButton.Name = "RefreshAssemblyResultsButton";
             this.RefreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 23);
             this.RefreshAssemblyResultsButton.TabIndex = 0;
-            this.RefreshAssemblyResultsButton.Text = Resources.RefreshAssemblyResultsButton_Text;
+            this.RefreshAssemblyResultsButton.Text = global::Ringtoets.Integration.Forms.Properties.Resources.RefreshAssemblyResultsButton_Text;
             this.RefreshAssemblyResultsButton.UseVisualStyleBackColor = true;
             this.RefreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
             // 
@@ -76,6 +79,12 @@ namespace Ringtoets.Integration.Forms.Views
             this.buttonGroupBox.TabIndex = 2;
             this.buttonGroupBox.TabStop = false;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
+            // 
             // AssemblyResultPerSectionView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -86,6 +95,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.Size = new System.Drawing.Size(789, 416);
             this.buttonGroupBox.ResumeLayout(false);
             this.buttonGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -95,5 +105,6 @@ namespace Ringtoets.Integration.Forms.Views
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.Button RefreshAssemblyResultsButton;
         private System.Windows.Forms.GroupBox buttonGroupBox;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

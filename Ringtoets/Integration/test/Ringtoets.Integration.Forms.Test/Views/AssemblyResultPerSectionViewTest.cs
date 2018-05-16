@@ -25,11 +25,13 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -112,6 +114,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
                 Assert.AreEqual("Assemblageresultaat verversen", button.Text);
                 Assert.IsTrue(button.Enabled);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
+                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
+                Assert.IsEmpty(errorProvider.GetError(view));
 
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
@@ -202,6 +209,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.IsInstanceOf<DataGridViewTextBoxColumn>(column);
             Assert.AreEqual(headerText, column.HeaderText);
             Assert.IsTrue(column.ReadOnly);
+        }
+
+        private static ErrorProvider GetErrorProvider(AssemblyResultPerSectionView resultView)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultView, "errorProvider");
         }
 
         private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView()

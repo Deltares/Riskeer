@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Properties;
@@ -175,10 +176,22 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetDataSource()
         {
-            CreateResult();
+            ClearControls();
+            try
+            {
+                dataGridViewControl.SetDataSource(CreateResults().Select(r => new CombinedFailureMechanismSectionAssemblyResultRow(r))
+                                                                 .ToArray());
+            }
+            catch (AssemblyException e)
+            {
+                errorProvider.SetError(RefreshAssemblyResultsButton, e.Message);
+            }
+        }
 
-            dataGridViewControl.SetDataSource(CreateResults().Select(r => new CombinedFailureMechanismSectionAssemblyResultRow(r))
-                                                             .ToArray());
+        private void ClearControls()
+        {
+            errorProvider.Clear();
+            dataGridViewControl.SetDataSource(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>());
         }
 
         private static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> CreateResults()
