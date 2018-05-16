@@ -23,9 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.Forms;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
@@ -210,30 +208,6 @@ namespace Ringtoets.Common.Forms.Helpers
 
             columnStateDefinition.ReadOnly = true;
             columnStateDefinition.Style = CellStyle.Disabled;
-        }
-
-        /// <summary>
-        /// Gets the display name of the given <paramref name="assemblyCategoryGroup"/>.
-        /// </summary>
-        /// <param name="assemblyCategoryGroup">The assembly category group to get the display name for.</param>
-        /// <returns>The display name.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        public static string GetCategoryGroupDisplayname(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), assemblyCategoryGroup))
-            {
-                throw new InvalidEnumArgumentException(nameof(assemblyCategoryGroup),
-                                                       (int) assemblyCategoryGroup,
-                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
-            }
-
-            DisplayFailureMechanismSectionAssemblyCategoryGroup displayCategoryGroup = DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(
-                assemblyCategoryGroup);
-
-            return new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(displayCategoryGroup).DisplayName;
         }
 
         private static CalculationScenarioStatus GetCalculationStatus(ICalculation calculation,

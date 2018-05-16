@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.TotalResult);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.TotalResult);
             }
         }
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.Piping);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.Piping);
             }
         }
 
@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
             }
         }
 
@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
             }
         }
 
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.MacroStabilityOutwards);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.MacroStabilityOutwards);
             }
         }
 
@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.Microstability);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.Microstability);
             }
         }
 
@@ -175,7 +175,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
             }
         }
 
@@ -186,7 +186,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
             }
         }
 
@@ -197,7 +197,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
             }
         }
 
@@ -208,7 +208,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
             }
         }
 
@@ -219,7 +219,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
             }
         }
 
@@ -230,7 +230,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
             }
         }
 
@@ -241,7 +241,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
             }
         }
 
@@ -252,7 +252,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
             }
         }
 
@@ -263,7 +263,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.PipingStructures);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.PipingStructures);
             }
         }
 
@@ -274,7 +274,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             }
         }
 
@@ -285,7 +285,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwise);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwise);
             }
         }
 
@@ -296,7 +296,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
             }
         }
 
@@ -307,7 +307,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionResultRowHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
             }
         }
 
