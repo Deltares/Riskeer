@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
@@ -79,6 +80,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismAssemblyResultRowBase>(row);
+
+            TestHelper.AssertTypeConverter<FailureMechanismAssemblyResultRow, EnumTypeConverter>(
+                nameof(FailureMechanismAssemblyResultRow.CategoryGroup));
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(1, columnStateDefinitions.Count);
