@@ -120,7 +120,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 
             // Call
             kernel.CalculateFailureMechanismCategoryLimitsWbi11(assessmentSection,
-                                                                CreateValidFailureMechanism());
+                                                                failureMechanism);
 
             // Assert
             Assert.IsTrue(kernel.Calculated);
@@ -256,7 +256,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
 
             // Call
             kernel.CalculateFmSectionCategoryLimitsWbi02(assessmentSection,
-                                                         CreateValidFailureMechanism());
+                                                         failureMechanism);
 
             // Assert
             Assert.IsTrue(kernel.Calculated);
