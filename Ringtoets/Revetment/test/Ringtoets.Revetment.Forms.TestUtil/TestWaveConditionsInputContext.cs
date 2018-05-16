@@ -49,13 +49,13 @@ namespace Ringtoets.Revetment.Forms.TestUtil
         /// </summary>
         /// <param name="wrappedData">The wrapped wave conditions input.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles.</param>
-        /// <param name="assesmentSection">The assessment section.</param>
+        /// <param name="assessmentSection">The assessment section.</param>
         public TestWaveConditionsInputContext(TestWaveConditionsInput wrappedData,
                                               IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                              IAssessmentSection assesmentSection)
+                                              IAssessmentSection assessmentSection)
             : this(wrappedData,
                    new TestWaveConditionsCalculation<TestWaveConditionsInput>(wrappedData),
-                   assesmentSection,
+                   assessmentSection,
                    foreshoreProfiles) {}
 
         /// <summary>

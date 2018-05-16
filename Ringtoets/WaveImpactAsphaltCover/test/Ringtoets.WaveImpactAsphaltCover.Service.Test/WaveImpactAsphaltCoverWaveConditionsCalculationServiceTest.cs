@@ -256,7 +256,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Validate_nAssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
+        public void Validate_AssessmentLevelNaN_LogsValidationMessageAndReturnFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
