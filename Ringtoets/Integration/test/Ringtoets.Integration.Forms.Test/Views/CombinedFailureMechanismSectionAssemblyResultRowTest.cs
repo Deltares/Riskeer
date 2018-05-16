@@ -20,10 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Forms.Views;
 
@@ -32,6 +36,26 @@ namespace Ringtoets.Integration.Forms.Test.Views
     [TestFixture]
     public class CombinedFailureMechanismSectionAssemblyResultRowTest
     {
+        private const int totalResultIndex = 2;
+        private const int pipingIndex = 3;
+        private const int grassCoverErosionInwardsIndex = 4;
+        private const int macroStabilityInwardsIndex = 5;
+        private const int macroStabilityOutwardsIndex = 6;
+        private const int microstabililityIndex = 7;
+        private const int stabilityStoneCoverIndex = 8;
+        private const int waveImpactAsphaltCoverIndex = 9;
+        private const int waterPressureAsphaltCoverIndex = 10;
+        private const int grassCoverErosionOutwardsIndex = 11;
+        private const int grassCoverSlipOffOutwardsIndex = 12;
+        private const int grassCoverSlipOffInwardsIndex = 13;
+        private const int heightStructuresIndex = 14;
+        private const int closingStructuresIndex = 15;
+        private const int pipingStructuresIndex = 16;
+        private const int stabilityPointStructuresIndex = 17;
+        private const int strengthStabilityLengthwiseIndex = 18;
+        private const int duneErosionIndex = 19;
+        private const int technicalInnovationIndex = 20;
+
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
@@ -115,6 +139,30 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var row = new CombinedFailureMechanismSectionAssemblyResultRow(result);
 
             // Assert
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(19, columnStateDefinitions.Count);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, totalResultIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverErosionInwardsIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, macroStabilityInwardsIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, macroStabilityOutwardsIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, microstabililityIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityStoneCoverIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, waveImpactAsphaltCoverIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, waterPressureAsphaltCoverIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverErosionOutwardsIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverSlipOffOutwardsIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverSlipOffInwardsIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, heightStructuresIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, closingStructuresIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingStructuresIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityPointStructuresIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, strengthStabilityLengthwiseIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, technicalInnovationIndex);
+
             Assert.AreEqual(result.SectionStart, row.SectionStart);
             Assert.AreEqual(result.SectionEnd, row.SectionEnd);
             Assert.AreEqual(result.TotalResult, row.TotalResult);
@@ -136,6 +184,68 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(result.StrengthStabilityLengthwise, row.StrengthStabilityLengthwise);
             Assert.AreEqual(result.DuneErosion, row.DuneErosion);
             Assert.AreEqual(result.TechnicalInnovation, row.TechnicalInnovation);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.FailureMechanismSectionAssemblyCategoryGroupColorCases))]
+        public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedStateDefinitionPropertiesSet(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup,
+            Color expectedBackgroundColor)
+        {
+            // Setup
+            var random = new Random(21);
+
+            var result = new CombinedFailureMechanismSectionAssemblyResult(
+                random.NextDouble(),
+                random.NextDouble(),
+                categoryGroup,
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                {
+                    Piping = categoryGroup,
+                    GrassCoverErosionInwards = categoryGroup,
+                    MacroStabilityInwards = categoryGroup,
+                    MacroStabilityOutwards = categoryGroup,
+                    Microstability = categoryGroup,
+                    StabilityStoneCover = categoryGroup,
+                    WaveImpactAsphaltCover = categoryGroup,
+                    WaterPressureAsphaltCover = categoryGroup,
+                    GrassCoverErosionOutwards = categoryGroup,
+                    GrassCoverSlipOffOutwards = categoryGroup,
+                    GrassCoverSlipOffInwards = categoryGroup,
+                    HeightStructures = categoryGroup,
+                    ClosingStructures = categoryGroup,
+                    PipingStructures = categoryGroup,
+                    StabilityPointStructures = categoryGroup,
+                    StrengthStabilityLengthwise = categoryGroup,
+                    DuneErosion = categoryGroup,
+                    TechnicalInnovation = categoryGroup
+                });
+
+            // Call
+            var row = new CombinedFailureMechanismSectionAssemblyResultRow(result);
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[totalResultIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverErosionInwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[macroStabilityInwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[macroStabilityOutwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[microstabililityIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityStoneCoverIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[waveImpactAsphaltCoverIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[waterPressureAsphaltCoverIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverErosionOutwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverSlipOffOutwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverSlipOffInwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[heightStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[closingStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[strengthStabilityLengthwiseIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[technicalInnovationIndex], expectedBackgroundColor);
         }
 
         private static CombinedFailureMechanismSectionAssemblyResult GetCombinedFailureMechanismSectionAssemblyResult()
