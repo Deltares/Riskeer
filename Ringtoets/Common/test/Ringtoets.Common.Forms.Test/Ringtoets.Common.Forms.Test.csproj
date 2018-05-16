@@ -64,6 +64,7 @@
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelperTest.cs" />
     <Compile Include="ImportInfos\RingtoetsImportInfoFactoryTest.cs" />
+    <Compile Include="Observers\FailureMechanismResultObserverTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsGroupContextTest.cs" />
     <Compile Include="PresentationObjects\NormContextTest.cs" />
