@@ -712,10 +712,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyProbability = true,
+                ManualAssemblyProbability = new Random(39).NextDouble()
+            };
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            sectionResult.UseManualAssemblyProbability = true;
-            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -771,10 +774,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetSectionAssemblyCategoryGroup_WithManualInput_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyProbability = true,
+                ManualAssemblyProbability = new Random(39).NextDouble()
+            };
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            sectionResult.UseManualAssemblyProbability = true;
-            sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -806,8 +812,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void GetSectionAssemblyCategoryGroup_CalculatorThrowsException_ThrowsAssemblyException(bool useManualAssembly)
         {
             // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            sectionResult.UseManualAssemblyProbability = useManualAssembly;
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                UseManualAssemblyProbability = useManualAssembly
+            };
+
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             var mocks = new MockRepository();
