@@ -70,6 +70,7 @@
     <Compile Include="Views\AssessmentSectionAssemblyCategoriesViewTest.cs" />
     <Compile Include="Views\AssessmentSectionAssemblyCategoryRowTest.cs" />
     <Compile Include="Views\AssemblyResultTotalViewTest.cs" />
+    <Compile Include="Views\CombinedFailureMechanismSectionAssemblyResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyResultRowBaseTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyCategoryGroupResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyResultRowTest.cs" />
