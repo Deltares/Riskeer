@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -160,6 +161,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
+            if (failureMechanisms.Contains(heightStructuresFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(closingStructuresFailureMechanism.SectionResults,
+                                                  assessmentSection, ClosingStructuresAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -285,6 +294,15 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection) => HeightStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.HeightStructures, assessmentSection);
+            }
+        }
+
+        private static Func<ClosingStructuresFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> ClosingStructuresAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.ClosingStructures, assessmentSection);
             }
         }
 
