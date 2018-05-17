@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                     assessmentSection, assessmentSection.GetFailureMechanisms()).ToArray();
 
                 // Assert
-                Assert.AreEqual(16, inputs.Length);
+                Assert.AreEqual(17, inputs.Length);
                 AssertSections(assessmentSection.Piping.SectionResults.ToArray(), inputs[0].ToArray());
                 AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults.ToArray(), inputs[1].ToArray());
                 AssertSections(assessmentSection.MacroStabilityInwards.SectionResults.ToArray(), inputs[2].ToArray());
@@ -92,6 +92,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 AssertSections(assessmentSection.PipingStructure.SectionResults.ToArray(), inputs[13].ToArray());
                 AssertSections(assessmentSection.StabilityPointStructures.SectionResults.ToArray(), inputs[14].ToArray());
                 AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults.ToArray(), inputs[15].ToArray());
+                AssertSections(assessmentSection.DuneErosion.SectionResults.ToArray(), inputs[16].ToArray());
             }
         }
 

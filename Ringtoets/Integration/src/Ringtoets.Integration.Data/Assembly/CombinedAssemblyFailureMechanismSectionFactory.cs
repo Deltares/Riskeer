@@ -25,6 +25,7 @@ using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -194,6 +195,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            if (failureMechanisms.Contains(duneErosionFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(duneErosionFailureMechanism.SectionResults,
+                                                  assessmentSection, DuneErosionAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -353,6 +362,14 @@ namespace Ringtoets.Integration.Data.Assembly
             get
             {
                 return (sectionResult, assessmentSection) => StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            }
+        }
+
+        private static Func<DuneErosionFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> DuneErosionAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
