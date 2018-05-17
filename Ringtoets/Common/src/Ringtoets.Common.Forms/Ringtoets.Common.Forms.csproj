@@ -59,6 +59,7 @@
     <Compile Include="ImportInfos\RingtoetsImportInfoFactory.cs" />
     <Compile Include="IScenarioRow.cs" />
     <Compile Include="Observers\FailureMechanismResultObserver.cs" />
+    <Compile Include="Observers\CalculatableFailureMechanismResultObserver.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsGroupContext.cs" />
     <Compile Include="PresentationObjects\NormContext.cs" />
