@@ -68,21 +68,20 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
-
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, failureMechanisms).ToArray();
+                    assessmentSection, assessmentSection.GetFailureMechanisms()).ToArray();
 
                 // Assert
-                Assert.AreEqual(5, inputs.Length);
+                Assert.AreEqual(6, inputs.Length);
                 AssertSections(assessmentSection.Piping.SectionResults.ToArray(), inputs[0].ToArray());
                 AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults.ToArray(), inputs[1].ToArray());
                 AssertSections(assessmentSection.MacroStabilityInwards.SectionResults.ToArray(), inputs[2].ToArray());
                 AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults.ToArray(), inputs[3].ToArray());
                 AssertSections(assessmentSection.Microstability.SectionResults.ToArray(), inputs[4].ToArray());
+                AssertSections(assessmentSection.StabilityStoneCover.SectionResults.ToArray(), inputs[5].ToArray());
             }
         }
 
