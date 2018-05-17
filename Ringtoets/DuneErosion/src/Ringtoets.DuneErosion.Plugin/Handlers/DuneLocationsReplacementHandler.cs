@@ -37,7 +37,6 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
     {
         private readonly IViewCommands viewCommands;
         private readonly DuneErosionFailureMechanism failureMechanism;
-        private IEnumerable<ReadDuneLocation> newDuneLocations;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsReplacementHandler"/>.
@@ -51,10 +50,12 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
             {
                 throw new ArgumentNullException(nameof(viewCommands));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             this.viewCommands = viewCommands;
             this.failureMechanism = failureMechanism;
         }
@@ -69,7 +70,7 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
         public void Replace(HydraulicBoundaryLocation[] newHydraulicBoundaryLocations)
         {
             var duneLocationsReader = new DuneLocationsReader();
-            newDuneLocations = duneLocationsReader.ReadDuneLocations();
+            IEnumerable<ReadDuneLocation> newDuneLocations = duneLocationsReader.ReadDuneLocations();
 
             DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
                                                                    newHydraulicBoundaryLocations,

@@ -50,12 +50,6 @@ namespace Ringtoets.DuneErosion.Data
             sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocations = new ObservableList<DuneLocation>();
-
-            CalculationsForMechanismSpecificFactorizedSignalingNorm = calculationsForMechanismSpecificFactorizedSignalingNorm;
-            CalculationsForMechanismSpecificSignalingNorm = calculationsForMechanismSpecificSignalingNorm;
-            CalculationsForMechanismSpecificLowerLimitNorm = calculationsForMechanismSpecificLowerLimitNorm;
-            CalculationsForLowerLimitNorm = calculationsForLowerLimitNorm;
-            CalculationsForFactorizedLowerLimitNorm = calculationsForFactorizedLowerLimitNorm;
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -79,27 +73,57 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Gets the calculations corresponding to the mechanism specific factorized signaling norm.
         /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificFactorizedSignalingNorm { get; }
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificFactorizedSignalingNorm
+        {
+            get
+            {
+                return calculationsForMechanismSpecificFactorizedSignalingNorm;
+            }
+        }
 
         /// <summary>
         /// Gets the calculations corresponding to the mechanism specific signaling norm.
         /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificSignalingNorm { get; }
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificSignalingNorm
+        {
+            get
+            {
+                return calculationsForMechanismSpecificSignalingNorm;
+            }
+        }
 
         /// <summary>
         /// Gets the calculations corresponding to the mechanism specific lower limit norm.
         /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificLowerLimitNorm { get; }
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForMechanismSpecificLowerLimitNorm
+        {
+            get
+            {
+                return calculationsForMechanismSpecificLowerLimitNorm;
+            }
+        }
 
         /// <summary>
         /// Gets the calculations corresponding to the lower limit norm.
         /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForLowerLimitNorm { get; }
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForLowerLimitNorm
+        {
+            get
+            {
+                return calculationsForLowerLimitNorm;
+            }
+        }
 
         /// <summary>
         /// Gets the calculations corresponding to the factorized lower limit norm.
         /// </summary>
-        public IObservableEnumerable<DuneLocationCalculation> CalculationsForFactorizedLowerLimitNorm { get; set; }
+        public IObservableEnumerable<DuneLocationCalculation> CalculationsForFactorizedLowerLimitNorm
+        {
+            get
+            {
+                return calculationsForFactorizedLowerLimitNorm;
+            }
+        }
 
         public IObservableEnumerable<DuneErosionFailureMechanismSectionResult> SectionResults
         {
