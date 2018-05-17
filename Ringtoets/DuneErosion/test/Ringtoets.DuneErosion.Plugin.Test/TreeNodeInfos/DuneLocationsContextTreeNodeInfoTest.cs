@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new DuneErosionPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneLocationsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneLocationCalculationsContext));
         }
 
         [TearDown]
@@ -112,7 +112,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -142,7 +142,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -160,7 +160,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var mechanism = new DuneErosionFailureMechanism();
             mechanism.DuneLocations.Add(new TestDuneLocation());
-            var context = new DuneLocationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -177,7 +177,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -221,7 +221,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -268,7 +268,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -309,7 +309,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new DuneErosionFailureMechanism();
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -355,7 +355,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -425,7 +425,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                      failureMechanism
                                  }));
 
-                var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -524,7 +524,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -602,7 +602,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -679,7 +679,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

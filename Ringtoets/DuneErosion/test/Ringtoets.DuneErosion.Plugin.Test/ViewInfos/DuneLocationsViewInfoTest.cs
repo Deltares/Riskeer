@@ -86,7 +86,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             Type dataType = info.DataType;
 
             // Assert
-            Assert.AreEqual(typeof(DuneLocationsContext), dataType);
+            Assert.AreEqual(typeof(DuneLocationCalculationsContext), dataType);
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -129,7 +129,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
@@ -149,7 +149,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocations.Add(new TestDuneLocation());
 
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
@@ -170,7 +170,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationsContext(
+            var context = new DuneLocationCalculationsContext(
                 new ObservableList<DuneLocation>(),
                 failureMechanism,
                 assessmentSection);
@@ -203,7 +203,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var locations = new ObservableList<DuneLocation>();
 
-            var data = new DuneLocationsContext(
+            var data = new DuneLocationCalculationsContext(
                 locations,
                 failureMechanism,
                 assessmentSection);

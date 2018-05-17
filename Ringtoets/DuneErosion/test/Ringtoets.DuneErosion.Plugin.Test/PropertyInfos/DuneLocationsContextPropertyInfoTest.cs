@@ -44,7 +44,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DuneLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(DuneLocationCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(DuneLocationsProperties), info.PropertyObjectType);
             }
         }
@@ -58,7 +58,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
             mockRepository.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations,
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations,
                                                    failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
@@ -77,7 +77,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
 
         private static PropertyInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocationsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocationCalculationsContext));
         }
     }
 }

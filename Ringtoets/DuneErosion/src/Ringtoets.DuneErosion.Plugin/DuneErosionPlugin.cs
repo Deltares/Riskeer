@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneErosionFailureMechanismProperties(context.WrappedData,
                                                                                       new DuneErosionFailureMechanismPropertyChangeHandler())
             };
-            yield return new PropertyInfo<DuneLocationsContext, DuneLocationsProperties>
+            yield return new PropertyInfo<DuneLocationCalculationsContext, DuneLocationsProperties>
             {
                 CreateInstance = context => new DuneLocationsProperties(context.WrappedData, l => l.Calculation)
             };
@@ -89,7 +89,7 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<DuneLocationsContext>
+            yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -124,7 +124,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
 
-            yield return new ViewInfo<DuneLocationsContext, IEnumerable<DuneLocation>, DuneLocationsView>
+            yield return new ViewInfo<DuneLocationCalculationsContext, IEnumerable<DuneLocation>, DuneLocationsView>
             {
                 GetViewName = (view, context) => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -141,7 +141,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return new ExportInfo<DuneLocationsContext>
+            yield return new ExportInfo<DuneLocationCalculationsContext>
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => new DuneLocationsExporter(context.WrappedData, filePath),
@@ -174,7 +174,7 @@ namespace Ringtoets.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new DuneLocationsContext(wrappedData.DuneLocations, wrappedData, failureMechanismContext.Parent),
+                new DuneLocationCalculationsContext(wrappedData.DuneLocations, wrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -262,7 +262,7 @@ namespace Ringtoets.DuneErosion.Plugin
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
-        private ContextMenuStrip DuneLocationsContextMenuStrip(DuneLocationsContext context, object parent, TreeViewControl treeViewControl)
+        private ContextMenuStrip DuneLocationsContextMenuStrip(DuneLocationCalculationsContext context, object parent, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,

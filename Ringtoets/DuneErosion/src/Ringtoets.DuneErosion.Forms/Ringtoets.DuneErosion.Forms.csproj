@@ -20,7 +20,7 @@
     <Compile Include="DuneErosionFailureMechanismPropertyChangeHandler.cs" />
     <Compile Include="GuiServices\DuneLocationCalculationGuiService.cs" />
     <Compile Include="PresentationObjects\DuneErosionFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\DuneLocationsContext.cs" />
+    <Compile Include="PresentationObjects\DuneLocationCalculationsContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\DuneLocationsProperties.cs" />

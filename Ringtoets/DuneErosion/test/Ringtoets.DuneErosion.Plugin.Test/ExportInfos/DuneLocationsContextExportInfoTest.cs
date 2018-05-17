@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -107,7 +107,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocations.Add(new TestDuneLocation());
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -138,7 +138,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                     Output = new TestDuneLocationOutput()
                 }
             });
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -155,7 +155,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
 
         private static ExportInfo GetExportInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(DuneLocationsContext));
+            return plugin.GetExportInfos().First(ei => ei.DataType == typeof(DuneLocationCalculationsContext));
         }
     }
 }

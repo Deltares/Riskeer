@@ -82,7 +82,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                     typeof(DuneErosionFailureMechanismProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(DuneLocationsContext),
+                    typeof(DuneLocationCalculationsContext),
                     typeof(DuneLocationsProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -104,7 +104,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                 Assert.AreEqual(3, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DuneLocationCalculationsContext)));
             }
         }
 
@@ -133,7 +133,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(DuneLocationsContext),
+                    typeof(DuneLocationCalculationsContext),
                     typeof(IEnumerable<DuneLocation>),
                     typeof(DuneLocationsView));
             }
@@ -150,7 +150,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(1, exportInfos.Length);
-                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationsContext)));
+                Assert.IsTrue(exportInfos.Any(ei => ei.DataType == typeof(DuneLocationCalculationsContext)));
             }
         }
     }
