@@ -34,23 +34,23 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of an enumeration of <see cref="DuneLocation"/> for the properties panel.
     /// </summary>
-    public class DuneLocationsProperties : ObjectProperties<ObservableList<DuneLocationCalculation>>, IDisposable
+    public class DuneLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>, IDisposable
     {
-        private readonly RecursiveObserver<ObservableList<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneLocationsProperties"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationsProperties"/>.
         /// </summary>
         /// <param name="calculations">The collection of dune location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        public DuneLocationsProperties(ObservableList<DuneLocationCalculation> calculations)
+        public DuneLocationCalculationsProperties(IObservableEnumerable<DuneLocationCalculation> calculations)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            calculationsObserver = new RecursiveObserver<ObservableList<DuneLocationCalculation>, DuneLocationCalculation>(OnRefreshRequired, list => list)
+            calculationsObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(OnRefreshRequired, list => list)
             {
                 Observable = calculations
             };

@@ -33,7 +33,7 @@ using Ringtoets.DuneErosion.Forms.PropertyClasses;
 namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DuneLocationsPropertiesTest
+    public class DuneLocationCalculationsPropertiesTest
     {
         private const int requiredLocationsPropertyIndex = 0;
 
@@ -41,7 +41,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationsProperties(null);
+            TestDelegate call = () => new DuneLocationCalculationsProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,10 +59,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocationCalculation>>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
 
                 Assert.AreEqual(1, properties.Locations.Length);
@@ -81,7 +81,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
             {
                 // Assert
                 Assert.AreSame(duneLocationCalculations, properties.Data);
@@ -109,7 +109,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 calculation
             };
 
-            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
             {
 
                 var refreshRequiredRaised = 0;
@@ -133,7 +133,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 calculation
             };
 
-            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
+            using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
             {
 
                 var refreshRequiredRaised = 0;

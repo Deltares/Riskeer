@@ -31,7 +31,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DuneLocationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DuneLocationsPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\DuneLocationCalculationsPropertiesTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
     <Compile Include="Factories\DuneErosionMapDataFeaturesFactoryTest.cs" />

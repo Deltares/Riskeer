@@ -83,7 +83,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DuneLocationCalculationsContext),
-                    typeof(DuneLocationsProperties));
+                    typeof(DuneLocationCalculationsProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DuneLocation),
