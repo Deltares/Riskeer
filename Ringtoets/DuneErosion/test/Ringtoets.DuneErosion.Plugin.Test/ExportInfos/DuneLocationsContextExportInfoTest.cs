@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -65,8 +66,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(), 
+                                                              new DuneErosionFailureMechanism(), 
+                                                              assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -98,16 +100,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_LocationsWithoutOutput_ReturnFalse()
+        public void IsEnabled_CalculationsWithoutOutput_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.Add(new TestDuneLocation());
-            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            {
+                new DuneLocationCalculation(new TestDuneLocation())
+            };
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations, 
+                                                              new DuneErosionFailureMechanism(), 
+                                                              assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -123,22 +129,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_LocationsWithOutput_ReturnTrue()
+        public void IsEnabled_CalculationsWithOutput_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.Add(new TestDuneLocation
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                Calculation =
+                new DuneLocationCalculation(new TestDuneLocation())
                 {
                     Output = new TestDuneLocationOutput()
                 }
-            });
-            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            };
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations, 
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {

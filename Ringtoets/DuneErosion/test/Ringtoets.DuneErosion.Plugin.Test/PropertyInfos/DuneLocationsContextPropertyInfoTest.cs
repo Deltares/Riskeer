@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -57,9 +58,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations,
-                                                   failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(), 
+                                                              new DuneErosionFailureMechanism(), 
+                                                              assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -72,6 +73,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<DuneLocationsProperties>(objectProperties);
                 Assert.AreSame(context.WrappedData, objectProperties.Data);
             }
+
             mockRepository.VerifyAll();
         }
 

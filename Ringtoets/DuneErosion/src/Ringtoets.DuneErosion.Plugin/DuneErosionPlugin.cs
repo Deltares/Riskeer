@@ -93,7 +93,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.Count > 0
+                ForeColor = context => context.WrappedData.Any()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = DuneLocationsContextMenuStrip
@@ -145,7 +145,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 CreateFileExporter = (context, filePath) => new DuneLocationsExporter(context.WrappedData, filePath),
-                IsEnabled = context => context.WrappedData.Any(dl => dl.Calculation.Output != null),
+                IsEnabled = context => context.WrappedData.Any(calculation => calculation.Output != null),
                 FileFilterGenerator = new FileFilterGenerator(
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description)
