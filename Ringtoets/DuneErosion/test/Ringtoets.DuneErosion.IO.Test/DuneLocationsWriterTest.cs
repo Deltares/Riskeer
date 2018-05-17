@@ -36,21 +36,21 @@ namespace Ringtoets.DuneErosion.IO.Test
     public class DuneLocationsWriterTest
     {
         [Test]
-        public void WriteDuneLocations_DuneLocationsNull_ThrowArgumentNullException()
+        public void WriteDuneLocations_DuneLocationCalculationsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => DuneLocationsWriter.WriteDuneLocations(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("duneLocations", exception.ParamName);
+            Assert.AreEqual("duneLocationCalculations", exception.ParamName);
         }
 
         [Test]
         public void WriteDuneLocations_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), null);
+            TestDelegate test = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocationCalculation>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocations_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);
+            TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -79,7 +79,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);
+            TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -97,7 +97,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 string filePath = Path.Combine(directoryPath, "test.bnd");
 
                 // Call
-                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), filePath);
+                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
                 // Assert
@@ -118,7 +118,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocation>(), path);
+                TestDelegate call = () => DuneLocationsWriter.WriteDuneLocations(Enumerable.Empty<DuneLocationCalculation>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -131,19 +131,23 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocations_ValidData_ValidFile()
         {
             // Setup
-            DuneLocation locationNoOutput = CreateDuneLocationForExport(9, 9740, 1.9583e-4);
+            var calculationWithoutOutput = new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4));
 
-            DuneLocation locationUncalculatedOutput = CreateDuneLocationForExport(10, 9770.1, 1.9583e-4);
-            locationUncalculatedOutput.Calculation.Output = CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN);
-
-            DuneLocation locationCalculatedOutput = CreateDuneLocationForExport(11, 9771.34, 1.337e-4);
-            locationCalculatedOutput.Calculation.Output = CreateDuneLocationOutputForExport(5.89, 14.11, 8.53);
-
-            DuneLocation[] duneLocations =
+            var calculationWithUncalculatedOutput = new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
             {
-                locationNoOutput,
-                locationUncalculatedOutput,
-                locationCalculatedOutput
+                Output = CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN)
+            };
+
+            var calculationWithOutput = new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
+            {
+                Output = CreateDuneLocationOutputForExport(5.89, 14.11, 8.53)
+            };
+
+            DuneLocationCalculation[] duneLocationCalculations =
+            {
+                calculationWithoutOutput,
+                calculationWithUncalculatedOutput,
+                calculationWithOutput
             };
 
             string directoryPath = TestHelper.GetScratchPadPath("WriteDuneLocations_ValidData_ValidFile");
@@ -153,7 +157,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             try
             {
                 // Call
-                DuneLocationsWriter.WriteDuneLocations(duneLocations, filePath);
+                DuneLocationsWriter.WriteDuneLocations(duneLocationCalculations, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));

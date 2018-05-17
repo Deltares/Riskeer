@@ -31,32 +31,32 @@ using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 namespace Ringtoets.DuneErosion.IO
 {
     /// <summary>
-    /// Exports dune locations and stores them as a bnd file.
+    /// Exports dune location calculations and stores them as a bnd file.
     /// </summary>
     public class DuneLocationsExporter : IFileExporter
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DuneLocationsExporter));
 
-        private readonly IEnumerable<DuneLocation> duneLocations;
+        private readonly IEnumerable<DuneLocationCalculation> duneLocationCalculations;
         private readonly string filePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsExporter"/>.
         /// </summary>
-        /// <param name="duneLocations">The dune locations to export.</param>
+        /// <param name="duneLocationCalculations">The dune location calculations to export.</param>
         /// <param name="filePath">The path of the file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public DuneLocationsExporter(IEnumerable<DuneLocation> duneLocations, string filePath)
+        public DuneLocationsExporter(IEnumerable<DuneLocationCalculation> duneLocationCalculations, string filePath)
         {
-            if (duneLocations == null)
+            if (duneLocationCalculations == null)
             {
-                throw new ArgumentNullException(nameof(duneLocations));
+                throw new ArgumentNullException(nameof(duneLocationCalculations));
             }
 
             IOUtils.ValidateFilePath(filePath);
 
-            this.duneLocations = duneLocations;
+            this.duneLocationCalculations = duneLocationCalculations;
             this.filePath = filePath;
         }
 
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.IO
         {
             try
             {
-                DuneLocationsWriter.WriteDuneLocations(duneLocations, filePath);
+                DuneLocationsWriter.WriteDuneLocations(duneLocationCalculations, filePath);
             }
             catch (CriticalFileWriteException e)
             {

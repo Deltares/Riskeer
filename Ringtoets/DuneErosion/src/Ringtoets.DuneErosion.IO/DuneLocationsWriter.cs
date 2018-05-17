@@ -43,16 +43,16 @@ namespace Ringtoets.DuneErosion.IO
         /// <summary>
         /// Writes dune locations to a bnd file.
         /// </summary>
-        /// <param name="duneLocations">The dune locations to be written to the file.</param>
+        /// <param name="duneLocationCalculations">The dune location calculations to be written to the file.</param>
         /// <param name="filePath">The path to the file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        public static void WriteDuneLocations(IEnumerable<DuneLocation> duneLocations,
+        public static void WriteDuneLocations(IEnumerable<DuneLocationCalculation> duneLocationCalculations,
                                               string filePath)
         {
-            if (duneLocations == null)
+            if (duneLocationCalculations == null)
             {
-                throw new ArgumentNullException(nameof(duneLocations));
+                throw new ArgumentNullException(nameof(duneLocationCalculations));
             }
             if (filePath == null)
             {
@@ -64,9 +64,9 @@ namespace Ringtoets.DuneErosion.IO
 
             try
             {
-                foreach (DuneLocation location in duneLocations)
+                foreach (DuneLocationCalculation calculation in duneLocationCalculations)
                 {
-                    stringBuilder.AppendLine(CreateCsvLine(location));
+                    stringBuilder.AppendLine(CreateCsvLine(calculation));
                 }
 
                 File.WriteAllText(filePath, stringBuilder.ToString());
@@ -77,17 +77,18 @@ namespace Ringtoets.DuneErosion.IO
             }
         }
 
-        private static string CreateCsvLine(DuneLocation location)
+        private static string CreateCsvLine(DuneLocationCalculation calculation)
         {
+            var duneLocation = calculation.DuneLocation;
             var stringComponents = new List<string>
             {
-                location.CoastalAreaId.ToString(null, CultureInfo.InvariantCulture),
-                location.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
+                duneLocation.CoastalAreaId.ToString(null, CultureInfo.InvariantCulture),
+                duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
                 Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
-                location.D50.ToString(null, CultureInfo.InvariantCulture)
+                duneLocation.D50.ToString(null, CultureInfo.InvariantCulture)
             };
 
-            stringComponents.InsertRange(2, GetOutputValues(location.Calculation.Output));
+            stringComponents.InsertRange(2, GetOutputValues(calculation.Output));
 
             return string.Join(separator, stringComponents);
         }
