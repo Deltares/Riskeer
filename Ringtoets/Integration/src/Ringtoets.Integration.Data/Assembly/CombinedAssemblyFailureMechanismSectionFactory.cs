@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -151,6 +152,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
+            if (failureMechanisms.Contains(heightStructuresFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(heightStructuresFailureMechanism.SectionResults,
+                                                  assessmentSection, HeightStructuresAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -267,6 +276,15 @@ namespace Ringtoets.Integration.Data.Assembly
             get
             {
                 return (sectionResult, assessmentSection) => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            }
+        }
+
+        private static Func<HeightStructuresFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> HeightStructuresAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => HeightStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.HeightStructures, assessmentSection);
             }
         }
 
