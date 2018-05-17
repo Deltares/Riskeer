@@ -454,9 +454,8 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_AssessmentSectionWithDuneErosionFailureMechanism_ClearDataAndReturnAffectedCalculations(bool hasOutput)
         {
             // Setup
-            DuneLocation duneLocation = CreateDuneLocation(hasOutput);
             var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
-            duneErosionFailureMechanism.DuneLocations.Add(duneLocation);
+            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, hasOutput);
 
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
@@ -466,11 +465,7 @@ namespace Ringtoets.Integration.Service.Test
             });
             mockRepository.ReplayAll();
 
-            var expectedAffectedItems = new List<IObservable>();
-            if (duneLocation.Calculation.Output != null)
-            {
-                expectedAffectedItems.Add(duneLocation);
-            }
+            IEnumerable<IObservable> expectedAffectedItems = GetAllDuneLocationCalculationsWithOutput(duneErosionFailureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
@@ -479,7 +474,8 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsNull(duneLocation.Calculation.Output);
+            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+
             mockRepository.VerifyAll();
         }
 
@@ -539,15 +535,10 @@ namespace Ringtoets.Integration.Service.Test
         public void ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms_DuneErosionFailureMechanism_ClearDataAndReturnAffectedCalculations(bool hasOutput)
         {
             // Setup
-            DuneLocation duneLocation = CreateDuneLocation(hasOutput);
             var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
-            duneErosionFailureMechanism.DuneLocations.Add(duneLocation);
+            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, hasOutput);
 
-            var expectedAffectedItems = new List<IObservable>();
-            if (duneLocation.Calculation.Output != null)
-            {
-                expectedAffectedItems.Add(duneLocation);
-            }
+            IEnumerable<IObservable> expectedAffectedItems = GetAllDuneLocationCalculationsWithOutput(duneErosionFailureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
@@ -559,7 +550,7 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            Assert.IsNull(duneLocation.Calculation.Output);
+            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
         }
 
         [Test]
@@ -1688,15 +1679,64 @@ namespace Ringtoets.Integration.Service.Test
             }
         }
 
-        private static DuneLocation CreateDuneLocation(bool hasOutput)
+        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism, bool hasOutput)
         {
-            return new TestDuneLocation
+            var duneLocation = new TestDuneLocation
             {
                 Calculation =
                 {
                     Output = hasOutput ? new TestDuneLocationOutput() : null
                 }
             };
+
+            var duneLocations = new[]
+            {
+                duneLocation
+            };
+
+            failureMechanism.DuneLocations.AddRange(duneLocations);
+            failureMechanism.SetDuneLocationCalculations(duneLocations);
+
+            if (hasOutput)
+            {
+                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
+                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
+                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+                failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            }
+        }
+
+        private static IEnumerable<IObservable> GetAllDuneLocationCalculationsWithOutput(DuneErosionFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return failureMechanism.DuneLocations.Where(l => l.Calculation.Output != null).Cast<IObservable>()
+                                   .Concat(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
+                                   .Concat(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
+                                   .ToArray();
+        }
+
+        private static void AssertDuneLocationCalculationsHaveNoOutputs(DuneErosionFailureMechanism failureMechanism)
+        {
+            Assert.IsFalse(failureMechanism.DuneLocations.All(l => l.Calculation.Output != null));
+
+            Assert.IsFalse(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasDuneLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(HasDuneLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(HasDuneLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.CalculationsForLowerLimitNorm.All(HasDuneLocationCalculationOutput));
+            Assert.IsFalse(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(HasDuneLocationCalculationOutput));
+        }
+
+        private static bool HasDuneLocationCalculationOutput(DuneLocationCalculation calculation)
+        {
+            return calculation.Output != null;
         }
     }
 }
