@@ -30,7 +30,7 @@
     <Compile Include="PropertyInfos\DuneLocationsContextPropertyInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\DuneLocationsContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\DuneLocationCalculationsContextTreeNodeInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionFailureMechanismResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionFailureMechanismViewInfoTest.cs" />
     <Compile Include="ViewInfos\DuneLocationsViewInfoTest.cs" />
