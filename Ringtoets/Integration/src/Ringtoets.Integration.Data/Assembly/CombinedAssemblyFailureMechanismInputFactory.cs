@@ -21,8 +21,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data.Assembly
 {
@@ -51,7 +56,61 @@ namespace Ringtoets.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(failureMechanisms));
             }
 
-            return new List<CombinedAssemblyFailureMechanismInput>();
+            var inputs = new List<CombinedAssemblyFailureMechanismInput>();
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
+
+            if (failureMechanisms.Contains(pipingFailureMechanism))
+            {
+                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.PipingProbabilityAssessmentInput.GetN(
+                                                                               fm.PipingProbabilityAssessmentInput.SectionLength),
+                                                                           pipingFailureMechanism,
+                                                                           CreateCombinedSections(pipingFailureMechanism.SectionResults,
+                                                                                                  assessmentSection, PipingAssemblyFunc)
+                                                                               .ToArray()));
+            }
+
+            return inputs;
+        }
+
+        private static Func<PipingFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> PipingAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.Piping, assessmentSection);
+            }
+        }
+
+        private static CombinedAssemblyFailureMechanismInput CreateCombinedAssemblyFailureMechanismInputItem<TFailureMechanism>(
+            Func<TFailureMechanism, double> getLengthEffectFunc, TFailureMechanism failureMechanism,
+            IEnumerable<CombinedAssemblyFailureMechanismSection> combinedAssemblyFailureMechanismSections)
+            where TFailureMechanism : IFailureMechanism
+        {
+            return new CombinedAssemblyFailureMechanismInput(getLengthEffectFunc(failureMechanism),
+                                                             failureMechanism.Contribution,
+                                                             combinedAssemblyFailureMechanismSections);
+        }
+
+        private static IEnumerable<CombinedAssemblyFailureMechanismSection> CreateCombinedSections<TFailureMechanismSectionResult>(
+            IEnumerable<TFailureMechanismSectionResult> sectionResults,
+            AssessmentSection assessmentSection,
+            Func<TFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc)
+            where TFailureMechanismSectionResult : FailureMechanismSectionResult
+        {
+            double totalSectionsLength = 0;
+
+            var combinedSections = new List<CombinedAssemblyFailureMechanismSection>();
+            foreach (TFailureMechanismSectionResult sectionResult in sectionResults)
+            {
+                double endPoint = sectionResult.Section.Length + totalSectionsLength;
+                combinedSections.Add(new CombinedAssemblyFailureMechanismSection(totalSectionsLength,
+                                                                                 endPoint,
+                                                                                 getAssemblyFunc(sectionResult, assessmentSection)));
+
+                totalSectionsLength = endPoint;
+            }
+
+            return combinedSections.ToArray();
         }
     }
 }

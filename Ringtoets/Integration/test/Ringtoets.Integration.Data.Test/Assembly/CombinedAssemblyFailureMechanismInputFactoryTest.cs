@@ -20,14 +20,17 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Integration.Data.Assembly;
+using Ringtoets.Integration.TestUtil;
+using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {
@@ -60,16 +63,52 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void CreateInput_Always_ReturnsEmptyCollection()
+        public void CreateInput_WithAllFailureMechanismsRelevant_ReturnsInputCollection()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            // Call
-            IEnumerable<CombinedAssemblyFailureMechanismInput> inputs = CombinedAssemblyFailureMechanismInputFactory.CreateInput(assessmentSection, Enumerable.Empty<IFailureMechanism>());
+            IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
-            // Assert
-            CollectionAssert.IsEmpty(inputs);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                CombinedAssemblyFailureMechanismInput[] inputs = CombinedAssemblyFailureMechanismInputFactory.CreateInput(
+                    assessmentSection, failureMechanisms).ToArray();
+
+                // Assert
+                Assert.AreEqual(1, inputs.Length);
+                AssertPipingInput(assessmentSection.Piping, inputs[0]);
+            }
+        }
+
+        private static void AssertPipingInput(PipingFailureMechanism pipingFailureMechanism, CombinedAssemblyFailureMechanismInput input)
+        {
+            double expectedN = pipingFailureMechanism.PipingProbabilityAssessmentInput.GetN(pipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            Assert.AreEqual(expectedN, input.N);
+            Assert.AreEqual(pipingFailureMechanism.Contribution, input.FailureMechanismContribution);
+
+            AssertSections(pipingFailureMechanism.SectionResults.ToArray(), input.Sections.ToArray());
+        }
+
+        private static void AssertSections<T>(T[] originalSectionResults, CombinedAssemblyFailureMechanismSection[] inputSections)
+            where T : FailureMechanismSectionResult
+        {
+            Assert.AreEqual(originalSectionResults.Length, inputSections.Length);
+
+            double expectedSectionStart = 0;
+
+            for (var i = 0; i < originalSectionResults.Length; i++)
+            {
+                var expectedSectionEnd = expectedSectionStart + originalSectionResults[i].Section.Length;
+
+                Assert.AreEqual(expectedSectionStart, inputSections[i].SectionStart);
+                Assert.AreEqual(expectedSectionEnd, inputSections[i].SectionEnd);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, inputSections[i].CategoryGroup);
+
+                expectedSectionStart = expectedSectionEnd;
+            }
         }
     }
 }
