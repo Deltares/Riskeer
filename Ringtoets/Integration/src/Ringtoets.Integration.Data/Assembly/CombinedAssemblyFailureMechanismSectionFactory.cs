@@ -203,6 +203,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
+            if (failureMechanisms.Contains(technicalInnovationFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(technicalInnovationFailureMechanism.SectionResults,
+                                                  assessmentSection, TechnicalInnovationAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -370,6 +378,14 @@ namespace Ringtoets.Integration.Data.Assembly
             get
             {
                 return (sectionResult, assessmentSection) => DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            }
+        }
+
+        private static Func<TechnicalInnovationFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> TechnicalInnovationAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => TechnicalInnovationFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
