@@ -15,8 +15,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DuneLocationsWriter.cs" />
     <Compile Include="DuneLocationCalculationsExporter.cs" />
+    <Compile Include="DuneLocationCalculationsWriter.cs" />
     <Compile Include="ReadDuneLocation.cs" />
     <Compile Include="DuneLocationsReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

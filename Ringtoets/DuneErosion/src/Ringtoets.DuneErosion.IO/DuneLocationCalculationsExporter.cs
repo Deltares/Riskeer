@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.IO
         {
             try
             {
-                DuneLocationsWriter.WriteDuneLocations(duneLocationCalculations, filePath);
+                DuneLocationCalculationsWriter.WriteDuneLocationCalculations(duneLocationCalculations, filePath);
             }
             catch (CriticalFileWriteException e)
             {
