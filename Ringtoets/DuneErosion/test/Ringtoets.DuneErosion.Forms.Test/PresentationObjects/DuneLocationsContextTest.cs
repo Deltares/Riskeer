@@ -40,14 +40,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
+
             var failureMechanism = new DuneErosionFailureMechanism();
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>();
 
             // Call
-            var context = new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<DuneLocation>>>(context);
-            Assert.AreSame(failureMechanism.DuneLocations, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<DuneLocationCalculation>>>(context);
+            Assert.AreSame(duneLocationCalculations, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mockRepository.VerifyAll();
@@ -62,7 +64,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new DuneLocationsContext(new ObservableList<DuneLocation>(), null, assessmentSection);
+            TestDelegate call = () => new DuneLocationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                               null, 
+                                                               assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -77,7 +81,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate call = () => new DuneLocationsContext(failureMechanism.DuneLocations, failureMechanism, null);
+            TestDelegate call = () => new DuneLocationsContext(new ObservableList<DuneLocationCalculation>(), 
+                                                               new DuneErosionFailureMechanism(), 
+                                                               null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

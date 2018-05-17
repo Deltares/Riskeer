@@ -28,18 +28,18 @@ using Ringtoets.DuneErosion.Data;
 namespace Ringtoets.DuneErosion.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for Hydraulic boundary locations.
+    /// Presentation object for dune location calculations.
     /// </summary>
-    public class DuneLocationsContext : ObservableWrappedObjectContextBase<ObservableList<DuneLocation>>
+    public class DuneLocationsContext : ObservableWrappedObjectContextBase<IObservableEnumerable<DuneLocationCalculation>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsContext"/>.
         /// </summary>
         /// <param name="duneLocations">The dune locations for dune erosion failure mechanism.</param>
-        /// <param name="failureMechanism">The dune erosion failure mechanism which the locations belong to.</param>
-        /// <param name="assessmentSection">The assessment section the locations belong to.</param>
+        /// <param name="failureMechanism">The dune erosion failure mechanism which the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public DuneLocationsContext(ObservableList<DuneLocation> duneLocations,
+        public DuneLocationsContext(IObservableEnumerable<DuneLocationCalculation> duneLocations,
                                     DuneErosionFailureMechanism failureMechanism,
                                     IAssessmentSection assessmentSection)
             : base(duneLocations)
@@ -48,10 +48,12 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
             AssessmentSection = assessmentSection;
             FailureMechanism = failureMechanism;
         }
