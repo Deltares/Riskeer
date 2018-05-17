@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data.Assembly
@@ -75,6 +76,17 @@ namespace Ringtoets.Integration.Data.Assembly
                                                                            grassInwardsFailureMechanism,
                                                                            CreateCombinedSections(grassInwardsFailureMechanism.SectionResults,
                                                                                                   assessmentSection, GrassCoverErosionInwardsAssemblyFunc)
+                                                                               .ToArray()));
+            }
+
+            MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
+            if (failureMechanisms.Contains(macroStabilityInwardsFailureMechanism))
+            {
+                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                                                                               fm.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
+                                                                           macroStabilityInwardsFailureMechanism,
+                                                                           CreateCombinedSections(macroStabilityInwardsFailureMechanism.SectionResults,
+                                                                                                  assessmentSection, MacroStabilityInwardsAssemblyFunc)
                                                                                .ToArray()));
             }
 
@@ -130,6 +142,15 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection) => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            }
+        }
+
+        private static Func<MacroStabilityInwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityInwardsAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.MacroStabilityInwards, assessmentSection);
             }
         }
 
