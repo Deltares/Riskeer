@@ -19,6 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembly\AssessmentSectionAssemblyFactoryTest.cs" />
+    <Compile Include="Assembly\CombinedAssemblyFailureMechanismInputFactoryTest.cs" />
     <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResultTest.cs" />
     <Compile Include="RingtoetsProjectFactoryTest.cs" />
