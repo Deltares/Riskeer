@@ -55,21 +55,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredConvergencePropertyIndex = 13;
 
         [Test]
-        public void Constructor_DuneLocationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DuneLocationProperties(null, new DuneLocationCalculation(new TestDuneLocation()));
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("location", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_DuneLocationCalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationProperties(new TestDuneLocation(), null);
+            TestDelegate call = () => new DuneLocationProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,10 +70,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             // Call
-            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
+            var properties = new DuneLocationProperties(duneLocationCalculation);
 
             // Assert
             Assert.AreEqual(duneLocation.Id, properties.Id);
@@ -158,13 +147,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                     Orientation = orientation,
                                                     D50 = d50
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
             {
                 Output = output
             };
 
             // Call
-            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
+            var properties = new DuneLocationProperties(duneLocationCalculation);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
@@ -192,11 +181,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var duneLocation = new TestDuneLocation();
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
-            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
+            var properties = new DuneLocationProperties(duneLocationCalculation);
 
             // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
@@ -314,10 +302,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                 {
                                                     Offset = offset
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             // Call
-            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
+            var properties = new DuneLocationProperties(duneLocationCalculation);
 
             // Assert
             Assert.AreEqual(expectedPropertyValue, properties.Offset);
@@ -328,8 +316,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var duneLocation = new DuneLocation(1, "Name", new Point2D(0.0, 1.1), new DuneLocation.ConstructionProperties());
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
-            var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
+            var properties = new DuneLocationProperties(duneLocationCalculation);
 
             // Call
             string result = properties.ToString();

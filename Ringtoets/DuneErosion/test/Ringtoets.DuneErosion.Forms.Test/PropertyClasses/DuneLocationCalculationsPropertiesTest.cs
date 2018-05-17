@@ -65,8 +65,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 Assert.IsInstanceOf<ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
 
-                Assert.AreEqual(1, properties.Locations.Length);
-                Assert.AreSame(calculation.DuneLocation, properties.Locations[0].Data);
+                Assert.AreEqual(1, properties.Calculations.Length);
+                Assert.AreSame(calculation, properties.Calculations[0].Data);
             }
         }
 
