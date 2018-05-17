@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<ICalculation<GrassCoverErosionInwardsInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);

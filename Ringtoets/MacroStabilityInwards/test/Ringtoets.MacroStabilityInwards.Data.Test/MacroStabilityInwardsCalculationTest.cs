@@ -37,7 +37,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             var calculation = new MacroStabilityInwardsCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<ICalculation<MacroStabilityInwardsInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);

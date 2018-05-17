@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingCalculation : CloneableObservable, ICalculation
+    public class PipingCalculation : CloneableObservable, ICalculation<PipingInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.

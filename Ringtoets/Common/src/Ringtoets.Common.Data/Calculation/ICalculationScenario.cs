@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.Calculation
@@ -38,7 +37,7 @@ namespace Ringtoets.Common.Data.Calculation
         /// Gets or sets the contribution of the scenario.
         /// </summary>
         RoundedDouble Contribution { get; set; }
-        
+
         /// <summary>
         /// Gets the status of the scenario.
         /// </summary>

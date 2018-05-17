@@ -41,7 +41,7 @@ namespace Ringtoets.Piping.Data.Test
             var calculation = new PipingCalculation(generalInputParameters);
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<ICalculation<PipingInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
