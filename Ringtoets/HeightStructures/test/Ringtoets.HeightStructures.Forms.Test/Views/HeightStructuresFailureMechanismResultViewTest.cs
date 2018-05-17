@@ -210,8 +210,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             HeightStructuresFailureMechanism,
             HeightStructuresFailureMechanismSectionResult,
             HeightStructuresFailureMechanismSectionResultRow,
-            StructuresCalculation<HeightStructuresInput>,
-            HeightStructuresInput>
+            StructuresCalculation<HeightStructuresInput>>
         {
             protected override HeightStructuresFailureMechanismResultView CreateResultView(HeightStructuresFailureMechanism failureMechanism)
             {
@@ -223,11 +222,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             protected override StructuresCalculation<HeightStructuresInput> CreateCalculation()
             {
                 return new StructuresCalculation<HeightStructuresInput>();
-            }
-
-            protected override HeightStructuresInput GetInput(StructuresCalculation<HeightStructuresInput> calculation)
-            {
-                return calculation.InputParameters;
             }
         }
 

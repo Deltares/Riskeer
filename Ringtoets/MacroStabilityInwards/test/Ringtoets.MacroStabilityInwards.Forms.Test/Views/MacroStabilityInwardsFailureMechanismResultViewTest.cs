@@ -211,8 +211,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsFailureMechanism,
             MacroStabilityInwardsFailureMechanismSectionResult,
             MacroStabilityInwardsFailureMechanismSectionResultRow,
-            MacroStabilityInwardsCalculationScenario,
-            MacroStabilityInwardsInput>
+            MacroStabilityInwardsCalculationScenario>
         {
             protected override MacroStabilityInwardsFailureMechanismResultView CreateResultView(MacroStabilityInwardsFailureMechanism failureMechanism)
             {
@@ -224,11 +223,6 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             protected override MacroStabilityInwardsCalculationScenario CreateCalculation()
             {
                 return MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
-            }
-
-            protected override MacroStabilityInwardsInput GetInput(MacroStabilityInwardsCalculationScenario calculation)
-            {
-                return calculation.InputParameters;
             }
         }
 

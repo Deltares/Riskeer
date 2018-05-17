@@ -212,8 +212,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             StabilityPointStructuresFailureMechanism,
             StabilityPointStructuresFailureMechanismSectionResult,
             StabilityPointStructuresFailureMechanismSectionResultRow,
-            StructuresCalculation<StabilityPointStructuresInput>,
-            StabilityPointStructuresInput>
+            StructuresCalculation<StabilityPointStructuresInput>>
         {
             protected override StabilityPointStructuresFailureMechanismResultView CreateResultView(StabilityPointStructuresFailureMechanism failureMechanism)
             {
@@ -225,11 +224,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             protected override StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
             {
                 return new StructuresCalculation<StabilityPointStructuresInput>();
-            }
-
-            protected override StabilityPointStructuresInput GetInput(StructuresCalculation<StabilityPointStructuresInput> calculation)
-            {
-                return calculation.InputParameters;
             }
         }
 
