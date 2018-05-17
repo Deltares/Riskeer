@@ -125,11 +125,7 @@ namespace Ringtoets.Integration.TestUtil
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
-            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm);
-            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm);
-            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForLowerLimitNorm);
-            DuneErosionDataSynchronizationService.ClearDuneCalculationsOutput(assessmentSection.DuneErosion.CalculationsForFactorizedLowerLimitNorm);
+            DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(assessmentSection.DuneErosion);
 
             return assessmentSection;
         }
