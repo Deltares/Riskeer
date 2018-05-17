@@ -22,11 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data.Assembly
@@ -57,8 +56,8 @@ namespace Ringtoets.Integration.Data.Assembly
             }
 
             var inputs = new List<CombinedAssemblyFailureMechanismInput>();
-            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
 
+            PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             if (failureMechanisms.Contains(pipingFailureMechanism))
             {
                 inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.PipingProbabilityAssessmentInput.GetN(
@@ -69,16 +68,17 @@ namespace Ringtoets.Integration.Data.Assembly
                                                                                .ToArray()));
             }
 
-            return inputs;
-        }
-
-        private static Func<PipingFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> PipingAssemblyFunc
-        {
-            get
+            GrassCoverErosionInwardsFailureMechanism grassInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
+            if (failureMechanisms.Contains(grassInwardsFailureMechanism))
             {
-                return (sectionResult, assessmentSection) => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult, assessmentSection.Piping, assessmentSection);
+                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.GeneralInput.N,
+                                                                           grassInwardsFailureMechanism,
+                                                                           CreateCombinedSections(grassInwardsFailureMechanism.SectionResults,
+                                                                                                  assessmentSection, GrassCoverErosionInwardsAssemblyFunc)
+                                                                               .ToArray()));
             }
+
+            return inputs;
         }
 
         private static CombinedAssemblyFailureMechanismInput CreateCombinedAssemblyFailureMechanismInputItem<TFailureMechanism>(
@@ -112,5 +112,27 @@ namespace Ringtoets.Integration.Data.Assembly
 
             return combinedSections.ToArray();
         }
+
+        #region Assembly Funcs
+
+        private static Func<PipingFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> PipingAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.Piping, assessmentSection);
+            }
+        }
+
+        private static Func<GrassCoverErosionInwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionInwardsAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            }
+        }
+
+        #endregion
     }
 }

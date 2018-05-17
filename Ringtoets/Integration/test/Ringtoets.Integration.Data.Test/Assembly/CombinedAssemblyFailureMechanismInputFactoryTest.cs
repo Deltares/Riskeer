@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.TestUtil;
-using Ringtoets.Piping.Data;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {
@@ -78,14 +77,18 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                     assessmentSection, failureMechanisms).ToArray();
 
                 // Assert
-                Assert.AreEqual(1, inputs.Length);
-                AssertPipingInput(assessmentSection.Piping, inputs[0]);
+                Assert.AreEqual(2, inputs.Length);
+                AssertInput(assessmentSection.Piping, fm => fm.PipingProbabilityAssessmentInput.GetN(fm.PipingProbabilityAssessmentInput.SectionLength), inputs[0]);
+                AssertInput(assessmentSection.GrassCoverErosionInwards, fm => fm.GeneralInput.N, inputs[1]);
             }
         }
 
-        private static void AssertPipingInput(PipingFailureMechanism pipingFailureMechanism, CombinedAssemblyFailureMechanismInput input)
+        private static void AssertInput<TFailureMechanism>(TFailureMechanism pipingFailureMechanism,
+                                                           Func<TFailureMechanism, double> getExpectedNFunc,
+                                                           CombinedAssemblyFailureMechanismInput input)
+            where TFailureMechanism : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
         {
-            double expectedN = pipingFailureMechanism.PipingProbabilityAssessmentInput.GetN(pipingFailureMechanism.PipingProbabilityAssessmentInput.SectionLength);
+            double expectedN = getExpectedNFunc(pipingFailureMechanism);
             Assert.AreEqual(expectedN, input.N);
             Assert.AreEqual(pipingFailureMechanism.Contribution, input.FailureMechanismContribution);
 
@@ -101,7 +104,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
             for (var i = 0; i < originalSectionResults.Length; i++)
             {
-                var expectedSectionEnd = expectedSectionStart + originalSectionResults[i].Section.Length;
+                double expectedSectionEnd = expectedSectionStart + originalSectionResults[i].Section.Length;
 
                 Assert.AreEqual(expectedSectionStart, inputSections[i].SectionStart);
                 Assert.AreEqual(expectedSectionEnd, inputSections[i].SectionEnd);
