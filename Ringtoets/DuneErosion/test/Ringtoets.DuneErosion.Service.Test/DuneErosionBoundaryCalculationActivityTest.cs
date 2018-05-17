@@ -59,7 +59,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
@@ -80,7 +80,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Call
             TestDelegate test = () => new DuneErosionBoundaryCalculationActivity(null,
-                                                                                 new DuneLocationCalculation(),
+                                                                                 new DuneLocationCalculation(new TestDuneLocation()),
                                                                                  validFilePath,
                                                                                  validPreprocessorDirectory,
                                                                                  1.0 / 30000);
@@ -113,7 +113,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             const string locationName = "testLocation";
             var duneLocation = new TestDuneLocation(locationName);
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       duneLocationCalculation,
@@ -145,7 +145,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
             const string locationName = "testLocation";
             var duneLocation = new TestDuneLocation(locationName);
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       duneLocationCalculation,
@@ -178,7 +178,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             const string locationName = "some name";
             var duneLocation = new TestDuneLocation(locationName);
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 Converged = true
@@ -227,7 +227,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var duneLocation = new TestDuneLocation("locationName");
-            var duneLocationCalculation = new DuneLocationCalculation
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
             {
                 Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties())
             };
@@ -257,7 +257,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             double expectedReliabilityIndex = random.NextDouble();
 
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 WaterLevel = expectedWaterLevel,
@@ -313,7 +313,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             mockRepository.ReplayAll();
 
             var duneLocation = new TestDuneLocation("dune location");
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       duneLocationCalculation,
@@ -349,7 +349,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             const string locationName = "some name";
             var duneLocation = new TestDuneLocation(locationName);
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             var activity = new DuneErosionBoundaryCalculationActivity(duneLocation,
                                                                       duneLocationCalculation,
@@ -391,7 +391,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
@@ -430,7 +430,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());

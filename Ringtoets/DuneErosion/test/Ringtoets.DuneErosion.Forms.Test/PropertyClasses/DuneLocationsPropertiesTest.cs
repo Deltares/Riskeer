@@ -41,7 +41,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_LocationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationsProperties(null, dl => new DuneLocationCalculation());
+            TestDelegate call = () => new DuneLocationsProperties(null, dl => new DuneLocationCalculation(new TestDuneLocation()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            using (var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation()))
+            using (var properties = new DuneLocationsProperties(locations, dl => new DuneLocationCalculation(new TestDuneLocation())))
             {
                 // Assert
                 Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocation>>>(properties);
@@ -92,7 +92,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             };
 
             // Call
-            using (var properties = new DuneLocationsProperties(locations, l => new DuneLocationCalculation()))
+            using (var properties = new DuneLocationsProperties(locations, dl => new DuneLocationCalculation(new TestDuneLocation())))
             {
                 // Assert
                 Assert.AreSame(locations, properties.Data);
@@ -120,7 +120,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            using (var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation()))
+            using (var properties = new DuneLocationsProperties(duneLocations, dl => new DuneLocationCalculation(new TestDuneLocation())))
             {
 
                 var refreshRequiredRaised = 0;
@@ -144,7 +144,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 location
             };
 
-            using (var properties = new DuneLocationsProperties(duneLocations, l => new DuneLocationCalculation()))
+            using (var properties = new DuneLocationsProperties(duneLocations, dl => new DuneLocationCalculation(new TestDuneLocation())))
             {
 
                 var refreshRequiredRaised = 0;

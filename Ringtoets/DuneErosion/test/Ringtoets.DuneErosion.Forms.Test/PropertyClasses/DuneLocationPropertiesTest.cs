@@ -58,7 +58,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_DuneLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationProperties(null, new DuneLocationCalculation());
+            TestDelegate call = () => new DuneLocationProperties(null, new DuneLocationCalculation(new TestDuneLocation()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,7 +81,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
             var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
@@ -158,7 +158,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                     Orientation = orientation,
                                                     D50 = d50
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
             {
                 Output = output
             };
@@ -193,7 +193,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var duneLocation = new TestDuneLocation();
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
             var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
@@ -314,7 +314,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                                                 {
                                                     Offset = offset
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
             var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
@@ -328,7 +328,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         {
             // Setup
             var duneLocation = new DuneLocation(1, "Name", new Point2D(0.0, 1.1), new DuneLocation.ConstructionProperties());
-            var duneLocationCalculation = new DuneLocationCalculation();
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
             var properties = new DuneLocationProperties(duneLocation, duneLocationCalculation);
 
             // Call

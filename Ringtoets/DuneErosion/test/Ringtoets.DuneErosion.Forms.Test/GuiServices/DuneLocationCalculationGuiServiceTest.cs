@@ -72,7 +72,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(null,
-                                                               dl => new DuneLocationCalculation(),
+                                                               dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                1.0 / 30000);
@@ -141,7 +141,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 TestHelper.AssertLogMessages(() => guiService.Calculate(duneLocations,
-                                                                        dl => new DuneLocationCalculation(),
+                                                                        dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                                         validFilePath,
                                                                         validPreprocessorDirectory,
                                                                         1.0 / 200),
@@ -191,7 +191,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
-                                                         dl => new DuneLocationCalculation(),
+                                                         dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                          databasePath,
                                                          validPreprocessorDirectory,
                                                          1.0 / 30000);
@@ -229,7 +229,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                          {
                                                              new TestDuneLocation(hydraulicLocationName)
                                                          },
-                                                         dl => new DuneLocationCalculation(),
+                                                         dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                          validFilePath,
                                                          validPreprocessorDirectory,
                                                          1.0 / 30000);

@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Data
             Orientation = new RoundedDouble(1, properties.Orientation);
             D50 = new RoundedDouble(6, properties.D50);
 
-            Calculation = new DuneLocationCalculation();
+            Calculation = new DuneLocationCalculation(this);
         }
 
         /// <summary>
