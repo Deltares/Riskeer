@@ -33,6 +33,7 @@ using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -174,6 +175,14 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 inputs.Add(CreateCombinedSections(pipingStructureFailureMechanism.SectionResults,
                                                   assessmentSection, PipingStructureAssemblyFunc)
+                               .ToArray());
+            }
+
+            StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
+            if (failureMechanisms.Contains(stabilityPointStructuresFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(stabilityPointStructuresFailureMechanism.SectionResults,
+                                                  assessmentSection, StabilityPointStructuresAssemblyFunc)
                                .ToArray());
             }
 
@@ -319,6 +328,15 @@ namespace Ringtoets.Integration.Data.Assembly
             get
             {
                 return (sectionResult, assessmentSection) => PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            }
+        }
+
+        private static Func<StabilityPointStructuresFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> StabilityPointStructuresAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.StabilityPointStructures, assessmentSection);
             }
         }
 
