@@ -43,6 +43,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Forms.Controls;
@@ -117,9 +118,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(3, view.Controls.Count);
 
-                var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
+                Button button = GetRefreshAssemblyResultButtonTester().Properties;
                 Assert.AreEqual("Assemblageresultaat verversen", button.Text);
-                Assert.IsTrue(button.Enabled);
+                Assert.IsFalse(button.Enabled);
 
                 var groupBox = (GroupBox) new ControlTester("assemblyResultGroupBox").TheObject;
                 Assert.AreEqual(1, groupBox.Controls.Count);
@@ -133,9 +134,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var totalResultLabel = (Label) tableLayOutPanel.GetControlFromPosition(0, 0);
                 Assert.AreEqual("Totaal", totalResultLabel.Text);
-                var failureMechanismsWithProbabilityLabel = (Label)tableLayOutPanel.GetControlFromPosition(0, 1);
+                var failureMechanismsWithProbabilityLabel = (Label) tableLayOutPanel.GetControlFromPosition(0, 1);
                 Assert.AreEqual("Groepen 1 en 2", failureMechanismsWithProbabilityLabel.Text);
-                var failureMechanismsWithoutProbablityLabel = (Label)tableLayOutPanel.GetControlFromPosition(0, 2);
+                var failureMechanismsWithoutProbablityLabel = (Label) tableLayOutPanel.GetControlFromPosition(0, 2);
                 Assert.AreEqual("Groepen 3 en 4", failureMechanismsWithoutProbablityLabel.Text);
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCategoryGroupControl>(tableLayOutPanel.GetControlFromPosition(1, 0));
                 Assert.IsInstanceOf<AssessmentSectionAssemblyControl>(tableLayOutPanel.GetControlFromPosition(1, 1));
@@ -224,6 +225,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultTotalView())
             {
+                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+
                 // Precondition
                 AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
                 AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
@@ -252,6 +255,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultTotalView())
             {
+                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+
                 // Precondition
                 AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
                 AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "D", "1/1");
@@ -283,6 +288,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 using (ShowAssemblyResultTotalView())
                 {
+                    GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+
                     // Precondition
                     AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(totalControlName);
                     AssertAssessmentSectionAssemblyWithProbabilityControlWithError(failureMechanismsWithProbabilityControlName);
@@ -317,6 +324,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
 
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -353,6 +362,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             using (ShowAssemblyResultTotalView())
             {
+                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.CellFormatting += (sender, args) =>
                 {
@@ -376,13 +386,99 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFormWithAssemblyResultTotalViewWithOutdatedContent_WhenRefreshingAssemblyResults_ThenRefreshButtonDisabled()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                assessmentSection.NotifyObservers();
+
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+
+                // When
+                buttonTester.Click();
+
+                // Then 
+                Assert.IsFalse(buttonTester.Properties.Enabled);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalView_WhenAssessmentSectionNotifiesObservers_ThenRefreshButtonEnabled()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Assert.IsFalse(buttonTester.Properties.Enabled);
+
+                // When
+                assessmentSection.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismNotifiesObservers_ThenRefreshButtonEnabled()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Assert.IsFalse(buttonTester.Properties.Enabled);
+
+                // When
+                assessmentSection.StabilityStoneCover.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultTotalView_WhenCalculationNotifiesObservers_ThenRefreshButtonEnabled()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            var calculation = new TestHeightStructuresCalculation();
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
+
+            using (ShowAssemblyResultTotalView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Assert.IsFalse(buttonTester.Properties.Enabled);
+
+                // When
+                calculation.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+            }
+        }
+
         #region View test helpers
 
         private AssemblyResultTotalView ShowAssemblyResultTotalView()
         {
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            return ShowAssemblyResultTotalView(new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>()));
+        }
 
+        private AssemblyResultTotalView ShowAssemblyResultTotalView(AssessmentSection assessmentSection)
+        {
             var view = new AssemblyResultTotalView(assessmentSection);
             testForm.Controls.Add(view);
             testForm.Show();

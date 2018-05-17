@@ -68,6 +68,7 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             this.RefreshAssemblyResultsButton.AutoSize = true;
             this.RefreshAssemblyResultsButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.RefreshAssemblyResultsButton.Enabled = false;
             this.RefreshAssemblyResultsButton.Location = new System.Drawing.Point(5, 5);
             this.RefreshAssemblyResultsButton.Name = "RefreshAssemblyResultsButton";
             this.RefreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 25);

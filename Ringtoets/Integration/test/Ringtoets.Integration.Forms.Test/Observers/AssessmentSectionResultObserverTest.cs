@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -55,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void Constructor_WithAssessmentSection_ExpectedProperties()
         {
             // Call
-            using (var resultObserver = new AssessmentSectionResultObserver(new AssessmentSection(AssessmentSectionComposition.Dike)))
+            using (var resultObserver = new AssessmentSectionResultObserver(new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>())))
             {
                 // Assert
                 Assert.IsInstanceOf<Observable>(resultObserver);
@@ -67,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenAssessmentSectionNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -90,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenClosingStructuresCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             var calculation = new TestClosingStructuresCalculation();
             assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(calculation);
 
@@ -115,7 +116,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenDuneErosionFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -138,7 +139,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenGrassCoverErosionInwardsCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             var calculation = new GrassCoverErosionInwardsCalculation();
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(calculation);
 
@@ -163,7 +164,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenGrassCoverErosionOutwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -186,7 +187,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenHeightStructuresCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             var calculation = new TestHeightStructuresCalculation();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
@@ -211,7 +212,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenMacroStabilityInwardsCalculationScenarioNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             MacroStabilityInwardsCalculationScenario calculation = 
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation);
@@ -237,7 +238,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenPipingCalculationScenarioNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation);
 
@@ -262,7 +263,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenStabilityPointStructuresCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             var calculation = new TestStabilityPointStructuresCalculation();
             assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(calculation);
 
@@ -287,7 +288,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenStabilityStoneCoverFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -310,7 +311,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenWaveImpactAsphaltCoverFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -333,7 +334,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenGrassCoverSlipOffInwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -356,7 +357,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenGrassCoverSlipOffOutwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -379,7 +380,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenMacroStabilityOutwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -402,7 +403,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenMicrostabilityFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -425,7 +426,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenPipingStructureFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -448,7 +449,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenStrengthStabilityLengthwiseConstructionFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -471,7 +472,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenTechnicalInnovationFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -494,7 +495,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserver_WhenWaterPressureAsphaltCoverFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
