@@ -26,6 +26,9 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
+using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 
@@ -90,6 +93,17 @@ namespace Ringtoets.Integration.Data.Assembly
                                                                                .ToArray()));
             }
 
+            MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
+            if (failureMechanisms.Contains(macroStabilityOutwardsFailureMechanism))
+            {
+                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                                                                               fm.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength),
+                                                                           macroStabilityOutwardsFailureMechanism,
+                                                                           CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResults,
+                                                                                                  assessmentSection, MacroStabilityOutwardsAssemblyFunc)
+                                                                               .ToArray()));
+            }
+
             return inputs;
         }
 
@@ -151,6 +165,15 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection) => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.MacroStabilityInwards, assessmentSection);
+            }
+        }
+
+        private static Func<MacroStabilityOutwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> MacroStabilityOutwardsAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, assessmentSection.MacroStabilityOutwards, assessmentSection);
             }
         }
 
