@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
@@ -274,7 +275,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
-            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
 
             mocks.VerifyAll();
         }
@@ -327,7 +328,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             AssertOutputNotCleared(expectedUnaffectedObjects, assessmentSection.GetFailureMechanisms());
 
             Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(c => c.HasOutput));
-            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
 
             mocks.VerifyAll();
         }
@@ -372,7 +373,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.True(assessmentSection.GetFailureMechanisms().SelectMany(fm => fm.Calculations).All(c => !c.HasOutput));
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
             GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(grassCoverErosionOutwardsFailureMechanism);
-            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
 
             mocks.VerifyAll();
         }
@@ -416,7 +417,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             CollectionAssert.IsSubsetOf(expectedAffectedObjects, affectedObjects);
 
             Assert.IsTrue(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
-            AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
 
             mocks.VerifyAll();
         }
@@ -601,27 +602,12 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         private static IEnumerable<IObservable> GetAllAffectedDuneErosionLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
-            return failureMechanism.DuneLocations.Where(dl => dl.Calculation.Output != null).Cast<IObservable>()
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput))
-                                   .Concat(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Where(HasDuneErosionLocationCalculationOutput));
+            return DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(failureMechanism);
         }
 
         private static bool HasDuneErosionLocationCalculationOutput(DuneLocationCalculation calculation)
         {
             return calculation.Output != null;
-        }
-
-        private static void AssertDuneLocationCalculationsHaveNoOutputs(DuneErosionFailureMechanism failureMechanism)
-        {
-            Assert.True(failureMechanism.DuneLocations.All(dl => dl.Calculation.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
         }
 
         #endregion
