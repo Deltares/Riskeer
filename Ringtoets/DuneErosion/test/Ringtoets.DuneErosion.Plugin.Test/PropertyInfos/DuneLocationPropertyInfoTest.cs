@@ -43,7 +43,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(DuneLocation), info.DataType);
-                Assert.AreEqual(typeof(DuneLocationProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DuneLocationCalculationProperties), info.PropertyObjectType);
             }
         }
 
@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(duneLocation);
 
                 // Assert
-                Assert.IsInstanceOf<DuneLocationProperties>(objectProperties);
+                Assert.IsInstanceOf<DuneLocationCalculationProperties>(objectProperties);
                 Assert.AreSame(duneLocation, objectProperties.Data);
             }
         }

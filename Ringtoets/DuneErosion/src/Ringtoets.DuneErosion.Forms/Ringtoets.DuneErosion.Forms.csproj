@@ -24,7 +24,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\DuneLocationCalculationsProperties.cs" />
-    <Compile Include="PropertyClasses\DuneLocationProperties.cs" />
+    <Compile Include="PropertyClasses\DuneLocationCalculationProperties.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -40,14 +40,14 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// ViewModel of <see cref="DuneLocation"/> for the properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class DuneLocationProperties : ObjectProperties<DuneLocationCalculation>
+    public class DuneLocationCalculationProperties : ObjectProperties<DuneLocationCalculation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DuneLocationProperties"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationProperties"/>.
         /// </summary>
         /// <param name="calculation">The dune location calculation at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneLocationProperties(DuneLocationCalculation calculation)
+        public DuneLocationCalculationProperties(DuneLocationCalculation calculation)
         {
             if (calculation == null)
             {
