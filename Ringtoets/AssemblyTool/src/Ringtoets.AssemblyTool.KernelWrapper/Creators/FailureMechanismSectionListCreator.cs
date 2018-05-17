@@ -36,27 +36,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
     {
         /// <summary>
         /// Creates a collection of <see cref="FailureMechanismSectionList"/> based on the
-        /// given <paramref name="failureMechanisms"/>.
+        /// given <paramref name="failureMechanismSectionsCollection"/>.
         /// </summary>
-        /// <param name="failureMechanisms">The failure mechanisms to create the failure mechanism
-        /// section lists for.</param>
+        /// <param name="failureMechanismSectionsCollection">The collection of failure mechanism
+        /// section collections to create the failure mechanism section lists for.</param>
         /// <returns>A collection of <see cref="FailureMechanismSectionList"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionsCollection"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<FailureMechanismSectionList> Create(IEnumerable<CombinedAssemblyFailureMechanismInput> failureMechanisms)
+        public static IEnumerable<FailureMechanismSectionList> Create(
+            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> failureMechanismSectionsCollection)
         {
-            if (failureMechanisms == null)
+            if (failureMechanismSectionsCollection == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanisms));
+                throw new ArgumentNullException(nameof(failureMechanismSectionsCollection));
             }
 
-            return failureMechanisms.Select(fm => new FailureMechanismSectionList(
-                                                new FailureMechanism(
-                                                    fm.N, fm.FailureMechanismContribution),
-                                                fm.Sections.Select(s => new FmSectionWithDirectCategory(
-                                                                       s.SectionStart, s.SectionEnd,
-                                                                       ConvertCategoryGroup(s.CategoryGroup)))))
-                                    .ToArray();
+            return failureMechanismSectionsCollection.Select(sectionCollection => new FailureMechanismSectionList(
+                                                                 new FailureMechanism(1, 0),
+                                                                 sectionCollection.Select(s => new FmSectionWithDirectCategory(
+                                                                                              s.SectionStart, s.SectionEnd,
+                                                                                              ConvertCategoryGroup(s.CategoryGroup)))))
+                                                     .ToArray();
         }
 
         private static EFmSectionCategory ConvertCategoryGroup(FailureMechanismSectionAssemblyCategoryGroup category)

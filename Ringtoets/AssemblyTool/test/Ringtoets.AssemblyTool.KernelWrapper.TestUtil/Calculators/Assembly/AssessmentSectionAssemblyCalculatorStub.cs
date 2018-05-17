@@ -68,7 +68,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the combined failure mechanism sections input.
         /// </summary>
-        public IEnumerable<CombinedAssemblyFailureMechanismInput> CombinedFailureMechanismSectionsInput { get; private set; }
+        public IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CombinedFailureMechanismSectionsInput { get; private set; }
 
         /// <summary>
         /// Gets the assessment section length input.
@@ -156,7 +156,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return AssembleAssessmentSectionCategoryGroupOutput.Value;
         }
 
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(IEnumerable<CombinedAssemblyFailureMechanismInput> input,
+        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input,
                                                                                                              double assessmentSectionLength)
         {
             if (ThrowExceptionOnCalculate)

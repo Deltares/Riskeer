@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -27,7 +28,6 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.TestUtil;
 
@@ -73,28 +73,16 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                CombinedAssemblyFailureMechanismInput[] inputs = CombinedAssemblyFailureMechanismInputFactory.CreateInput(
+                IEnumerable<CombinedAssemblyFailureMechanismSection>[] inputs = CombinedAssemblyFailureMechanismInputFactory.CreateInput(
                     assessmentSection, failureMechanisms).ToArray();
 
                 // Assert
                 Assert.AreEqual(4, inputs.Length);
-                AssertInput(assessmentSection.Piping, fm => fm.PipingProbabilityAssessmentInput.GetN(fm.PipingProbabilityAssessmentInput.SectionLength), inputs[0]);
-                AssertInput(assessmentSection.GrassCoverErosionInwards, fm => fm.GeneralInput.N, inputs[1]);
-                AssertInput(assessmentSection.MacroStabilityInwards, fm => fm.MacroStabilityInwardsProbabilityAssessmentInput.GetN(fm.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength), inputs[2]);
-                AssertInput(assessmentSection.MacroStabilityOutwards, fm => fm.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(fm.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength), inputs[3]);
+                AssertSections(assessmentSection.Piping.SectionResults.ToArray(), inputs[0].ToArray());
+                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults.ToArray(), inputs[1].ToArray());
+                AssertSections(assessmentSection.MacroStabilityInwards.SectionResults.ToArray(), inputs[2].ToArray());
+                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults.ToArray(), inputs[3].ToArray());
             }
-        }
-
-        private static void AssertInput<TFailureMechanism>(TFailureMechanism pipingFailureMechanism,
-                                                           Func<TFailureMechanism, double> getExpectedNFunc,
-                                                           CombinedAssemblyFailureMechanismInput input)
-            where TFailureMechanism : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
-        {
-            double expectedN = getExpectedNFunc(pipingFailureMechanism);
-            Assert.AreEqual(expectedN, input.N);
-            Assert.AreEqual(pipingFailureMechanism.Contribution, input.FailureMechanismContribution);
-
-            AssertSections(pipingFailureMechanism.SectionResults.ToArray(), input.Sections.ToArray());
         }
 
         private static void AssertSections<T>(T[] originalSectionResults, CombinedAssemblyFailureMechanismSection[] inputSections)

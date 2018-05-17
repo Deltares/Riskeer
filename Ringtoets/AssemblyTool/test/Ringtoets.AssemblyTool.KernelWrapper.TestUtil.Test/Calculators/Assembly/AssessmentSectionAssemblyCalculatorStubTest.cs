@@ -274,7 +274,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             CombinedFailureMechanismSectionAssembly[] output =
-                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
+                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismSection[]>(),
                                                                     new Random(21).NextDouble()).ToArray();
 
             // Assert
@@ -314,7 +314,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Call
             IEnumerable<CombinedFailureMechanismSectionAssembly> output =
-                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
+                calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismSection[]>(),
                                                                     random.NextDouble());
 
             // Assert
@@ -325,7 +325,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         public void AssembleCombinedFailureMechanismSections_ThrowExceptionOnCalculateFalse_SetsInput()
         {
             // Setup
-            IEnumerable<CombinedAssemblyFailureMechanismInput> failureMechanismSections = Enumerable.Empty<CombinedAssemblyFailureMechanismInput>();
+            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> failureMechanismSections = Enumerable.Empty<CombinedAssemblyFailureMechanismSection[]>();
             double assessmentSectionLength = new Random(21).NextDouble();
             var calculator = new AssessmentSectionAssemblyCalculatorStub();
 
@@ -347,7 +347,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             };
 
             // Call
-            TestDelegate call = () => calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismInput>(),
+            TestDelegate call = () => calculator.AssembleCombinedFailureMechanismSections(Enumerable.Empty<CombinedAssemblyFailureMechanismSection[]>(),
                                                                                           new Random(21).NextDouble());
 
             // Assert

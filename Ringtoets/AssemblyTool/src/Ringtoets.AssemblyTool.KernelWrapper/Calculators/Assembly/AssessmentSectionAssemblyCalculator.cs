@@ -108,7 +108,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         }
 
         public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
-            IEnumerable<CombinedAssemblyFailureMechanismInput> input, double assessmentSectionLength)
+            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
         {
             try
             {

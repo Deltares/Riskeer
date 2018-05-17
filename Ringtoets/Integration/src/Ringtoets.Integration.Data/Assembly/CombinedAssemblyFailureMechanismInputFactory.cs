@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
@@ -35,19 +34,19 @@ using Ringtoets.Piping.Data;
 namespace Ringtoets.Integration.Data.Assembly
 {
     /// <summary>
-    /// Factory that creates <see cref="CombinedAssemblyFailureMechanismInput"/> instances.
+    /// Factory that creates <see cref="CombinedAssemblyFailureMechanismSection"/> instances.
     /// </summary>
     internal static class CombinedAssemblyFailureMechanismInputFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CombinedAssemblyFailureMechanismInput"/>.
+        /// Creates a collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to use.</param>
         /// <param name="failureMechanisms">The failure mechanisms to build input for.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="CombinedAssemblyFailureMechanismInput"/>.</returns>
+        /// <returns>A collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CombinedAssemblyFailureMechanismInput> CreateInput(AssessmentSection assessmentSection,
-                                                                                     IEnumerable<IFailureMechanism> failureMechanisms)
+        public static IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CreateInput(AssessmentSection assessmentSection,
+                                                                                                    IEnumerable<IFailureMechanism> failureMechanisms)
         {
             if (assessmentSection == null)
             {
@@ -59,62 +58,41 @@ namespace Ringtoets.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(failureMechanisms));
             }
 
-            var inputs = new List<CombinedAssemblyFailureMechanismInput>();
+            var inputs = new List<IEnumerable<CombinedAssemblyFailureMechanismSection>>();
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             if (failureMechanisms.Contains(pipingFailureMechanism))
             {
-                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.PipingProbabilityAssessmentInput.GetN(
-                                                                               fm.PipingProbabilityAssessmentInput.SectionLength),
-                                                                           pipingFailureMechanism,
-                                                                           CreateCombinedSections(pipingFailureMechanism.SectionResults,
-                                                                                                  assessmentSection, PipingAssemblyFunc)
-                                                                               .ToArray()));
+                inputs.Add(CreateCombinedSections(pipingFailureMechanism.SectionResults,
+                                                  assessmentSection, PipingAssemblyFunc)
+                               .ToArray());
             }
 
             GrassCoverErosionInwardsFailureMechanism grassInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             if (failureMechanisms.Contains(grassInwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.GeneralInput.N,
-                                                                           grassInwardsFailureMechanism,
-                                                                           CreateCombinedSections(grassInwardsFailureMechanism.SectionResults,
-                                                                                                  assessmentSection, GrassCoverErosionInwardsAssemblyFunc)
-                                                                               .ToArray()));
+                inputs.Add(CreateCombinedSections(grassInwardsFailureMechanism.SectionResults,
+                                                  assessmentSection, GrassCoverErosionInwardsAssemblyFunc)
+                               .ToArray());
             }
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             if (failureMechanisms.Contains(macroStabilityInwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                                                                               fm.MacroStabilityInwardsProbabilityAssessmentInput.SectionLength),
-                                                                           macroStabilityInwardsFailureMechanism,
-                                                                           CreateCombinedSections(macroStabilityInwardsFailureMechanism.SectionResults,
-                                                                                                  assessmentSection, MacroStabilityInwardsAssemblyFunc)
-                                                                               .ToArray()));
+                inputs.Add(CreateCombinedSections(macroStabilityInwardsFailureMechanism.SectionResults,
+                                                  assessmentSection, MacroStabilityInwardsAssemblyFunc)
+                               .ToArray());
             }
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             if (failureMechanisms.Contains(macroStabilityOutwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedAssemblyFailureMechanismInputItem(fm => fm.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
-                                                                               fm.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength),
-                                                                           macroStabilityOutwardsFailureMechanism,
-                                                                           CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResults,
-                                                                                                  assessmentSection, MacroStabilityOutwardsAssemblyFunc)
-                                                                               .ToArray()));
+                inputs.Add(CreateCombinedSections(macroStabilityOutwardsFailureMechanism.SectionResults,
+                                                  assessmentSection, MacroStabilityOutwardsAssemblyFunc)
+                               .ToArray());
             }
 
             return inputs;
-        }
-
-        private static CombinedAssemblyFailureMechanismInput CreateCombinedAssemblyFailureMechanismInputItem<TFailureMechanism>(
-            Func<TFailureMechanism, double> getLengthEffectFunc, TFailureMechanism failureMechanism,
-            IEnumerable<CombinedAssemblyFailureMechanismSection> combinedAssemblyFailureMechanismSections)
-            where TFailureMechanism : IFailureMechanism
-        {
-            return new CombinedAssemblyFailureMechanismInput(getLengthEffectFunc(failureMechanism),
-                                                             failureMechanism.Contribution,
-                                                             combinedAssemblyFailureMechanismSections);
         }
 
         private static IEnumerable<CombinedAssemblyFailureMechanismSection> CreateCombinedSections<TFailureMechanismSectionResult>(

@@ -507,10 +507,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 TestDelegate test = () => calculator.AssembleCombinedFailureMechanismSections(new[]
                 {
-                    new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                    new[]
                     {
                         new CombinedAssemblyFailureMechanismSection(0, 1, (FailureMechanismSectionAssemblyCategoryGroup) 99)
-                    })
+                    }
                 }, random.Next());
 
                 // Assert
@@ -528,10 +528,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var random = new Random(39);
             var input = new[]
             {
-                new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                new[]
                 {
                     new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-                })
+                }
             };
             double assessmentSectionLength = random.NextDouble();
 
@@ -588,10 +588,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 CombinedFailureMechanismSectionAssembly[] output = calculator.AssembleCombinedFailureMechanismSections(new[]
                 {
-                    new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                    new[]
                     {
                         new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-                    })
+                    }
                 }, random.NextDouble()).ToArray();
 
                 // Assert
@@ -625,10 +625,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 TestDelegate test = () => calculator.AssembleCombinedFailureMechanismSections(new[]
                 {
-                    new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                    new[]
                     {
                         new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-                    })
+                    }
                 }, random.NextDouble()).ToArray();
 
                 // Assert
@@ -656,10 +656,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 TestDelegate test = () => calculator.AssembleCombinedFailureMechanismSections(new[]
                 {
-                    new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                    new[]
                     {
                         new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-                    })
+                    }
                 }, random.NextDouble()).ToArray();
 
                 // Assert
