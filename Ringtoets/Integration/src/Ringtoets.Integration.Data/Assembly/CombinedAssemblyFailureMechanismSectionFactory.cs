@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Data.Assembly
     /// <summary>
     /// Factory that creates <see cref="CombinedAssemblyFailureMechanismSection"/> instances.
     /// </summary>
-    internal static class CombinedAssemblyFailureMechanismInputFactory
+    internal static class CombinedAssemblyFailureMechanismSectionFactory
     {
         /// <summary>
         /// Creates a collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.

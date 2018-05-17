@@ -34,13 +34,13 @@ using Ringtoets.Integration.TestUtil;
 namespace Ringtoets.Integration.Data.Test.Assembly
 {
     [TestFixture]
-    public class CombinedAssemblyFailureMechanismInputFactoryTest
+    public class CombinedAssemblyFailureMechanismSectionFactoryTest
     {
         [Test]
         public void CreateInput_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CombinedAssemblyFailureMechanismInputFactory.CreateInput(null, Enumerable.Empty<IFailureMechanism>());
+            TestDelegate call = () => CombinedAssemblyFailureMechanismSectionFactory.CreateInput(null, Enumerable.Empty<IFailureMechanism>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            TestDelegate call = () => CombinedAssemblyFailureMechanismInputFactory.CreateInput(assessmentSection, null);
+            TestDelegate call = () => CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,7 +73,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                IEnumerable<CombinedAssemblyFailureMechanismSection>[] inputs = CombinedAssemblyFailureMechanismInputFactory.CreateInput(
+                IEnumerable<CombinedAssemblyFailureMechanismSection>[] inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
                     assessmentSection, failureMechanisms).ToArray();
 
                 // Assert
