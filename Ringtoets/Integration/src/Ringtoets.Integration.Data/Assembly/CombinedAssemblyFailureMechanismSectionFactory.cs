@@ -92,6 +92,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
+            if (failureMechanisms.Contains(microstabilityFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(microstabilityFailureMechanism.SectionResults,
+                                                  assessmentSection, MicrostabilityAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -152,6 +160,14 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection) => MacroStabilityOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.MacroStabilityOutwards, assessmentSection);
+            }
+        }
+
+        private static Func<MicrostabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> MicrostabilityAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
