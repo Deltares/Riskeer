@@ -135,6 +135,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
+            if (failureMechanisms.Contains(grassCoverSlipOffOutwardsFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(grassCoverSlipOffOutwardsFailureMechanism.SectionResults,
+                                                  assessmentSection, GrassCoverSlipOffOutwardsAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -235,6 +243,14 @@ namespace Ringtoets.Integration.Data.Assembly
             get
             {
                 return (sectionResult, assessmentSection) => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            }
+        }
+
+        private static Func<GrassCoverSlipOffOutwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverSlipOffOutwardsAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
