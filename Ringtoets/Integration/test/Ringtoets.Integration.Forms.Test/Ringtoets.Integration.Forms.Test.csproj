@@ -38,6 +38,7 @@
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyControlTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControlTest.cs" />
+    <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />
@@ -166,6 +167,10 @@
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\test\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+      <Project>{F5B43C29-6169-4E9A-859E-09090330B94E}</Project>
+      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Primitives\Ringtoets.Common.Primitives.csproj">
       <Project>{78AA56F5-431D-465C-AC50-3173D7E90AC1}</Project>
       <Name>Ringtoets.Common.Primitives</Name>
@@ -182,9 +187,17 @@
       <Project>{BF753DB5-973B-4ADF-B0F6-9437325C3466}</Project>
       <Name>Ringtoets.GrassCoverErosionInwards.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HeightStructures\test\Ringtoets.HeightStructures.Data.TestUtil\Ringtoets.HeightStructures.Data.TestUtil.csproj">
+      <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
+      <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Ringtoets.MacroStabilityInwards.Data\Ringtoets.MacroStabilityInwards.Data.csproj">
       <Project>{83d6b73e-91d5-46b0-9218-955da1f75f7c}</Project>
       <Name>Ringtoets.MacroStabilityInwards.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\test\Ringtoets.MacroStabilityInwards.Data.TestUtil\Ringtoets.MacroStabilityInwards.Data.TestUtil.csproj">
+      <Project>{2B78CF04-4785-4F27-A6E5-45BDDBB7BF04}</Project>
+      <Name>Ringtoets.MacroStabilityInwards.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Piping\test\Ringtoets.Piping.Data.TestUtil\Ringtoets.Piping.Data.TestUtil.csproj">
       <Project>{955E574D-67CE-4347-AA6B-7DF8A04ED754}</Project>
@@ -225,6 +238,10 @@
     <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
       <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\test\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
+      <Project>{E9AC095B-8F10-41D2-9456-4A85E3BA91AD}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
