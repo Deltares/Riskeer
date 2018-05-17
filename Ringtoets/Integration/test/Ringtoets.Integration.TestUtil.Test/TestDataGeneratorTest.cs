@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -165,6 +166,46 @@ namespace Ringtoets.Integration.TestUtil.Test
             AssertNumberOfDuneErosionFailureMechanismCalculations(duneErosionFailureMechanism);
             AssertDuneErosionFailureMechanismContainsCalculationConfigurationsWithoutOutputs(duneErosionFailureMechanism);
             AssertDuneErosionFailureMechanismContainsCalculationConfigurationsWithOutputs(duneErosionFailureMechanism);
+        }
+
+        [Test]
+        public void GetAssessmenSectionWithAllFailureMechanismSectionsAndResults_DefaultComposition_ReturnAssessmentSection()
+        {
+            // Call
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults();
+
+            // Assert
+            AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionComposition.Dike)]
+        [TestCase(AssessmentSectionComposition.DikeAndDune)]
+        [TestCase(AssessmentSectionComposition.Dune)]
+        public void GetAssessmenSectionWithAllFailureMechanismSectionsAndResults_CompositionGiven_ReturnAssessmentSection(AssessmentSectionComposition composition)
+        {
+            // Call
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(composition);
+
+            // Assert
+            AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);
+        }
+
+        private static void AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(IAssessmentSection assessmentSection)
+        {
+            Assert.IsNotNull(assessmentSection.ReferenceLine);
+            CollectionAssert.AreEqual(new[]
+            {
+                new Point2D(-1, -1),
+                new Point2D(5, 5),
+                new Point2D(10, 10),
+                new Point2D(-3, 2)
+            }, assessmentSection.ReferenceLine.Points);
+
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                AssertHasFailureMechanismSections(failureMechanism);
+            }
         }
 
         private static void AssertHydraulicBoundaryOutput(AssessmentSection assessmentSection, bool hasOutput)
