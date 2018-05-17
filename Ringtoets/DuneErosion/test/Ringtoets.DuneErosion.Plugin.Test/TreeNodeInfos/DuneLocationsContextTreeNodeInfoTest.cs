@@ -111,8 +111,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationCalculationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -135,14 +136,15 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_NoLocations_ReturnGrayText()
+        public void ForeColor_CalculationsEmpty_ReturnGrayText()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new DuneErosionFailureMechanism();
-            var context = new DuneLocationCalculationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -152,15 +154,19 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_WithLocations_ReturnControlText()
+        public void ForeColor_WithCalculations_ReturnControlText()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var mechanism = new DuneErosionFailureMechanism();
-            mechanism.DuneLocations.Add(new TestDuneLocation());
-            var context = new DuneLocationCalculationsContext(mechanism.DuneLocations, mechanism, assessmentSection);
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+            {
+                new DuneLocationCalculation(new TestDuneLocation())
+            };
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -176,8 +182,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                  new DuneErosionFailureMechanism(),
+                                                                  assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -221,7 +228,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -247,7 +256,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoDuneLocations_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoDuneLocationCalculations_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
@@ -268,7 +277,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -309,7 +320,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new DuneErosionFailureMechanism();
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -355,7 +368,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -385,28 +400,28 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+                var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+                {
+                    new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                    {
+                        CoastalAreaId = 0,
+                        Offset = 0,
+                        Orientation = 0,
+                        D50 = 0.000007
+                    })),
+                    new DuneLocationCalculation(new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                    {
+                        CoastalAreaId = 0,
+                        Offset = 0,
+                        Orientation = 0,
+                        D50 = 0.000007
+                    }))
+                };
 
                 var failureMechanism = new DuneErosionFailureMechanism
                 {
                     Contribution = 10
                 };
-                failureMechanism.DuneLocations.AddRange(new[]
-                {
-                    new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                    {
-                        CoastalAreaId = 0,
-                        Offset = 0,
-                        Orientation = 0,
-                        D50 = 0.000007
-                    }),
-                    new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                    {
-                        CoastalAreaId = 0,
-                        Offset = 0,
-                        Orientation = 0,
-                        D50 = 0.000007
-                    })
-                });
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
@@ -425,7 +440,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                      failureMechanism
                                  }));
 
-                var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -490,21 +505,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                CoastalAreaId = 0,
-                Offset = 0,
-                Orientation = 0,
-                D50 = 0.000007
-            });
+                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                {
+                    CoastalAreaId = 0,
+                    Offset = 0,
+                    Orientation = 0,
+                    D50 = 0.000007
+                }))
+            };
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = 10,
-                DuneLocations =
-                {
-                    duneLocation
-                }
+                Contribution = 10
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -524,7 +538,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -551,7 +565,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(duneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
@@ -565,21 +579,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
-            var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                CoastalAreaId = 0,
-                Offset = 0,
-                Orientation = 0,
-                D50 = 0.000007
-            });
+                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                {
+                    CoastalAreaId = 0,
+                    Offset = 0,
+                    Orientation = 0,
+                    D50 = 0.000007
+                }))
+            };
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = 10,
-                DuneLocations =
-                {
-                    duneLocation
-                }
+                Contribution = 10
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -602,7 +615,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -629,7 +642,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(duneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
@@ -642,21 +655,20 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
-            var duneLocation = new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                CoastalAreaId = 0,
-                Offset = 0,
-                Orientation = 0,
-                D50 = 0.000007
-            });
+                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                {
+                    CoastalAreaId = 0,
+                    Offset = 0,
+                    Orientation = 0,
+                    D50 = 0.000007
+                }))
+            };
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
-                Contribution = 10,
-                DuneLocations =
-                {
-                    duneLocation
-                }
+                Contribution = 10
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -679,7 +691,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationCalculationsContext(failureMechanism.DuneLocations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -706,7 +718,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(duneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
                 }
