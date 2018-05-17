@@ -15,7 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DuneLocationsExporterTest.cs" />
+    <Compile Include="DuneLocationCalculationsExporterTest.cs" />
     <Compile Include="DuneLocationsReaderTest.cs" />
     <Compile Include="DuneLocationsWriterTest.cs" />
     <Compile Include="ReadDuneLocationTest.cs" />

@@ -78,7 +78,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 IFileExporter fileExporter = info.CreateFileExporter(context, "test");
 
                 // Assert
-                Assert.IsInstanceOf<DuneLocationsExporter>(fileExporter);
+                Assert.IsInstanceOf<DuneLocationCalculationsExporter>(fileExporter);
             }
             mocks.VerifyAll();
         }
