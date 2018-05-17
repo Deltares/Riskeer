@@ -37,7 +37,7 @@ using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources
 namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DuneLocation"/> for the properties panel.
+    /// ViewModel of <see cref="DuneLocationCalculation"/> for the properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DuneLocationCalculationProperties : ObjectProperties<DuneLocationCalculation>
@@ -46,7 +46,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DuneLocationCalculationProperties"/>.
         /// </summary>
         /// <param name="calculation">The dune location calculation at stake.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public DuneLocationCalculationProperties(DuneLocationCalculation calculation)
         {
             if (calculation == null)
