@@ -34,39 +34,28 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of an enumeration of <see cref="DuneLocation"/> for the properties panel.
     /// </summary>
-    public class DuneLocationsProperties : ObjectProperties<ObservableList<DuneLocation>>, IDisposable
+    public class DuneLocationsProperties : ObjectProperties<ObservableList<DuneLocationCalculation>>, IDisposable
     {
-        private readonly Func<DuneLocation, DuneLocationCalculation> getCalculationFunc;
-        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> locationObserver;
+        private readonly RecursiveObserver<ObservableList<DuneLocationCalculation>, DuneLocationCalculation> calculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsProperties"/>.
         /// </summary>
-        /// <param name="locations">The list of dune locations to set as data.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="DuneLocationCalculation"/>
-        /// based on <see cref="DuneLocation"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneLocationsProperties(ObservableList<DuneLocation> locations,
-                                       Func<DuneLocation, DuneLocationCalculation> getCalculationFunc)
+        /// <param name="calculations">The collection of dune location calculations to set as data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public DuneLocationsProperties(ObservableList<DuneLocationCalculation> calculations)
         {
-            if (locations == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(locations));
+                throw new ArgumentNullException(nameof(calculations));
             }
 
-            if (getCalculationFunc == null)
+            calculationsObserver = new RecursiveObserver<ObservableList<DuneLocationCalculation>, DuneLocationCalculation>(OnRefreshRequired, list => list)
             {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
-            }
-
-            locationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(OnRefreshRequired, list => list)
-            {
-                Observable = locations
+                Observable = calculations
             };
 
-            this.getCalculationFunc = getCalculationFunc;
-
-            Data = locations;
+            Data = calculations;
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -77,13 +66,13 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(loc => new DuneLocationProperties(loc, getCalculationFunc(loc))).ToArray();
+                return data.Select(calculation => new DuneLocationProperties(calculation.DuneLocation, calculation)).ToArray();
             }
         }
 
         public void Dispose()
         {
-            locationObserver.Dispose();
+            calculationsObserver.Dispose();
         }
     }
 }

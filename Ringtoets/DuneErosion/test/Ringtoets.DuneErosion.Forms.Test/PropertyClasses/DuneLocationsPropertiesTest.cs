@@ -38,46 +38,35 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredLocationsPropertyIndex = 0;
 
         [Test]
-        public void Constructor_LocationsNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DuneLocationsProperties(null, dl => new DuneLocationCalculation(new TestDuneLocation()));
+            TestDelegate call = () => new DuneLocationsProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("locations", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DuneLocationsProperties(new ObservableList<DuneLocation>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getCalculationFunc", exception.ParamName);
+            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
         public void Constructor_WithData_ReturnExpectedValues()
         {
             // Setup
-            var location = new TestDuneLocation();
-            var locations = new ObservableList<DuneLocation>
+            var calculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                location
+                calculation
             };
 
             // Call
-            using (var properties = new DuneLocationsProperties(locations, dl => new DuneLocationCalculation(new TestDuneLocation())))
+            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocation>>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<ObservableList<DuneLocationCalculation>>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
 
                 Assert.AreEqual(1, properties.Locations.Length);
-                Assert.AreSame(location, properties.Locations[0].Data);
+                Assert.AreSame(calculation.DuneLocation, properties.Locations[0].Data);
             }
         }
 
@@ -85,17 +74,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var location = new TestDuneLocation();
-            var locations = new ObservableList<DuneLocation>
+            var calculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                location
+                calculation
             };
 
             // Call
-            using (var properties = new DuneLocationsProperties(locations, dl => new DuneLocationCalculation(new TestDuneLocation())))
+            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
             {
                 // Assert
-                Assert.AreSame(locations, properties.Data);
+                Assert.AreSame(duneLocationCalculations, properties.Data);
 
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
                 Assert.AreEqual(1, dynamicProperties.Count);
@@ -111,23 +100,23 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenSingleCalculationUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            DuneLocation location = new TestDuneLocation();
-            var duneLocations = new ObservableList<DuneLocation>
+            var calculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                location
+                calculation
             };
 
-            using (var properties = new DuneLocationsProperties(duneLocations, dl => new DuneLocationCalculation(new TestDuneLocation())))
+            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
             {
 
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
                 // When
-                location.NotifyObservers();
+                calculation.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(1, refreshRequiredRaised);
@@ -135,16 +124,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenDisposedPropertyControlWithData_WhenSingleLocationUpdated_RefreshRequiredEventNotRaised()
+        public void GivenDisposedPropertyControlWithData_WhenSingleCalculationUpdated_RefreshRequiredEventNotRaised()
         {
             // Given
-            DuneLocation location = new TestDuneLocation();
-            var duneLocations = new ObservableList<DuneLocation>
+            var calculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                location
+                calculation
             };
 
-            using (var properties = new DuneLocationsProperties(duneLocations, dl => new DuneLocationCalculation(new TestDuneLocation())))
+            using (var properties = new DuneLocationsProperties(duneLocationCalculations))
             {
 
                 var refreshRequiredRaised = 0;
@@ -153,7 +142,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 properties.Dispose();
 
                 // When
-                location.NotifyObservers();
+                calculation.NotifyObservers();
 
                 // Then
                 Assert.AreEqual(0, refreshRequiredRaised);
