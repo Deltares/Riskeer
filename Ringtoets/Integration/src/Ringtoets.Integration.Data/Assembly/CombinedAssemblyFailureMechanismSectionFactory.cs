@@ -169,6 +169,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
+            if (failureMechanisms.Contains(pipingStructureFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(pipingStructureFailureMechanism.SectionResults,
+                                                  assessmentSection, PipingStructureAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -303,6 +311,14 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection) => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.ClosingStructures, assessmentSection);
+            }
+        }
+
+        private static Func<PipingStructureFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> PipingStructureAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
