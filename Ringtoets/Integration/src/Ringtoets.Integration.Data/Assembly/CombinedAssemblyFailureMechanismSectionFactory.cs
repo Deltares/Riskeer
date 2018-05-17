@@ -118,6 +118,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
+            if (failureMechanisms.Contains(waterPressureAsphaltCoverFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(waterPressureAsphaltCoverFailureMechanism.SectionResults,
+                                                  assessmentSection, WaterPressureAsphaltCoverAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -202,6 +210,14 @@ namespace Ringtoets.Integration.Data.Assembly
             get
             {
                 return (sectionResult, assessmentSection) => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            }
+        }
+
+        private static Func<WaterPressureAsphaltCoverFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> WaterPressureAsphaltCoverAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
