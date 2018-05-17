@@ -25,6 +25,7 @@ using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -70,10 +71,10 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
-            GrassCoverErosionInwardsFailureMechanism grassInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
-            if (failureMechanisms.Contains(grassInwardsFailureMechanism))
+            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
+            if (failureMechanisms.Contains(grassCoverErosionInwardsFailureMechanism))
             {
-                inputs.Add(CreateCombinedSections(grassInwardsFailureMechanism.SectionResults,
+                inputs.Add(CreateCombinedSections(grassCoverErosionInwardsFailureMechanism.SectionResults,
                                                   assessmentSection, GrassCoverErosionInwardsAssemblyFunc)
                                .ToArray());
             }
@@ -123,6 +124,14 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 inputs.Add(CreateCombinedSections(waterPressureAsphaltCoverFailureMechanism.SectionResults,
                                                   assessmentSection, WaterPressureAsphaltCoverAssemblyFunc)
+                               .ToArray());
+            }
+
+            GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            if (failureMechanisms.Contains(grassCoverErosionOutwardsFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(grassCoverErosionOutwardsFailureMechanism.SectionResults,
+                                                  assessmentSection, GrassCoverErosionOutwardsAssemblyFunc)
                                .ToArray());
             }
 
@@ -218,6 +227,14 @@ namespace Ringtoets.Integration.Data.Assembly
             get
             {
                 return (sectionResult, assessmentSection) => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
+            }
+        }
+
+        private static Func<GrassCoverErosionOutwardsFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> GrassCoverErosionOutwardsAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
