@@ -186,6 +186,14 @@ namespace Ringtoets.Integration.Data.Assembly
                                .ToArray());
             }
 
+            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
+            if (failureMechanisms.Contains(strengthStabilityLengthwiseConstructionFailureMechanism))
+            {
+                inputs.Add(CreateCombinedSections(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResults,
+                                                  assessmentSection, StrengthStabilityLengthwiseConstructionAssemblyFunc)
+                               .ToArray());
+            }
+
             return inputs;
         }
 
@@ -337,6 +345,14 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection) => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.StabilityPointStructures, assessmentSection);
+            }
+        }
+
+        private static Func<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyCategoryGroup> StrengthStabilityLengthwiseConstructionAssemblyFunc
+        {
+            get
+            {
+                return (sectionResult, assessmentSection) => StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult);
             }
         }
 
