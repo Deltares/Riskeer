@@ -227,19 +227,21 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Contribution = 10
                 };
 
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+                {
+                    new DuneLocationCalculation(new TestDuneLocation())
+                };
+                var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                                   failureMechanism,
                                                                   assessmentSection);
 
+                var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
 
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
-
-                failureMechanism.DuneLocations.Add(new TestDuneLocation());
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -367,19 +369,21 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Contribution = 10
                 };
 
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
+                {
+                    new DuneLocationCalculation(new TestDuneLocation())
+                };
+                var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                                   failureMechanism,
                                                                   assessmentSection);
 
+                var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
 
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
-
-                failureMechanism.DuneLocations.Add(new TestDuneLocation());
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -448,11 +452,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
-                var locationObserver = mocks.StrictMock<IObserver>();
-                locationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(failureMechanism.DuneLocations.Count);
-                var locationsObsever = mocks.StrictMock<IObserver>();
+                var calculationObserver = mocks.StrictMock<IObserver>();
+                calculationObserver.Expect(o => o.UpdateObserver()).Repeat.Times(duneLocationCalculations.Count);
+                var calculationsObserver = mocks.StrictMock<IObserver>();
 
-                int nrOfCalculators = failureMechanism.DuneLocations.Count;
+                int nrOfCalculators = duneLocationCalculations.Count;
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
                                  .Return(new TestDunesBoundaryConditionsCalculator())
@@ -460,8 +464,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .Times(nrOfCalculators);
                 mocks.ReplayAll();
 
-                failureMechanism.DuneLocations.Attach(locationsObsever);
-                failureMechanism.DuneLocations.ForEachElementDo(location => location.Attach(locationObserver));
+                duneLocationCalculations.Attach(calculationsObserver);
+                duneLocationCalculations.ForEachElementDo(location => location.Attach(calculationObserver));
 
                 plugin.Gui = gui;
                 plugin.Activate();

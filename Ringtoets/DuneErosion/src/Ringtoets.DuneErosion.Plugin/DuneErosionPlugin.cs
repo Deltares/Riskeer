@@ -131,8 +131,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationsViewForData,
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
-                                                                  context.FailureMechanism,
-                                                                  context.AssessmentSection),
+                                                                             context.FailureMechanism,
+                                                                             context.AssessmentSection),
                 AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
@@ -246,14 +246,16 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #region DuneLocationsContext TreeNodeInfo
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, DuneErosionFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
+                                                                         double failureMechanismContribution,
+                                                                         IEnumerable<DuneLocationCalculation> calculations)
         {
-            if (failureMechanism.Contribution <= 0.0)
+            if (failureMechanismContribution <= 0.0)
             {
                 return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
             }
 
-            if (!failureMechanism.DuneLocations.Any())
+            if (!calculations.Any())
             {
                 return Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
             }
@@ -280,7 +282,9 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                 context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
                 });
 
-            string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
+                                                                               context.FailureMechanism.Contribution,
+                                                                               context.WrappedData);
             if (!string.IsNullOrEmpty(validationText))
             {
                 calculateAllItem.Enabled = false;
