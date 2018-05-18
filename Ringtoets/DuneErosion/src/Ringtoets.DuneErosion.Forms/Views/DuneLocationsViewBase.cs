@@ -125,7 +125,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Gets all the selected calculatable objects.
         /// </summary>
-        protected IEnumerable<DuneLocation> GetSelectedCalculatableObjects()
+        protected IEnumerable<DuneLocationCalculation> GetSelectedCalculatableObjects()
         {
             return GetCalculatableRows().Where(r => r.ShouldCalculate)
                                         .Select(r => r.CalculatableObject);

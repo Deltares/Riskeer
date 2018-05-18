@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
@@ -255,15 +254,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
         private class TestCalculatableRow : DuneLocationRow
         {
-            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject, dl => new DuneLocationCalculation(new TestDuneLocation()))
+            public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject)
             {
                 ShouldCalculate = calculatableObject.IsChecked;
             }
         }
 
-        private class TestCalculatableObject : DuneLocation
+        private class TestCalculatableObject : DuneLocationCalculation
         {
-            public TestCalculatableObject() : base(1, "1", new Point2D(0, 0), new ConstructionProperties()) {}
+            public TestCalculatableObject() : base(new TestDuneLocation()) {}
             public bool IsChecked { get; }
         }
 
@@ -273,7 +272,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             public TestLocationsView()
             {
-                ObjectsToCalculate = new List<DuneLocation>();
+                ObjectsToCalculate = new List<DuneLocationCalculation>();
             }
 
             public override object Data
@@ -291,7 +290,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             public object CreateForSelection { private get; set; }
 
-            public IEnumerable<DuneLocation> ObjectsToCalculate { get; private set; }
+            public IEnumerable<DuneLocationCalculation> ObjectsToCalculate { get; private set; }
 
             protected override object CreateSelectedItemFromCurrentRow()
             {
