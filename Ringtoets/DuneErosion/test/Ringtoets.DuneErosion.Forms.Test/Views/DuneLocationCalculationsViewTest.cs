@@ -75,7 +75,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_LocationsNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -83,8 +83,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new DuneLocationCalculationsView(null,
-                                                            new DuneErosionFailureMechanism(),
-                                                            assessmentSection);
+                                                                       new DuneErosionFailureMechanism(),
+                                                                       assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -100,8 +100,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             TestDelegate call = () => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                            null,
-                                                            assessmentSection);
+                                                                       null,
+                                                                       assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -113,8 +113,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             // Call
             TestDelegate call = () => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                            new DuneErosionFailureMechanism(),
-                                                            null);
+                                                                       new DuneErosionFailureMechanism(),
+                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -132,8 +132,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                    failureMechanism,
-                                                    assessmentSection))
+                                                               failureMechanism,
+                                                               assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<DuneLocationsViewBase>(view);
@@ -151,94 +151,96 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            DuneLocationCalculationsView view = ShowDuneLocationsView(new ObservableList<DuneLocationCalculation>(),
-                                                           new DuneErosionFailureMechanism(),
-                                                           assessmentSection);
-
-            // Assert
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-
-            var expectedHeaderNames = new[]
+            using (DuneLocationCalculationsView view = ShowDuneLocationsView(new ObservableList<DuneLocationCalculation>(),
+                                                                             new DuneErosionFailureMechanism(),
+                                                                             assessmentSection))
             {
-                "Berekenen",
-                "Naam",
-                "ID",
-                "Coördinaten [m]",
-                "Kustvaknummer",
-                "Metrering [dam]",
-                "Rekenwaarde waterstand [m+NAP]",
-                "Rekenwaarde Hs [m]",
-                "Rekenwaarde Tp [s]",
-                "Rekenwaarde d50 [m]"
-            };
-            DataGridViewTestHelper.AssertExpectedHeaders(expectedHeaderNames, dataGridView);
-            var expectedColumnTypes = new[]
-            {
-                typeof(DataGridViewCheckBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn),
-                typeof(DataGridViewTextBoxColumn)
-            };
-            DataGridViewTestHelper.AssertColumnTypes(expectedColumnTypes, dataGridView);
+                // Assert
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-            Assert.IsFalse(button.Enabled);
+                var expectedHeaderNames = new[]
+                {
+                    "Berekenen",
+                    "Naam",
+                    "ID",
+                    "Coördinaten [m]",
+                    "Kustvaknummer",
+                    "Metrering [dam]",
+                    "Rekenwaarde waterstand [m+NAP]",
+                    "Rekenwaarde Hs [m]",
+                    "Rekenwaarde Tp [s]",
+                    "Rekenwaarde d50 [m]"
+                };
+                DataGridViewTestHelper.AssertExpectedHeaders(expectedHeaderNames, dataGridView);
+                var expectedColumnTypes = new[]
+                {
+                    typeof(DataGridViewCheckBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn),
+                    typeof(DataGridViewTextBoxColumn)
+                };
+                DataGridViewTestHelper.AssertColumnTypes(expectedColumnTypes, dataGridView);
+
+                var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+                Assert.IsFalse(button.Enabled);
+            }
         }
 
         [Test]
-        public void DuneLocationsView_DataSet_DataGridViewCorrectlyInitialized()
+        public void DuneLocationCalculationsView_DataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            // Assert
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
-
-            var expectedRow0Values = new object[]
+            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
             {
-                false,
-                "1",
-                "1",
-                new Point2D(1, 1).ToString(),
-                "50",
-                "320",
-                "-",
-                "-",
-                "-",
-                0.000837.ToString(CultureInfo.CurrentCulture)
-            };
-            DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow0Values, rows[0]);
+                // Assert
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
 
-            var expectedRow1Values = new object[]
-            {
-                false,
-                "2",
-                "2",
-                new Point2D(2, 2).ToString(),
-                "60",
-                "230",
-                1.23.ToString(CultureInfo.CurrentCulture),
-                2.34.ToString(CultureInfo.CurrentCulture),
-                3.45.ToString(CultureInfo.CurrentCulture),
-                0.000123.ToString(CultureInfo.CurrentCulture)
-            };
-            DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow1Values, rows[1]);
+                var expectedRow0Values = new object[]
+                {
+                    false,
+                    "1",
+                    "1",
+                    new Point2D(1, 1).ToString(),
+                    "50",
+                    "320",
+                    "-",
+                    "-",
+                    "-",
+                    0.000837.ToString(CultureInfo.CurrentCulture)
+                };
+                DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow0Values, rows[0]);
+
+                var expectedRow1Values = new object[]
+                {
+                    false,
+                    "2",
+                    "2",
+                    new Point2D(2, 2).ToString(),
+                    "60",
+                    "230",
+                    1.23.ToString(CultureInfo.CurrentCulture),
+                    2.34.ToString(CultureInfo.CurrentCulture),
+                    3.45.ToString(CultureInfo.CurrentCulture),
+                    0.000123.ToString(CultureInfo.CurrentCulture)
+                };
+                DataGridViewTestHelper.AssertExpectedRowFormattedValues(expectedRow1Values, rows[1]);
+            }
         }
 
         [Test]
-        public void Selection_WithoutLocations_ReturnsNull()
+        public void Selection_WithoutCalculations_ReturnsNull()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -246,8 +248,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
             // Call
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                    new DuneErosionFailureMechanism(),
-                                                    assessmentSection))
+                                                               new DuneErosionFailureMechanism(),
+                                                               assessmentSection))
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -255,7 +257,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_WithSelectedCalculation_ReturnsSelectedLocationWrappedInContext()
+        public void Selection_WithSelectedCalculation_ReturnsSelectedCalculationWrappedInContext()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -280,7 +282,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredDuneLocationsView_WhenDuneLocationCalculationsUpdatedAndNotified_ThenDataGridCorrectlyUpdated()
+        public void GivenFullyConfiguredDuneLocationCalculationsView_WhenDuneLocationCalculationsUpdatedAndNotified_ThenDataGridCorrectlyUpdated()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -335,7 +337,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFullyConfiguredDuneLocationsView_WhenEachDuneLocationCalculationOutputClearedAndNotified_ThenDataGridViewRowsRefreshedWithNewValues()
+        public void GivenFullyConfiguredDuneLocationCalculationsView_WhenEachDuneLocationCalculationOutputClearedAndNotified_ThenDataGridViewRowsRefreshedWithNewValues()
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -475,7 +477,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         [TestCase(true, true, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
         [TestCase(false, false, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
         [TestCase(true, false, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
-        public void GivenDuneLocationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
+        public void GivenDuneLocationCalculationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
                                                                                                                                                               bool contributionZero,
                                                                                                                                                               string expectedErrorMessage)
         {
@@ -665,12 +667,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         private DuneLocationCalculationsView ShowDuneLocationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
-                                                        DuneErosionFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection)
+                                                                   DuneErosionFailureMechanism failureMechanism,
+                                                                   IAssessmentSection assessmentSection)
         {
             var view = new DuneLocationCalculationsView(calculations,
-                                             failureMechanism,
-                                             assessmentSection);
+                                                        failureMechanism,
+                                                        assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
