@@ -377,7 +377,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneLocationSelected_CalculateForSelectedLocationAndKeepOriginalSelection()
+        public void CalculateForSelectedButton_OneCalculationSelected_CalculateForSelectedCalculationAndKeepOriginalSelection()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -390,55 +390,60 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
-            var locationsObserver = mocks.StrictMock<IObserver>();
+            var calculationsObserver = mocks.StrictMock<IObserver>();
 
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty))
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-            ObservableList<DuneLocation> locations = view.FailureMechanism.DuneLocations;
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            object originalDataSource = dataGridView.DataSource;
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
-            locations.Attach(locationsObserver);
-
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            ObservableList<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            var failureMechanism = new DuneErosionFailureMechanism
             {
-                view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
+                Contribution = 10
+            };
+            using (DuneLocationsView view = ShowDuneLocationsView(calculations, failureMechanism, assessmentSection))
+            {
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+                object originalDataSource = dataGridView.DataSource;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-                // Call
-                Action action = () => buttonTester.Click();
+                calculations.Attach(calculationsObserver);
 
-                // Assert
-                TestHelper.AssertLogMessages(action,
-                                             messages =>
-                                             {
-                                                 List<string> messageList = messages.ToList();
+                var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                                                 // Assert
-                                                 Assert.AreEqual(8, messageList.Count);
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' is gestart.", messageList[0]);
-                                                 CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
-                                                 CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie '1' is niet geconvergeerd.", messageList[4]);
-                                                 StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' is gelukt.", messageList[7]);
-                                             });
+                using (var viewParent = new Form())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
 
-                Assert.AreSame(originalDataSource, dataGridView.DataSource);
+                    // Call
+                    Action action = () => buttonTester.Click();
 
-                Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-                Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+                    // Assert
+                    TestHelper.AssertLogMessages(action,
+                                                 messages =>
+                                                 {
+                                                     List<string> messageList = messages.ToList();
+
+                                                     // Assert
+                                                     Assert.AreEqual(8, messageList.Count);
+                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' is gestart.", messageList[0]);
+                                                     CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
+                                                     CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
+                                                     CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
+                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie '1' is niet geconvergeerd.", messageList[4]);
+                                                     StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
+                                                     CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
+                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' is gelukt.", messageList[7]);
+                                                 });
+
+                    Assert.AreSame(originalDataSource, dataGridView.DataSource);
+
+                    Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+                    Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+                }
             }
         }
 
@@ -449,19 +454,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
+            using (DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
+            {
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
+                // Call
+                TestDelegate test = () => button.Click();
 
-            // Call
-            TestDelegate test = () => button.Click();
-
-            // Assert
-            Assert.DoesNotThrow(test);
+                // Assert
+                Assert.DoesNotThrow(test);
+            }
         }
 
         [Test]
@@ -477,27 +483,28 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            // When
-            if (rowSelected)
+            using (DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
-            }
+                // When
+                if (rowSelected)
+                {
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                    DataGridViewRowCollection rows = dataGridView.Rows;
+                    rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                }
 
-            if (contributionZero)
-            {
-                view.FailureMechanism.Contribution = 0;
-                view.FailureMechanism.NotifyObservers();
-            }
+                if (contributionZero)
+                {
+                    view.FailureMechanism.Contribution = 0;
+                    view.FailureMechanism.NotifyObservers();
+                }
 
-            // Then
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-            Assert.AreEqual(rowSelected && !contributionZero, button.Enabled);
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
-            Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
+                // Then
+                var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
+                Assert.AreEqual(rowSelected && !contributionZero, button.Enabled);
+                var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
+                Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
+            }
         }
 
         [Test]
@@ -520,28 +527,29 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
             {
-                view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-                // Call
-                buttonTester.Click();
+                var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                // Assert
-                DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+                using (var viewParent = new Form())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
 
-                Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    // Call
+                    buttonTester.Click();
+
+                    // Assert
+                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+
+                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                }
             }
         }
 
@@ -568,28 +576,29 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
             {
-                view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-                // Call
-                buttonTester.Click();
+                var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                // Assert
-                DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+                using (var viewParent = new Form())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
 
-                Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    // Call
+                    buttonTester.Click();
+
+                    // Assert
+                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+
+                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                }
             }
         }
 
@@ -618,28 +627,29 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            rows[0].Cells[locationCalculateColumnIndex].Value = true;
-
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            using (DuneLocationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
             {
-                view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
+                var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
-                // Call
-                buttonTester.Click();
+                var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
-                // Assert
-                DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+                using (var viewParent = new Form())
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    view.CalculationGuiService = new DuneLocationCalculationGuiService(viewParent);
 
-                Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    // Call
+                    buttonTester.Click();
+
+                    // Assert
+                    DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
+
+                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                }
             }
         }
 
