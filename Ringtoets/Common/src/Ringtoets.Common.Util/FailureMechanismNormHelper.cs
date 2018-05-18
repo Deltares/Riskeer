@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Data;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -35,6 +36,8 @@ namespace Ringtoets.Common.Util
     /// </summary>
     public static class FailureMechanismNormHelper
     {
+        private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
+
         /// <summary>
         /// Gets the norm based on <see cref="FailureMechanismCategoryType"/>.
         /// </summary>
@@ -48,6 +51,13 @@ namespace Ringtoets.Common.Util
         /// is an invalid <see cref="FailureMechanismCategoryType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
         /// is a valid but unsupported <see cref="FailureMechanismCategoryType"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="failureMechanismContribution"/> is not in the interval [0.0, 100.0] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="n"/> is not larger than 1 or is <see cref="double.NaN"/>.</item>
+        /// </list>
+        /// </exception>
         public static double GetNorm(IAssessmentSection assessmentSection,
                                      FailureMechanismCategoryType categoryType,
                                      double failureMechanismContribution,
@@ -58,12 +68,7 @@ namespace Ringtoets.Common.Util
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
-            {
-                throw new InvalidEnumArgumentException(nameof(categoryType),
-                                                       (int) categoryType,
-                                                       typeof(FailureMechanismCategoryType));
-            }
+            ValidateInput(categoryType, failureMechanismContribution, n);
 
             IEnumerable<FailureMechanismSectionAssemblyCategory> categories = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
                 assessmentSection.FailureMechanismContribution.SignalingNorm,
@@ -90,6 +95,32 @@ namespace Ringtoets.Common.Util
                                      .LowerBoundary;
                 default:
                     throw new NotSupportedException();
+            }
+        }
+
+        private static void ValidateInput(FailureMechanismCategoryType categoryType, double failureMechanismContribution, double n)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
+            {
+                throw new InvalidEnumArgumentException(nameof(categoryType),
+                                                       (int)categoryType,
+                                                       typeof(FailureMechanismCategoryType));
+            }
+
+            ValidateNumericInput(failureMechanismContribution, n);
+        }
+
+        private static void ValidateNumericInput(double failureMechanismContribution, double n)
+        {
+            if (!contributionValidityRange.InRange(failureMechanismContribution))
+            {
+                throw new ArgumentOutOfRangeException(nameof(failureMechanismContribution),
+                                                      $@"The value for '{nameof(failureMechanismContribution)}' must be in the range of [0.0, 100.0].");
+            }
+
+            if (double.IsNaN(n) || n < 1.0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(n), $@"The value for '{nameof(n)}' must be larger than 1.0.");
             }
         }
     }
