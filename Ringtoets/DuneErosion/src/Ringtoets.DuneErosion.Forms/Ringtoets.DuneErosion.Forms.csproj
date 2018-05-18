@@ -42,11 +42,11 @@
     <Compile Include="Factories\DuneErosionMapDataFeaturesFactory.cs" />
     <Compile Include="Views\DuneErosionSectionResultRow.cs" />
     <Compile Include="Views\DuneLocationCalculationRow.cs" />
-    <Compile Include="Views\DuneLocationsView.cs">
+    <Compile Include="Views\DuneLocationCalculationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\DuneLocationsView.Designer.cs">
-      <DependentUpon>DuneLocationsView.cs</DependentUpon>
+    <Compile Include="Views\DuneLocationCalculationsView.Designer.cs">
+      <DependentUpon>DuneLocationCalculationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\DuneLocationsViewBase.cs">
       <SubType>UserControl</SubType>

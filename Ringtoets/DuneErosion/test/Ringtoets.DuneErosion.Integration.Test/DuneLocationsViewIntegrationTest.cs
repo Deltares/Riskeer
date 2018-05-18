@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                                                                                                                               string expectedErrorMessage)
         {
             // Given
-            DuneLocationsView view = ShowFullyConfiguredDuneLocationsView();
+            DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationsView();
 
             if (rowSelected)
             {
@@ -96,7 +96,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
 
-        private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
+        private DuneLocationCalculationsView ShowFullyConfiguredDuneLocationsView()
         {
             var calculations = new ObservableList<DuneLocationCalculation>
             {
@@ -123,17 +123,17 @@ namespace Ringtoets.DuneErosion.Integration.Test
             };
 
             ObservableList<DuneLocationCalculation> generateDuneLocationCalculations = calculations;
-            DuneLocationsView view = ShowDuneLocationsView(generateDuneLocationCalculations,
+            DuneLocationCalculationsView view = ShowDuneLocationsView(generateDuneLocationCalculations,
                                                            new DuneErosionFailureMechanism(),
                                                            new AssessmentSection(AssessmentSectionComposition.Dike));
             return view;
         }
 
-        private DuneLocationsView ShowDuneLocationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
+        private DuneLocationCalculationsView ShowDuneLocationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                                         DuneErosionFailureMechanism failureMechanism,
                                                         IAssessmentSection assessmentSection)
         {
-            var view = new DuneLocationsView(calculations,
+            var view = new DuneLocationCalculationsView(calculations,
                                              failureMechanism,
                                              assessmentSection);
 

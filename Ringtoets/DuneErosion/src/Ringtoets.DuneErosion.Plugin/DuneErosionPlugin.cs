@@ -124,14 +124,13 @@ namespace Ringtoets.DuneErosion.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
 
-            yield return new ViewInfo<DuneLocationCalculationsContext, IEnumerable<DuneLocation>, DuneLocationsView>
+            yield return new ViewInfo<DuneLocationCalculationsContext, IEnumerable<DuneLocation>, DuneLocationCalculationsView>
             {
                 GetViewName = (view, context) => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationsViewForData,
-                CreateInstance = context => new DuneLocationsView(context.WrappedData,
-                                                                  dl => dl.Calculation,
+                CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
                                                                   context.FailureMechanism,
                                                                   context.AssessmentSection),
                 AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
@@ -349,7 +348,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #region DuneLocationsView ViewInfo
 
-        private static bool CloseDuneLocationsViewForData(DuneLocationsView view, object dataToCloseFor)
+        private static bool CloseDuneLocationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
             var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;

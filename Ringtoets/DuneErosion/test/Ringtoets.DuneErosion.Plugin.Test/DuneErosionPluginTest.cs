@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test
                     viewInfos,
                     typeof(DuneLocationCalculationsContext),
                     typeof(IEnumerable<DuneLocation>),
-                    typeof(DuneLocationsView));
+                    typeof(DuneLocationCalculationsView));
             }
         }
 
