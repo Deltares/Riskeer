@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Integration.Forms.Properties;
+using System.Drawing;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -38,6 +38,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.RefreshAssemblyResultsButton = new System.Windows.Forms.Button();
             this.assemblyResultGroupBox = new System.Windows.Forms.GroupBox();
@@ -49,9 +50,11 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismsWithProbabilityAssemblyControl = new Ringtoets.Integration.Forms.Controls.AssessmentSectionAssemblyControl();
             this.failureMechanismsWithoutProbabilityAssemblyControl = new Ringtoets.Integration.Forms.Controls.AssessmentSectionAssemblyCategoryGroupControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
+            this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.assemblyResultGroupBox.SuspendLayout();
             this.assemblyResultTableLayoutPanel.SuspendLayout();
             this.refreshButtonPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -181,6 +184,12 @@ namespace Ringtoets.Integration.Forms.Views
             this.refreshButtonPanel.Size = new System.Drawing.Size(789, 35);
             this.refreshButtonPanel.TabIndex = 1;
             // 
+            // warningProvider
+            // 
+            this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.warningProvider.ContainerControl = this;
+            this.warningProvider.Icon = Icon.FromHandle(Core.Common.Gui.Properties.Resources.error.GetHicon());
+            // 
             // AssemblyResultTotalView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -196,6 +205,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.assemblyResultTableLayoutPanel.PerformLayout();
             this.refreshButtonPanel.ResumeLayout(false);
             this.refreshButtonPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -213,5 +223,6 @@ namespace Ringtoets.Integration.Forms.Views
         private Controls.AssessmentSectionAssemblyControl failureMechanismsWithProbabilityAssemblyControl;
         private Controls.AssessmentSectionAssemblyCategoryGroupControl failureMechanismsWithoutProbabilityAssemblyControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
+        private System.Windows.Forms.ErrorProvider warningProvider;
     }
 }

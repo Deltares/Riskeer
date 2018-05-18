@@ -405,4 +405,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultPerSectionView_GridColumn_SectionTotalAssembly" xml:space="preserve">
     <value>Totaal vakoordeel</value>
   </data>
+  <data name="AssemblyResultView_RefreshAssemblyResultsButton_Result_is_outdated_Press_Refresh_button_to_recalculate" xml:space="preserve">
+    <value>Assemblageresultaat is verouderd. Druk op de "Assemblageresultaat verversen" knop om opnieuw te berekenen.</value>
+  </data>
 </root>
