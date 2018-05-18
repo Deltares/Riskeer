@@ -120,7 +120,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var hydraulicBoundaryLocationsContext = (DuneLocationCalculationsContext) children[1];
-            Assert.AreSame(failureMechanism.DuneLocations, hydraulicBoundaryLocationsContext.WrappedData);
+            Assert.AreSame(failureMechanism.CalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocationsContext.WrappedData);
             Assert.AreSame(failureMechanism, hydraulicBoundaryLocationsContext.FailureMechanism);
             Assert.AreSame(assessmentSection, hydraulicBoundaryLocationsContext.AssessmentSection);
 
