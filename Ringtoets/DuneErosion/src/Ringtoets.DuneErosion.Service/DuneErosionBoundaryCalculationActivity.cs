@@ -42,7 +42,6 @@ namespace Ringtoets.DuneErosion.Service
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionBoundaryCalculationActivity"/>.
         /// </summary>
-        /// <param name="duneLocation">The <see cref="DuneLocation"/> to perform the calculation for.</param>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that 
         /// should be used for performing the calculation.</param>
@@ -50,30 +49,23 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> or
-        /// <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
-        public DuneErosionBoundaryCalculationActivity(DuneLocation duneLocation,
-                                                      DuneLocationCalculation duneLocationCalculation,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
+        public DuneErosionBoundaryCalculationActivity(DuneLocationCalculation duneLocationCalculation,
                                                       string hydraulicBoundaryDatabaseFilePath,
                                                       string preprocessorDirectory,
                                                       double norm)
         {
-            if (duneLocation == null)
-            {
-                throw new ArgumentNullException(nameof(duneLocation));
-            }
-
             if (duneLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(duneLocationCalculation));
             }
 
-            this.duneLocation = duneLocation;
             this.duneLocationCalculation = duneLocationCalculation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
+            duneLocation = duneLocationCalculation.DuneLocation;
             Description = string.Format(Resources.DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
                                         duneLocation.Name);
 
@@ -95,8 +87,7 @@ namespace Ringtoets.DuneErosion.Service
         {
             if (State != ActivityState.Skipped)
             {
-                calculationService.Calculate(duneLocation,
-                                             duneLocationCalculation,
+                calculationService.Calculate(duneLocationCalculation,
                                              norm,
                                              hydraulicBoundaryDatabaseFilePath,
                                              preprocessorDirectory);
@@ -111,6 +102,7 @@ namespace Ringtoets.DuneErosion.Service
         protected override void OnFinish()
         {
             duneLocation.NotifyObservers();
+            duneLocationCalculation.NotifyObservers();
         }
 
         private bool AlreadyCalculated
