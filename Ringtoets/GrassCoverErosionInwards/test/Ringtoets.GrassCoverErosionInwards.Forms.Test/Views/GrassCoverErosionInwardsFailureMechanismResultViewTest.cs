@@ -208,8 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanism,
             GrassCoverErosionInwardsFailureMechanismSectionResult,
             GrassCoverErosionInwardsFailureMechanismSectionResultRow,
-            GrassCoverErosionInwardsCalculation,
-            GrassCoverErosionInwardsInput>
+            GrassCoverErosionInwardsCalculation>
         {
             protected override GrassCoverErosionInwardsFailureMechanismResultView CreateResultView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
             {
@@ -221,11 +220,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             protected override GrassCoverErosionInwardsCalculation CreateCalculation()
             {
                 return new GrassCoverErosionInwardsCalculation();
-            }
-
-            protected override GrassCoverErosionInwardsInput GetInput(GrassCoverErosionInwardsCalculation calculation)
-            {
-                return calculation.InputParameters;
             }
         }
 

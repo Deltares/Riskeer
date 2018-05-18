@@ -45,15 +45,13 @@ namespace Ringtoets.Common.Forms.TestUtil
     /// <typeparam name="TSectionResult">The type of the section results shown in the view.</typeparam>
     /// <typeparam name="TResultRow">The type of the presentation objects used in the view.</typeparam>
     /// <typeparam name="TCalculation">The type of calculations to get the input from.</typeparam>
-    /// <typeparam name="TCalculationInput">The type of the  input of a calculation.</typeparam>
     [TestFixture]
-    public abstract class FailureMechanismAssemblyResultWithProbabilityControlTestFixture<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation, TCalculationInput>
+    public abstract class FailureMechanismAssemblyResultWithProbabilityControlTestFixture<TView, TFailureMechanism, TSectionResult, TResultRow, TCalculation>
         where TView : FailureMechanismResultView<TSectionResult, TResultRow, TFailureMechanism, FailureMechanismAssemblyControl>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism, new()
         where TSectionResult : FailureMechanismSectionResult
         where TResultRow : FailureMechanismSectionResultRow<TSectionResult>
-        where TCalculation : ICalculation
-        where TCalculationInput : ICalculationInput
+        where TCalculation : ICalculation<ICalculationInput>
     {
         private Form testForm;
 
@@ -248,7 +246,7 @@ namespace Ringtoets.Common.Forms.TestUtil
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.VIt);
-                GetInput(calculation).NotifyObservers();
+                calculation.InputParameters.NotifyObservers();
 
                 // Then
                 Assert.AreEqual("1/2", assemblyProbabilityLabel.Text);
@@ -268,14 +266,6 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// </summary>
         /// <returns>A new <typeparamref name="TCalculation"/>.</returns>
         protected abstract TCalculation CreateCalculation();
-
-        /// <summary>
-        /// Method to get the <typeparamref name="TCalculationInput"/> from a
-        /// <typeparamref name="TCalculation"/>.
-        /// </summary>
-        /// <param name="calculation">The calculation to get the input from.</param>
-        /// <returns>A new <typeparamref name="TCalculationInput"/>.</returns>
-        protected abstract TCalculationInput GetInput(TCalculation calculation);
 
         private static BorderedLabel GetGroupLabel()
         {

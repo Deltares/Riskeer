@@ -209,8 +209,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             ClosingStructuresFailureMechanism,
             ClosingStructuresFailureMechanismSectionResult,
             ClosingStructuresFailureMechanismSectionResultRow,
-            StructuresCalculation<ClosingStructuresInput>,
-            ClosingStructuresInput>
+            StructuresCalculation<ClosingStructuresInput>>
         {
             protected override ClosingStructuresFailureMechanismResultView CreateResultView(ClosingStructuresFailureMechanism failureMechanism)
             {
@@ -222,11 +221,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             protected override StructuresCalculation<ClosingStructuresInput> CreateCalculation()
             {
                 return new StructuresCalculation<ClosingStructuresInput>();
-            }
-
-            protected override ClosingStructuresInput GetInput(StructuresCalculation<ClosingStructuresInput> calculation)
-            {
-                return calculation.InputParameters;
             }
         }
 

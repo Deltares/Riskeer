@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
@@ -35,6 +36,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
+using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
@@ -52,6 +54,7 @@ namespace Ringtoets.Integration.Forms.Views
     public partial class AssemblyResultTotalView : UserControl, IView
     {
         private IEnumerable<FailureMechanismAssemblyResultRowBase> assemblyResultRows;
+        private readonly Observer assessmentSectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
@@ -69,6 +72,19 @@ namespace Ringtoets.Integration.Forms.Views
             AssessmentSection = assessmentSection;
 
             InitializeComponent();
+
+            assessmentSectionResultObserver = new Observer(EnableRefreshButton)
+            {
+                Observable = new AssessmentSectionResultObserver(assessmentSection)
+            };
+        }
+
+        private void EnableRefreshButton()
+        {
+            if (!RefreshAssemblyResultsButton.Enabled)
+            {
+                RefreshAssemblyResultsButton.Enabled = true;
+            }
         }
 
         /// <summary>
@@ -95,6 +111,7 @@ namespace Ringtoets.Integration.Forms.Views
             if (disposing)
             {
                 components?.Dispose();
+                assessmentSectionResultObserver.Dispose();
             }
 
             base.Dispose(disposing);
@@ -154,6 +171,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
+            RefreshAssemblyResultsButton.Enabled = false;
             assemblyResultRows.ForEachElementDo(row => row.Update());
             dataGridViewControl.RefreshDataGridView();
             UpdateAssemblyResultControls();

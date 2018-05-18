@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="GrassCoverErosionInwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculation : CloneableObservable, ICalculation
+    public class GrassCoverErosionInwardsCalculation : CloneableObservable, ICalculation<GrassCoverErosionInwardsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculation"/>.

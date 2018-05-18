@@ -37,14 +37,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
     public class FailureMechanismSectionListCreatorTest
     {
         [Test]
-        public void Create_FailureMechanismsNull_ThrowsArgumentNullException()
+        public void Create_FailureMechanismSectionsCollectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => FailureMechanismSectionListCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanisms", exception.ParamName);
+            Assert.AreEqual("failureMechanismSectionsCollection", exception.ParamName);
         }
 
         [Test]
@@ -54,11 +54,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var random = new Random(21);
             var combinedAssemblyFailureMechanismInputs = new[]
             {
-                new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                new[]
                 {
                     new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                     new CombinedAssemblyFailureMechanismSection(1, 2, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
-                })
+                }
             };
 
             // Call
@@ -71,16 +71,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [Test]
         public void Create_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
-            // Setup
-            var random = new Random(21);
-
             // Call
             TestDelegate test = () => FailureMechanismSectionListCreator.Create(new[]
             {
-                new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                new[]
                 {
                     new CombinedAssemblyFailureMechanismSection(0, 1, (FailureMechanismSectionAssemblyCategoryGroup) 99)
-                })
+                }
             });
 
             // Assert
@@ -100,16 +97,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyCategoryGroup.VIIv, EFmSectionCategory.VIIv)]
         public void Create_ValidGroup_ReturnEFmSectionCategory(FailureMechanismSectionAssemblyCategoryGroup originalGroup, EFmSectionCategory expectedGroup)
         {
-            // Setup
-            var random = new Random(21);
-
             // Call
             IEnumerable<FailureMechanismSectionList> output = FailureMechanismSectionListCreator.Create(new[]
             {
-                new CombinedAssemblyFailureMechanismInput(random.NextDouble(1, 2), random.NextDouble(), new[]
+                new[]
                 {
                     new CombinedAssemblyFailureMechanismSection(0, 1, originalGroup)
-                })
+                }
             });
 
             // Assert

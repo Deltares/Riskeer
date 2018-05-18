@@ -11,7 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assembly\CombinedAssemblyFailureMechanismInputFactory.cs" />
+    <Compile Include="Assembly\CombinedAssemblyFailureMechanismSectionFactory.cs" />
     <Compile Include="AssessmentSection.cs" />
     <Compile Include="Assembly\AssessmentSectionAssemblyFactory.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResult.cs" />

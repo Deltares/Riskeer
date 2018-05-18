@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
@@ -235,6 +236,43 @@ namespace Ringtoets.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
 
             return failureMechanism;
+        }
+
+        /// <summary>
+        /// Gets an assessment section where all failure mechanism have sections set.
+        /// </summary>
+        /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/>
+        /// to initialize the <see cref="AssessmentSection"/> with.</param>
+        /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
+        public static AssessmentSection GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
+        {
+            var assessmentSection = new AssessmentSection(composition)
+            {
+                ReferenceLine = GetReferenceLine()
+            };
+
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                AddFailureMechanismSections(failureMechanism);
+            }
+
+            return assessmentSection;
+        }
+
+        private static ReferenceLine GetReferenceLine()
+        {
+            IEnumerable<Point2D> points = new[]
+            {
+                new Point2D(-1, -1),
+                new Point2D(5, 5),
+                new Point2D(10, 10),
+                new Point2D(-3, 2)
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(points);
+            return referenceLine;
         }
 
         private static void SetFullyConfiguredFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,

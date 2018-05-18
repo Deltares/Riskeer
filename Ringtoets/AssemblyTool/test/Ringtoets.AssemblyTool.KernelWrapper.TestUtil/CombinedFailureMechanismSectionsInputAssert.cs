@@ -36,22 +36,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismInput"/>.</param>
+        /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismSection"/>
+        /// collections.</param>
         /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionList"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertCombinedFailureMechanismInput(CombinedAssemblyFailureMechanismInput[] original, FailureMechanismSectionList[] actual)
+        public static void AssertCombinedFailureMechanismInput(CombinedAssemblyFailureMechanismSection[][] original, FailureMechanismSectionList[] actual)
         {
             Assert.AreEqual(original.Length, actual.Length);
 
             for (var i = 0; i < original.Length; i++)
             {
-                CombinedAssemblyFailureMechanismInput failureMechanism = original[i];
+                CombinedAssemblyFailureMechanismSection[] sections = original[i];
                 FailureMechanismSectionList sectionList = actual[i];
-                Assert.AreEqual(failureMechanism.N, sectionList.FailureMechanism.LengthEffectFactor);
-                Assert.AreEqual(failureMechanism.FailureMechanismContribution, sectionList.FailureMechanism.FailureProbabilityMarginFactor);
-
-                AssertSections(failureMechanism.Sections.ToArray(), sectionList.Results.ToArray());
+                AssertSections(sections.ToArray(), sectionList.Results.ToArray());
             }
         }
 

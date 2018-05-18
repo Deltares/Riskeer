@@ -68,13 +68,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <summary>
         /// Assembles the combined assessment section for the given input.
         /// </summary>
-        /// <param name="input">The collection of collections of failure mechanism assembly category groups
-        /// to assemble for.</param>
+        /// <param name="input">The collection of failure mechanism section collections to assemble for.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(IEnumerable<CombinedAssemblyFailureMechanismInput> input,
+        IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input,
                                                                                                       double assessmentSectionLength);
     }
 }

@@ -29,7 +29,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// <summary>
     /// This class holds information about a calculation for the <see cref="MacroStabilityInwardsFailureMechanism"/>.
     /// </summary>
-    public class MacroStabilityInwardsCalculation : CloneableObservable, ICalculation
+    public class MacroStabilityInwardsCalculation : CloneableObservable, ICalculation<MacroStabilityInwardsInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculation"/> with default values set for some of the parameters.

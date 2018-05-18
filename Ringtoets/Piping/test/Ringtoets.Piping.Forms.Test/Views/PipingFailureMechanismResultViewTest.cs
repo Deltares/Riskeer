@@ -211,8 +211,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             PipingFailureMechanism,
             PipingFailureMechanismSectionResult,
             PipingFailureMechanismSectionResultRow,
-            PipingCalculationScenario,
-            PipingInput>
+            PipingCalculationScenario>
         {
             protected override PipingFailureMechanismResultView CreateResultView(PipingFailureMechanism failureMechanism)
             {
@@ -224,11 +223,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
             protected override PipingCalculationScenario CreateCalculation()
             {
                 return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
-            }
-
-            protected override PipingInput GetInput(PipingCalculationScenario calculation)
-            {
-                return calculation.InputParameters;
             }
         }
 

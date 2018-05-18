@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismNotifiesObservers_ThenFailureMechanismResultObserverNotified()
+        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismNotifiesObservers_ThenFailureMechanismResultObserverObserversNotified()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultCollectionNotifiesObservers_ThenFailureMechanismResultObserverNotified()
+        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultCollectionNotifiesObservers_ThenFailureMechanismResultObserverObserversNotified()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultNotifiesObservers_ThenFailureMechanismResultObserverNotified()
+        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultNotifiesObservers_ThenFailureMechanismResultObserverObserversNotified()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
