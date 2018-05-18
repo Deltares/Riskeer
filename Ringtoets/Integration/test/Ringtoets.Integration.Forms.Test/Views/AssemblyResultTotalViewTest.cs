@@ -233,7 +233,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultTotalView())
             {
-                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Properties.Enabled = true;
 
                 // Precondition
                 AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
@@ -247,7 +248,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 calculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(0.5, AssessmentSectionAssemblyCategoryGroup.APlus);
                 calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.B;
 
-                GetRefreshAssemblyResultButtonTester().Click();
+                buttonTester.Click();
 
                 // Then
                 AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "A");
@@ -263,7 +264,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultTotalView())
             {
-                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Properties.Enabled = true;
 
                 // Precondition
                 AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
@@ -275,7 +277,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                GetRefreshAssemblyResultButtonTester().Click();
+                buttonTester.Click();
 
                 // Then
                 AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(totalControlName);
@@ -296,7 +298,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 using (ShowAssemblyResultTotalView())
                 {
-                    GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+                    ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                    buttonTester.Properties.Enabled = true;
 
                     // Precondition
                     AssertAssessmentSectionAssemblyWithoutProbabilityControlWithError(totalControlName);
@@ -305,7 +308,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                     // When
                     calculator.ThrowExceptionOnCalculate = false;
-                    GetRefreshAssemblyResultButtonTester().Click();
+                    buttonTester.Click();
 
                     // Then
                     AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "C");
@@ -333,7 +336,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Properties.Enabled = true;
 
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -353,7 +357,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 calculator.FailureMechanismAssemblyOutput = newAssemblyResult;
                 calculator.FailureMechanismAssemblyCategoryGroupOutput = newCategoryGroup;
 
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Click();
 
                 // Then 
@@ -370,7 +373,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             using (ShowAssemblyResultTotalView())
             {
-                GetRefreshAssemblyResultButtonTester().Properties.Enabled = true;
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Properties.Enabled = true;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.CellFormatting += (sender, args) =>
                 {
@@ -382,7 +386,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 };
 
                 // When
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Click();
 
                 // Then

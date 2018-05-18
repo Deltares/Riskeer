@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Integration.Forms.Properties;
-
 namespace Ringtoets.Integration.Forms.Views
 {
     partial class AssemblyResultPerSectionView
@@ -43,8 +41,10 @@ namespace Ringtoets.Integration.Forms.Views
             this.RefreshAssemblyResultsButton = new System.Windows.Forms.Button();
             this.buttonGroupBox = new System.Windows.Forms.GroupBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -60,6 +60,7 @@ namespace Ringtoets.Integration.Forms.Views
             // RefreshAssemblyResultsButton
             // 
             this.RefreshAssemblyResultsButton.AutoSize = true;
+            this.RefreshAssemblyResultsButton.Enabled = false;
             this.RefreshAssemblyResultsButton.Location = new System.Drawing.Point(3, 14);
             this.RefreshAssemblyResultsButton.Name = "RefreshAssemblyResultsButton";
             this.RefreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 23);
@@ -85,6 +86,12 @@ namespace Ringtoets.Integration.Forms.Views
             this.errorProvider.ContainerControl = this;
             this.errorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
             // 
+            // warningProvider
+            // 
+            this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.warningProvider.ContainerControl = this;
+            warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            // 
             // AssemblyResultPerSectionView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -96,6 +103,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.buttonGroupBox.ResumeLayout(false);
             this.buttonGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -106,5 +114,6 @@ namespace Ringtoets.Integration.Forms.Views
         private System.Windows.Forms.Button RefreshAssemblyResultsButton;
         private System.Windows.Forms.GroupBox buttonGroupBox;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ErrorProvider warningProvider;
     }
 }
