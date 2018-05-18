@@ -124,7 +124,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
 
-            yield return new ViewInfo<DuneLocationCalculationsContext, IEnumerable<DuneLocation>, DuneLocationCalculationsView>
+            yield return new ViewInfo<DuneLocationCalculationsContext, IEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
                 GetViewName = (view, context) => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -173,7 +173,7 @@ namespace Ringtoets.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new DuneLocationCalculationsContext(wrappedData.DuneLocations, wrappedData, failureMechanismContext.Parent),
+                new DuneLocationCalculationsContext(wrappedData.CalculationsForFactorizedLowerLimitNorm, wrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
