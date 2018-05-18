@@ -188,7 +188,7 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.warningProvider.ContainerControl = this;
-            this.warningProvider.Icon = Icon.FromHandle(Core.Common.Gui.Properties.Resources.error.GetHicon());
+            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
             // 
             // AssemblyResultTotalView
             // 

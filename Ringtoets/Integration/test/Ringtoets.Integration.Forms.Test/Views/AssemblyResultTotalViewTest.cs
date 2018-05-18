@@ -53,6 +53,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
@@ -147,6 +148,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, datagridViewControl.Dock);
 
                 ErrorProvider warningProvider = GetWarningProvider(view);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
+                Assert.IsEmpty(warningProvider.GetError(view));
                 Assert.AreEqual(4, warningProvider.GetIconPadding(button));
 
                 Assert.IsInstanceOf<IView>(view);
@@ -490,11 +494,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
-        private static ErrorProvider GetWarningProvider(AssemblyResultTotalView resultControl)
-        {
-            return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
-        }
-
         #region View test helpers
 
         private AssemblyResultTotalView ShowAssemblyResultTotalView()
@@ -545,6 +544,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var errorProvider = TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
             return errorProvider.GetError(resultControl);
+        }
+
+        private static ErrorProvider GetWarningProvider(AssemblyResultTotalView resultControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
         }
 
         #endregion
