@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -220,18 +221,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             };
             double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(1.0 / 200);
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 0,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                });
-            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Precondition
-            Assert.IsNull(duneLocation.Calculation.Output);
+            Assert.IsNull(duneLocationCalculation.Output);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -290,14 +283,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Contribution = 10
             };
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 0,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                });
+            var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -343,15 +329,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Contribution = 10
             };
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 0,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                });
-            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -392,14 +370,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Contribution = 10
             };
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 0,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                });
+            var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -462,14 +433,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Contribution = 10
             };
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 0,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                });
+            var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -533,14 +497,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Contribution = 10
             };
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
-                                                new DuneLocation.ConstructionProperties
-                                                {
-                                                    CoastalAreaId = 0,
-                                                    Offset = 0,
-                                                    Orientation = 0,
-                                                    D50 = 0.000007
-                                                });
+            var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
