@@ -271,7 +271,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                 // Assert
                 var selection = view.Selection as DuneLocationCalculation;
-                var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationRow;
+                var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationCalculationRow;
 
                 Assert.NotNull(selection);
                 Assert.NotNull(dataBoundItem);

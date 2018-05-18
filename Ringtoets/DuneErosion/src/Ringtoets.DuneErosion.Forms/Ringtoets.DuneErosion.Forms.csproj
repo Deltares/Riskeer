@@ -41,7 +41,7 @@
     </Compile>
     <Compile Include="Factories\DuneErosionMapDataFeaturesFactory.cs" />
     <Compile Include="Views\DuneErosionSectionResultRow.cs" />
-    <Compile Include="Views\DuneLocationRow.cs" />
+    <Compile Include="Views\DuneLocationCalculationRow.cs" />
     <Compile Include="Views\DuneLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>

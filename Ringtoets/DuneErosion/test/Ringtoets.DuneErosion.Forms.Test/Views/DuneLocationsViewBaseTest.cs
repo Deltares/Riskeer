@@ -252,7 +252,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             return view;
         }
 
-        private class TestCalculatableRow : DuneLocationRow
+        private class TestCalculatableRow : DuneLocationCalculationRow
         {
             public TestCalculatableRow(TestCalculatableObject calculatableObject) : base(calculatableObject)
             {

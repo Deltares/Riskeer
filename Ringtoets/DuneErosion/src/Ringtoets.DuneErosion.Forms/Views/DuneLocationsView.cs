@@ -122,35 +122,35 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Name),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Name),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Id),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Id),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Location),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Location),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.CoastalAreaId),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.CoastalAreaId),
                                                  Resources.DuneLocation_CoastalAreaId_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.Offset),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Offset),
                                                  Resources.DuneLocation_Offset_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.WaterLevel),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaterLevel),
                                                  Resources.DuneLocation_WaterLevel_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.WaveHeight),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveHeight),
                                                  Resources.DuneLocation_WaveHeight_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.WavePeriod),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WavePeriod),
                                                  Resources.DuneLocation_WavePeriod_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationRow.D50),
+            dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.D50),
                                                  Resources.DuneLocation_D50_DisplayName);
         }
 
         protected override object CreateSelectedItemFromCurrentRow()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-            return ((DuneLocationRow) currentRow?.DataBoundItem)?.CalculatableObject;
+            return ((DuneLocationCalculationRow) currentRow?.DataBoundItem)?.CalculatableObject;
         }
 
         protected override void SetDataSource()
         {
-            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationRow(calc)).ToArray());
+            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationCalculationRow(calc)).ToArray());
         }
 
         protected override void CalculateForSelectedRows()

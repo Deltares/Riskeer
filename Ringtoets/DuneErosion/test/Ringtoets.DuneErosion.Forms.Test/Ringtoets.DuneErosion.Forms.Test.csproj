@@ -36,7 +36,7 @@
     <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
     <Compile Include="Factories\DuneErosionMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\DuneErosionSectionResultRowTest.cs" />
-    <Compile Include="Views\DuneLocationRowTest.cs" />
+    <Compile Include="Views\DuneLocationCalculationRowTest.cs" />
     <Compile Include="Views\DuneLocationsViewTest.cs" />
     <Compile Include="Views\DuneLocationsViewBaseTest.cs" />
   </ItemGroup>

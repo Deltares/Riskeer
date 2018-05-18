@@ -91,7 +91,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// </summary>
         protected virtual void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(nameof(DuneLocationRow.ShouldCalculate),
+            dataGridViewControl.AddCheckBoxColumn(nameof(DuneLocationCalculationRow.ShouldCalculate),
                                                   Resources.CalculatableView_Calculate);
         }
 
@@ -115,11 +115,11 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <summary>
         /// Gets all the row items from the <see cref="DataGridView"/>.
         /// </summary>
-        protected IEnumerable<DuneLocationRow> GetCalculatableRows()
+        protected IEnumerable<DuneLocationCalculationRow> GetCalculatableRows()
         {
             return dataGridViewControl.Rows
                                       .Cast<DataGridViewRow>()
-                                      .Select(row => (DuneLocationRow) row.DataBoundItem);
+                                      .Select(row => (DuneLocationCalculationRow) row.DataBoundItem);
         }
 
         /// <summary>
