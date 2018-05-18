@@ -30,7 +30,7 @@ using Ringtoets.DuneErosion.Forms.PropertyClasses;
 namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class DuneLocationPropertyInfoTest
+    public class DuneLocationCalculationPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
