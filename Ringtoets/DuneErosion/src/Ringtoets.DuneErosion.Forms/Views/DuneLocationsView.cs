@@ -40,32 +40,23 @@ namespace Ringtoets.DuneErosion.Forms.Views
     {
         private readonly Observer duneLocationsObserver;
         private readonly Observer failureMechanismObserver;
-        private readonly ObservableList<DuneLocation> locations;
-        private readonly Func<DuneLocation, DuneLocationCalculation> getCalculationFunc;
-        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> duneLocationObserver;
+        private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationsView"/>.
         /// </summary>
-        /// <param name="locations">The locations to show in the view.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="DuneLocationCalculation"/>
-        /// based on <see cref="DuneLocation"/>.</param>
-        /// <param name="failureMechanism">The failure mechanism which the locations belong to.</param>
-        /// <param name="assessmentSection">The assessment section which the locations belong to.</param>
+        /// <param name="calculations">The calculations to show in the view</param>
+        /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
+        /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneLocationsView(ObservableList<DuneLocation> locations,
-                                 Func<DuneLocation, DuneLocationCalculation> getCalculationFunc,
+        public DuneLocationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                  DuneErosionFailureMechanism failureMechanism,
                                  IAssessmentSection assessmentSection)
         {
-            if (locations == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            if (getCalculationFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
+                throw new ArgumentNullException(nameof(calculations));
             }
 
             if (failureMechanism == null)
@@ -80,18 +71,17 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
             InitializeComponent();
 
-            this.locations = locations;
-            this.getCalculationFunc = getCalculationFunc;
+            this.calculations = calculations;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
             duneLocationsObserver = new Observer(UpdateDataGridViewDataSource)
             {
-                Observable = locations
+                Observable = calculations
             };
-            duneLocationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(dataGridViewControl.RefreshDataGridView, list => list)
+            duneLocationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(dataGridViewControl.RefreshDataGridView, list => list)
             {
-                Observable = locations
+                Observable = calculations
             };
             failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
             {
@@ -160,15 +150,15 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void SetDataSource()
         {
-            dataGridViewControl.SetDataSource(locations?.Select(l => new DuneLocationRow(l, getCalculationFunc)).ToArray());
+            dataGridViewControl.SetDataSource(calculations?.Select(calc => new DuneLocationRow(calc)).ToArray());
         }
 
         protected override void CalculateForSelectedRows()
         {
             if (CalculationGuiService != null)
             {
-                IEnumerable<DuneLocation> selectedLocations = GetSelectedCalculatableObjects();
-                HandleCalculateSelectedLocations(selectedLocations);
+                IEnumerable<DuneLocationCalculation> selectedCalculations = GetSelectedCalculatableObjects();
+                HandleCalculateSelectedLocations(selectedCalculations);
             }
         }
 
@@ -182,10 +172,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
             return base.ValidateCalculatableObjects();
         }
 
-        private void HandleCalculateSelectedLocations(IEnumerable<DuneLocation> locationsToCalculate)
+        private void HandleCalculateSelectedLocations(IEnumerable<DuneLocationCalculation> calculations)
         {
-            CalculationGuiService.Calculate(locationsToCalculate,
-                                            getCalculationFunc,
+            CalculationGuiService.Calculate(calculations,
                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                             FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));

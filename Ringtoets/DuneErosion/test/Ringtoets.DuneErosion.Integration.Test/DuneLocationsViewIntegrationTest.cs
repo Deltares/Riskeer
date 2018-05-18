@@ -98,47 +98,44 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
         private DuneLocationsView ShowFullyConfiguredDuneLocationsView()
         {
-            var locations = new ObservableList<DuneLocation>
+            var calculations = new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
+                new DuneLocationCalculation(new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 50,
                     Offset = 320,
                     D50 = 0.000837
-                }),
-                new DuneLocation(2, "2", new Point2D(2.0, 2.0), new DuneLocation.ConstructionProperties
+                })),
+                new DuneLocationCalculation(new DuneLocation(2, "2", new Point2D(2.0, 2.0), new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 60,
                     Offset = 230,
                     D50 = 0.000123
-                })
+                }))
                 {
-                    Calculation =
+                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                     {
-                        Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
-                        {
-                            WaterLevel = 1.23,
-                            WaveHeight = 2.34,
-                            WavePeriod = 3.45
-                        })
-                    }
+                        WaterLevel = 1.23,
+                        WaveHeight = 2.34,
+                        WavePeriod = 3.45
+                    })
                 }
             };
 
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.AddRange(locations);
-
-            DuneLocationsView view = ShowDuneLocationsView(failureMechanism);
-
+            ObservableList<DuneLocationCalculation> generateDuneLocationCalculations = calculations;
+            DuneLocationsView view = ShowDuneLocationsView(generateDuneLocationCalculations,
+                                                           new DuneErosionFailureMechanism(),
+                                                           new AssessmentSection(AssessmentSectionComposition.Dike));
             return view;
         }
 
-        private DuneLocationsView ShowDuneLocationsView(DuneErosionFailureMechanism failureMechanism)
+        private DuneLocationsView ShowDuneLocationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
+                                                        DuneErosionFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection)
         {
-            var view = new DuneLocationsView(failureMechanism.DuneLocations,
-                                             dl => dl.Calculation,
+            var view = new DuneLocationsView(calculations,
                                              failureMechanism,
-                                             new AssessmentSection(AssessmentSectionComposition.Dike));
+                                             assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
