@@ -56,33 +56,25 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         }
 
         /// <summary>
-        /// Performs the calculation for all <paramref name="locations"/>.
+        /// Performs the calculation for all <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="locations">The <see cref="DuneLocation"/> objects to perform the calculation for.</param>
-        /// <param name="getCalculationFunc"><see cref="Func{T,TResult}"/> for obtaining a <see cref="DuneLocationCalculation"/>
-        /// based on <see cref="DuneLocation"/>.</param>
+        /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform 
+        /// the calculation for.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file 
         /// that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> or
-        /// <paramref name="getCalculationFunc"/> is <c>null</c>.</exception>
-        public void Calculate(IEnumerable<DuneLocation> locations,
-                              Func<DuneLocation, DuneLocationCalculation> getCalculationFunc,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        public void Calculate(IEnumerable<DuneLocationCalculation> calculations,
                               string hydraulicBoundaryDatabaseFilePath,
                               string preprocessorDirectory,
                               double norm)
         {
-            if (locations == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            if (getCalculationFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCalculationFunc));
+                throw new ArgumentNullException(nameof(calculations));
             }
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
@@ -96,11 +88,10 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
 
             ActivityProgressDialogRunner.Run(
                 viewParent,
-                locations.Select(l => new DuneErosionBoundaryCalculationActivity(l,
-                                                                                 getCalculationFunc(l),
-                                                                                 hydraulicBoundaryDatabaseFilePath,
-                                                                                 preprocessorDirectory,
-                                                                                 norm)).ToArray());
+                calculations.Select(calculation => new DuneErosionBoundaryCalculationActivity(calculation,
+                                                                                              hydraulicBoundaryDatabaseFilePath,
+                                                                                              preprocessorDirectory,
+                                                                                              norm)).ToArray());
         }
     }
 }

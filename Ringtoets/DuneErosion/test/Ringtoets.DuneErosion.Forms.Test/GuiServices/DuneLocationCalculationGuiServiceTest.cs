@@ -63,7 +63,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_LocationsNull_ThrowArgumentNullException()
+        public void Calculate_CalculationsNull_ThrowArgumentNullException()
         {
             // Setup
             using (var viewParent = new Form())
@@ -72,35 +72,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(null,
-                                                               dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                1.0 / 30000);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("locations", exception.ParamName);
-            }
-        }
-
-        [Test]
-        public void Calculate_GetCalculationFuncNull_ThrowArgumentNullException()
-        {
-            // Setup
-            using (var viewParent = new Form())
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
-                                                               null,
-                                                               validFilePath,
-                                                               validPreprocessorDirectory,
-                                                               1.0 / 30000);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("getCalculationFunc", exception.ParamName);
+                Assert.AreEqual("calculations", exception.ParamName);
             }
         }
 
@@ -108,25 +86,25 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_ValidData_ScheduleAllLocations()
         {
             // Setup
-            var duneLocations = new[]
+            var duneLocationCalculations = new[]
             {
-                new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 0,
                     Offset = 0,
                     Orientation = 0,
                     D50 = 0.000007
-                }),
-                new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                })),
+                new DuneLocationCalculation(new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 0,
                     Offset = 0,
                     Orientation = 0,
                     D50 = 0.000007
-                })
+                }))
             };
 
-            int nrOfCalculators = duneLocations.Length;
+            int nrOfCalculators = duneLocationCalculations.Length;
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(new TestDunesBoundaryConditionsCalculator())
@@ -140,8 +118,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestHelper.AssertLogMessages(() => guiService.Calculate(duneLocations,
-                                                                        dl => new DuneLocationCalculation(new TestDuneLocation()),
+                TestHelper.AssertLogMessages(() => guiService.Calculate(duneLocationCalculations,
                                                                         validFilePath,
                                                                         validPreprocessorDirectory,
                                                                         1.0 / 200),
@@ -190,8 +167,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocation>(),
-                                                         dl => new DuneLocationCalculation(new TestDuneLocation()),
+                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
                                                          databasePath,
                                                          validPreprocessorDirectory,
                                                          1.0 / 30000);
@@ -225,11 +201,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(new List<DuneLocation>
+                Action call = () => guiService.Calculate(new []
                                                          {
-                                                             new TestDuneLocation(hydraulicLocationName)
+                                                             new DuneLocationCalculation(new TestDuneLocation(hydraulicLocationName))
                                                          },
-                                                         dl => new DuneLocationCalculation(new TestDuneLocation()),
                                                          validFilePath,
                                                          validPreprocessorDirectory,
                                                          1.0 / 30000);
