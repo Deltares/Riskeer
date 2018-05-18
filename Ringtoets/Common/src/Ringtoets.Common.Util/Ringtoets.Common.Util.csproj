@@ -15,6 +15,7 @@
     <Compile Include="AggregatedHydraulicBoundaryLocationFactory.cs" />
     <Compile Include="AssignUnassignCalculations.cs" />
     <Compile Include="CalculationWithLocation.cs" />
+    <Compile Include="FailureMechanismNormHelper.cs" />
     <Compile Include="HydraulicBoundaryLocationMapDataFeaturesFactory.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -45,6 +46,11 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318BA582-88C9-4816-A54A-A7E431461DE3}</Project>
       <Name>Core.Components.Gis</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\AssemblyTool\src\Ringtoets.AssemblyTool.Data\Ringtoets.AssemblyTool.Data.csproj">
+      <Project>{420ed9c3-0c33-47ea-b893-121a9c0db4f1}</Project>
+      <Name>Ringtoets.AssemblyTool.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">

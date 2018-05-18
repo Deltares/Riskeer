@@ -23,6 +23,7 @@
     <Compile Include="AggregatedHydraulicBoundaryLocationTest.cs" />
     <Compile Include="AssignUnassignCalculationsTest.cs" />
     <Compile Include="CalculationWithLocationTest.cs" />
+    <Compile Include="FailureMechanismNormHelperTest.cs" />
     <Compile Include="HydraulicBoundaryLocationMapDataFeaturesFactoryTest.cs" />
     <Compile Include="RingtoetsMapDataFeaturesFactoryHelperTest.cs" />
     <Compile Include="RingtoetsVersionComparerTest.cs" />
