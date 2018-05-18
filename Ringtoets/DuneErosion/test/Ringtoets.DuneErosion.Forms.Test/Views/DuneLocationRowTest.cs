@@ -37,17 +37,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     public class DuneLocationRowTest
     {
         [Test]
-        public void Constructor_GetCalculationFuncNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DuneLocationRow(new TestDuneLocation(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getCalculationFunc", exception.ParamName);
-        }
-
-        [Test]
         [TestCase(34.1)]
         [TestCase(34.0)]
         public void Constructor_WithOutput_ExpectedValues(double offSet)
@@ -59,7 +48,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Offset = offSet,
                 D50 = 0.000183
             });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
             {
                 Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
                 {
@@ -70,11 +59,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             };
 
             // Call
-            var row = new DuneLocationRow(duneLocation, dl => duneLocationCalculation);
+            var row = new DuneLocationRow(duneLocationCalculation);
 
             // Assert
-            Assert.IsInstanceOf<CalculatableRow<DuneLocation>>(row);
-            Assert.AreSame(duneLocation, row.CalculatableObject);
+            Assert.IsInstanceOf<CalculatableRow<DuneLocationCalculation>>(row);
+            Assert.AreSame(duneLocationCalculation, row.CalculatableObject);
             Assert.AreEqual(duneLocation.Id, row.Id);
             Assert.AreEqual(duneLocation.Name, row.Name);
             Assert.AreSame(duneLocation.Location, row.Location);
@@ -97,11 +86,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_WithoutOutput_ExpectedValues()
         {
             // Setup
-            var duneLocation = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties());
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Call
-            var row = new DuneLocationRow(duneLocation, dl => duneLocationCalculation);
+            var row = new DuneLocationRow(duneLocationCalculation);
 
             // Assert
             Assert.IsNaN(row.WaterLevel);
