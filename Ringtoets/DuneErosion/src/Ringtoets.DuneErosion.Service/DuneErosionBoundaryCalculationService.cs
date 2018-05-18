@@ -90,20 +90,17 @@ namespace Ringtoets.DuneErosion.Service
         }
 
         /// <summary>
-        /// Performs a dune erosion calculation based on the supplied <see cref="DuneLocation"/>
-        /// and sets the <see cref="DuneLocationCalculation.Output"/> if the calculation is successful.
+        /// Performs a dune erosion calculation based on the supplied <see cref="DuneLocationCalculation"/>
+        /// and sets its output if the calculation is successful.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="duneLocation">The <see cref="DuneLocation"/> that holds information required 
-        /// to perform the calculation.</param>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic 
         /// boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocation"/> or
-        /// <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
@@ -120,23 +117,19 @@ namespace Ringtoets.DuneErosion.Service
         /// </list></exception>
         /// <exception cref="HydraRingCalculationException">Thrown when an error occurs while performing 
         /// the calculation.</exception>
-        public void Calculate(DuneLocation duneLocation,
-                              DuneLocationCalculation duneLocationCalculation,
+        public void Calculate(DuneLocationCalculation duneLocationCalculation,
                               double norm,
                               string hydraulicBoundaryDatabaseFilePath,
                               string preprocessorDirectory)
         {
-            if (duneLocation == null)
-            {
-                throw new ArgumentNullException(nameof(duneLocation));
-            }
-
             if (duneLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(duneLocationCalculation));
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+
+            DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
             string duneLocationName = duneLocation.Name;
 
             CalculationServiceHelper.LogCalculationBegin();

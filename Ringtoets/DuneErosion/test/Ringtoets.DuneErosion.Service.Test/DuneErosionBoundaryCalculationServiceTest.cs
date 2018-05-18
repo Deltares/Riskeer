@@ -30,7 +30,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
@@ -132,26 +131,10 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Calculate_DuneLocationNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(null,
-                                                                                            new DuneLocationCalculation(new TestDuneLocation()),
-                                                                                            1,
-                                                                                            validFilePath,
-                                                                                            validPreprocessorDirectory);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("duneLocation", exception.ParamName);
-        }
-
-        [Test]
         public void Calculate_DuneLocationCalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(new TestDuneLocation(),
-                                                                                            null,
+            TestDelegate test = () => new DuneErosionBoundaryCalculationService().Calculate(null,
                                                                                             1,
                                                                                             validFilePath,
                                                                                             validPreprocessorDirectory);
@@ -197,8 +180,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                      new DuneLocationCalculation(new TestDuneLocation()),
+                new DuneErosionBoundaryCalculationService().Calculate(new DuneLocationCalculation(duneLocation),
                                                                       mechanismSpecificNorm,
                                                                       validFilePath,
                                                                       preprocessorDirectory);
@@ -246,7 +228,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             // Precondition
             Assert.IsNull(duneLocation.Calculation.Output);
@@ -254,8 +236,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                                          duneLocationCalculation,
+                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
                                                                                           mechanismSpecificNorm,
                                                                                           validFilePath,
                                                                                           validPreprocessorDirectory);
@@ -317,13 +298,12 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
-                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                                          duneLocationCalculation,
+                Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
                                                                                           failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                                                                                           validFilePath,
                                                                                           validPreprocessorDirectory);
@@ -371,7 +351,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -379,8 +359,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.Calculate(duneLocation,
-                                  duneLocationCalculation,
+                service.Calculate(duneLocationCalculation,
                                   failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                                   validFilePath,
                                   validPreprocessorDirectory);
@@ -421,7 +400,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -432,8 +411,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     try
                     {
-                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                              duneLocationCalculation,
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
                                                                               failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                                                                               validFilePath,
                                                                               validPreprocessorDirectory);
@@ -492,7 +470,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -503,8 +481,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     try
                     {
-                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                              duneLocationCalculation,
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
                                                                               failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                                                                               validFilePath,
                                                                               validPreprocessorDirectory);
@@ -564,7 +541,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                     Orientation = 0,
                                                     D50 = 0.000007
                                                 });
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -576,8 +553,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     try
                     {
-                        new DuneErosionBoundaryCalculationService().Calculate(duneLocation,
-                                                                              duneLocationCalculation,
+                        new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
                                                                               failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
                                                                               validFilePath,
                                                                               validPreprocessorDirectory);
