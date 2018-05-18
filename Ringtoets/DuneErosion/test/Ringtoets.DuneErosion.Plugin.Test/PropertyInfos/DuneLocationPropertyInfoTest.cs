@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PropertyClasses;
 
 namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
@@ -42,33 +42,33 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DuneLocation), info.DataType);
+                Assert.AreEqual(typeof(DuneLocationCalculation), info.DataType);
                 Assert.AreEqual(typeof(DuneLocationCalculationProperties), info.PropertyObjectType);
             }
         }
 
         [Test]
-        public void CreateInstance_WithDuneLocation_SetsDuneLocationAsData()
+        public void CreateInstance_WithDuneLocationCalculation_SetsDuneLocationCalculationAsData()
         {
             // Setup
-            var duneLocation = new DuneLocation(1, "", new Point2D(0, 0), new DuneLocation.ConstructionProperties());
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             using (var plugin = new DuneErosionPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
                 // Call
-                IObjectProperties objectProperties = info.CreateInstance(duneLocation);
+                IObjectProperties objectProperties = info.CreateInstance(duneLocationCalculation);
 
                 // Assert
                 Assert.IsInstanceOf<DuneLocationCalculationProperties>(objectProperties);
-                Assert.AreSame(duneLocation, objectProperties.Data);
+                Assert.AreSame(duneLocationCalculation, objectProperties.Data);
             }
         }
 
         private static PropertyInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocation));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DuneLocationCalculation));
         }
     }
 }
