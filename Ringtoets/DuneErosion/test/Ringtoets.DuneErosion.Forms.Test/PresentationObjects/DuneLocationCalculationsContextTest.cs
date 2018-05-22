@@ -43,15 +43,23 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
 
             var failureMechanism = new DuneErosionFailureMechanism();
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>();
+            Func<double> getNormFunc = () => 0.01;
+            const string categoryBoundaryName = "Name";
 
             // Call
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              failureMechanism,
+                                                              assessmentSection,
+                                                              getNormFunc,
+                                                              categoryBoundaryName);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservableEnumerable<DuneLocationCalculation>>>(context);
             Assert.AreSame(duneLocationCalculations, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
+            Assert.AreSame(getNormFunc, context.GetNormFunc);
+            Assert.AreSame(categoryBoundaryName, context.CategoryBoundaryName);
             mockRepository.VerifyAll();
         }
 
@@ -66,7 +74,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                                           null,
-                                                                          assessmentSection);
+                                                                          assessmentSection,
+                                                                          () => 0.01,
+                                                                          "Name");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -80,11 +90,75 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
             // Call
             TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                                           new DuneErosionFailureMechanism(),
-                                                                          null);
+                                                                          null,
+                                                                          () => 0.01,
+                                                                          "Name");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                          new DuneErosionFailureMechanism(),
+                                                                          assessmentSection,
+                                                                          null,
+                                                                          "Name");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getNormFunc", exception.ParamName);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                          new DuneErosionFailureMechanism(), 
+                                                                          assessmentSection,
+                                                                          () => 0.01,
+                                                                          null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
+        }
+
+        [Test]
+        public void Constructor_CategoryBoundaryNameEmpty_ThrowsArgumentException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                                          new DuneErosionFailureMechanism(), 
+                                                                          assessmentSection,
+                                                                          () => 0.01,
+                                                                          string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(call);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
         }
     }
 }

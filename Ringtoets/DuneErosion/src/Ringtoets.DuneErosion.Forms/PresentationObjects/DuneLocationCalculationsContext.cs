@@ -35,14 +35,20 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsContext"/>.
         /// </summary>
-        /// <param name="duneLocations">The dune locations for dune erosion failure mechanism.</param>
+        /// <param name="wrappedData">The calculations the context belongs to.</param>
         /// <param name="failureMechanism">The dune erosion failure mechanism which the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public DuneLocationCalculationsContext(IObservableEnumerable<DuneLocationCalculation> duneLocations,
+        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for obtaining the norm to use during calculations.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/>, <paramref name="failureMechanism"/>,
+        /// <paramref name="assessmentSection"/> or <paramref name="getNormFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
+        public DuneLocationCalculationsContext(IObservableEnumerable<DuneLocationCalculation> wrappedData,
                                                DuneErosionFailureMechanism failureMechanism,
-                                               IAssessmentSection assessmentSection)
-            : base(duneLocations)
+                                               IAssessmentSection assessmentSection,
+                                               Func<double> getNormFunc,
+                                               string categoryBoundaryName)
+            : base(wrappedData)
         {
             if (failureMechanism == null)
             {
@@ -54,8 +60,20 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (getNormFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormFunc));
+            }
+
+            if (string.IsNullOrEmpty(categoryBoundaryName))
+            {
+                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+            }
+
             AssessmentSection = assessmentSection;
             FailureMechanism = failureMechanism;
+            GetNormFunc = getNormFunc;
+            CategoryBoundaryName = categoryBoundaryName;
         }
 
         /// <summary>
@@ -67,5 +85,15 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
         /// Gets the failure mechanism.
         /// </summary>
         public DuneErosionFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the <see cref="Func{TResult}"/> for obtaining the norm to use during calculations.
+        /// </summary>
+        public Func<double> GetNormFunc { get; }
+
+        /// <summary>
+        /// Gets the name of the category boundary.
+        /// </summary>
+        public string CategoryBoundaryName { get; }
     }
 }
