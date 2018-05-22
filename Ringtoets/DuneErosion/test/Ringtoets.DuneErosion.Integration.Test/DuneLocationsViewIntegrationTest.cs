@@ -124,18 +124,19 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
             ObservableList<DuneLocationCalculation> generateDuneLocationCalculations = calculations;
             DuneLocationCalculationsView view = ShowDuneLocationsView(generateDuneLocationCalculations,
-                                                           new DuneErosionFailureMechanism(),
-                                                           new AssessmentSection(AssessmentSectionComposition.Dike));
+                                                                      new DuneErosionFailureMechanism(),
+                                                                      new AssessmentSection(AssessmentSectionComposition.Dike));
             return view;
         }
 
         private DuneLocationCalculationsView ShowDuneLocationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
-                                                        DuneErosionFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection)
+                                                                   DuneErosionFailureMechanism failureMechanism,
+                                                                   IAssessmentSection assessmentSection)
         {
             var view = new DuneLocationCalculationsView(calculations,
-                                             failureMechanism,
-                                             assessmentSection);
+                                                        failureMechanism,
+                                                        assessmentSection,
+                                                        () => 0.01);
 
             testForm.Controls.Add(view);
             testForm.Show();

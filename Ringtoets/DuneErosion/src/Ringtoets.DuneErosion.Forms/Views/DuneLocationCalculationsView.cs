@@ -41,6 +41,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer duneLocationsObserver;
         private readonly Observer failureMechanismObserver;
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
+        private readonly Func<double> getNormFunc;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationObserver;
 
         /// <summary>
@@ -49,10 +50,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <param name="calculations">The calculations to show in the view</param>
         /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
+        /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
-                                 DuneErosionFailureMechanism failureMechanism,
-                                 IAssessmentSection assessmentSection)
+                                            DuneErosionFailureMechanism failureMechanism,
+                                            IAssessmentSection assessmentSection, 
+                                            Func<double> getNormFunc)
         {
             if (calculations == null)
             {
@@ -69,9 +72,15 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (getNormFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormFunc));
+            }
+
             InitializeComponent();
 
             this.calculations = calculations;
+            this.getNormFunc = getNormFunc;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
@@ -177,7 +186,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             CalculationGuiService.Calculate(calculations,
                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                            FailureMechanism.GetMechanismSpecificNorm(AssessmentSection.FailureMechanismContribution.Norm));
+                                            getNormFunc());
         }
     }
 }

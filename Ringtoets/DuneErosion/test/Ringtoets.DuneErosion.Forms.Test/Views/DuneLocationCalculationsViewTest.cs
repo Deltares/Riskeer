@@ -29,6 +29,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -84,7 +85,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Call
             TestDelegate call = () => new DuneLocationCalculationsView(null,
                                                                        new DuneErosionFailureMechanism(),
-                                                                       assessmentSection);
+                                                                       assessmentSection,
+                                                                       () => 0.01);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -101,7 +103,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Call
             TestDelegate call = () => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                        null,
-                                                                       assessmentSection);
+                                                                       assessmentSection,
+                                                                       () => 0.01);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -114,11 +117,30 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Call
             TestDelegate call = () => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                        new DuneErosionFailureMechanism(),
-                                                                       null);
+                                                                       null,
+                                                                       () => 0.01);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
+                                                                       new DuneErosionFailureMechanism(),
+                                                                       assessmentSection,
+                                                                       null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getNormFunc", exception.ParamName);
         }
 
         [Test]
@@ -133,7 +155,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Call
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                failureMechanism,
-                                                               assessmentSection))
+                                                               assessmentSection,
+                                                               () => 0.01))
             {
                 // Assert
                 Assert.IsInstanceOf<DuneLocationsViewBase>(view);
@@ -249,7 +272,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             // Call
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
-                                                               assessmentSection))
+                                                               assessmentSection,
+                                                               () => 0.01))
             {
                 // Assert
                 Assert.IsNull(view.Selection);
@@ -343,7 +367,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            ObservableList<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
             using (DuneLocationCalculationsView view = ShowDuneLocationsView(calculations, new DuneErosionFailureMechanism(), assessmentSection))
             {
                 // Precondition
@@ -361,7 +385,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.AreEqual(3.45.ToString(CultureInfo.CurrentCulture), secondRow.Cells[wavePeriodColumnIndex].FormattedValue);
 
                 // When
-                calculations.ForEach(calculation =>
+                calculations.ForEachElementDo(calculation =>
                 {
                     calculation.Output = null;
                     calculation.NotifyObservers();
@@ -399,7 +423,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
-            ObservableList<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 10
@@ -478,8 +502,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         [TestCase(false, false, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
         [TestCase(true, false, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
         public void GivenDuneLocationCalculationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                                                              bool contributionZero,
-                                                                                                                                                              string expectedErrorMessage)
+                                                                                                                                                                         bool contributionZero,
+                                                                                                                                                                         string expectedErrorMessage)
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -513,6 +537,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
         {
             // Setup
+            const double norm = 0.1;
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -529,8 +555,19 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
+            var failureMechanism = new DuneErosionFailureMechanism
             {
+                Contribution = 10
+            };
+
+            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+                                                               failureMechanism,
+                                                               assessmentSection,
+                                                               () => norm))
+            {
+                testForm.Controls.Add(view);
+                testForm.Show();
+
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -549,8 +586,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
@@ -559,6 +595,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
         {
             // Setup
+            const double norm = 0.1;
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -578,8 +616,19 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
+            var failureMechanism = new DuneErosionFailureMechanism
             {
+                Contribution = 10
+            };
+
+            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+                                                               failureMechanism,
+                                                               assessmentSection,
+                                                               () => norm))
+            {
+                testForm.Controls.Add(view);
+                testForm.Show();
+
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -598,8 +647,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
@@ -608,6 +656,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_CreateDunesBoundaryConditionsCalculatorCalledAsExpected()
         {
             // Setup
+            const double norm = 0.1;
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution)
@@ -629,8 +679,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationsView(assessmentSection))
+            var failureMechanism = new DuneErosionFailureMechanism
             {
+                Contribution = 10
+            };
+
+            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+                                                               failureMechanism,
+                                                               assessmentSection,
+                                                               () => norm))
+            {
+                testForm.Controls.Add(view);
+                testForm.Show();
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -649,8 +709,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    double expectedProbability = view.FailureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
@@ -672,7 +731,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         {
             var view = new DuneLocationCalculationsView(calculations,
                                                         failureMechanism,
-                                                        assessmentSection);
+                                                        assessmentSection,
+                                                        () => 1.0 / 30);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -680,9 +740,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             return view;
         }
 
-        private static ObservableList<DuneLocationCalculation> GenerateDuneLocationCalculations()
+        private static IObservableEnumerable<DuneLocationCalculation> GenerateDuneLocationCalculations()
         {
-            var calculations = new ObservableList<DuneLocationCalculation>
+            return new ObservableList<DuneLocationCalculation>
             {
                 new DuneLocationCalculation(new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
                 {
@@ -705,7 +765,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     })
                 }
             };
-            return calculations;
         }
     }
 }
