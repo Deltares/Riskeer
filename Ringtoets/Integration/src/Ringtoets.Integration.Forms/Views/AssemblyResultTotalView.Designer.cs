@@ -194,6 +194,7 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScrollMinSize = new System.Drawing.Size(350, 250);
             this.Controls.Add(this.dataGridViewControl);
             this.Controls.Add(this.assemblyResultGroupBox);
             this.Controls.Add(this.refreshButtonPanel);
