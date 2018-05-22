@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int grassCoverSlipOffInwardsIndex = 13;
         private const int heightStructuresIndex = 14;
         private const int closingStructuresIndex = 15;
-        private const int pipingStructuresIndex = 16;
+        private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int strengthStabilityLengthwiseIndex = 18;
         private const int duneErosionIndex = 19;
@@ -96,7 +96,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverSlipOffInwardsIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, heightStructuresIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, closingStructuresIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingStructuresIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingStructureIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityPointStructuresIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, strengthStabilityLengthwiseIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.HeightStructures), row.HeightStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.ClosingStructures), row.ClosingStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.PipingStructures), row.PipingStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.PipingStructure), row.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StabilityPointStructures), row.StabilityPointStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StrengthStabilityLengthwise), row.StrengthStabilityLengthwise);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.DuneErosion), row.DuneErosion);
@@ -155,7 +155,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     GrassCoverSlipOffInwards = categoryGroup,
                     HeightStructures = categoryGroup,
                     ClosingStructures = categoryGroup,
-                    PipingStructures = categoryGroup,
+                    PipingStructure = categoryGroup,
                     StabilityPointStructures = categoryGroup,
                     StrengthStabilityLengthwise = categoryGroup,
                     DuneErosion = categoryGroup,
@@ -182,7 +182,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverSlipOffInwardsIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[heightStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[closingStructuresIndex], expectedBackgroundColor);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructureIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[strengthStabilityLengthwiseIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
@@ -211,7 +211,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     GrassCoverSlipOffInwards = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     HeightStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                    PipingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                    PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     StrengthStabilityLengthwise = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),

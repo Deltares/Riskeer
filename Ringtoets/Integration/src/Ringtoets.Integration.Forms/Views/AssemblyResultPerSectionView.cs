@@ -173,7 +173,7 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.ClosingStructures),
                                                  ClosingStructuresDataResources.ClosingStructuresFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.PipingStructures),
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.PipingStructure),
                                                  IntegrationDataResources.PipingStructureFailureMechanism_Code,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.StabilityPointStructures),
@@ -248,7 +248,7 @@ namespace Ringtoets.Integration.Forms.Views
                     GrassCoverSlipOffInwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
                     HeightStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
                     ClosingStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    PipingStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
+                    PipingStructure = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
                     StabilityPointStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
                     StrengthStabilityLengthwise = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
                     DuneErosion = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),

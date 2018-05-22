@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Views
         private const int grassCoverSlipOffInwardsIndex = 13;
         private const int heightStructuresIndex = 14;
         private const int closingStructuresIndex = 15;
-        private const int pipingStructuresIndex = 16;
+        private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int strengthStabilityLengthwiseIndex = 18;
         private const int duneErosionIndex = 19;
@@ -258,13 +258,13 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assembly result for piping structures.
+        /// Gets the assembly result for piping structure.
         /// </summary>
-        public string PipingStructures
+        public string PipingStructure
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.PipingStructures);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             }
         }
 
@@ -330,7 +330,7 @@ namespace Ringtoets.Integration.Forms.Views
             ColumnStateDefinitions.Add(grassCoverSlipOffInwardsIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(heightStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(closingStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(pipingStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(pipingStructureIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(strengthStabilityLengthwiseIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, CreateDefaultDataGridViewColumnStateDefinition());
@@ -361,7 +361,7 @@ namespace Ringtoets.Integration.Forms.Views
             ColumnStateDefinitions[grassCoverSlipOffInwardsIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
             ColumnStateDefinitions[heightStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
             ColumnStateDefinitions[closingStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
-            ColumnStateDefinitions[pipingStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructures);
+            ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             ColumnStateDefinitions[strengthStabilityLengthwiseIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwise);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);

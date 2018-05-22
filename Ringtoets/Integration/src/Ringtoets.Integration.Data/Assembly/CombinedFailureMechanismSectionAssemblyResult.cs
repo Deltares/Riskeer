@@ -64,7 +64,7 @@ namespace Ringtoets.Integration.Data.Assembly
             GrassCoverSlipOffInwards = properties.GrassCoverSlipOffInwards;
             HeightStructures = properties.HeightStructures;
             ClosingStructures = properties.ClosingStructures;
-            PipingStructures = properties.PipingStructures;
+            PipingStructure = properties.PipingStructure;
             StabilityPointStructures = properties.StabilityPointStructures;
             StrengthStabilityLengthwise = properties.StrengthStabilityLengthwise;
             DuneErosion = properties.DuneErosion;
@@ -154,9 +154,9 @@ namespace Ringtoets.Integration.Data.Assembly
         public FailureMechanismSectionAssemblyCategoryGroup ClosingStructures { get; }
 
         /// <summary>
-        /// Gets the assembly result for piping structures.
+        /// Gets the assembly result for piping structure.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup PipingStructures { get; }
+        public FailureMechanismSectionAssemblyCategoryGroup PipingStructure { get; }
 
         /// <summary>
         /// Gets the assembly result for stability point structures.
@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Data.Assembly
                 GrassCoverSlipOffInwards = FailureMechanismSectionAssemblyCategoryGroup.None;
                 HeightStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
                 ClosingStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
-                PipingStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
+                PipingStructure = FailureMechanismSectionAssemblyCategoryGroup.None;
                 StabilityPointStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
                 StrengthStabilityLengthwise = FailureMechanismSectionAssemblyCategoryGroup.None;
                 DuneErosion = FailureMechanismSectionAssemblyCategoryGroup.None;
@@ -274,9 +274,9 @@ namespace Ringtoets.Integration.Data.Assembly
             public FailureMechanismSectionAssemblyCategoryGroup ClosingStructures { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the assembly result for piping structures.
+            /// Gets or sets the assembly result for piping structure.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup PipingStructures { internal get; set; }
+            public FailureMechanismSectionAssemblyCategoryGroup PipingStructure { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for stability point structures.

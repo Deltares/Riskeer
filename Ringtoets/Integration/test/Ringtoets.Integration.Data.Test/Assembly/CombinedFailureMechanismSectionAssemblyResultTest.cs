@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.GrassCoverSlipOffInwards);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.HeightStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ClosingStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.PipingStructures);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.StabilityPointStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.StrengthStabilityLengthwise);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.DuneErosion);
@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             var grassCoverSlipOffInwardsResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var heightStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var closingStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var pipingStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var pipingStructureResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var stabilityPointStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var strengthStabilityLengthwiseResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             var duneErosionResult = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -126,7 +126,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                                                                                GrassCoverSlipOffInwards = grassCoverSlipOffInwardsResult,
                                                                                HeightStructures = heightStructuresResult,
                                                                                ClosingStructures = closingStructuresResult,
-                                                                               PipingStructures = pipingStructuresResult,
+                                                                               PipingStructure = pipingStructureResult,
                                                                                StabilityPointStructures = stabilityPointStructuresResult,
                                                                                StrengthStabilityLengthwise = strengthStabilityLengthwiseResult,
                                                                                DuneErosion = duneErosionResult,
@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             Assert.AreEqual(grassCoverSlipOffInwardsResult, result.GrassCoverSlipOffInwards);
             Assert.AreEqual(heightStructuresResult, result.HeightStructures);
             Assert.AreEqual(closingStructuresResult, result.ClosingStructures);
-            Assert.AreEqual(pipingStructuresResult, result.PipingStructures);
+            Assert.AreEqual(pipingStructureResult, result.PipingStructure);
             Assert.AreEqual(stabilityPointStructuresResult, result.StabilityPointStructures);
             Assert.AreEqual(strengthStabilityLengthwiseResult, result.StrengthStabilityLengthwise);
             Assert.AreEqual(duneErosionResult, result.DuneErosion);
