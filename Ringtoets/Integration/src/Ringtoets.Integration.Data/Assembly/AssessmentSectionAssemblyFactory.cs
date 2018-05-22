@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
@@ -28,6 +29,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -127,6 +129,40 @@ namespace Ringtoets.Integration.Data.Assembly
 
                 return calculator.AssembleAssessmentSection(AssembleFailureMechanismsWithoutProbability(assessmentSection),
                                                             AssembleFailureMechanismsWithProbability(assessmentSection));
+            }
+            catch (AssessmentSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+        }
+
+        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> AssembleCombinedPerFailureMechanismSection(AssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            try
+            {
+                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssessmentSectionAssemblyCalculator calculator =
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                Dictionary<IFailureMechanism, int> relevantFailureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                               .Where(fm => fm.IsRelevant)
+                                                                                               .Select((fm, i) => new
+                                                                                               {
+                                                                                                   FailureMechanism = fm,
+                                                                                                   Index = i
+                                                                                               })
+                                                                                               .ToDictionary(x => x.FailureMechanism, x => x.Index);
+
+                IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
+                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, relevantFailureMechanisms.Keys),
+                    assessmentSection.ReferenceLine.Length);
+
+                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, relevantFailureMechanisms, assessmentSection);
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {

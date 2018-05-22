@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.Assembly;
+using Ringtoets.Integration.TestUtil;
 
 namespace Ringtoets.Integration.Data.Test.Assembly
 {
@@ -284,6 +285,133 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Call
                 TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleCombinedPerFailureMechanismSection_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSection_SetsInputOnCalculator()
+        {
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0];
+
+                // Call
+                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
+
+                // Assert
+                IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
+                IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, assessmentSection.GetFailureMechanisms()).ToArray();
+                Assert.AreEqual(expectedInput.Length, actualInput.Length);
+
+                for (var i = 0; i < expectedInput.Length; i++)
+                {
+                    CombinedAssemblyFailureMechanismSection[] actualSections = actualInput[i].ToArray();
+                    CombinedAssemblyFailureMechanismSection[] expectedSections = expectedInput[i].ToArray();
+                    Assert.AreEqual(expectedSections.Length, actualSections.Length);
+
+                    for (var j = 0; j < expectedSections.Length; j++)
+                    {
+                        Assert.AreEqual(expectedSections[j].SectionStart, actualSections[j].SectionStart);
+                        Assert.AreEqual(expectedSections[j].SectionEnd, actualSections[j].SectionEnd);
+                        Assert.AreEqual(expectedSections[j].CategoryGroup, actualSections[j].CategoryGroup);
+                    }
+                }
+            }
+        }
+
+        [Test]
+        public void AssembleCombinedPerFailureMechanismSection_AssemblyRan_ReturnsOutput()
+        {
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0];
+
+                // Call
+                CombinedFailureMechanismSectionAssemblyResult[] output = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection)
+                                                                                                         .ToArray();
+
+                // Assert
+                Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                        .Where(fm => fm.IsRelevant)
+                                                                                        .Select((fm, i) => new
+                                                                                        {
+                                                                                            FailureMechanism = fm,
+                                                                                            Index = i
+                                                                                        })
+                                                                                        .ToDictionary(x => x.FailureMechanism, x => x.Index);
+                CombinedFailureMechanismSectionAssemblyResult[] expectedOutput = CombinedFailureMechanismSectionAssemblyResultFactory.Create(
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput, failureMechanisms, assessmentSection).ToArray();
+
+                Assert.AreEqual(expectedOutput.Length, output.Length);
+                for (var i = 0; i < expectedOutput.Length; i++)
+                {
+                    Assert.AreEqual(expectedOutput[i].SectionStart, output[i].SectionStart);
+                    Assert.AreEqual(expectedOutput[i].SectionEnd, output[i].SectionEnd);
+                    Assert.AreEqual(expectedOutput[i].TotalResult, output[i].TotalResult);
+                    Assert.AreEqual(expectedOutput[i].Piping, output[i].Piping);
+                    Assert.AreEqual(expectedOutput[i].GrassCoverErosionInwards, output[i].GrassCoverErosionInwards);
+                    Assert.AreEqual(expectedOutput[i].MacroStabilityInwards, output[i].MacroStabilityInwards);
+                    Assert.AreEqual(expectedOutput[i].MacroStabilityOutwards, output[i].MacroStabilityOutwards);
+                    Assert.AreEqual(expectedOutput[i].Microstability, output[i].Microstability);
+                    Assert.AreEqual(expectedOutput[i].StabilityStoneCover, output[i].StabilityStoneCover);
+                    Assert.AreEqual(expectedOutput[i].WaveImpactAsphaltCover, output[i].WaveImpactAsphaltCover);
+                    Assert.AreEqual(expectedOutput[i].WaterPressureAsphaltCover, output[i].WaterPressureAsphaltCover);
+                    Assert.AreEqual(expectedOutput[i].GrassCoverErosionOutwards, output[i].GrassCoverErosionOutwards);
+                    Assert.AreEqual(expectedOutput[i].GrassCoverSlipOffOutwards, output[i].GrassCoverSlipOffOutwards);
+                    Assert.AreEqual(expectedOutput[i].GrassCoverSlipOffInwards, output[i].GrassCoverSlipOffInwards);
+                    Assert.AreEqual(expectedOutput[i].HeightStructures, output[i].HeightStructures);
+                    Assert.AreEqual(expectedOutput[i].ClosingStructures, output[i].ClosingStructures);
+                    Assert.AreEqual(expectedOutput[i].PipingStructure, output[i].PipingStructure);
+                    Assert.AreEqual(expectedOutput[i].StabilityPointStructures, output[i].StabilityPointStructures);
+                    Assert.AreEqual(expectedOutput[i].StrengthStabilityLengthwise, output[i].StrengthStabilityLengthwise);
+                    Assert.AreEqual(expectedOutput[i].DuneErosion, output[i].DuneErosion);
+                    Assert.AreEqual(expectedOutput[i].TechnicalInnovation, output[i].TechnicalInnovation);
+                }
+            }
+        }
+
+        [Test]
+        public void AssembleCombinedPerFailureMechanismSection_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
