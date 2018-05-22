@@ -30,6 +30,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -89,6 +90,14 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<DuneLocationCalculationsGroupContext>
+            {
+                Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ContextMenuStrip = DuneLocationCalculationsGroupContextMenuStrip,
+                ChildNodeObjects = DuneLocationCalculationsGroupContextChildNodeObjects
+            };
+
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
@@ -132,7 +141,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 CloseForData = CloseDuneLocationsViewForData,
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
                                                                              context.FailureMechanism,
-                                                                             context.AssessmentSection),
+                                                                             context.AssessmentSection,
+                                                                             context.GetNormFunc),
                 AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
@@ -173,7 +183,7 @@ namespace Ringtoets.DuneErosion.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new DuneLocationCalculationsContext(wrappedData.CalculationsForFactorizedLowerLimitNorm, wrappedData, failureMechanismContext.Parent),
+                new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, failureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -244,6 +254,56 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #endregion
 
+        #region DuneLocationCalculationsGroupContext TreeNodeInfo
+
+        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(
+            DuneLocationCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .Build();
+        }
+
+        private static object[] DuneLocationCalculationsGroupContextChildNodeObjects(DuneLocationCalculationsGroupContext context)
+        {
+            return new object[]
+            {
+                new DuneLocationCalculationsContext(
+                    context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
+                    context.FailureMechanism,
+                    context.AssessmentSection,
+                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
+                    "Cat 1"), 
+                new DuneLocationCalculationsContext(
+                    context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
+                    context.FailureMechanism,
+                    context.AssessmentSection,
+                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
+                    "Cat 2"),
+                new DuneLocationCalculationsContext(
+                    context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
+                    context.FailureMechanism,
+                    context.AssessmentSection,
+                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
+                    "Cat 3"),
+                new DuneLocationCalculationsContext(
+                    context.FailureMechanism.CalculationsForLowerLimitNorm,
+                    context.FailureMechanism,
+                    context.AssessmentSection,
+                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
+                    "Cat 4"),
+                new DuneLocationCalculationsContext(
+                    context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm,
+                    context.FailureMechanism,
+                    context.AssessmentSection,
+                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
+                    "Cat 5")
+            };
+        }
+
+        #endregion
+
         #region DuneLocationsContext TreeNodeInfo
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
@@ -279,7 +339,7 @@ namespace Ringtoets.DuneErosion.Plugin
                     duneLocationCalculationGuiService.Calculate(context.WrappedData,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                context.FailureMechanism.GetMechanismSpecificNorm(context.AssessmentSection.FailureMechanismContribution.Norm));
+                                                                context.GetNormFunc());
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,

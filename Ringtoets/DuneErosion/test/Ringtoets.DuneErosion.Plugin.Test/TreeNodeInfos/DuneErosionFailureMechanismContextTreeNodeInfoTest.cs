@@ -119,10 +119,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var inputComment = (Comment) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
-            var hydraulicBoundaryLocationsContext = (DuneLocationCalculationsContext) children[1];
-            Assert.AreSame(failureMechanism.CalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocationsContext.WrappedData);
-            Assert.AreSame(failureMechanism, hydraulicBoundaryLocationsContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, hydraulicBoundaryLocationsContext.AssessmentSection);
+            var duneLocationCalculationsGroupContext = (DuneLocationCalculationsGroupContext) children[1];
+            Assert.AreSame(failureMechanism.DuneLocations, duneLocationCalculationsGroupContext.WrappedData);
+            Assert.AreSame(failureMechanism, duneLocationCalculationsGroupContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, duneLocationCalculationsGroupContext.AssessmentSection);
 
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
