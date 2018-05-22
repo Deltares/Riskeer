@@ -20,7 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
 {
@@ -28,33 +35,135 @@ namespace Ringtoets.DuneErosion.Data.Test
     public class DuneErosionFailureMechanismExtensionsTest
     {
         [Test]
-        public void GetMechanismSpecificNorm_FailureMechanismNull_ThrowArgumentNullException()
+        public void GetNorm_FailureMechanismNull_ThrowArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var assessementSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => DuneErosionFailureMechanismExtensions.GetMechanismSpecificNorm(null, 0.5);
+            TestDelegate test = () => DuneErosionFailureMechanismExtensions.GetNorm(null,
+                                                                                    assessementSection,
+                                                                                    random.NextEnumValue<FailureMechanismCategoryType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(0, 0.005, 0)]
-        [TestCase(10, 0.005, 0.0005375)]
-        [TestCase(10, 0.01, 0.001075)]
-        public void GetMechanismSpecificNorm_WithValidData_ReturnMechanismSpecificNorm(double contribution, double norm, double expectedNorm)
+        public void GetNorm_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = contribution
-            };
+            var random = new Random(21);
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(norm);
+            TestDelegate call = () => failureMechanism.GetNorm(null, random.NextEnumValue<FailureMechanismCategoryType>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetNorm_InvalidFailureMechanismCategoryType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 9999;
+
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            TestDelegate test = () => failureMechanism.GetNorm(assessmentSection,
+                                                               (FailureMechanismCategoryType) invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            Assert.AreEqual("categoryType", parameterName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetNormConfigurationPerFailureMechanismCategoryType))]
+        public void GetNorm_WithValidData_ReturnMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection,
+                                                                      FailureMechanismCategoryType categoryType,
+                                                                      double expectedNorm)
+        {
+            // Call
+            double mechanismSpecificNorm = failureMechanism.GetNorm(assessmentSection, categoryType);
 
             // Assert
             Assert.AreEqual(expectedNorm, mechanismSpecificNorm);
+        }
+
+        private static IEnumerable<TestCaseData> GetNormConfigurationPerFailureMechanismCategoryType()
+        {
+            const double failureMechanismSpecificNormFactor = 2.15;
+            const double signalingNorm = 0.002;
+            const double lowerLimitNorm = 0.005;
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    LowerLimitNorm = lowerLimitNorm,
+                    SignalingNorm = signalingNorm
+                }
+            };
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 25
+            };
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                failureMechanismSpecificNormFactor * GetMechanismSpecificNorm(failureMechanism, signalingNorm / 30)
+            ).SetName("MechanismSpecificFactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
+                failureMechanismSpecificNormFactor * GetMechanismSpecificNorm(failureMechanism, signalingNorm)
+            ).SetName("MechanismSpecificSignalingNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
+                failureMechanismSpecificNormFactor * GetMechanismSpecificNorm(failureMechanism, lowerLimitNorm)
+            ).SetName("MechanismSpecificLowerLimitNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.LowerLimitNorm,
+                failureMechanismSpecificNormFactor * lowerLimitNorm
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                failureMechanism,
+                assessmentSection,
+                FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                failureMechanismSpecificNormFactor * lowerLimitNorm * 30
+            ).SetName("FactorizedLowerLimitNorm");
+        }
+
+        private static double GetMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism,
+                                                       double norm)
+        {
+            return norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
         }
     }
 }

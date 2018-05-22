@@ -20,6 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Util;
 
 namespace Ringtoets.DuneErosion.Data
 {
@@ -28,22 +32,34 @@ namespace Ringtoets.DuneErosion.Data
     /// </summary>
     public static class DuneErosionFailureMechanismExtensions
     {
+        private const double failureMechanismSpecificNormFactor = 2.15;
+
         /// <summary>
-        /// Gets the norm which is needed in the calculations within <see cref="DuneErosionFailureMechanism"/>.
+        /// Gets the norm based on <see cref="FailureMechanismCategoryType"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to get the failure mechanism norm for.</param>
-        /// <param name="norm">The assessment section norm.</param>
-        /// <returns>The value of the failure mechanism norm.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double GetMechanismSpecificNorm(this DuneErosionFailureMechanism failureMechanism, double norm)
+        /// <param name="failureMechanism">The failure mechanism to get the norm from.</param>
+        /// <param name="assessmentSection">The assessment section to get the norm from.</param>
+        /// <param name="categoryType">The category type to use while obtaining the norm.</param>
+        /// <returns>The norm corresponding to the provided category type.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// or <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
+        /// is an invalid <see cref="FailureMechanismCategoryType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
+        /// is a valid but unsupported <see cref="FailureMechanismCategoryType"/>.</exception>
+        public static double GetNorm(this DuneErosionFailureMechanism failureMechanism,
+                                     IAssessmentSection assessmentSection,
+                                     FailureMechanismCategoryType categoryType)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return 2.15 * (failureMechanism.Contribution / 100)
-                   * norm / failureMechanism.GeneralInput.N;
+            return failureMechanismSpecificNormFactor * FailureMechanismNormHelper.GetNorm(assessmentSection,
+                                                                                           categoryType,
+                                                                                           failureMechanism.Contribution,
+                                                                                           failureMechanism.GeneralInput.N);
         }
     }
 }
