@@ -60,13 +60,26 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_Always_ReturnsViewName()
+        public void GetViewName_WithContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            const string categoryBoundaryName = "Category Boundary Name";
+            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              categoryBoundaryName);
+
             // Call
-            string viewName = info.GetViewName(null, null);
+            string viewName = info.GetViewName(null, context);
 
             // Assert
-            Assert.AreEqual("Hydraulische randvoorwaarden", viewName);
+            Assert.AreEqual($"Hydraulische randvoorwaarden - {categoryBoundaryName}", viewName);
+            mocks.VerifyAll();
         }
 
         [Test]

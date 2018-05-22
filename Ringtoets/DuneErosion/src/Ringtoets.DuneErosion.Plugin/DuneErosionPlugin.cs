@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
             yield return new ViewInfo<DuneLocationCalculationsContext, IEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
-                GetViewName = (view, context) => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - {context.CategoryBoundaryName}",
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationsViewForData,
