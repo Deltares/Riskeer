@@ -29,7 +29,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Forms.Observers
 {
     /// <summary>
-    /// Class that observes all objects in an <see cref="CalculatableFailureMechanismResultObserver{TFailureMechanism,TSectionResult,TCalculation}"/>
+    /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/>
     /// related to its section results.
     /// </summary>
     public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>

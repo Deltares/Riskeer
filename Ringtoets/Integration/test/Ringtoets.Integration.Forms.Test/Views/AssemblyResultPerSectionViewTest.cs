@@ -29,6 +29,7 @@ using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -60,6 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private const int duneErosionColumnIndex = 19;
         private const int technicalInnovationColumnIndex = 20;
         private const int expectedColumnCount = 21;
+        private const string assemblyResultOutdatedWarning = "Assemblageresultaat is verouderd. Druk op de \"Assemblageresultaat verversen\" knop om opnieuw te berekenen.";
 
         private Form testForm;
 
@@ -113,12 +115,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
                 var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
                 Assert.AreEqual("Assemblageresultaat verversen", button.Text);
-                Assert.IsTrue(button.Enabled);
+                Assert.IsFalse(button.Enabled);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
-                Assert.IsEmpty(errorProvider.GetError(view));
+                Assert.IsEmpty(errorProvider.GetError(button));
+
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
+                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
+                Assert.IsEmpty(warningProvider.GetError(button));
 
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
@@ -171,10 +178,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Given
             using (ShowAssemblyResultPerSectionView())
             {
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Properties.Enabled = true;
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.CellFormatting += (sender, args) =>
                 {
-                    var row = (IHasColumnStateDefinitions)dataGridView.Rows[0].DataBoundItem;
+                    var row = (IHasColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem;
                     DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[sectionTotalAssemblyResultColumnIndex];
                     definition.ReadOnly = readOnly;
                     definition.ErrorText = errorText;
@@ -182,7 +191,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 };
 
                 // When
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Click();
 
                 // Then
@@ -194,6 +202,106 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionViewWithOutdatedContent_WhenRefreshingAssemblyResults_ThenRefreshButtonDisabledAndWarningCleared()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+
+            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                assessmentSection.NotifyObservers();
+
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsTrue(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+
+                // When
+                buttonTester.Click();
+
+                // Then 
+                Assert.IsFalse(button.Enabled);
+                Assert.IsEmpty(warningProvider.GetError(button));
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenAssessmentSectionNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+
+            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsFalse(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(button));
+
+                // When
+                assessmentSection.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenFailureMechanismNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+
+            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsFalse(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(button));
+
+                // When
+                assessmentSection.StabilityStoneCover.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenCalculationNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            var calculation = new TestHeightStructuresCalculation();
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
+
+            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                // Precondition
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                Button button = buttonTester.Properties;
+                Assert.IsFalse(button.Enabled);
+                ErrorProvider warningProvider = GetWarningProvider(view);
+                Assert.IsEmpty(warningProvider.GetError(button));
+
+                // When
+                calculation.NotifyObservers();
+
+                // Then 
+                Assert.IsTrue(buttonTester.Properties.Enabled);
+                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+            }
+        }
+
         private ButtonTester GetRefreshAssemblyResultButtonTester()
         {
             return new ButtonTester("RefreshAssemblyResultsButton", testForm);
@@ -201,7 +309,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private static DataGridView GetDataGridView()
         {
-            return (DataGridView)new ControlTester("dataGridView").TheObject;
+            return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
         private static void AssertColumn(DataGridViewColumn column, string headerText)
@@ -216,11 +324,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(resultView, "errorProvider");
         }
 
+        private static ErrorProvider GetWarningProvider(AssemblyResultPerSectionView resultControl)
+        {
+            return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
+        }
+
         private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView()
         {
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            return ShowAssemblyResultPerSectionView(new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>()));
+        }
 
+        private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView(AssessmentSection assessmentSection)
+        {
             var view = new AssemblyResultPerSectionView(assessmentSection);
             testForm.Controls.Add(view);
             testForm.Show();

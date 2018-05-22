@@ -23,12 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
+using Ringtoets.Integration.Forms.Observers;
 using Ringtoets.Integration.Forms.Properties;
 using PipingDataResources = Ringtoets.Piping.Data.Properties.Resources;
 using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
@@ -50,6 +52,8 @@ namespace Ringtoets.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionView : UserControl, IView
     {
+        private readonly Observer assessmentSectionResultObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionView"/>.
         /// </summary>
@@ -65,6 +69,14 @@ namespace Ringtoets.Integration.Forms.Views
 
             AssessmentSection = assessmentSection;
             InitializeComponent();
+
+            errorProvider.SetIconPadding(RefreshAssemblyResultsButton, 4);
+            warningProvider.SetIconPadding(RefreshAssemblyResultsButton, 4);
+
+            assessmentSectionResultObserver = new Observer(EnableRefreshButton)
+            {
+                Observable = new AssessmentSectionResultObserver(assessmentSection)
+            };
         }
 
         /// <summary>
@@ -90,9 +102,20 @@ namespace Ringtoets.Integration.Forms.Views
             if (disposing)
             {
                 components?.Dispose();
+                assessmentSectionResultObserver.Dispose();
             }
 
             base.Dispose(disposing);
+        }
+
+        private void EnableRefreshButton()
+        {
+            if (!RefreshAssemblyResultsButton.Enabled)
+            {
+                RefreshAssemblyResultsButton.Enabled = true;
+                warningProvider.SetError(RefreshAssemblyResultsButton, 
+                                         Resources.AssemblyResultView_RefreshAssemblyResultsButton_Result_is_outdated_Press_Refresh_button_to_recalculate);
+            }
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
@@ -171,6 +194,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
+            RefreshAssemblyResultsButton.Enabled = false;
             SetDataSource();
         }
 
@@ -190,7 +214,8 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void ClearControls()
         {
-            errorProvider.Clear();
+            errorProvider.SetError(RefreshAssemblyResultsButton, string.Empty);
+            warningProvider.SetError(RefreshAssemblyResultsButton, string.Empty);
             dataGridViewControl.SetDataSource(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>());
         }
 

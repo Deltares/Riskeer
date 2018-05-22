@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Forms.Observers
 {
     /// <summary>
-    /// Class that observes all objects in an <see cref="IFailureMechanism"/> related to
+    /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/> related to
     /// its section results.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
