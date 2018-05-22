@@ -120,9 +120,6 @@
   <data name="DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip" xml:space="preserve">
     <value>Alle hydraulische randvoorwaarden berekenen.</value>
   </data>
-  <data name="DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations" xml:space="preserve">
-    <value>Er zijn geen locaties om een berekening voor uit te voeren.</value>
-  </data>
   <data name="DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description" xml:space="preserve">
     <value>MorphAn randvoorwaarden</value>
   </data>

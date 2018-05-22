@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -87,16 +87,6 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         internal static string DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip {
             get {
                 return ResourceManager.GetString("DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen locaties om een berekening voor uit te voeren..
-        /// </summary>
-        internal static string DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations {
-            get {
-                return ResourceManager.GetString("DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_location" +
-                        "s", resourceCulture);
             }
         }
         

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -86,7 +85,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNotNull(info.Text);
-            Assert.IsNotNull(info.ForeColor);
+            Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -136,50 +135,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
-        }
-
-        [Test]
-        public void ForeColor_CalculationsEmpty_ReturnGrayText()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                              new DuneErosionFailureMechanism(),
-                                                              assessmentSection,
-                                                              () => 0.01,
-                                                              "Category Boundary Name");
-
-            // Call
-            Color textColor = info.ForeColor(context);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);
-        }
-
-        [Test]
-        public void ForeColor_WithCalculations_ReturnControlText()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
-            {
-                new DuneLocationCalculation(new TestDuneLocation())
-            };
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
-                                                              new DuneErosionFailureMechanism(),
-                                                              assessmentSection,
-                                                              () => 0.01,
-                                                              "Category Boundary Name");
-
-            // Call
-            Color textColor = info.ForeColor(context);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), textColor);
         }
 
         [Test]
@@ -264,54 +219,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_NoDuneLocationCalculations_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath,
-                    Version = "1.0"
-                });
-
-                var failureMechanism = new DuneErosionFailureMechanism
-                {
-                    Contribution = 10
-                };
-
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                                  failureMechanism,
-                                                                  assessmentSection,
-                                                                  () => 0.01,
-                                                                  "Category Boundary Name");
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "Er zijn geen locaties om een berekening voor uit te voeren.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
                 }
             }
         }

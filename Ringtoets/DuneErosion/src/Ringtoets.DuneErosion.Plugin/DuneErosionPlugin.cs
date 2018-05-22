@@ -102,9 +102,6 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ForeColor = context => context.WrappedData.Any()
-                                           ? Color.FromKnownColor(KnownColor.ControlText)
-                                           : Color.FromKnownColor(KnownColor.GrayText),
                 ContextMenuStrip = DuneLocationsContextMenuStrip
             };
         }
@@ -309,17 +306,11 @@ namespace Ringtoets.DuneErosion.Plugin
         #region DuneLocationsContext TreeNodeInfo
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
-                                                                         double failureMechanismContribution,
-                                                                         IEnumerable<DuneLocationCalculation> calculations)
+                                                                         double failureMechanismContribution)
         {
             if (failureMechanismContribution <= 0.0)
             {
                 return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            if (!calculations.Any())
-            {
-                return Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip_no_locations;
             }
 
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
@@ -345,8 +336,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
-                                                                               context.FailureMechanism.Contribution,
-                                                                               context.WrappedData);
+                                                                               context.FailureMechanism.Contribution);
             if (!string.IsNullOrEmpty(validationText))
             {
                 calculateAllItem.Enabled = false;
