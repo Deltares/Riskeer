@@ -267,39 +267,41 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private static object[] DuneLocationCalculationsGroupContextChildNodeObjects(DuneLocationCalculationsGroupContext context)
         {
-            return new object[]
-            {
-                new DuneLocationCalculationsContext(
-                    context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    "Cat 1"), 
-                new DuneLocationCalculationsContext(
-                    context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    "Cat 2"),
-                new DuneLocationCalculationsContext(
-                    context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    "Cat 3"),
-                new DuneLocationCalculationsContext(
-                    context.FailureMechanism.CalculationsForLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    "Cat 4"),
-                new DuneLocationCalculationsContext(
-                    context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm,
-                    context.FailureMechanism,
-                    context.AssessmentSection,
-                    () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    "Cat 5")
-            };
+            return !context.WrappedData.Any()
+                       ? new object[0]
+                       : new object[]
+                       {
+                           new DuneLocationCalculationsContext(
+                               context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
+                               context.FailureMechanism,
+                               context.AssessmentSection,
+                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
+                               "Categorie Iv->IIv"),
+                           new DuneLocationCalculationsContext(
+                               context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
+                               context.FailureMechanism,
+                               context.AssessmentSection,
+                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
+                               "Categorie IIv->IIIv"),
+                           new DuneLocationCalculationsContext(
+                               context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
+                               context.FailureMechanism,
+                               context.AssessmentSection,
+                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
+                               "Categorie IIIv->IVv"),
+                           new DuneLocationCalculationsContext(
+                               context.FailureMechanism.CalculationsForLowerLimitNorm,
+                               context.FailureMechanism,
+                               context.AssessmentSection,
+                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
+                               "Categorie IVv->Vv"),
+                           new DuneLocationCalculationsContext(
+                               context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm,
+                               context.FailureMechanism,
+                               context.AssessmentSection,
+                               () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
+                               "Categorie Vv->VIv")
+                       };
         }
 
         #endregion
