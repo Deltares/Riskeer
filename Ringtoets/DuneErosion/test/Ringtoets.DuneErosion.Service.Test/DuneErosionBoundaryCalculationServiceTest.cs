@@ -151,6 +151,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_ValidData_CalculationStartedWithRightParameters(bool usePreprocessor)
         {
             // Setup
+            const double norm = 1.0 / 30;
             string preprocessorDirectory = usePreprocessor
                                                ? validPreprocessorDirectory
                                                : string.Empty;
@@ -162,12 +163,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, preprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(1.0 / 200);
 
             var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
                                                 new DuneLocation.ConstructionProperties
@@ -182,12 +177,12 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 // Call
                 new DuneErosionBoundaryCalculationService().Calculate(new DuneLocationCalculation(duneLocation),
-                                                                      mechanismSpecificNorm,
+                                                                      norm,
                                                                       validFilePath,
                                                                       preprocessorDirectory);
 
                 // Assert
-                DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, mechanismSpecificNorm);
+                DunesBoundaryConditionsCalculationInput expectedInput = CreateInput(duneLocation, norm);
                 DunesBoundaryConditionsCalculationInput actualInput = calculator.ReceivedInputs.Single();
                 AssertInput(expectedInput, actualInput);
                 Assert.AreEqual(usePreprocessor, actualInput.PreprocessorSetting.RunPreprocessor);
@@ -200,6 +195,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_CalculationRan_SetOutput()
         {
             // Setup
+            const double norm = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 ReliabilityIndex = 3.27052,
@@ -215,12 +211,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
-            double mechanismSpecificNorm = failureMechanism.GetMechanismSpecificNorm(1.0 / 200);
-
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             // Precondition
@@ -230,7 +220,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
-                                                                                          mechanismSpecificNorm,
+                                                                                          norm,
                                                                                           validFilePath,
                                                                                           validPreprocessorDirectory);
 
@@ -246,14 +236,14 @@ namespace Ringtoets.DuneErosion.Service.Test
                         StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[1]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                     });
-                double targetReliability = StatisticsConverter.ProbabilityToReliability(mechanismSpecificNorm);
+                double targetReliability = StatisticsConverter.ProbabilityToReliability(norm);
                 double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculator.ReliabilityIndex);
 
                 DuneLocationOutput duneLocationOutput = duneLocationCalculation.Output;
                 Assert.IsNotNull(duneLocationOutput);
                 Assert.AreEqual(calculator.ReliabilityIndex, duneLocationOutput.CalculatedReliability.Value);
                 Assert.AreEqual(calculatedProbability, duneLocationOutput.CalculatedProbability);
-                Assert.AreEqual(mechanismSpecificNorm, duneLocationOutput.TargetProbability);
+                Assert.AreEqual(norm, duneLocationOutput.TargetProbability);
                 Assert.AreEqual(targetReliability, duneLocationOutput.TargetReliability, duneLocationOutput.TargetReliability.GetAccuracy());
                 Assert.AreEqual(calculator.WaterLevel, duneLocationOutput.WaterLevel, duneLocationOutput.WaterLevel.GetAccuracy());
                 Assert.AreEqual(calculator.WaveHeight, duneLocationOutput.WaveHeight, duneLocationOutput.WaveHeight.GetAccuracy());
@@ -267,6 +257,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_CalculationRanNotConverged_LogMessage()
         {
             // Setup
+            const double norm = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 ReliabilityIndex = 0.01
@@ -290,7 +281,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 // Call
                 Action test = () => new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
-                                                                                          failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
+                                                                                          norm,
                                                                                           validFilePath,
                                                                                           validPreprocessorDirectory);
 
@@ -316,6 +307,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
+            const double norm = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator();
 
             var mockRepository = new MockRepository();
@@ -338,7 +330,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                 // Call
                 service.Calculate(duneLocationCalculation,
-                                  failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
+                                  norm,
                                   validFilePath,
                                   validPreprocessorDirectory);
 
@@ -353,6 +345,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
+            const double norm = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 LastErrorFileContent = "An error occurred",
@@ -364,11 +357,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
 
             var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
@@ -383,7 +371,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     try
                     {
                         new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
-                                                                              failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
+                                                                              norm,
                                                                               validFilePath,
                                                                               validPreprocessorDirectory);
                     }
@@ -417,6 +405,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
+            const double norm = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 EndInFailure = true
@@ -427,11 +416,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
 
             var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
@@ -446,7 +430,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     try
                     {
                         new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
-                                                                              failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
+                                                                              norm,
                                                                               validFilePath,
                                                                               validPreprocessorDirectory);
                     }
@@ -480,6 +464,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
+            const double norm = 1.0 / 30;
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
                 EndInFailure = false,
@@ -491,11 +476,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(calculator);
             mockRepository.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
 
             var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
@@ -511,7 +491,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     try
                     {
                         new DuneErosionBoundaryCalculationService().Calculate(duneLocationCalculation,
-                                                                              failureMechanism.GetMechanismSpecificNorm(1.0 / 200),
+                                                                              norm,
                                                                               validFilePath,
                                                                               validPreprocessorDirectory);
                     }
