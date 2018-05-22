@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -113,7 +114,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                               new DuneErosionFailureMechanism(),
-                                                              assessmentSection);
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "Category Boundary Name");
 
             // Call
             string text = info.Text(context);
@@ -144,7 +147,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                               new DuneErosionFailureMechanism(),
-                                                              assessmentSection);
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "Category Boundary Name");
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -166,7 +171,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             };
             var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                               new DuneErosionFailureMechanism(),
-                                                              assessmentSection);
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "Category Boundary Name");
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -184,7 +191,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                                   new DuneErosionFailureMechanism(),
-                                                                  assessmentSection);
+                                                                  assessmentSection,
+                                                                  () => 0.01,
+                                                                  "Category Boundary Name");
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -233,7 +242,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
                 var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                                   failureMechanism,
-                                                                  assessmentSection);
+                                                                  assessmentSection,
+                                                                  () => 0.01,
+                                                                  "Category Boundary Name");
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
@@ -281,7 +292,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                                   failureMechanism,
-                                                                  assessmentSection);
+                                                                  assessmentSection,
+                                                                  () => 0.01,
+                                                                  "Category Boundary Name");
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -324,7 +337,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                                   failureMechanism,
-                                                                  assessmentSection);
+                                                                  assessmentSection,
+                                                                  () => 0.01,
+                                                                  "Category Boundary Name");
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -375,7 +390,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 };
                 var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                                   failureMechanism,
-                                                                  assessmentSection);
+                                                                  assessmentSection,
+                                                                  () => 0.01,
+                                                                  "Category Boundary Name");
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
@@ -444,7 +461,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                      failureMechanism
                                  }));
 
-                var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
+                var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                                  failureMechanism,
+                                                                  assessmentSection,
+                                                                  () => 0.01,
+                                                                  "Category Boundary Name");
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -507,6 +528,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
+
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
@@ -542,7 +565,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              failureMechanism,
+                                                              assessmentSection,
+                                                              () => norm,
+                                                              "Category Boundary Name");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -570,8 +597,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
@@ -580,6 +606,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
@@ -619,7 +646,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              failureMechanism,
+                                                              assessmentSection,
+                                                              () => norm,
+                                                              "Category boundary name");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -647,8 +678,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }
@@ -657,6 +687,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void CalculateDuneLocationsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService()
         {
             // Setup
+            const double norm = 0.01;
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
@@ -695,7 +726,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                  failureMechanism
                              }));
 
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations, failureMechanism, assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              failureMechanism,
+                                                              assessmentSection,
+                                                              () => norm,
+                                                              "Category Boundary Name");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -723,8 +758,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
                     Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
-                    double expectedProbability = failureMechanism.GetMechanismSpecificNorm(assessmentSection.FailureMechanismContribution.Norm);
-                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(expectedProbability), dunesBoundaryConditionsCalculationInput.Beta);
+                    Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
         }

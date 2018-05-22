@@ -58,9 +58,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(), 
-                                                              new DuneErosionFailureMechanism(), 
-                                                              assessmentSection);
+            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "CategoryBoundary Name");
 
             using (var plugin = new DuneErosionPlugin())
             {

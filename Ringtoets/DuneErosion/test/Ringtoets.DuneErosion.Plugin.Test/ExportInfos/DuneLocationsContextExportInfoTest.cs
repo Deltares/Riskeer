@@ -66,9 +66,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(), 
-                                                              new DuneErosionFailureMechanism(), 
-                                                              assessmentSection);
+            var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "Category Boundary Name");
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -80,6 +82,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsInstanceOf<DuneLocationCalculationsExporter>(fileExporter);
             }
+
             mocks.VerifyAll();
         }
 
@@ -111,9 +114,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             {
                 new DuneLocationCalculation(new TestDuneLocation())
             };
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations, 
-                                                              new DuneErosionFailureMechanism(), 
-                                                              assessmentSection);
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
+                                                              new DuneErosionFailureMechanism(),
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "Category Boundary Name");
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -125,6 +130,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsFalse(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
@@ -143,9 +149,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                     Output = new TestDuneLocationOutput()
                 }
             };
-            var context = new DuneLocationCalculationsContext(duneLocationCalculations, 
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                               new DuneErosionFailureMechanism(),
-                                                              assessmentSection);
+                                                              assessmentSection,
+                                                              () => 0.01,
+                                                              "Category Boundary Name");
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -157,6 +165,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                 // Assert
                 Assert.IsTrue(isEnabled);
             }
+
             mocks.VerifyAll();
         }
 
