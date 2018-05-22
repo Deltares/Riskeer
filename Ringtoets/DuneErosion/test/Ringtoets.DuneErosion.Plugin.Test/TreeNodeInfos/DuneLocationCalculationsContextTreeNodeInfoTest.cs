@@ -105,23 +105,24 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsName()
+        public void Text_WithContext_ReturnCategoryBoundaryName()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            const string categoryBoundaryName = "Category Boundary Name";
             var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              categoryBoundaryName);
 
             // Call
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual("Hydraulische randvoorwaarden", text);
+            Assert.AreEqual(categoryBoundaryName, text);
         }
 
         [Test]

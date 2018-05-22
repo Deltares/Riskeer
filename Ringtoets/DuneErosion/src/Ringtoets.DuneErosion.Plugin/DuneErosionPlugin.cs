@@ -101,7 +101,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
-                Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DuneLocationsContextMenuStrip
             };
