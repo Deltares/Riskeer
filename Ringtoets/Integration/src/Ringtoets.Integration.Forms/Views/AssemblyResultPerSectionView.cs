@@ -73,10 +73,9 @@ namespace Ringtoets.Integration.Forms.Views
             errorProvider.SetIconPadding(RefreshAssemblyResultsButton, 4);
             warningProvider.SetIconPadding(RefreshAssemblyResultsButton, 4);
 
-            var assessmentSectionResultObservable = new AssessmentSectionResultObserver(assessmentSection);
             assessmentSectionResultObserver = new Observer(EnableRefreshButton)
             {
-                Observable = assessmentSectionResultObservable
+                Observable = new AssessmentSectionResultObserver(assessmentSection)
             };
         }
 
