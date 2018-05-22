@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assembly\CombinedAssemblyFailureMechanismSectionFactory.cs" />
+    <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResultFactory.cs" />
     <Compile Include="AssessmentSection.cs" />
     <Compile Include="Assembly\AssessmentSectionAssemblyFactory.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResult.cs" />
