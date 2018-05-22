@@ -61,6 +61,7 @@ using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverEro
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
+using RingtoetsCommonPluginResources = Ringtoets.Common.Plugin.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 {
@@ -993,31 +994,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    Resources.Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.FailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    Resources.Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.FailureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    Resources.Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    Resources.Hydraulic_category_boundary_lowerLimitNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_lowerLimitNorm_name),
                 new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                     context.AssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    Resources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
             };
         }
 
@@ -1043,31 +1044,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                    Resources.Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                    Resources.Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.FailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                    Resources.Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.AssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                    Resources.Hydraulic_category_boundary_lowerLimitNorm_name),
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_lowerLimitNorm_name),
                 new GrassCoverErosionOutwardsWaveHeightCalculationsContext(
                     context.AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                     context.FailureMechanism,
                     context.AssessmentSection,
                     () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                    Resources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
+                    RingtoetsCommonPluginResources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
             };
         }
 

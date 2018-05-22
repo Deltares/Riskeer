@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName" xml:space="preserve">
-    <value>Waterstanden</value>
+  <data name="Hydraulic_category_boundary_factorizedLowerLimitNorm_name" xml:space="preserve">
+    <value>Categorie Vv-&gt;VIv</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName" xml:space="preserve">
-    <value>Golfhoogtes</value>
+  <data name="Hydraulic_category_boundary_lowerLimitNorm_name" xml:space="preserve">
+    <value>Categorie IVv-&gt;Vv</value>
+  </data>
+  <data name="Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name" xml:space="preserve">
+    <value>Categorie Iv-&gt;IIv</value>
+  </data>
+  <data name="Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name" xml:space="preserve">
+    <value>Categorie IIIv-&gt;IVv</value>
+  </data>
+  <data name="Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name" xml:space="preserve">
+    <value>Categorie IIv-&gt;IIIv</value>
   </data>
 </root>

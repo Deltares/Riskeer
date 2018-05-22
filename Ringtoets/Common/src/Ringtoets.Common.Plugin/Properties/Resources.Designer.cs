@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
+namespace Ringtoets.Common.Plugin.Properties {
     using System;
     
     
@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,10 +57,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.GrassCoverErosionOutwards.Plugin.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Common.Plugin.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -72,7 +72,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -82,20 +82,47 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden.
+        ///   Looks up a localized string similar to Categorie Vv-&gt;VIv.
         /// </summary>
-        internal static string GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName {
+        public static string Hydraulic_category_boundary_factorizedLowerLimitNorm_name {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedLowerLimitNorm_name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogtes.
+        ///   Looks up a localized string similar to Categorie IVv-&gt;Vv.
         /// </summary>
-        internal static string GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName {
+        public static string Hydraulic_category_boundary_lowerLimitNorm_name {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName", resourceCulture);
+                return ResourceManager.GetString("Hydraulic_category_boundary_lowerLimitNorm_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie Iv-&gt;IIv.
+        /// </summary>
+        public static string Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie IIIv-&gt;IVv.
+        /// </summary>
+        public static string Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie IIv-&gt;IIIv.
+        /// </summary>
+        public static string Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name {
+            get {
+                return ResourceManager.GetString("Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name", resourceCulture);
             }
         }
     }

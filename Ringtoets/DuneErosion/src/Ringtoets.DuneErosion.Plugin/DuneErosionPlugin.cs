@@ -45,6 +45,7 @@ using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonPluginResources = Ringtoets.Common.Plugin.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin
 {
@@ -273,31 +274,31 @@ namespace Ringtoets.DuneErosion.Plugin
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                               "Categorie Iv->IIv"),
+                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                               "Categorie IIv->IIIv"),
+                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                               "Categorie IIIv->IVv"),
+                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                               "Categorie IVv->Vv"),
+                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_lowerLimitNorm_name),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                               "Categorie Vv->VIv")
+                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
                        };
         }
 
