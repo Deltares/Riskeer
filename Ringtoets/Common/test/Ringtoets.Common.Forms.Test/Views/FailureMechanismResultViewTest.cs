@@ -96,6 +96,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreEqual(new Size(500, 0), view.AutoScrollMinSize);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
