@@ -128,21 +128,21 @@ namespace Ringtoets.DuneErosion.Data.Test
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
-                failureMechanismSpecificNormFactor * GetMechanismSpecificNorm(failureMechanism, signalingNorm / 30)
+                GetMechanismSpecificNorm(failureMechanism, signalingNorm / 30)
             ).SetName("MechanismSpecificFactorizedSignalingNorm");
 
             yield return new TestCaseData(
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
-                failureMechanismSpecificNormFactor * GetMechanismSpecificNorm(failureMechanism, signalingNorm)
+                GetMechanismSpecificNorm(failureMechanism, signalingNorm)
             ).SetName("MechanismSpecificSignalingNorm");
 
             yield return new TestCaseData(
                 failureMechanism,
                 assessmentSection,
                 FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
-                failureMechanismSpecificNormFactor * GetMechanismSpecificNorm(failureMechanism, lowerLimitNorm)
+                GetMechanismSpecificNorm(failureMechanism, lowerLimitNorm)
             ).SetName("MechanismSpecificLowerLimitNorm");
 
             yield return new TestCaseData(
@@ -163,7 +163,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         private static double GetMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism,
                                                        double norm)
         {
-            return norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
+            return 2.15 * norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
         }
     }
 }
