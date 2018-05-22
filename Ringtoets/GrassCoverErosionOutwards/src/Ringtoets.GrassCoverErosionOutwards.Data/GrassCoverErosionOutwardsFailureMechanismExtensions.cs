@@ -24,11 +24,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
-using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Util;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
@@ -128,11 +127,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
             if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
             {
                 throw new InvalidEnumArgumentException(nameof(categoryType),
@@ -140,32 +134,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                                                        typeof(FailureMechanismCategoryType));
             }
 
-            IEnumerable<FailureMechanismSectionAssemblyCategory> categories = AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(
-                assessmentSection.FailureMechanismContribution.SignalingNorm,
-                assessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                failureMechanism.Contribution,
-                failureMechanism.GeneralInput.N);
-
-            switch (categoryType)
-            {
-                case FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
-                    return categories.First(c => c.Group == FailureMechanismSectionAssemblyCategoryGroup.IIv)
-                                     .LowerBoundary;
-                case FailureMechanismCategoryType.MechanismSpecificSignalingNorm:
-                    return categories.First(c => c.Group == FailureMechanismSectionAssemblyCategoryGroup.IIIv)
-                                     .LowerBoundary;
-                case FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
-                    return categories.First(c => c.Group == FailureMechanismSectionAssemblyCategoryGroup.IVv)
-                                     .LowerBoundary;
-                case FailureMechanismCategoryType.LowerLimitNorm:
-                    return categories.First(c => c.Group == FailureMechanismSectionAssemblyCategoryGroup.Vv)
-                                     .LowerBoundary;
-                case FailureMechanismCategoryType.FactorizedLowerLimitNorm:
-                    return categories.First(c => c.Group == FailureMechanismSectionAssemblyCategoryGroup.VIv)
-                                     .LowerBoundary;
-                default:
-                    throw new NotSupportedException();
-            }
+            return FailureMechanismNormHelper.GetNorm(assessmentSection,
+                                                      categoryType,
+                                                      failureMechanism.Contribution,
+                                                      failureMechanism.GeneralInput.N);
         }
 
         private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,

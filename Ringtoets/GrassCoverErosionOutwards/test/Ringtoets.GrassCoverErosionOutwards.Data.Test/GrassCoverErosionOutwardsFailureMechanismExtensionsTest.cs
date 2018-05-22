@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -224,7 +224,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.AreEqual(expectedNorm, norm);
         }
 
-        private static IEnumerable GetNormConfigurationPerFailureMechanismCategoryType()
+        private static IEnumerable<TestCaseData> GetNormConfigurationPerFailureMechanismCategoryType()
         {
             const double signalingNorm = 0.002;
             const double lowerLimitNorm = 0.005;
