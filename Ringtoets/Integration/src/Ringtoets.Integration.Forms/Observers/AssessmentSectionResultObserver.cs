@@ -58,7 +58,6 @@ namespace Ringtoets.Integration.Forms.Observers
         private readonly Observer stabilityPointStructuresObserver;
         private readonly Observer stabilityStoneCoverObserver;
         private readonly Observer waveImpactAsphaltCoverObserver;
-
         private readonly Observer grassCoverSlipOffInwardsObserver;
         private readonly Observer grassCoverSlipOffOutwardsObserver;
         private readonly Observer macroStabilityOutwardsObserver;

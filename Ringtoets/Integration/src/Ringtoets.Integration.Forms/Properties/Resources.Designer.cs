@@ -193,10 +193,10 @@ namespace Ringtoets.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assemblageresultaat is verouderd. Druk op de &quot;Assemblageresultaat verversen&quot; knop om opnieuw te berekenen..
         /// </summary>
-        public static string AssemblyResultView_RefreshAssemblyResultsButton_Result_is_outdated_Press_Refresh_button_to_recalculate {
+        public static string AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate {
             get {
-                return ResourceManager.GetString("AssemblyResultView_RefreshAssemblyResultsButton_Result_is_outdated_Press_Refresh_" +
-                        "button_to_recalculate", resourceCulture);
+                return ResourceManager.GetString("AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_" +
+                        "Refresh_button_to_recalculate", resourceCulture);
             }
         }
         

@@ -453,7 +453,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_WhenFailureMechanismNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
@@ -465,7 +466,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                assessmentSection.StabilityStoneCover.NotifyObservers();
+                IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+                failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);

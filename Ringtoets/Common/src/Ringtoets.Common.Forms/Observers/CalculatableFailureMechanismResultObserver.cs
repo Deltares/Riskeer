@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
@@ -32,13 +30,16 @@ namespace Ringtoets.Common.Forms.Observers
     /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/>
     /// related to its section results.
     /// </summary>
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism to listen to.</typeparam>
+    /// <typeparam name="TSectionResult">The type of the failure mechanism section results in the <typeparamref name="TFailureMechanism"/>.</typeparam>
+    /// <typeparam name="TCalculation">The type of the calculations in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>
         : FailureMechanismResultObserver<TFailureMechanism, TSectionResult>
         where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculation : ICalculation<ICalculationInput>
     {
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
 
         /// <inheritdoc />
@@ -48,7 +49,7 @@ namespace Ringtoets.Common.Forms.Observers
         public CalculatableFailureMechanismResultObserver(TFailureMechanism failureMechanism)
             : base(failureMechanism)
         {
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
+            calculationObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 NotifyObservers,
                 c => c.Children);
 
@@ -59,7 +60,7 @@ namespace Ringtoets.Common.Forms.Observers
                                                    .Select(c => c.InputParameters)));
 
             CalculationGroup observableGroup = failureMechanism.CalculationsGroup;
-            calculationGroupObserver.Observable = observableGroup;
+            calculationObserver.Observable = observableGroup;
             calculationInputObserver.Observable = observableGroup;
         }
 
@@ -67,7 +68,7 @@ namespace Ringtoets.Common.Forms.Observers
         {
             if (disposing)
             {
-                calculationGroupObserver.Dispose();
+                calculationObserver.Dispose();
                 calculationInputObserver.Dispose();
             }
 

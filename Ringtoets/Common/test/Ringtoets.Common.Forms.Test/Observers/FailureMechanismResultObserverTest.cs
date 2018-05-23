@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismNotifiesObservers_ThenFailureMechanismResultObserverObserversNotified()
+        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
                 mocks.ReplayAll();
 
                 resultObserver.Attach(observer);
-                
+
                 // When
                 failureMechanism.NotifyObservers();
 
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultCollectionNotifiesObservers_ThenFailureMechanismResultObserverObserversNotified()
+        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultCollectionNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
                 mocks.ReplayAll();
 
                 resultObserver.Attach(observer);
-                
+
                 // When
                 failureMechanism.SectionResults.NotifyObservers();
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultNotifiesObservers_ThenFailureMechanismResultObserverObserversNotified()
+        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
                 mocks.ReplayAll();
 
                 resultObserver.Attach(observer);
-                
+
                 // When
                 failureMechanism.SectionResults.Single().NotifyObservers();
 

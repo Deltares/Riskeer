@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Forms.Test.Observers
     public class AssessmentSectionResultObserverTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new AssessmentSectionResultObserver(null);
@@ -65,10 +65,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenAssessmentSectionNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenAssessmentSectionNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -88,10 +88,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenClosingStructuresCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenClosingStructuresCalculationNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var calculation = new TestClosingStructuresCalculation();
             assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(calculation);
 
@@ -113,10 +113,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenDuneErosionFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenDuneErosionFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -136,10 +136,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenGrassCoverErosionInwardsCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenGrassCoverErosionInwardsCalculationNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var calculation = new GrassCoverErosionInwardsCalculation();
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(calculation);
 
@@ -161,10 +161,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenGrassCoverErosionOutwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenGrassCoverErosionOutwardsFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -184,10 +184,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenHeightStructuresCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenHeightStructuresCalculationNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var calculation = new TestHeightStructuresCalculation();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
@@ -209,11 +209,11 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenMacroStabilityInwardsCalculationScenarioNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenMacroStabilityInwardsCalculationScenarioNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            MacroStabilityInwardsCalculationScenario calculation = 
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            MacroStabilityInwardsCalculationScenario calculation =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
             assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation);
 
@@ -235,10 +235,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenPipingCalculationScenarioNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenPipingCalculationScenarioNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation);
 
@@ -260,10 +260,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenStabilityPointStructuresCalculationNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenStabilityPointStructuresCalculationNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             var calculation = new TestStabilityPointStructuresCalculation();
             assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(calculation);
 
@@ -285,10 +285,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenStabilityStoneCoverFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenStabilityStoneCoverFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -308,10 +308,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenWaveImpactAsphaltCoverFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenWaveImpactAsphaltCoverFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -331,10 +331,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenGrassCoverSlipOffInwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenGrassCoverSlipOffInwardsFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -354,10 +354,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenGrassCoverSlipOffOutwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenGrassCoverSlipOffOutwardsFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -377,10 +377,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenMacroStabilityOutwardsFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenMacroStabilityOutwardsFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -400,10 +400,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenMicrostabilityFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenMicrostabilityFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -423,10 +423,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenPipingStructureFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenPipingStructureFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -446,10 +446,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenStrengthStabilityLengthwiseConstructionFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenStrengthStabilityLengthwiseConstructionFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -469,10 +469,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenTechnicalInnovationFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenTechnicalInnovationFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -492,10 +492,10 @@ namespace Ringtoets.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionResultObserver_WhenWaterPressureAsphaltCoverFailureMechanismNotified_ThenAssessmentSectionResultObserverObserversNotified()
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenWaterPressureAsphaltCoverFailureMechanismNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = CreateAssessmentSection();
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -512,6 +512,11 @@ namespace Ringtoets.Integration.Forms.Test.Observers
                 // Then
                 mocks.VerifyAll();
             }
+        }
+
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            return new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
         }
     }
 }

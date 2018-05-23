@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserverAndCalculation_WhenCalculationNotifiesObservers_ThenFailureMechanismResultObserverNotified()
+        public void GivenFailureMechanismResultObserverWithCalculationAndAttachedObserver_WhenCalculationNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
             var failureMechanism = new TestCalculatableFailureMechanism();
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserverAndCalculation_WhenCalculationInputNotifiesObservers_ThenFailureMechanismResultObserverNotified()
+        public void GivenFailureMechanismResultObserverWithCalculationAndAttachedObserver_WhenCalculationInputNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
             var failureMechanism = new TestCalculatableFailureMechanism();

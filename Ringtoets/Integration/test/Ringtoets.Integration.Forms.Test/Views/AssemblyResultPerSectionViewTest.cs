@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -31,6 +32,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
@@ -267,8 +269,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_WhenFailureMechanismNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
-                new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
@@ -281,7 +283,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                view.AssessmentSection.StabilityStoneCover.NotifyObservers();
+                IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+                failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
