@@ -166,24 +166,24 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
                 Assert.AreEqual(output[i].Section.CategoryGroup, results[i].TotalResult);
 
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].Piping);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].GrassCoverErosionInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].MacroStabilityInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].MacroStabilityOutwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].Microstability);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].StabilityStoneCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].WaveImpactAsphaltCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].WaterPressureAsphaltCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].GrassCoverErosionOutwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].GrassCoverSlipOffOutwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].GrassCoverSlipOffInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].HeightStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].ClosingStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].PipingStructure);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].StabilityPointStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].StrengthStabilityLengthwise);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].DuneErosion);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, results[i].TechnicalInnovation);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].Piping);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverErosionInwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].MacroStabilityInwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].MacroStabilityOutwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].Microstability);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StabilityStoneCover);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].WaveImpactAsphaltCover);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].WaterPressureAsphaltCover);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverErosionOutwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverSlipOffOutwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverSlipOffInwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].HeightStructures);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].ClosingStructures);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].PipingStructure);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StabilityPointStructures);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StrengthStabilityLengthwise);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].DuneErosion);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].TechnicalInnovation);
             }
         }
 
