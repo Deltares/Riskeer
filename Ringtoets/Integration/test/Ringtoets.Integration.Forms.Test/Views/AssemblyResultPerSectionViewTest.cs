@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -133,6 +134,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsNull(view.Data);
+                Assert.AreEqual(new Size(300, 250), view.AutoScrollMinSize);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
             }
         }
