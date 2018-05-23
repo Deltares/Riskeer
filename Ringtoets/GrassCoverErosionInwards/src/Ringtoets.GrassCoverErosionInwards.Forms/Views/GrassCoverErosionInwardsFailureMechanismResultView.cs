@@ -56,11 +56,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the failure mechanism section results belongs to.</param>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> to
+        /// show in the view.</param>
+        /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismResultView(
             IObservableEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,

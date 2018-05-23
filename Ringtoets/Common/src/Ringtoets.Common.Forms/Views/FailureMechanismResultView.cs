@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
-        /// <param name="failureMechanism">The failure mechanism this view belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected FailureMechanismResultView(IObservableEnumerable<TSectionResult> failureMechanismSectionResults, TFailureMechanism failureMechanism)
         {

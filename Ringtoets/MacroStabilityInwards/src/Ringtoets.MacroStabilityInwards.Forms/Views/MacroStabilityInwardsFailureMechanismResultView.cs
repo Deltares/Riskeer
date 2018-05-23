@@ -55,11 +55,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly IAssessmentSection assessmentSection;
 
-        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section that the failure mechanism belongs to.</param>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="MacroStabilityInwardsFailureMechanismSectionResult"/> to
+        /// show in the view.</param>
+        /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsFailureMechanismResultView(IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
