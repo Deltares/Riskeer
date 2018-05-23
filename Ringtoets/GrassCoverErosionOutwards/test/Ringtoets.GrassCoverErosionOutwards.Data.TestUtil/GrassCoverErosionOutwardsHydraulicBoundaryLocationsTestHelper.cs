@@ -101,12 +101,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
-            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
-            Assert.IsFalse(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
-            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
-            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
-            Assert.IsFalse(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(HasHydraulicBoundaryLocationCalculationOutput));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
+            Assert.IsTrue(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
+            Assert.IsTrue(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.All(calc => !HasHydraulicBoundaryLocationCalculationOutput(calc)));
         }
 
         private static void SetHydraulicBoundaryLocationCalculationsOutput(

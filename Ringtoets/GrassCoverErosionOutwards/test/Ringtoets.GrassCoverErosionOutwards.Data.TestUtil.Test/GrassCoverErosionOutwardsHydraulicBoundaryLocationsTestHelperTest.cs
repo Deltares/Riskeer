@@ -137,6 +137,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
             CollectionAssert.AreEquivalent(expectedCalculations, calculations);
         }
 
+        [Test]
+        public void AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () =>
+                GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.AssertHydraulicBoundaryLocationCalculationsHaveNoOutputs(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
         private static void AssertHydraulicBoundaryCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                                 HydraulicBoundaryLocation[] expectedHydraulicBoundaryLocations,
                                                                 bool expectedHasOutput)
