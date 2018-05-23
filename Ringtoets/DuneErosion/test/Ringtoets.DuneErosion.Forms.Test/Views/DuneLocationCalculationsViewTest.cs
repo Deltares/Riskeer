@@ -159,7 +159,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                                                () => 0.01))
             {
                 // Assert
-                Assert.IsInstanceOf<DuneLocationsViewBase>(view);
+                Assert.IsInstanceOf<DuneLocationCalculationsViewBase>(view);
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreSame(assessmentSection, view.AssessmentSection);

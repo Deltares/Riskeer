@@ -36,7 +36,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// <summary>
     /// View for the <see cref="DuneLocationCalculation"/>.
     /// </summary>
-    public partial class DuneLocationCalculationsView : DuneLocationsViewBase
+    public partial class DuneLocationCalculationsView : DuneLocationCalculationsViewBase
     {
         private readonly Observer duneLocationsObserver;
         private readonly Observer failureMechanismObserver;

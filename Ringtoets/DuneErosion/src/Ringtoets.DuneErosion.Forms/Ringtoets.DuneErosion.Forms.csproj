@@ -49,11 +49,11 @@
     <Compile Include="Views\DuneLocationCalculationsView.Designer.cs">
       <DependentUpon>DuneLocationCalculationsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DuneLocationsViewBase.cs">
+    <Compile Include="Views\DuneLocationCalculationsViewBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\DuneLocationsViewBase.Designer.cs">
-      <DependentUpon>DuneLocationsViewBase.cs</DependentUpon>
+    <Compile Include="Views\DuneLocationCalculationsViewBase.Designer.cs">
+      <DependentUpon>DuneLocationCalculationsViewBase.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -153,8 +153,8 @@
     <EmbeddedResource Include="Views\DuneErosionFailureMechanismView.resx">
       <DependentUpon>DuneErosionFailureMechanismView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\DuneLocationsViewBase.resx">
-      <DependentUpon>DuneLocationsViewBase.cs</DependentUpon>
+    <EmbeddedResource Include="Views\DuneLocationCalculationsViewBase.resx">
+      <DependentUpon>DuneLocationCalculationsViewBase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
