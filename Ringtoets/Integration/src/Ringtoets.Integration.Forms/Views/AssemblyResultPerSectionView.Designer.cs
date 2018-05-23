@@ -85,12 +85,14 @@ namespace Ringtoets.Integration.Forms.Views
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             this.errorProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.ErrorIcon;
+            this.errorProvider.SetIconPadding(this.RefreshAssemblyResultsButton, 4);
             // 
             // warningProvider
             // 
             this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.warningProvider.ContainerControl = this;
-            warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
+            this.warningProvider.SetIconPadding(this.RefreshAssemblyResultsButton, 4);
             // 
             // AssemblyResultPerSectionView
             // 

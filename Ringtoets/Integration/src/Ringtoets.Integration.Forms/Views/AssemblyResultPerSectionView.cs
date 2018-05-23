@@ -68,9 +68,6 @@ namespace Ringtoets.Integration.Forms.Views
             AssessmentSection = assessmentSection;
             InitializeComponent();
 
-            errorProvider.SetIconPadding(RefreshAssemblyResultsButton, 4);
-            warningProvider.SetIconPadding(RefreshAssemblyResultsButton, 4);
-
             assessmentSectionResultObserver = new Observer(EnableRefreshButton)
             {
                 Observable = new AssessmentSectionResultObserver(assessmentSection)
