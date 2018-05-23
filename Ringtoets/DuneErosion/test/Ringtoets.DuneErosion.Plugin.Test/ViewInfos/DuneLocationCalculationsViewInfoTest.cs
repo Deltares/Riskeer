@@ -227,9 +227,9 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var locations = new ObservableList<DuneLocationCalculation>();
+            var calculations = new ObservableList<DuneLocationCalculation>();
 
-            var data = new DuneLocationCalculationsContext(locations,
+            var data = new DuneLocationCalculationsContext(calculations,
                                                            failureMechanism,
                                                            assessmentSection,
                                                            getNormFunc,
@@ -238,7 +238,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             plugin.Gui = gui;
             plugin.Activate();
 
-            using (var view = new DuneLocationCalculationsView(locations,
+            using (var view = new DuneLocationCalculationsView(calculations,
                                                                failureMechanism,
                                                                assessmentSection,
                                                                getNormFunc))

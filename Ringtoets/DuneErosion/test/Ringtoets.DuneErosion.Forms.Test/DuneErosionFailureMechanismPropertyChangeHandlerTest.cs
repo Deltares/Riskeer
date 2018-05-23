@@ -265,42 +265,42 @@ namespace Ringtoets.DuneErosion.Forms.Test
                 .SetName("SetPropertyValueAfterConfirmation No Calculations");
 
             var failureMechanismOneLocationWithoutOutput = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanismOneLocationWithoutOutput);
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanismOneLocationWithoutOutput);
             yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanismOneLocationWithoutOutput))
                 .SetName("SetPropertyValueAfterConfirmation One location and all calculations without output");
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanism);
             SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
             yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
-                .SetName("SetPropertyValueAfterConfirmation One location and calculation failure mechanism specific factorized signaling norm with output");
+                .SetName("SetPropertyValueAfterConfirmation One location and calculation mechanism specific factorized signaling norm with output");
 
             failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanism);
             SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
             yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
                 .SetName("SetPropertyValueAfterConfirmation One location and calculation mechanism specific signaling norm with output");
 
             failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanism);
             SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
             yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
                 .SetName("SetPropertyValueAfterConfirmation One location and calculation mechanism specific lower limit norm with output");
 
             failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanism);
             SetCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm);
             yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
                 .SetName("SetPropertyValueAfterConfirmation One location and calculation lower limit norm with output");
 
             failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanism);
             SetCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
             yield return new TestCaseData(new ChangePropertyFailureMechanismTestCase(failureMechanism))
                 .SetName("SetPropertyValueAfterConfirmation One location and calculation factorized lower limit norm with output");
 
             failureMechanism = new DuneErosionFailureMechanism();
-            ConfigureFailureMechanism(failureMechanism);
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanism);
             SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
             SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
             SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
@@ -310,7 +310,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
                 .SetName("SetPropertyValueAfterConfirmation One location and all calculations with output");
         }
 
-        private static void ConfigureFailureMechanism(DuneErosionFailureMechanism failureMechanism)
+        private static void ConfigureFailureMechanismWithOneDuneLocation(DuneErosionFailureMechanism failureMechanism)
         {
             var duneLocations = new[]
             {
@@ -321,8 +321,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
 
         private static void SetCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
-            var output = new TestDuneLocationCalculationOutput();
-            calculations.First().Output = output;
+            calculations.First().Output = new TestDuneLocationCalculationOutput();
         }
 
         private static IEnumerable ChangePropertyTestCases()

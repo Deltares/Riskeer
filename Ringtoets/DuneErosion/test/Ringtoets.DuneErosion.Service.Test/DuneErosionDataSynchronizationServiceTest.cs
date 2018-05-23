@@ -218,7 +218,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void ClearDuneLocationOutput_locationsNull_ThrowArgumentNullException()
+        public void ClearDuneLocationOutput_LocationsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => DuneErosionDataSynchronizationService.ClearDuneLocationOutput(null);

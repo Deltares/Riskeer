@@ -316,11 +316,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
-
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

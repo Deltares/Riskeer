@@ -148,6 +148,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.DuneLocations.Count());
+            Assert.AreEqual(2, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Count());
+            Assert.AreEqual(2, failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Count());
+            Assert.AreEqual(2, failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Count());
+            Assert.AreEqual(2, failureMechanism.CalculationsForLowerLimitNorm.Count());
+            Assert.AreEqual(2, failureMechanism.CalculationsForFactorizedLowerLimitNorm.Count());
 
             // Call
             handler.Replace(new[]
