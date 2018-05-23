@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Assembly;
@@ -200,11 +198,12 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void SetDataSource()
         {
-            ClearControls();
+            ClearCurrentData();
             try
             {
-                dataGridViewControl.SetDataSource(CreateResults().Select(r => new CombinedFailureMechanismSectionAssemblyResultRow(r))
-                                                                 .ToArray());
+                dataGridViewControl.SetDataSource(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(AssessmentSection)
+                                                                                  .Select(r => new CombinedFailureMechanismSectionAssemblyResultRow(r))
+                                                                                  .ToArray());
             }
             catch (AssemblyException e)
             {
@@ -212,56 +211,11 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
-        private void ClearControls()
+        private void ClearCurrentData()
         {
             errorProvider.SetError(RefreshAssemblyResultsButton, string.Empty);
             warningProvider.SetError(RefreshAssemblyResultsButton, string.Empty);
             dataGridViewControl.SetDataSource(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>());
-        }
-
-        private static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> CreateResults()
-        {
-            var random = new Random();
-
-            return Enumerable.Repeat(CreateResult(), random.Next(1, 5)).ToArray();
-        }
-
-        private static CombinedFailureMechanismSectionAssemblyResult CreateResult()
-        {
-            var random = new Random();
-            return new CombinedFailureMechanismSectionAssemblyResult(
-                random.NextDouble(),
-                random.NextDouble(),
-                GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
-                {
-                    Piping = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    GrassCoverErosionInwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    MacroStabilityInwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    MacroStabilityOutwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    Microstability = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    StabilityStoneCover = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    WaveImpactAsphaltCover = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    WaterPressureAsphaltCover = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    GrassCoverErosionOutwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    GrassCoverSlipOffOutwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    GrassCoverSlipOffInwards = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    HeightStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    ClosingStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    PipingStructure = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    StabilityPointStructures = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    StrengthStabilityLengthwise = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    DuneErosion = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random),
-                    TechnicalInnovation = GetRandomFailureMechanismSectionAssemblyCategoryGroup(random)
-                });
-        }
-
-        private static FailureMechanismSectionAssemblyCategoryGroup GetRandomFailureMechanismSectionAssemblyCategoryGroup(Random random)
-        {
-            var failureMechanismSectionAssemblyCategoryGroups =
-                (FailureMechanismSectionAssemblyCategoryGroup[]) Enum.GetValues(typeof(FailureMechanismSectionAssemblyCategoryGroup));
-
-            return failureMechanismSectionAssemblyCategoryGroups[random.Next(failureMechanismSectionAssemblyCategoryGroups.Length)];
         }
     }
 }

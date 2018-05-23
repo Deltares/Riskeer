@@ -28,10 +28,12 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Views;
+using Ringtoets.Integration.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -101,10 +103,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_WithAssessmentSection_ExpectedValues()
         {
             // Setup
-            var random = new Random(39);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssemblyResultPerSectionView(assessmentSection))
             {
                 testForm.Controls.Add(view);
@@ -138,6 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedColumnsAreVisible()
         {
             // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView())
             {
                 // Then
@@ -176,6 +180,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             bool readOnly, string errorText, CellStyle style)
         {
             // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView())
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -206,11 +211,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionViewWithOutdatedContent_WhenRefreshingAssemblyResults_ThenRefreshButtonDisabledAndWarningCleared()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
-                assessmentSection.NotifyObservers();
+                view.AssessmentSection.NotifyObservers();
 
                 // Precondition
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -232,8 +239,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_WhenAssessmentSectionNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -244,7 +253,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                assessmentSection.NotifyObservers();
+                view.AssessmentSection.NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
@@ -256,8 +265,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_WhenFailureMechanismNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -268,7 +279,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                assessmentSection.StabilityStoneCover.NotifyObservers();
+                view.AssessmentSection.StabilityStoneCover.NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
@@ -280,10 +291,12 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_WhenCalculationNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
             var calculation = new TestHeightStructuresCalculation();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -331,7 +344,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView()
         {
-            return ShowAssemblyResultPerSectionView(new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>()));
+            return ShowAssemblyResultPerSectionView(TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                                                        new Random(21).NextEnumValue<AssessmentSectionComposition>()));
         }
 
         private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView(AssessmentSection assessmentSection)

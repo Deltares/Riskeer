@@ -150,13 +150,13 @@ namespace Ringtoets.Integration.Data.Assembly
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
                 Dictionary<IFailureMechanism, int> relevantFailureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                               .Where(fm => fm.IsRelevant)
-                                                                                               .Select((fm, i) => new
-                                                                                               {
-                                                                                                   FailureMechanism = fm,
-                                                                                                   Index = i
-                                                                                               })
-                                                                                               .ToDictionary(x => x.FailureMechanism, x => x.Index);
+                                                                                                .Where(fm => fm.IsRelevant)
+                                                                                                .Select((fm, i) => new
+                                                                                                {
+                                                                                                    FailureMechanism = fm,
+                                                                                                    Index = i
+                                                                                                })
+                                                                                                .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
                 IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
                     CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, relevantFailureMechanisms.Keys),
