@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
@@ -61,6 +62,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<ISelectionProvider>(view);
                 Assert.IsNull(view.Data);
+
+                Assert.AreEqual(new Size(526, 85), view.AutoScrollMinSize);
             }
         }
 

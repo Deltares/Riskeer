@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -81,6 +82,8 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.Show();
 
                 // Assert
+                Assert.AreEqual(new Size(240, 90), dialog.AutoScrollMinSize);
+
                 CollectionAssert.IsEmpty(dialog.SelectedItems);
 
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;

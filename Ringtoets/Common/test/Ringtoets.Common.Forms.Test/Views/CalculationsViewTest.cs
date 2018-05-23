@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
@@ -70,6 +71,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 var splitContainer = view.Controls[0] as SplitContainer;
                 Assert.IsNotNull(splitContainer);
                 Control.ControlCollection verticalSplitContainerPanel1Controls = splitContainer.Panel1.Controls;
+                Assert.AreEqual(new Size(535, 0), splitContainer.Panel1.AutoScrollMinSize);
                 Assert.AreEqual(2, verticalSplitContainerPanel1Controls.Count);
                 Assert.IsInstanceOf<DataGridViewControl>(verticalSplitContainerPanel1Controls[0]);
                 Assert.IsInstanceOf<GroupBox>(verticalSplitContainerPanel1Controls[1]);
