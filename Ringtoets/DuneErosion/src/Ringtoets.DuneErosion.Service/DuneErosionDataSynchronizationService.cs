@@ -26,6 +26,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Util.Extensions;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
@@ -47,7 +48,7 @@ namespace Ringtoets.DuneErosion.Service
         /// the <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to update.</param>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary location to use.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to use.</param>
         /// <param name="duneLocations">The dune locations to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
@@ -141,15 +142,8 @@ namespace Ringtoets.DuneErosion.Service
 
         private static IEnumerable<IObservable> ClearDuneCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
-            var affectedCalculations = new List<IObservable>();
-            foreach (DuneLocationCalculation calculation in calculations)
-            {
-                if (calculation.Output != null)
-                {
-                    calculation.Output = null;
-                    affectedCalculations.Add(calculation);
-                }
-            }
+            IEnumerable<DuneLocationCalculation> affectedCalculations = calculations.Where(c => c.Output != null).ToArray();
+            affectedCalculations.ForEachElementDo(c => c.Output = null);
 
             return affectedCalculations;
         }

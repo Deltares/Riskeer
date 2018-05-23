@@ -46,7 +46,7 @@ namespace Ringtoets.DuneErosion.Forms
         protected override bool RequiresConfirmation(DuneErosionFailureMechanism failureMechanism)
         {
             return base.RequiresConfirmation(failureMechanism)
-                   || failureMechanism.DuneLocations.Any(c => c.Calculation.Output != null)
+                   || failureMechanism.DuneLocations.Any(dl => dl.Calculation.Output != null)
                    || failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(HasOutput)
                    || failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(HasOutput)
                    || failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(HasOutput)
