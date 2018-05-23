@@ -282,10 +282,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             {
                 new CombinedFailureMechanismSectionAssembly(
                     new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
-                    , new[]
-                    {
-                        FailureMechanismSectionAssemblyCategoryGroup.VIv
-                    })
+                    , new FailureMechanismSectionAssemblyCategoryGroup[0])
             };
             Assert.AreEqual(expectedOutput[0].Section.SectionStart, output[0].Section.SectionStart);
             Assert.AreEqual(expectedOutput[0].Section.SectionEnd, output[0].Section.SectionEnd);
