@@ -256,7 +256,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+                failureMechanism.SetDuneLocations(new[]
+                {
+                    new TestDuneLocation()
+                });
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))

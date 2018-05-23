@@ -863,9 +863,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             };
 
-            failureMechanism.DuneLocations.Add(locationWithoutOutput);
-            failureMechanism.DuneLocations.Add(locationWithOutput);
-            failureMechanism.DuneLocations.Add(locationCalculated);
+            failureMechanism.SetDuneLocations(new []
+            {
+                locationWithoutOutput,
+                locationWithOutput,
+                locationCalculated
+            });
         }
 
         #endregion

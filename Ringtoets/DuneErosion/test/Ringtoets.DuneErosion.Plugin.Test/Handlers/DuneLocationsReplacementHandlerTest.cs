@@ -101,13 +101,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
                 new TestDuneLocation()
             };
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocations(duneLocations);
 
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.DuneLocations.Count);
+            Assert.AreEqual(2, failureMechanism.DuneLocations.Count());
             Assert.AreEqual(2, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Count());
             Assert.AreEqual(2, failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Count());
             Assert.AreEqual(2, failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Count());
@@ -138,18 +137,17 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
             {
-                DuneLocations =
-                {
-                    new TestDuneLocation(),
-                    new TestDuneLocation()
-                }
-            };
+                new TestDuneLocation(),
+                new TestDuneLocation()
+            });
+
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.DuneLocations.Count);
+            Assert.AreEqual(2, failureMechanism.DuneLocations.Count());
 
             // Call
             handler.Replace(new[]
@@ -158,7 +156,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             });
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.DuneLocations.Count);
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
 
             DuneLocation duneLocation = failureMechanism.DuneLocations.First();
             Assert.AreEqual(1, duneLocation.Id);
@@ -172,14 +170,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
         public void DoPostReplacementUpdates_NoDuneLocationsAdded_DoNothing()
         {
             // Setup
-            var failureMechanism = new DuneErosionFailureMechanism
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
             {
-                DuneLocations =
-                {
-                    new TestDuneLocation(),
-                    new TestDuneLocation()
-                }
-            };
+                new TestDuneLocation(),
+                new TestDuneLocation()
+            });
 
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -211,14 +207,12 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             var viewCommands = mocks.StrictMock<IViewCommands>();
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
             {
-                DuneLocations =
-                {
-                    new TestDuneLocation(),
-                    new TestDuneLocation()
-                }
-            };
+                new TestDuneLocation(),
+                new TestDuneLocation()
+            });
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
             handler.Replace(new[]
@@ -227,7 +221,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             });
 
             // Precondition
-            Assert.AreEqual(1, failureMechanism.DuneLocations.Count);
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
 
             // Call
             handler.DoPostReplacementUpdates();

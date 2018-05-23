@@ -52,7 +52,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism,
                                             ICollection<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                            ICollection<ReadDuneLocation> duneLocations)
+                                            IEnumerable<ReadDuneLocation> duneLocations)
         {
             if (failureMechanism == null)
             {
@@ -69,13 +69,12 @@ namespace Ringtoets.DuneErosion.Service
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
-            failureMechanism.DuneLocations.Clear();
-
-            if (hydraulicBoundaryLocations.Count == 0 || duneLocations.Count == 0)
+            if (hydraulicBoundaryLocations.Count == 0 || !duneLocations.Any())
             {
                 return;
             }
 
+            var correspondingDuneLocations = new List<DuneLocation>();
             foreach (ReadDuneLocation readDuneLocation in duneLocations)
             {
                 HydraulicBoundaryLocation correspondingHydraulicBoundaryLocation = hydraulicBoundaryLocations
@@ -92,9 +91,11 @@ namespace Ringtoets.DuneErosion.Service
                                                             Orientation = readDuneLocation.Orientation,
                                                             D50 = readDuneLocation.D50
                                                         });
-                    failureMechanism.DuneLocations.Add(duneLocation);
+                    correspondingDuneLocations.Add(duneLocation);
                 }
             }
+
+            failureMechanism.SetDuneLocations(correspondingDuneLocations);
         }
 
         /// <summary>
@@ -103,7 +104,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="locations">The locations for which the output needs to be cleared.</param>
         /// <returns>All objects changed during the clear.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearDuneLocationOutput(ObservableList<DuneLocation> locations)
+        public static IEnumerable<IObservable> ClearDuneLocationOutput(IObservableEnumerable<DuneLocation> locations)
         {
             if (locations == null)
             {

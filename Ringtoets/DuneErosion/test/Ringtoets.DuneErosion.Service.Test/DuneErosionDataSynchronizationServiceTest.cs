@@ -102,7 +102,10 @@ namespace Ringtoets.DuneErosion.Service.Test
             var duneLocation = new TestDuneLocation();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.Add(duneLocation);
+            failureMechanism.SetDuneLocations(new[]
+            {
+                duneLocation
+            });
 
             // Precondition
             CollectionAssert.AreEqual(
@@ -143,7 +146,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 });
 
             // Assert
-            Assert.AreEqual(1, failureMechanism.DuneLocations.Count);
+            Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
 
             DuneLocation duneLocation = failureMechanism.DuneLocations.First();
             Assert.AreEqual(hydraulicBoundaryLocation.Id, duneLocation.Id);
@@ -275,7 +278,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocations(duneLocations);
 
             failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
@@ -284,7 +286,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
             failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
 
-            IEnumerable<IObservable> expectedAffectedCalculations = 
+            IEnumerable<IObservable> expectedAffectedCalculations =
                 DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(failureMechanism);
 
             // Call

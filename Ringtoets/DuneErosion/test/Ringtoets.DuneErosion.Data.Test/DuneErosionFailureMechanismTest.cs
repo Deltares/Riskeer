@@ -116,7 +116,6 @@ namespace Ringtoets.DuneErosion.Data.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-
             failureMechanism.SetDuneLocations(new DuneLocation[]
             {
                 new TestDuneLocation()

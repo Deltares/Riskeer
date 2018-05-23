@@ -1050,8 +1050,6 @@ namespace Ringtoets.Integration.TestUtil
                 },
                 new TestDuneLocation()
             };
-
-            failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocations(duneLocations);
 
             failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();

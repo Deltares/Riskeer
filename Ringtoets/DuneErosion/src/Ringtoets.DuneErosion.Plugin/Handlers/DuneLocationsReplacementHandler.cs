@@ -70,12 +70,11 @@ namespace Ringtoets.DuneErosion.Plugin.Handlers
         public void Replace(HydraulicBoundaryLocation[] newHydraulicBoundaryLocations)
         {
             var duneLocationsReader = new DuneLocationsReader();
-            IEnumerable<ReadDuneLocation> newDuneLocations = duneLocationsReader.ReadDuneLocations();
+            IEnumerable<ReadDuneLocation> newDuneLocations = duneLocationsReader.ReadDuneLocations().ToArray();
 
             DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
                                                                    newHydraulicBoundaryLocations,
-                                                                   newDuneLocations.ToArray());
-            failureMechanism.SetDuneLocations(failureMechanism.DuneLocations);
+                                                                   newDuneLocations);
         }
 
         /// <summary>

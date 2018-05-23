@@ -107,7 +107,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             }
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.AddRange(testCase.Locations);
+            failureMechanism.SetDuneLocations(testCase.Locations);
 
             var propertySet = 0;
 
@@ -202,8 +202,11 @@ namespace Ringtoets.DuneErosion.Forms.Test
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.Add(CreateDuneLocationWithoutOutput());
-            failureMechanism.DuneLocations.Add(CreateDuneLocationWithOutput());
+            failureMechanism.SetDuneLocations(new[]
+            {
+                CreateDuneLocationWithoutOutput(),
+                CreateDuneLocationWithOutput()
+            });
 
             var propertySet = 0;
 
@@ -313,8 +316,6 @@ namespace Ringtoets.DuneErosion.Forms.Test
             {
                 new TestDuneLocation()
             };
-
-            failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocations(duneLocations);
         }
 

@@ -206,13 +206,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     ReferenceLine = referenceLine
                 };
 
-                var failureMechanism = new DuneErosionFailureMechanism
+                var failureMechanism = new DuneErosionFailureMechanism();
+                failureMechanism.SetDuneLocations(new[]
                 {
-                    DuneLocations =
-                    {
-                        new TestDuneLocation()
-                    }
-                };
+                    new TestDuneLocation()
+                });
                 failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
                 failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
@@ -249,13 +247,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var assessmentSection = new AssessmentSectionStub();
                 var duneLocation1 = new TestDuneLocation();
 
-                var failureMechanism = new DuneErosionFailureMechanism
+                var failureMechanism = new DuneErosionFailureMechanism();
+                failureMechanism.SetDuneLocations(new[]
                 {
-                    DuneLocations =
-                    {
-                        duneLocation1
-                    }
-                };
+                    duneLocation1
+                });
+
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
@@ -266,7 +263,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
 
                 // Call
-                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+                failureMechanism.SetDuneLocations(new[]
+                {
+                    new TestDuneLocation()
+                });
                 assessmentSection.NotifyObservers();
 
                 // Assert
@@ -285,13 +285,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var assessmentSection = new AssessmentSectionStub();
                 var duneLocation1 = new TestDuneLocation();
 
-                var failureMechanism = new DuneErosionFailureMechanism
+                var failureMechanism = new DuneErosionFailureMechanism();
+                failureMechanism.SetDuneLocations(new[]
                 {
-                    DuneLocations =
-                    {
-                        duneLocation1
-                    }
-                };
+                    duneLocation1
+                });
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
@@ -302,7 +300,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
 
                 // Call
-                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+                failureMechanism.SetDuneLocations(new[]
+                {
+                    new TestDuneLocation()
+                });
                 failureMechanism.DuneLocations.NotifyObservers();
 
                 // Assert
@@ -321,13 +322,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var assessmentSection = new AssessmentSectionStub();
                 var duneLocation = new TestDuneLocation();
 
-                var failureMechanism = new DuneErosionFailureMechanism
+                var failureMechanism = new DuneErosionFailureMechanism();
+                failureMechanism.SetDuneLocations(new[]
                 {
-                    DuneLocations =
-                    {
-                        duneLocation
-                    }
-                };
+                    duneLocation
+                });
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 view.Data = failureMechanismContext;
@@ -361,13 +360,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new DuneErosionFailureMechanism
+                var failureMechanism = new DuneErosionFailureMechanism();
+                failureMechanism.SetDuneLocations(new[]
                 {
-                    DuneLocations =
-                    {
-                        new TestDuneLocation()
-                    }
-                };
+                    new TestDuneLocation()
+                });
+
                 view.Data = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 MapData duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
@@ -376,8 +374,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
 
                 // When
-                failureMechanism.DuneLocations.Clear();
-                failureMechanism.DuneLocations.Add(new TestDuneLocation());
+                failureMechanism.SetDuneLocations(new[]
+                {
+                    new TestDuneLocation()
+                });
                 failureMechanism.DuneLocations.NotifyObservers();
 
                 // Then

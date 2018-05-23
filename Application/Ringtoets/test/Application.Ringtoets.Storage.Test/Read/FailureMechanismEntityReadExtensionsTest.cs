@@ -222,11 +222,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
 
             // Assert
-            ObservableList<DuneLocation> duneLocations = failureMechanism.DuneLocations;
-            Assert.AreEqual(2, duneLocations.Count);
+            IObservableEnumerable<DuneLocation> duneLocations = failureMechanism.DuneLocations;
+            Assert.AreEqual(2, duneLocations.Count());
 
-            Assert.AreEqual(locationAName, duneLocations[0].Name);
-            Assert.AreEqual(locationBName, duneLocations[1].Name);
+            Assert.AreEqual(locationAName, duneLocations.ElementAt(0).Name);
+            Assert.AreEqual(locationBName, duneLocations.ElementAt(1).Name);
         }
 
         #endregion

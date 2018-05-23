@@ -271,16 +271,14 @@ namespace Ringtoets.Integration.Service.Test
                         hydraulicBoundaryLocation1,
                         hydraulicBoundaryLocation2
                     }
-                },
-                DuneErosion =
-                {
-                    DuneLocations =
-                    {
-                        duneLocation1,
-                        duneLocation2
-                    }
                 }
             };
+
+            assessmentSection.DuneErosion.SetDuneLocations(new []
+            {
+                duneLocation1, 
+                duneLocation2
+            });
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
@@ -1693,8 +1691,6 @@ namespace Ringtoets.Integration.Service.Test
             {
                 duneLocation
             };
-
-            failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocations(duneLocations);
 
             if (hasOutput)

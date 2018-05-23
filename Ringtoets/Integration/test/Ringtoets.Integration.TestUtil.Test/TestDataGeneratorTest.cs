@@ -666,7 +666,7 @@ namespace Ringtoets.Integration.TestUtil.Test
 
         private static void AssertNumberOfDuneErosionFailureMechanismCalculations(DuneErosionFailureMechanism failureMechanism)
         {
-            int expectedCalculationsCount = failureMechanism.DuneLocations.Count;
+            int expectedCalculationsCount = failureMechanism.DuneLocations.Count();
             Assert.AreEqual(expectedCalculationsCount, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Count());
             Assert.AreEqual(expectedCalculationsCount, failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Count());
             Assert.AreEqual(expectedCalculationsCount, failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Count());

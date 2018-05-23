@@ -40,6 +40,7 @@ namespace Ringtoets.DuneErosion.Data
         private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
         private readonly ObservableList<DuneLocationCalculation> calculationsForLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
         private readonly ObservableList<DuneLocationCalculation> calculationsForFactorizedLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
+        private readonly ObservableList<DuneLocation> duneLocations;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
@@ -49,7 +50,7 @@ namespace Ringtoets.DuneErosion.Data
         {
             sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
-            DuneLocations = new ObservableList<DuneLocation>();
+            duneLocations = new ObservableList<DuneLocation>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -68,7 +69,13 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Gets the dune locations.
         /// </summary>
-        public ObservableList<DuneLocation> DuneLocations { get; }
+        public IObservableEnumerable<DuneLocation> DuneLocations
+        {
+            get
+            {
+                return duneLocations;
+            }
+        }
 
         /// <summary>
         /// Gets the calculations corresponding to the mechanism specific factorized signaling norm.
@@ -145,11 +152,11 @@ namespace Ringtoets.DuneErosion.Data
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
-            ClearAllLocations();
-            ClearAllCalculations();
-            foreach (DuneLocation duneLocation in duneLocations)
+            ClearDuneLocationData();
+
+            this.duneLocations.AddRange(duneLocations);
+            foreach (DuneLocation duneLocation in this.duneLocations)
             {
-                DuneLocations.Add(duneLocation);
                 AddCalculationsForDuneLocation(duneLocation);
             }
         }
@@ -167,13 +174,10 @@ namespace Ringtoets.DuneErosion.Data
             sectionResults.Clear();
         }
 
-        private void ClearAllLocations()
+        private void ClearDuneLocationData()
         {
-            DuneLocations.Clear();
-        }
+            duneLocations.Clear();
 
-        private void ClearAllCalculations()
-        {
             calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
             calculationsForMechanismSpecificSignalingNorm.Clear();
             calculationsForMechanismSpecificLowerLimitNorm.Clear();

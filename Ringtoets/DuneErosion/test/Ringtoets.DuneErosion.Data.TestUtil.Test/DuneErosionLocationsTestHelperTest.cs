@@ -72,7 +72,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocations(duneLocations);
 
             DuneLocationCalculation calculation1 = failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First();

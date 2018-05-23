@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -42,7 +43,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer duneLocationsObserver;
-        private readonly RecursiveObserver<ObservableList<DuneLocation>, DuneLocation> duneLocationObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocation>, DuneLocation> duneLocationObserver;
 
         private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
@@ -63,7 +64,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             failureMechanismObserver = new Observer(UpdateMapData);
             assessmentSectionObserver = new Observer(UpdateMapData);
             duneLocationsObserver = new Observer(UpdateMapData);
-            duneLocationObserver = new RecursiveObserver<ObservableList<DuneLocation>, DuneLocation>(UpdateMapData, list => list);
+            duneLocationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocation>, DuneLocation>(UpdateMapData, list => list);
 
             mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
