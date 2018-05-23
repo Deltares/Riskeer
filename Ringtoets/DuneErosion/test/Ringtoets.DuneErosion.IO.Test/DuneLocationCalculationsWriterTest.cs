@@ -95,11 +95,11 @@ namespace Ringtoets.DuneErosion.IO.Test
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(WriteDuneLocationCalculations_InvalidDirectoryRights_ThrowCriticalFileWriteException)))
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");
+                disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
                 TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
-
-                disposeHelper.LockDirectory(FileSystemRights.Write);
+                
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);

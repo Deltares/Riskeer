@@ -214,13 +214,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
             assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 5
-            };
-
             var locations = new ObservableList<DuneLocation>();
-            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, new DuneErosionFailureMechanism(), assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {

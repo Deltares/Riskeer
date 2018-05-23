@@ -394,15 +394,19 @@ namespace Ringtoets.DuneErosion.Service.Test
         [TestCase(ActivityState.Failed)]
         [TestCase(ActivityState.Canceled)]
         [TestCase(ActivityState.Skipped)]
-        public void Finish_ActivityWithSpecificState_NotifyDuneLocation(ActivityState state)
+        public void Finish_ActivityWithSpecificState_NotifyDuneLocationCalculation(ActivityState state)
         {
             // Setup
             var duneLocation = new TestDuneLocation();
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            duneLocation.Attach(observer);
+            var locationObserver = mockRepository.StrictMock<IObserver>();
+            locationObserver.Expect(o => o.UpdateObserver());
+            duneLocation.Attach(locationObserver);
+
+            var calculationObserver = mockRepository.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            duneLocationCalculation.Attach(calculationObserver);
             mockRepository.ReplayAll();
 
             var activity = new DuneErosionBoundaryCalculationActivityWithState(duneLocationCalculation,

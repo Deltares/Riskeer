@@ -65,6 +65,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
                 Assert.IsInstanceOf<ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
 
+                Assert.AreSame(duneLocationCalculations, properties.Data);
+
                 Assert.AreEqual(1, properties.Calculations.Length);
                 Assert.AreSame(calculation, properties.Calculations[0].Data);
             }
@@ -84,8 +86,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
             {
                 // Assert
-                Assert.AreSame(duneLocationCalculations, properties.Data);
-
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
                 Assert.AreEqual(1, dynamicProperties.Count);
 
