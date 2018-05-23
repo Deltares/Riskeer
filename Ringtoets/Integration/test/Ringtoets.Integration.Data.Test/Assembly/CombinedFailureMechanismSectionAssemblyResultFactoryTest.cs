@@ -82,13 +82,13 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                           .Where(fm => fm.IsRelevant)
-                                                                                           .Select((fm, i) => new
-                                                                                           {
-                                                                                               FailureMechanism = fm,
-                                                                                               Index = i
-                                                                                           })
-                                                                                           .ToDictionary(x => x.FailureMechanism, x => x.Index);
+                                                                                    .Where(fm => fm.IsRelevant)
+                                                                                    .Select((fm, i) => new
+                                                                                    {
+                                                                                        FailureMechanism = fm,
+                                                                                        Index = i
+                                                                                    })
+                                                                                    .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
             var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -137,13 +137,13 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                           .Where(fm => fm.IsRelevant)
-                                                                                           .Select((fm, i) => new
-                                                                                           {
-                                                                                               FailureMechanism = fm,
-                                                                                               Index = i
-                                                                                           })
-                                                                                           .ToDictionary(x => x.FailureMechanism, x => x.Index);
+                                                                                    .Where(fm => fm.IsRelevant)
+                                                                                    .Select((fm, i) => new
+                                                                                    {
+                                                                                        FailureMechanism = fm,
+                                                                                        Index = i
+                                                                                    })
+                                                                                    .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
             var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -190,7 +190,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         private static IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> GetFailureMechanismsOutput(IEnumerable<IFailureMechanism> failureMechanisms,
                                                                                                             Random random)
         {
-            return failureMechanisms.Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            return failureMechanisms.Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray();
         }
     }
 }
