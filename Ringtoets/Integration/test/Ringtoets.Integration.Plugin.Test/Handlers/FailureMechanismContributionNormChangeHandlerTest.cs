@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                             .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                             .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
                                             .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
-                                            .Concat(GetAllAffectedDuneErosionLocationCalculations(assessmentSection.DuneErosion))
+                                            .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
                                             .Concat(new IObservable[]
                                             {
                                                 assessmentSection.FailureMechanismContribution
@@ -196,7 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                  .Concat(assessmentSection.WaveHeightCalculationsForLowerLimitNorm)
                                  .Concat(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm)
                                  .Concat(GetAllAffectedGrassCoverErosionOutwardsHydraulicBoundaryLocationCalculations(assessmentSection.GrassCoverErosionOutwards))
-                                 .Concat(GetAllAffectedDuneErosionLocationCalculations(assessmentSection.DuneErosion))
+                                 .Concat(GetAllAffectedDuneLocationCalculations(assessmentSection.DuneErosion))
                                  .Concat(new IObservable[]
                                  {
                                      assessmentSection.FailureMechanismContribution
@@ -339,7 +339,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             return GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.GetAllHydraulicBoundaryLocationCalculationsWithOutput(failureMechanism);
         }
 
-        private static IEnumerable<IObservable> GetAllAffectedDuneErosionLocationCalculations(DuneErosionFailureMechanism failureMechanism)
+        private static IEnumerable<IObservable> GetAllAffectedDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
             return DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(failureMechanism);
         }

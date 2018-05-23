@@ -274,9 +274,10 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            assessmentSection.DuneErosion.SetDuneLocations(new []
+            DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
+            duneErosionFailureMechanism.SetDuneLocations(new[]
             {
-                duneLocation1, 
+                duneLocation1,
                 duneLocation2
             });
 
@@ -339,7 +340,19 @@ namespace Ringtoets.Integration.Service.Test
             grassHydraulicBoundaryLocationCalculation5.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             grassHydraulicBoundaryLocationCalculation6.Output = new TestHydraulicBoundaryLocationCalculationOutput();
 
-            var expectedAffectedItems = new List<IObservable>
+            DuneLocationCalculation duneLocationCalculation1 = duneErosionFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation2 = duneErosionFailureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation3 = duneErosionFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation4 = duneErosionFailureMechanism.CalculationsForLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+            DuneLocationCalculation duneLocationCalculation5 = duneErosionFailureMechanism.CalculationsForFactorizedLowerLimitNorm.First(c => ReferenceEquals(c.DuneLocation, duneLocation1));
+
+            duneLocationCalculation1.Output = new TestDuneLocationCalculationOutput();
+            duneLocationCalculation2.Output = new TestDuneLocationCalculationOutput();
+            duneLocationCalculation3.Output = new TestDuneLocationCalculationOutput();
+            duneLocationCalculation4.Output = new TestDuneLocationCalculationOutput();
+            duneLocationCalculation5.Output = new TestDuneLocationCalculationOutput();
+
+            var expectedAffectedItems = new IObservable[]
             {
                 hydraulicBoundaryLocationCalculation1,
                 hydraulicBoundaryLocationCalculation2,
@@ -355,7 +368,12 @@ namespace Ringtoets.Integration.Service.Test
                 grassHydraulicBoundaryLocationCalculation4,
                 grassHydraulicBoundaryLocationCalculation5,
                 grassHydraulicBoundaryLocationCalculation6,
-                duneLocation1
+                duneLocation1,
+                duneLocationCalculation1,
+                duneLocationCalculation2,
+                duneLocationCalculation3,
+                duneLocationCalculation4,
+                duneLocationCalculation5
             };
 
             // Call
@@ -380,6 +398,11 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsFalse(grassHydraulicBoundaryLocationCalculation6.HasOutput);
 
             Assert.IsNull(duneLocation1.Calculation.Output);
+            Assert.IsNull(duneLocationCalculation1.Output);
+            Assert.IsNull(duneLocationCalculation2.Output);
+            Assert.IsNull(duneLocationCalculation3.Output);
+            Assert.IsNull(duneLocationCalculation4.Output);
+            Assert.IsNull(duneLocationCalculation5.Output);
         }
 
         [Test]

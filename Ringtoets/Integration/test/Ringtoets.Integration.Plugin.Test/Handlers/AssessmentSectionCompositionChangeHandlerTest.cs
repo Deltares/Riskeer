@@ -218,7 +218,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             Assert.True(calculationsWithOutput.All(c => c.HasOutput),
                         "All calculations that had output still have them.");
 
-            Assert.True(duneLocationCalculationsWithOutput.All(calc => calc.Output != null));
+            Assert.True(duneLocationCalculationsWithOutput.All(HasDuneErosionLocationCalculationOutput));
             Assert.True(hydraulicBoundaryLocationCalculationsWithOutput.All(calc => calc.HasOutput));
 
             CollectionAssert.IsEmpty(affectedObjects);
@@ -598,7 +598,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         #endregion
 
-        #region Dune Erosion Failure Mechanism Helpers
+        #region Dune Erosion failure mechanism Helpers
 
         private static IEnumerable<IObservable> GetAllAffectedDuneErosionLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
