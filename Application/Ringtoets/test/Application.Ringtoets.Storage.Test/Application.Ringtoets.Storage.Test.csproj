@@ -48,7 +48,7 @@
     <Compile Include="Create\BackgroundDataCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\DuneLocationOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\DuneErosion\DuneLocationCalculationOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeHeightOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensionsTest.cs" />

@@ -48,7 +48,7 @@ namespace Ringtoets.DuneErosion.Data
         /// <summary>
         /// Gets or sets the output of the calculation.
         /// </summary>
-        public DuneLocationOutput Output { get; set; }
+        public DuneLocationCalculationOutput Output { get; set; }
 
         /// <summary>
         /// Gets the dune location the calculation belongs to.

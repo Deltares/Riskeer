@@ -1045,7 +1045,7 @@ namespace Ringtoets.Integration.TestUtil
                 {
                     Calculation =
                     {
-                        Output = new TestDuneLocationOutput()
+                        Output = new TestDuneLocationCalculationOutput()
                     }
                 },
                 new TestDuneLocation()
@@ -1054,11 +1054,11 @@ namespace Ringtoets.Integration.TestUtil
             failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocationCalculations(duneLocations);
 
-            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
 
             AddFailureMechanismSections(failureMechanism);
         }

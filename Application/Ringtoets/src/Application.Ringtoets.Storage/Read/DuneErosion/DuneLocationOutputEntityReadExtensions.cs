@@ -27,18 +27,18 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
 {
     /// <summary>
     /// Extension methods for <see cref="DuneLocationOutputEntity"/> related to creating 
-    /// a <see cref="DuneLocationOutput"/>.
+    /// a <see cref="DuneLocationCalculationOutput"/>.
     /// </summary>
     internal static class DuneLocationOutputEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="DuneLocationOutputEntity"/> and use the information to construct a <see cref="DuneLocationOutput"/>.
+        /// Read the <see cref="DuneLocationOutputEntity"/> and use the information to construct a <see cref="DuneLocationCalculationOutput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="DuneLocationOutputEntity"/> to create <see cref="DuneLocationOutput"/> for.</param>
-        /// <returns>A new <see cref="DuneLocationOutput"/>.</returns>
-        internal static DuneLocationOutput Read(this DuneLocationOutputEntity entity)
+        /// <param name="entity">The <see cref="DuneLocationOutputEntity"/> to create <see cref="DuneLocationCalculationOutput"/> for.</param>
+        /// <returns>A new <see cref="DuneLocationCalculationOutput"/>.</returns>
+        internal static DuneLocationCalculationOutput Read(this DuneLocationOutputEntity entity)
         {
-            return new DuneLocationOutput((CalculationConvergence) entity.CalculationConvergence, new DuneLocationOutput.ConstructionProperties
+            return new DuneLocationCalculationOutput((CalculationConvergence) entity.CalculationConvergence, new DuneLocationCalculationOutput.ConstructionProperties
             {
                 WaterLevel = entity.WaterLevel.ToNullAsNaN(),
                 WaveHeight = entity.WaveHeight.ToNullAsNaN(),

@@ -113,7 +113,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
                     D50 = 0.000123
                 }))
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                    Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationCalculationOutput.ConstructionProperties
                     {
                         WaterLevel = 1.23,
                         WaveHeight = 2.34,

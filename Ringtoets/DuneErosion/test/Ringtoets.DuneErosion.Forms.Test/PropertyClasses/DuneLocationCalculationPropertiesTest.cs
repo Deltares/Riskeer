@@ -127,9 +127,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
 
-            var output = new DuneLocationOutput(
+            var output = new DuneLocationCalculationOutput(
                 convergence,
-                new DuneLocationOutput.ConstructionProperties
+                new DuneLocationCalculationOutput.ConstructionProperties
                 {
                     WaterLevel = waterLevel,
                     WaveHeight = waveHeight,

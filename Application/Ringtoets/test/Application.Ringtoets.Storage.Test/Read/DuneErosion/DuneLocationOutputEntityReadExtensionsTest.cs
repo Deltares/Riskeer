@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             };
 
             // Call
-            DuneLocationOutput output = entity.Read();
+            DuneLocationCalculationOutput output = entity.Read();
 
             // Assert
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             };
 
             // Call
-            DuneLocationOutput output = entity.Read();
+            DuneLocationCalculationOutput output = entity.Read();
 
             // Assert
             Assert.IsNaN(output.WaterLevel);

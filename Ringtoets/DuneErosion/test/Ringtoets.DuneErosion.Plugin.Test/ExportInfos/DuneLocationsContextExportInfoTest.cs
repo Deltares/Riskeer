@@ -146,7 +146,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
             {
                 new DuneLocationCalculation(new TestDuneLocation())
                 {
-                    Output = new TestDuneLocationOutput()
+                    Output = new TestDuneLocationCalculationOutput()
                 }
             };
             var context = new DuneLocationCalculationsContext(duneLocationCalculations,

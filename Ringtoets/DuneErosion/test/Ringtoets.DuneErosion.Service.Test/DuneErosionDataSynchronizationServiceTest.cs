@@ -233,7 +233,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 Calculation =
                 {
-                    Output = new TestDuneLocationOutput()
+                    Output = new TestDuneLocationCalculationOutput()
                 }
             };
 
@@ -278,31 +278,21 @@ namespace Ringtoets.DuneErosion.Service.Test
             failureMechanism.DuneLocations.AddRange(duneLocations);
             failureMechanism.SetDuneLocationCalculations(duneLocations);
 
-            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+            failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+            failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+
+            IEnumerable<IObservable> expectedAffectedCalculations = 
+                DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(failureMechanism);
 
             // Assert
-            var expectedAffectedCalculations = new[]
-            {
-                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First(),
-                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First(),
-                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First(),
-                failureMechanism.CalculationsForLowerLimitNorm.First(),
-                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First()
-            };
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
-
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
+            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(failureMechanism);
         }
     }
 }

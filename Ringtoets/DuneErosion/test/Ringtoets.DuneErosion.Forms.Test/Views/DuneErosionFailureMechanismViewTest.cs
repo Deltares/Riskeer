@@ -341,7 +341,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde waterstand"]);
 
                 // Call
-                duneLocation.Calculation.Output = new TestDuneLocationOutput();
+                duneLocation.Calculation.Output = new TestDuneLocationCalculationOutput();
                 duneLocation.NotifyObservers();
 
                 // Assert

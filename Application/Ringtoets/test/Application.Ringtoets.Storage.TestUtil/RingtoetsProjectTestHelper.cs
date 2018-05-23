@@ -833,8 +833,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 Calculation =
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.NotCalculated,
-                                                    new DuneLocationOutput.ConstructionProperties())
+                    Output = new DuneLocationCalculationOutput(CalculationConvergence.NotCalculated,
+                                                               new DuneLocationCalculationOutput.ConstructionProperties())
                 }
             };
 
@@ -849,17 +849,17 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 Calculation =
                 {
-                    Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged,
-                                                    new DuneLocationOutput.ConstructionProperties
-                                                    {
-                                                        WaterLevel = 10,
-                                                        WaveHeight = 20,
-                                                        WavePeriod = 30,
-                                                        TargetProbability = 0.4,
-                                                        TargetReliability = 50,
-                                                        CalculatedProbability = 0.6,
-                                                        CalculatedReliability = 70
-                                                    })
+                    Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged,
+                                                               new DuneLocationCalculationOutput.ConstructionProperties
+                                                               {
+                                                                   WaterLevel = 10,
+                                                                   WaveHeight = 20,
+                                                                   WavePeriod = 30,
+                                                                   TargetProbability = 0.4,
+                                                                   TargetReliability = 50,
+                                                                   CalculatedProbability = 0.6,
+                                                                   CalculatedReliability = 70
+                                                               })
                 }
             };
 

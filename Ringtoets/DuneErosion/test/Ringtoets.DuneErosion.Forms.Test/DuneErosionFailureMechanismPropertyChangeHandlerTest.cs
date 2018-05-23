@@ -320,7 +320,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
 
         private static void SetCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
-            var output = new TestDuneLocationOutput();
+            var output = new TestDuneLocationCalculationOutput();
             calculations.First().Output = output;
         }
 
@@ -389,7 +389,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             {
                 Calculation =
                 {
-                    Output = new TestDuneLocationOutput()
+                    Output = new TestDuneLocationCalculationOutput()
                 }
             };
         }

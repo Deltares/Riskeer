@@ -239,15 +239,15 @@ namespace Ringtoets.DuneErosion.Service.Test
                 double targetReliability = StatisticsConverter.ProbabilityToReliability(norm);
                 double calculatedProbability = StatisticsConverter.ReliabilityToProbability(calculator.ReliabilityIndex);
 
-                DuneLocationOutput duneLocationOutput = duneLocationCalculation.Output;
-                Assert.IsNotNull(duneLocationOutput);
-                Assert.AreEqual(calculator.ReliabilityIndex, duneLocationOutput.CalculatedReliability.Value);
-                Assert.AreEqual(calculatedProbability, duneLocationOutput.CalculatedProbability);
-                Assert.AreEqual(norm, duneLocationOutput.TargetProbability);
-                Assert.AreEqual(targetReliability, duneLocationOutput.TargetReliability, duneLocationOutput.TargetReliability.GetAccuracy());
-                Assert.AreEqual(calculator.WaterLevel, duneLocationOutput.WaterLevel, duneLocationOutput.WaterLevel.GetAccuracy());
-                Assert.AreEqual(calculator.WaveHeight, duneLocationOutput.WaveHeight, duneLocationOutput.WaveHeight.GetAccuracy());
-                Assert.AreEqual(calculator.WavePeriod, duneLocationOutput.WavePeriod, duneLocationOutput.WavePeriod.GetAccuracy());
+                DuneLocationCalculationOutput actualCalculationOutput = duneLocationCalculation.Output;
+                Assert.IsNotNull(actualCalculationOutput);
+                Assert.AreEqual(calculator.ReliabilityIndex, actualCalculationOutput.CalculatedReliability.Value);
+                Assert.AreEqual(calculatedProbability, actualCalculationOutput.CalculatedProbability);
+                Assert.AreEqual(norm, actualCalculationOutput.TargetProbability);
+                Assert.AreEqual(targetReliability, actualCalculationOutput.TargetReliability, actualCalculationOutput.TargetReliability.GetAccuracy());
+                Assert.AreEqual(calculator.WaterLevel, actualCalculationOutput.WaterLevel, actualCalculationOutput.WaterLevel.GetAccuracy());
+                Assert.AreEqual(calculator.WaveHeight, actualCalculationOutput.WaveHeight, actualCalculationOutput.WaveHeight.GetAccuracy());
+                Assert.AreEqual(calculator.WavePeriod, actualCalculationOutput.WavePeriod, actualCalculationOutput.WavePeriod.GetAccuracy());
             }
 
             mockRepository.VerifyAll();

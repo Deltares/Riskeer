@@ -93,9 +93,9 @@ namespace Ringtoets.DuneErosion.IO
             return string.Join(separator, stringComponents);
         }
 
-        private static IEnumerable<string> GetOutputValues(DuneLocationOutput output)
+        private static IEnumerable<string> GetOutputValues(DuneLocationCalculationOutput calculationOutput)
         {
-            return output == null
+            return calculationOutput == null
                        ? new[]
                        {
                            Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
@@ -104,9 +104,9 @@ namespace Ringtoets.DuneErosion.IO
                        }
                        : new[]
                        {
-                           GetOutputValue(output.WaterLevel),
-                           GetOutputValue(output.WaveHeight),
-                           GetOutputValue(output.WavePeriod)
+                           GetOutputValue(calculationOutput.WaterLevel),
+                           GetOutputValue(calculationOutput.WaveHeight),
+                           GetOutputValue(calculationOutput.WavePeriod)
                        };
         }
 

@@ -148,7 +148,7 @@ namespace Ringtoets.DuneErosion.Service
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    duneLocationCalculation.Output = CreateDuneLocationOutput(duneLocationName, calculationInput.Beta, norm);
+                    duneLocationCalculation.Output = CreateDuneLocationCalculationOutput(duneLocationName, calculationInput.Beta, norm);
                 }
             }
             catch (HydraRingCalculationException)
@@ -202,10 +202,10 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocationName">The name of the location.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
-        /// <returns>A <see cref="DuneLocationOutput"/>.</returns>
+        /// <returns>A <see cref="DuneLocationCalculationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private DuneLocationOutput CreateDuneLocationOutput(string duneLocationName, double targetReliability, double targetProbability)
+        private DuneLocationCalculationOutput CreateDuneLocationCalculationOutput(string duneLocationName, double targetReliability, double targetProbability)
         {
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
@@ -217,17 +217,17 @@ namespace Ringtoets.DuneErosion.Service
                 log.WarnFormat(Resources.DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_DuneLocation_0_not_converged, duneLocationName);
             }
 
-            return new DuneLocationOutput(converged,
-                                          new DuneLocationOutput.ConstructionProperties
-                                          {
-                                              WaterLevel = calculator.WaterLevel,
-                                              WaveHeight = calculator.WaveHeight,
-                                              WavePeriod = calculator.WavePeriod,
-                                              TargetProbability = targetProbability,
-                                              TargetReliability = targetReliability,
-                                              CalculatedProbability = probability,
-                                              CalculatedReliability = reliability
-                                          });
+            return new DuneLocationCalculationOutput(converged,
+                                                     new DuneLocationCalculationOutput.ConstructionProperties
+                                                     {
+                                                         WaterLevel = calculator.WaterLevel,
+                                                         WaveHeight = calculator.WaveHeight,
+                                                         WavePeriod = calculator.WavePeriod,
+                                                         TargetProbability = targetProbability,
+                                                         TargetReliability = targetReliability,
+                                                         CalculatedProbability = probability,
+                                                         CalculatedReliability = reliability
+                                                     });
         }
 
         /// <summary>

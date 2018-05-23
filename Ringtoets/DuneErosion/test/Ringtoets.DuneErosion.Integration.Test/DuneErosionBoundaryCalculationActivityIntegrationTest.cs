@@ -132,7 +132,7 @@ namespace Ringtoets.DuneErosion.Integration.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
-            var initialOutput = new TestDuneLocationOutput();
+            var initialOutput = new TestDuneLocationCalculationOutput();
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
             {
                 Output = initialOutput

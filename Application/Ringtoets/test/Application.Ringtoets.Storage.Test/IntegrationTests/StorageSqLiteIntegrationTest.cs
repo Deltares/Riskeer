@@ -1069,10 +1069,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedLocation.Offset, actualLocation.Offset);
             Assert.AreEqual(expectedLocation.Orientation, actualLocation.Orientation);
             Assert.AreEqual(expectedLocation.D50, actualLocation.D50);
-            AssertDuneBoundaryLocationOutput(expectedLocation.Calculation.Output, actualLocation.Calculation.Output);
+            AssertDuneLocationCalculationOutput(expectedLocation.Calculation.Output, actualLocation.Calculation.Output);
         }
 
-        private static void AssertDuneBoundaryLocationOutput(DuneLocationOutput expectedOutput, DuneLocationOutput actualOutput)
+        private static void AssertDuneLocationCalculationOutput(DuneLocationCalculationOutput expectedOutput, DuneLocationCalculationOutput actualOutput)
         {
             if (expectedOutput == null)
             {

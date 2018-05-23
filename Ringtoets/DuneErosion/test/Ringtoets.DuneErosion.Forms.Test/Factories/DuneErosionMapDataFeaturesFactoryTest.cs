@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
             {
                 Calculation =
                 {
-                    Output = new TestDuneLocationOutput()
+                    Output = new TestDuneLocationCalculationOutput()
                 }
             }).Cast<DuneLocation>().ToArray();
 

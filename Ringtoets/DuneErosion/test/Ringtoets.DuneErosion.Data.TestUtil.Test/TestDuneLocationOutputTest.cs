@@ -31,10 +31,10 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
         public void Constructor_ExpectedValues()
         {
             // Call
-            var output = new TestDuneLocationOutput();
+            var output = new TestDuneLocationCalculationOutput();
 
             // Assert
-            Assert.IsInstanceOf<DuneLocationOutput>(output);
+            Assert.IsInstanceOf<DuneLocationCalculationOutput>(output);
             Assert.AreEqual(0, output.WaterLevel.Value);
             Assert.AreEqual(0, output.WaveHeight.Value);
             Assert.AreEqual(0, output.WavePeriod.Value);

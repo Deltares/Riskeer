@@ -80,12 +80,12 @@ namespace Ringtoets.DuneErosion.IO.Test
 
             var calculationWithUncalculatedOutput = new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
             {
-                Output = CreateDuneLocationOutputForExport(double.NaN, double.NaN, double.NaN)
+                Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
             };
 
             var calculationWithOutput = new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
             {
-                Output = CreateDuneLocationOutputForExport(5.89, 14.11, 8.53)
+                Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
             };
 
             DuneLocationCalculation[] duneLocationCalculations =
@@ -142,9 +142,9 @@ namespace Ringtoets.DuneErosion.IO.Test
             }
         }
 
-        private static DuneLocationOutput CreateDuneLocationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
+        private static DuneLocationCalculationOutput CreateDuneLocationCalculationOutputForExport(double waterLevel, double wavePeriod, double waveHeight)
         {
-            return new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+            return new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationCalculationOutput.ConstructionProperties
             {
                 WaterLevel = waterLevel,
                 WavePeriod = wavePeriod,

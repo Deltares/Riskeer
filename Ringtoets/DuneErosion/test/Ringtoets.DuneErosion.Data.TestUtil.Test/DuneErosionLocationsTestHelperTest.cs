@@ -65,7 +65,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
                 {
                     Calculation =
                     {
-                        Output = new TestDuneLocationOutput()
+                        Output = new TestDuneLocationCalculationOutput()
                     }
                 },
                 new TestDuneLocation()
@@ -81,11 +81,11 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             DuneLocationCalculation calculation4 = failureMechanism.CalculationsForLowerLimitNorm.First();
             DuneLocationCalculation calculation5 = failureMechanism.CalculationsForFactorizedLowerLimitNorm.First();
 
-            calculation1.Output = new TestDuneLocationOutput();
-            calculation2.Output = new TestDuneLocationOutput();
-            calculation3.Output = new TestDuneLocationOutput();
-            calculation4.Output = new TestDuneLocationOutput();
-            calculation5.Output = new TestDuneLocationOutput();
+            calculation1.Output = new TestDuneLocationCalculationOutput();
+            calculation2.Output = new TestDuneLocationCalculationOutput();
+            calculation3.Output = new TestDuneLocationCalculationOutput();
+            calculation4.Output = new TestDuneLocationCalculationOutput();
+            calculation5.Output = new TestDuneLocationCalculationOutput();
 
             // Call
             IEnumerable<IObservable> actualObjects =

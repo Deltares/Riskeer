@@ -50,7 +50,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             });
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
             {
-                Output = new DuneLocationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationOutput.ConstructionProperties
+                Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationCalculationOutput.ConstructionProperties
                 {
                     WaterLevel = 3.0,
                     WaveHeight = 4.0,

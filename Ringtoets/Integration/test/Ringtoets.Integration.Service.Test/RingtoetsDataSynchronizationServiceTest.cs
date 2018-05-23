@@ -257,7 +257,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 Calculation =
                 {
-                    Output = new TestDuneLocationOutput()
+                    Output = new TestDuneLocationCalculationOutput()
                 }
             };
             var duneLocation2 = new TestDuneLocation();
@@ -1685,7 +1685,7 @@ namespace Ringtoets.Integration.Service.Test
             {
                 Calculation =
                 {
-                    Output = hasOutput ? new TestDuneLocationOutput() : null
+                    Output = hasOutput ? new TestDuneLocationCalculationOutput() : null
                 }
             };
 
@@ -1699,11 +1699,11 @@ namespace Ringtoets.Integration.Service.Test
 
             if (hasOutput)
             {
-                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationOutput();
-                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationOutput();
-                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-                failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationOutput();
-                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationOutput();
+                failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
+                failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
+                failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+                failureMechanism.CalculationsForLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
+                failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
             }
         }
     }

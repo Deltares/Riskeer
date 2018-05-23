@@ -180,7 +180,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 
             // Assert
             Assert.IsNotNull(location);
-            AssertDuneLocationOutput(duneLocationOutputEntity, location.Calculation.Output);
+            AssertDuneLocationCalculationOutput(duneLocationOutputEntity, location.Calculation.Output);
         }
 
         [Test]
@@ -202,7 +202,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             Assert.AreSame(location1, location2);
         }
 
-        private static void AssertDuneLocationOutput(DuneLocationOutputEntity expected, DuneLocationOutput actual)
+        private static void AssertDuneLocationCalculationOutput(DuneLocationOutputEntity expected, DuneLocationCalculationOutput actual)
         {
             if (expected == null)
             {

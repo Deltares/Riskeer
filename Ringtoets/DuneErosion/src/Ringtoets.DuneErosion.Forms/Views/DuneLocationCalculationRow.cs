@@ -100,7 +100,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="DuneLocationOutput.WaterLevel"/>.
+        /// Gets the <see cref="DuneLocationCalculationOutput.WaterLevel"/>.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaterLevel
@@ -112,7 +112,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="DuneLocationOutput.WaveHeight"/>.
+        /// Gets the <see cref="DuneLocationCalculationOutput.WaveHeight"/>.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaveHeight
@@ -124,7 +124,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="DuneLocationOutput.WavePeriod"/>.
+        /// Gets the <see cref="DuneLocationCalculationOutput.WavePeriod"/>.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WavePeriod
