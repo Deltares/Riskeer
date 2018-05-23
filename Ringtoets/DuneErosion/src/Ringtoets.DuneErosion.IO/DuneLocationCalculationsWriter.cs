@@ -34,14 +34,14 @@ using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources
 namespace Ringtoets.DuneErosion.IO
 {
     /// <summary>
-    /// Csv file writer for writing <see cref="DuneLocation"/> objects to *.bnd file.
+    /// Csv file writer for writing <see cref="DuneLocationCalculation"/> objects to *.bnd file.
     /// </summary>
     internal static class DuneLocationCalculationsWriter
     {
         private const string separator = "\t";
 
         /// <summary>
-        /// Writes dune locations to a bnd file.
+        /// Writes dune location calculations to a bnd file.
         /// </summary>
         /// <param name="duneLocationCalculations">The dune location calculations to be written to the file.</param>
         /// <param name="filePath">The path to the file.</param>
