@@ -42,7 +42,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetAllDuneErosionLocationCalculationsWithOutput_FailureMechanismWithoutHydraulicBoundaryLocationCalculations_ReturnsEmpty()
+        public void GetAllDuneErosionLocationCalculationsWithOutput_FailureMechanismWithoutDuneLocationCalculations_ReturnsEmpty()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -56,7 +56,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetAllDuneErosionLocationCalculationsWithOutput_FailureMechanismWithHydraulicBoundaryCalculations_ReturnsCalculationsWithOutput()
+        public void GetAllDuneErosionLocationCalculationsWithOutput_FailureMechanismWithDuneLocationCalculations_ReturnsCalculationsWithOutput()
         {
             // Setup
             var duneLocations = new[]
@@ -101,6 +101,17 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
                 calculation5
             };
             CollectionAssert.AreEquivalent(expectedObjects, actualObjects);
+        }
+
+        [Test]
+        public void AssertDuneLocationCalculationsHaveNoOutputs_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
     }
 }

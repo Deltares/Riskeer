@@ -37,8 +37,8 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// Gets all the <see cref="DuneLocation"/> and <see cref="DuneLocationCalculation"/>
         /// that have an output within the <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to retrieve the dune erosion location and calculations from.</param>
-        /// <returns>A collection of all the dune erosion location and calculations that contain an output.</returns>
+        /// <param name="failureMechanism">The failure mechanism to retrieve the dune erosion locations and calculations from.</param>
+        /// <returns>A collection of all the dune erosion locations and calculations that contain an output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> GetAllDuneErosionLocationCalculationsWithOutput(DuneErosionFailureMechanism failureMechanism)
         {
@@ -57,22 +57,27 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         }
 
         /// <summary>
-        /// Asserts if all the dune erosion location and calculations within the <paramref name="failureMechanism"/>
+        /// Asserts if all the dune erosion locations and calculations within the <paramref name="failureMechanism"/>
         /// have no outputs.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        /// <exception cref="AssertionException">Thrown when any of the dune erosion location and calculations within the 
+        /// <exception cref="AssertionException">Thrown when any of the dune erosion locations and calculations within the 
         /// <paramref name="failureMechanism"/> contains output.</exception>
         public static void AssertDuneLocationCalculationsHaveNoOutputs(DuneErosionFailureMechanism failureMechanism)
         {
-            Assert.True(failureMechanism.DuneLocations.All(dl => dl.Calculation.Output == null));
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
 
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
-            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
+            Assert.True(failureMechanism.DuneLocations.All(dl => !HasDuneErosionLocationCalculationOutput(dl.Calculation)));
+
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasDuneErosionLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => !HasDuneErosionLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => !HasDuneErosionLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => !HasDuneErosionLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => !HasDuneErosionLocationCalculationOutput(calc)));
         }
 
         private static bool HasDuneErosionLocationCalculationOutput(DuneLocationCalculation calculation)
