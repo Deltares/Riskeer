@@ -276,7 +276,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocations.AddRange(duneLocations);
-            failureMechanism.SetDuneLocationCalculations(duneLocations);
+            failureMechanism.SetDuneLocations(duneLocations);
 
             failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
             failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();

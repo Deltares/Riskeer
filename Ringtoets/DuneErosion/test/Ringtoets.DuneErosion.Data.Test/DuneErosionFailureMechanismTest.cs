@@ -98,13 +98,13 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void SetDuneLocationCalculations_DuneLocationsNull_ThrowsArgumentNullException()
+        public void SetDuneLocations_DuneLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.SetDuneLocationCalculations(null);
+            TestDelegate test = () => failureMechanism.SetDuneLocations(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -112,17 +112,18 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void SetDuneLocationCalculations_Always_PreviousCalculationsCleared()
+        public void SetDuneLocations_Always_PreviousLocationsAndCalculationsCalculationsCleared()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            failureMechanism.SetDuneLocationCalculations(new DuneLocation[]
+            failureMechanism.SetDuneLocations(new DuneLocation[]
             {
                 new TestDuneLocation()
             });
 
             // Precondition
+            CollectionAssert.IsNotEmpty(failureMechanism.DuneLocations);
             CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
             CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
             CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
@@ -130,9 +131,10 @@ namespace Ringtoets.DuneErosion.Data.Test
             CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
 
             // Call
-            failureMechanism.SetDuneLocationCalculations(Enumerable.Empty<DuneLocation>());
+            failureMechanism.SetDuneLocations(Enumerable.Empty<DuneLocation>());
 
             // Assert
+            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
@@ -141,7 +143,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void SetDuneLocationCalculations_MultipleDuneLocations_SetsExpectedCalculations()
+        public void SetDuneLocations_MultipleDuneLocations_SetsExpectedLocationsAndCalculations()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -154,9 +156,11 @@ namespace Ringtoets.DuneErosion.Data.Test
             };
 
             // Call
-            failureMechanism.SetDuneLocationCalculations(duneLocations);
+            failureMechanism.SetDuneLocations(duneLocations);
 
             // Assert
+            CollectionAssert.AreEqual(duneLocations, failureMechanism.DuneLocations);
+
             AssertNumberOfDuneLocationCalculations(failureMechanism, duneLocations.Length);
             AssertDuneLocationCalculations(failureMechanism, 0, duneLocation1);
             AssertDuneLocationCalculations(failureMechanism, 1, duneLocation2);

@@ -134,20 +134,22 @@ namespace Ringtoets.DuneErosion.Data
         }
 
         /// <summary>
-        /// Sets dune location calculations for <paramref name="duneLocations"/>.
+        /// Sets dune locations and calculations for the failure mechanism.
         /// </summary>
-        /// <param name="duneLocations">The dune locations to add calculations for.</param>
+        /// <param name="duneLocations">The dune locations to add to the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
-        public void SetDuneLocationCalculations(IEnumerable<DuneLocation> duneLocations)
+        public void SetDuneLocations(IEnumerable<DuneLocation> duneLocations)
         {
             if (duneLocations == null)
             {
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
+            ClearAllLocations();
             ClearAllCalculations();
             foreach (DuneLocation duneLocation in duneLocations)
             {
+                DuneLocations.Add(duneLocation);
                 AddCalculationsForDuneLocation(duneLocation);
             }
         }
@@ -163,6 +165,11 @@ namespace Ringtoets.DuneErosion.Data
         {
             base.ClearAllSections();
             sectionResults.Clear();
+        }
+
+        private void ClearAllLocations()
+        {
+            DuneLocations.Clear();
         }
 
         private void ClearAllCalculations()

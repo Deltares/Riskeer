@@ -1695,7 +1695,7 @@ namespace Ringtoets.Integration.Service.Test
             };
 
             failureMechanism.DuneLocations.AddRange(duneLocations);
-            failureMechanism.SetDuneLocationCalculations(duneLocations);
+            failureMechanism.SetDuneLocations(duneLocations);
 
             if (hasOutput)
             {

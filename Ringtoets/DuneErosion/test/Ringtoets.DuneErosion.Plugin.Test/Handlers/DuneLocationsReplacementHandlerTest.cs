@@ -102,7 +102,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.Handlers
             };
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.DuneLocations.AddRange(duneLocations);
-            failureMechanism.SetDuneLocationCalculations(duneLocations);
+            failureMechanism.SetDuneLocations(duneLocations);
 
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 

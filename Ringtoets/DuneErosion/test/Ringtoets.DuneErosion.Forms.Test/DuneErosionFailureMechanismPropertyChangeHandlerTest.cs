@@ -315,7 +315,7 @@ namespace Ringtoets.DuneErosion.Forms.Test
             };
 
             failureMechanism.DuneLocations.AddRange(duneLocations);
-            failureMechanism.SetDuneLocationCalculations(duneLocations);
+            failureMechanism.SetDuneLocations(duneLocations);
         }
 
         private static void SetCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
