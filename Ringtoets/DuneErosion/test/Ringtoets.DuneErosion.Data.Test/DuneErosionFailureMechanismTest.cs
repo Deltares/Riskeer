@@ -165,6 +165,35 @@ namespace Ringtoets.DuneErosion.Data.Test
             AssertDuneLocationCalculations(failureMechanism, 1, duneLocation2);
         }
 
+        [Test]
+        public void ClearDuneLocationData_MultipleDuneLocations_ClearsAllDuneLocationsAndCalculations()
+        {
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new DuneLocation[]
+            {
+                new TestDuneLocation()
+            });
+
+            // Precondition
+            CollectionAssert.IsNotEmpty(failureMechanism.DuneLocations);
+            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
+
+            // Call
+            failureMechanism.ClearDuneLocationData();
+
+            // Assert
+            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
+        }
+
         private static void AssertNumberOfDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism, int expectedNumberOfCalculations)
         {
             Assert.AreEqual(expectedNumberOfCalculations, failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Count());

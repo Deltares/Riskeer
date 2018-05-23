@@ -69,6 +69,7 @@ namespace Ringtoets.DuneErosion.Service
                 throw new ArgumentNullException(nameof(duneLocations));
             }
 
+            failureMechanism.ClearDuneLocationData();
             if (hydraulicBoundaryLocations.Count == 0 || !duneLocations.Any())
             {
                 return;
@@ -94,7 +95,6 @@ namespace Ringtoets.DuneErosion.Service
                     correspondingDuneLocations.Add(duneLocation);
                 }
             }
-
             failureMechanism.SetDuneLocations(correspondingDuneLocations);
         }
 
