@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.ClosingStructures), row.ClosingStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.PipingStructure), row.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StabilityPointStructures), row.StabilityPointStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StrengthStabilityLengthwise), row.StrengthStabilityLengthwise);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StrengthStabilityLengthwiseConstruction), row.StrengthStabilityLengthwise);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.DuneErosion), row.DuneErosion);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.TechnicalInnovation), row.TechnicalInnovation);
         }
@@ -157,7 +157,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     ClosingStructures = categoryGroup,
                     PipingStructure = categoryGroup,
                     StabilityPointStructures = categoryGroup,
-                    StrengthStabilityLengthwise = categoryGroup,
+                    StrengthStabilityLengthwiseConstruction = categoryGroup,
                     DuneErosion = categoryGroup,
                     TechnicalInnovation = categoryGroup
                 });
@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                     ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                    StrengthStabilityLengthwise = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                    StrengthStabilityLengthwiseConstruction = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     TechnicalInnovation = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
                 });

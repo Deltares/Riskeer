@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.ClosingStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.StabilityPointStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.StrengthStabilityLengthwise);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.StrengthStabilityLengthwiseConstruction);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.DuneErosion);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, result.TechnicalInnovation);
         }
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                                                                                ClosingStructures = closingStructuresResult,
                                                                                PipingStructure = pipingStructureResult,
                                                                                StabilityPointStructures = stabilityPointStructuresResult,
-                                                                               StrengthStabilityLengthwise = strengthStabilityLengthwiseResult,
+                                                                               StrengthStabilityLengthwiseConstruction = strengthStabilityLengthwiseResult,
                                                                                DuneErosion = duneErosionResult,
                                                                                TechnicalInnovation = technicalInnovationResult
                                                                            });
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             Assert.AreEqual(closingStructuresResult, result.ClosingStructures);
             Assert.AreEqual(pipingStructureResult, result.PipingStructure);
             Assert.AreEqual(stabilityPointStructuresResult, result.StabilityPointStructures);
-            Assert.AreEqual(strengthStabilityLengthwiseResult, result.StrengthStabilityLengthwise);
+            Assert.AreEqual(strengthStabilityLengthwiseResult, result.StrengthStabilityLengthwiseConstruction);
             Assert.AreEqual(duneErosionResult, result.DuneErosion);
             Assert.AreEqual(technicalInnovationResult, result.TechnicalInnovation);
         }

@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Data.Assembly
             ClosingStructures = properties.ClosingStructures;
             PipingStructure = properties.PipingStructure;
             StabilityPointStructures = properties.StabilityPointStructures;
-            StrengthStabilityLengthwise = properties.StrengthStabilityLengthwise;
+            StrengthStabilityLengthwiseConstruction = properties.StrengthStabilityLengthwiseConstruction;
             DuneErosion = properties.DuneErosion;
             TechnicalInnovation = properties.TechnicalInnovation;
         }
@@ -166,9 +166,9 @@ namespace Ringtoets.Integration.Data.Assembly
         public FailureMechanismSectionAssemblyCategoryGroup StabilityPointStructures { get; }
 
         /// <summary>
-        /// Gets the assembly result for strength stability lengthwise.
+        /// Gets the assembly result for strength stability lengthwise construction.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup StrengthStabilityLengthwise { get; }
+        public FailureMechanismSectionAssemblyCategoryGroup StrengthStabilityLengthwiseConstruction { get; }
 
         /// <summary>
         /// Gets the assembly result for dune erosion.
@@ -205,7 +205,7 @@ namespace Ringtoets.Integration.Data.Assembly
                 ClosingStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
                 PipingStructure = FailureMechanismSectionAssemblyCategoryGroup.None;
                 StabilityPointStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
-                StrengthStabilityLengthwise = FailureMechanismSectionAssemblyCategoryGroup.None;
+                StrengthStabilityLengthwiseConstruction = FailureMechanismSectionAssemblyCategoryGroup.None;
                 DuneErosion = FailureMechanismSectionAssemblyCategoryGroup.None;
                 TechnicalInnovation = FailureMechanismSectionAssemblyCategoryGroup.None;
             }
@@ -286,9 +286,9 @@ namespace Ringtoets.Integration.Data.Assembly
             public FailureMechanismSectionAssemblyCategoryGroup StabilityPointStructures { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the assembly result for strength stability lengthwise.
+            /// Gets or sets the assembly result for strength stability lengthwise construction.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup StrengthStabilityLengthwise { internal get; set; }
+            public FailureMechanismSectionAssemblyCategoryGroup StrengthStabilityLengthwiseConstruction { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for dune erosion.

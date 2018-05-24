@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Data.Assembly
                 StabilityPointStructures = failureMechanisms.ContainsKey(assessmentSection.StabilityPointStructures)
                                                ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures])
                                                : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                StrengthStabilityLengthwise = failureMechanisms.ContainsKey(assessmentSection.StrengthStabilityLengthwiseConstruction)
+                StrengthStabilityLengthwiseConstruction = failureMechanisms.ContainsKey(assessmentSection.StrengthStabilityLengthwiseConstruction)
                                                   ? failureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StrengthStabilityLengthwiseConstruction])
                                                   : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
                 DuneErosion = failureMechanisms.ContainsKey(assessmentSection.DuneErosion)

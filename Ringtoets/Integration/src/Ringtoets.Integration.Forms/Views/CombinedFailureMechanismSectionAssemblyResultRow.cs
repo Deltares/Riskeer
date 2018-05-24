@@ -286,7 +286,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwise);
+                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwiseConstruction);
             }
         }
 
@@ -363,7 +363,7 @@ namespace Ringtoets.Integration.Forms.Views
             ColumnStateDefinitions[closingStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
             ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
-            ColumnStateDefinitions[strengthStabilityLengthwiseIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwise);
+            ColumnStateDefinitions[strengthStabilityLengthwiseIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwiseConstruction);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
             ColumnStateDefinitions[technicalInnovationIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
         }

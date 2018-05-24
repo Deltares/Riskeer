@@ -136,6 +136,16 @@ namespace Ringtoets.Integration.Data.Assembly
             }
         }
 
+        /// <summary>
+        /// Assembles the combined failure mechanism sections.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section that contains all
+        /// the failure mechanism sections to assemble.</param>
+        /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>
+        /// cannot be created.</exception>
         public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> AssembleCombinedPerFailureMechanismSection(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
