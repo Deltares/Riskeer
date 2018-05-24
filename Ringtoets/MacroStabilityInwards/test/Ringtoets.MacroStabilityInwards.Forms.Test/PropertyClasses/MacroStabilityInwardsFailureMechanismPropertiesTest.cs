@@ -41,10 +41,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
         private const int groupPropertyIndex = 2;
         private const int contributionPropertyIndex = 3;
         private const int isRelevantPropertyIndex = 4;
-        private const int aPropertyIndex = 5;
-        private const int bPropertyIndex = 6;
-        private const int sectionLengthPropertyIndex = 7;
-        private const int nPropertyIndex = 8;
+        private const int modelFactorPropertyIndex = 5;
+        private const int aPropertyIndex = 6;
+        private const int bPropertyIndex = 7;
+        private const int sectionLengthPropertyIndex = 8;
+        private const int nPropertyIndex = 9;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -111,6 +112,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -145,6 +147,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Is relevant",
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                            true);
+
+            PropertyDescriptor modelFactorProperty = dynamicProperties[modelFactorPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorProperty,
+                                                                            generalCategory,
+                                                                            "Modelfactor [-]",
+                                                                            "Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor.",
                                                                             true);
 
             PropertyDescriptor aProperty = dynamicProperties[aPropertyIndex];
@@ -299,6 +308,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.SectionLength)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactor)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }

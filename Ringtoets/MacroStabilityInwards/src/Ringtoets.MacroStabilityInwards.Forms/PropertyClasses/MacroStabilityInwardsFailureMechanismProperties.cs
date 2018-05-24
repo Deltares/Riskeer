@@ -26,6 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
@@ -40,10 +41,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private const int groupPropertyIndex = 3;
         private const int contributionPropertyIndex = 4;
         private const int isRelevantPropertyIndex = 5;
-        private const int aPropertyIndex = 6;
-        private const int bPropertyIndex = 7;
-        private const int sectionLengthPropertyIndex = 8;
-        private const int nPropertyIndex = 9;
+        private const int modelFactorPropertyIndex = 6;
+        private const int aPropertyIndex = 7;
+        private const int bPropertyIndex = 8;
+        private const int sectionLengthPropertyIndex = 9;
+        private const int nPropertyIndex = 10;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
@@ -60,6 +62,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             Data = data;
         }
 
+        #region Model settings
+
+        [DynamicVisible]
+        [PropertyOrder(modelFactorPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsFailureMechanismProperties_ModelFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsFailureMechanismProperties_ModelFactor_Description))]
+        public double ModelFactor
+        {
+            get
+            {
+                return data.GeneralInput.ModelFactor;
+            }
+        }
+
+        #endregion
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -72,7 +91,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
                    || nameof(A).Equals(propertyName)
                    || nameof(B).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName);
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ModelFactor).Equals(propertyName);
         }
 
         #region General

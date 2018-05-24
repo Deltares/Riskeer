@@ -745,4 +745,10 @@
   <data name="Unit_None" xml:space="preserve">
     <value>[-]</value>
   </data>
+  <data name="MacroStabilityInwardsFailureMechanismProperties_ModelFactor_Description" xml:space="preserve">
+    <value>Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor.</value>
+  </data>
+  <data name="MacroStabilityInwardsFailureMechanismProperties_ModelFactor_DisplayName" xml:space="preserve">
+    <value>Modelfactor [-]</value>
+  </data>
 </root>
