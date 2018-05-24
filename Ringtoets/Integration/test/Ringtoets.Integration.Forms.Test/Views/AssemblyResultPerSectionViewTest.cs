@@ -127,11 +127,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
                 Assert.IsEmpty(errorProvider.GetError(button));
+                Assert.AreEqual(4, errorProvider.GetIconPadding(button));
 
                 ErrorProvider warningProvider = GetWarningProvider(view);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.warning.ToBitmap(), warningProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, warningProvider.BlinkStyle);
                 Assert.IsEmpty(warningProvider.GetError(button));
+                Assert.AreEqual(4, warningProvider.GetIconPadding(button));
 
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
@@ -189,6 +191,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Properties.Enabled = true;
+
                 DataGridView dataGridView = GetDataGridView();
                 dataGridView.CellFormatting += (sender, args) =>
                 {
