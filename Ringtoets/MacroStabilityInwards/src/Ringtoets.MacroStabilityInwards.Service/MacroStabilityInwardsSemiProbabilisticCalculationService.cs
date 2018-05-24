@@ -76,14 +76,17 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// probabilistic calculation is successful, <see cref="MacroStabilityInwardsCalculation.SemiProbabilisticOutput"/> is set.</param>
         /// <param name="probabilityAssessmentInput">General input that influences the probability estimate for a
         /// macro stability inwards assessment.</param>
+        /// <param name="generalInput">General input that influences the probability estimate for a
+        /// macro stability inwards assessment.</param>
         /// <param name="norm">The norm to assess for.</param>
         /// <param name="contribution">The contribution of macro stability inwards as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="probabilityAssessmentInput"/>
-        /// is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>, <paramref name="probabilityAssessmentInput"/>
+        /// or <paramref name="generalInput"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when calculation has no output from a macro stability inwards calculation.</exception>
         public static void Calculate(MacroStabilityInwardsCalculation calculation,
                                      MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput,
+                                     GeneralMacroStabilityInwardsInput generalInput,
                                      double norm, double contribution)
         {
             if (calculation == null)
@@ -94,6 +97,11 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 throw new ArgumentNullException(nameof(probabilityAssessmentInput));
             }
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
+
             var calculator = new MacroStabilityInwardsSemiProbabilisticCalculationService(
                 norm,
                 probabilityAssessmentInput.A,

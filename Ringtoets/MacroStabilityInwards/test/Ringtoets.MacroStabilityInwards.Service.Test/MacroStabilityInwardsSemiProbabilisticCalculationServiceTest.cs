@@ -40,6 +40,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Call
             TestDelegate call = () => MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(null,
                                                                                                          new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                                                         new GeneralMacroStabilityInwardsInput(),
                                                                                                          random.NextDouble(),
                                                                                                          random.NextDouble());
 
@@ -57,12 +58,31 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             // Call
             TestDelegate call = () => MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(new MacroStabilityInwardsCalculation(),
                                                                                                          null,
+                                                                                                         new GeneralMacroStabilityInwardsInput(),
                                                                                                          random.NextDouble(),
                                                                                                          random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
+        }
+
+        [Test]
+        public void Calculate_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            TestDelegate call = () => MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(new MacroStabilityInwardsCalculation(),
+                                                                                                         new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                                                         null,
+                                                                                                         random.NextDouble(),
+                                                                                                         random.NextDouble());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -81,9 +101,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 SectionLength = assessmentSectionLength
             };
             MacroStabilityInwardsCalculation calculation = AsMacroStabilityInwardsCalculation(calculatorResult);
+            var generalInput = new GeneralMacroStabilityInwardsInput();
             double norm = 1.0 / returnPeriod;
 
-            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, probabilityAssessmentInput, norm, contribution);
+            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, probabilityAssessmentInput,
+                                                                               generalInput, norm, contribution);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.RequiredReliability;
@@ -107,9 +129,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 SectionLength = assessmentSectionLength
             };
             MacroStabilityInwardsCalculation calculation = AsMacroStabilityInwardsCalculation(calculatorResult);
+            var generalInput = new GeneralMacroStabilityInwardsInput();
             double norm = 1.0 / returnPeriod;
 
-            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, probabilityAssessmentInput, norm, contribution);
+            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, probabilityAssessmentInput,
+                                                                               generalInput, norm, contribution);
 
             // Call
             double result = calculation.SemiProbabilisticOutput.RequiredProbability;
@@ -138,9 +162,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 SectionLength = assessmentSectionLength
             };
             MacroStabilityInwardsCalculation calculation = AsMacroStabilityInwardsCalculation(calculatorResult);
+            var generalInput = new GeneralMacroStabilityInwardsInput();
             double norm = 1.0 / returnPeriod;
 
-            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, probabilityAssessmentInput, norm, contribution);
+            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, probabilityAssessmentInput,
+                                                                               generalInput, norm, contribution);
 
             // Call
             RoundedDouble result = calculation.SemiProbabilisticOutput.MacroStabilityInwardsFactorOfSafety;
@@ -164,11 +190,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 FactorOfStability = factorOfStability
             });
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
+            var generalInput = new GeneralMacroStabilityInwardsInput();
 
             MacroStabilityInwardsCalculation calculation = AsMacroStabilityInwardsCalculation(calculatorResult);
 
             MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation,
                                                                                probabilityAssessmentInput,
+                                                                               generalInput,
                                                                                random.NextDouble(),
                                                                                random.NextDouble());
 
@@ -193,11 +221,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 FactorOfStability = factorOfStability
             });
             var probabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
+            var generalInput = new GeneralMacroStabilityInwardsInput();
 
             MacroStabilityInwardsCalculation calculation = AsMacroStabilityInwardsCalculation(calculatorResult);
 
             MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation,
                                                                                probabilityAssessmentInput,
+                                                                               generalInput,
                                                                                random.NextDouble(),
                                                                                random.NextDouble());
             // Call

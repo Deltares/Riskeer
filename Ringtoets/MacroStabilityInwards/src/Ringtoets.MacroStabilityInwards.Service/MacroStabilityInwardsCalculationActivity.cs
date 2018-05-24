@@ -78,7 +78,8 @@ namespace Ringtoets.MacroStabilityInwards.Service
             MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
 
             MacroStabilityInwardsCalculationService.Calculate(calculation);
-            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, macroStabilityInwardsProbabilityAssessmentInput, norm, contribution);
+            MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, macroStabilityInwardsProbabilityAssessmentInput,
+                                                                               new GeneralMacroStabilityInwardsInput(), norm, contribution);
         }
 
         protected override void OnCancel()
