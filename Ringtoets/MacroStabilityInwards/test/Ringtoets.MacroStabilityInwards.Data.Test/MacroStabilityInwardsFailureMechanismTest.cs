@@ -51,6 +51,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             Assert.AreEqual("Dijken en dammen - Macrostabiliteit binnenwaarts", failureMechanism.Name);
             Assert.AreEqual("STBI", failureMechanism.Code);
 
+            Assert.IsNotNull(failureMechanism.GeneralInput);
+
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);

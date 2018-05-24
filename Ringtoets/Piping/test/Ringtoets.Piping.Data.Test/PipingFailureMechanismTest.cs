@@ -51,7 +51,7 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual("Dijken en dammen - Piping", failureMechanism.Name);
             Assert.AreEqual("STPH", failureMechanism.Code);
 
-            Assert.IsInstanceOf<GeneralPipingInput>(failureMechanism.GeneralInput);
+            Assert.IsNotNull(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
             Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
