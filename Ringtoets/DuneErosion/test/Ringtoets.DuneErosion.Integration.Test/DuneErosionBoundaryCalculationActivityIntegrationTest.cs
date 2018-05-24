@@ -54,10 +54,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
 
             var duneLocation = new TestDuneLocation("A dune location name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocationCalculation,
-                                                                      validFilePath,
-                                                                      validPreprocessorDirectory,
-                                                                      1.0 / 30000);
+            var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
+                                                               validFilePath,
+                                                               validPreprocessorDirectory,
+                                                               1.0 / 30000);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -107,10 +107,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
             mockRepository.ReplayAll();
 
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocationCalculation,
-                                                                      validFilePath,
-                                                                      validPreprocessorDirectory,
-                                                                      1.0 / 30000);
+            var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
+                                                               validFilePath,
+                                                               validPreprocessorDirectory,
+                                                               1.0 / 30000);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -137,10 +137,10 @@ namespace Ringtoets.DuneErosion.Integration.Test
             {
                 Output = initialOutput
             };
-            var activity = new DuneErosionBoundaryCalculationActivity(duneLocationCalculation,
-                                                                      validFilePath,
-                                                                      validPreprocessorDirectory,
-                                                                      1.0 / 30000);
+            var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
+                                                               validFilePath,
+                                                               validPreprocessorDirectory,
+                                                               1.0 / 30000);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {

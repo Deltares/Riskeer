@@ -88,10 +88,10 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
 
             ActivityProgressDialogRunner.Run(
                 viewParent,
-                calculations.Select(calculation => new DuneErosionBoundaryCalculationActivity(calculation,
-                                                                                              hydraulicBoundaryDatabaseFilePath,
-                                                                                              preprocessorDirectory,
-                                                                                              norm)).ToArray());
+                calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
+                                                                                       hydraulicBoundaryDatabaseFilePath,
+                                                                                       preprocessorDirectory,
+                                                                                       norm)).ToArray());
         }
     }
 }

@@ -15,7 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DuneErosionBoundaryCalculationActivity.cs" />
+    <Compile Include="DuneLocationCalculationActivity.cs" />
     <Compile Include="DuneErosionBoundaryCalculationService.cs" />
     <Compile Include="DuneErosionDataSynchronizationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
