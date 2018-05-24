@@ -178,10 +178,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        [TestCase(0.75)]
-        [TestCase(0.55)]
-        [TestCase(0.30)]
-        public void MacroStabilityInwardsReliability_DifferentInputs_ReturnsExpectedValues(double factorOfStability)
+        [TestCase(0.75, 1.98365)]
+        [TestCase(0.55, 0.72579)]
+        [TestCase(0.30, -0.84654)]
+        public void MacroStabilityInwardsReliability_DifferentInputs_ReturnsExpectedValues(double factorOfStability,
+                                                                                           double expectedResult)
         {
             // Setup
             var random = new Random(21);
@@ -204,13 +205,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             RoundedDouble result = calculation.SemiProbabilisticOutput.MacroStabilityInwardsReliability;
 
             // Assert
-            Assert.AreEqual(GetDerivedEstimatedReliability(factorOfStability), result, result.GetAccuracy());
+            Assert.AreEqual(expectedResult, result, result.GetAccuracy());
         }
 
         [Test]
-        [TestCase(0.75, 0.037743005)]
-        [TestCase(0.55, 0.2961520790)]
-        [TestCase(0.30, 0.845423280)]
+        [TestCase(0.75, 0.023647)]
+        [TestCase(0.55, 0.233984)]
+        [TestCase(0.30, 0.801374)]
         public void MacroStabilityInwardsProbability_DifferentInputs_ReturnsExpectedValues(double factorOfStability,
                                                                                            double expectedResult)
         {
@@ -237,11 +238,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             int nrOfDecimals = calculation.SemiProbabilisticOutput.MacroStabilityInwardsReliability.NumberOfDecimalPlaces;
             double accuracy = Math.Pow(10, -nrOfDecimals);
             Assert.AreEqual(expectedResult, result, accuracy); // Probability is a derived output from reliability, hence accuracy is determined by the accuracy of the reliability
-        }
-
-        private static double GetDerivedEstimatedReliability(double stabilityFactor)
-        {
-            return (6.21 * stabilityFactor) - 2.88;
         }
 
         private static double GetRequiredProbability(double norm,
