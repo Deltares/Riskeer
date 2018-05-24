@@ -523,20 +523,22 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         {
             IEnumerable<MacroStabilityInwardsCalculation> calculations = GetAllMacroStabilityInwardsCalculations(failureMechanismContext.WrappedData);
             MacroStabilityInwardsProbabilityAssessmentInput assessmentInput = failureMechanismContext.WrappedData.MacroStabilityInwardsProbabilityAssessmentInput;
+            GeneralMacroStabilityInwardsInput generalInput = failureMechanismContext.WrappedData.GeneralInput;
             double norm = failureMechanismContext.Parent.FailureMechanismContribution.Norm;
             double contribution = failureMechanismContext.WrappedData.Contribution;
 
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations, assessmentInput, generalInput, norm, contribution);
         }
 
         private void CalculateAll(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
         {
             MacroStabilityInwardsCalculation[] calculations = group.GetCalculations().OfType<MacroStabilityInwardsCalculation>().ToArray();
             MacroStabilityInwardsProbabilityAssessmentInput assessmentInput = context.FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
+            GeneralMacroStabilityInwardsInput generalInput = context.FailureMechanism.GeneralInput;
             double norm = context.AssessmentSection.FailureMechanismContribution.Norm;
             double contribution = context.FailureMechanism.Contribution;
 
-            CalculateAll(calculations, assessmentInput, norm, contribution);
+            CalculateAll(calculations, assessmentInput, generalInput, norm, contribution);
         }
 
         private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations)
@@ -548,6 +550,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         }
 
         private void CalculateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, MacroStabilityInwardsProbabilityAssessmentInput assessmentInput,
+                                  GeneralMacroStabilityInwardsInput generalInput,
                                   double norm, double contribution)
         {
             ActivityProgressDialogRunner.Run(
@@ -555,7 +558,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 calculations
                     .Select(pc => new MacroStabilityInwardsCalculationActivity(pc,
                                                                                assessmentInput,
-                                                                               new GeneralMacroStabilityInwardsInput(),
+                                                                               generalInput,
                                                                                norm,
                                                                                contribution))
                     .ToList());
@@ -790,7 +793,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new MacroStabilityInwardsCalculationActivity(calculation,
                                                                                           context.FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
-                                                                                          new GeneralMacroStabilityInwardsInput(),
+                                                                                          context.FailureMechanism.GeneralInput,
                                                                                           context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                                           context.FailureMechanism.Contribution));
         }
