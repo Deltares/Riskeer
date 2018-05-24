@@ -108,6 +108,9 @@ namespace Ringtoets.Integration.Forms.Views
             if (!RefreshAssemblyResultsButton.Enabled)
             {
                 RefreshAssemblyResultsButton.Enabled = true;
+                warningProvider.SetIconPadding(RefreshAssemblyResultsButton,
+                                               errorProvider.GetError(RefreshAssemblyResultsButton) == string.Empty
+                                                   ? 4 : 24);
                 warningProvider.SetError(RefreshAssemblyResultsButton,
                                          Resources.AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
             }

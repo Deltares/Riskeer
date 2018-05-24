@@ -30,7 +30,9 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -224,7 +226,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
-                view.AssessmentSection.NotifyObservers();
+                assessmentSection.NotifyObservers();
 
                 // Precondition
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -260,7 +262,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                view.AssessmentSection.NotifyObservers();
+                assessmentSection.NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
@@ -273,7 +275,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            var assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
@@ -286,8 +289,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
-                failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
+                IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+                failureMechanisms[random.Next(failureMechanisms.Length)].NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
@@ -320,6 +323,42 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
                 Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+            }
+        }
+
+        [Test]
+        [TestCase(true, 24)]
+        [TestCase(false, 4)]
+        public void GivenFormWithAssemblyResultPerSectionView_WithOrWithoutErrorSetAndObserverNotified_ThenWarningSetWithPadding(bool withError, int expectedPadding)
+        {
+            // Given
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+                new Random(21).NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory )AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = withError;
+
+                using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
+                {
+                    // Precondition
+                    ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                    Button button = buttonTester.Properties;
+                    Assert.IsFalse(button.Enabled);
+                    ErrorProvider errorProvider = GetErrorProvider(view);
+                    Assert.AreEqual(withError, !string.IsNullOrEmpty(errorProvider.GetError(button)));
+                    ErrorProvider warningProvider = GetWarningProvider(view);
+                    Assert.IsEmpty(warningProvider.GetError(button));
+
+                    // When
+                    assessmentSection.NotifyObservers();
+
+                    // Then
+                    Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
+                    Assert.AreEqual(expectedPadding, warningProvider.GetIconPadding(button));
+                }
             }
         }
 
