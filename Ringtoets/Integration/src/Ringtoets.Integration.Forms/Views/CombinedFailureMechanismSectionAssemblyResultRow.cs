@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
-        /// [m]
+        /// [km]
         /// </summary>
         public RoundedDouble SectionStart
         {
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         /// <summary>
         /// Gets the end of the section from the beginning of the reference line.
-        /// [m]
+        /// [km]
         /// </summary>
         public RoundedDouble SectionEnd
         {

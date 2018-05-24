@@ -27,10 +27,10 @@ namespace Ringtoets.AssemblyTool.Data
     public class CombinedAssemblyFailureMechanismSection
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CombinedFailureMechanismSectionAssembly"/>.
+        /// Creates a new instance of <see cref="CombinedAssemblyFailureMechanismSection"/>.
         /// </summary>
-        /// <param name="sectionStart">The start of the section from the beginning of the reference line.</param>
-        /// <param name="sectionEnd">The end of the section from the beginning of the reference line.</param>
+        /// <param name="sectionStart">The start of the section from the beginning of the reference line in meters.</param>
+        /// <param name="sectionEnd">The end of the section from the beginning of the reference line in meters.</param>
         /// <param name="categoryGroup">The category group assembly.</param>
         public CombinedAssemblyFailureMechanismSection(double sectionStart, double sectionEnd, FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
@@ -41,13 +41,13 @@ namespace Ringtoets.AssemblyTool.Data
 
         /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
-        /// [km]
+        /// [m]
         /// </summary>
         public double SectionStart { get; }
 
         /// <summary>
         /// Gets the end of the section from the beginning of the reference line.
-        /// [km]
+        /// [m]
         /// </summary>
         public double SectionEnd { get; }
 
