@@ -83,7 +83,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void ParemeteredConstructor_GeneralInputNull_ThrowsArgumentNullException()
+        public void ParameteredConstructor_GeneralInputNull_ThrowsArgumentNullException()
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculation();

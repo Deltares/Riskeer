@@ -48,7 +48,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <param name="norm">The norm to assess for.</param>
         /// <param name="contribution">The contribution of macro stability inwards as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/>,
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>,
         /// <paramref name="macroStabilityInwardsProbabilityAssessmentInput"/> or <paramref name="generalInput"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsProbabilityAssessmentInput macroStabilityInwardsProbabilityAssessmentInput,
                                                         GeneralMacroStabilityInwardsInput generalInput, double norm, double contribution)

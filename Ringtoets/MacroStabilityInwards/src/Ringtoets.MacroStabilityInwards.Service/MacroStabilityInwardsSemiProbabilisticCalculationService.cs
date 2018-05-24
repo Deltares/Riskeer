@@ -35,9 +35,9 @@ namespace Ringtoets.MacroStabilityInwards.Service
         private readonly double constantB;
         private readonly double assessmentSectionLength;
         private readonly double contribution;
-
         private readonly double stabilityFactor;
         private readonly double modelFactor;
+
         private double macroStabilityInwardsProbability;
         private double macroStabilityInwardsReliability;
 
@@ -54,8 +54,8 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <param name="contribution">The contribution of macro stability inwards to the total failure.</param>
-        /// <param name="stabilityFactor">The stability factor of the calculation result.</param>
-        /// <param name="modelFactor">The model factor of the calculation result.</param>
+        /// <param name="stabilityFactor">The stability factor.</param>
+        /// <param name="modelFactor">The model factor.</param>
         private MacroStabilityInwardsSemiProbabilisticCalculationService(double norm,
                                                                          double constantA,
                                                                          double constantB,
@@ -111,7 +111,8 @@ namespace Ringtoets.MacroStabilityInwards.Service
                 probabilityAssessmentInput.A,
                 probabilityAssessmentInput.B,
                 probabilityAssessmentInput.SectionLength,
-                contribution / 100, calculation.Output.FactorOfStability,
+                contribution / 100,
+                calculation.Output.FactorOfStability,
                 generalInput.ModelFactor);
 
             calculator.Calculate();
