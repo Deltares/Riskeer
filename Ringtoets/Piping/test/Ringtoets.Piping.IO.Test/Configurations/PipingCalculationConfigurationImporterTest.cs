@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -43,6 +44,29 @@ namespace Ringtoets.Piping.IO.Test.Configurations
     {
         private readonly string readerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, nameof(PipingCalculationConfigurationReader));
         private readonly string importerPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO, nameof(PipingCalculationConfigurationImporter));
+
+        private static IEnumerable<TestCaseData> ValidConfigurationInvalidData
+        {
+            get
+            {
+                yield return new TestCaseData("validConfigurationInvalidEntryExitPoint.xml",
+                                              "Een waarde van '2,2' als uittredepunt is ongeldig. Het uittredepunt moet landwaarts van het intredepunt liggen.");
+                yield return new TestCaseData("validConfigurationExitPointNotOnSurfaceLine.xml",
+                                              "Een waarde van '200,2' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).");
+                yield return new TestCaseData("validConfigurationEntryPointNotOnSurfaceLine.xml",
+                                              "Een waarde van '-10' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).");
+                yield return new TestCaseData("validConfigurationCalculationContainingInfinityEntryPoint.xml",
+                                              $"Een waarde van '{double.NegativeInfinity}' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).");
+                yield return new TestCaseData("validConfigurationCalculationContainingInfinityExitPoint.xml",
+                                              $"Een waarde van '{double.PositiveInfinity}' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).");
+                yield return new TestCaseData("validConfigurationInvalidStandardDeviationPhreaticLevelExit.xml",
+                                              "Een standaardafwijking van '-1' is ongeldig voor stochast 'polderpeil'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                yield return new TestCaseData("validConfigurationInvalidMeanDampingFactorExit.xml",
+                                              "Een gemiddelde van '-1' is ongeldig voor stochast 'dempingsfactor'. Gemiddelde moet groter zijn dan 0.");
+                yield return new TestCaseData("validConfigurationInvalidStandardDeviationDampingFactorExit.xml",
+                                              "Een standaardafwijking van '-1' is ongeldig voor stochast 'dempingsfactor'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+            }
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -87,22 +111,7 @@ namespace Ringtoets.Piping.IO.Test.Configurations
 
         [Test]
         [SetCulture("nl-NL")]
-        [TestCase("validConfigurationInvalidEntryExitPoint.xml",
-            "Een waarde van '2,2' als uittredepunt is ongeldig. Het uittredepunt moet landwaarts van het intredepunt liggen.")]
-        [TestCase("validConfigurationExitPointNotOnSurfaceLine.xml",
-            "Een waarde van '200,2' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        [TestCase("validConfigurationEntryPointNotOnSurfaceLine.xml",
-            "Een waarde van '-10' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        [TestCase("validConfigurationCalculationContainingInfinityEntryPoint.xml",
-            "Een waarde van '-Infinity' als intredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        [TestCase("validConfigurationCalculationContainingInfinityExitPoint.xml",
-            "Een waarde van 'Infinity' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).")]
-        [TestCase("validConfigurationInvalidStandardDeviationPhreaticLevelExit.xml",
-            "Een standaardafwijking van '-1' is ongeldig voor stochast 'polderpeil'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
-        [TestCase("validConfigurationInvalidMeanDampingFactorExit.xml",
-            "Een gemiddelde van '-1' is ongeldig voor stochast 'dempingsfactor'. Gemiddelde moet groter zijn dan 0.")]
-        [TestCase("validConfigurationInvalidStandardDeviationDampingFactorExit.xml",
-            "Een standaardafwijking van '-1' is ongeldig voor stochast 'dempingsfactor'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.")]
+        [TestCaseSource(nameof(ValidConfigurationInvalidData))]
         public void Import_ValidConfigurationInvalidData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

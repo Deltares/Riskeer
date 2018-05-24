@@ -34,15 +34,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         [Test]
         [TestCaseSource(nameof(GetFileNamesWithSpecialCharacters))]
-        public void GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException(char specialCharacter,
-                                                                                  string sourceFile,
+        public void GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException(string sourceFile,
                                                                                   string newVersion)
         {
             // Given
-            string sourceFilePath = CreateSourceFilePathWithSpecialCharacter(sourceFile, specialCharacter);
+            string fileToCopy = Path.Combine(testDataPath, sourceFile);
+            string sourceFilePath = TestHelper.GetScratchPadPath($"\'[]!`~@#$%^€&()-_=+;, {sourceFile}");
+            File.Copy(fileToCopy, sourceFilePath, true);
+
+            // Precondition
+            Assert.IsTrue(File.Exists(sourceFilePath));
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
-            string name = $"{nameof(GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException)} {specialCharacter}";
+            string name = $"{nameof(GivenProject_WhenSpecialCharacterInPath_DoesNotThrowException)} \'[]!`~@#$%^€&()-_=+;,";
             string targetFilePath = TestHelper.GetScratchPadPath(name);
             string logFilePath = TestHelper.GetScratchPadPath(string.Concat(name, sourceFile, ".log"));
             var migrator = new RingtoetsSqLiteDatabaseFileMigrator
@@ -68,28 +72,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private string CreateSourceFilePathWithSpecialCharacter(string sourceFile, char specialCharacter)
-        {
-            string fileToCopy = Path.Combine(testDataPath, sourceFile);
-            string sourceFilePath = TestHelper.GetScratchPadPath($"{specialCharacter} {sourceFile}");
-            File.Copy(fileToCopy, sourceFilePath, true);
-
-            // Precondition
-            Assert.IsTrue(File.Exists(sourceFilePath));
-            return sourceFilePath;
-        }
-
         private static IEnumerable<TestCaseData> GetFileNamesWithSpecialCharacters()
         {
-            foreach (char character in GetSpecialCharactersToValidate())
+            foreach (FileToMigrate fileToMigrate in GetFilesToMigrate())
             {
-                foreach (FileToMigrate fileToMigrate in GetFilesToMigrate())
-                {
-                    yield return new TestCaseData(character,
-                                                  fileToMigrate.OriginalPath,
-                                                  fileToMigrate.ToVersion)
-                        .SetName($"Migrate{fileToMigrate.OriginalPath}WithChar{character}");
-                }
+                yield return new TestCaseData(fileToMigrate.OriginalPath, fileToMigrate.ToVersion)
+                    .SetName($"Migrate{fileToMigrate.OriginalPath}WithSpecialChars");
             }
         }
 
@@ -97,31 +85,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             yield return new FileToMigrate("Empty valid Release 16.4.rtd", "17.1");
             yield return new FileToMigrate("Empty valid Release 17.1.rtd", "17.2");
-        }
-
-        private static IEnumerable<char> GetSpecialCharactersToValidate()
-        {
-            yield return '\'';
-            yield return '[';
-            yield return ']';
-            yield return '!';
-            yield return '`';
-            yield return '~';
-            yield return '@';
-            yield return '#';
-            yield return '$';
-            yield return '%';
-            yield return '€';
-            yield return '^';
-            yield return '&';
-            yield return '(';
-            yield return ')';
-            yield return '-';
-            yield return '_';
-            yield return '=';
-            yield return '+';
-            yield return ';';
-            yield return ',';
         }
 
         private class FileToMigrate
