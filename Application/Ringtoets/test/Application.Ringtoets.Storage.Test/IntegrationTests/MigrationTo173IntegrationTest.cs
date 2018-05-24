@@ -59,8 +59,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
-
-                    AssertHydraRingPreprocessor(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -69,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            var tables = new[]
+            string[] tables =
             {
                 "AssessmentSectionEntity",
                 "BackgroundDataEntity",
@@ -211,14 +209,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
-        }
-
-        private static void AssertHydraRingPreprocessor(MigratedDatabaseReader reader)
-        {
-            const string validatePreprocessorSettings =
-                "SELECT COUNT() = 0 " +
-                "FROM [HydraRingPreprocessorEntity];";
-            reader.AssertReturnedDataIsValid(validatePreprocessorSettings);
         }
     }
 }
