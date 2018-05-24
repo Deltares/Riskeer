@@ -111,10 +111,10 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void EnableRefreshButton()
         {
-            if (!RefreshAssemblyResultsButton.Enabled)
+            if (!refreshAssemblyResultsButton.Enabled)
             {
-                RefreshAssemblyResultsButton.Enabled = true;
-                warningProvider.SetError(RefreshAssemblyResultsButton,
+                refreshAssemblyResultsButton.Enabled = true;
+                warningProvider.SetError(refreshAssemblyResultsButton,
                                          Resources.AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
             }
         }
@@ -173,8 +173,8 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
-            RefreshAssemblyResultsButton.Enabled = false;
-            warningProvider.SetError(RefreshAssemblyResultsButton, string.Empty);
+            refreshAssemblyResultsButton.Enabled = false;
+            warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
 
             assemblyResultRows.ForEachElementDo(row => row.Update());
             dataGridViewControl.RefreshDataGridView();

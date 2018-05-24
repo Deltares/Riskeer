@@ -519,7 +519,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private ButtonTester GetRefreshAssemblyResultButtonTester()
         {
-            return new ButtonTester("RefreshAssemblyResultsButton", testForm);
+            return new ButtonTester("refreshAssemblyResultsButton", testForm);
         }
 
         private static DataGridView GetDataGridView()

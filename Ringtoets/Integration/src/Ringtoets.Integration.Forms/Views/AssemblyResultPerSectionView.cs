@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="AssessmentSection"/> the view belongs to.
+        /// Gets the <see cref="Integration.Data.AssessmentSection"/> the view belongs to.
         /// </summary>
         public AssessmentSection AssessmentSection { get; }
 
@@ -105,13 +105,13 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void EnableRefreshButton()
         {
-            if (!RefreshAssemblyResultsButton.Enabled)
+            if (!refreshAssemblyResultsButton.Enabled)
             {
-                RefreshAssemblyResultsButton.Enabled = true;
-                warningProvider.SetIconPadding(RefreshAssemblyResultsButton,
-                                               errorProvider.GetError(RefreshAssemblyResultsButton) == string.Empty
+                refreshAssemblyResultsButton.Enabled = true;
+                warningProvider.SetIconPadding(refreshAssemblyResultsButton,
+                                               errorProvider.GetError(refreshAssemblyResultsButton) == string.Empty
                                                    ? 4 : 24);
-                warningProvider.SetError(RefreshAssemblyResultsButton,
+                warningProvider.SetError(refreshAssemblyResultsButton,
                                          Resources.AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
             }
         }
@@ -192,7 +192,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
-            RefreshAssemblyResultsButton.Enabled = false;
+            refreshAssemblyResultsButton.Enabled = false;
             SetDataSource();
         }
 
@@ -207,14 +207,14 @@ namespace Ringtoets.Integration.Forms.Views
             }
             catch (AssemblyException e)
             {
-                errorProvider.SetError(RefreshAssemblyResultsButton, e.Message);
+                errorProvider.SetError(refreshAssemblyResultsButton, e.Message);
             }
         }
 
         private void ClearCurrentData()
         {
-            errorProvider.SetError(RefreshAssemblyResultsButton, string.Empty);
-            warningProvider.SetError(RefreshAssemblyResultsButton, string.Empty);
+            errorProvider.SetError(refreshAssemblyResultsButton, string.Empty);
+            warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
             dataGridViewControl.SetDataSource(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>());
         }
     }

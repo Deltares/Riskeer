@@ -121,7 +121,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(2, view.Controls.Count);
 
-                var button = (Button) new ControlTester("RefreshAssemblyResultsButton").TheObject;
+                var button = (Button) GetRefreshAssemblyResultButtonTester().TheObject;
                 Assert.AreEqual("Assemblageresultaat verversen", button.Text);
                 Assert.IsFalse(button.Enabled);
 
@@ -364,7 +364,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         private ButtonTester GetRefreshAssemblyResultButtonTester()
         {
-            return new ButtonTester("RefreshAssemblyResultsButton", testForm);
+            return new ButtonTester("refreshAssemblyResultsButton", testForm);
         }
 
         private static DataGridView GetDataGridView()

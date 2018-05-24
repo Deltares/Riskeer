@@ -129,7 +129,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
         [Test]
         [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.FailureMechanismSectionAssemblyCategoryGroupColorCases))]
-        public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedStateDefinitionPropertiesSet(
+        public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedColumnStates(
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup,
             Color expectedBackgroundColor)
         {

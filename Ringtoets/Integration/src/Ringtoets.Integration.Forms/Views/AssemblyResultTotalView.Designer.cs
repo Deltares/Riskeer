@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.RefreshAssemblyResultsButton = new System.Windows.Forms.Button();
+            this.refreshAssemblyResultsButton = new System.Windows.Forms.Button();
             this.assemblyResultGroupBox = new System.Windows.Forms.GroupBox();
             this.assemblyResultTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.totalResultLabel = new System.Windows.Forms.Label();
@@ -67,18 +67,18 @@ namespace Ringtoets.Integration.Forms.Views
             this.dataGridViewControl.Size = new System.Drawing.Size(789, 271);
             this.dataGridViewControl.TabIndex = 3;
             // 
-            // RefreshAssemblyResultsButton
+            // refreshAssemblyResultsButton
             // 
-            this.RefreshAssemblyResultsButton.AutoSize = true;
-            this.RefreshAssemblyResultsButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.RefreshAssemblyResultsButton.Enabled = false;
-            this.RefreshAssemblyResultsButton.Location = new System.Drawing.Point(5, 5);
-            this.RefreshAssemblyResultsButton.Name = "RefreshAssemblyResultsButton";
-            this.RefreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 25);
-            this.RefreshAssemblyResultsButton.TabIndex = 0;
-            this.RefreshAssemblyResultsButton.Text = global::Ringtoets.Integration.Forms.Properties.Resources.RefreshAssemblyResultsButton_Text;
-            this.RefreshAssemblyResultsButton.UseVisualStyleBackColor = true;
-            this.RefreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
+            this.refreshAssemblyResultsButton.AutoSize = true;
+            this.refreshAssemblyResultsButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.refreshAssemblyResultsButton.Enabled = false;
+            this.refreshAssemblyResultsButton.Location = new System.Drawing.Point(5, 5);
+            this.refreshAssemblyResultsButton.Name = "refreshAssemblyResultsButton";
+            this.refreshAssemblyResultsButton.Size = new System.Drawing.Size(164, 25);
+            this.refreshAssemblyResultsButton.TabIndex = 0;
+            this.refreshAssemblyResultsButton.Text = global::Ringtoets.Integration.Forms.Properties.Resources.RefreshAssemblyResultsButton_Text;
+            this.refreshAssemblyResultsButton.UseVisualStyleBackColor = true;
+            this.refreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
             // 
             // assemblyResultGroupBox
             // 
@@ -176,7 +176,7 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             // refreshButtonPanel
             // 
-            this.refreshButtonPanel.Controls.Add(this.RefreshAssemblyResultsButton);
+            this.refreshButtonPanel.Controls.Add(this.refreshAssemblyResultsButton);
             this.refreshButtonPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.refreshButtonPanel.Location = new System.Drawing.Point(0, 0);
             this.refreshButtonPanel.Name = "refreshButtonPanel";
@@ -189,7 +189,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.warningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.warningProvider.ContainerControl = this;
             this.warningProvider.Icon = global::Ringtoets.Common.Forms.Properties.Resources.warning;
-            this.warningProvider.SetIconPadding(this.RefreshAssemblyResultsButton, 4);
+            this.warningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
             // AssemblyResultTotalView
             // 
@@ -215,7 +215,7 @@ namespace Ringtoets.Integration.Forms.Views
         #endregion
 
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private System.Windows.Forms.Button RefreshAssemblyResultsButton;
+        private System.Windows.Forms.Button refreshAssemblyResultsButton;
         private System.Windows.Forms.GroupBox assemblyResultGroupBox;
         private System.Windows.Forms.TableLayoutPanel assemblyResultTableLayoutPanel;
         private System.Windows.Forms.Label totalResultLabel;
