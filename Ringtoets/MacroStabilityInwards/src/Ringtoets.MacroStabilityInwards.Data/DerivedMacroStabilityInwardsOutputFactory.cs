@@ -68,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                                                                       contribution);
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
-            double macroStabilityInwardsReliability = CalculateEstimatedReliability(factorOfStability);
+            double macroStabilityInwardsReliability = CalculateEstimatedReliability(factorOfStability, failureMechanism.GeneralInput.ModelFactor);
             double macroStabilityInwardsProbability = StatisticsConverter.ReliabilityToProbability(macroStabilityInwardsReliability);
 
             double macroStabilityInwardsFactorOfSafety = macroStabilityInwardsReliability / requiredReliability;
@@ -97,13 +97,14 @@ namespace Ringtoets.MacroStabilityInwards.Data
 
         /// <summary>
         /// Calculates the estimated reliability of the macro stability inwards failure mechanism 
-        /// based on the stability factor.
+        /// based on the stability factor and model factor.
         /// </summary>
         /// <param name="factorOfStability">The factory of stability to calculate the reliability for.</param>
-        /// <returns>The estimated reliability based on the stability factor.</returns>
-        private static double CalculateEstimatedReliability(double factorOfStability)
+        /// <param name="modelFactor">The model factor of the calculation result.</param>
+        /// <returns>The estimated reliability based on the stability and model factor.</returns>
+        private static double CalculateEstimatedReliability(double factorOfStability, double modelFactor)
         {
-            return (6.21 * factorOfStability) - 2.88;
+            return ((factorOfStability / modelFactor) - 0.41) / 0.15;
         }
     }
 }

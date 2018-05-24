@@ -26,7 +26,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.TestUtil;
@@ -62,7 +61,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
 
                 // Import failure mechanism sections and ensure the data grid view is updated
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
+                MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, dataGridView.Rows.Count);
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
@@ -125,7 +124,11 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                     FactorOfStability = 0.5
                 });
                 calculation1.NotifyObservers();
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
+                string expectedProbability = ProbabilityFormattingHelper.Format(
+                    DerivedMacroStabilityInwardsOutputFactory.Create(calculation1.Output,
+                                                                     failureMechanism,
+                                                                     assessmentSection).MacroStabilityInwardsProbability);
+                Assert.AreEqual(expectedProbability,
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
@@ -133,7 +136,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 var calculation3 = new MacroStabilityInwardsCalculationScenario();
                 nestedCalculationGroup.Children.Add(calculation3);
                 nestedCalculationGroup.NotifyObservers();
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
+                Assert.AreEqual(expectedProbability,
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
@@ -167,7 +170,7 @@ namespace Ringtoets.MacroStabilityInwards.Integration.Test
                 // Set contribution again so we have a probability.
                 calculation1.Contribution = (RoundedDouble) 1.0;
                 calculation1.NotifyObservers();
-                Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5),
+                Assert.AreEqual(expectedProbability,
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 

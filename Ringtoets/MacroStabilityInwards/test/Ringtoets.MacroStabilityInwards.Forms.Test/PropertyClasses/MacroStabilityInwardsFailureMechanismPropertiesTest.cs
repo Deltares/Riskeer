@@ -108,7 +108,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect parameters";
@@ -151,7 +151,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             PropertyDescriptor modelFactorProperty = dynamicProperties[modelFactorPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorProperty,
-                                                                            generalCategory,
+                                                                            modelSettingsCategory,
                                                                             "Modelfactor [-]",
                                                                             "Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor.",
                                                                             true);

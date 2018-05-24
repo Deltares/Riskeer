@@ -109,9 +109,9 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.AreEqual(output.FactorOfStability, derivedOutput.FactorOfStability, derivedOutput.FactorOfStability.GetAccuracy());
-            Assert.AreEqual(0.707, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
-            Assert.AreEqual(0.073605149538226278, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
-            Assert.AreEqual(1.44946, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
+            Assert.AreEqual(0.805, derivedOutput.MacroStabilityInwardsFactorOfSafety, derivedOutput.MacroStabilityInwardsFactorOfSafety.GetAccuracy());
+            Assert.AreEqual(0.049327007121741082, derivedOutput.MacroStabilityInwardsProbability, 1e-6);
+            Assert.AreEqual(1.65141, derivedOutput.MacroStabilityInwardsReliability, derivedOutput.MacroStabilityInwardsReliability.GetAccuracy());
             Assert.AreEqual(0.020161290322580648d, derivedOutput.RequiredProbability, 1e-6);
             Assert.AreEqual(2.05043, derivedOutput.RequiredReliability, derivedOutput.RequiredReliability.GetAccuracy());
             mocks.VerifyAll();

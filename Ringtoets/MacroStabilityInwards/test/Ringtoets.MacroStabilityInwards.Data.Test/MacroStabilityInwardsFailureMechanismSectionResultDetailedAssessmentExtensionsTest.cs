@@ -143,7 +143,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             macroStabilityInwardsCalculationScenario3.IsRelevant = false;
 
-            var calculations = new[]
+            MacroStabilityInwardsCalculationScenario[] calculations =
             {
                 macroStabilityInwardsCalculationScenario1,
                 macroStabilityInwardsCalculationScenario2,
@@ -154,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.99801160064610306, detailedAssessmentProbability, 1e-8);
+            Assert.AreEqual(0.99686512181936182, detailedAssessmentProbability, 1e-8);
             mocks.VerifyAll();
         }
 
@@ -194,7 +194,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section)
             };
@@ -261,7 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             calculationScenario2.Contribution = (RoundedDouble) contribution2;
             calculationScenario2.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
 
-            var calculations = new[]
+            MacroStabilityInwardsCalculationScenario[] calculations =
             {
                 calculationScenario1,
                 calculationScenario2
@@ -350,7 +350,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario3 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(section);
 
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 macroStabilityInwardsCalculationScenario,
                 macroStabilityInwardsCalculationScenario2,
@@ -438,7 +438,7 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
             MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
 
-            var calculationScenarios = new[]
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
             {
                 macroStabilityInwardsCalculationScenario,
                 macroStabilityInwardsCalculationScenario2
