@@ -35,6 +35,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         private readonly double contribution;
         private readonly MacroStabilityInwardsCalculation calculation;
         private readonly MacroStabilityInwardsProbabilityAssessmentInput macroStabilityInwardsProbabilityAssessmentInput;
+        private readonly GeneralMacroStabilityInwardsInput generalInput;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MacroStabilityInwardsCalculationActivity"/> class.
@@ -42,13 +43,15 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// <param name="calculation">The macro stability inwards data used for the calculation.</param>
         /// <param name="macroStabilityInwardsProbabilityAssessmentInput">General input that influences the probability estimate for a
         /// macro stability inwards assessment.</param>
+        /// <param name="generalInput">General input that influences the probability estimate for a
+        /// macro stability inwards assessment.</param>
         /// <param name="norm">The norm to assess for.</param>
         /// <param name="contribution">The contribution of macro stability inwards as a percentage (0-100) to the total of the failure probability
         /// of the assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/> 
-        /// or <paramref name="macroStabilityInwardsProbabilityAssessmentInput"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="calculation"/>,
+        /// <paramref name="macroStabilityInwardsProbabilityAssessmentInput"/> or <paramref name="generalInput"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsProbabilityAssessmentInput macroStabilityInwardsProbabilityAssessmentInput,
-                                                        double norm, double contribution)
+                                                        GeneralMacroStabilityInwardsInput generalInput, double norm, double contribution)
         {
             if (calculation == null)
             {
@@ -58,9 +61,14 @@ namespace Ringtoets.MacroStabilityInwards.Service
             {
                 throw new ArgumentNullException(nameof(macroStabilityInwardsProbabilityAssessmentInput));
             }
+            if (generalInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalInput));
+            }
 
             this.calculation = calculation;
             this.macroStabilityInwardsProbabilityAssessmentInput = macroStabilityInwardsProbabilityAssessmentInput;
+            this.generalInput = generalInput;
             this.norm = norm;
             this.contribution = contribution;
 
@@ -79,7 +87,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
 
             MacroStabilityInwardsCalculationService.Calculate(calculation);
             MacroStabilityInwardsSemiProbabilisticCalculationService.Calculate(calculation, macroStabilityInwardsProbabilityAssessmentInput,
-                                                                               new GeneralMacroStabilityInwardsInput(), norm, contribution);
+                                                                               generalInput, norm, contribution);
         }
 
         protected override void OnCancel()

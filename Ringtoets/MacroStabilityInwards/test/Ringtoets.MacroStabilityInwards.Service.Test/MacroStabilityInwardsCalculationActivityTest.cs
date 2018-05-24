@@ -44,7 +44,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
-            var activity = new MacroStabilityInwardsCalculationActivity(calculation, new MacroStabilityInwardsProbabilityAssessmentInput(), int.MinValue, double.NaN);
+            var activity = new MacroStabilityInwardsCalculationActivity(calculation, new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                        new GeneralMacroStabilityInwardsInput(), int.MinValue, double.NaN);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -57,7 +58,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(null, new MacroStabilityInwardsProbabilityAssessmentInput(), int.MinValue, double.NaN);
+            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(null, new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                                   new GeneralMacroStabilityInwardsInput(), int.MinValue, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -71,11 +73,28 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var calculation = new MacroStabilityInwardsCalculation();
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(calculation, null, int.MinValue, double.NaN);
+            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(calculation, null,
+                                                                                   new GeneralMacroStabilityInwardsInput(),
+                                                                                   int.MinValue, double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("macroStabilityInwardsProbabilityAssessmentInput", exception.ParamName);
+        }
+
+        [Test]
+        public void ParemeteredConstructor_GeneralInputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new MacroStabilityInwardsCalculation();
+
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(calculation, new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                                   null, int.MinValue, double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("generalInput", exception.ParamName);
         }
 
         [Test]
@@ -89,7 +108,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             invalidMacroStabilityInwardsCalculation.Output = originalOutput;
             invalidMacroStabilityInwardsCalculation.SemiProbabilisticOutput = originalSemiProbabilisticOutput;
 
-            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(), int.MinValue, double.NaN);
+            var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                        new GeneralMacroStabilityInwardsInput(), int.MinValue, double.NaN);
 
             // Call
             Action call = () => activity.Run();
@@ -125,7 +145,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(), norm, double.NaN);
+                var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                            new GeneralMacroStabilityInwardsInput(), norm, double.NaN);
                 activity.Run();
 
                 // Call
@@ -162,7 +183,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             validMacroStabilityInwardsCalculation.SemiProbabilisticOutput = null;
             validMacroStabilityInwardsCalculation.Attach(observer);
 
-            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(), int.MinValue, double.NaN);
+            var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation, new MacroStabilityInwardsProbabilityAssessmentInput(),
+                                                                        new GeneralMacroStabilityInwardsInput(), int.MinValue, double.NaN);
 
             activity.Run();
 

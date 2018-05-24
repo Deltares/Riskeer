@@ -555,6 +555,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 calculations
                     .Select(pc => new MacroStabilityInwardsCalculationActivity(pc,
                                                                                assessmentInput,
+                                                                               new GeneralMacroStabilityInwardsInput(),
                                                                                norm,
                                                                                contribution))
                     .ToList());
@@ -789,6 +790,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new MacroStabilityInwardsCalculationActivity(calculation,
                                                                                           context.FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput,
+                                                                                          new GeneralMacroStabilityInwardsInput(),
                                                                                           context.AssessmentSection.FailureMechanismContribution.Norm,
                                                                                           context.FailureMechanism.Contribution));
         }
