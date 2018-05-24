@@ -25,7 +25,7 @@ using Core.Common.Base;
 namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
-    /// Adapter class for a dune erosion calculation.
+    /// Adapter class for a dune location calculation.
     /// </summary>
     public class DuneLocationCalculation : Observable
     {
