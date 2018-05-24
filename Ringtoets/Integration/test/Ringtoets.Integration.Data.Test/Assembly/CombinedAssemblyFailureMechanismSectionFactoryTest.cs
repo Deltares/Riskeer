@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void CreateInput_failureMechanismsNull_ThrowsArgumentNullException()
+        public void CreateInput_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Setup
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         public void CreateInput_WithAllFailureMechanisms_ReturnsInputCollection()
         {
             // Setup
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -76,41 +76,41 @@ namespace Ringtoets.Integration.Data.Test.Assembly
 
                 // Assert
                 Assert.AreEqual(18, inputs.Length);
-                AssertSections(assessmentSection.Piping.SectionResults.ToArray(), inputs[0].ToArray());
-                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults.ToArray(), inputs[1].ToArray());
-                AssertSections(assessmentSection.MacroStabilityInwards.SectionResults.ToArray(), inputs[2].ToArray());
-                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults.ToArray(), inputs[3].ToArray());
-                AssertSections(assessmentSection.Microstability.SectionResults.ToArray(), inputs[4].ToArray());
-                AssertSections(assessmentSection.StabilityStoneCover.SectionResults.ToArray(), inputs[5].ToArray());
-                AssertSections(assessmentSection.WaveImpactAsphaltCover.SectionResults.ToArray(), inputs[6].ToArray());
-                AssertSections(assessmentSection.WaterPressureAsphaltCover.SectionResults.ToArray(), inputs[7].ToArray());
-                AssertSections(assessmentSection.GrassCoverErosionOutwards.SectionResults.ToArray(), inputs[8].ToArray());
-                AssertSections(assessmentSection.GrassCoverSlipOffOutwards.SectionResults.ToArray(), inputs[9].ToArray());
-                AssertSections(assessmentSection.GrassCoverSlipOffInwards.SectionResults.ToArray(), inputs[10].ToArray());
-                AssertSections(assessmentSection.HeightStructures.SectionResults.ToArray(), inputs[11].ToArray());
-                AssertSections(assessmentSection.ClosingStructures.SectionResults.ToArray(), inputs[12].ToArray());
-                AssertSections(assessmentSection.PipingStructure.SectionResults.ToArray(), inputs[13].ToArray());
-                AssertSections(assessmentSection.StabilityPointStructures.SectionResults.ToArray(), inputs[14].ToArray());
-                AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults.ToArray(), inputs[15].ToArray());
-                AssertSections(assessmentSection.DuneErosion.SectionResults.ToArray(), inputs[16].ToArray());
-                AssertSections(assessmentSection.TechnicalInnovation.SectionResults.ToArray(), inputs[17].ToArray());
+                AssertSections(assessmentSection.Piping.SectionResults, inputs[0]);
+                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults, inputs[1]);
+                AssertSections(assessmentSection.MacroStabilityInwards.SectionResults, inputs[2]);
+                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults, inputs[3]);
+                AssertSections(assessmentSection.Microstability.SectionResults, inputs[4]);
+                AssertSections(assessmentSection.StabilityStoneCover.SectionResults, inputs[5]);
+                AssertSections(assessmentSection.WaveImpactAsphaltCover.SectionResults, inputs[6]);
+                AssertSections(assessmentSection.WaterPressureAsphaltCover.SectionResults, inputs[7]);
+                AssertSections(assessmentSection.GrassCoverErosionOutwards.SectionResults, inputs[8]);
+                AssertSections(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, inputs[9]);
+                AssertSections(assessmentSection.GrassCoverSlipOffInwards.SectionResults, inputs[10]);
+                AssertSections(assessmentSection.HeightStructures.SectionResults, inputs[11]);
+                AssertSections(assessmentSection.ClosingStructures.SectionResults, inputs[12]);
+                AssertSections(assessmentSection.PipingStructure.SectionResults, inputs[13]);
+                AssertSections(assessmentSection.StabilityPointStructures.SectionResults, inputs[14]);
+                AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults, inputs[15]);
+                AssertSections(assessmentSection.DuneErosion.SectionResults, inputs[16]);
+                AssertSections(assessmentSection.TechnicalInnovation.SectionResults, inputs[17]);
             }
         }
 
-        private static void AssertSections<T>(T[] originalSectionResults, CombinedAssemblyFailureMechanismSection[] inputSections)
+        private static void AssertSections<T>(IEnumerable<T> originalSectionResults, IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
             where T : FailureMechanismSectionResult
         {
-            Assert.AreEqual(originalSectionResults.Length, inputSections.Length);
+            Assert.AreEqual(originalSectionResults.Count(), inputSections.Count());
 
             double expectedSectionStart = 0;
 
-            for (var i = 0; i < originalSectionResults.Length; i++)
+            for (var i = 0; i < originalSectionResults.Count(); i++)
             {
-                double expectedSectionEnd = expectedSectionStart + originalSectionResults[i].Section.Length;
+                double expectedSectionEnd = expectedSectionStart + originalSectionResults.ElementAt(i).Section.Length;
 
-                Assert.AreEqual(expectedSectionStart, inputSections[i].SectionStart);
-                Assert.AreEqual(expectedSectionEnd, inputSections[i].SectionEnd);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, inputSections[i].CategoryGroup);
+                Assert.AreEqual(expectedSectionStart, inputSections.ElementAt(i).SectionStart);
+                Assert.AreEqual(expectedSectionEnd, inputSections.ElementAt(i).SectionEnd);
+                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.VIv, inputSections.ElementAt(i).CategoryGroup);
 
                 expectedSectionStart = expectedSectionEnd;
             }

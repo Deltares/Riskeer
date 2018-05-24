@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.ClosingStructures), row.ClosingStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.PipingStructure), row.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StabilityPointStructures), row.StabilityPointStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StrengthStabilityLengthwiseConstruction), row.StrengthStabilityLengthwise);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.StrengthStabilityLengthwiseConstruction), row.StrengthStabilityLengthwiseConstruction);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.DuneErosion), row.DuneErosion);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayname(result.TechnicalInnovation), row.TechnicalInnovation);
         }

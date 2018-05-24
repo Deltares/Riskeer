@@ -177,7 +177,7 @@ namespace Ringtoets.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.StabilityPointStructures),
                                                  StabilityPointStructuresDataResources.StabilityPointStructuresFailureMechanism_Code,
                                                  true);
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.StrengthStabilityLengthwise),
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.StrengthStabilityLengthwiseConstruction),
                                                  IntegrationDataResources.StrengthStabilityLengthwiseConstructionFailureMechanism_Code,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.DuneErosion),

@@ -143,7 +143,7 @@ namespace Ringtoets.Integration.TestUtil.Test
         public void GetAssessmenSectionWithAllFailureMechanismSectionsAndResults_DefaultComposition_ReturnAssessmentSection()
         {
             // Call
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults();
 
             // Assert
             AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);
@@ -156,7 +156,7 @@ namespace Ringtoets.Integration.TestUtil.Test
         public void GetAssessmenSectionWithAllFailureMechanismSectionsAndResults_CompositionGiven_ReturnAssessmentSection(AssessmentSectionComposition composition)
         {
             // Call
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(composition);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(composition);
 
             // Assert
             AssertAssessmenSectionWithAllFailureMechanismSectionsAndResults(assessmentSection);

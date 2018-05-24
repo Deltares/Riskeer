@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Views
         private const int closingStructuresIndex = 15;
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
-        private const int strengthStabilityLengthwiseIndex = 18;
+        private const int strengthStabilityLengthwiseConstructionIndex = 18;
         private const int duneErosionIndex = 19;
         private const int technicalInnovationIndex = 20;
 
@@ -280,9 +280,9 @@ namespace Ringtoets.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assembly result for strength stability lengthwise.
+        /// Gets the assembly result for strength stability lengthwise construction.
         /// </summary>
-        public string StrengthStabilityLengthwise
+        public string StrengthStabilityLengthwiseConstruction
         {
             get
             {
@@ -332,7 +332,7 @@ namespace Ringtoets.Integration.Forms.Views
             ColumnStateDefinitions.Add(closingStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(pipingStructureIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(strengthStabilityLengthwiseIndex, CreateDefaultDataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(strengthStabilityLengthwiseConstructionIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, CreateDefaultDataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(technicalInnovationIndex, CreateDefaultDataGridViewColumnStateDefinition());
         }
@@ -363,7 +363,7 @@ namespace Ringtoets.Integration.Forms.Views
             ColumnStateDefinitions[closingStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
             ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
-            ColumnStateDefinitions[strengthStabilityLengthwiseIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwiseConstruction);
+            ColumnStateDefinitions[strengthStabilityLengthwiseConstructionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwiseConstruction);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
             ColumnStateDefinitions[technicalInnovationIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
         }

@@ -309,7 +309,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSection_SetsInputOnCalculator()
         {
             var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -345,7 +345,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         public void AssembleCombinedPerFailureMechanismSection_AssemblyRan_ReturnsOutput()
         {
             var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -402,7 +402,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmensectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(random.NextEnumValue<AssessmentSectionComposition>());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

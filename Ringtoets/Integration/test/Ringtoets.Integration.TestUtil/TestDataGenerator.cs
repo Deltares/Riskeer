@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.TestUtil
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/>
         /// to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
-        public static AssessmentSection GetAssessmensectionWithAllFailureMechanismSectionsAndResults(
+        public static AssessmentSection GetAssessmenSectionWithAllFailureMechanismSectionsAndResults(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             var assessmentSection = new AssessmentSection(composition)
@@ -253,16 +253,14 @@ namespace Ringtoets.Integration.TestUtil
 
         private static ReferenceLine GetReferenceLine()
         {
-            IEnumerable<Point2D> points = new[]
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
             {
                 new Point2D(-1, -1),
                 new Point2D(5, 5),
                 new Point2D(10, 10),
                 new Point2D(-3, 2)
-            };
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(points);
+            });
             return referenceLine;
         }
 
