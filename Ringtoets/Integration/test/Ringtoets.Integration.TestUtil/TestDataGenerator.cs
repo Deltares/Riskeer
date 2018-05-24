@@ -34,7 +34,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
-using Ringtoets.DuneErosion.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -117,7 +116,7 @@ namespace Ringtoets.Integration.TestUtil
         /// <summary>
         /// Gets a fully configured <see cref="AssessmentSection"/> with a desired <see cref="AssessmentSectionComposition"/> and
         /// with all possible configurations of the parent and nested calculations, but without design water level output,
-        /// wave height output and dune erosion output.
+        /// wave height output and dune location calculation output.
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
@@ -126,7 +125,6 @@ namespace Ringtoets.Integration.TestUtil
         {
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(assessmentSection);
-            DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(assessmentSection.DuneErosion);
 
             return assessmentSection;
         }
@@ -154,8 +152,7 @@ namespace Ringtoets.Integration.TestUtil
         public static StabilityStoneCoverFailureMechanism GetStabilityStoneCoverFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation());
 
             return failureMechanism;
         }
@@ -167,8 +164,7 @@ namespace Ringtoets.Integration.TestUtil
         public static WaveImpactAsphaltCoverFailureMechanism GetWaveImpactAsphaltCoverFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation());
 
             return failureMechanism;
         }
@@ -180,7 +176,6 @@ namespace Ringtoets.Integration.TestUtil
         public static GrassCoverErosionOutwardsFailureMechanism GetGrassCoverErosionOutwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation(), new Random(21));
 
             return failureMechanism;
@@ -193,8 +188,7 @@ namespace Ringtoets.Integration.TestUtil
         public static HeightStructuresFailureMechanism GetHeightStructuresFailureMechanismWithAlLCalculationConfigurations()
         {
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation());
 
             return failureMechanism;
         }
@@ -206,8 +200,7 @@ namespace Ringtoets.Integration.TestUtil
         public static ClosingStructuresFailureMechanism GetClosingStructuresFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation());
 
             return failureMechanism;
         }
@@ -219,8 +212,7 @@ namespace Ringtoets.Integration.TestUtil
         public static StabilityPointStructuresFailureMechanism GetStabilityPointStructuresFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation());
 
             return failureMechanism;
         }
@@ -232,8 +224,7 @@ namespace Ringtoets.Integration.TestUtil
         public static GrassCoverErosionInwardsFailureMechanism GetGrassCoverErosionInwardsFailureMechanismWithAllCalculationConfigurations()
         {
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            SetFullyConfiguredFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+            SetFullyConfiguredFailureMechanism(failureMechanism, new TestHydraulicBoundaryLocation());
 
             return failureMechanism;
         }
@@ -1048,7 +1039,6 @@ namespace Ringtoets.Integration.TestUtil
                         Output = new TestDuneLocationCalculationOutput()
                     }
                 },
-                new TestDuneLocation()
             };
             failureMechanism.SetDuneLocations(duneLocations);
 
