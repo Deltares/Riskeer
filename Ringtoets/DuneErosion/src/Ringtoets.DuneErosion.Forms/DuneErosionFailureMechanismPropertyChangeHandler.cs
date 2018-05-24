@@ -57,7 +57,7 @@ namespace Ringtoets.DuneErosion.Forms
         protected override IEnumerable<IObservable> PropertyChanged(DuneErosionFailureMechanism failureMechanism)
         {
             return DuneErosionDataSynchronizationService.ClearDuneLocationOutput(failureMechanism.DuneLocations)
-                                                        .Concat(DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(failureMechanism));
+                                                        .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutputs(failureMechanism));
         }
 
         private static bool HasOutput(DuneLocationCalculation calculation)
