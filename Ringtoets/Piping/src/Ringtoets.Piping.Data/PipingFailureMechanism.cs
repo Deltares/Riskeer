@@ -73,7 +73,7 @@ namespace Ringtoets.Piping.Data
         public PipingStochasticSoilModelCollection StochasticSoilModels { get; }
 
         /// <summary>
-        /// Gets the general piping calculation input parameters that apply to each piping calculation.
+        /// Gets the general calculation input parameters that apply to each piping calculation.
         /// </summary>
         public GeneralPipingInput GeneralInput { get; }
 

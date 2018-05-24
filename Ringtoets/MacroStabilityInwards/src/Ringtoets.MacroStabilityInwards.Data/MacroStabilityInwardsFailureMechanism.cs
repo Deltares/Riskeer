@@ -44,6 +44,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public MacroStabilityInwardsFailureMechanism()
             : base(Resources.MacroStabilityInwardsFailureMechanism_DisplayName, Resources.MacroStabilityInwardsFailureMechanism_Code, 2)
         {
+            GeneralInput = new GeneralMacroStabilityInwardsInput();
             MacroStabilityInwardsProbabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();
             SurfaceLines = new MacroStabilityInwardsSurfaceLineCollection();
             StochasticSoilModels = new MacroStabilityInwardsStochasticSoilModelCollection();
@@ -72,6 +73,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         /// Gets the available stochastic soil models within the scope of the macro stability inwards failure mechanism.
         /// </summary>
         public MacroStabilityInwardsStochasticSoilModelCollection StochasticSoilModels { get; }
+
+        /// <summary>
+        /// Gets the general calculation input parameters that apply to each macro stability inwards calculation.
+        /// </summary>
+        public GeneralMacroStabilityInwardsInput GeneralInput { get; }
 
         /// <summary>
         /// Gets the general probabilistic assessment input parameters that apply to each calculation 
