@@ -316,33 +316,25 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(totalResultIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(pipingIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(grassCoverErosionInwardsIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(macroStabilityInwardsIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(macroStabilityOutwardsIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(microstabililityIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(stabilityStoneCoverIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(waveImpactAsphaltCoverIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(waterPressureAsphaltCoverIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(grassCoverErosionOutwardsIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(grassCoverSlipOffOutwardsIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(grassCoverSlipOffInwardsIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(heightStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(closingStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(pipingStructureIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(stabilityPointStructuresIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(strengthStabilityLengthwiseConstructionIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(duneErosionIndex, CreateDefaultDataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(technicalInnovationIndex, CreateDefaultDataGridViewColumnStateDefinition());
-        }
-
-        private static DataGridViewColumnStateDefinition CreateDefaultDataGridViewColumnStateDefinition()
-        {
-            return new DataGridViewColumnStateDefinition
-            {
-                ReadOnly = true
-            };
+            ColumnStateDefinitions.Add(totalResultIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(pipingIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(grassCoverErosionInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(macroStabilityInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(macroStabilityOutwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(microstabililityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(stabilityStoneCoverIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(waveImpactAsphaltCoverIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(waterPressureAsphaltCoverIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(grassCoverErosionOutwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(grassCoverSlipOffOutwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(grassCoverSlipOffInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(heightStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(closingStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(pipingStructureIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(stabilityPointStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(strengthStabilityLengthwiseConstructionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(duneErosionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(technicalInnovationIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
         private void SetColumnStateDefinitionColors()

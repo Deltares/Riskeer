@@ -136,10 +136,7 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(categoryIndex, new DataGridViewColumnStateDefinition
-            {
-                ReadOnly = true
-            });
+            ColumnStateDefinitions.Add(categoryIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
         private void ResetErrorTexts()
