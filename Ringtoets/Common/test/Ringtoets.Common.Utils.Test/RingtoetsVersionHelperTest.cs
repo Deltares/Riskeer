@@ -35,12 +35,12 @@ namespace Ringtoets.Common.Utils.Test
             string currentVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 
             // Assert
-            Assert.AreEqual("17.2", currentVersion);
+            Assert.AreEqual("17.3", currentVersion);
         }
 
         [Test]
         [TestCase("9000.0")]
-        [TestCase("17.3")]
+        [TestCase("17.5")]
         public void IsNewerThanCurrentString_NewerVersion_ReturnsTrue(string newerVersion)
         {
             // Call
