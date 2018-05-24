@@ -557,7 +557,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLengthInput.Value);
-                CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(input, kernel.FailureMechanismSectionListsInput.ToArray());
+                CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(input, kernel.FailureMechanismSectionListsInput);
                 Assert.IsFalse(kernel.PartialAssembly);
             }
         }

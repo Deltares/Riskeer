@@ -115,7 +115,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
                 AssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
 
-                return CombinedFailureMechanismSectionAssemblyCreator.Create(output).ToArray();
+                return CombinedFailureMechanismSectionAssemblyCreator.Create(output);
             }
             catch (Exception e)
             {

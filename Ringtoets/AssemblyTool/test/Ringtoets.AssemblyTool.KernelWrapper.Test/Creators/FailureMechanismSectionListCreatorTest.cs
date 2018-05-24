@@ -62,7 +62,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             };
 
             // Call
-            FailureMechanismSectionList[] failureMechanismSectionLists = FailureMechanismSectionListCreator.Create(combinedAssemblyFailureMechanismInputs).ToArray();
+            IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists = FailureMechanismSectionListCreator.Create(combinedAssemblyFailureMechanismInputs);
 
             // Assert
             CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(combinedAssemblyFailureMechanismInputs, failureMechanismSectionLists);
@@ -107,7 +107,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Assert
-            Assert.AreEqual(expectedGroup, ((FmSectionWithDirectCategory) output.First().Results.First()).Category);
+            Assert.AreEqual(expectedGroup, ((FmSectionWithDirectCategory) output.Single().Results.Single()).Category);
         }
     }
 }

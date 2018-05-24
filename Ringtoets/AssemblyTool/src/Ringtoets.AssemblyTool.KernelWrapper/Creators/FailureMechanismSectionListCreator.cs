@@ -43,6 +43,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <returns>A collection of <see cref="FailureMechanismSectionList"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionsCollection"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// is a valid value, but unsupported.</exception>
         public static IEnumerable<FailureMechanismSectionList> Create(
             IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> failureMechanismSectionsCollection)
         {
@@ -55,42 +59,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                                                                  new FailureMechanism(1, 0),
                                                                  sectionCollection.Select(s => new FmSectionWithDirectCategory(
                                                                                               s.SectionStart, s.SectionEnd,
-                                                                                              ConvertCategoryGroup(s.CategoryGroup)))))
+                                                                                              AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(
+                                                                                                  s.CategoryGroup)))))
                                                      .ToArray();
-        }
-
-        private static EFmSectionCategory ConvertCategoryGroup(FailureMechanismSectionAssemblyCategoryGroup category)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
-            {
-                throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int) category,
-                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
-            }
-
-            switch (category)
-            {
-                case FailureMechanismSectionAssemblyCategoryGroup.None:
-                    return EFmSectionCategory.Gr;
-                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                    return EFmSectionCategory.NotApplicable;
-                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return EFmSectionCategory.Iv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return EFmSectionCategory.IIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return EFmSectionCategory.IIIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return EFmSectionCategory.IVv;
-                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return EFmSectionCategory.Vv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return EFmSectionCategory.VIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                    return EFmSectionCategory.VIIv;
-                default:
-                    throw new NotSupportedException();
-            }
         }
     }
 }

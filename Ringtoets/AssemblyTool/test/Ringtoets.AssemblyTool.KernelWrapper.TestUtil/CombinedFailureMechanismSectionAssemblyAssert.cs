@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.FmSectionTypes;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 
@@ -40,51 +39,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
         /// <param name="actual">The actual collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssembly(AssemblyResult original, CombinedFailureMechanismSectionAssembly[] actual)
+        public static void AssertAssembly(AssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssembly> actual)
         {
             FmSectionWithDirectCategory[] combinedResults = original.CombinedSectionResult.ToArray();
-            Assert.AreEqual(combinedResults.Length, actual.Length);
-            for (var i = 0; i < actual.Length; i++)
+            Assert.AreEqual(combinedResults.Length, actual.Count());
+            for (var i = 0; i < combinedResults.Length; i++)
             {
-                Assert.AreEqual(combinedResults[i].SectionStart, actual[i].Section.SectionStart);
-                Assert.AreEqual(combinedResults[i].SectionEnd, actual[i].Section.SectionEnd);
-                Assert.AreEqual(GetResultGroup(combinedResults[i].Category), actual[i].Section.CategoryGroup);
+                Assert.AreEqual(combinedResults[i].SectionStart, actual.ElementAt(i).Section.SectionStart);
+                Assert.AreEqual(combinedResults[i].SectionEnd, actual.ElementAt(i).Section.SectionEnd);
+                Assert.AreEqual(AssemblyCategoryAssert.GetFailureMechanismSectionCategoryGroup(combinedResults[i].Category), actual.ElementAt(i).Section.CategoryGroup);
 
                 FailureMechanismSectionList[] failureMechanismResults = original.ResultPerFailureMechanism.ToArray();
-                Assert.AreEqual(failureMechanismResults.Length, actual[i].FailureMechanismResults.Count());
+                Assert.AreEqual(failureMechanismResults.Length, actual.ElementAt(i).FailureMechanismResults.Count());
 
                 for (var j = 0; j < failureMechanismResults.Length; j++)
                 {
-                    FailureMechanismSectionAssemblyCategoryGroup expectedGroup = GetResultGroup(((FmSectionWithDirectCategory) failureMechanismResults[j].Results[i]).Category);
-                    Assert.AreEqual(expectedGroup, actual[i].FailureMechanismResults.ElementAt(j));
+                    FailureMechanismSectionAssemblyCategoryGroup expectedGroup = AssemblyCategoryAssert.GetFailureMechanismSectionCategoryGroup(
+                        ((FmSectionWithDirectCategory) failureMechanismResults[j].Results[i]).Category);
+                    Assert.AreEqual(expectedGroup, actual.ElementAt(i).FailureMechanismResults.ElementAt(j));
                 }
-            }
-        }
-
-        private static FailureMechanismSectionAssemblyCategoryGroup GetResultGroup(EFmSectionCategory combinedResult)
-        {
-            switch (combinedResult)
-            {
-                case EFmSectionCategory.Iv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case EFmSectionCategory.IIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case EFmSectionCategory.IIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case EFmSectionCategory.IVv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case EFmSectionCategory.Vv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case EFmSectionCategory.VIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case EFmSectionCategory.VIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case EFmSectionCategory.Gr:
-                    return FailureMechanismSectionAssemblyCategoryGroup.None;
-                case EFmSectionCategory.NotApplicable:
-                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-                default:
-                    throw new NotSupportedException();
             }
         }
     }

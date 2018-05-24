@@ -27,6 +27,7 @@
     <Compile Include="Calculators\Categories\AssemblyCategoriesCalculatorException.cs" />
     <Compile Include="Calculators\Categories\IAssemblyCategoriesCalculator.cs" />
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
+    <Compile Include="Creators\AssemblyCalculatorInputCreator.cs" />
     <Compile Include="Creators\AssemblyCategoryCreator.cs" />
     <Compile Include="Creators\AssessmentSectionAssemblyCreator.cs" />
     <Compile Include="Creators\AssessmentSectionAssemblyInputCreator.cs" />

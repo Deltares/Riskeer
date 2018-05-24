@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
@@ -41,21 +42,21 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
         /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionList"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertCombinedFailureMechanismInput(CombinedAssemblyFailureMechanismSection[][] original, FailureMechanismSectionList[] actual)
+        public static void AssertCombinedFailureMechanismInput(IEnumerable<CombinedAssemblyFailureMechanismSection[]> original, IEnumerable<FailureMechanismSectionList> actual)
         {
-            Assert.AreEqual(original.Length, actual.Length);
+            Assert.AreEqual(original.Count(), actual.Count());
 
-            for (var i = 0; i < original.Length; i++)
+            for (var i = 0; i < original.Count(); i++)
             {
-                CombinedAssemblyFailureMechanismSection[] sections = original[i];
-                FailureMechanismSectionList sectionList = actual[i];
-                AssertSections(sections.ToArray(), sectionList.Results.ToArray());
+                CombinedAssemblyFailureMechanismSection[] sections = original.ElementAt(i);
+                FailureMechanismSectionList sectionList = actual.ElementAt(i);
+                AssertSections(sections, sectionList.Results);
             }
         }
 
-        private static void AssertSections(CombinedAssemblyFailureMechanismSection[] originalSections, FmSectionWithCategory[] fmSectionWithCategories)
+        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSection> originalSections, IEnumerable<FmSectionWithCategory> fmSectionWithCategories)
         {
-            Assert.AreEqual(originalSections.Length, fmSectionWithCategories.Length);
+            Assert.AreEqual(originalSections.Count(), fmSectionWithCategories.Count());
             Assert.IsTrue(fmSectionWithCategories.All(r => r.GetType() == typeof(FmSectionWithDirectCategory)));
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), fmSectionWithCategories.Select(r => r.SectionStart));
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), fmSectionWithCategories.Select(r => r.SectionEnd));

@@ -86,6 +86,41 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
             CollectionAssert.AreEqual(original.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based
+        /// on the given <paramref name="category"/>.
+        /// </summary>
+        /// <param name="category">The <see cref="EFmSectionCategory"/> to convert.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// is not valid.</exception>
+        public static FailureMechanismSectionAssemblyCategoryGroup GetFailureMechanismSectionCategoryGroup(EFmSectionCategory category)
+        {
+            switch (category)
+            {
+                case EFmSectionCategory.Iv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
+                case EFmSectionCategory.IIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
+                case EFmSectionCategory.IIIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
+                case EFmSectionCategory.IVv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
+                case EFmSectionCategory.Vv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
+                case EFmSectionCategory.VIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
+                case EFmSectionCategory.VIIv:
+                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
+                case EFmSectionCategory.NotApplicable:
+                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
+                case EFmSectionCategory.Gr:
+                    return FailureMechanismSectionAssemblyCategoryGroup.None;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
         private static AssessmentSectionAssemblyCategoryGroup GetAssessmentSectionCategoryGroup(EAssessmentGrade category)
         {
             switch (category)
@@ -133,33 +168,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
                     return FailureMechanismAssemblyCategoryGroup.NotApplicable;
                 case EFailureMechanismCategory.Gr:
                     return FailureMechanismAssemblyCategoryGroup.None;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private static FailureMechanismSectionAssemblyCategoryGroup GetFailureMechanismSectionCategoryGroup(EFmSectionCategory category)
-        {
-            switch (category)
-            {
-                case EFmSectionCategory.Iv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case EFmSectionCategory.IIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case EFmSectionCategory.IIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case EFmSectionCategory.IVv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case EFmSectionCategory.Vv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case EFmSectionCategory.VIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case EFmSectionCategory.VIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case EFmSectionCategory.NotApplicable:
-                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-                case EFmSectionCategory.Gr:
-                    return FailureMechanismSectionAssemblyCategoryGroup.None;
                 default:
                     throw new NotSupportedException();
             }

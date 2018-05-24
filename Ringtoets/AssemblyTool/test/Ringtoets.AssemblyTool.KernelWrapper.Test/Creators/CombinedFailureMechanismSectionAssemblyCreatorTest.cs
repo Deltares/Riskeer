@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
@@ -74,7 +75,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 })
             };
 
-            var combinedResults = new[]
+            FmSectionWithDirectCategory[] combinedResults = 
             {
                 CreateCategory(sections[0], random),
                 CreateCategory(sections[1], random),
@@ -84,7 +85,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var assembly = new AssemblyResult(failureMechanismResults, combinedResults);
 
             // Call
-            CombinedFailureMechanismSectionAssembly[] results = CombinedFailureMechanismSectionAssemblyCreator.Create(assembly).ToArray();
+            IEnumerable<CombinedFailureMechanismSectionAssembly> results = CombinedFailureMechanismSectionAssemblyCreator.Create(assembly);
 
             // Assert
             CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(assembly, results);

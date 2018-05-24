@@ -121,8 +121,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            return new FmSectionAssemblyDirectResult(
-                CreateFailureMechanismSectionCategory(assembly.Group),
+            return new FmSectionAssemblyDirectResult(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(assembly.Group),
                 assembly.Probability);
         }
 
@@ -141,7 +140,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
-            return new FmSectionAssemblyDirectResult(CreateFailureMechanismSectionCategory(categoryGroup));
+            return new FmSectionAssemblyDirectResult(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(categoryGroup));
         }
 
         /// <summary>
@@ -363,51 +362,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             return result == EFmSectionCategory.Gr
                        ? new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.Gr, null)
                        : new Tuple<EAssessmentResultTypeT3, EFmSectionCategory?>(EAssessmentResultTypeT3.ResultSpecified, result);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="EFmSectionCategory"/> from a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
-        /// </summary>
-        /// <param name="category">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> to create
-        /// a <see cref="EFmSectionCategory"/>.</param>
-        /// <returns>A <see cref="EFmSectionCategory"/> based on <paramref name="category"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
-        /// is a valid value, but unsupported.</exception>
-        private static EFmSectionCategory CreateFailureMechanismSectionCategory(
-            FailureMechanismSectionAssemblyCategoryGroup category)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), category))
-            {
-                throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int) category,
-                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
-            }
-
-            switch (category)
-            {
-                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return EFmSectionCategory.Iv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return EFmSectionCategory.IIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return EFmSectionCategory.IIIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return EFmSectionCategory.IVv;
-                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return EFmSectionCategory.Vv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return EFmSectionCategory.VIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                    return EFmSectionCategory.VIIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                    return EFmSectionCategory.NotApplicable;
-                case FailureMechanismSectionAssemblyCategoryGroup.None:
-                    return EFmSectionCategory.Gr;
-                default:
-                    throw new NotSupportedException();
-            }
         }
 
         /// <summary>
