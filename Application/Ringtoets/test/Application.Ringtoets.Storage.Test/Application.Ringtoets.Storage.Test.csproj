@@ -122,6 +122,7 @@
     <Compile Include="IntegrationTests\MigrationIntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo172IntegrationTest.cs" />
     <Compile Include="IntegrationTests\MigrationTo171IntegrationTest.cs" />
+    <Compile Include="IntegrationTests\MigrationTo173IntegrationTest.cs" />
     <Compile Include="IntegrationTests\StorageMigrationIntegrationTest.cs" />
     <Compile Include="Read\BackgroundDataMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensionsTest.cs" />
