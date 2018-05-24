@@ -224,7 +224,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssembly"/>
+        /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
                                                                                                    HeightStructuresFailureMechanism failureMechanism,
@@ -301,7 +301,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to get the assembly for.</param>
         /// <param name="failureMechanism">The failure mechanism to assemble for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the failure mechanism belongs to.</param>
-        /// <returns>A collection of all section assembly results.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when a <see cref="FailureMechanismSectionAssembly"/>
         /// could not be created.</exception>
         private static FailureMechanismSectionAssembly GetSectionAssembly(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult,
