@@ -62,6 +62,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+
+                    AssertMacroStabilityInwardsOutput(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -211,12 +213,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "HydraulicLocationOutputEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCalculationOutputEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
                 "MacroStabilityInwardsSectionResultEntity",
-                "MacroStabilityInwardsSemiProbabilisticOutputEntity",
                 "MacroStabilityInwardsSoilLayerOneDEntity",
                 "MacroStabilityInwardsSoilLayerTwoDEntity",
                 "MacroStabilityInwardsSoilProfileOneDEntity",
@@ -292,7 +292,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     new MigrationLogMessage("17.2", newVersion, "Gevolgen van de migratie van versie 17.2 naar versie 17.3:"),
                     messages[i++]);
                 AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "* Geen aanpassingen."),
+                    new MigrationLogMessage("17.2", newVersion, "* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."),
                     messages[i]);
             }
         }
@@ -311,6 +311,19 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             const string validateForeignKeys =
                 "PRAGMA foreign_keys;";
             reader.AssertReturnedDataIsValid(validateForeignKeys);
+        }
+
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string validateMacroStabilityInwardsCalculationOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [MacroStabilityInwardsCalculationOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsCalculationOutput);
+
+            const string validateMacroStabilityInwardsSemiProbabiliticOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [MacroStabilityInwardsSemiProbabilisticOutputEntity]";
+            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsSemiProbabiliticOutput);
         }
 
         /// <summary>

@@ -54,12 +54,10 @@ INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocat
 INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
-INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
 INSERT INTO MacroStabilityInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
-INSERT INTO MacroStabilityInwardsSemiProbabilisticOutputEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSemiProbabilisticOutputEntity;
 INSERT INTO MacroStabilityInwardsSoilLayerOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerOneDEntity;
 INSERT INTO MacroStabilityInwardsSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileOneDEntity;
@@ -113,6 +111,12 @@ INSERT INTO WaveImpactAsphaltCoverSectionResultEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 INSERT INTO WaveImpactAsphaltCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 
+/*
+Following outputs are not migrated:
+*/
+--MacroStabilityInwardsCalculationOutputEntity
+--MacroStabilityInwardsSemiProbabilisticOutputEntity
+
 /* 
 Write migration logging
 */
@@ -125,7 +129,19 @@ CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
 	'ToVersion' VARCHAR(20) NOT NULL,
 	'LogMessage' TEXT NOT NULL
 );
+
+CREATE TEMP TABLE TempLogOutputDeleted
+(
+	'NrDeleted' INTEGER NOT NULL
+);
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
 	
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].MacroStabilityInwardsSemiProbabilisticOutputEntity;
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
@@ -135,6 +151,17 @@ VALUES ("17.2", "17.3", "Gevolgen van de migratie van versie 17.2 naar versie 17
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion], 
 	[ToVersion], 
+	[LogMessage])
+SELECT "17.2",
+	"17.3",
+	"* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."
+	FROM TempLogOutputDeleted
+	WHERE [NrDeleted] > 0
+	LIMIT 1;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+	[FromVersion],
+	[ToVersion],
 	[LogMessage])
 SELECT "17.2",
 	"17.3", 
