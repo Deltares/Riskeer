@@ -486,7 +486,7 @@ namespace Ringtoets.Integration.Service.Test
             });
             mockRepository.ReplayAll();
 
-            IEnumerable<IObservable> expectedAffectedItems = DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(duneErosionFailureMechanism);
+            IEnumerable<IObservable> expectedAffectedItems = DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(duneErosionFailureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(assessmentSection);
@@ -495,7 +495,7 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+            DuneLocationCalculationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
 
             mockRepository.VerifyAll();
         }
@@ -559,7 +559,7 @@ namespace Ringtoets.Integration.Service.Test
             var duneErosionFailureMechanism = new DuneErosionFailureMechanism();
             ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, hasOutput);
 
-            IEnumerable<IObservable> expectedAffectedItems = DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(duneErosionFailureMechanism);
+            IEnumerable<IObservable> expectedAffectedItems = DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(duneErosionFailureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = RingtoetsDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutputOfFailureMechanisms(new IFailureMechanism[]
@@ -571,7 +571,7 @@ namespace Ringtoets.Integration.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.AreEquivalent(expectedAffectedItems, affectedObjects);
-            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
+            DuneLocationCalculationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(duneErosionFailureMechanism);
         }
 
         [Test]

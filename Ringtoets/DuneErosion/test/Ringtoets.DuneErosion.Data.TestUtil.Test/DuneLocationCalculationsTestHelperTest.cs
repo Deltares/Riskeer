@@ -28,13 +28,13 @@ using NUnit.Framework;
 namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 {
     [TestFixture]
-    public class DuneErosionLocationsTestHelperTest
+    public class DuneLocationCalculationsTestHelperTest
     {
         [Test]
-        public void GetAllDuneErosionLocationCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        public void GetAllDuneLocationCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(null);
+            TestDelegate call = () => DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -42,21 +42,21 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetAllDuneErosionLocationCalculationsWithOutput_FailureMechanismWithoutDuneLocationCalculations_ReturnsEmpty()
+        public void GetAllDuneLocationCalculationsWithOutput_FailureMechanismWithoutDuneLocationCalculations_ReturnsEmpty()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
             IEnumerable<IObservable> calculations =
-                DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(failureMechanism);
+                DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(calculations);
         }
 
         [Test]
-        public void GetAllDuneErosionLocationCalculationsWithOutput_FailureMechanismWithDuneLocationCalculations_ReturnsCalculationsWithOutput()
+        public void GetAllDuneLocationCalculationsWithOutput_FailureMechanismWithDuneLocationCalculations_ReturnsCalculationsWithOutput()
         {
             // Setup
             var duneLocations = new[]
@@ -88,7 +88,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 
             // Call
             IEnumerable<IObservable> actualObjects =
-                DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(failureMechanism);
+                DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             var expectedObjects = new IObservable[]
@@ -107,7 +107,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
         public void AssertDuneLocationCalculationsHaveNoOutputs_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(null);
+            TestDelegate call = () => DuneLocationCalculationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

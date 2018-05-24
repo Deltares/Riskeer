@@ -287,14 +287,14 @@ namespace Ringtoets.DuneErosion.Service.Test
             failureMechanism.CalculationsForFactorizedLowerLimitNorm.First().Output = new TestDuneLocationCalculationOutput();
 
             IEnumerable<IObservable> expectedAffectedCalculations =
-                DuneErosionLocationsTestHelper.GetAllDuneErosionLocationCalculationsWithOutput(failureMechanism);
+                DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneCalculationOutputs(failureMechanism);
 
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
-            DuneErosionLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(failureMechanism);
+            DuneLocationCalculationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(failureMechanism);
         }
     }
 }
