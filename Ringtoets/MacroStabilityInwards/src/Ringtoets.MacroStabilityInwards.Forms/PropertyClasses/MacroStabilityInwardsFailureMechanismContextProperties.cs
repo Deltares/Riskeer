@@ -62,6 +62,23 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
             propertyChangeHandler = handler;
         }
 
+        #region Model settings
+
+        [DynamicVisible]
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_ModelSettings))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MacroStabilityInwardsFailureMechanismContextProperties_ModelFactor_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MacroStabilityInwardsFailureMechanismContextProperties_ModelFactor_Description))]
+        public double ModelFactor
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.ModelFactor;
+            }
+        }
+
+        #endregion
+
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
@@ -95,7 +112,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.PropertyClasses
         private bool ShouldHidePropertyWhenFailureMechanismIrrelevant(string propertyName)
         {
             return nameof(A).Equals(propertyName)
-                   || nameof(B).Equals(propertyName);
+                   || nameof(B).Equals(propertyName)
+                   || nameof(ModelFactor).Equals(propertyName);
         }
 
         #region General

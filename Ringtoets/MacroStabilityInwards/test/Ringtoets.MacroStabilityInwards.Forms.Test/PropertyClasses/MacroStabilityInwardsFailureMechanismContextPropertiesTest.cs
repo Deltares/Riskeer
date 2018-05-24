@@ -103,6 +103,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.B, properties.B);
+            Assert.AreEqual(failureMechanism.GeneralInput.ModelFactor, properties.ModelFactor);
 
             mockRepository.VerifyAll();
         }
@@ -129,10 +130,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(5, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string semiProbabilisticCategory = "Semi-probabilistische parameters";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -155,13 +157,20 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                             true);
 
-            PropertyDescriptor aProperty = dynamicProperties[3];
+            PropertyDescriptor modelFactorProperty = dynamicProperties[3];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor [-]",
+                                                                            "Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor.",
+                                                                            true);
+
+            PropertyDescriptor aProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(aProperty,
                                                                             semiProbabilisticCategory,
                                                                             "a [-]",
                                                                             "De parameter 'a' die gebruikt wordt voor het lengte-effect in berekening van de maximaal toelaatbare faalkans.");
 
-            PropertyDescriptor bProperty = dynamicProperties[4];
+            PropertyDescriptor bProperty = dynamicProperties[5];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(bProperty,
                                                                             semiProbabilisticCategory,
                                                                             "b [m]",
@@ -327,6 +336,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.A)));
             Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.B)));
+            Assert.AreEqual(isRelevant, properties.DynamicVisibleValidationMethod(nameof(properties.ModelFactor)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
 

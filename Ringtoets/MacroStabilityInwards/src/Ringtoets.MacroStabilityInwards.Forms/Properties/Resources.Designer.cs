@@ -509,6 +509,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modelfactor die wordt gebruikt bij de berekening van de benaderde faalkans op basis van de berekende stabiliteitsfactor..
+        /// </summary>
+        public static string MacroStabilityInwardsFailureMechanismContextProperties_ModelFactor_Description {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsFailureMechanismContextProperties_ModelFactor_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor [-].
+        /// </summary>
+        public static string MacroStabilityInwardsFailureMechanismContextProperties_ModelFactor_DisplayName {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsFailureMechanismContextProperties_ModelFactor_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie met hydraulische randvoorwaarden waarvan het berekende toetspeil wordt gebruikt..
         /// </summary>
         public static string MacroStabilityInwardsInput_HydraulicBoundaryLocation_Description {
