@@ -40,7 +40,8 @@ namespace Application.Ringtoets.Migration.Core.Test
                 return new[]
                 {
                     new TestCaseData("5"),
-                    new TestCaseData("17.1")
+                    new TestCaseData("17.1"),
+                    new TestCaseData("17.2") 
                 };
             }
         }
@@ -71,7 +72,7 @@ namespace Application.Ringtoets.Migration.Core.Test
 
         [Test]
         [TestCase("16.4")]
-        [TestCase("17.2")]
+        [TestCase("17.3")]
         public void IsVersionSupported_UnsupportedVersion_ReturnsFalse(string fromVersion)
         {
             // Setup

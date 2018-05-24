@@ -182,6 +182,7 @@ namespace Application.Ringtoets.Migration.Test
                 expectedLogMessages.Add(Tuple.Create($"Het migreren van het projectbestand '{sourceFilePath}' is geannuleerd.",
                                                      LogLevelConstant.Warn));
             }
+
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, expectedLogMessages, expectedLogMessages.Count);
 
             MigrationRequired expectedResult = confirmContinuation ? MigrationRequired.Yes : MigrationRequired.Aborted;
@@ -475,7 +476,9 @@ namespace Application.Ringtoets.Migration.Test
                                         $@"* Traject: 'Demo traject'{Environment.NewLine}" +
                                         $@"  + De ondergrens is gelijk gesteld aan 1/1000.{Environment.NewLine}" +
                                         $@"  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).{Environment.NewLine}" +
-                                        @"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.");
+                                        $@"  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.{Environment.NewLine}" +
+                                        $@"Gevolgen van de migratie van versie 17.2 naar versie 17.3:{Environment.NewLine}" +
+                                        @"* Geen aanpassingen.");
 
                 var expectedLogMessagesAndLevel = new[]
                 {
@@ -626,6 +629,7 @@ namespace Application.Ringtoets.Migration.Test
                 string logPath = Path.Combine(TestHelper.GetScratchPadPath(logDirectory), "RingtoetsMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
+
             mocks.VerifyAll();
         }
 
@@ -665,6 +669,7 @@ namespace Application.Ringtoets.Migration.Test
                 string logPath = Path.Combine(TestHelper.GetScratchPadPath(), logDirectory, "RingtoetsMigrationLog.sqlite");
                 Assert.IsFalse(File.Exists(logPath));
             }
+
             mocks.VerifyAll();
         }
     }
