@@ -261,7 +261,6 @@ SELECT
 	0,
 	NULL
 FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
-INSERT INTO HydraRingPreprocessorEntity SELECT * FROM [SOURCEPROJECT].HydraRingPreprocessorEntity;
 INSERT INTO HydraulicLocationEntity (
 	[HydraulicLocationEntityId],
 	[AssessmentSectionEntityId],

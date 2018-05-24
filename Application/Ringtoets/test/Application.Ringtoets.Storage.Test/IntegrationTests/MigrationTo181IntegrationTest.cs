@@ -172,7 +172,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "HeightStructuresFailureMechanismMetaEntity",
                 "HeightStructuresOutputEntity",
                 "HeightStructuresSectionResultEntity",
-                "HydraRingPreprocessorEntity",
                 "HydraulicLocationEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
