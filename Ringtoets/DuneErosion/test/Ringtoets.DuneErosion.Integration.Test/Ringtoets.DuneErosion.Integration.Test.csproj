@@ -24,7 +24,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DuneErosionBoundaryCalculationActivityIntegrationTest.cs" />
+    <Compile Include="DuneLocationCalculationActivityIntegrationTest.cs" />
     <Compile Include="DuneLocationsViewIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
