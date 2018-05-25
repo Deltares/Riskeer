@@ -157,9 +157,9 @@ namespace Ringtoets.DuneErosion.Service
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? string.Format(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_no_error_report,
+                                  ? string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_error_report,
                                                   duneLocationName)
-                                  : string.Format(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_click_details_for_last_error_report_1,
+                                  : string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1,
                                                   duneLocationName, lastErrorContent));
 
                     exceptionThrown = true;
@@ -172,11 +172,11 @@ namespace Ringtoets.DuneErosion.Service
                 bool hasErrorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (hasErrorOccurred)
                 {
-                    log.ErrorFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_click_details_for_last_error_report_1,
+                    log.ErrorFormat(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1,
                                     duneLocationName, lastErrorFileContent);
                 }
 
-                log.InfoFormat(Resources.DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
+                log.InfoFormat(Resources.DuneLocationCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
                                calculator.OutputDirectory);
                 CalculationServiceHelper.LogCalculationEnd();
 
@@ -214,7 +214,7 @@ namespace Ringtoets.DuneErosion.Service
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
-                log.WarnFormat(Resources.DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_DuneLocation_0_not_converged, duneLocationName);
+                log.WarnFormat(Resources.DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_not_converged, duneLocationName);
             }
 
             return new DuneLocationCalculationOutput(converged,

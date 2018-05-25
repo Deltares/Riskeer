@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -92,12 +92,22 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen..
+        /// </summary>
+        internal static string DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format {
+            get {
+                return ResourceManager.GetString("DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_locatio" +
+                        "n_but_name_is_not_according_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
+        internal static string DuneLocationCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
             get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_Calculate_Calculation_temporary_directory_c" +
-                        "an_be_found_on_location_0", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationService_Calculate_Calculation_temporary_directory_can_be_f" +
+                        "ound_on_location_0", resourceCulture);
             }
         }
         
@@ -105,40 +115,30 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_click_details_for_last_error_report_1 {
+        internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalcu" +
-                        "lation_0_click_details_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click" +
+                        "_details_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is mislukt. Er is geen foutrapport beschikbaar..
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalculation_0_no_error_report {
+        internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_error_report {
             get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_Calculate_Error_in_DuneErosionBoundaryCalcu" +
-                        "lation_0_no_error_report", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_er" +
+                        "ror_report", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
-        internal static string DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_DuneLocation_0_not_converged {
+        internal static string DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_not_converged {
             get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationService_CreateDuneLocationOutput_Calculation_for_Du" +
-                        "neLocation_0_not_converged", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen..
-        /// </summary>
-        internal static string DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format {
-            get {
-                return ResourceManager.GetString("DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_locatio" +
-                        "n_but_name_is_not_according_format", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_fo" +
+                        "r_DuneLocation_0_not_converged", resourceCulture);
             }
         }
     }
