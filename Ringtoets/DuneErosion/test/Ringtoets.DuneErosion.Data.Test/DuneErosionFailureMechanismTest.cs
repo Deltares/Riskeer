@@ -112,7 +112,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void SetDuneLocations_Always_PreviousLocationsAndCalculationsCalculationsCleared()
+        public void SetDuneLocations_Always_PreviousLocationsAndCalculationsCleared()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
