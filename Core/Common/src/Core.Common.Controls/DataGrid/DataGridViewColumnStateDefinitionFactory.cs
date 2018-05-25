@@ -27,9 +27,9 @@ namespace Core.Common.Controls.DataGrid
     public static class DataGridViewColumnStateDefinitionFactory
     {
         /// <summary>
-        /// Creates a new read only <see cref="DataGridViewColumnStateDefinition"/>
+        /// Creates a new read-only <see cref="DataGridViewColumnStateDefinition"/>.
         /// </summary>
-        /// <returns>A <see cref="DataGridViewColumnStateDefinition"/>.</returns>
+        /// <returns>A read-only <see cref="DataGridViewColumnStateDefinition"/>.</returns>
         public static DataGridViewColumnStateDefinition CreateReadOnlyColumnStateDefinition()
         {
             return new DataGridViewColumnStateDefinition
