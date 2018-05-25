@@ -17,6 +17,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryType.cs" />
     <Compile Include="Configurations\Helpers\WaveConditionsInputExtensions.cs" />
     <Compile Include="WaveConditions\CoverType.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditions.cs" />
