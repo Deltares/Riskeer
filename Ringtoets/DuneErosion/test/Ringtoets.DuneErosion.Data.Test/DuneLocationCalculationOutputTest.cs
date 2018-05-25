@@ -59,16 +59,16 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             // Call
             TestDelegate call = () => new DuneLocationCalculationOutput(convergence,
-                                                             new DuneLocationCalculationOutput.ConstructionProperties
-                                                             {
-                                                                 WaterLevel = waterLevel,
-                                                                 WaveHeight = waveHeight,
-                                                                 WavePeriod = wavePeriod,
-                                                                 TargetProbability = targetProbability,
-                                                                 TargetReliability = targetReliability,
-                                                                 CalculatedProbability = calculatedProbability,
-                                                                 CalculatedReliability = calculatedReliability
-                                                             });
+                                                                        new DuneLocationCalculationOutput.ConstructionProperties
+                                                                        {
+                                                                            WaterLevel = waterLevel,
+                                                                            WaveHeight = waveHeight,
+                                                                            WavePeriod = wavePeriod,
+                                                                            TargetProbability = targetProbability,
+                                                                            TargetReliability = targetReliability,
+                                                                            CalculatedProbability = calculatedProbability,
+                                                                            CalculatedReliability = calculatedReliability
+                                                                        });
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -94,16 +94,16 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             // Call
             TestDelegate call = () => new DuneLocationCalculationOutput(convergence,
-                                                             new DuneLocationCalculationOutput.ConstructionProperties
-                                                             {
-                                                                 WaterLevel = waterLevel,
-                                                                 WaveHeight = waveHeight,
-                                                                 WavePeriod = wavePeriod,
-                                                                 TargetProbability = targetProbability,
-                                                                 TargetReliability = targetReliability,
-                                                                 CalculatedProbability = calculatedProbability,
-                                                                 CalculatedReliability = calculatedReliability
-                                                             });
+                                                                        new DuneLocationCalculationOutput.ConstructionProperties
+                                                                        {
+                                                                            WaterLevel = waterLevel,
+                                                                            WaveHeight = waveHeight,
+                                                                            WavePeriod = wavePeriod,
+                                                                            TargetProbability = targetProbability,
+                                                                            TargetReliability = targetReliability,
+                                                                            CalculatedProbability = calculatedProbability,
+                                                                            CalculatedReliability = calculatedReliability
+                                                                        });
 
             // Assert
             var exception = Assert.Throws<ArgumentOutOfRangeException>(call);
@@ -127,16 +127,16 @@ namespace Ringtoets.DuneErosion.Data.Test
 
             // Call
             var output = new DuneLocationCalculationOutput(convergence,
-                                                new DuneLocationCalculationOutput.ConstructionProperties
-                                                {
-                                                    WaterLevel = waterLevel,
-                                                    WaveHeight = waveHeight,
-                                                    WavePeriod = wavePeriod,
-                                                    TargetProbability = targetProbability,
-                                                    TargetReliability = targetReliability,
-                                                    CalculatedProbability = calculatedProbability,
-                                                    CalculatedReliability = calculatedReliability
-                                                });
+                                                           new DuneLocationCalculationOutput.ConstructionProperties
+                                                           {
+                                                               WaterLevel = waterLevel,
+                                                               WaveHeight = waveHeight,
+                                                               WavePeriod = wavePeriod,
+                                                               TargetProbability = targetProbability,
+                                                               TargetReliability = targetReliability,
+                                                               CalculatedProbability = calculatedProbability,
+                                                               CalculatedReliability = calculatedReliability
+                                                           });
 
             // Assert
             Assert.AreEqual(2, output.WaterLevel.NumberOfDecimalPlaces);
@@ -159,7 +159,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         {
             // Call
             var output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged,
-                                                new DuneLocationCalculationOutput.ConstructionProperties());
+                                                           new DuneLocationCalculationOutput.ConstructionProperties());
 
             // Assert
             Assert.IsNaN(output.WaterLevel);

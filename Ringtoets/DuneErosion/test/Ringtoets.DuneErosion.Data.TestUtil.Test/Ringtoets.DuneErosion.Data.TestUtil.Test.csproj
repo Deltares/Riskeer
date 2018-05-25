@@ -17,7 +17,7 @@
   <ItemGroup>
     <Compile Include="DuneLocationCalculationsTestHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestDuneLocationOutputTest.cs" />
+    <Compile Include="TestDuneLocationCalculationOutputTest.cs" />
     <Compile Include="TestDuneLocationTest.cs" />
   </ItemGroup>
   <ItemGroup>

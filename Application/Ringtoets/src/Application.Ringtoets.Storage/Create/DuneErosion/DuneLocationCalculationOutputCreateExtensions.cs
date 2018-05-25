@@ -42,6 +42,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             {
                 throw new ArgumentNullException(nameof(output));
             }
+
             return new DuneLocationOutputEntity
             {
                 WaterLevel = output.WaterLevel.ToNaNAsNull(),
