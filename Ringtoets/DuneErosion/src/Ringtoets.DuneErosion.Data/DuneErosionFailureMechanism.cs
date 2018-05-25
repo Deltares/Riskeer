@@ -160,20 +160,6 @@ namespace Ringtoets.DuneErosion.Data
             }
         }
 
-        /// <summary>
-        /// Clears all dune locations and calculations of this failure mechanism.
-        /// </summary>
-        public void ClearDuneLocationData()
-        {
-            duneLocationCollection.Clear();
-
-            calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            calculationsForMechanismSpecificSignalingNorm.Clear();
-            calculationsForMechanismSpecificLowerLimitNorm.Clear();
-            calculationsForLowerLimitNorm.Clear();
-            calculationsForFactorizedLowerLimitNorm.Clear();
-        }
-
         public override void AddSection(FailureMechanismSection section)
         {
             base.AddSection(section);
@@ -185,6 +171,17 @@ namespace Ringtoets.DuneErosion.Data
         {
             base.ClearAllSections();
             sectionResults.Clear();
+        }
+
+        private void ClearDuneLocationData()
+        {
+            duneLocationCollection.Clear();
+
+            calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
+            calculationsForMechanismSpecificSignalingNorm.Clear();
+            calculationsForMechanismSpecificLowerLimitNorm.Clear();
+            calculationsForLowerLimitNorm.Clear();
+            calculationsForFactorizedLowerLimitNorm.Clear();
         }
 
         private void AddCalculationsForDuneLocation(DuneLocation duneLocation)
