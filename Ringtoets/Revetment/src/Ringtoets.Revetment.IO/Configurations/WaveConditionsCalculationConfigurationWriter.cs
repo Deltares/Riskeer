@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                 writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
                 configuration.LowerBoundaryWaterLevels);
-            WriteConfigurationLoadSchematizationTypeWhenAvailable(
+            WriteConfigurationWaveConditionsInputStepSizeWhenAvailable(
                 writer,
                 configuration.StepSize);
 
@@ -103,7 +103,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// is closed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion
         /// of <paramref name="stepSize"/> cannot be performed.</exception>
-        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
+        private static void WriteConfigurationWaveConditionsInputStepSizeWhenAvailable(
             XmlWriter writer,
             ConfigurationWaveConditionsInputStepSize? stepSize)
         {
