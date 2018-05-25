@@ -275,43 +275,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_DuneLocationsUpdated_MapDataUpdated()
-        {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new AssessmentSectionStub();
-                var duneLocation1 = new TestDuneLocation();
-
-                var failureMechanism = new DuneErosionFailureMechanism();
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    duneLocation1
-                });
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                MapData duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
-
-                // Precondition
-                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
-
-                // Call
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    new TestDuneLocation()
-                });
-                failureMechanism.DuneLocations.NotifyObservers();
-
-                // Assert
-                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
-            }
-        }
-
-        [Test]
         public void UpdateObserver_SingleDuneLocationUpdated_MapDataUpdated()
         {
             // Setup

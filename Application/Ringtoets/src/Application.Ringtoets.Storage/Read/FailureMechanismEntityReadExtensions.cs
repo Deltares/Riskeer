@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.ClosingStructures;
@@ -927,7 +926,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadDuneErosionMechanismSectionResults(failureMechanism, collector);
             entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
-            failureMechanism.SetDuneLocations(entity.ReadDuneLocations(collector));
+            entity.ReadDuneLocations(failureMechanism, collector);
         }
 
         private static void ReadGeneralDuneErosionInput(this FailureMechanismEntity entity, GeneralDuneErosionInput input)
@@ -948,13 +947,14 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static IEnumerable<DuneLocation> ReadDuneLocations(this FailureMechanismEntity entity,
-                                                                   ReadConversionCollector collector)
+        private static void ReadDuneLocations(this FailureMechanismEntity entity,
+                                              DuneErosionFailureMechanism failureMechanism,
+                                              ReadConversionCollector collector)
         {
-           return entity.DuneLocationEntities
-                                     .OrderBy(location => location.Order)
-                                     .Select(location => location.Read(collector))
-                                     .ToArray();
+            failureMechanism.SetDuneLocations(entity.DuneLocationEntities
+                                                    .OrderBy(location => location.Order)
+                                                    .Select(location => location.Read(collector))
+                                                    .ToArray());
         }
 
         #endregion

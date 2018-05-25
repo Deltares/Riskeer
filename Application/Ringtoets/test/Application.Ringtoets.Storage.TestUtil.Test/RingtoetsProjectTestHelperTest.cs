@@ -436,10 +436,13 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(3, duneLocations.Count());
             Assert.IsNull(duneLocations.ElementAt(0).Calculation.Output);
 
-            Assert.IsNotNull(duneLocations.ElementAt(1).Calculation.Output);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocations.ElementAt(1).Calculation.Output.CalculationConvergence);
-            Assert.IsNotNull(duneLocations.ElementAt(2).Calculation.Output);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, duneLocations.ElementAt(2).Calculation.Output.CalculationConvergence);
+            DuneLocationCalculationOutput duneLocationCalculationOutput1 = duneLocations.ElementAt(1).Calculation.Output;
+            Assert.IsNotNull(duneLocationCalculationOutput1);
+            Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocationCalculationOutput1.CalculationConvergence);
+
+            DuneLocationCalculationOutput duneLocationCalculationOutput2 = duneLocations.ElementAt(2).Calculation.Output;
+            Assert.IsNotNull(duneLocationCalculationOutput2);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, duneLocationCalculationOutput2.CalculationConvergence);
 
             Assert.AreEqual(3, failureMechanism.SectionResults.Count());
         }

@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Data
         private readonly ObservableList<DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
         private readonly ObservableList<DuneLocationCalculation> calculationsForLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
         private readonly ObservableList<DuneLocationCalculation> calculationsForFactorizedLowerLimitNorm = new ObservableList<DuneLocationCalculation>();
-        private readonly ObservableList<DuneLocation> duneLocations;
+        private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
@@ -50,7 +50,6 @@ namespace Ringtoets.DuneErosion.Data
         {
             sectionResults = new ObservableList<DuneErosionFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
-            duneLocations = new ObservableList<DuneLocation>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -73,7 +72,7 @@ namespace Ringtoets.DuneErosion.Data
         {
             get
             {
-                return duneLocations;
+                return duneLocationCollection;
             }
         }
 
@@ -154,8 +153,8 @@ namespace Ringtoets.DuneErosion.Data
 
             ClearDuneLocationData();
 
-            this.duneLocations.AddRange(duneLocations);
-            foreach (DuneLocation duneLocation in this.duneLocations)
+            duneLocationCollection.AddRange(duneLocations);
+            foreach (DuneLocation duneLocation in duneLocationCollection)
             {
                 AddCalculationsForDuneLocation(duneLocation);
             }
@@ -166,7 +165,7 @@ namespace Ringtoets.DuneErosion.Data
         /// </summary>
         public void ClearDuneLocationData()
         {
-            duneLocations.Clear();
+            duneLocationCollection.Clear();
 
             calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
             calculationsForMechanismSpecificSignalingNorm.Clear();

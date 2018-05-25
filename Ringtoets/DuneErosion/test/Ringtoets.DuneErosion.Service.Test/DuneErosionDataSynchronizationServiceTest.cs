@@ -242,7 +242,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Call
             IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationOutput(
-                new ObservableList<DuneLocation>
+                new []
                 {
                     location
                 });

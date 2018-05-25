@@ -105,7 +105,7 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="locations">The locations for which the output needs to be cleared.</param>
         /// <returns>All objects changed during the clear.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearDuneLocationOutput(IObservableEnumerable<DuneLocation> locations)
+        public static IEnumerable<IObservable> ClearDuneLocationOutput(IEnumerable<DuneLocation> locations)
         {
             if (locations == null)
             {
