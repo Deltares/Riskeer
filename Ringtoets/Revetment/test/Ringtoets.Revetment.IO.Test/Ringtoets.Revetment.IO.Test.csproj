@@ -16,6 +16,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryTypeTest.cs" />
     <Compile Include="Configurations\Helpers\WaveConditionsInputExtensionsTest.cs" />
     <Compile Include="WaveConditions\CoverTypeTest.cs" />
