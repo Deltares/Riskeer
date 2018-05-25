@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Service
                 {
                     IEnumerable<IObservable> affectedDuneLocations =
                         DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations)
-                                                             .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutputs(duneErosionFailureMechanism));
+                                                             .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(duneErosionFailureMechanism));
                     changedObservables.AddRange(affectedDuneLocations);
                 }
             }

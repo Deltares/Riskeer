@@ -257,10 +257,10 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void ClearDuneLocationCalculationOutputs_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearDuneLocationCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutputs(null);
+            TestDelegate call = () => DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -268,7 +268,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void ClearDuneLocationCalculationOutputs_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
+        public void ClearDuneLocationCalculationOutput_CalculationsWithOutput_OutputClearedAndAffectedItemsReturned()
         {
             // Setup
             var duneLocations = new[]
@@ -290,7 +290,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
 
             // Call
-            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutputs(failureMechanism);
+            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(failureMechanism);
 
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedCalculations, affected);
