@@ -50,6 +50,7 @@ using Ringtoets.GrassCoverErosionOutwards.Forms;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
 using Ringtoets.GrassCoverErosionOutwards.Plugin.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service;
