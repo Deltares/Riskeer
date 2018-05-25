@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
     public class GrassCoverErosionOutwardsCalculationConfigurationExporterTest
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             GrassCoverErosionOutwardsCalculationConfigurationExporter,
-            WaveConditionsCalculationConfigurationWriter,
+            GrassCoverErosionOutwardsCalculationConfigurationWriter,
             GrassCoverErosionOutwardsWaveConditionsCalculation,
             WaveConditionsCalculationConfiguration>
     {

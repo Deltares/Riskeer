@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
     /// </summary>
     public class GrassCoverErosionOutwardsCalculationConfigurationExporter
         : CalculationConfigurationExporter<
-            WaveConditionsCalculationConfigurationWriter,
+            GrassCoverErosionOutwardsCalculationConfigurationWriter,
             GrassCoverErosionOutwardsWaveConditionsCalculation,
             WaveConditionsCalculationConfiguration>
     {
@@ -48,9 +48,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         public GrassCoverErosionOutwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
-        protected override WaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
+        protected override GrassCoverErosionOutwardsCalculationConfigurationWriter CreateWriter(string filePath)
         {
-            return new WaveConditionsCalculationConfigurationWriter(filePath);
+            return new GrassCoverErosionOutwardsCalculationConfigurationWriter(filePath);
         }
 
         protected override WaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
