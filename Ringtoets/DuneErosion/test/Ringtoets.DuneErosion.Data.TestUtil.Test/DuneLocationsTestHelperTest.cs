@@ -28,13 +28,13 @@ using NUnit.Framework;
 namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 {
     [TestFixture]
-    public class DuneLocationCalculationsTestHelperTest
+    public class DuneLocationsTestHelperTest
     {
         [Test]
         public void GetAllDuneLocationCalculationsWithOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(null);
+            TestDelegate call = () => DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,7 +49,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 
             // Call
             IEnumerable<IObservable> calculations =
-                DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
+                DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(calculations);
@@ -88,7 +88,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
 
             // Call
             IEnumerable<IObservable> actualObjects =
-                DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
+                DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
 
             // Assert
             var expectedObjects = new IObservable[]
@@ -107,7 +107,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
         public void AssertDuneLocationCalculationsHaveNoOutputs_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneLocationCalculationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(null);
+            TestDelegate call = () => DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

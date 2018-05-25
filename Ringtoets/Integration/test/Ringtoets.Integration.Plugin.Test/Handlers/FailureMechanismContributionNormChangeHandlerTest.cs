@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                      "There should be no calculations with output.");
 
             AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
-            DuneLocationCalculationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
+            DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
             TestHelper.AssertLogMessageIsGenerated(call, "Alle berekende resultaten voor alle hydraulische randvoorwaardenlocaties zijn verwijderd.", 1);
 
             AssertHydraulicBoundaryLocationCalculationOutput(assessmentSection, false);
-            DuneLocationCalculationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
+            DuneLocationsTestHelper.AssertDuneLocationCalculationsHaveNoOutputs(assessmentSection.DuneErosion);
 
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
         }
@@ -341,7 +341,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         private static IEnumerable<IObservable> GetAllAffectedDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
-            return DuneLocationCalculationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
+            return DuneLocationsTestHelper.GetAllDuneLocationCalculationsWithOutput(failureMechanism);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculationOutput(AssessmentSection assessmentSection, bool hasOutput)

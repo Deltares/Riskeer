@@ -31,7 +31,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
     /// Test helper for dealing with dune locations and calculations in
     /// <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
-    public static class DuneLocationCalculationsTestHelper
+    public static class DuneLocationsTestHelper
     {
         /// <summary>
         /// Gets all the <see cref="DuneLocation"/> and <see cref="DuneLocationCalculation"/>
