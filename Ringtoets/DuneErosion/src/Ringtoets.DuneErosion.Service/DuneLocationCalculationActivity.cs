@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Service
             this.norm = norm;
 
             duneLocation = duneLocationCalculation.DuneLocation;
-            Description = string.Format(Resources.DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
+            Description = string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
                                         duneLocation.Name);
 
             calculationService = new DuneLocationCalculationService();

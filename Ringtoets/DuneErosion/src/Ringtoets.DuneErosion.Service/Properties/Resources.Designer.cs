@@ -82,22 +82,22 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos;.
-        /// </summary>
-        internal static string DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_ {
-            get {
-                return ResourceManager.GetString("DuneErosionBoundaryCalculationActivity_Calculate_hydraulic_boundary_conditions_fo" +
-                        "r_DuneLocation_with_name_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Locatie &apos;{0}&apos; moet voldoen aan het formaat &apos;Naam_Vaknummer_Metrering&apos;. Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen..
         /// </summary>
         internal static string DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format {
             get {
                 return ResourceManager.GetString("DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_locatio" +
                         "n_but_name_is_not_according_format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos;.
+        /// </summary>
+        internal static string DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_ {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneL" +
+                        "ocation_with_name_0_", resourceCulture);
             }
         }
         
