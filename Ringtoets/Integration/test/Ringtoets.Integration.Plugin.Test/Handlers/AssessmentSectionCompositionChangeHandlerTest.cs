@@ -598,7 +598,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
         #endregion
 
-        #region Dune Erosion failure mechanism Helpers
+        #region Dune Erosion failure mechanism helpers
 
         private static IEnumerable<IObservable> GetAllAffectedDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
