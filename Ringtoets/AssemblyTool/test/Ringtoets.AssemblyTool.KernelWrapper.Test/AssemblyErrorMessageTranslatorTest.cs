@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Assembly.Kernel.Exceptions;
 using Core.Common.TestUtil;
@@ -95,6 +94,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test
             // Assert
             Assert.AreEqual("- Het specificeren van een assemblageresultaat voor deze categorie is niet mogelijk.\n" +
                             "- De gespecificeerde kans moet in het bereik [0,1] liggen.\n", errorMessage);
+        }
+
+        [Test]
+        public void CreateGenericErrorMessage_Always_ReturnsExpectedErrorMessage()
+        {
+            // Call
+            string errorMessage = AssemblyErrorMessageTranslator.CreateGenericErrorMessage();
+
+            // Assert
+            Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het assembleren.", errorMessage);
         }
     }
 }

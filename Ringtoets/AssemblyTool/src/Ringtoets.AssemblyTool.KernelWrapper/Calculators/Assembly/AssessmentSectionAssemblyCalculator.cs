@@ -73,7 +73,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (Exception e)
             {
-                throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (Exception e)
             {
-                throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -116,7 +116,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (Exception e)
             {
-                throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -136,7 +136,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (Exception e)
             {
-                throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
     }

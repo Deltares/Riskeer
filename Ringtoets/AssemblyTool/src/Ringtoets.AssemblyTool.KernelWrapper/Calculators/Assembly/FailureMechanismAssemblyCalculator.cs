@@ -70,7 +70,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (Exception e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(e.Message, e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (Exception e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(e.Message, e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
     }

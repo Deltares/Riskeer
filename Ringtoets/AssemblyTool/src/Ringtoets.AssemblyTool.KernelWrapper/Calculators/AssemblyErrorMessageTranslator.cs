@@ -46,6 +46,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
                        : errorMessages.Aggregate(string.Empty, (current, message) => current + "- " + GetErrorMessage(message.ErrorCode) + "\n");
         }
 
+        /// <summary>
+        /// Creates a generic error message for when an unexpected exception has been thrown.
+        /// </summary>
+        /// <returns>A generic error message.</returns>
+        public static string CreateGenericErrorMessage()
+        {
+            return Resources.AssemblyErrorMessageTranslator_GenericErrorMessage;
+        }
+
         private static string GetErrorMessage(EAssemblyErrors assemblyError)
         {
             if (!Enum.IsDefined(typeof(EAssemblyErrors), assemblyError))

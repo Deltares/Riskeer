@@ -92,9 +92,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -189,9 +188,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -218,9 +216,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<Exception>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -272,9 +269,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -348,9 +344,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -371,9 +366,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<Exception>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -424,9 +418,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<Exception>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -517,9 +510,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -546,9 +538,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<Exception>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -604,9 +595,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<Exception>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -722,9 +712,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -753,9 +742,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<Exception>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 

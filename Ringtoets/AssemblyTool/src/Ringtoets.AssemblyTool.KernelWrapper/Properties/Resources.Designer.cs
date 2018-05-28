@@ -190,6 +190,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het assembleren..
+        /// </summary>
+        internal static string AssemblyErrorMessageTranslator_GenericErrorMessage {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageTranslator_GenericErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten..
         /// </summary>
         internal static string AssemblyErrorMessageTranslator_InputNotTheSameType {
