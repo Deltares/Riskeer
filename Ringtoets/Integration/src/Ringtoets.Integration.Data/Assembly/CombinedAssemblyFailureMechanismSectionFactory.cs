@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            if (failureMechanisms.Contains(grassCoverSlipOffOutwardsFailureMechanism))
+            if (failureMechanisms.Contains(grassCoverSlipOffInwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(grassCoverSlipOffInwardsFailureMechanism.SectionResults,
                                                   GrassCoverSlipOffInwardsAssemblyFunc));

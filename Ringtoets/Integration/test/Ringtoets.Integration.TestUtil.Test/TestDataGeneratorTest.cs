@@ -173,9 +173,10 @@ namespace Ringtoets.Integration.TestUtil.Test
                 new Point2D(-3, 2)
             }, assessmentSection.ReferenceLine.Points);
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+            for (int i = 0; i < failureMechanisms.Count(); i++)
             {
-                AssertHasFailureMechanismSections(failureMechanism);
+                AssertHasFailureMechanismSections(failureMechanisms.ElementAt(i), i);
             }
         }
 
@@ -378,6 +379,33 @@ namespace Ringtoets.Integration.TestUtil.Test
         {
             IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
             Assert.AreEqual(2, sections.Count());
+
+            var failureMechanismHasSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
+            if (failureMechanismHasSectionResults != null)
+            {
+                Assert.AreEqual(sections.Count(), failureMechanismHasSectionResults.SectionResults.Count());
+            }
+        }
+
+        private static void AssertHasFailureMechanismSections(IFailureMechanism failureMechanism, int sectionsCount)
+        {
+            IEnumerable<FailureMechanismSection> sections = failureMechanism.Sections;
+            Assert.AreEqual(sectionsCount, sections.Count());
+
+            var startPoint = new Point2D(-1, -1);
+            var endPoint = new Point2D(15, 15);
+            double endPointStepsX = (endPoint.X - startPoint.X) / sectionsCount;
+            double endPointStepsY = (endPoint.Y - startPoint.Y) / sectionsCount;
+
+            for (var i = 1; i <= sectionsCount; i++)
+            {
+                endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
+                FailureMechanismSection currentSection = sections.ElementAt(i-1);
+                Assert.AreEqual(currentSection.StartPoint, startPoint);
+                Assert.AreEqual(currentSection.EndPoint, endPoint);
+
+                startPoint = endPoint;
+            }
 
             var failureMechanismHasSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
             if (failureMechanismHasSectionResults != null)

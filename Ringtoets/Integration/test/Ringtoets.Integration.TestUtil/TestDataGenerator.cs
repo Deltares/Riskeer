@@ -243,9 +243,10 @@ namespace Ringtoets.Integration.TestUtil
                 ReferenceLine = GetReferenceLine()
             };
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+            for (var i = 0; i < failureMechanisms.Count(); i++)
             {
-                AddFailureMechanismSections(failureMechanism);
+                AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);
             }
 
             return assessmentSection;
@@ -1070,6 +1071,26 @@ namespace Ringtoets.Integration.TestUtil
                                                        });
             failureMechanism.AddSection(section1);
             failureMechanism.AddSection(section2);
+        }
+
+        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism, int numberOfSections)
+        {
+            var startPoint = new Point2D(-1, -1);
+            var endPoint = new Point2D(15, 15);
+            double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
+            double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
+            
+            for (var i = 1; i <= numberOfSections; i++)
+            {
+                endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
+                failureMechanism.AddSection(new FailureMechanismSection(i.ToString(), 
+                                                                        new []
+                                                                        {
+                                                                            startPoint,
+                                                                            endPoint
+                                                                        }));
+                startPoint = endPoint;
+            }
         }
     }
 }
