@@ -2294,7 +2294,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
 
                 // Assert
-
                 Assert.AreEqual(simpleAssembly, AssemblyCategoryAssert.GetFailureMechanismSectionCategoryGroup(kernel.SimpleAssessmentResultInput.Result));
                 Assert.IsNull(kernel.DetailedAssessmentResultInput);
                 Assert.IsNull(kernel.TailorMadeAssessmentResultInput);

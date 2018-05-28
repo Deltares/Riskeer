@@ -104,7 +104,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// Creates <see cref="FmSectionAssemblyDirectResult"/> based on the given parameters.
         /// </summary>
         /// <param name="assembly">The assembly to create
-        /// a <see cref="FmSectionAssemblyDirectResult"/> from.</param>
+        /// a <see cref="FmSectionAssemblyDirectResult"/> for.</param>
         /// <returns>The created <see cref="FmSectionAssemblyDirectResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/>
         /// is <c>null</c>.</exception>
@@ -122,14 +122,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return new FmSectionAssemblyDirectResult(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(assembly.Group),
-                assembly.Probability);
+                                                     assembly.Probability);
         }
 
         /// <summary>
         /// Creates <see cref="FmSectionAssemblyDirectResult"/> based on the given parameters.
         /// </summary>
         /// <param name="categoryGroup">The category group to create
-        /// a <see cref="FmSectionAssemblyDirectResult"/> from.</param>
+        /// a <see cref="FmSectionAssemblyDirectResult"/> for.</param>
         /// <returns>The created <see cref="FmSectionAssemblyDirectResult"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categoryGroup"/> is
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>

@@ -71,29 +71,29 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                IEnumerable<CombinedAssemblyFailureMechanismSection>[] inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms()).ToArray();
+                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
+                    assessmentSection, assessmentSection.GetFailureMechanisms());
 
                 // Assert
-                Assert.AreEqual(18, inputs.Length);
-                AssertSections(assessmentSection.Piping.SectionResults, inputs[0]);
-                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults, inputs[1]);
-                AssertSections(assessmentSection.MacroStabilityInwards.SectionResults, inputs[2]);
-                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults, inputs[3]);
-                AssertSections(assessmentSection.Microstability.SectionResults, inputs[4]);
-                AssertSections(assessmentSection.StabilityStoneCover.SectionResults, inputs[5]);
-                AssertSections(assessmentSection.WaveImpactAsphaltCover.SectionResults, inputs[6]);
-                AssertSections(assessmentSection.WaterPressureAsphaltCover.SectionResults, inputs[7]);
-                AssertSections(assessmentSection.GrassCoverErosionOutwards.SectionResults, inputs[8]);
-                AssertSections(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, inputs[9]);
-                AssertSections(assessmentSection.GrassCoverSlipOffInwards.SectionResults, inputs[10]);
-                AssertSections(assessmentSection.HeightStructures.SectionResults, inputs[11]);
-                AssertSections(assessmentSection.ClosingStructures.SectionResults, inputs[12]);
-                AssertSections(assessmentSection.PipingStructure.SectionResults, inputs[13]);
-                AssertSections(assessmentSection.StabilityPointStructures.SectionResults, inputs[14]);
-                AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults, inputs[15]);
-                AssertSections(assessmentSection.DuneErosion.SectionResults, inputs[16]);
-                AssertSections(assessmentSection.TechnicalInnovation.SectionResults, inputs[17]);
+                Assert.AreEqual(18, inputs.Count());
+                AssertSections(assessmentSection.Piping.SectionResults, inputs.ElementAt(0));
+                AssertSections(assessmentSection.GrassCoverErosionInwards.SectionResults, inputs.ElementAt(1));
+                AssertSections(assessmentSection.MacroStabilityInwards.SectionResults, inputs.ElementAt(2));
+                AssertSections(assessmentSection.MacroStabilityOutwards.SectionResults, inputs.ElementAt(3));
+                AssertSections(assessmentSection.Microstability.SectionResults, inputs.ElementAt(4));
+                AssertSections(assessmentSection.StabilityStoneCover.SectionResults, inputs.ElementAt(5));
+                AssertSections(assessmentSection.WaveImpactAsphaltCover.SectionResults, inputs.ElementAt(6));
+                AssertSections(assessmentSection.WaterPressureAsphaltCover.SectionResults, inputs.ElementAt(7));
+                AssertSections(assessmentSection.GrassCoverErosionOutwards.SectionResults, inputs.ElementAt(8));
+                AssertSections(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, inputs.ElementAt(9));
+                AssertSections(assessmentSection.GrassCoverSlipOffInwards.SectionResults, inputs.ElementAt(10));
+                AssertSections(assessmentSection.HeightStructures.SectionResults, inputs.ElementAt(11));
+                AssertSections(assessmentSection.ClosingStructures.SectionResults, inputs.ElementAt(12));
+                AssertSections(assessmentSection.PipingStructure.SectionResults, inputs.ElementAt(13));
+                AssertSections(assessmentSection.StabilityPointStructures.SectionResults, inputs.ElementAt(14));
+                AssertSections(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults, inputs.ElementAt(15));
+                AssertSections(assessmentSection.DuneErosion.SectionResults, inputs.ElementAt(16));
+                AssertSections(assessmentSection.TechnicalInnovation.SectionResults, inputs.ElementAt(17));
             }
         }
 
