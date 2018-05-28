@@ -31,6 +31,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\AggregatedDuneLocation.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -33,6 +33,7 @@
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DuneLocationCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DuneLocationCalculationsPropertiesTest.cs" />
+    <Compile Include="Views\AggregatedDuneLocationTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
     <Compile Include="Factories\DuneErosionMapDataFeaturesFactoryTest.cs" />
