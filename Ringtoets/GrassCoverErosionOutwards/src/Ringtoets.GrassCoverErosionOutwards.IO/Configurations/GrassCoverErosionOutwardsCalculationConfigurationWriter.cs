@@ -29,7 +29,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
     /// Writer for calculations that contain <see cref="FailureMechanismCategoryWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class GrassCoverErosionOutwardsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter
+    public class GrassCoverErosionOutwardsCalculationConfigurationWriter 
+        : WaveConditionsCalculationConfigurationWriter<FailureMechanismCategoryWaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationConfigurationWriter"/>.

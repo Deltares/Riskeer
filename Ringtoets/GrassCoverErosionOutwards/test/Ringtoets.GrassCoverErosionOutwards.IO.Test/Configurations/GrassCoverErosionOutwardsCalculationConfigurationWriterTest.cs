@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
     [TestFixture]
     public class GrassCoverErosionOutwardsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
         GrassCoverErosionOutwardsCalculationConfigurationWriter,
-        WaveConditionsCalculationConfiguration>
+        FailureMechanismCategoryWaveConditionsCalculationConfiguration>
     {
         protected override GrassCoverErosionOutwardsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
