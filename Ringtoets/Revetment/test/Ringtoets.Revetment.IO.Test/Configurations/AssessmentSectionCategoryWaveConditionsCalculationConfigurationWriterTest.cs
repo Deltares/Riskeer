@@ -28,7 +28,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
         AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter,
-        WaveConditionsCalculationConfiguration>
+        AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {

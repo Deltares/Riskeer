@@ -28,7 +28,8 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// Writer for calculations that contain <see cref="AssessmentSectionCategoryWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter
+    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter 
+        : WaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter"/>.
