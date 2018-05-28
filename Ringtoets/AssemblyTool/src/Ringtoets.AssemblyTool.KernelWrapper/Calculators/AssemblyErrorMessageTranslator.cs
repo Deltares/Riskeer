@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Ringtoets.AssemblyTool.KernelWrapper.Properties;
@@ -32,34 +34,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
     /// </summary>
     public static class AssemblyErrorMessageTranslator
     {
-        private static readonly Dictionary<EAssemblyErrors, string> errorTranslations = new Dictionary<EAssemblyErrors, string>
-        {
-            {EAssemblyErrors.SignallingLimitOutOfRange, Resources.AssemblyErrorMessageTranslator_SignallingLimitOutOfRange},
-            {EAssemblyErrors.LowerLimitOutOfRange, Resources.AssemblyErrorMessageTranslator_LowerLimitOutOfRange},
-            {EAssemblyErrors.FailurePropbabilityMarginOutOfRange, Resources.AssemblyErrorMessageTranslator_FailurePropbabilityMarginOutOfRange},
-            {EAssemblyErrors.LengthEffectFactorOutOfRange, Resources.AssemblyErrorMessageTranslator_LengthEffectFactorOutOfRange},
-            {EAssemblyErrors.SectionLengthOutOfRange, Resources.AssemblyErrorMessageTranslator_SectionLengthOutOfRange},
-            {EAssemblyErrors.SignallingLimitAboveLowerLimit, Resources.AssemblyErrorMessageTranslator_SignallingLimitAboveLowerLimit},
-            {EAssemblyErrors.PsigDsnAbovePsig, Resources.AssemblyErrorMessageTranslator_PsigDsnAbovePsig},
-            {EAssemblyErrors.PlowDsnAbovePlow, Resources.AssemblyErrorMessageTranslator_PlowDsnAbovePlow},
-            {EAssemblyErrors.LowerLimitIsAboveUpperLimit, Resources.AssemblyErrorMessageTranslator_LowerLimitIsAboveUpperLimit},
-            {EAssemblyErrors.CategoryLowerLimitOutOfRange, Resources.AssemblyErrorMessageTranslator_CategoryLowerLimitOutOfRange},
-            {EAssemblyErrors.CategoryUpperLimitOutOfRange, Resources.AssemblyErrorMessageTranslator_CategoryUpperLimitOutOfRange},
-            {EAssemblyErrors.TranslateAssessmentInvalidInput, Resources.AssemblyErrorMessageTranslator_TranslateAssessmentInvalidInput},
-            {EAssemblyErrors.ValueMayNotBeNull, Resources.AssemblyErrorMessageTranslator_ValueMayNotBeNull},
-            {EAssemblyErrors.CategoryNotAllowed, Resources.AssemblyErrorMessageTranslator_CategoryNotAllowed},
-            {EAssemblyErrors.DoesNotComplyAfterComply, Resources.AssemblyErrorMessageTranslator_DoesNotComplyAfterComply},
-            {EAssemblyErrors.FmSectionLengthInvalid, Resources.AssemblyErrorMessageTranslator_FmSectionLengthInvalid},
-            {EAssemblyErrors.FmSectionSectionStartEndInvalid, Resources.AssemblyErrorMessageTranslator_FmSectionSectionStartEndInvalid},
-            {EAssemblyErrors.FailureProbabilityOutOfRange, Resources.AssemblyErrorMessageTranslator_FailureProbabilityOutOfRange},
-            {EAssemblyErrors.InputNotTheSameType, Resources.AssemblyErrorMessageTranslator_InputNotTheSameType},
-            {EAssemblyErrors.FailureMechanismAssemblerInputInvalid, Resources.AssemblyErrorMessageTranslator_FailureMechanismAssemblerInputInvalid},
-            {EAssemblyErrors.CommonFailureMechanismSectionsInvalid, Resources.AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsInvalid},
-            {EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive, Resources.AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive},
-            {EAssemblyErrors.RequestedPointOutOfRange, Resources.AssemblyErrorMessageTranslator_RequestedPointOutOfRange},
-            {EAssemblyErrors.FailureMechanismDuplicateSection, Resources.AssemblyErrorMessageTranslator_FailureMechanismDuplicateSection}
-        };
-
         /// <summary>
         /// Creates a localized error message based on the contents of <paramref name="errorMessages"/>.
         /// </summary>
@@ -67,9 +41,71 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
         /// <returns>A localized string containing the error message(s).</returns>
         public static string CreateErrorMessage(IEnumerable<AssemblyErrorMessage> errorMessages)
         {
-            return errorMessages.Count() == 1 
-                       ? errorTranslations[errorMessages.Single().ErrorCode] 
-                       : errorMessages.Aggregate(string.Empty, (current, message) => current + "- " + errorTranslations[message.ErrorCode] + "\n");
+            return errorMessages.Count() == 1
+                       ? GetErrorMessage(errorMessages.Single().ErrorCode)
+                       : errorMessages.Aggregate(string.Empty, (current, message) => current + "- " + GetErrorMessage(message.ErrorCode) + "\n");
+        }
+
+        private static string GetErrorMessage(EAssemblyErrors assemblyError)
+        {
+            if (!Enum.IsDefined(typeof(EAssemblyErrors), assemblyError))
+            {
+                throw new InvalidEnumArgumentException(nameof(assemblyError), (int) assemblyError, typeof(EAssemblyErrors));
+            }
+
+            switch (assemblyError)
+            {
+                case EAssemblyErrors.SignallingLimitOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_SignallingLimitOutOfRange;
+                case EAssemblyErrors.LowerLimitOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_LowerLimitOutOfRange;
+                case EAssemblyErrors.FailurePropbabilityMarginOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_FailurePropbabilityMarginOutOfRange;
+                case EAssemblyErrors.LengthEffectFactorOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_LengthEffectFactorOutOfRange;
+                case EAssemblyErrors.SectionLengthOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_SectionLengthOutOfRange;
+                case EAssemblyErrors.SignallingLimitAboveLowerLimit:
+                    return Resources.AssemblyErrorMessageTranslator_SignallingLimitAboveLowerLimit;
+                case EAssemblyErrors.PsigDsnAbovePsig:
+                    return Resources.AssemblyErrorMessageTranslator_PsigDsnAbovePsig;
+                case EAssemblyErrors.PlowDsnAbovePlow:
+                    return Resources.AssemblyErrorMessageTranslator_PlowDsnAbovePlow;
+                case EAssemblyErrors.LowerLimitIsAboveUpperLimit:
+                    return Resources.AssemblyErrorMessageTranslator_LowerLimitIsAboveUpperLimit;
+                case EAssemblyErrors.CategoryLowerLimitOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_CategoryLowerLimitOutOfRange;
+                case EAssemblyErrors.CategoryUpperLimitOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_CategoryUpperLimitOutOfRange;
+                case EAssemblyErrors.TranslateAssessmentInvalidInput:
+                    return Resources.AssemblyErrorMessageTranslator_TranslateAssessmentInvalidInput;
+                case EAssemblyErrors.ValueMayNotBeNull:
+                    return Resources.AssemblyErrorMessageTranslator_ValueMayNotBeNull;
+                case EAssemblyErrors.CategoryNotAllowed:
+                    return Resources.AssemblyErrorMessageTranslator_CategoryNotAllowed;
+                case EAssemblyErrors.DoesNotComplyAfterComply:
+                    return Resources.AssemblyErrorMessageTranslator_DoesNotComplyAfterComply;
+                case EAssemblyErrors.FmSectionLengthInvalid:
+                    return Resources.AssemblyErrorMessageTranslator_FmSectionLengthInvalid;
+                case EAssemblyErrors.FmSectionSectionStartEndInvalid:
+                    return Resources.AssemblyErrorMessageTranslator_FmSectionSectionStartEndInvalid;
+                case EAssemblyErrors.FailureProbabilityOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_FailureProbabilityOutOfRange;
+                case EAssemblyErrors.InputNotTheSameType:
+                    return Resources.AssemblyErrorMessageTranslator_InputNotTheSameType;
+                case EAssemblyErrors.FailureMechanismAssemblerInputInvalid:
+                    return Resources.AssemblyErrorMessageTranslator_FailureMechanismAssemblerInputInvalid;
+                case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
+                    return Resources.AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsInvalid;
+                case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
+                    return Resources.AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive;
+                case EAssemblyErrors.RequestedPointOutOfRange:
+                    return Resources.AssemblyErrorMessageTranslator_RequestedPointOutOfRange;
+                case EAssemblyErrors.FailureMechanismDuplicateSection:
+                    return Resources.AssemblyErrorMessageTranslator_FailureMechanismDuplicateSection;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
