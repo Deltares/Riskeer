@@ -16,6 +16,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryTypeTest.cs" />
