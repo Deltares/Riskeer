@@ -214,11 +214,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
 
             yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
-                (context, filePath) => new WaveImpactAsphaltCoverCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
             yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
-                (context, filePath) => new WaveImpactAsphaltCoverCalculationConfigurationExporter(new[]
+                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
                 }, filePath));
