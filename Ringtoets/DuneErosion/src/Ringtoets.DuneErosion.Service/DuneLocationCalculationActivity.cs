@@ -32,7 +32,6 @@ namespace Ringtoets.DuneErosion.Service
     /// </summary>
     public class DuneLocationCalculationActivity : HydraRingActivityBase
     {
-        private readonly DuneLocation duneLocation;
         private readonly DuneLocationCalculation duneLocationCalculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string preprocessorDirectory;
@@ -65,7 +64,7 @@ namespace Ringtoets.DuneErosion.Service
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
-            duneLocation = duneLocationCalculation.DuneLocation;
+            DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
             Description = string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
                                         duneLocation.Name);
 
@@ -101,7 +100,6 @@ namespace Ringtoets.DuneErosion.Service
 
         protected override void OnFinish()
         {
-            duneLocation.NotifyObservers();
             duneLocationCalculation.NotifyObservers();
         }
 
