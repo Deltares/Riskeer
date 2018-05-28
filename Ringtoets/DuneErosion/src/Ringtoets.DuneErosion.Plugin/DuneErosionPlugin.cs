@@ -136,7 +136,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - {context.CategoryBoundaryName}",
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseDuneLocationsViewForData,
+                CloseForData = CloseDuneLocationCalculationsViewForData,
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
                                                                              context.FailureMechanism,
                                                                              context.AssessmentSection,
@@ -403,9 +403,9 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #endregion
 
-        #region DuneLocationsView ViewInfo
+        #region DuneLocationCalculationsView ViewInfo
 
-        private static bool CloseDuneLocationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
+        private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
             var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
