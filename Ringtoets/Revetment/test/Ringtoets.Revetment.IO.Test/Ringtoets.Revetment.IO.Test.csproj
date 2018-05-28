@@ -20,6 +20,7 @@
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryTypeTest.cs" />
     <Compile Include="Configurations\ConfigurationFailureMechanismCategoryTypeTest.cs" />
+    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\Helpers\WaveConditionsInputExtensionsTest.cs" />
     <Compile Include="WaveConditions\CoverTypeTest.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditionsFactoryTest.cs" />
