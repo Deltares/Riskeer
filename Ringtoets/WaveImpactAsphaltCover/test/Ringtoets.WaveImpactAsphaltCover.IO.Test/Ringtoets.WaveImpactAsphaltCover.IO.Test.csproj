@@ -15,7 +15,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exporters\WaveImpactAsphaltCoverCalculationConfigurationExporterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exporters\WaveImpactAsphaltCoverWaveConditionsExporterTest.cs" />
   </ItemGroup>
