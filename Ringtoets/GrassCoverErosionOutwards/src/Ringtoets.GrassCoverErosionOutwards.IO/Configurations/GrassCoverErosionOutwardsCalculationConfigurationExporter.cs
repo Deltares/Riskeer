@@ -22,21 +22,18 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations.Helpers;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Exports a grass cover erosion outwards calculation configuration and stores it as an XML file.
     /// </summary>
-    public class GrassCoverErosionOutwardsCalculationConfigurationExporter
-        : CalculationConfigurationExporter<
-            GrassCoverErosionOutwardsCalculationConfigurationWriter,
-            GrassCoverErosionOutwardsWaveConditionsCalculation,
-            WaveConditionsCalculationConfiguration>
+    public class GrassCoverErosionOutwardsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
+        GrassCoverErosionOutwardsCalculationConfigurationWriter,
+        FailureMechanismCategoryWaveConditionsCalculationConfiguration,
+        GrassCoverErosionOutwardsWaveConditionsCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationConfigurationExporter"/>.
@@ -53,9 +50,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
             return new GrassCoverErosionOutwardsCalculationConfigurationWriter(filePath);
         }
 
-        protected override WaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        protected override FailureMechanismCategoryWaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
-            return calculation.InputParameters.ToConfiguration(calculation.Name);
+            return (FailureMechanismCategoryWaveConditionsCalculationConfiguration) CreateConfiguration(calculation);
         }
     }
 }

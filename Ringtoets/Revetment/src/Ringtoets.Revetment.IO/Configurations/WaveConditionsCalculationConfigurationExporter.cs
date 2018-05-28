@@ -22,8 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
+using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {
@@ -52,5 +56,51 @@ namespace Ringtoets.Revetment.IO.Configurations
         protected abstract override TWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath);
 
         protected abstract override TWaveConditionsCalculationConfiguration ToConfiguration(TCalculation calculation);
+
+        /// <summary>
+        /// Converts a <see cref="WaveConditionsInput"/> to <see cref="WaveConditionsCalculationConfiguration"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to convert.</param>
+        /// <returns>A new <see cref="WaveConditionsCalculationConfiguration"/> with values 
+        /// taken from <paramref name="calculation"/>.</returns>
+        protected WaveConditionsCalculationConfiguration CreateConfiguration(TCalculation calculation)
+        {
+            WaveConditionsInput input = calculation.InputParameters;
+            var calculationConfiguration = new WaveConditionsCalculationConfiguration(calculation.Name)
+            {
+                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
+                LowerBoundaryRevetment = input.LowerBoundaryRevetment,
+                UpperBoundaryRevetment = input.UpperBoundaryRevetment,
+                LowerBoundaryWaterLevels = input.LowerBoundaryWaterLevels,
+                UpperBoundaryWaterLevels = input.UpperBoundaryWaterLevels,
+                Orientation = input.Orientation,
+                StepSize = (ConfigurationWaveConditionsInputStepSize?) new ConfigurationWaveConditionsInputStepSizeConverter().ConvertFrom(input.StepSize)
+            };
+            SetConfigurationForeshoreProfileDependendProperties(calculationConfiguration, input);
+            return calculationConfiguration;
+        }
+
+        private static void SetConfigurationForeshoreProfileDependendProperties(WaveConditionsCalculationConfiguration configuration,
+                                                                                WaveConditionsInput input)
+        {
+            if (input.ForeshoreProfile == null)
+            {
+                return;
+            }
+
+            configuration.ForeshoreProfileId = input.ForeshoreProfile?.Id;
+            configuration.WaveReduction = new WaveReductionConfiguration
+            {
+                UseForeshoreProfile = input.UseForeshore,
+                UseBreakWater = input.UseBreakWater,
+                BreakWaterHeight = input.BreakWater.Height
+            };
+
+            if (Enum.IsDefined(typeof(BreakWaterType), input.BreakWater.Type))
+            {
+                configuration.WaveReduction.BreakWaterType = (ConfigurationBreakWaterType?)
+                    new ConfigurationBreakWaterTypeConverter().ConvertFrom(input.BreakWater.Type);
+            }
+        }
     }
 }
