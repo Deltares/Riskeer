@@ -142,11 +142,11 @@ namespace Ringtoets.DuneErosion.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.Offset),
                                                  Resources.DuneLocation_Offset_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaterLevel),
-                                                 Resources.DuneLocation_WaterLevel_DisplayName);
+                                                 Resources.DuneLocationCalculationOutput_WaterLevel_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WaveHeight),
-                                                 Resources.DuneLocation_WaveHeight_DisplayName);
+                                                 Resources.DuneLocationCalculationOutput_WaveHeight_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.WavePeriod),
-                                                 Resources.DuneLocation_WavePeriod_DisplayName);
+                                                 Resources.DuneLocationCalculationOutput_WavePeriod_DisplayName);
             dataGridViewControl.AddTextBoxColumn(nameof(DuneLocationCalculationRow.D50),
                                                  Resources.DuneLocation_D50_DisplayName);
         }
