@@ -20,13 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Util;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Properties;
+using Ringtoets.DuneErosion.Forms.Views;
 using RingtoetsDuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
@@ -74,6 +77,55 @@ namespace Ringtoets.DuneErosion.Forms.Factories
             }
 
             return features;
+        }
+
+        /// <summary>
+        /// Create dune location features based on the provided <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to create the location features for.</param>
+        /// <returns>An array of features or an empty array when <see cref="DuneErosionFailureMechanism"/> does not contain
+        /// any dune locations.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateDuneLocationFeatures(DuneErosionFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            return AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(failureMechanism)
+                                                .Select(CreateDuneLocationFeature)
+                                                .ToArray();
+        }
+
+        private static MapFeature CreateDuneLocationFeature(AggregatedDuneLocation location)
+        {
+            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
+            feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
+            feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
+                                                                                   CultureInfo.InvariantCulture);
+
+            feature.MetaData["Rekenwaarde h(Iv->IIv)"] = location.WaterLevelForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData["Rekenwaarde h(IIv->IIIv)"] = location.WaterLevelForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData["Rekenwaarde h(IIIv->IVv)"] = location.WaterLevelForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData["Rekenwaarde h(IVv->Vv)"] = location.WaterLevelForLowerLimitNorm.ToString();
+            feature.MetaData["Rekenwaarde h(Vv->VIv)"] = location.WaterLevelForFactorizedLowerLimitNorm.ToString();
+
+            feature.MetaData["Rekenwaarde Hs(Iv->IIv)"] = location.WaveHeightForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData["Rekenwaarde Hs(IIv->IIIv)"] = location.WaveHeightForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData["Rekenwaarde Hs(IIIv->IVv)"] = location.WaveHeightForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData["Rekenwaarde Hs(IVv->Vv)"] = location.WaveHeightForLowerLimitNorm.ToString();
+            feature.MetaData["Rekenwaarde Hs(Vv->VIv)"] = location.WaveHeightForFactorizedLowerLimitNorm.ToString();
+
+            feature.MetaData["Rekenwaarde Tp(Iv->IIv)"] = location.WavePeriodForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData["Rekenwaarde Tp(IIv->IIIv)"] = location.WavePeriodForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData["Rekenwaarde Tp(IIIv->IVv)"] = location.WavePeriodForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData["Rekenwaarde Tp(IVv->Vv)"] = location.WavePeriodForLowerLimitNorm.ToString();
+            feature.MetaData["Rekenwaarde Tp(Vv->VIv)"] = location.WavePeriodForFactorizedLowerLimitNorm.ToString();
+
+            return feature;
         }
     }
 }
