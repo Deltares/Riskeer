@@ -32,10 +32,12 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// Base implementation of a writer for calculations that contain <see cref="WaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class WaveConditionsCalculationConfigurationWriter : CalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
+    /// <typeparam name="T">The type of configuration.</typeparam>
+    public class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
+        where T: WaveConditionsCalculationConfiguration
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
         /// </summary>
         /// <param name="filePath">The path of the file to write to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
@@ -49,7 +51,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         public WaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
-        protected override void WriteCalculation(WaveConditionsCalculationConfiguration configuration, XmlWriter writer)
+        protected override void WriteCalculation(T configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
