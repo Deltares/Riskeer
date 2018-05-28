@@ -115,8 +115,7 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                     });
 
                 // Assert
-                Assert.AreEqual(1, inputs.Count());
-                AssertSections(((IHasSectionResults<FailureMechanismSectionResult>) relevantFailureMechanism).SectionResults, inputs.ElementAt(0));
+                AssertSections(((IHasSectionResults<FailureMechanismSectionResult>) relevantFailureMechanism).SectionResults, inputs.Single());
             }
         }
 
