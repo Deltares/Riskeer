@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 
@@ -72,17 +73,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Sets an indicator whether an exception must be thrown while performing a calculation.
+        /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
         /// </summary>
-        public bool ThrowException { private get; set; }
+        public bool ThrowExceptionOnCalculate { private get; set; }
+
+        /// <summary>
+        /// Sets an indicator whether an <see cref="AssemblyException"/> must be thrown while performing a calculation.
+        /// </summary>
+        public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         public EAssessmentGrade AssembleAssessmentSectionWbi2A1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
                                                                 bool partialAssembly)
         {
-            if (ThrowException)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             PartialAssembly = partialAssembly;
             FailureMechanismAssemblyResults = failureMechanismAssemblyResults;
@@ -96,10 +99,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                                IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
                                                                                bool partialAssembly)
         {
-            if (ThrowException)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             PartialAssembly = partialAssembly;
             AssessmentSectionInput = section;
@@ -113,10 +113,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public AssessmentSectionAssemblyResult AssembleAssessmentSectionWbi2C1(AssessmentSectionAssemblyResult assemblyResultNoFailureProbability,
                                                                                AssessmentSectionAssemblyResult assemblyResultWithFailureProbability)
         {
-            if (ThrowException)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             AssemblyResultNoFailureProbability = assemblyResultNoFailureProbability;
             AssemblyResultWithFailureProbability = assemblyResultWithFailureProbability;
@@ -124,6 +121,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             Calculated = true;
 
             return AssessmentSectionAssemblyResult;
+        }
+
+        private void ThrowExceptions()
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            if (ThrowAssemblyExceptionOnCalculate)
+            {
+                throw new AssemblyException("entity", EAssemblyErrors.CategoryLowerLimitOutOfRange);
+            }
         }
     }
 }

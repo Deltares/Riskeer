@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 
@@ -32,9 +33,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     public class CombinedFailureMechanismSectionAssemblyKernelStub : ICommonFailureMechanismSectionAssembler
     {
         /// <summary>
-        /// Sets an indicator whether an exception must be thrown while performing a calculation.
+        /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
         /// </summary>
-        public bool ThrowException { private get; set; }
+        public bool ThrowExceptionOnCalculate { private get; set; }
+
+        /// <summary>
+        /// Sets an indicator whether an <see cref="AssemblyException"/> must be thrown while performing a calculation.
+        /// </summary>
+        public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not. 
@@ -64,9 +70,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public AssemblyResult AssembleCommonFailureMechanismSections(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
                                                                      double assessmentSectionLength, bool partialAssembly)
         {
-            if (ThrowException)
+            if (ThrowExceptionOnCalculate)
             {
                 throw new Exception("Message", new Exception());
+            }
+
+            if (ThrowAssemblyExceptionOnCalculate)
+            {
+                throw new AssemblyException("entity", EAssemblyErrors.CategoryLowerLimitOutOfRange);
             }
 
             FailureMechanismSectionListsInput = failureMechanismSectionLists;

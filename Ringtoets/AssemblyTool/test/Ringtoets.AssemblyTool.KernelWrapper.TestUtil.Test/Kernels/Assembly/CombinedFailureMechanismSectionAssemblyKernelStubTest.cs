@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Core.Common.TestUtil;
@@ -94,7 +95,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var random = new Random(21);
             var kernel = new CombinedFailureMechanismSectionAssemblyKernelStub
             {
-                ThrowException = true
+                ThrowExceptionOnCalculate = true
             };
 
             // Call
@@ -105,6 +106,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.AssessmentSectionLengthInput);
+            Assert.IsNull(kernel.FailureMechanismSectionListsInput);
+            Assert.IsNull(kernel.PartialAssembly);
+            Assert.IsNull(kernel.AssemblyResult);
+            Assert.IsFalse(kernel.Calculated);
+        }
+
+        [Test]
+        public void AssembleCommonFailureMechanismSections_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(21);
+            var kernel = new CombinedFailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.AssembleCommonFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionList>(),
+                                                                                    random.NextDouble(), random.NextBoolean());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsNull(kernel.AssessmentSectionLengthInput);
             Assert.IsNull(kernel.FailureMechanismSectionListsInput);
             Assert.IsNull(kernel.PartialAssembly);

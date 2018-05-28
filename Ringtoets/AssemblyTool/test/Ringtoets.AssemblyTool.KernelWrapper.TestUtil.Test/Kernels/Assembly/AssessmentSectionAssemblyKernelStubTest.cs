@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Core.Common.TestUtil;
@@ -50,7 +51,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSectionWbi2A1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleAssessmentSectionWbi2A1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(21);
@@ -72,7 +73,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSectionWbi2A1_ThrowExceptionOnCalculateFalse_ReturnAssessmentGrade()
+        public void AssembleAssessmentSectionWbi2A1_ThrowExceptionsFalse_ReturnAssessmentGrade()
         {
             // Setup
             var random = new Random(21);
@@ -96,7 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var random = new Random(21);
             var kernel = new AssessmentSectionAssemblyKernelStub
             {
-                ThrowException = true
+                ThrowExceptionOnCalculate = true
             };
 
             // Call
@@ -113,7 +114,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSectionWbi2B1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleAssessmentSectionWbi2A1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(21);
+            var kernel = new AssessmentSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.AssembleAssessmentSectionWbi2A1(Enumerable.Empty<FailureMechanismAssemblyResult>(),
+                                                                             random.NextBoolean());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+
+            Assert.IsNull(kernel.FailureMechanismAssemblyResults);
+            Assert.IsNull(kernel.PartialAssembly);
+            Assert.IsFalse(kernel.Calculated);
+        }
+
+        [Test]
+        public void AssembleAssessmentSectionWbi2B1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(21);
@@ -137,7 +163,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSectionWbi2B1_ThrowExceptionOnCalculateFalse_ReturnAssessmentGrade()
+        public void AssembleAssessmentSectionWbi2B1_ThrowExceptionsFalse_ReturnAssessmentGrade()
         {
             // Setup
             var random = new Random(21);
@@ -162,7 +188,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var random = new Random(21);
             var kernel = new AssessmentSectionAssemblyKernelStub
             {
-                ThrowException = true
+                ThrowExceptionOnCalculate = true
             };
 
             // Call
@@ -180,7 +206,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSectionWbi2C1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleAssessmentSectionWbi2B1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(21);
+            var kernel = new AssessmentSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.AssembleAssessmentSectionWbi2B1(CreateAssessmentSection(),
+                                                                             Enumerable.Empty<FailureMechanismAssemblyResult>(),
+                                                                             random.NextBoolean());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.FailureMechanismAssemblyResults);
+            Assert.IsNull(kernel.PartialAssembly);
+            Assert.IsFalse(kernel.Calculated);
+        }
+
+        [Test]
+        public void AssembleAssessmentSectionWbi2C1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             AssessmentSectionAssemblyResult assemblyResultNoFailureProbability = CreateAssemblyResult();
@@ -202,7 +253,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSectionWbi2C1_ThrowExceptionOnCalculateFalse_ReturnAssessmentGrade()
+        public void AssembleAssessmentSectionWbi2C1_ThrowExceptionsFalse_ReturnAssessmentGrade()
         {
             // Setup
             var kernel = new AssessmentSectionAssemblyKernelStub
@@ -224,7 +275,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             // Setup
             var kernel = new AssessmentSectionAssemblyKernelStub
             {
-                ThrowException = true
+                ThrowExceptionOnCalculate = true
             };
 
             // Call
@@ -235,6 +286,29 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.AssemblyResultNoFailureProbability);
+            Assert.IsNull(kernel.AssemblyResultWithFailureProbability);
+            Assert.IsFalse(kernel.Calculated);
+        }
+
+        [Test]
+        public void AssembleAssessmentSectionWbi2C1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var kernel = new AssessmentSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.AssembleAssessmentSectionWbi2C1(CreateAssemblyResult(),
+                                                                             CreateAssemblyResult());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsNull(kernel.AssemblyResultNoFailureProbability);
             Assert.IsNull(kernel.AssemblyResultWithFailureProbability);
             Assert.IsFalse(kernel.Calculated);

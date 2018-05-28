@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Ringtoets.AssemblyTool.Data;
@@ -66,6 +67,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
                 return AssessmentSectionAssemblyCreator.CreateAssessmentSectionAssembly(output);
             }
+            catch (AssemblyException e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+            }
             catch (Exception e)
             {
                 throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
@@ -82,6 +87,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     false);
 
                 return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(output);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
@@ -101,6 +110,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
                 return AssessmentSectionAssemblyCreator.CreateAssessmentSectionAssembly(output).Group;
             }
+            catch (AssemblyException e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+            }
             catch (Exception e)
             {
                 throw new AssessmentSectionAssemblyCalculatorException(e.Message, e);
@@ -116,6 +129,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                 AssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
 
                 return CombinedFailureMechanismSectionAssemblyCreator.Create(output);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
