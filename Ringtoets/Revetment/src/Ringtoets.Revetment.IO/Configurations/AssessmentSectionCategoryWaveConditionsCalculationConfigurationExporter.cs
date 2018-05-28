@@ -51,7 +51,9 @@ namespace Ringtoets.Revetment.IO.Configurations
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ToConfiguration(ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation)
         {
-            return (AssessmentSectionCategoryWaveConditionsCalculationConfiguration) CreateConfiguration(calculation);
+            var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculation.Name);
+            SetConfigurationProperties(configuration, calculation);
+            return configuration;
         }
     }
 }

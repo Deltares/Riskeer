@@ -51,7 +51,9 @@ namespace Ringtoets.Revetment.IO.Configurations
 
         protected override FailureMechanismCategoryWaveConditionsCalculationConfiguration ToConfiguration(ICalculation<FailureMechanismCategoryWaveConditionsInput> calculation)
         {
-            return (FailureMechanismCategoryWaveConditionsCalculationConfiguration) CreateConfiguration(calculation);
+            var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration(calculation.Name);
+            SetConfigurationProperties(configuration, calculation);
+            return configuration;
         }
     }
 }

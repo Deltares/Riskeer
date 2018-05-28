@@ -58,26 +58,22 @@ namespace Ringtoets.Revetment.IO.Configurations
         protected abstract override TWaveConditionsCalculationConfiguration ToConfiguration(TCalculation calculation);
 
         /// <summary>
-        /// Converts a <see cref="WaveConditionsInput"/> to <see cref="WaveConditionsCalculationConfiguration"/>.
+        /// Sets the properties of a <see cref="TCalculation"/> to a <see cref="TWaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="calculation">The calculation to convert.</param>
-        /// <returns>A new <see cref="WaveConditionsCalculationConfiguration"/> with values 
-        /// taken from <paramref name="calculation"/>.</returns>
-        protected WaveConditionsCalculationConfiguration CreateConfiguration(TCalculation calculation)
+        /// <param name="calculationConfiguration">The calculation configuration to set the properties for.</param>
+        /// <param name="calculation">The calculation to get the properties of.</param>
+        protected void SetConfigurationProperties(TWaveConditionsCalculationConfiguration calculationConfiguration, TCalculation calculation)
         {
             WaveConditionsInput input = calculation.InputParameters;
-            var calculationConfiguration = new WaveConditionsCalculationConfiguration(calculation.Name)
-            {
-                HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
-                LowerBoundaryRevetment = input.LowerBoundaryRevetment,
-                UpperBoundaryRevetment = input.UpperBoundaryRevetment,
-                LowerBoundaryWaterLevels = input.LowerBoundaryWaterLevels,
-                UpperBoundaryWaterLevels = input.UpperBoundaryWaterLevels,
-                Orientation = input.Orientation,
-                StepSize = (ConfigurationWaveConditionsInputStepSize?) new ConfigurationWaveConditionsInputStepSizeConverter().ConvertFrom(input.StepSize)
-            };
+            calculationConfiguration.HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name;
+            calculationConfiguration.LowerBoundaryRevetment = input.LowerBoundaryRevetment;
+            calculationConfiguration.UpperBoundaryRevetment = input.UpperBoundaryRevetment;
+            calculationConfiguration.LowerBoundaryWaterLevels = input.LowerBoundaryWaterLevels;
+            calculationConfiguration.UpperBoundaryWaterLevels = input.UpperBoundaryWaterLevels;
+            calculationConfiguration.Orientation = input.Orientation;
+            calculationConfiguration.StepSize = (ConfigurationWaveConditionsInputStepSize?) new ConfigurationWaveConditionsInputStepSizeConverter().ConvertFrom(input.StepSize);
+
             SetConfigurationForeshoreProfileDependendProperties(calculationConfiguration, input);
-            return calculationConfiguration;
         }
 
         private static void SetConfigurationForeshoreProfileDependendProperties(WaveConditionsCalculationConfiguration configuration,
