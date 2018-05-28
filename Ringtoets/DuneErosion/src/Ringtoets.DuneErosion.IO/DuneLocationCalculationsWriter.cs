@@ -48,19 +48,20 @@ namespace Ringtoets.DuneErosion.IO
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
         public static void WriteDuneLocationCalculations(IEnumerable<DuneLocationCalculation> duneLocationCalculations,
-                                              string filePath)
+                                                         string filePath)
         {
             if (duneLocationCalculations == null)
             {
                 throw new ArgumentNullException(nameof(duneLocationCalculations));
             }
+
             if (filePath == null)
             {
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            var stringBuilder = new StringBuilder(Resources.DuneLocationsWriter_WriteDuneLocations_HeaderLine + Environment.NewLine);
-            stringBuilder.AppendLine(Resources.DuneLocationsWriter_WriteDuneLocations_UnitsLine);
+            var stringBuilder = new StringBuilder(Resources.DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine + Environment.NewLine);
+            stringBuilder.AppendLine(Resources.DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine);
 
             try
             {
@@ -84,7 +85,7 @@ namespace Ringtoets.DuneErosion.IO
             {
                 duneLocation.CoastalAreaId.ToString(null, CultureInfo.InvariantCulture),
                 duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
-                Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
+                Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
                 duneLocation.D50.ToString(null, CultureInfo.InvariantCulture)
             };
 
@@ -98,9 +99,9 @@ namespace Ringtoets.DuneErosion.IO
             return calculationOutput == null
                        ? new[]
                        {
-                           Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
-                           Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value,
-                           Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value
+                           Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
+                           Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
+                           Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value
                        }
                        : new[]
                        {
@@ -114,7 +115,7 @@ namespace Ringtoets.DuneErosion.IO
         {
             return !double.IsNaN(value)
                        ? value.ToString(null, CultureInfo.InvariantCulture)
-                       : Resources.DuneLocationsWriter_CreateCsvLine_Parameter_without_value;
+                       : Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value;
         }
     }
 }
