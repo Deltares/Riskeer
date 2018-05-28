@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
@@ -51,7 +52,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1A1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleFailureMechanismWbi1A1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -72,7 +73,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1A1_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void AssembleFailureMechanismWbi1A1_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -111,6 +112,29 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
+        public void AssembleFailureMechanismWbi1A1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var kernel = new FailureMechanismAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.AssembleFailureMechanismWbi1A1(Enumerable.Empty<FmSectionAssemblyDirectResult>(), true);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.FmSectionAssemblyResultsInput);
+            Assert.IsNull(kernel.PartialAssembly);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.AreEqual(EFailureMechanismCategory.It, kernel.FailureMechanismCategoryResult);
+        }
+
+        [Test]
         public void AssembleFailureMechanismWbi1A2_Always_ThrowNotImplementedException()
         {
             // Setup
@@ -124,7 +148,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1B1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleFailureMechanismWbi1B1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -149,7 +173,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1B1_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void AssembleFailureMechanismWbi1B1_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -188,6 +212,35 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.FmSectionAssemblyResultsInput);
+            Assert.IsNull(kernel.PartialAssembly);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.AreEqual(EFailureMechanismCategory.It, kernel.FailureMechanismCategoryResult);
+        }
+
+        [Test]
+        public void AssembleFailureMechanismWbi1B1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(39);
+            var kernel = new FailureMechanismAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.AssembleFailureMechanismWbi1B1(CreateRandomAssessmentSection(random),
+                                                                            CreateRandomFailureMechanism(random),
+                                                                            Enumerable.Empty<FmSectionAssemblyDirectResult>(),
+                                                                            true);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.FmSectionAssemblyResultsInput);

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Ringtoets.AssemblyTool.Data;
@@ -63,6 +64,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
 
                 return FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(output);
             }
+            catch (AssemblyException e)
+            {
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+            }
             catch (Exception e)
             {
                 throw new FailureMechanismAssemblyCalculatorException(e.Message, e);
@@ -82,6 +87,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     false);
 
                 return FailureMechanismAssemblyCreator.Create(output);
+            }
+            catch (AssemblyException e)
+            {
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
