@@ -30,8 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
-using Ringtoets.GrassCoverErosionOutwards.IO.Exporters;
+using Ringtoets.Revetment.IO.Configurations;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
@@ -80,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsCalculationConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter>(fileExporter);
         }
 
         [Test]

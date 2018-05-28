@@ -22,27 +22,26 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.Revetment.IO.Configurations;
+using Ringtoets.Revetment.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
+namespace Ringtoets.Revetment.IO.Configurations
 {
     /// <summary>
-    /// Exports a grass cover erosion outwards calculation configuration and stores it as an XML file.
+    /// Exports a failure mechanism category wave conditions calculation configuration and stores it as an XML file.
     /// </summary>
-    public class GrassCoverErosionOutwardsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
+    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
         FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
         FailureMechanismCategoryWaveConditionsCalculationConfiguration,
-        GrassCoverErosionOutwardsWaveConditionsCalculation>
+        ICalculation<FailureMechanismCategoryWaveConditionsInput>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationConfigurationExporter"/>.
+        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
         /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public GrassCoverErosionOutwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
+        public FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
         protected override FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
@@ -50,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
             return new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(filePath);
         }
 
-        protected override FailureMechanismCategoryWaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        protected override FailureMechanismCategoryWaveConditionsCalculationConfiguration ToConfiguration(ICalculation<FailureMechanismCategoryWaveConditionsInput> calculation)
         {
             return (FailureMechanismCategoryWaveConditionsCalculationConfiguration) CreateConfiguration(calculation);
         }

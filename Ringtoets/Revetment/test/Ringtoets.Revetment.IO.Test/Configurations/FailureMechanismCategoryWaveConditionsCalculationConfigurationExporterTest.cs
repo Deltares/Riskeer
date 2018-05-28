@@ -27,25 +27,25 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
+namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsCalculationConfigurationExporterTest
+    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
-            GrassCoverErosionOutwardsCalculationConfigurationExporter,
+            FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter,
             FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
-            GrassCoverErosionOutwardsWaveConditionsCalculation,
+            ICalculation<FailureMechanismCategoryWaveConditionsInput>,
             FailureMechanismCategoryWaveConditionsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation1 = new TestWaveConditionsCalculation<FailureMechanismCategoryWaveConditionsInput>(new FailureMechanismCategoryWaveConditionsInput())
             {
                 Name = "Calculation A",
                 InputParameters =
@@ -54,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 }
             };
 
-            var calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation2 = new TestWaveConditionsCalculation<FailureMechanismCategoryWaveConditionsInput>(new FailureMechanismCategoryWaveConditionsInput())
             {
                 Name = "PK001_0002 W1-6_4_1D1",
                 InputParameters =
@@ -83,9 +83,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 }
             };
 
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
                                                                     Path.Combine(
-                                                                        nameof(GrassCoverErosionOutwardsCalculationConfigurationExporter),
+                                                                        nameof(FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));
             // Call and Assert
             WriteAndValidate(new[]
@@ -94,14 +94,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
-        protected override GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculation()
+        protected override ICalculation<FailureMechanismCategoryWaveConditionsInput> CreateCalculation()
         {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            return new TestWaveConditionsCalculation<FailureMechanismCategoryWaveConditionsInput>(new FailureMechanismCategoryWaveConditionsInput());
         }
 
-        protected override GrassCoverErosionOutwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        protected override FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new GrassCoverErosionOutwardsCalculationConfigurationExporter(calculations, filePath);
+            return new FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }
