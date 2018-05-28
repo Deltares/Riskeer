@@ -150,7 +150,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_ValidHydraulicBoundaryDatabaseAndDuneLocation_PerformValidationValidParameters()
+        public void Run_ValidHydraulicBoundaryDatabaseAndDuneLocationCalculation_PerformValidationValidParameters()
         {
             // Setup
             const double norm = 1.0 / 30;
