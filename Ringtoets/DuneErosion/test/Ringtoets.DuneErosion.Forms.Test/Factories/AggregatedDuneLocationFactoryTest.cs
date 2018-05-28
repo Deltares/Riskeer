@@ -57,7 +57,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
 
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.SetDuneLocations(duneLocations);
-            SetDuneLocationCalculationOutput(failureMechanism);
+            DuneLocationsTestHelper.SetDuneLocationCalculationOutput(failureMechanism);
 
             // Call
             IEnumerable<AggregatedDuneLocation> aggregatedLocations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(failureMechanism);
@@ -169,26 +169,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
                 D50 = random.NextDouble(),
                 Offset = random.NextDouble()
             });
-        }
-
-        private static void SetDuneLocationCalculationOutput(DuneErosionFailureMechanism failureMechanism)
-        {
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
-        }
-
-        private static void SetDuneLocationCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
-        {
-            var random = new Random(21);
-            foreach (DuneLocationCalculation duneLocationCalculation in calculations)
-            {
-                duneLocationCalculation.Output = new TestDuneLocationCalculationOutput(random.NextDouble(),
-                                                                                       random.NextDouble(),
-                                                                                       random.NextDouble());
-            }
         }
 
         private static void AssertDuneLocationOutput(IEnumerable<DuneLocationCalculation> calculations,
