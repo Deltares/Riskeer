@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\GrassCoverErosionOutwardsCalculationConfigurationExporter.cs" />
-    <Compile Include="Configurations\GrassCoverErosionOutwardsCalculationConfigurationWriter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter.cs" />

@@ -21,19 +21,18 @@
 
 using NUnit.Framework;
 using Ringtoets.Common.IO.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
+namespace Ringtoets.Revetment.IO.Test.Configurations
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
-        GrassCoverErosionOutwardsCalculationConfigurationWriter,
+    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
         FailureMechanismCategoryWaveConditionsCalculationConfiguration>
     {
-        protected override GrassCoverErosionOutwardsCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        protected override FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
-            return new GrassCoverErosionOutwardsCalculationConfigurationWriter(filePath);
+            return new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(filePath);
         }
     }
 }

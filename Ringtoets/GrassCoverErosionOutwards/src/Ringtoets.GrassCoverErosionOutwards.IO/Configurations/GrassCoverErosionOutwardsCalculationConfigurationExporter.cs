@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
     /// Exports a grass cover erosion outwards calculation configuration and stores it as an XML file.
     /// </summary>
     public class GrassCoverErosionOutwardsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
-        GrassCoverErosionOutwardsCalculationConfigurationWriter,
+        FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
         FailureMechanismCategoryWaveConditionsCalculationConfiguration,
         GrassCoverErosionOutwardsWaveConditionsCalculation>
     {
@@ -45,9 +45,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         public GrassCoverErosionOutwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
-        protected override GrassCoverErosionOutwardsCalculationConfigurationWriter CreateWriter(string filePath)
+        protected override FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
         {
-            return new GrassCoverErosionOutwardsCalculationConfigurationWriter(filePath);
+            return new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(filePath);
         }
 
         protected override FailureMechanismCategoryWaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)

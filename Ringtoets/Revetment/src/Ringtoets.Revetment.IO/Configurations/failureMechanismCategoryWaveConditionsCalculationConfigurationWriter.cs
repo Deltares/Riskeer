@@ -21,19 +21,18 @@
 
 using System;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
+namespace Ringtoets.Revetment.IO.Configurations
 {
     /// <summary>
     /// Writer for calculations that contain <see cref="FailureMechanismCategoryWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class GrassCoverErosionOutwardsCalculationConfigurationWriter 
+    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter 
         : WaveConditionsCalculationConfigurationWriter<FailureMechanismCategoryWaveConditionsCalculationConfiguration>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsCalculationConfigurationWriter"/>.
+        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter"/>.
         /// </summary>
         /// <param name="filePath">The path of the file to write to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
@@ -44,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public GrassCoverErosionOutwardsCalculationConfigurationWriter(string filePath)
+        public FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
     }
 }
