@@ -212,11 +212,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             };
 
             yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
-                (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
             yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
-                (context, filePath) => new StabilityStoneCoverCalculationConfigurationExporter(new[]
+                (context, filePath) => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
                 }, filePath));
