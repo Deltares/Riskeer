@@ -107,23 +107,23 @@ namespace Ringtoets.DuneErosion.Forms.Factories
             feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
                                                                                    CultureInfo.InvariantCulture);
 
-            feature.MetaData["Rekenwaarde h(Iv->IIv)"] = location.WaterLevelForMechanismSpecificFactorizedSignalingNorm.ToString();
-            feature.MetaData["Rekenwaarde h(IIv->IIIv)"] = location.WaterLevelForMechanismSpecificSignalingNorm.ToString();
-            feature.MetaData["Rekenwaarde h(IIIv->IVv)"] = location.WaterLevelForMechanismSpecificLowerLimitNorm.ToString();
-            feature.MetaData["Rekenwaarde h(IVv->Vv)"] = location.WaterLevelForLowerLimitNorm.ToString();
-            feature.MetaData["Rekenwaarde h(Vv->VIv)"] = location.WaterLevelForFactorizedLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificSignalingNorm] = location.WaterLevelForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificLowerLimitNorm] = location.WaterLevelForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForLowerLimitNorm] = location.WaterLevelForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForFactorizedLowerLimitNorm] = location.WaterLevelForFactorizedLowerLimitNorm.ToString();
 
-            feature.MetaData["Rekenwaarde Hs(Iv->IIv)"] = location.WaveHeightForMechanismSpecificFactorizedSignalingNorm.ToString();
-            feature.MetaData["Rekenwaarde Hs(IIv->IIIv)"] = location.WaveHeightForMechanismSpecificSignalingNorm.ToString();
-            feature.MetaData["Rekenwaarde Hs(IIIv->IVv)"] = location.WaveHeightForMechanismSpecificLowerLimitNorm.ToString();
-            feature.MetaData["Rekenwaarde Hs(IVv->Vv)"] = location.WaveHeightForLowerLimitNorm.ToString();
-            feature.MetaData["Rekenwaarde Hs(Vv->VIv)"] = location.WaveHeightForFactorizedLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificFactorizedSignalingNorm] = location.WaveHeightForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificSignalingNorm] = location.WaveHeightForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificLowerLimitNorm] = location.WaveHeightForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForLowerLimitNorm] = location.WaveHeightForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForFactorizedLowerLimitNorm] = location.WaveHeightForFactorizedLowerLimitNorm.ToString();
 
-            feature.MetaData["Rekenwaarde Tp(Iv->IIv)"] = location.WavePeriodForMechanismSpecificFactorizedSignalingNorm.ToString();
-            feature.MetaData["Rekenwaarde Tp(IIv->IIIv)"] = location.WavePeriodForMechanismSpecificSignalingNorm.ToString();
-            feature.MetaData["Rekenwaarde Tp(IIIv->IVv)"] = location.WavePeriodForMechanismSpecificLowerLimitNorm.ToString();
-            feature.MetaData["Rekenwaarde Tp(IVv->Vv)"] = location.WavePeriodForLowerLimitNorm.ToString();
-            feature.MetaData["Rekenwaarde Tp(Vv->VIv)"] = location.WavePeriodForFactorizedLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificFactorizedSignalingNorm] = location.WavePeriodForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificSignalingNorm] = location.WavePeriodForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificLowerLimitNorm] = location.WavePeriodForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForLowerLimitNorm] = location.WavePeriodForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForFactorizedLowerLimitNorm] = location.WavePeriodForFactorizedLowerLimitNorm.ToString();
 
             return feature;
         }
