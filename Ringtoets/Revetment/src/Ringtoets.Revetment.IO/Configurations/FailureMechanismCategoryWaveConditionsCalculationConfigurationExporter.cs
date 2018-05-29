@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {
@@ -53,6 +54,8 @@ namespace Ringtoets.Revetment.IO.Configurations
         {
             var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);
+            configuration.CategoryType = (ConfigurationFailureMechanismCategoryType?) new ConfigurationFailureMechanismCategoryTypeConverter()
+                .ConvertFrom(calculation.InputParameters.CategoryType);
             return configuration;
         }
     }

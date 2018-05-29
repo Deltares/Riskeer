@@ -2,6 +2,7 @@
 <configuratie>
   <map naam="PK001_0001">
     <berekening naam="Calculation A">
+      <categoriegrens>Iv-IIv</categoriegrens>
       <bovengrensbekleding>NaN</bovengrensbekleding>
       <ondergrensbekleding>NaN</ondergrensbekleding>
       <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
@@ -19,6 +20,7 @@
     <map naam="PK001_0002">
       <berekening naam="PK001_0002 W1-6_4_1D1">
         <hrlocatie>HydraulicLocationA</hrlocatie>
+        <categoriegrens>IIv-IIIv</categoriegrens>
         <bovengrensbekleding>NaN</bovengrensbekleding>
         <ondergrensbekleding>NaN</ondergrensbekleding>
         <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
