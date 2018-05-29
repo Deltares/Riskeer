@@ -28,10 +28,10 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Util.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.Factories;
+using Ringtoets.DuneErosion.Forms.TestUtil;
 
 namespace Ringtoets.DuneErosion.Forms.Test.Factories
 {
@@ -158,7 +158,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateDuneLocationsFeatures_WithFailureMechanism_ReturnFeature(bool withOutput)
+        public void CreateDuneLocationsFeatures_WithFailureMechanism_ReturnFeatures(bool withOutput)
         {
             // Setup
             var duneLocations = new[]
@@ -179,69 +179,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
             IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(failureMechanism);
 
             // Assert
-            Assert.AreEqual(duneLocations.Length, features.Count());
-
-            for (var i = 0; i < duneLocations.Length; i++)
-            {
-                DuneLocation expectedDuneLocation = duneLocations[i];
-                MapFeature mapFeature = features.ElementAt(i);
-
-                Assert.AreEqual(expectedDuneLocation.Id, mapFeature.MetaData["ID"]);
-                Assert.AreEqual(expectedDuneLocation.Name, mapFeature.MetaData["Naam"]);
-                Assert.AreEqual(expectedDuneLocation.CoastalAreaId, mapFeature.MetaData["Kustvaknummer"]);
-                Assert.AreEqual(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), mapFeature.MetaData["Metrering"]);
-                Assert.AreEqual(expectedDuneLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().Single());
-
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(Iv->IIv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(IIv->IIIv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(IIIv->IVv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(IVv->Vv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaterLevel(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde h(Vv->VIv)");
-
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(Iv->IIv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(IIv->IIIv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(IIIv->IVv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(IVv->Vv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWaveHeight(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Hs(Vv->VIv)");
-
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(Iv->IIv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(IIv->IIIv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(IIIv->IVv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(IVv->Vv)");
-                MapFeaturesMetaDataTestHelper.AssertMetaData(
-                    GetExpectedWavePeriod(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
-                    mapFeature, "Rekenwaarde Tp(Vv->VIv)");
-
-                Assert.AreEqual(19, mapFeature.MetaData.Keys.Count);
-            }
+            DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, features);
         }
 
         private static DuneLocation CreateDuneLocation(int seed)
@@ -255,36 +193,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
                 D50 = random.NextDouble(),
                 Offset = random.NextDouble()
             });
-        }
-
-        private static string GetExpectedWaterLevel(IEnumerable<DuneLocationCalculation> calculations,
-                                                    DuneLocation duneLocation)
-        {
-            RoundedDouble result = calculations
-                                   .Single(calculation => calculation.DuneLocation.Equals(duneLocation))
-                                   .Output?.WaterLevel ?? RoundedDouble.NaN;
-
-            return result.ToString();
-        }
-
-        private static string GetExpectedWaveHeight(IEnumerable<DuneLocationCalculation> calculations,
-                                                    DuneLocation duneLocation)
-        {
-            RoundedDouble result = calculations
-                                   .Single(calculation => calculation.DuneLocation.Equals(duneLocation))
-                                   .Output?.WaveHeight ?? RoundedDouble.NaN;
-
-            return result.ToString();
-        }
-
-        private static string GetExpectedWavePeriod(IEnumerable<DuneLocationCalculation> calculations,
-                                                    DuneLocation duneLocation)
-        {
-            RoundedDouble result = calculations
-                                   .Single(calculation => calculation.DuneLocation.Equals(duneLocation))
-                                   .Output?.WavePeriod ?? RoundedDouble.NaN;
-
-            return result.ToString();
         }
 
         private class ValidDuneLocation : DuneLocation
