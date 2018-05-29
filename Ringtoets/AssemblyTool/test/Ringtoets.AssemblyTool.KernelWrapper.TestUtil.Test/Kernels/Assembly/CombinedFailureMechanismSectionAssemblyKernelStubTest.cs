@@ -114,7 +114,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleCommonFailureMechanismSections_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void AssembleCommonFailureMechanismSections_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(21);

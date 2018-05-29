@@ -79,7 +79,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         }
 
         public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssembly> sectionAssemblies,
-                                                                 AssemblyCategoriesInput assemblyCategoriesInput)
+                                                 AssemblyCategoriesInput assemblyCategoriesInput)
         {
             if (ThrowExceptionOnCalculate)
             {

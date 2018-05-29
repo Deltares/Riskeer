@@ -52,7 +52,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1A1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleFailureMechanismWbi1A1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -73,7 +73,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1A1_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void AssembleFailureMechanismWbi1A1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -112,7 +112,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1A1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void AssembleFailureMechanismWbi1A1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var kernel = new FailureMechanismAssemblyKernelStub
@@ -148,7 +148,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1B1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleFailureMechanismWbi1B1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -173,7 +173,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1B1_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void AssembleFailureMechanismWbi1B1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -221,7 +221,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleFailureMechanismWbi1B1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void AssembleFailureMechanismWbi1B1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);

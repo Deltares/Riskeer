@@ -77,7 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         #region Simple Assessment
 
         [Test]
-        public void TranslateAssessmentResultWbi0E1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0E1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -97,7 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E1_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0E1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -135,7 +135,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0E1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var kernel = new FailureMechanismSectionAssemblyKernelStub
@@ -170,7 +170,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E3_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0E3_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -190,7 +190,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E3_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0E3_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -228,7 +228,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0E3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var kernel = new FailureMechanismSectionAssemblyKernelStub
@@ -267,7 +267,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         #region Detailed Assessment
 
         [Test]
-        public void TranslateAssessmentResultWbi0G1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -287,7 +287,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G1_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -330,7 +330,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0G1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
@@ -368,7 +368,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G3_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G3_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -394,7 +394,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G3_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G3_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -449,7 +449,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0G3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
@@ -493,7 +493,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G5_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G5_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -521,7 +521,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G5_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G5_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -584,7 +584,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G5_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0G5_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
@@ -621,7 +621,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G6_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var input = new FmSectionCategoryCompliancyResults();
@@ -640,7 +640,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G6_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var input = new FmSectionCategoryCompliancyResults();
@@ -681,7 +681,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0G6_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var input = new FmSectionCategoryCompliancyResults();
@@ -709,7 +709,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         #region Tailor Made Assessment
 
         [Test]
-        public void TranslateAssessmentResultWbi0T1_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -729,7 +729,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T1_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -772,7 +772,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0T1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
@@ -810,7 +810,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T3_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T3_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -836,7 +836,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T3_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T3_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -894,7 +894,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0T3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
@@ -928,7 +928,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T4_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T4_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -945,7 +945,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T4_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T4_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -991,7 +991,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T4_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0T4_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
@@ -1018,7 +1018,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T5_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T5_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -1046,7 +1046,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T5_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T5_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -1109,7 +1109,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T5_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0T5_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
@@ -1159,7 +1159,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T7_ThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T7_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -1185,7 +1185,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T7_ThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T7_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -1243,7 +1243,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T7_ThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0T7_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(39);
