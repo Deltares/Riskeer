@@ -32,6 +32,38 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
     /// </summary>
     public class ConfigurationAssessmentSectionCategoryTypeConverter : TypeConverter
     {
+        /// <inheritdoc />
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
+        /// contains an invalid value of <see cref="ConfigurationAssessmentSectionCategoryType"/>.</exception>
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            var stepSize = (ConfigurationAssessmentSectionCategoryType)value;
+            if (!Enum.IsDefined(typeof(ConfigurationAssessmentSectionCategoryType), stepSize))
+            {
+                throw new InvalidEnumArgumentException(nameof(value),
+                                                       (int)stepSize,
+                                                       typeof(ConfigurationAssessmentSectionCategoryType));
+            }
+
+            if (destinationType == typeof(string))
+            {
+                switch (stepSize)
+                {
+                    case ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm:
+                        return "A+->A";
+                    case ConfigurationAssessmentSectionCategoryType.SignalingNorm:
+                        return "A->B";
+                    case ConfigurationAssessmentSectionCategoryType.LowerLimitNorm:
+                        return "B->C";
+                    case ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm:
+                        return "C->D";
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+            return base.ConvertTo(context, culture, value, destinationType);
+        }
+
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return sourceType == typeof(string)

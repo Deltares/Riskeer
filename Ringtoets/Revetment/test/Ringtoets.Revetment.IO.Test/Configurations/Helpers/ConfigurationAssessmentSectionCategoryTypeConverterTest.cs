@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -40,6 +41,65 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
+        }
+
+        [Test]
+        public void CanConvertTo_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertTo);
+        }
+
+        [Test]
+        public void CanConvertTo_OtherType_ReturnFalse()
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(object));
+
+            // Assert
+            Assert.IsFalse(canConvertTo);
+        }
+
+        [Test]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm, "A+->A")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.SignalingNorm, "A->B")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.LowerLimitNorm, "B->C")]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm, "C->D")]
+        public void ConvertTo_ValidConfigurationAssessmentSectionCategoryType_ReturnExpectedText(
+            ConfigurationAssessmentSectionCategoryType value, string expectedText)
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            object convertTo = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
+
+            // Assert
+            Assert.AreEqual(expectedText, convertTo);
+        }
+
+        [Test]
+        public void ConvertTo_StringInvalidConfigurationWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const ConfigurationAssessmentSectionCategoryType invalidValue = (ConfigurationAssessmentSectionCategoryType) 99;
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationAssessmentSectionCategoryType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
         }
 
         [Test]
