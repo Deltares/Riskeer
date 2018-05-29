@@ -33,7 +33,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// to XML format.
     /// </summary>
     /// <typeparam name="T">The type of configuration.</typeparam>
-    public class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
+    public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
         where T: WaveConditionsCalculationConfiguration
     {
         /// <summary>
@@ -48,7 +48,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public WaveConditionsCalculationConfigurationWriter(string filePath)
+        protected WaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
         protected override void WriteCalculation(T configuration, XmlWriter writer)

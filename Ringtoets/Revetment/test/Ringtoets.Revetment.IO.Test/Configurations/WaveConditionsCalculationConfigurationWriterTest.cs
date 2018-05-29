@@ -52,7 +52,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             try
             {
-                var writer = new WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>(filePath);
+                var writer = new TestWaveConditionsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -104,7 +104,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             try
             {
-                var writer = new WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>(filePath);
+                var writer = new TestWaveConditionsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -133,7 +133,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 StepSize = (ConfigurationWaveConditionsInputStepSize?) 9000
             };
 
-            var writer = new WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>("valid");
+            var writer = new TestWaveConditionsCalculationConfigurationWriter("valid");
 
             // Call
             TestDelegate call = () => writer.Write(new[]
@@ -148,7 +148,12 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
         protected override WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration> CreateWriterInstance(string filePath)
         {
-            return new WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>(filePath);
+            return new TestWaveConditionsCalculationConfigurationWriter(filePath);
+        }
+
+        private class TestWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
+        {
+            public TestWaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath) {}
         }
     }
 }

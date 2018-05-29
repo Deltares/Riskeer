@@ -53,13 +53,18 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             protected override WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration> CreateWriter(string filePath)
             {
-                return new WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>(filePath);
+                return new TestWaveConditionsCalculationConfigurationWriter(filePath);
             }
 
             protected override WaveConditionsCalculationConfiguration ToConfiguration(ICalculation<WaveConditionsInput> calculation)
             {
                 return new WaveConditionsCalculationConfiguration("test");
             }
+        }
+
+        private class TestWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
+        {
+            public TestWaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath) {}
         }
     }
 }
