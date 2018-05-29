@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.FailureMechanism;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.Revetment.IO.Properties;
 
 namespace Ringtoets.Revetment.IO.Configurations.Helpers
 {
@@ -76,15 +76,15 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                 switch (categoryType)
                 {
                     case ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
-                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName;
+                        return Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm:
-                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName;
+                        return Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
-                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName;
+                        return Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.LowerLimitNorm:
-                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName;
+                        return Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm:
-                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName;
+                        return Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName;
                     default:
                         throw new NotSupportedException();
                 }
@@ -135,27 +135,27 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
             var stringValue = value as string;
             if (stringValue != null)
             {
-                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)
+                if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm;
                 }
 
-                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)
+                if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm;
                 }
 
-                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)
+                if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
                 }
 
-                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)
+                if (stringValue == Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.LowerLimitNorm;
                 }
 
-                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
+                if (stringValue == Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm;
                 }

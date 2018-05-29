@@ -83,11 +83,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, "Iv->IIv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm, "IIv->IIIv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, "IIIv->IVv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.LowerLimitNorm, "IVv->Vv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm, "Vv->VIv")]
+        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, "Iv-IIv")]
+        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm, "IIv-IIIv")]
+        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, "IIIv-IVv")]
+        [TestCase(ConfigurationFailureMechanismCategoryType.LowerLimitNorm, "IVv-Vv")]
+        [TestCase(ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm, "Vv-VIv")]
         public void ConvertTo_ValidConfigurationFailureMechanismCategoryType_ReturnExpectedText(
             ConfigurationFailureMechanismCategoryType value, string expectedText)
         {
@@ -177,11 +177,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        [TestCase("Iv->IIv", ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm)]
-        [TestCase("IIv->IIIv", ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        [TestCase("IIIv->IVv", ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase("IVv->Vv", ConfigurationFailureMechanismCategoryType.LowerLimitNorm)]
-        [TestCase("Vv->VIv", ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm)]
+        [TestCase("Iv-IIv", ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm)]
+        [TestCase("IIv-IIIv", ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
+        [TestCase("IIIv-IVv", ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase("IVv-Vv", ConfigurationFailureMechanismCategoryType.LowerLimitNorm)]
+        [TestCase("Vv-VIv", ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationFailureMechanismCategoryType(
             string value, ConfigurationFailureMechanismCategoryType expectedResult)
         {
