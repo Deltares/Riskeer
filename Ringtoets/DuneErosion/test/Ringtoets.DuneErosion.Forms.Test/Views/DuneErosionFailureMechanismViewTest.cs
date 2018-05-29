@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -48,6 +48,28 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         private const int sectionsStartPointIndex = 2;
         private const int sectionsEndPointIndex = 3;
         private const int duneLocationsIndex = 4;
+
+        private static IEnumerable<TestCaseData> GetCalculationFuncs
+        {
+            get
+            {
+                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
+                                                  failureMechanism => failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First()))
+                    .SetName("Mechanism specific factorized signaling norm");
+                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
+                                                  failureMechanism => failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First()))
+                    .SetName("Mechanism specific signaling norm");
+                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
+                                                  failureMechanism => failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.First()))
+                    .SetName("Mechanism specific lower limit norm");
+                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
+                                                  failureMechanism => failureMechanism.CalculationsForLowerLimitNorm.First()))
+                    .SetName("Lower limit norm");
+                yield return new TestCaseData(new Func<DuneErosionFailureMechanism, DuneLocationCalculation>(
+                                                  failureMechanism => failureMechanism.CalculationsForFactorizedLowerLimitNorm.First()))
+                    .SetName("Factorized lower limit norm");
+            }
+        }
 
         [Test]
         public void DefaultConstructor_DefaultValues()
@@ -276,7 +298,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_SingleDuneLocationCalculationUpdated_MapDataUpdated()
+        [TestCaseSource(nameof(GetCalculationFuncs))]
+        public void UpdateObserver_SingleDuneLocationCalculationUpdated_MapDataUpdated(
+            Func<DuneErosionFailureMechanism, DuneLocationCalculation> getCalculationFunc)
         {
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
@@ -284,12 +308,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
                 var assessmentSection = new AssessmentSectionStub();
-                var duneLocation = new TestDuneLocation();
 
                 var failureMechanism = new DuneErosionFailureMechanism();
                 failureMechanism.SetDuneLocations(new[]
                 {
-                    duneLocation
+                    new TestDuneLocation()
                 });
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -301,8 +324,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);
 
                 // Call
-                duneLocation.Calculation.Output = new TestDuneLocationCalculationOutput();
-                duneLocation.NotifyObservers();
+                DuneLocationCalculation duneLocationCalculation = getCalculationFunc(failureMechanism);
+                duneLocationCalculation.Output = new TestDuneLocationCalculationOutput();
+                duneLocationCalculation.NotifyObservers();
 
                 // Assert
                 AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);

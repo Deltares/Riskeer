@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -51,6 +50,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData duneLocationsMapData;
+
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificSignalingNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForFactorizedLowerLimitNormObserver;
 
         private DuneErosionFailureMechanismContext data;
 
@@ -108,6 +113,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
                     duneLocationsObserver.Observable = data.WrappedData.DuneLocations;
                     duneLocationObserver.Observable = data.WrappedData.DuneLocations;
 
+                    calculationsForMechanismSpecificFactorizedSignalingNormObserver = CreateDuneLocationCalculationsObserver(data.WrappedData.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+                    calculationsForMechanismSpecificSignalingNormObserver = CreateDuneLocationCalculationsObserver(data.WrappedData.CalculationsForMechanismSpecificSignalingNorm);
+                    calculationsForMechanismSpecificLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(data.WrappedData.CalculationsForMechanismSpecificLowerLimitNorm);
+                    calculationsForLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(data.WrappedData.CalculationsForLowerLimitNorm);
+                    calculationsForFactorizedLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(data.WrappedData.CalculationsForFactorizedLowerLimitNorm);
+
                     SetMapDataFeatures();
 
                     ringtoetsMapControl.SetAllData(mapDataCollection, data.Parent.BackgroundData);
@@ -129,6 +140,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
             assessmentSectionObserver.Dispose();
             duneLocationsObserver.Dispose();
             duneLocationObserver.Dispose();
+
+            calculationsForMechanismSpecificFactorizedSignalingNormObserver?.Dispose();
+            calculationsForMechanismSpecificSignalingNormObserver?.Dispose();
+            calculationsForMechanismSpecificLowerLimitNormObserver?.Dispose();
+            calculationsForLowerLimitNormObserver?.Dispose();
+            calculationsForFactorizedLowerLimitNormObserver?.Dispose();
 
             if (disposing)
             {
@@ -159,6 +176,15 @@ namespace Ringtoets.DuneErosion.Forms.Views
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
             duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(data.WrappedData);
+        }
+
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> CreateDuneLocationCalculationsObserver(
+            IObservableEnumerable<DuneLocationCalculation> calculations)
+        {
+            return new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(UpdateMapData, calc => calc)
+            {
+                Observable = calculations
+            };
         }
     }
 }
