@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -421,9 +422,100 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void RunActivities_ActivitiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            using (var viewParent = new Form())
+            {
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+                // Call
+                TestDelegate test = () => guiService.RunActivities<Activity>(validFilePath, validPreprocessorDirectory, null);
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("activities", paramName);
+            }
+        }
+
+        [Test]
+        public void RunActivities_HydraulicDatabaseDoesNotExist_LogsError()
+        {
+            // Setup
+            using (var viewParent = new Form())
+            {
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+                // Call
+                Action call = () => guiService.RunActivities("Does not exist",
+                                                             validPreprocessorDirectory,
+                                                             Enumerable.Empty<Activity>());
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+                });
+            }
+        }
+
+        [Test]
+        public void RunActivities_WithActivities_RunsActivities()
+        {
+            // Setup
+            using (var viewParent = new Form())
+            {
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+                var activity = new TestActivity();
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                // Precondition
+                Assert.IsFalse(activity.HasRun);
+
+                // Call
+                Action call = () => guiService.RunActivities(validFilePath,
+                                                             validPreprocessorDirectory,
+                                                             new[]
+                                                             {
+                                                                 activity
+                                                             });
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(2, msgs.Length);
+                    StringAssert.AreNotEqualIgnoringCase("is gestart.", msgs[0]);
+                    StringAssert.AreNotEqualIgnoringCase("is gelukt.", msgs[1]);
+                });
+                Assert.IsTrue(activity.HasRun);
+            }
+        }
+
         public override void Setup()
         {
             mockRepository = new MockRepository();
+        }
+
+        private class TestActivity : Activity
+        {
+            public bool HasRun { get; private set; }
+
+            protected override void OnRun()
+            {
+                HasRun = true;
+            }
+
+            protected override void OnCancel() {}
+
+            protected override void OnFinish() {}
         }
     }
 }

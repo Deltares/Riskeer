@@ -21,15 +21,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.HydraRing;
-using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
 
 namespace Ringtoets.Common.Forms.GuiServices
@@ -75,11 +74,11 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
-                                                                                                     hydraulicBoundaryDatabaseFilePath,
-                                                                                                     preprocessorDirectory,
-                                                                                                     norm,
-                                                                                                     messageProvider)).ToArray());
+                          HydraulicBoundaryCalculationActivityHelper.CreateDesignWaterLevelCalculationActivities(hydraulicBoundaryDatabaseFilePath,
+                                                                                                                 preprocessorDirectory,
+                                                                                                                 calculations,
+                                                                                                                 norm,
+                                                                                                                 messageProvider));
         }
 
         public void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
@@ -100,17 +99,24 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
-                          calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
-                                                                                               hydraulicBoundaryDatabaseFilePath,
-                                                                                               preprocessorDirectory,
-                                                                                               norm,
-                                                                                               messageProvider)).ToArray());
+                          HydraulicBoundaryCalculationActivityHelper.CreateWaveHeightCalculationActivities(hydraulicBoundaryDatabaseFilePath,
+                                                                                                           preprocessorDirectory,
+                                                                                                           calculations,
+                                                                                                           norm,
+                                                                                                           messageProvider));
         }
 
-        private void RunActivities<TActivity>(string hydraulicBoundaryDatabasePath, string preprocessorDirectory,
-                                              IEnumerable<TActivity> activities) where TActivity : Activity
+        public void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,
+                                             string preprocessorDirectory,
+                                             IEnumerable<TActivity> activities)
+            where TActivity : Activity
         {
-            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabasePath,
+            if (activities == null)
+            {
+                throw new ArgumentNullException(nameof(activities));
+            }
+
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    preprocessorDirectory);
             if (string.IsNullOrEmpty(validationProblem))
             {
