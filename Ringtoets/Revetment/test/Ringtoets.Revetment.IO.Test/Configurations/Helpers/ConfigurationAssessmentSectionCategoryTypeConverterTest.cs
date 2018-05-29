@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations.Helpers;
 
 namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
@@ -63,6 +66,52 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsFalse(canConvertFrom);
+        }
+
+        [Test]
+        [TestCase(AssessmentSectionCategoryType.FactorizedSignalingNorm, ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm)]
+        [TestCase(AssessmentSectionCategoryType.SignalingNorm, ConfigurationAssessmentSectionCategoryType.SignalingNorm)]
+        [TestCase(AssessmentSectionCategoryType.LowerLimitNorm, ConfigurationAssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase(AssessmentSectionCategoryType.FactorizedLowerLimitNorm, ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm)]
+        public void ConvertFrom_ValidAssessmentSectionCategoryType_ReturnConfigurationAssessmentSectionCategoryType(
+            AssessmentSectionCategoryType originalValue, ConfigurationAssessmentSectionCategoryType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            object categoryType = converter.ConvertFrom(originalValue);
+
+            // Assert
+            Assert.AreEqual(expectedResult, categoryType);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidAssessmentSectionCategoryType_ThrowInvalidEnumArgumentException()
+        {
+            // Setup
+            const AssessmentSectionCategoryType invalidValue = (AssessmentSectionCategoryType) 99;
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(AssessmentSectionCategoryType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
+        }
+
+        [Test]
+        public void ConvertFrom_Null_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(null);
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
         }
     }
 }
