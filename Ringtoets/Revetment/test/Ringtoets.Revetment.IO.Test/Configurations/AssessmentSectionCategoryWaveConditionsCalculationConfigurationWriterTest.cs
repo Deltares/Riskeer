@@ -19,7 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
+using System.IO;
+using Core.Common.Base.Data;
+using Core.Common.IO.Exceptions;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.Revetment.IO.Configurations;
 
@@ -30,6 +36,116 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter,
         AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
+        [Test]
+        public void Write_SparseCalculation_WritesSparseConfigurationToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(Write_SparseCalculation_WritesSparseConfigurationToFile)}.xml");
+
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Revetment.IO,
+                Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
+
+            var calculation = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("Berekening 1");
+
+            try
+            {
+                var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+
+                // Call
+                writer.Write(new[]
+                {
+                    calculation
+                });
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Write_CompleteCalculation_WritesCompleteConfigurationToFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(
+                $"{nameof(Write_CompleteCalculation_WritesCompleteConfigurationToFile)}.xml");
+
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Ringtoets.Revetment.IO,
+                Path.Combine(nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
+
+            var calculation = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("Berekening 1")
+            {
+                HydraulicBoundaryLocationName = "Locatie1",
+                CategoryType = ConfigurationAssessmentSectionCategoryType.LowerLimitNorm,
+                UpperBoundaryRevetment = (RoundedDouble) 1.5,
+                LowerBoundaryRevetment = (RoundedDouble) 0.5,
+                UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
+                LowerBoundaryWaterLevels = (RoundedDouble) 0.6,
+                StepSize = ConfigurationWaveConditionsInputStepSize.One,
+                ForeshoreProfileId = "profiel1",
+                Orientation = (RoundedDouble) 67.1,
+                WaveReduction = new WaveReductionConfiguration
+                {
+                    UseForeshoreProfile = true,
+                    UseBreakWater = true,
+                    BreakWaterHeight = (RoundedDouble) 1.23,
+                    BreakWaterType = ConfigurationBreakWaterType.Dam
+                }
+            };
+
+            try
+            {
+                var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+
+                // Call
+                writer.Write(new[]
+                {
+                    calculation
+                });
+
+                // Assert
+                string actualXml = File.ReadAllText(filePath);
+                string expectedXml = File.ReadAllText(expectedXmlFilePath);
+
+                Assert.AreEqual(expectedXml, actualXml);
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Write_InvalidCategoryType_ThrowsCriticalFileWriteException()
+        {
+            // Setup
+            var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration("fail")
+            {
+                CategoryType = (ConfigurationAssessmentSectionCategoryType?) 99
+            };
+
+            var writer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter("valid");
+
+            // Call
+            TestDelegate call = () => writer.Write(new[]
+            {
+                configuration
+            });
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+        }
+
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
             return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);

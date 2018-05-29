@@ -22,6 +22,7 @@
 using System;
 using System.Xml;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {
@@ -50,6 +51,14 @@ namespace Ringtoets.Revetment.IO.Configurations
         protected override void WriteConfigurationCategoryTypeWhenAvailable(
             XmlWriter writer, AssessmentSectionCategoryWaveConditionsCalculationConfiguration configuration)
         {
+            if (!configuration.CategoryType.HasValue)
+            {
+                return;
+            }
+
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+            writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType,
+                                      converter.ConvertToInvariantString(configuration.CategoryType.Value));
         }
     }
 }
