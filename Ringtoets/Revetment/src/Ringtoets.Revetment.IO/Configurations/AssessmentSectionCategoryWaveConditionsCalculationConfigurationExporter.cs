@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Configurations.Helpers;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {
@@ -49,10 +50,13 @@ namespace Ringtoets.Revetment.IO.Configurations
             return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(filePath);
         }
 
-        protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ToConfiguration(ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation)
+        protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ToConfiguration(
+            ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation)
         {
             var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);
+            configuration.CategoryType = (ConfigurationAssessmentSectionCategoryType?) new ConfigurationAssessmentSectionCategoryTypeConverter()
+                .ConvertFrom(calculation.InputParameters.CategoryType);
             return configuration;
         }
     }

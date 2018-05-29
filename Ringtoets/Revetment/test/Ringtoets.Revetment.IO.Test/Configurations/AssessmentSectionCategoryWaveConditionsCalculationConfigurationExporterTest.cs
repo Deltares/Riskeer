@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -60,7 +61,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HydraulicLocationA", 0, 0),
-                    UseBreakWater = true
+                    UseBreakWater = true,
+                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm
                 }
             };
 
