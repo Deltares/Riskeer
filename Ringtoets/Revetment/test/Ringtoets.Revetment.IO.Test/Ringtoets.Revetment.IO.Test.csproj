@@ -24,6 +24,7 @@
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationAssessmentSectionCategoryTypeConverterTest.cs" />
     <Compile Include="Configurations\WaveConditionsCalculationConfigurationExporterTest.cs" />
     <Compile Include="WaveConditions\CoverTypeTest.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditionsFactoryTest.cs" />
