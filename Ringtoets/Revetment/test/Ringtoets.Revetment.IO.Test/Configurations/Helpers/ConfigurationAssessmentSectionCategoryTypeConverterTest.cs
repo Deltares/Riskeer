@@ -43,6 +43,19 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
+        public void CanConvertFrom_String_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            bool canConvertFrom = converter.CanConvertFrom(typeof(string));
+
+            // Assert
+            Assert.IsTrue(canConvertFrom);
+        }
+
+        [Test]
         public void CanConvertFrom_AssessmentSectionCategoryType_ReturnTrue()
         {
             // Setup
@@ -66,6 +79,37 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
 
             // Assert
             Assert.IsFalse(canConvertFrom);
+        }
+
+        [Test]
+        [TestCase("A+->A", ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm)]
+        [TestCase("A->B", ConfigurationAssessmentSectionCategoryType.SignalingNorm)]
+        [TestCase("B->C", ConfigurationAssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase("C->D", ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm)]
+        public void ConvertFrom_ValidStringValue_ReturnConfigurationAssessmentSectionCategoryType(
+            string value, ConfigurationAssessmentSectionCategoryType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            object convertFrom = converter.ConvertFrom(value);
+
+            // Assert
+            Assert.AreEqual(expectedResult, convertFrom);
+        }
+
+        [Test]
+        public void ConvertFrom_InvalidText_ThrowNotSupportedException()
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom("1x");
+
+            // Assert
+            Assert.Throws<NotSupportedException>(call);
         }
 
         [Test]

@@ -69,6 +69,27 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                 }
             }
 
+            var stringValue = value as string;
+            if (stringValue != null)
+            {
+                if (stringValue == "A+->A")
+                {
+                    return ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm;
+                }
+                if (stringValue == "A->B")
+                {
+                    return ConfigurationAssessmentSectionCategoryType.SignalingNorm;
+                }
+                if (stringValue == "B->C")
+                {
+                    return ConfigurationAssessmentSectionCategoryType.LowerLimitNorm;
+                }
+                if (stringValue == "C->D")
+                {
+                    return ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm;
+                }
+            }
+
             return base.ConvertFrom(context, culture, value);
         }
     }
