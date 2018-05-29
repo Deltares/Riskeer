@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Xml;
 using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.Revetment.IO.Configurations
@@ -45,5 +46,10 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </list></remarks>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(string filePath) 
             : base(filePath) {}
+
+        protected override void WriteConfigurationCategoryTypeWhenAvailable(
+            XmlWriter writer, AssessmentSectionCategoryWaveConditionsCalculationConfiguration configuration)
+        {
+        }
     }
 }

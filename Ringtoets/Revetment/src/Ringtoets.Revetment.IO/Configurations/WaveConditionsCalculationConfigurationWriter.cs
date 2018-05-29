@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// </summary>
     /// <typeparam name="T">The type of configuration.</typeparam>
     public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
-        where T: WaveConditionsCalculationConfiguration
+        where T : WaveConditionsCalculationConfiguration
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
@@ -60,6 +60,8 @@ namespace Ringtoets.Revetment.IO.Configurations
                 writer,
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                 configuration.HydraulicBoundaryLocationName);
+
+            WriteConfigurationCategoryTypeWhenAvailable(writer, configuration);
 
             WriteElementWhenContentAvailable(
                 writer,
@@ -95,6 +97,17 @@ namespace Ringtoets.Revetment.IO.Configurations
 
             writer.WriteEndElement();
         }
+
+        /// <summary>
+        /// Writes the category type in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to get the category type from.</param>
+        ///  /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of the category type 
+        /// cannot be performed.</exception>
+        protected abstract void WriteConfigurationCategoryTypeWhenAvailable(XmlWriter writer, T configuration);
 
         /// <summary>
         /// Writes the <paramref name="stepSize"/> in XML format to file.

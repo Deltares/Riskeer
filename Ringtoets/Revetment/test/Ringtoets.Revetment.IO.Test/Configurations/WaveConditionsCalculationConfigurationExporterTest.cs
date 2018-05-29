@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Xml;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.IO.TestUtil;
@@ -48,7 +49,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
         private class TestWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>
         {
-            public TestWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) 
+            public TestWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
                 : base(calculations, filePath) {}
 
             protected override WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration> CreateWriter(string filePath)
@@ -65,6 +66,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         private class TestWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
         {
             public TestWaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath) {}
+
+            protected override void WriteConfigurationCategoryTypeWhenAvailable(XmlWriter writer, WaveConditionsCalculationConfiguration configuration) {}
         }
     }
 }

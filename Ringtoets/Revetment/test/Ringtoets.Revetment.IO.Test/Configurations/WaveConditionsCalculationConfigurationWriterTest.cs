@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.IO;
+using System.Xml;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -154,6 +155,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         private class TestWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
         {
             public TestWaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath) {}
+
+            protected override void WriteConfigurationCategoryTypeWhenAvailable(XmlWriter writer, WaveConditionsCalculationConfiguration configuration) {}
         }
     }
 }
