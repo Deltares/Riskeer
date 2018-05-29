@@ -31,6 +31,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         public void WaveConditionsCalculationConfigurationSchemaIdentifiers_ExpectedValues()
         {
             // Call & Assert
+            Assert.AreEqual("categoriegrens", WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType);
             Assert.AreEqual("bovengrensbekleding", WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment);
             Assert.AreEqual("ondergrensbekleding", WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment);
             Assert.AreEqual("bovengrenswaterstanden", WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels);

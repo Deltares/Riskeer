@@ -128,16 +128,6 @@ namespace Core.Common.TestUtil
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "StabilityPointStructures", "test", "Ringtoets.StabilityPointStructures.IO.Test");
             }
-
-            public static class StabilityStoneCover
-            {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "StabilityStoneCover", "test", "Ringtoets.StabilityStoneCover.IO.Test");
-            }
-
-            public static class WaveImpactAsphaltCover
-            {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "WaveImpactAsphaltCover", "test", "Ringtoets.WaveImpactAsphaltCover.IO.Test");
-            }
         }
     }
 }

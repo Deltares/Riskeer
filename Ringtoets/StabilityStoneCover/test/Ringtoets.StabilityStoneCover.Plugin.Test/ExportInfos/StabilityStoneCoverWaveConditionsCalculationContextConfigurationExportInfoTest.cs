@@ -28,9 +28,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.StabilityStoneCover.IO.Exporters;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
@@ -79,7 +79,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<StabilityStoneCoverCalculationConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter>(fileExporter);
             mocks.VerifyAll();
         }
 

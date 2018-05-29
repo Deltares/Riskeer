@@ -18,7 +18,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exporters\GrassCoverErosionOutwardsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProviderTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriterTest.cs" />

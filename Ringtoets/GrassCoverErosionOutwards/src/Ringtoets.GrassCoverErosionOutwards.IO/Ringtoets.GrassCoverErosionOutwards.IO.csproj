@@ -15,7 +15,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Exporters\GrassCoverErosionOutwardsCalculationConfigurationExporter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter.cs" />

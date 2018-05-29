@@ -32,10 +32,12 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// Base implementation of a writer for calculations that contain <see cref="WaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class WaveConditionsCalculationConfigurationWriter : CalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
+    /// <typeparam name="T">The type of configuration.</typeparam>
+    public abstract class WaveConditionsCalculationConfigurationWriter<T> : CalculationConfigurationWriter<T>
+        where T : WaveConditionsCalculationConfiguration
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationWriter{T}"/>.
         /// </summary>
         /// <param name="filePath">The path of the file to write to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
@@ -46,10 +48,10 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <item>does not contain an invalid character,</item>
         /// <item>does not end with a directory or path separator (empty file name).</item>
         /// </list></remarks>
-        public WaveConditionsCalculationConfigurationWriter(string filePath)
+        protected WaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
-        protected override void WriteCalculation(WaveConditionsCalculationConfiguration configuration, XmlWriter writer)
+        protected override void WriteCalculation(T configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
@@ -58,6 +60,8 @@ namespace Ringtoets.Revetment.IO.Configurations
                 writer,
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                 configuration.HydraulicBoundaryLocationName);
+
+            WriteConfigurationCategoryTypeWhenAvailable(writer, configuration);
 
             WriteElementWhenContentAvailable(
                 writer,
@@ -75,7 +79,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                 writer,
                 WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels,
                 configuration.LowerBoundaryWaterLevels);
-            WriteConfigurationLoadSchematizationTypeWhenAvailable(
+            WriteConfigurationWaveConditionsInputStepSizeWhenAvailable(
                 writer,
                 configuration.StepSize);
 
@@ -95,6 +99,17 @@ namespace Ringtoets.Revetment.IO.Configurations
         }
 
         /// <summary>
+        /// Writes the category type in XML format to file.
+        /// </summary>
+        /// <param name="writer">The writer to use for writing.</param>
+        /// <param name="configuration">The configuration to get the category type from.</param>
+        ///  /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// is closed.</exception>
+        /// <exception cref="NotSupportedException">Thrown when the conversion of the category type 
+        /// cannot be performed.</exception>
+        protected abstract void WriteConfigurationCategoryTypeWhenAvailable(XmlWriter writer, T configuration);
+
+        /// <summary>
         /// Writes the <paramref name="stepSize"/> in XML format to file.
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
@@ -103,7 +118,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// is closed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion
         /// of <paramref name="stepSize"/> cannot be performed.</exception>
-        private static void WriteConfigurationLoadSchematizationTypeWhenAvailable(
+        private static void WriteConfigurationWaveConditionsInputStepSizeWhenAvailable(
             XmlWriter writer,
             ConfigurationWaveConditionsInputStepSize? stepSize)
         {

@@ -250,14 +250,8 @@ namespace Core.Common.TestUtil.Test
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
             Assert.IsTrue(Directory.Exists(path));
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityStoneCover.IO);
-            Assert.IsTrue(Directory.Exists(path));
-
+            
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO);
-            Assert.IsTrue(Directory.Exists(path));
-
-            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.WaveImpactAsphaltCover.IO);
             Assert.IsTrue(Directory.Exists(path));
         }
 

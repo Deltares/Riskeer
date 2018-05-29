@@ -17,7 +17,17 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\Helpers\WaveConditionsInputExtensions.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfiguration.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryType.cs" />
+    <Compile Include="Configurations\ConfigurationFailureMechanismCategoryType.cs" />
+    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfiguration.cs" />
+    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter.cs" />
+    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationAssessmentSectionCategoryTypeConverter.cs" />
+    <Compile Include="Configurations\Helpers\ConfigurationFailureMechanismCategoryTypeConverter.cs" />
+    <Compile Include="Configurations\WaveConditionsCalculationConfigurationExporter.cs" />
     <Compile Include="WaveConditions\CoverType.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditions.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditionsFactory.cs" />

@@ -28,9 +28,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Ringtoets.WaveImpactAsphaltCover.IO.Exporters;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
@@ -79,7 +79,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<WaveImpactAsphaltCoverCalculationConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter>(fileExporter);
         }
 
         [Test]

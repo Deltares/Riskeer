@@ -43,7 +43,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         public void Constructor_WithName_ExpectedValues()
         {
             // Setup
-            var name = "some name";
+            const string name = "some name";
 
             // Call
             var readCalculation = new WaveConditionsCalculationConfiguration(name);

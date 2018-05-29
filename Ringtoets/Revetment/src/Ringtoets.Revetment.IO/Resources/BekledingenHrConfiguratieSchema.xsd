@@ -31,6 +31,7 @@ All rights reserved.
         <xs:extension base="berekeningType">
           <xs:all>
             <xs:element ref="hrlocatie" minOccurs="0"/>
+            <xs:element ref="categoriegrens" minOccurs="0"/>
             <xs:element ref="bovengrensbekleding" minOccurs="0"/>
             <xs:element ref="ondergrensbekleding" minOccurs="0"/>
             <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
@@ -96,6 +97,18 @@ All rights reserved.
         <xs:enumeration value="0.5"/>
         <xs:enumeration value="1.0"/>
         <xs:enumeration value="2.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de categoriegrens waarmee de berekening uitgevoerd moet worden.-->
+  <xs:element name="categoriegrens">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="A+->A"/>
+        <xs:enumeration value="A->B"/>
+        <xs:enumeration value="B->C"/>
+        <xs:enumeration value="C->D"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>

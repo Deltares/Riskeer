@@ -157,4 +157,31 @@
   <data name="WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName" xml:space="preserve">
     <value>ondergrens van de waterstanden</value>
   </data>
+  <data name="AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>C-D</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName" xml:space="preserve">
+    <value>A+-A</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>B-C</value>
+  </data>
+  <data name="AssessmentSectionCategoryType_SignalingNorm_DisplayName" xml:space="preserve">
+    <value>A-B</value>
+  </data>
+  <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>Vv-VIv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_LowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>IVv-Vv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" xml:space="preserve">
+    <value>Iv-IIv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName" xml:space="preserve">
+    <value>IIIv-IVv</value>
+  </data>
+  <data name="FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName" xml:space="preserve">
+    <value>IIv-IIIv</value>
+  </data>
 </root>

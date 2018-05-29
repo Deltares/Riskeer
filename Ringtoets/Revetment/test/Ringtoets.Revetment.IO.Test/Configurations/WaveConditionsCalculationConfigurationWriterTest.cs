@@ -21,6 +21,7 @@
 
 using System.ComponentModel;
 using System.IO;
+using System.Xml;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -34,7 +35,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
     [TestFixture]
     public class WaveConditionsCalculationConfigurationWriterTest
         : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
-            WaveConditionsCalculationConfigurationWriter,
+            WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>,
             WaveConditionsCalculationConfiguration>
     {
         [Test]
@@ -46,13 +47,13 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
+                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>), "sparseConfiguration.xml"));
 
             var calculation = new WaveConditionsCalculationConfiguration("Berekening 1");
 
             try
             {
-                var writer = new WaveConditionsCalculationConfigurationWriter(filePath);
+                var writer = new TestWaveConditionsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -81,7 +82,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
+                Path.Combine(nameof(WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>), "completeConfiguration.xml"));
 
             var calculation = new WaveConditionsCalculationConfiguration("Berekening 1")
             {
@@ -104,7 +105,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             try
             {
-                var writer = new WaveConditionsCalculationConfigurationWriter(filePath);
+                var writer = new TestWaveConditionsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -133,7 +134,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 StepSize = (ConfigurationWaveConditionsInputStepSize?) 9000
             };
 
-            var writer = new WaveConditionsCalculationConfigurationWriter("valid");
+            var writer = new TestWaveConditionsCalculationConfigurationWriter("valid");
 
             // Call
             TestDelegate call = () => writer.Write(new[]
@@ -146,9 +147,16 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
-        protected override WaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        protected override WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration> CreateWriterInstance(string filePath)
         {
-            return new WaveConditionsCalculationConfigurationWriter(filePath);
+            return new TestWaveConditionsCalculationConfigurationWriter(filePath);
+        }
+
+        private class TestWaveConditionsCalculationConfigurationWriter : WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>
+        {
+            public TestWaveConditionsCalculationConfigurationWriter(string filePath) : base(filePath) {}
+
+            protected override void WriteConfigurationCategoryTypeWhenAvailable(XmlWriter writer, WaveConditionsCalculationConfiguration configuration) {}
         }
     }
 }
