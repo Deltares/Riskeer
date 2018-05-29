@@ -152,14 +152,13 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private void SetMapDataFeatures()
         {
             ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            DuneLocation[] duneLocations = data.WrappedData.DuneLocations.ToArray();
             IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
 
             referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(duneLocations);
+            duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(data.WrappedData);
         }
     }
 }

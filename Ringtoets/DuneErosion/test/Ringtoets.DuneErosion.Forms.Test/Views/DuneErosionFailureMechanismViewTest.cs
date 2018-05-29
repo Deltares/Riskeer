@@ -35,6 +35,7 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Forms.TestUtil;
 using Ringtoets.DuneErosion.Forms.Views;
 
 namespace Ringtoets.DuneErosion.Forms.Test.Views
@@ -232,7 +233,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, mapDataList[sectionsIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, mapDataList[sectionsStartPointIndex]);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, mapDataList[sectionsEndPointIndex]);
-                AssertDuneLocationsMapData(failureMechanism.DuneLocations, mapDataList[duneLocationsIndex]);
+                AssertDuneLocationsMapData(failureMechanism, mapDataList[duneLocationsIndex]);
             }
         }
 
@@ -275,7 +276,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_SingleDuneLocationUpdated_MapDataUpdated()
+        public void UpdateObserver_SingleDuneLocationCalculationUpdated_MapDataUpdated()
         {
             // Setup
             using (var view = new DuneErosionFailureMechanismView())
@@ -297,25 +298,19 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex) as MapPointData;
 
                 // Precondition
-                MapFeature duneLocationFeature = duneLocationsMapData.Features.First();
-                Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde Tp"]);
-                Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde Hs"]);
-                Assert.IsNaN((double) duneLocationFeature.MetaData["Rekenwaarde waterstand"]);
+                AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);
 
                 // Call
                 duneLocation.Calculation.Output = new TestDuneLocationCalculationOutput();
                 duneLocation.NotifyObservers();
 
                 // Assert
-                MapFeature duneLocationFeatureUpdated = duneLocationsMapData.Features.First();
-                Assert.AreEqual(duneLocation.Calculation.Output.WavePeriod, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Tp"]);
-                Assert.AreEqual(duneLocation.Calculation.Output.WaveHeight, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde Hs"]);
-                Assert.AreEqual(duneLocation.Calculation.Output.WaterLevel, (double) duneLocationFeatureUpdated.MetaData["Rekenwaarde waterstand"]);
+                AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);
             }
         }
 
         [Test]
-        public void GivenAssessmentSectionWithDuneLocations_WhenNewDuneLocationsAreSetAndNotified_ThenMapDataUpdated()
+        public void GivenFailureMechanismWithoutDuneLocations_WhenNewDuneLocationsAreSetAndCollectionNotified_ThenMapDataUpdated()
         {
             // Given
             using (var view = new DuneErosionFailureMechanismView())
@@ -324,17 +319,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                 var assessmentSection = new AssessmentSectionStub();
                 var failureMechanism = new DuneErosionFailureMechanism();
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    new TestDuneLocation()
-                });
 
                 view.Data = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 MapData duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
 
                 // Precondition
-                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);
 
                 // When
                 failureMechanism.SetDuneLocations(new[]
@@ -344,7 +335,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 failureMechanism.DuneLocations.NotifyObservers();
 
                 // Then
-                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
+                AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);
             }
         }
 
@@ -577,6 +568,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             }
 
             Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
+        }
+
+        private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,
+                                                       MapData mapData)
+        {
+            Assert.IsInstanceOf<MapPointData>(mapData);
+            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
+
+            var duneLocationsMapData = (MapPointData) mapData;
+            DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, duneLocationsMapData.Features);
         }
     }
 }
