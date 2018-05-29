@@ -109,15 +109,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De gespecificeerde vakken beslaan niet het volledige traject..
-        /// </summary>
-        internal static string AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsInvalid {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m]..
         /// </summary>
         internal static string AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive {
@@ -132,15 +123,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageTranslator_DoesNotComplyAfterComply {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageTranslator_DoesNotComplyAfterComply", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er moet een vakindeling zijn geimporteerd..
-        /// </summary>
-        internal static string AssemblyErrorMessageTranslator_FailureMechanismAssemblerInputInvalid {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_FailureMechanismAssemblerInputInvalid", resourceCulture);
             }
         }
         
@@ -231,6 +213,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageTranslator_LowerLimitOutOfRange {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageTranslator_LowerLimitOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er moet een vakindeling zijn geimporteerd..
+        /// </summary>
+        internal static string AssemblyErrorMessageTranslator_NoSectionsImported {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageTranslator_NoSectionsImported", resourceCulture);
             }
         }
         

@@ -103,9 +103,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
                 case EAssemblyErrors.InputNotTheSameType:
                     return Resources.AssemblyErrorMessageTranslator_InputNotTheSameType;
                 case EAssemblyErrors.FailureMechanismAssemblerInputInvalid:
-                    return Resources.AssemblyErrorMessageTranslator_FailureMechanismAssemblerInputInvalid;
+                    return Resources.AssemblyErrorMessageTranslator_NoSectionsImported;
                 case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
-                    return Resources.AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsInvalid;
+                    return Resources.AssemblyErrorMessageTranslator_NoSectionsImported;
                 case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
                     return Resources.AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:

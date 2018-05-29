@@ -155,11 +155,8 @@
   <data name="AssemblyErrorMessageTranslator_InputNotTheSameType" xml:space="preserve">
     <value>De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_FailureMechanismAssemblerInputInvalid" xml:space="preserve">
+  <data name="AssemblyErrorMessageTranslator_NoSectionsImported" xml:space="preserve">
     <value>Er moet een vakindeling zijn geimporteerd.</value>
-  </data>
-  <data name="AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsInvalid" xml:space="preserve">
-    <value>De gespecificeerde vakken beslaan niet het volledige traject.</value>
   </data>
   <data name="AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive" xml:space="preserve">
     <value>Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].</value>
