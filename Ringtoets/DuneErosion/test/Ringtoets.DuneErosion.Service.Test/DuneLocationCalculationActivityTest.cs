@@ -150,7 +150,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_ValidHydraulicBoundaryDatabaseAndDuneLocation_PerformValidationValidParameters()
+        public void Run_ValidHydraulicBoundaryDatabaseAndDuneLocationCalculation_PerformValidationValidParameters()
         {
             // Setup
             const double norm = 1.0 / 30;
@@ -401,7 +401,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
             var locationObserver = mockRepository.StrictMock<IObserver>();
-            locationObserver.Expect(o => o.UpdateObserver());
             duneLocation.Attach(locationObserver);
 
             var calculationObserver = mockRepository.StrictMock<IObserver>();

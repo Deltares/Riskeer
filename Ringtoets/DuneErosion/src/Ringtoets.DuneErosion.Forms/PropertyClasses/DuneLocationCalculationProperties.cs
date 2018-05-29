@@ -115,8 +115,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_WaterLevel_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_WaterLevel_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaterLevel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaterLevel_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaterLevel
         {
@@ -127,8 +127,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_WaveHeight_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_WaveHeight_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaveHeight_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WaveHeight_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WaveHeight
         {
@@ -139,8 +139,8 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocation_WavePeriod_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocation_WavePeriod_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WavePeriod_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.DuneLocationCalculationOutput_WavePeriod_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble WavePeriod
         {

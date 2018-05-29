@@ -61,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), fmSectionWithCategories.Select(r => r.SectionStart));
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), fmSectionWithCategories.Select(r => r.SectionEnd));
             CollectionAssert.AreEqual(originalSections.Select(s => ConvertCategoryGroup(s.CategoryGroup)),
-                                      fmSectionWithCategories.Select(r => (FmSectionWithDirectCategory)r)
+                                      fmSectionWithCategories.Select(r => (FmSectionWithDirectCategory) r)
                                                              .Select(category => category.Category));
         }
 

@@ -169,11 +169,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             AssessmentSectionLength = assessmentSectionLength;
 
             return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
-            {
-                new CombinedFailureMechanismSectionAssembly(
-                    new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
-                    input.Select(failureMechanism => FailureMechanismSectionAssemblyCategoryGroup.VIv).ToArray())
-            });
+                                                                        {
+                                                                            new CombinedFailureMechanismSectionAssembly(
+                                                                                new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
+                                                                                input.Select(failureMechanism => FailureMechanismSectionAssemblyCategoryGroup.VIv).ToArray())
+                                                                        });
         }
     }
 }

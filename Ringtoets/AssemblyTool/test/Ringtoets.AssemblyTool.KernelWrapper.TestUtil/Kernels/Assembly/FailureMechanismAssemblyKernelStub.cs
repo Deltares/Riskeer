@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
@@ -68,17 +69,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Sets an indicator whether an exception must be thrown while performing a calculation.
+        /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
+
+        /// <summary>
+        /// Sets an indicator whether an <see cref="AssemblyException"/> must be thrown while performing a calculation.
+        /// </summary>
+        public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         public EFailureMechanismCategory AssembleFailureMechanismWbi1A1(IEnumerable<FmSectionAssemblyDirectResult> fmSectionAssemblyResults,
                                                                         bool partialAssembly)
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             FmSectionAssemblyResultsInput = fmSectionAssemblyResults;
             PartialAssembly = partialAssembly;
@@ -98,10 +101,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              IEnumerable<FmSectionAssemblyDirectResult> fmSectionAssemblyResults,
                                                                              bool partialAssembly)
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             AssessmentSectionInput = section;
             FailureMechanismInput = failureMechanism;
@@ -110,6 +110,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             Calculated = true;
             return FailureMechanismAssemblyResult;
+        }
+
+        private void ThrowExceptions()
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            if (ThrowAssemblyExceptionOnCalculate)
+            {
+                throw new AssemblyException("entity", EAssemblyErrors.CategoryLowerLimitOutOfRange);
+            }
         }
     }
 }

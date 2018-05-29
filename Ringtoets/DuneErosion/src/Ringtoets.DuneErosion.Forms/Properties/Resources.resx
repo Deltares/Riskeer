@@ -143,22 +143,22 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="DuneLocation_Offset_DisplayName" xml:space="preserve">
     <value>Metrering [dam]</value>
   </data>
-  <data name="DuneLocation_WaterLevel_Description" xml:space="preserve">
+  <data name="DuneLocationCalculationOutput_WaterLevel_Description" xml:space="preserve">
     <value>Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
   </data>
-  <data name="DuneLocation_WaterLevel_DisplayName" xml:space="preserve">
+  <data name="DuneLocationCalculationOutput_WaterLevel_DisplayName" xml:space="preserve">
     <value>Rekenwaarde waterstand [m+NAP]</value>
   </data>
-  <data name="DuneLocation_WaveHeight_Description" xml:space="preserve">
+  <data name="DuneLocationCalculationOutput_WaveHeight_Description" xml:space="preserve">
     <value>Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
   </data>
-  <data name="DuneLocation_WaveHeight_DisplayName" xml:space="preserve">
+  <data name="DuneLocationCalculationOutput_WaveHeight_DisplayName" xml:space="preserve">
     <value>Rekenwaarde Hs [m]</value>
   </data>
-  <data name="DuneLocation_WavePeriod_Description" xml:space="preserve">
+  <data name="DuneLocationCalculationOutput_WavePeriod_Description" xml:space="preserve">
     <value>Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
   </data>
-  <data name="DuneLocation_WavePeriod_DisplayName" xml:space="preserve">
+  <data name="DuneLocationCalculationOutput_WavePeriod_DisplayName" xml:space="preserve">
     <value>Rekenwaarde Tp [s]</value>
   </data>
   <data name="MetaData_CoastalAreaId" xml:space="preserve">

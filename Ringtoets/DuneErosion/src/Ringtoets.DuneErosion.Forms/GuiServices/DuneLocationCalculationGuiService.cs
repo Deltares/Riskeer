@@ -33,7 +33,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.DuneErosion.Forms.GuiServices
 {
     /// <summary>
-    /// This class is responsible for calculating the <see cref="DuneLocation"/>.
+    /// This class is responsible for performing dune location calculations.
     /// </summary>
     public class DuneLocationCalculationGuiService
     {
@@ -56,14 +56,13 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         }
 
         /// <summary>
-        /// Performs the calculation for all <paramref name="calculations"/>.
+        /// Performs all <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform 
-        /// the calculation for.</param>
+        /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file 
-        /// that should be used for performing the calculation.</param>
+        /// that should be used for performing the calculations.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="norm">The norm to use during the calculations.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>

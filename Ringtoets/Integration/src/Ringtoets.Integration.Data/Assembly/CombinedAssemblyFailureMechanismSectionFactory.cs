@@ -71,8 +71,7 @@ namespace Ringtoets.Integration.Data.Assembly
             if (failureMechanisms.Contains(pipingFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(pipingFailureMechanism.SectionResults,
-                                                  assessmentSection, PipingAssemblyFunc)
-                               .ToArray());
+                                                  assessmentSection, PipingAssemblyFunc));
             }
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -139,7 +138,7 @@ namespace Ringtoets.Integration.Data.Assembly
             }
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
-            if (failureMechanisms.Contains(grassCoverSlipOffOutwardsFailureMechanism))
+            if (failureMechanisms.Contains(grassCoverSlipOffInwardsFailureMechanism))
             {
                 inputs.Add(CreateCombinedSections(grassCoverSlipOffInwardsFailureMechanism.SectionResults,
                                                   GrassCoverSlipOffInwardsAssemblyFunc));

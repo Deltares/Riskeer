@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -63,6 +62,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneErosionFailureMechanismProperties(context.WrappedData,
                                                                                       new DuneErosionFailureMechanismPropertyChangeHandler())
             };
+
             yield return new PropertyInfo<DuneLocationCalculationsContext, DuneLocationCalculationsProperties>
             {
                 CreateInstance = context => new DuneLocationCalculationsProperties(context.WrappedData)
@@ -103,7 +103,7 @@ namespace Ringtoets.DuneErosion.Plugin
             {
                 Text = context => context.CategoryBoundaryName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                ContextMenuStrip = DuneLocationsContextMenuStrip
+                ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
             };
         }
 
@@ -136,7 +136,7 @@ namespace Ringtoets.DuneErosion.Plugin
                 GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - {context.CategoryBoundaryName}",
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
-                CloseForData = CloseDuneLocationsViewForData,
+                CloseForData = CloseDuneLocationCalculationsViewForData,
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
                                                                              context.FailureMechanism,
                                                                              context.AssessmentSection,
@@ -304,7 +304,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #endregion
 
-        #region DuneLocationsContext TreeNodeInfo
+        #region DuneLocationCalculationsContext TreeNodeInfo
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
                                                                          double failureMechanismContribution)
@@ -317,11 +317,11 @@ namespace Ringtoets.DuneErosion.Plugin
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
-        private ContextMenuStrip DuneLocationsContextMenuStrip(DuneLocationCalculationsContext context, object parent, TreeViewControl treeViewControl)
+        private ContextMenuStrip DuneLocationCalculationsContextMenuStrip(DuneLocationCalculationsContext context, object parent, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_all,
-                Resources.DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip,
+                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_all_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -403,9 +403,9 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #endregion
 
-        #region DuneLocationsView ViewInfo
+        #region DuneLocationCalculationsView ViewInfo
 
-        private static bool CloseDuneLocationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
+        private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
             var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;

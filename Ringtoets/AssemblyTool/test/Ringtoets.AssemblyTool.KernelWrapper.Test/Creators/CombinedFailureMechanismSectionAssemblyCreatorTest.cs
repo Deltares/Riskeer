@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
@@ -75,7 +74,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
                 })
             };
 
-            FmSectionWithDirectCategory[] combinedResults = 
+            FmSectionWithDirectCategory[] combinedResults =
             {
                 CreateCategory(sections[0], random),
                 CreateCategory(sections[1], random),

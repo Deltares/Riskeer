@@ -84,9 +84,9 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
         /// </summary>
-        internal static string DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip {
+        internal static string DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_all_ToolTip {
             get {
-                return ResourceManager.GetString("DuneErosionPlugin_DuneLocationsContextMenuStrip_Calculate_all_ToolTip", resourceCulture);
+                return ResourceManager.GetString("DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_all_ToolTip", resourceCulture);
             }
         }
         

@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
@@ -75,7 +77,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         #region Simple Assessment
 
         [Test]
-        public void TranslateAssessmentResultWbi0E1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0E1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -95,7 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E1_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0E1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -133,6 +135,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
+        public void TranslateAssessmentResultWbi0E1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0E1(0);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentResultTypeE1Input);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
         public void TranslateAssessmentResultWbi0E2_Always_ThrowNotImplementedException()
         {
             // Setup
@@ -146,7 +170,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E3_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0E3_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -166,7 +190,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0E3_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0E3_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -204,6 +228,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
+        public void TranslateAssessmentResultWbi0E3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0E3(0);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentResultTypeE2Input);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
         public void TranslateAssessmentResultWbi0E4_Always_ThrowNotImplementedException()
         {
             // Setup
@@ -221,7 +267,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         #region Detailed Assessment
 
         [Test]
-        public void TranslateAssessmentResultWbi0G1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -241,7 +287,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G1_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -284,6 +330,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
+        public void TranslateAssessmentResultWbi0G1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = random.NextEnumValue<EAssessmentResultTypeG1>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G1(input);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentResultTypeG1Input);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
         public void TranslateAssessmentResultWbi0G2_Always_ThrowNotImplementedException()
         {
             // Setup
@@ -297,7 +368,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G3_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G3_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -323,7 +394,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G3_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G3_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -378,6 +449,37 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
+        public void TranslateAssessmentResultWbi0G3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
+            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
+            var assessmentResult = random.NextEnumValue<EAssessmentResultTypeG2>();
+            double failureProbability = random.NextDouble();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G3(assessmentSection, failureMechanism, assessmentResult, failureProbability);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.AssessmentResultTypeG2Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
         public void TranslateAssessmentResultWbi0G4_Always_ThrowNotImplementedException()
         {
             // Setup
@@ -391,7 +493,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G5_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G5_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -419,7 +521,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G5_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G5_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -482,7 +584,44 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0G5_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
+            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
+            var assessmentResult = random.NextEnumValue<EAssessmentResultTypeG2>();
+            double failureProbability = random.NextDouble();
+            double lengthEffect = random.NextDouble();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G5(assessmentSection,
+                                                                             failureMechanism,
+                                                                             lengthEffect,
+                                                                             assessmentResult,
+                                                                             failureProbability);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsNull(kernel.AssessmentResultTypeG2Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0G6_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var input = new FmSectionCategoryCompliancyResults();
@@ -501,7 +640,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0G6_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0G6_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var input = new FmSectionCategoryCompliancyResults();
@@ -541,12 +680,36 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
 
+        [Test]
+        public void TranslateAssessmentResultWbi0G6_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var input = new FmSectionCategoryCompliancyResults();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G6(input);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.CategoryCompliancyResultsInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
         #endregion
 
         #region Tailor Made Assessment
 
         [Test]
-        public void TranslateAssessmentResultWbi0T1_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T1_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -566,7 +729,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T1_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T1_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -609,6 +772,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
+        public void TranslateAssessmentResultWbi0T1_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            var input = random.NextEnumValue<EAssessmentResultTypeT1>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T1(input);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentResultTypeT1Input);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
         public void TranslateAssessmentResultWbi0T2_Always_ThrowNotImplementedException()
         {
             // Setup
@@ -622,7 +810,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T3_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T3_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -648,7 +836,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T3_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T3_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -706,7 +894,41 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T4_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T3_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
+            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
+            var assessmentResult = random.NextEnumValue<EAssessmentResultTypeT3>();
+            double failureProbability = random.NextDouble();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T3(assessmentSection,
+                                                                             failureMechanism,
+                                                                             assessmentResult,
+                                                                             failureProbability);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.AssessmentResultTypeT3Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0T4_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -723,7 +945,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T4_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T4_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -769,7 +991,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T5_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T4_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            var assessmentResult = random.NextEnumValue<EAssessmentResultTypeT3>();
+            var category = random.NextEnumValue<EFmSectionCategory>();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T4(assessmentResult, category);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentResultTypeT3Input);
+            Assert.IsNull(kernel.SectionCategoryInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0T5_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -797,7 +1046,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T5_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T5_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -860,6 +1109,43 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
+        public void TranslateAssessmentResultWbi0T5_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
+            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
+            var assessmentResult = random.NextEnumValue<EAssessmentResultTypeT3>();
+            double failureProbability = random.NextDouble();
+            double lengthEffect = random.NextDouble();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T5(assessmentSection,
+                                                                             failureMechanism,
+                                                                             lengthEffect,
+                                                                             assessmentResult,
+                                                                             failureProbability);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.AssessmentResultTypeT3Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
         public void TranslateAssessmentResultWbi0T6_Always_ThrowNotImplementedException()
         {
             // Setup
@@ -873,7 +1159,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T7_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0T7_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(39);
@@ -899,7 +1185,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0T7_ThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0T7_KernelDoesNotThrowException_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(39);
@@ -956,12 +1242,46 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
 
+        [Test]
+        public void TranslateAssessmentResultWbi0T7_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var random = new Random(39);
+            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
+            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
+            var assessmentResult = random.NextEnumValue<EAssessmentResultTypeT4>();
+            double failureProbability = random.NextDouble();
+
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0T7(assessmentSection,
+                                                                             failureMechanism,
+                                                                             assessmentResult,
+                                                                             failureProbability);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsNull(kernel.AssessmentSectionInput);
+            Assert.IsNull(kernel.FailureMechanismInput);
+            Assert.IsNull(kernel.AssessmentResultTypeT4Input);
+            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
         #endregion
 
         #region Combined Assessment
 
         [Test]
-        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowExceptionsFalse_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(11);
@@ -982,7 +1302,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowExceptionOnCalculateFalse_ReturnFailureMechanismSectionAssemblyResult()
+        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowExceptionsFalse_ReturnFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(11);
@@ -1024,6 +1344,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
+            Assert.IsNull(kernel.SimpleAssessmentResultInput);
+            Assert.IsNull(kernel.DetailedAssessmentResultInput);
+            Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+        }
+
+        [Test]
+        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        {
+            // Setup
+            var random = new Random(11);
+            var kernel = new FailureMechanismSectionAssemblyKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Call
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0A1(
+                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()),
+                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()),
+                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()));
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsNull(kernel.SimpleAssessmentResultInput);
             Assert.IsNull(kernel.DetailedAssessmentResultInput);
             Assert.IsNull(kernel.TailorMadeAssessmentResultInput);

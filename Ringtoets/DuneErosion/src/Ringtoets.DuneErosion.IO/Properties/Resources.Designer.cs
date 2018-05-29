@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -84,27 +84,27 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to *.
         /// </summary>
-        internal static string DuneLocationsWriter_CreateCsvLine_Parameter_without_value {
+        internal static string DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value {
             get {
-                return ResourceManager.GetString("DuneLocationsWriter_CreateCsvLine_Parameter_without_value", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50.
         /// </summary>
-        internal static string DuneLocationsWriter_WriteDuneLocations_HeaderLine {
+        internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine {
             get {
-                return ResourceManager.GetString("DuneLocationsWriter_WriteDuneLocations_HeaderLine", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to *[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m].
         /// </summary>
-        internal static string DuneLocationsWriter_WriteDuneLocations_UnitsLine {
+        internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine {
             get {
-                return ResourceManager.GetString("DuneLocationsWriter_WriteDuneLocations_UnitsLine", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine", resourceCulture);
             }
         }
     }

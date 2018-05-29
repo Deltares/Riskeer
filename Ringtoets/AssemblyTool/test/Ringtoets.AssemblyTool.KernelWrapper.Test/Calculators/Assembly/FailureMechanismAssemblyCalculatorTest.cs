@@ -23,12 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
@@ -84,9 +86,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -158,9 +159,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -181,9 +181,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsNotNull(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+
+        [Test]
+        public void Assemble_KernelThrowsAssemblyException_ThrowFailureMechanismAssemblyCalculatorException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
+                kernel.ThrowAssemblyExceptionOnCalculate = true;
+
+                var calculator = new FailureMechanismAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.Assemble(new List<FailureMechanismSectionAssemblyCategoryGroup>());
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
+                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
+                Assert.AreEqual(exception.Message, AssemblyErrorMessageTranslator.CreateErrorMessage(new[]
+                {
+                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
+                }));
             }
         }
 
@@ -204,9 +228,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -285,9 +308,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<InvalidEnumArgumentException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -309,9 +331,34 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
-                Exception innerException = exception.InnerException;
-                Assert.IsNotNull(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsNotNull(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleWithProbabilities_KernelThrowsAssemblyException_ThrowFailureMechanismAssemblyCalculatorException()
+        {
+            // Setup
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
+                kernel.ThrowAssemblyExceptionOnCalculate = true;
+
+                var calculator = new FailureMechanismAssemblyCalculator(factory);
+
+                // Call
+                TestDelegate test = () => calculator.Assemble(Enumerable.Empty<FailureMechanismSectionAssembly>(),
+                                                              CreateAssemblyCategoriesInput());
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(test);
+                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
+                Assert.AreEqual(exception.Message, AssemblyErrorMessageTranslator.CreateErrorMessage(new[]
+                {
+                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
+                }));
             }
         }
 

@@ -39,7 +39,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="EAssessmentResultTypeE1"/> based on the given <paramref name="input"/>.
         /// </summary>
-        /// <param name="input">The <see cref="SimpleAssessmentResultType"/> to create the result for.</param>
+        /// <param name="input">The <see cref="SimpleAssessmentResultType"/> to create an
+        /// <see cref="EAssessmentResultTypeE1"/> for.</param>
         /// <returns>The created <see cref="EAssessmentResultTypeE1"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SimpleAssessmentResultType"/>
         /// is an invalid value.</exception>
@@ -72,7 +73,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="EAssessmentResultTypeE2"/> based on the given <paramref name="input"/>.
         /// </summary>
-        /// <param name="input">The <see cref="SimpleAssessmentValidityOnlyResultType"/> to create the result for.</param>
+        /// <param name="input">The <see cref="SimpleAssessmentValidityOnlyResultType"/> to create an
+        /// <see cref="EAssessmentResultTypeE2"/> for.</param>
         /// <returns>The created <see cref="EAssessmentResultTypeE2"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="SimpleAssessmentValidityOnlyResultType"/>
         /// is an invalid value.</exception>
@@ -103,8 +105,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates <see cref="FmSectionAssemblyDirectResult"/> based on the given parameters.
         /// </summary>
-        /// <param name="assembly">The assembly to create
-        /// a <see cref="FmSectionAssemblyDirectResult"/> from.</param>
+        /// <param name="assembly">The <see cref="FailureMechanismSectionAssembly"/> to create
+        /// a <see cref="FmSectionAssemblyDirectResult"/> for.</param>
         /// <returns>The created <see cref="FmSectionAssemblyDirectResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/>
         /// is <c>null</c>.</exception>
@@ -122,14 +124,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return new FmSectionAssemblyDirectResult(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(assembly.Group),
-                assembly.Probability);
+                                                     assembly.Probability);
         }
 
         /// <summary>
         /// Creates <see cref="FmSectionAssemblyDirectResult"/> based on the given parameters.
         /// </summary>
-        /// <param name="categoryGroup">The category group to create
-        /// a <see cref="FmSectionAssemblyDirectResult"/> from.</param>
+        /// <param name="categoryGroup">The <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
+        /// to create a <see cref="FmSectionAssemblyDirectResult"/> for.</param>
         /// <returns>The created <see cref="FmSectionAssemblyDirectResult"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="categoryGroup"/> is
         /// an invalid <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
@@ -146,15 +148,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="FmSectionCategoryCompliancyResults"/> based on the given parameters.
         /// </summary>
-        /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The detailed assessment result
+        /// <param name="detailedAssessmentResultForFactorizedSignalingNorm">The <see cref="DetailedAssessmentResultType"/>
         /// for category Iv - IIv.</param>
-        /// <param name="detailedAssessmentResultForSignalingNorm">The detailed assessment result for category
+        /// <param name="detailedAssessmentResultForSignalingNorm">The <see cref="DetailedAssessmentResultType"/> for category
         /// IIv - IIIv.</param>
-        /// <param name="detailedAssessmentResultForMechanismSpecificLowerLimitNorm">The detailed assessment
+        /// <param name="detailedAssessmentResultForMechanismSpecificLowerLimitNorm">The <see cref="DetailedAssessmentResultType"/>
         /// result  for category IIIv - IVv.</param>
-        /// <param name="detailedAssessmentResultForLowerLimitNorm">The detailed assessment result for category
+        /// <param name="detailedAssessmentResultForLowerLimitNorm">The <see cref="DetailedAssessmentResultType"/> for category
         /// IVv - Vv.</param>
-        /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The detailed assessment result
+        /// <param name="detailedAssessmentResultForFactorizedLowerLimitNorm">The <see cref="DetailedAssessmentResultType"/>
         /// for category Vv - VIv.</param>
         /// <returns>The created <see cref="FmSectionCategoryCompliancyResults"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when any parameter is an invalid
@@ -180,7 +182,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="EAssessmentResultTypeG1"/> based on the given <see cref="DetailedAssessmentResultType"/>.
         /// </summary>
-        /// <param name="detailedAssessmentResult">The detailed assessment result to create the result for.</param>
+        /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentResultType"/> to create an
+        /// <see cref="EAssessmentResultTypeG1"/> for.</param>
         /// <returns>The created <see cref="EAssessmentResultTypeG1"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
         /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>
@@ -213,7 +216,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="EAssessmentResultTypeG2"/> based on the given <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.
         /// </summary>
-        /// <param name="detailedAssessmentResult">The detailed assessment result to create the result for.</param>
+        /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentProbabilityOnlyResultType"/> to create an
+        /// <see cref="EAssessmentResultTypeG2"/> for.</param>
         /// <returns>The created <see cref="EAssessmentResultTypeG2"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
         /// is an invalid <see cref="DetailedAssessmentProbabilityOnlyResultType"/>.</exception>
@@ -242,7 +246,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="EAssessmentResultTypeT1"/> based on the given <see cref="TailorMadeAssessmentResultType"/>.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create the result for.</param>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentResultType"/> result to create 
+        /// an <see cref="EAssessmentResultTypeT1"/> for.</param>
         /// <returns>The created <see cref="EAssessmentResultTypeT1"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is an invalid <see cref="TailorMadeAssessmentResultType"/>.</exception>
@@ -277,7 +282,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="EAssessmentResultTypeT3"/> based on the given <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create the result for.</param>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/> to create an 
+        /// <see cref="EAssessmentResultTypeT3"/> for.</param>
         /// <returns>The created <see cref="EAssessmentResultTypeT3"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
@@ -311,7 +317,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// Creates a <see cref="EAssessmentResultTypeT4"/> based on the
         /// given <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>.
         /// </summary>
-        /// <param name="tailorMadeAssessmentResult">The tailor made assessment result to create the result for.</param>
+        /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/> to create an 
+        /// <see cref="EAssessmentResultTypeT4"/> for.</param>
         /// <returns>The created <see cref="EAssessmentResultTypeT4"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is an invalid <see cref="TailorMadeAssessmentProbabilityCalculationResultType"/>.</exception>
@@ -349,7 +356,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> from a <see cref="TailorMadeAssessmentCategoryGroupResultType"/>.
         /// </summary>
-        /// <param name="category">The <see cref="TailorMadeAssessmentCategoryGroupResultType"/> to create the result for.</param>
+        /// <param name="category">The <see cref="TailorMadeAssessmentCategoryGroupResultType"/> to create a
+        /// <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> for.</param>
         /// <returns>A <see cref="Tuple{EAssessmentResultTypeT3, EFmSectionCategory}"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
@@ -368,7 +376,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// Creates a <see cref="EFmSectionCategory"/> from a <see cref="TailorMadeAssessmentCategoryGroupResultType"/>.
         /// </summary>
         /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentCategoryGroupResultType"/> to create
-        /// a <see cref="EFmSectionCategory"/>.</param>
+        /// an <see cref="EFmSectionCategory"/>.</param>
         /// <returns>A <see cref="EFmSectionCategory"/> based on <paramref name="tailorMadeAssessmentResult"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="tailorMadeAssessmentResult"/>
         /// is an invalid value.</exception>
@@ -410,7 +418,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Creates a <see cref="ECategoryCompliancy"/> based on the given <see cref="DetailedAssessmentResultType"/>.
         /// </summary>
-        /// <param name="detailedAssessmentResult">The detailed assessment result to create the category compliancy for.</param>
+        /// <param name="detailedAssessmentResult">The <see cref="DetailedAssessmentResultType"/> to create an 
+        /// <see cref="ECategoryCompliancy"/> for.</param>
         /// <returns>The created <see cref="ECategoryCompliancy"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="detailedAssessmentResult"/>
         /// is an invalid <see cref="DetailedAssessmentResultType"/>.</exception>

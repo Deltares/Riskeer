@@ -159,54 +159,54 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
         /// </summary>
-        internal static string DuneLocation_WaterLevel_Description {
+        internal static string DuneLocationCalculationOutput_WaterLevel_Description {
             get {
-                return ResourceManager.GetString("DuneLocation_WaterLevel_Description", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WaterLevel_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde waterstand [m+NAP].
         /// </summary>
-        internal static string DuneLocation_WaterLevel_DisplayName {
+        internal static string DuneLocationCalculationOutput_WaterLevel_DisplayName {
             get {
-                return ResourceManager.GetString("DuneLocation_WaterLevel_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WaterLevel_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
         /// </summary>
-        internal static string DuneLocation_WaveHeight_Description {
+        internal static string DuneLocationCalculationOutput_WaveHeight_Description {
             get {
-                return ResourceManager.GetString("DuneLocation_WaveHeight_Description", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WaveHeight_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde Hs [m].
         /// </summary>
-        internal static string DuneLocation_WaveHeight_DisplayName {
+        internal static string DuneLocationCalculationOutput_WaveHeight_DisplayName {
             get {
-                return ResourceManager.GetString("DuneLocation_WaveHeight_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WaveHeight_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen..
         /// </summary>
-        internal static string DuneLocation_WavePeriod_Description {
+        internal static string DuneLocationCalculationOutput_WavePeriod_Description {
             get {
-                return ResourceManager.GetString("DuneLocation_WavePeriod_Description", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WavePeriod_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde Tp [s].
         /// </summary>
-        internal static string DuneLocation_WavePeriod_DisplayName {
+        internal static string DuneLocationCalculationOutput_WavePeriod_DisplayName {
             get {
-                return ResourceManager.GetString("DuneLocation_WavePeriod_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationOutput_WavePeriod_DisplayName", resourceCulture);
             }
         }
         

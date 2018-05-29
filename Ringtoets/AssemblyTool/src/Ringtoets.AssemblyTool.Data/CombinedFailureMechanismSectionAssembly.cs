@@ -51,7 +51,7 @@ namespace Ringtoets.AssemblyTool.Data
             Section = section;
             FailureMechanismResults = failureMechanismResults;
         }
-        
+
         /// <summary>
         /// Gets the section of the assembly.
         /// </summary>

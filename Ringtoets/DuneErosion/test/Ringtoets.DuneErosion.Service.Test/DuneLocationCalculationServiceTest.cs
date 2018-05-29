@@ -269,11 +269,6 @@ namespace Ringtoets.DuneErosion.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
-
             var duneLocation = new TestDuneLocation("Name");
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 

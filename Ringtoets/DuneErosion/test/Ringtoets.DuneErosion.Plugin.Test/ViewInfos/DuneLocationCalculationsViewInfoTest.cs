@@ -135,7 +135,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_LocationsEmpty_ReturnFalse()
+        public void AdditionalDataCheck_CalculationsEmpty_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -156,19 +156,19 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_WithLocations_ReturnTrue()
+        public void AdditionalDataCheck_WithCalculations_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var duneLocations = new ObservableList<DuneLocationCalculation>
+            var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
                 new DuneLocationCalculation(new TestDuneLocation())
             };
 
-            var context = new DuneLocationCalculationsContext(duneLocations,
+            var context = new DuneLocationCalculationsContext(duneLocationCalculations,
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
@@ -434,7 +434,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                                                                () => 0.01))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, new object());
+                bool closeForData = info.CloseForData(view, null);
 
                 // Assert
                 Assert.IsFalse(closeForData);
