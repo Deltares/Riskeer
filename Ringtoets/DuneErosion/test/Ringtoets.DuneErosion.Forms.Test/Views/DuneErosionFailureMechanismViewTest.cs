@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -72,68 +73,57 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new DuneErosionFailureMechanismView(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (var view = new DuneErosionFailureMechanismView())
+            TestDelegate call = () => new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            // Call
+            using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IMapView>(view);
                 Assert.IsNotNull(view.Map);
                 Assert.IsNull(view.Data);
-            }
-        }
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.AreSame(assessmentSection, view.AssessmentSection);
 
-        [Test]
-        public void DefaultConstructor_Always_AddEmptyMapControl()
-        {
-            // Call
-            using (var view = new DuneErosionFailureMechanismView())
-            {
-                // Assert
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.IsInstanceOf<RingtoetsMapControl>(view.Controls[0]);
                 Assert.AreSame(view.Map, ((RingtoetsMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                Assert.IsNull(view.Map.Data);
-            }
-        }
-
-        [Test]
-        public void Data_FailureMechanismContext_DataSet()
-        {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
-            {
-                var failureMechanism = new DuneErosionFailureMechanism();
-
-                var assessmentSection = new AssessmentSectionStub();
-
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
-                // Assert
-                Assert.AreEqual(failureMechanism.Name, view.Map.Data.Name);
-                Assert.AreSame(failureMechanismContext, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanFailureMechanismContext_DataNull()
-        {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
-            {
-                var data = new object();
-
-                // Call
-                view.Data = data;
-
-                // Assert
-                Assert.IsNull(view.Data);
+                AssertEmptyMapData(view.Map.Data);
             }
         }
 
@@ -141,9 +131,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Data_AssessmentSectionWithBackgroundData_BackgroundDataSet()
         {
             // Setup
-            IAssessmentSection assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub();
 
-            using (var view = new DuneErosionFailureMechanismView())
+            using (var view = new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), assessmentSection))
             {
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
 
@@ -156,96 +146,42 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Data_SetToNull_MapDataCleared()
+        public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            using (var view = new DuneErosionFailureMechanismView())
+            var assessmentSection = new AssessmentSectionStub
             {
-                var assessmentSection = new AssessmentSectionStub();
-
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                // Precondition
-                Assert.AreEqual(5, view.Map.Data.Collection.Count());
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.Map.Data);
-                Assert.IsNull(view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_EmptyFailureMechanismContext_NoMapDataSet()
-        {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
+                ReferenceLine = new ReferenceLine()
+            };
+            assessmentSection.ReferenceLine.SetGeometry(new[]
             {
-                var assessmentSection = new AssessmentSectionStub();
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
 
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
+            var geometryPoints = new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(2.0, 0.0),
+                new Point2D(4.0, 4.0),
+                new Point2D(6.0, 4.0)
+            };
 
-                // Call
-                view.Data = failureMechanismContext;
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation()
+            });
+            failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
+            failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
 
-                // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-                AssertEmptyMapData(view.Map.Data);
-                MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
-            }
-        }
-
-        [Test]
-        public void Data_FailureMechanismContext_DataUpdatedToCollectionOfFilledMapData()
-        {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
+            // Call
+            using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
 
-                var geometryPoints = new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(2.0, 0.0),
-                    new Point2D(4.0, 4.0),
-                    new Point2D(6.0, 4.0)
-                };
-
-                var referenceLine = new ReferenceLine();
-                referenceLine.SetGeometry(new[]
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                });
-
-                var assessmentSection = new AssessmentSectionStub
-                {
-                    ReferenceLine = referenceLine
-                };
-
-                var failureMechanism = new DuneErosionFailureMechanism();
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    new TestDuneLocation()
-                });
-                failureMechanism.AddSection(new FailureMechanismSection("A", geometryPoints.Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-                failureMechanism.AddSection(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
-
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
-                // Call
-                view.Data = failureMechanismContext;
-
                 // Assert
-                Assert.AreSame(failureMechanismContext, view.Data);
-
                 MapDataCollection mapData = map.Data;
                 Assert.IsInstanceOf<MapDataCollection>(mapData);
 
@@ -260,92 +196,46 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_AssessmentSectionUpdated_MapDataUpdated()
-        {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new AssessmentSectionStub();
-                var duneLocation1 = new TestDuneLocation();
-
-                var failureMechanism = new DuneErosionFailureMechanism();
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    duneLocation1
-                });
-
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
-
-                MapData duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
-
-                // Precondition
-                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
-
-                // Call
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    new TestDuneLocation()
-                });
-                assessmentSection.NotifyObservers();
-
-                // Assert
-                AssertDuneLocationsMapData(failureMechanism.DuneLocations, duneLocationsMapData);
-            }
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetCalculationFuncs))]
-        public void UpdateObserver_SingleDuneLocationCalculationUpdated_MapDataUpdated(
+        public void GivenViewWithDuneLocationData_WhenSingleDuneLocationCalculationUpdated_ThenMapDataUpdated(
             Func<DuneErosionFailureMechanism, DuneLocationCalculation> getCalculationFunc)
         {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
+            // Given
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation()
+            });
+
+            using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new AssessmentSectionStub();
-
-                var failureMechanism = new DuneErosionFailureMechanism();
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    new TestDuneLocation()
-                });
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
-
                 var duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex) as MapPointData;
 
                 // Precondition
                 AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);
 
-                // Call
+                // When
                 DuneLocationCalculation duneLocationCalculation = getCalculationFunc(failureMechanism);
                 duneLocationCalculation.Output = new TestDuneLocationCalculationOutput();
                 duneLocationCalculation.NotifyObservers();
 
-                // Assert
+                // Then
                 AssertDuneLocationsMapData(failureMechanism, duneLocationsMapData);
             }
         }
 
         [Test]
-        public void GivenFailureMechanismWithoutDuneLocations_WhenNewDuneLocationsAreSetAndCollectionNotified_ThenMapDataUpdated()
+        public void GivenViewWithoutDuneLocationData_WhenNewDuneLocationsAreSetAndCollectionNotified_ThenMapDataUpdated()
         {
             // Given
-            using (var view = new DuneErosionFailureMechanismView())
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new DuneErosionFailureMechanism();
-
-                view.Data = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
                 MapData duneLocationsMapData = map.Data.Collection.ElementAt(duneLocationsIndex);
 
                 // Precondition
@@ -364,67 +254,57 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_ReferenceLineUpdated_MapDataUpdated()
+        public void GivenViewWithReferenceLineData_WhenReferenceLineUpdated_ThenMapDataUpdated()
         {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
+            // Given
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(1.0, 2.0),
+                new Point2D(2.0, 1.0)
+            });
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                ReferenceLine = referenceLine
+            };
+
+            using (var view = new DuneErosionFailureMechanismView(new DuneErosionFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var points1 = new List<Point2D>
-                {
-                    new Point2D(1.0, 2.0),
-                    new Point2D(2.0, 1.0)
-                };
-
-                var points2 = new List<Point2D>
-                {
-                    new Point2D(2.0, 5.0),
-                    new Point2D(4.0, 3.0)
-                };
-
-                var assessmentSection = new AssessmentSectionStub
-                {
-                    ReferenceLine = new ReferenceLine()
-                };
-                assessmentSection.ReferenceLine.SetGeometry(points1);
-
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
-
-                view.Data = failureMechanismContext;
-
                 MapData referenceLineMapData = map.Data.Collection.ElementAt(referenceLineIndex);
 
                 // Precondition
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
 
-                // Call
-                assessmentSection.ReferenceLine.SetGeometry(points2);
+                // When
+                assessmentSection.ReferenceLine.SetGeometry(new[]
+                {
+                    new Point2D(2.0, 5.0),
+                    new Point2D(4.0, 3.0)
+                });
                 assessmentSection.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, referenceLineMapData);
             }
         }
 
         [Test]
-        public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdated()
+        public void GivenViewWithFailureMechanismSectionData_WhenFailureMechanismSectionsUpdated_ThenMapDataUpdated()
         {
-            // Setup
-            using (var view = new DuneErosionFailureMechanismView())
+            // Given
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var failureMechanism = new DuneErosionFailureMechanism();
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, new AssessmentSectionStub());
-
-                view.Data = failureMechanismContext;
-
                 var sectionMapData = (MapLineData) map.Data.Collection.ElementAt(sectionsIndex);
                 var sectionStartsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsStartPointIndex);
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
-                // Call
+                // When
                 failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
                 {
                     new Point2D(1, 2),
@@ -432,7 +312,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 }));
                 failureMechanism.NotifyObservers();
 
-                // Assert
+                // Then
                 MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionStartsMapData);
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsEndsMapData);
@@ -449,16 +329,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             const int updatedSectionEndLayerIndex = sectionsEndPointIndex - 1;
             const int updatedDuneLocationsLayerIndex = duneLocationsIndex - 1;
 
-            using (var view = new DuneErosionFailureMechanismView())
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+
+            using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                var assessmentSection = new AssessmentSectionStub();
-                var failureMechanism = new DuneErosionFailureMechanism();
-                var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
-
-                view.Data = failureMechanismContext;
-
                 MapDataCollection mapData = map.Data;
 
                 var dataToMove = (MapLineData) map.Data.Collection.ElementAt(referenceLineIndex);
@@ -510,40 +386,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                 var actualDuneLocationsData = (MapPointData) mapDataList[updatedDuneLocationsLayerIndex];
                 Assert.AreEqual("Hydraulische randvoorwaarden", actualDuneLocationsData.Name);
-            }
-        }
-
-        [Test]
-        public void NotifyObservers_DataUpdatedNotifyObserversOnOldData_NoUpdateInViewData()
-        {
-            // Setup
-            IAssessmentSection oldAssessmentSection = new AssessmentSectionStub();
-            IAssessmentSection newAssessmentSection = new AssessmentSectionStub();
-
-            newAssessmentSection.ReferenceLine = new ReferenceLine();
-            newAssessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(2, 4),
-                new Point2D(3, 4)
-            });
-
-            var oldFailureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), oldAssessmentSection);
-            var newFailureMechanismContext = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), newAssessmentSection);
-            using (var view = new DuneErosionFailureMechanismView())
-            {
-                IMapControl map = ((RingtoetsMapControl) view.Controls[0]).MapControl;
-
-                view.Data = oldFailureMechanismContext;
-                view.Data = newFailureMechanismContext;
-                MapData dataBeforeUpdate = map.Data;
-
-                newAssessmentSection.ReferenceLine.SetGeometry(Enumerable.Empty<Point2D>());
-
-                // Call
-                oldAssessmentSection.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(dataBeforeUpdate, map.Data);
             }
         }
 
