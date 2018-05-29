@@ -1949,6 +1949,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosion
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.DuneErosion.Forms.TestUtil", "Ringtoets\DuneErosion\test\Ringtoets.DuneErosion.Forms.TestUtil\Ringtoets.DuneErosion.Forms.TestUtil.csproj", "{AB95EC86-28CF-47E6-ABB0-927EBBE61445}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -5146,6 +5148,15 @@ Global
 		{E51E2489-FD03-42DE-A4A8-4DF00E3490C3}.Release|x86.Build.0 = Release|x86
 		{E51E2489-FD03-42DE-A4A8-4DF00E3490C3}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{E51E2489-FD03-42DE-A4A8-4DF00E3490C3}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.Debug|x86.ActiveCfg = Debug|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.Debug|x86.Build.0 = Debug|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.Release|x86.ActiveCfg = Release|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.Release|x86.Build.0 = Release|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5561,6 +5572,7 @@ Global
 		{B8CE6045-5831-47C1-B02C-BAABD53D7407} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 		{F20FCF45-A545-4ED9-9634-02DD4CDFB181} = {2B6156FD-080B-4869-B148-E4A2995F0EFB}
 		{E51E2489-FD03-42DE-A4A8-4DF00E3490C3} = {2B6156FD-080B-4869-B148-E4A2995F0EFB}
+		{AB95EC86-28CF-47E6-ABB0-927EBBE61445} = {FED0898A-BA03-4FBC-8F99-87817B34557B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}
