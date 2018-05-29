@@ -87,8 +87,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         [TestCase(ConfigurationWaveConditionsInputStepSize.Half, "0,5")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.One, "1,0")]
         [TestCase(ConfigurationWaveConditionsInputStepSize.Two, "2,0")]
-        public void ConvertTo_StringForAllEnumValues_ReturnExpectedText(ConfigurationWaveConditionsInputStepSize value,
-                                                                        string expectedText)
+        public void ConvertTo_ValidConfigurationWaveConditionsInputStepSize_ReturnExpectedText(
+            ConfigurationWaveConditionsInputStepSize value, string expectedText)
         {
             // Setup
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
@@ -103,7 +103,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         [Test]
         [TestCase(typeof(string))]
         [TestCase(typeof(WaveConditionsInputStepSize))]
-        public void ConvertTo_StringInvalidConfigurationWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException(Type destinationType)
+        public void ConvertTo_InvalidConfigurationWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
             const ConfigurationWaveConditionsInputStepSize invalidValue = (ConfigurationWaveConditionsInputStepSize) 9999; 
@@ -123,8 +123,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         [TestCase(ConfigurationWaveConditionsInputStepSize.Half, WaveConditionsInputStepSize.Half)]
         [TestCase(ConfigurationWaveConditionsInputStepSize.One, WaveConditionsInputStepSize.One)]
         [TestCase(ConfigurationWaveConditionsInputStepSize.Two, WaveConditionsInputStepSize.Two)]
-        public void ConvertTo_WaveConditionsInputStepSizeForAllEnumValues_ReturnExpectedText(ConfigurationWaveConditionsInputStepSize value,
-                                                                                             WaveConditionsInputStepSize expectedText)
+        public void ConvertTo_ValidConfigurationWaveConditionsInputStepSize_ReturnWaveConditionsInputStepSize(
+            ConfigurationWaveConditionsInputStepSize value, WaveConditionsInputStepSize expectedResult)
         {
             // Setup
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
@@ -133,7 +133,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
             object convertTo = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(WaveConditionsInputStepSize));
 
             // Assert
-            Assert.AreEqual(expectedText, convertTo);
+            Assert.AreEqual(expectedResult, convertTo);
         }
 
         [Test]
@@ -193,8 +193,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         [TestCase(0.5, ConfigurationWaveConditionsInputStepSize.Half)]
         [TestCase(1, ConfigurationWaveConditionsInputStepSize.One)]
         [TestCase(2, ConfigurationWaveConditionsInputStepSize.Two)]
-        public void ConvertFrom_VariousDoubles_ReturnWaveConditionsInputStepSize(double value,
-                                                                                 ConfigurationWaveConditionsInputStepSize expectedResult)
+        public void ConvertFrom_ValidDoubleValue_ReturnWaveConditionsInputStepSize(
+            double value, ConfigurationWaveConditionsInputStepSize expectedResult)
         {
             // Setup
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();
@@ -242,8 +242,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         [TestCase(WaveConditionsInputStepSize.Half, ConfigurationWaveConditionsInputStepSize.Half)]
         [TestCase(WaveConditionsInputStepSize.One, ConfigurationWaveConditionsInputStepSize.One)]
         [TestCase(WaveConditionsInputStepSize.Two, ConfigurationWaveConditionsInputStepSize.Two)]
-        public void ConvertFrom_VariousWaveConditionsInputStepSize_ReturnWaveConditionsInputStepSize(WaveConditionsInputStepSize value,
-                                                                                                     ConfigurationWaveConditionsInputStepSize expectedResult)
+        public void ConvertFrom_ValidWaveConditionsInputStepSize_ReturnConfigurationWaveConditionsInputStepSize(
+            WaveConditionsInputStepSize value, ConfigurationWaveConditionsInputStepSize expectedResult)
         {
             // Setup
             var converter = new ConfigurationWaveConditionsInputStepSizeConverter();

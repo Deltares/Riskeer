@@ -57,6 +57,19 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
+        public void CanConvertTo_AssessmentSectionCategoryType_ReturnTrue()
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            bool canConvertTo = converter.CanConvertTo(typeof(AssessmentSectionCategoryType));
+
+            // Assert
+            Assert.IsTrue(canConvertTo);
+        }
+
+        [Test]
         public void CanConvertTo_OtherType_ReturnFalse()
         {
             // Setup
@@ -88,14 +101,34 @@ namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
         }
 
         [Test]
-        public void ConvertTo_StringInvalidConfigurationWaveConditionsInputStepSize_ThrowInvalidEnumArgumentException()
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm, AssessmentSectionCategoryType.FactorizedSignalingNorm)]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.SignalingNorm, AssessmentSectionCategoryType.SignalingNorm)]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.LowerLimitNorm, AssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase(ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm, AssessmentSectionCategoryType.FactorizedLowerLimitNorm)]
+        public void ConvertTo_ValidConfigurationAssessmentSectionCategoryType_ReturnAssessmentSectionCategoryType(
+            ConfigurationAssessmentSectionCategoryType originalValue, AssessmentSectionCategoryType expectedResult)
+        {
+            // Setup
+            var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
+
+            // Call
+            object categoryType = converter.ConvertTo(null, CultureInfo.CurrentCulture, originalValue, typeof(AssessmentSectionCategoryType));
+
+            // Assert
+            Assert.AreEqual(expectedResult, categoryType);
+        }
+
+        [Test]
+        [TestCase(typeof(string))]
+        [TestCase(typeof(AssessmentSectionCategoryType))]
+        public void ConvertTo_InvalidConfigurationAssessmentSectionCategoryType_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
             const ConfigurationAssessmentSectionCategoryType invalidValue = (ConfigurationAssessmentSectionCategoryType) 99;
             var converter = new ConfigurationAssessmentSectionCategoryTypeConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertTo(invalidValue, typeof(string));
+            TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
             string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationAssessmentSectionCategoryType)}'.";

@@ -32,22 +32,45 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
     /// </summary>
     public class ConfigurationAssessmentSectionCategoryTypeConverter : TypeConverter
     {
+        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        {
+            return destinationType == typeof(AssessmentSectionCategoryType)
+                   || base.CanConvertTo(context, destinationType);
+        }
+
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
         /// contains an invalid value of <see cref="ConfigurationAssessmentSectionCategoryType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var stepSize = (ConfigurationAssessmentSectionCategoryType)value;
-            if (!Enum.IsDefined(typeof(ConfigurationAssessmentSectionCategoryType), stepSize))
+            var categoryType = (ConfigurationAssessmentSectionCategoryType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationAssessmentSectionCategoryType), categoryType))
             {
                 throw new InvalidEnumArgumentException(nameof(value),
-                                                       (int)stepSize,
+                                                       (int) categoryType,
                                                        typeof(ConfigurationAssessmentSectionCategoryType));
+            }
+
+            if (destinationType == typeof(AssessmentSectionCategoryType))
+            {
+                switch (categoryType)
+                {
+                    case ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm:
+                        return AssessmentSectionCategoryType.FactorizedSignalingNorm;
+                    case ConfigurationAssessmentSectionCategoryType.SignalingNorm:
+                        return AssessmentSectionCategoryType.SignalingNorm;
+                    case ConfigurationAssessmentSectionCategoryType.LowerLimitNorm:
+                        return AssessmentSectionCategoryType.LowerLimitNorm;
+                    case ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm:
+                        return AssessmentSectionCategoryType.FactorizedLowerLimitNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
             }
 
             if (destinationType == typeof(string))
             {
-                switch (stepSize)
+                switch (categoryType)
                 {
                     case ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm:
                         return "A+->A";
@@ -61,6 +84,7 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                         throw new NotSupportedException();
                 }
             }
+
             return base.ConvertTo(context, culture, value, destinationType);
         }
 
@@ -78,11 +102,11 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
         {
             if (value is AssessmentSectionCategoryType)
             {
-                var categoryType = (AssessmentSectionCategoryType)value;
+                var categoryType = (AssessmentSectionCategoryType) value;
                 if (!Enum.IsDefined(typeof(AssessmentSectionCategoryType), categoryType))
                 {
                     throw new InvalidEnumArgumentException(nameof(value),
-                                                           (int)categoryType,
+                                                           (int) categoryType,
                                                            typeof(AssessmentSectionCategoryType));
                 }
 
@@ -108,14 +132,17 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                 {
                     return ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm;
                 }
+
                 if (stringValue == "A->B")
                 {
                     return ConfigurationAssessmentSectionCategoryType.SignalingNorm;
                 }
+
                 if (stringValue == "B->C")
                 {
                     return ConfigurationAssessmentSectionCategoryType.LowerLimitNorm;
                 }
+
                 if (stringValue == "C->D")
                 {
                     return ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm;
