@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
@@ -49,7 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategoryLimitsWbi21_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void CalculateAssessmentSectionCategoryLimitsWbi21_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             AssessmentSection assessmentSection = CreateValidAssessmentSection();
@@ -68,7 +69,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategoryLimitsWbi21_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        public void CalculateAssessmentSectionCategoryLimitsWbi21_KernelDoesNotThrowException_ReturnAssessmentSectionCategories()
         {
             // Setup
             var kernel = new AssemblyCategoriesKernelStub
@@ -107,7 +108,31 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFailureMechanismCategoryLimitsWbi11_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void CalculateAssessmentSectionCategoryLimitsWbi21_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.CalculateAssessmentSectionCategoryLimitsWbi21(CreateValidAssessmentSection());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.AssessmentSectionCategoriesOutput);
+        }
+
+        [Test]
+        public void CalculateFailureMechanismCategoryLimitsWbi11_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             AssessmentSection assessmentSection = CreateValidAssessmentSection();
@@ -132,7 +157,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFailureMechanismCategoryLimitsWbi11_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        public void CalculateFailureMechanismCategoryLimitsWbi11_KernelDoesNotThrowException_ReturnAssessmentSectionCategories()
         {
             // Setup
             var kernel = new AssemblyCategoriesKernelStub
@@ -175,7 +200,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFmSectionCategoryLimitsWbi01_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void CalculateFailureMechanismCategoryLimitsWbi11_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                CreateValidAssessmentSection(),
+                CreateValidFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismCategoriesOutput);
+        }
+
+        [Test]
+        public void CalculateFmSectionCategoryLimitsWbi01_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             AssessmentSection assessmentSection = CreateValidAssessmentSection();
@@ -200,7 +251,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFmSectionCategoryLimitsWbi01_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        public void CalculateFmSectionCategoryLimitsWbi01_KernelDoesNotThrowException_ReturnAssessmentSectionCategories()
         {
             // Setup
             var kernel = new AssemblyCategoriesKernelStub
@@ -243,7 +294,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFmSectionCategoryLimitsWbi02_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void CalculateFmSectionCategoryLimitsWbi01_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.CalculateFmSectionCategoryLimitsWbi01(
+                CreateValidAssessmentSection(),
+                CreateValidFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
+        }
+
+        [Test]
+        public void CalculateFmSectionCategoryLimitsWbi02_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             AssessmentSection assessmentSection = CreateValidAssessmentSection();
@@ -268,7 +345,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
         }
 
         [Test]
-        public void CalculateFmSectionCategoryLimitsWbi02_ThrowExceptionOnCalculateFalse_ReturnAssessmentSectionCategories()
+        public void CalculateFmSectionCategoryLimitsWbi02_KernelDoesNotThrowException_ReturnAssessmentSectionCategories()
         {
             // Setup
             var kernel = new AssemblyCategoriesKernelStub
@@ -306,6 +383,32 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Categories
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
+        }
+
+        [Test]
+        public void CalculateFmSectionCategoryLimitsWbi02_ThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
+        {
+            // Setup
+            var kernel = new AssemblyCategoriesKernelStub
+            {
+                ThrowAssemblyExceptionOnCalculate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Calculated);
+
+            // Call
+            TestDelegate test = () => kernel.CalculateFmSectionCategoryLimitsWbi02(
+                CreateValidAssessmentSection(),
+                CreateValidFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<AssemblyException>(test);
+            AssemblyErrorMessage errorMessage = exception.Errors.Single();
+            Assert.AreEqual("entity", errorMessage.EntityId);
+            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionCategoriesOutput);
         }

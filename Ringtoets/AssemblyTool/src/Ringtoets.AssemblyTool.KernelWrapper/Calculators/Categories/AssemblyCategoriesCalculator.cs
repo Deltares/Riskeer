@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
@@ -62,9 +63,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 
                 return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
             }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+            }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -79,9 +84,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 
                 return AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(output);
             }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+            }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -97,9 +106,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
             }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+            }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -115,9 +128,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
             }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+            }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(e.Message, e);
+                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
             }
         }
     }

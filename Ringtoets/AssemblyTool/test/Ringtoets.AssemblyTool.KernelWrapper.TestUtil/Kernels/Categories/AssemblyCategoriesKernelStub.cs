@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
@@ -58,9 +59,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public double N { get; private set; }
 
         /// <summary>
-        /// Sets an indicator whether an exception must be thrown while performing the calculation.
+        /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
+
+        /// <summary>
+        /// Sets an indicator whether an <see cref="AssemblyException"/> must be thrown while performing a calculation.
+        /// </summary>
+        public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         /// <summary>
         /// Gets or sets the assessment section categories output.
@@ -79,10 +85,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<AssessmentSectionCategoryLimits> CalculateAssessmentSectionCategoryLimitsWbi21(AssessmentSection section)
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -94,10 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<FailureMechanismCategoryLimits> CalculateFailureMechanismCategoryLimitsWbi11(AssessmentSection section, FailureMechanism failureMechanism)
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -111,10 +111,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<FmSectionCategoryLimits> CalculateFmSectionCategoryLimitsWbi01(AssessmentSection section, FailureMechanism failureMechanism)
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -128,10 +125,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<FmSectionCategoryLimits> CalculateFmSectionCategoryLimitsWbi02(AssessmentSection section, FailureMechanism failureMechanism)
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
+            ThrowExceptions();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -141,6 +135,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
             Calculated = true;
 
             return FailureMechanismSectionCategoriesOutput;
+        }
+
+        private void ThrowExceptions()
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new Exception("Message", new Exception());
+            }
+
+            if (ThrowAssemblyExceptionOnCalculate)
+            {
+                throw new AssemblyException("entity", EAssemblyErrors.CategoryLowerLimitOutOfRange);
+            }
         }
     }
 }
