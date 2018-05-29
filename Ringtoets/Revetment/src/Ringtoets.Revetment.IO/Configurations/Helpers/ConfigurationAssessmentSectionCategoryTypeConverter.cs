@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Revetment.IO.Properties;
 
 namespace Ringtoets.Revetment.IO.Configurations.Helpers
 {
@@ -73,13 +74,13 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                 switch (categoryType)
                 {
                     case ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm:
-                        return "A+->A";
+                        return Resources.FactorizedSignalingNorm_DisplayName;
                     case ConfigurationAssessmentSectionCategoryType.SignalingNorm:
-                        return "A->B";
+                        return Resources.SignalingNorm_DisplayName;
                     case ConfigurationAssessmentSectionCategoryType.LowerLimitNorm:
-                        return "B->C";
+                        return Resources.LowerLimitNorm_DisplayName;
                     case ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm:
-                        return "C->D";
+                        return Resources.FactorizedLowerLimitNorm_DisplayName;
                     default:
                         throw new NotSupportedException();
                 }
@@ -128,22 +129,22 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
             var stringValue = value as string;
             if (stringValue != null)
             {
-                if (stringValue == "A+->A")
+                if (stringValue == Resources.FactorizedSignalingNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.FactorizedSignalingNorm;
                 }
 
-                if (stringValue == "A->B")
+                if (stringValue == Resources.SignalingNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.SignalingNorm;
                 }
 
-                if (stringValue == "B->C")
+                if (stringValue == Resources.LowerLimitNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.LowerLimitNorm;
                 }
 
-                if (stringValue == "C->D")
+                if (stringValue == Resources.FactorizedLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationAssessmentSectionCategoryType.FactorizedLowerLimitNorm;
                 }

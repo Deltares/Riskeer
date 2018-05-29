@@ -138,11 +138,47 @@ namespace Ringtoets.Revetment.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C-&gt;D.
+        /// </summary>
+        internal static string FactorizedLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FactorizedLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A+-&gt;A.
+        /// </summary>
+        internal static string FactorizedSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FactorizedSignalingNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to B-&gt;C.
+        /// </summary>
+        internal static string LowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("LowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to nee.
         /// </summary>
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A-&gt;B.
+        /// </summary>
+        internal static string SignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
             }
         }
         
