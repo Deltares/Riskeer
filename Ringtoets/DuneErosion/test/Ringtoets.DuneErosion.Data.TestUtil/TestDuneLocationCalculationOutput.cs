@@ -33,11 +33,20 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         /// Creates a new instance of <see cref="TestDuneLocationCalculationOutput"/>.
         /// </summary>
         public TestDuneLocationCalculationOutput()
+            : this(0, 0, 0) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="TestDuneLocationCalculationOutput"/>.
+        /// </summary>
+        /// <param name="waterLevel">The water level of the calculation.</param>
+        /// <param name="waveHeight">The wave height of the calculation.</param>
+        /// <param name="wavePeriod">The wave period of the calculation.</param>
+        public TestDuneLocationCalculationOutput(double waterLevel, double waveHeight, double wavePeriod)
             : base(CalculationConvergence.CalculatedConverged, new ConstructionProperties
             {
-                WaterLevel = 0,
-                WavePeriod = 0,
-                WaveHeight = 0,
+                WaterLevel = waterLevel,
+                WavePeriod = wavePeriod,
+                WaveHeight = waveHeight,
                 TargetProbability = 0,
                 CalculatedReliability = 0,
                 TargetReliability = 0,

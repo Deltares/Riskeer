@@ -80,9 +80,39 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
             Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
         }
 
+        /// <summary>
+        /// Sets dummy dune location calculation output for all dune location calculations within <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to set the dune location calculation outputs for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static void SetDuneLocationCalculationOutput(DuneErosionFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
+        }
+
         private static bool HasDuneLocationCalculationOutput(DuneLocationCalculation calculation)
         {
             return calculation.Output != null;
+        }
+
+        private static void SetDuneLocationCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
+        {
+            var random = new Random(21);
+            foreach (DuneLocationCalculation duneLocationCalculation in calculations)
+            {
+                duneLocationCalculation.Output = new TestDuneLocationCalculationOutput(random.NextDouble(),
+                                                                                       random.NextDouble(),
+                                                                                       random.NextDouble());
+            }
         }
     }
 }

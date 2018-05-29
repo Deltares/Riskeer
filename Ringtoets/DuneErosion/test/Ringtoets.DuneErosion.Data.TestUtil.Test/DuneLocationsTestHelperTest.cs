@@ -113,5 +113,49 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
+
+        [Test]
+        public void SetDuneLocationCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => DuneLocationsTestHelper.SetDuneLocationCalculationOutput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void SetDuneLocationCalculationOut_FailureMechanismWithDuneLocations_SetsAllDuneLocationCalculationsWithOutput()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
+            {
+                new TestDuneLocation(),
+                new TestDuneLocation()
+            });
+
+            // Precondition
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
+            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
+
+            // Call
+            DuneLocationsTestHelper.SetDuneLocationCalculationOutput(failureMechanism);
+
+            // Assert
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(HasDuneLocationCalculationOutput));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(HasDuneLocationCalculationOutput));
+            Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(HasDuneLocationCalculationOutput));
+            Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(HasDuneLocationCalculationOutput));
+            Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(HasDuneLocationCalculationOutput));
+        }
+        private static bool HasDuneLocationCalculationOutput(DuneLocationCalculation calculation)
+        {
+            return calculation.Output != null;
+        }
     }
 }

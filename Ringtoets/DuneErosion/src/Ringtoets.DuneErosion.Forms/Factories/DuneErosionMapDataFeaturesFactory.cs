@@ -20,60 +20,74 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Common.Util;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Properties;
+using Ringtoets.DuneErosion.Forms.Views;
 using RingtoetsDuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 
+    /// Factory for creating collections of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 
     /// to use in <see cref="FeatureBasedMapData"/> (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     internal static class DuneErosionMapDataFeaturesFactory
     {
         /// <summary>
-        /// Create dune location features based on the provided <paramref name="duneLocations"/>.
+        /// Create dune location features based on the provided <paramref name="failureMechanism"/>.
         /// </summary>
-        /// <param name="duneLocations">The array of <see cref="DuneLocation"/>
-        /// to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="duneLocations"/>
-        /// is empty.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
-        public static MapFeature[] CreateDuneLocationFeatures(DuneLocation[] duneLocations)
+        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to create the location features for.</param>
+        /// <returns>An array of features or an empty array when <see cref="DuneErosionFailureMechanism"/> does not contain
+        /// any dune locations.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateDuneLocationFeatures(DuneErosionFailureMechanism failureMechanism)
         {
-            if (duneLocations == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(duneLocations));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            var features = new MapFeature[duneLocations.Length];
+            return AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(failureMechanism)
+                                                .Select(CreateDuneLocationFeature)
+                                                .ToArray();
+        }
 
-            for (var i = 0; i < duneLocations.Length; i++)
-            {
-                DuneLocation location = duneLocations[i];
+        private static MapFeature CreateDuneLocationFeature(AggregatedDuneLocation location)
+        {
+            MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
+            feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
+            feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
+            feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
+                                                                                   CultureInfo.InvariantCulture);
 
-                MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-                feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
-                feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
-                feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
-                feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
-                                                                                       CultureInfo.InvariantCulture);
-                feature.MetaData[Resources.MetaData_WaterLevel] = location.Calculation.Output?.WaterLevel ?? double.NaN;
-                feature.MetaData[Resources.MetaData_WaveHeight] = location.Calculation.Output?.WaveHeight ?? double.NaN;
-                feature.MetaData[Resources.MetaData_WavePeriod] = location.Calculation.Output?.WavePeriod ?? double.NaN;
-                feature.MetaData[Resources.MetaData_D50] = location.D50;
+            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificSignalingNorm] = location.WaterLevelForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificLowerLimitNorm] = location.WaterLevelForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForLowerLimitNorm] = location.WaterLevelForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaterLevelForFactorizedLowerLimitNorm] = location.WaterLevelForFactorizedLowerLimitNorm.ToString();
 
-                features[i] = feature;
-            }
+            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificFactorizedSignalingNorm] = location.WaveHeightForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificSignalingNorm] = location.WaveHeightForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForMechanismSpecificLowerLimitNorm] = location.WaveHeightForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForLowerLimitNorm] = location.WaveHeightForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WaveHeightForFactorizedLowerLimitNorm] = location.WaveHeightForFactorizedLowerLimitNorm.ToString();
 
-            return features;
+            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificFactorizedSignalingNorm] = location.WavePeriodForMechanismSpecificFactorizedSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificSignalingNorm] = location.WavePeriodForMechanismSpecificSignalingNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForMechanismSpecificLowerLimitNorm] = location.WavePeriodForMechanismSpecificLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForLowerLimitNorm] = location.WavePeriodForLowerLimitNorm.ToString();
+            feature.MetaData[Resources.MetaData_WavePeriodForFactorizedLowerLimitNorm] = location.WavePeriodForFactorizedLowerLimitNorm.ToString();
+
+            return feature;
         }
     }
 }

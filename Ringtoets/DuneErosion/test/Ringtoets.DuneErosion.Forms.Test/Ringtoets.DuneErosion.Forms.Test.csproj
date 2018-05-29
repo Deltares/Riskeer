@@ -33,6 +33,8 @@
     <Compile Include="PropertyClasses\DuneErosionFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DuneLocationCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DuneLocationCalculationsPropertiesTest.cs" />
+    <Compile Include="Views\AggregatedDuneLocationTest.cs" />
+    <Compile Include="Factories\AggregatedDuneLocationFactoryTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\DuneErosionFailureMechanismViewTest.cs" />
     <Compile Include="Factories\DuneErosionMapDataFeaturesFactoryTest.cs" />
@@ -116,6 +118,10 @@
       <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
       <Name>Ringtoets.Common.Service.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Util.TestUtil\Ringtoets.Common.Util.TestUtil.csproj">
+      <Project>{54DF6303-BF9A-4AE9-BE09-4AF50EF27412}</Project>
+      <Name>Ringtoets.Common.Util.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
@@ -135,6 +141,10 @@
     <ProjectReference Include="..\Ringtoets.DuneErosion.Data.TestUtil\Ringtoets.DuneErosion.Data.TestUtil.csproj">
       <Project>{7be6b522-02e3-4143-8508-c021a211de54}</Project>
       <Name>Ringtoets.DuneErosion.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.DuneErosion.Forms.TestUtil\Ringtoets.DuneErosion.Forms.TestUtil.csproj">
+      <Project>{AB95EC86-28CF-47E6-ABB0-927EBBE61445}</Project>
+      <Name>Ringtoets.DuneErosion.Forms.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />

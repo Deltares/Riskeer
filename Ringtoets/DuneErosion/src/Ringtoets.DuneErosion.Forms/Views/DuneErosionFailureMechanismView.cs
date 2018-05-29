@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
@@ -30,7 +30,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.Factories;
-using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using DuneErosionDataResources = Ringtoets.DuneErosion.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.Views
@@ -43,30 +42,65 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly Observer assessmentSectionObserver;
         private readonly Observer duneLocationsObserver;
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocation>, DuneLocation> duneLocationObserver;
 
-        private readonly MapDataCollection mapDataCollection;
         private readonly MapLineData referenceLineMapData;
         private readonly MapLineData sectionsMapData;
         private readonly MapPointData sectionsStartPointMapData;
         private readonly MapPointData sectionsEndPointMapData;
         private readonly MapPointData duneLocationsMapData;
 
-        private DuneErosionFailureMechanismContext data;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificFactorizedSignalingNormObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificSignalingNormObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForMechanismSpecificLowerLimitNormObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForLowerLimitNormObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> calculationsForFactorizedLowerLimitNormObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismView"/>.
         /// </summary>
-        public DuneErosionFailureMechanismView()
+        /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
+        /// <param name="assessmentSection">The assessment section in which the <paramref name="failureMechanism"/>
+        /// belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DuneErosionFailureMechanismView(DuneErosionFailureMechanism failureMechanism,
+                                               IAssessmentSection assessmentSection)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             InitializeComponent();
 
-            failureMechanismObserver = new Observer(UpdateMapData);
-            assessmentSectionObserver = new Observer(UpdateMapData);
-            duneLocationsObserver = new Observer(UpdateMapData);
-            duneLocationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocation>, DuneLocation>(UpdateMapData, list => list);
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
 
-            mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
+            failureMechanismObserver = new Observer(UpdateMapData)
+            {
+                Observable = failureMechanism
+            };
+            assessmentSectionObserver = new Observer(UpdateMapData)
+            {
+                Observable = assessmentSection
+            };
+
+            duneLocationsObserver = new Observer(UpdateMapData)
+            {
+                Observable = failureMechanism.DuneLocations
+            };
+
+            calculationsForMechanismSpecificFactorizedSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            calculationsForMechanismSpecificSignalingNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+            calculationsForMechanismSpecificLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
+            calculationsForLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForLowerLimitNorm);
+            calculationsForFactorizedLowerLimitNormObserver = CreateDuneLocationCalculationsObserver(FailureMechanism.CalculationsForFactorizedLowerLimitNorm);
+
+            var mapDataCollection = new MapDataCollection(DuneErosionDataResources.DuneErosionFailureMechanism_DisplayName);
             referenceLineMapData = RingtoetsMapDataFactory.CreateReferenceLineMapData();
             duneLocationsMapData = RingtoetsMapDataFactory.CreateHydraulicBoundaryLocationsMapData();
             sectionsMapData = RingtoetsMapDataFactory.CreateFailureMechanismSectionsMapData();
@@ -78,42 +112,22 @@ namespace Ringtoets.DuneErosion.Forms.Views
             mapDataCollection.Add(sectionsStartPointMapData);
             mapDataCollection.Add(sectionsEndPointMapData);
             mapDataCollection.Add(duneLocationsMapData);
+
+            SetMapDataFeatures();
+            ringtoetsMapControl.SetAllData(mapDataCollection, AssessmentSection.BackgroundData);
         }
 
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as DuneErosionFailureMechanismContext;
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public DuneErosionFailureMechanism FailureMechanism { get; }
 
-                if (data == null)
-                {
-                    failureMechanismObserver.Observable = null;
-                    assessmentSectionObserver.Observable = null;
-                    duneLocationsObserver.Observable = null;
-                    duneLocationObserver.Observable = null;
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
 
-                    ringtoetsMapControl.RemoveAllData();
-                }
-                else
-                {
-                    failureMechanismObserver.Observable = data.WrappedData;
-                    assessmentSectionObserver.Observable = data.Parent;
-
-                    mapDataCollection.Name = data.WrappedData.Name;
-                    duneLocationsObserver.Observable = data.WrappedData.DuneLocations;
-                    duneLocationObserver.Observable = data.WrappedData.DuneLocations;
-
-                    SetMapDataFeatures();
-
-                    ringtoetsMapControl.SetAllData(mapDataCollection, data.Parent.BackgroundData);
-                }
-            }
-        }
+        public object Data { get; set; }
 
         public IMapControl Map
         {
@@ -128,7 +142,12 @@ namespace Ringtoets.DuneErosion.Forms.Views
             failureMechanismObserver.Dispose();
             assessmentSectionObserver.Dispose();
             duneLocationsObserver.Dispose();
-            duneLocationObserver.Dispose();
+
+            calculationsForMechanismSpecificFactorizedSignalingNormObserver?.Dispose();
+            calculationsForMechanismSpecificSignalingNormObserver?.Dispose();
+            calculationsForMechanismSpecificLowerLimitNormObserver?.Dispose();
+            calculationsForLowerLimitNormObserver?.Dispose();
+            calculationsForFactorizedLowerLimitNormObserver?.Dispose();
 
             if (disposing)
             {
@@ -151,15 +170,23 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         private void SetMapDataFeatures()
         {
-            ReferenceLine referenceLine = data.Parent.ReferenceLine;
-            DuneLocation[] duneLocations = data.WrappedData.DuneLocations.ToArray();
-            IEnumerable<FailureMechanismSection> failureMechanismSections = data.WrappedData.Sections;
+            ReferenceLine referenceLine = AssessmentSection.ReferenceLine;
+            IEnumerable<FailureMechanismSection> failureMechanismSections = FailureMechanism.Sections;
 
-            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, data.Parent.Id, data.Parent.Name);
+            referenceLineMapData.Features = RingtoetsMapDataFeaturesFactory.CreateReferenceLineFeatures(referenceLine, AssessmentSection.Id, AssessmentSection.Name);
             sectionsMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RingtoetsMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-            duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(duneLocations);
+            duneLocationsMapData.Features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(FailureMechanism);
+        }
+
+        private RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> CreateDuneLocationCalculationsObserver(
+            IObservableEnumerable<DuneLocationCalculation> calculations)
+        {
+            return new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(UpdateMapData, calc => calc)
+            {
+                Observable = calculations
+            };
         }
     }
 }

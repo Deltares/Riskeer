@@ -57,13 +57,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil
                                                                IAssessmentSection assessmentSection,
                                                                IEnumerable<MapFeature> features)
         {
-            HydraulicBoundaryLocation[] hydraulicBoundaryLocationsArray = assessmentSection.HydraulicBoundaryDatabase.Locations.ToArray();
-            int expectedNrOfFeatures = hydraulicBoundaryLocationsArray.Length;
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            int expectedNrOfFeatures = hydraulicBoundaryLocations.Count();
             Assert.AreEqual(expectedNrOfFeatures, features.Count());
 
             for (var i = 0; i < expectedNrOfFeatures; i++)
             {
-                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocationsArray[i];
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryLocations.ElementAt(i);
                 MapFeature mapFeature = features.ElementAt(i);
 
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
@@ -101,6 +101,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.TestUtil
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedResult(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, hydraulicBoundaryLocation),
                     mapFeature, "Hs(Vv->VIv)");
+
+                Assert.AreEqual(12, mapFeature.MetaData.Keys.Count);
             }
         }
 
