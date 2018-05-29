@@ -157,16 +157,4 @@
   <data name="WaveConditionsCalculationConfigurationImporter_LowerBoundaryWaterLevels_DisplayName" xml:space="preserve">
     <value>ondergrens van de waterstanden</value>
   </data>
-  <data name="FactorizedSignalingNorm_DisplayName" xml:space="preserve">
-    <value>A+-&gt;A</value>
-  </data>
-  <data name="SignalingNorm_DisplayName" xml:space="preserve">
-    <value>A-&gt;B</value>
-  </data>
-  <data name="LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>B-&gt;C</value>
-  </data>
-  <data name="FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>C-&gt;D</value>
-  </data>
 </root>
