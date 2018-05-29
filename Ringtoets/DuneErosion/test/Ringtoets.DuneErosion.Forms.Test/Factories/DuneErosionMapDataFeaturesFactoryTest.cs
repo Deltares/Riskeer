@@ -21,13 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Components.Gis.Features;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.Factories;
@@ -39,106 +35,10 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
     public class DuneErosionMapDataFeaturesFactoryTest
     {
         [Test]
-        public void CreateDuneLocationFeatures_DuneLocationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures((DuneLocation[]) null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("duneLocations", paramName);
-        }
-
-        [Test]
-        public void CreateDuneLocationFeatures_DuneLocationsArrayEmpty_ReturnsEmptyFeaturesArray()
-        {
-            // Call
-            MapFeature[] features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(new DuneLocation[0]);
-
-            // Assert
-            CollectionAssert.IsEmpty(features);
-        }
-
-        [Test]
-        public void CreateDuneLocationFeatures_DuneLocationsWithOutput_ReturnsLocationFeaturesArray()
-        {
-            // Setup
-            var points = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            DuneLocation[] locations = points.Select(p => new ValidDuneLocation(p)
-            {
-                Calculation =
-                {
-                    Output = new TestDuneLocationCalculationOutput()
-                }
-            }).Cast<DuneLocation>().ToArray();
-
-            // Call
-            MapFeature[] features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(locations);
-
-            // Assert
-            Assert.AreEqual(locations.Length, features.Length);
-            for (var i = 0; i < locations.Length; i++)
-            {
-                Assert.AreEqual(locations[i].Id, features[i].MetaData["ID"]);
-                Assert.AreEqual(locations[i].Name, features[i].MetaData["Naam"]);
-                Assert.AreEqual(locations[i].CoastalAreaId, features[i].MetaData["Kustvaknummer"]);
-                Assert.AreEqual(locations[i].Offset.ToString("0.#", CultureInfo.InvariantCulture), features[i].MetaData["Metrering"]);
-                Assert.AreEqual(locations[i].Calculation.Output.WaterLevel, (double) features[i].MetaData["Rekenwaarde waterstand"],
-                                locations[i].Calculation.Output.WaterLevel.GetAccuracy());
-                Assert.AreEqual(locations[i].Calculation.Output.WaveHeight, (double) features[i].MetaData["Rekenwaarde Hs"],
-                                locations[i].Calculation.Output.WaveHeight.GetAccuracy());
-                Assert.AreEqual(locations[i].Calculation.Output.WavePeriod, (double) features[i].MetaData["Rekenwaarde Tp"],
-                                locations[i].Calculation.Output.WavePeriod.GetAccuracy());
-                Assert.AreEqual(locations[i].D50, (RoundedDouble) features[i].MetaData["Rekenwaarde d50"],
-                                locations[i].D50.GetAccuracy());
-                Assert.AreEqual(8, features[i].MetaData.Keys.Count);
-            }
-
-            AssertEqualFeatureCollections(points, features);
-        }
-
-        [Test]
-        public void CreateDuneLocationFeatures_DuneLocationsWithoutOutput_ReturnsLocationFeaturesArray()
-        {
-            // Setup
-            var points = new[]
-            {
-                new Point2D(1.2, 2.3),
-                new Point2D(2.7, 2.0)
-            };
-            DuneLocation[] locations = points.Select(p => new ValidDuneLocation(p)).Cast<DuneLocation>().ToArray();
-
-            // Call
-            MapFeature[] features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(locations);
-
-            // Assert
-            Assert.AreEqual(locations.Length, features.Length);
-            for (var i = 0; i < locations.Length; i++)
-            {
-                Assert.AreEqual(locations[i].Id, features[i].MetaData["ID"]);
-                Assert.AreEqual(locations[i].Name, features[i].MetaData["Naam"]);
-                Assert.AreEqual(locations[i].CoastalAreaId, features[i].MetaData["Kustvaknummer"]);
-                Assert.AreEqual(locations[i].Offset.ToString("0.#", CultureInfo.InvariantCulture), features[i].MetaData["Metrering"]);
-                Assert.AreEqual(double.NaN, features[i].MetaData["Rekenwaarde waterstand"]);
-                Assert.AreEqual(double.NaN, features[i].MetaData["Rekenwaarde Hs"]);
-                Assert.AreEqual(double.NaN, features[i].MetaData["Rekenwaarde Tp"]);
-                Assert.AreEqual(locations[i].D50, (RoundedDouble) features[i].MetaData["Rekenwaarde d50"],
-                                locations[i].D50.GetAccuracy());
-                Assert.AreEqual(8, features[i].MetaData.Keys.Count);
-            }
-
-            AssertEqualFeatureCollections(points, features);
-        }
-
-        [Test]
         public void CreateDuneLocationsFeatures_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures((DuneErosionFailureMechanism) null);
+            TestDelegate call = () => DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -193,23 +93,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
                 D50 = random.NextDouble(),
                 Offset = random.NextDouble()
             });
-        }
-
-        private class ValidDuneLocation : DuneLocation
-        {
-            public ValidDuneLocation(Point2D location) : base(0, "", location, new ConstructionProperties()) {}
-        }
-
-        private static void AssertEqualFeatureCollections(Point2D[] points, MapFeature[] features)
-        {
-            Assert.AreEqual(points.Length, features.Length);
-            for (var i = 0; i < points.Length; i++)
-            {
-                CollectionAssert.AreEqual(new[]
-                {
-                    points[i]
-                }, features[i].MapGeometries.First().PointCollections.First());
-            }
         }
     }
 }

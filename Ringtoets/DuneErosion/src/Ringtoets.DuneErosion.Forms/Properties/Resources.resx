@@ -170,15 +170,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="MetaData_Offset" xml:space="preserve">
     <value>Metrering</value>
   </data>
-  <data name="MetaData_WaterLevel" xml:space="preserve">
-    <value>Rekenwaarde waterstand</value>
-  </data>
-  <data name="MetaData_WaveHeight" xml:space="preserve">
-    <value>Rekenwaarde Hs</value>
-  </data>
-  <data name="MetaData_WavePeriod" xml:space="preserve">
-    <value>Rekenwaarde Tp</value>
-  </data>
   <data name="MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm" xml:space="preserve">
     <value>Rekenwaarde h(Iv-&gt;IIv)</value>
   </data>

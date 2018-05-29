@@ -238,15 +238,6 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde waterstand.
-        /// </summary>
-        internal static string MetaData_WaterLevel {
-            get {
-                return ResourceManager.GetString("MetaData_WaterLevel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde h(Vv-&gt;VIv).
         /// </summary>
         internal static string MetaData_WaterLevelForFactorizedLowerLimitNorm {
@@ -292,15 +283,6 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Hs.
-        /// </summary>
-        internal static string MetaData_WaveHeight {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde Hs(Vv-&gt;VIv).
         /// </summary>
         internal static string MetaData_WaveHeightForFactorizedLowerLimitNorm {
@@ -342,15 +324,6 @@ namespace Ringtoets.DuneErosion.Forms.Properties {
         internal static string MetaData_WaveHeightForMechanismSpecificSignalingNorm {
             get {
                 return ResourceManager.GetString("MetaData_WaveHeightForMechanismSpecificSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Tp.
-        /// </summary>
-        internal static string MetaData_WavePeriod {
-            get {
-                return ResourceManager.GetString("MetaData_WavePeriod", resourceCulture);
             }
         }
         

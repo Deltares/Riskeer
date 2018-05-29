@@ -36,49 +36,11 @@ using RingtoetsCommonUtilResources = Ringtoets.Common.Util.Properties.Resources;
 namespace Ringtoets.DuneErosion.Forms.Factories
 {
     /// <summary>
-    /// Factory for creating arrays of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 
+    /// Factory for creating collections of <see cref="MapFeature"/> for the <see cref="DuneErosionFailureMechanism"/> 
     /// to use in <see cref="FeatureBasedMapData"/> (created via <see cref="RingtoetsMapDataFactory"/>).
     /// </summary>
     internal static class DuneErosionMapDataFeaturesFactory
     {
-        /// <summary>
-        /// Create dune location features based on the provided <paramref name="duneLocations"/>.
-        /// </summary>
-        /// <param name="duneLocations">The array of <see cref="DuneLocation"/>
-        /// to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <paramref name="duneLocations"/>
-        /// is empty.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
-        public static MapFeature[] CreateDuneLocationFeatures(DuneLocation[] duneLocations)
-        {
-            if (duneLocations == null)
-            {
-                throw new ArgumentNullException(nameof(duneLocations));
-            }
-
-            var features = new MapFeature[duneLocations.Length];
-
-            for (var i = 0; i < duneLocations.Length; i++)
-            {
-                DuneLocation location = duneLocations[i];
-
-                MapFeature feature = RingtoetsMapDataFeaturesFactoryHelper.CreateSinglePointMapFeature(location.Location);
-                feature.MetaData[RingtoetsCommonUtilResources.MetaData_ID] = location.Id;
-                feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
-                feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
-                feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
-                                                                                       CultureInfo.InvariantCulture);
-                feature.MetaData[Resources.MetaData_WaterLevel] = location.Calculation.Output?.WaterLevel ?? double.NaN;
-                feature.MetaData[Resources.MetaData_WaveHeight] = location.Calculation.Output?.WaveHeight ?? double.NaN;
-                feature.MetaData[Resources.MetaData_WavePeriod] = location.Calculation.Output?.WavePeriod ?? double.NaN;
-                feature.MetaData[Resources.MetaData_D50] = location.D50;
-
-                features[i] = feature;
-            }
-
-            return features;
-        }
-
         /// <summary>
         /// Create dune location features based on the provided <paramref name="failureMechanism"/>.
         /// </summary>
