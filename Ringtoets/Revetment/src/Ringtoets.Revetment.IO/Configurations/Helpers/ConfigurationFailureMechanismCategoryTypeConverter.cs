@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.FailureMechanism;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Revetment.IO.Configurations.Helpers
 {
@@ -75,15 +76,15 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
                 switch (categoryType)
                 {
                     case ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
-                        return "Iv->IIv";
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm:
-                        return "IIv->IIIv";
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
-                        return "IIIv->IVv";
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.LowerLimitNorm:
-                        return "IVv->Vv";
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName;
                     case ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm:
-                        return "Vv->VIv";
+                        return RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName;
                     default:
                         throw new NotSupportedException();
                 }
@@ -134,27 +135,27 @@ namespace Ringtoets.Revetment.IO.Configurations.Helpers
             var stringValue = value as string;
             if (stringValue != null)
             {
-                if (stringValue == "Iv->IIv")
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm;
                 }
 
-                if (stringValue == "IIv->IIIv")
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm;
                 }
 
-                if (stringValue == "IIIv->IVv")
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
                 }
 
-                if (stringValue == "IVv->Vv")
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.LowerLimitNorm;
                 }
 
-                if (stringValue == "Vv->VIv")
+                if (stringValue == RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
                 {
                     return ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm;
                 }
