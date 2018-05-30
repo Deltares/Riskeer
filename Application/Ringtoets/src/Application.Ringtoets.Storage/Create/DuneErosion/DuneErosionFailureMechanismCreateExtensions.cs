@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);
             AddEntitiesForDuneLocations(mechanism.DuneLocations, entity, registry);
             return entity;
         }
@@ -59,9 +59,21 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
             }
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(GeneralDuneErosionInput generalInput, FailureMechanismEntity entity)
+        private static void AddEntitiesForFailureMechanismMeta(DuneErosionFailureMechanism failureMechanism,
+                                                               FailureMechanismEntity entity,
+                                                               PersistenceRegistry registry)
         {
-            entity.DuneErosionFailureMechanismMetaEntities.Add(generalInput.Create());
+            var metaEntity = new DuneErosionFailureMechanismMetaEntity
+            {
+                N = failureMechanism.GeneralInput.N,
+                DuneLocationCalculationCollectionEntity4 = failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Create(registry),
+                DuneLocationCalculationCollectionEntity3 = failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Create(registry),
+                DuneLocationCalculationCollectionEntity2 = failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Create(registry),
+                DuneLocationCalculationCollectionEntity1 = failureMechanism.CalculationsForLowerLimitNorm.Create(registry),
+                DuneLocationCalculationCollectionEntity = failureMechanism.CalculationsForFactorizedLowerLimitNorm.Create(registry),
+            };
+
+            entity.DuneErosionFailureMechanismMetaEntities.Add(metaEntity);
         }
 
         private static void AddEntitiesForDuneLocations(IEnumerable<DuneLocation> locations, FailureMechanismEntity entity, PersistenceRegistry registry)

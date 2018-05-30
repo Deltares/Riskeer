@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.DuneErosion;
@@ -29,6 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
 {
@@ -157,6 +159,121 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities).Count());
+        }
+
+        [Test]
+        public void Create_WithoutDuneLocations_ReturnsEntityWithoutDuneLocations()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            CollectionAssert.IsEmpty(entity.DuneLocationEntities);
+
+            DuneErosionFailureMechanismMetaEntity metaEntity = entity.DuneErosionFailureMechanismMetaEntities.Single();
+            AssertDuneLocationCalculationCollectionEntities(failureMechanism, registry, metaEntity);
+        }
+
+        [Test]
+        public void Create_WithDuneLocations_ReturnsEntityWithDuneLocations()
+        {
+            // Setup
+            var duneLocation = new TestDuneLocation();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            failureMechanism.SetDuneLocations(new[]
+            {
+                duneLocation
+            });
+            SetDuneLocationCalculationOutput(failureMechanism);
+
+            var duneLocationEntity = new DuneLocationEntity();
+            var registry = new PersistenceRegistry();
+            registry.Register(duneLocationEntity, duneLocation);
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            DuneLocationEntity actualDuneLocationEntity = entity.DuneLocationEntities.Single();
+            Assert.AreSame(duneLocationEntity, actualDuneLocationEntity);
+
+            DuneErosionFailureMechanismMetaEntity metaEntity = entity.DuneErosionFailureMechanismMetaEntities.Single();
+            AssertDuneLocationCalculationCollectionEntities(failureMechanism, registry, metaEntity);
+        }
+
+        private static void AssertDuneLocationCalculationCollectionEntities(DuneErosionFailureMechanism failureMechanism,
+                                                                            PersistenceRegistry registry, 
+                                                                            DuneErosionFailureMechanismMetaEntity metaEntity)
+        {
+            AssertDuneLocationCalculationCollectionEntity(failureMechanism.CalculationsForFactorizedLowerLimitNorm,
+                                                          registry,
+                                                          metaEntity.DuneLocationCalculationCollectionEntity);
+            AssertDuneLocationCalculationCollectionEntity(failureMechanism.CalculationsForLowerLimitNorm,
+                                                          registry,
+                                                          metaEntity.DuneLocationCalculationCollectionEntity1);
+            AssertDuneLocationCalculationCollectionEntity(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
+                                                          registry,
+                                                          metaEntity.DuneLocationCalculationCollectionEntity2);
+            AssertDuneLocationCalculationCollectionEntity(failureMechanism.CalculationsForMechanismSpecificSignalingNorm,
+                                                          registry,
+                                                          metaEntity.DuneLocationCalculationCollectionEntity3);
+            AssertDuneLocationCalculationCollectionEntity(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                          registry,
+                                                          metaEntity.DuneLocationCalculationCollectionEntity4);
+        }
+
+        private static void SetDuneLocationCalculationOutput(DuneErosionFailureMechanism failureMechanism)
+        {
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, 1);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, 2);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, 3);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm, 4);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm, 5);
+        }
+
+        private static void SetDuneLocationCalculationOutput(IEnumerable<DuneLocationCalculation> calculations,
+                                                             int seed)
+        {
+            var random = new Random(seed);
+            foreach (DuneLocationCalculation calculation in calculations)
+            {
+                calculation.Output = random.NextBoolean()
+                                         ? new TestDuneLocationCalculationOutput()
+                                         : null;
+            }
+        }
+
+        private static void AssertDuneLocationCalculationCollectionEntity(IEnumerable<DuneLocationCalculation> expectedCalculations,
+                                                                          PersistenceRegistry registry, 
+                                                                          DuneLocationCalculationCollectionEntity actualCollectionEntity)
+        {
+            Assert.IsNotNull(actualCollectionEntity);
+            ICollection<DuneLocationCalculationEntity> duneLocationCalculationEntities = actualCollectionEntity.DuneLocationCalculationEntities;
+            Assert.AreEqual(expectedCalculations.Count(), duneLocationCalculationEntities.Count);
+
+            var i = 0;
+            foreach (DuneLocationCalculationEntity duneLocationCalculationEntity in duneLocationCalculationEntities)
+            {
+                DuneLocationCalculation expectedDuneLocationCalculation = expectedCalculations.ElementAt(i);
+                DuneLocation expectedDuneLocation = expectedDuneLocationCalculation.DuneLocation;
+                Assert.AreSame(registry.Get(expectedDuneLocation), duneLocationCalculationEntity.DuneLocationEntity);
+
+                DuneLocationOutputEntity actualOutput = duneLocationCalculationEntity.DuneLocationOutputEntities.SingleOrDefault();
+                if (expectedDuneLocationCalculation.Output != null)
+                {
+                    Assert.IsNotNull(actualOutput);
+                }
+                else
+                {
+                    Assert.IsNull(actualOutput);
+                }
+
+                i++;
+            }
         }
     }
 }
