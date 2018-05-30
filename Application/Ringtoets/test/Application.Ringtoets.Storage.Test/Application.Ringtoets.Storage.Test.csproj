@@ -47,6 +47,7 @@
     <Compile Include="ColorConversionExtensionsTest.cs" />
     <Compile Include="Create\BackgroundDataCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensionsTest.cs" />
+    <Compile Include="Create\DuneErosion\DuneLocationCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCalculationOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensionsTest.cs" />
