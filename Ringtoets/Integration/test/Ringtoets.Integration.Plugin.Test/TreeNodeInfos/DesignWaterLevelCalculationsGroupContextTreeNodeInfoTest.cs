@@ -43,6 +43,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -449,15 +450,16 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 14, "B->C");
                             AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 21, "C->D");
 
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie A+->A) is gelukt.", msgs.ElementAt(28));
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie A->B) is gelukt.", msgs.ElementAt(29));
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie B->C) is gelukt.", msgs.ElementAt(30));
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie C->D) is gelukt.", msgs.ElementAt(31));
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie A+->A) is gelukt.", msgs.ElementAt(28));
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie A->B) is gelukt.", msgs.ElementAt(29));
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie B->C) is gelukt.", msgs.ElementAt(30));
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie C->D) is gelukt.", msgs.ElementAt(31));
                         });
 
-                        HydraulicBoundaryLocationCalculationOutput output = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output;
-                        Assert.AreEqual(designWaterLevelCalculator.DesignWaterLevel, output.Result, output.Result.GetAccuracy());
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
+                        AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output);
+                        AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output);
+                        AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single().Output);
+                        AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Single().Output);
                     }
                 }
             }
@@ -517,12 +519,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                                                                                int startIndex,
                                                                                string categoryName)
         {
-            Assert.AreEqual($"Toetspeil berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is gestart.", messages.ElementAt(startIndex));
+            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is gestart.", messages.ElementAt(startIndex));
             CalculationServiceTestHelper.AssertValidationStartMessage(messages.ElementAt(startIndex + 1));
             CalculationServiceTestHelper.AssertValidationEndMessage(messages.ElementAt(startIndex + 2));
             CalculationServiceTestHelper.AssertCalculationStartMessage(messages.ElementAt(startIndex + 3));
-            Assert.AreEqual($"Toetspeil berekening voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is niet geconvergeerd.", messages.ElementAt(startIndex + 4));
-            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", messages.ElementAt(startIndex + 5));
+            Assert.AreEqual($"Waterstand berekening voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is niet geconvergeerd.", messages.ElementAt(startIndex + 4));
+            StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages.ElementAt(startIndex + 5));
             CalculationServiceTestHelper.AssertCalculationEndMessage(messages.ElementAt(startIndex + 6));
         }
 
@@ -532,6 +534,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationOutput(IDesignWaterLevelCalculator designWaterLevelCalculator,
+                                                                             HydraulicBoundaryLocationCalculationOutput actualOutput)
+        {
+            Assert.AreEqual(designWaterLevelCalculator.DesignWaterLevel, actualOutput.Result, actualOutput.Result.GetAccuracy());
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actualOutput.CalculationConvergence);
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

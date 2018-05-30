@@ -43,6 +43,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -322,9 +323,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
-                var designWaveHeightCalculator = new TestWaveHeightCalculator();
+                var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(designWaveHeightCalculator).Repeat.Times(8);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator).Repeat.Times(8);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -349,33 +350,33 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         double factorizedSignalingNorm = signalingNorm / 30;
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
                                                         factorizedSignalingNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(0));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(0));
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
                                                         factorizedSignalingNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(1));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(1));
 
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
                                                         signalingNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(2));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(2));
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
                                                         signalingNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(3));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(3));
 
                         double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
                                                         lowerLimitNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(4));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(4));
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
                                                         lowerLimitNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(5));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(5));
 
                         double factorizedLowerLimitNorm = lowerLimitNorm * 30;
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
                                                         factorizedLowerLimitNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(6));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(6));
                         AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
                                                         factorizedLowerLimitNorm,
-                                                        designWaveHeightCalculator.ReceivedInputs.ElementAt(7));
+                                                        waveHeightCalculator.ReceivedInputs.ElementAt(7));
                     }
                 }
             }
@@ -415,12 +416,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
 
-                var designWaveHeightCalculator = new TestWaveHeightCalculator
+                var waveHeightCalculator = new TestWaveHeightCalculator
                 {
                     Converged = false
                 };
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(designWaveHeightCalculator).Repeat.Times(4);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator).Repeat.Times(4);
                 mockRepository.ReplayAll();
 
                 DialogBoxHandler = (name, wnd) =>
@@ -456,9 +457,10 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie C->D) is gelukt.", msgs.ElementAt(31));
                         });
 
-                        HydraulicBoundaryLocationCalculationOutput output = assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Single().Output;
-                        Assert.AreEqual(designWaveHeightCalculator.WaveHeight, output.Result, output.Result.GetAccuracy());
-                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, output.CalculationConvergence);
+                        AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Single().Output);
+                        AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForSignalingNorm.Single().Output);
+                        AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Single().Output);
+                        AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Single().Output);
                     }
                 }
             }
@@ -533,6 +535,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
         {
             Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
+        }
+
+        private static void AssertHydraulicBoundaryLocationCalculationOutput(IWaveHeightCalculator waveHeightCalculator,
+                                                                             HydraulicBoundaryLocationCalculationOutput actualOutput)
+        {
+            Assert.AreEqual(waveHeightCalculator.WaveHeight, actualOutput.Result, actualOutput.Result.GetAccuracy());
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actualOutput.CalculationConvergence);
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)

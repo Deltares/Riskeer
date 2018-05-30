@@ -586,14 +586,14 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(8, msgs.Length);
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gestart.", msgs[0]);
                             CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                             CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                             CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                            Assert.AreEqual($"Toetspeil berekening voor locatie '{locationName}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
-                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                            Assert.AreEqual($"Waterstand berekening voor locatie '{locationName}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                            StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                            Assert.AreEqual($"Toetspeil berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gelukt.", msgs[7]);
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' ({categoryBoundaryName}) is gelukt.", msgs[7]);
                         });
 
                         HydraulicBoundaryLocationCalculationOutput output = hydraulicBoundaryLocationCalculation.Output;
