@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
@@ -424,29 +423,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 
-        private static void AssertDuneErosionFailureMechanism(AssessmentSection assessmentSection)
-        {
-            DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
-            Assert.AreEqual(5.5, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
-
-            IObservableEnumerable<DuneLocation> duneLocations = failureMechanism.DuneLocations;
-
-            Assert.AreEqual(3, duneLocations.Count());
-            Assert.IsNull(duneLocations.ElementAt(0).Calculation.Output);
-
-            DuneLocationCalculationOutput duneLocationCalculationOutput1 = duneLocations.ElementAt(1).Calculation.Output;
-            Assert.IsNotNull(duneLocationCalculationOutput1);
-            Assert.AreEqual(CalculationConvergence.NotCalculated, duneLocationCalculationOutput1.CalculationConvergence);
-
-            DuneLocationCalculationOutput duneLocationCalculationOutput2 = duneLocations.ElementAt(2).Calculation.Output;
-            Assert.IsNotNull(duneLocationCalculationOutput2);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, duneLocationCalculationOutput2.CalculationConvergence);
-
-            Assert.AreEqual(3, failureMechanism.SectionResults.Count());
-        }
-
         private static void AssertStabilityPointStructuresFailureMechanism(AssessmentSection assessmentSection)
         {
             StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
@@ -538,6 +514,39 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.AreEqual(135.2, hydraulicBoundaryLocationWithIllustrationPoints.Location.X);
             Assert.AreEqual(5293.8, hydraulicBoundaryLocationWithIllustrationPoints.Location.Y);
         }
+
+        #region Dune Erosion Failure Mechanism
+
+        private static void AssertDuneErosionFailureMechanism(AssessmentSection assessmentSection)
+        {
+            DuneErosionFailureMechanism failureMechanism = assessmentSection.DuneErosion;
+            Assert.AreEqual(5.5, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+
+            IEnumerable<DuneLocation> duneLocations = failureMechanism.DuneLocations;
+
+            Assert.AreEqual(1, duneLocations.Count());
+            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Single());
+            AssertDuneLocationCalculationWithOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Single());
+            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Single());
+            AssertDuneLocationCalculationWithOutput(failureMechanism.CalculationsForLowerLimitNorm.Single());
+            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Single());
+
+            Assert.AreEqual(3, failureMechanism.SectionResults.Count());
+        }
+
+        private static void AssertDuneLocationCalculationWithoutOutput(DuneLocationCalculation calculation)
+        {
+            Assert.IsNull(calculation.Output);
+        }
+
+        private static void AssertDuneLocationCalculationWithOutput(DuneLocationCalculation calculation)
+        {
+            DuneLocationCalculationOutput calculationOutput = calculation.Output;
+            Assert.IsNotNull(calculationOutput);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationOutput.CalculationConvergence);
+        }
+
+        #endregion
 
         #region Hydraulic Boundary Location Calculations
 

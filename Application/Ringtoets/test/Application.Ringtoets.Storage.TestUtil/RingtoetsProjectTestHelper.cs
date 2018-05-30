@@ -825,50 +825,35 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
         {
-            var locationWithoutOutput = new DuneLocation(12, "DuneLocation without output", new Point2D(790, 456),
-                                                         new DuneLocation.ConstructionProperties());
+            var location = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),
+                                            new DuneLocation.ConstructionProperties());
 
-            var locationWithOutput = new DuneLocation(13, "DuneLocation with output", new Point2D(791, 456),
-                                                      new DuneLocation.ConstructionProperties())
+            failureMechanism.SetDuneLocations(new[]
             {
-                Calculation =
-                {
-                    Output = new DuneLocationCalculationOutput(CalculationConvergence.NotCalculated,
-                                                               new DuneLocationCalculationOutput.ConstructionProperties())
-                }
-            };
-
-            var locationCalculated = new DuneLocation(14, "DuneLocation with calculated output",
-                                                      new Point2D(792, 456), new DuneLocation.ConstructionProperties
-                                                      {
-                                                          CoastalAreaId = 1,
-                                                          Offset = 2,
-                                                          Orientation = 3,
-                                                          D50 = 4
-                                                      })
-            {
-                Calculation =
-                {
-                    Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged,
-                                                               new DuneLocationCalculationOutput.ConstructionProperties
-                                                               {
-                                                                   WaterLevel = 10,
-                                                                   WaveHeight = 20,
-                                                                   WavePeriod = 30,
-                                                                   TargetProbability = 0.4,
-                                                                   TargetReliability = 50,
-                                                                   CalculatedProbability = 0.6,
-                                                                   CalculatedReliability = 70
-                                                               })
-                }
-            };
-
-            failureMechanism.SetDuneLocations(new []
-            {
-                locationWithoutOutput,
-                locationWithOutput,
-                locationCalculated
+                location
             });
+            ConfigureDuneLocationCalculations(failureMechanism);
+        }
+
+        private static void ConfigureDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
+        {
+            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Single());
+            SetCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm.Single());
+        }
+
+        private static void SetCalculationOutput(DuneLocationCalculation calculation)
+        {
+            calculation.Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged,
+                                                                   new DuneLocationCalculationOutput.ConstructionProperties
+                                                                   {
+                                                                       WaterLevel = 10,
+                                                                       WaveHeight = 20,
+                                                                       WavePeriod = 30,
+                                                                       TargetProbability = 0.4,
+                                                                       TargetReliability = 50,
+                                                                       CalculatedProbability = 0.6,
+                                                                       CalculatedReliability = 70
+                                                                   });
         }
 
         #endregion
