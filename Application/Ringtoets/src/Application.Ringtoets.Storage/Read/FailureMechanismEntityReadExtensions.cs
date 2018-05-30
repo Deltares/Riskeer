@@ -927,11 +927,12 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadDuneErosionMechanismSectionResults(failureMechanism, collector);
             entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
             entity.ReadDuneLocations(failureMechanism, collector);
+            entity.ReadDuneLocationCalculations(failureMechanism, collector);
         }
 
         private static void ReadGeneralDuneErosionInput(this FailureMechanismEntity entity, GeneralDuneErosionInput input)
         {
-            entity.DuneErosionFailureMechanismMetaEntities.Single().Read(input);
+            GetDuneErosionFailureMechanismMetaEntity(entity).Read(input);
         }
 
         private static void ReadDuneErosionMechanismSectionResults(this FailureMechanismEntity entity,
@@ -955,6 +956,24 @@ namespace Application.Ringtoets.Storage.Read
                                                     .OrderBy(location => location.Order)
                                                     .Select(location => location.Read(collector))
                                                     .ToArray());
+        }
+
+        private static void ReadDuneLocationCalculations(this FailureMechanismEntity entity,
+                                                         DuneErosionFailureMechanism failureMechanism,
+                                                         ReadConversionCollector collector)
+        {
+            DuneErosionFailureMechanismMetaEntity metaEntity = GetDuneErosionFailureMechanismMetaEntity(entity);
+
+            metaEntity.DuneLocationCalculationCollectionEntity4.Read(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, collector);
+            metaEntity.DuneLocationCalculationCollectionEntity3.Read(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, collector);
+            metaEntity.DuneLocationCalculationCollectionEntity2.Read(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, collector);
+            metaEntity.DuneLocationCalculationCollectionEntity1.Read(failureMechanism.CalculationsForLowerLimitNorm, collector);
+            metaEntity.DuneLocationCalculationCollectionEntity.Read(failureMechanism.CalculationsForFactorizedLowerLimitNorm, collector);
+        }
+
+        private static DuneErosionFailureMechanismMetaEntity GetDuneErosionFailureMechanismMetaEntity(FailureMechanismEntity entity)
+        {
+            return entity.DuneErosionFailureMechanismMetaEntities.Single();
         }
 
         #endregion
