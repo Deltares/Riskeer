@@ -1030,6 +1030,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
             AssertDuneLocations(expectedFailureMechanism.DuneLocations, actualFailureMechanism.DuneLocations);
+            AssertDuneLocationCalculations(expectedFailureMechanism, actualFailureMechanism);
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -1060,6 +1061,33 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                      AssertDuneBoundaryLocation);
         }
 
+        private static void AssertDuneLocationCalculations(DuneErosionFailureMechanism expectedFailureMechanism,
+                                                           DuneErosionFailureMechanism actualFailureMechanism)
+        {
+            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                           actualFailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+
+            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
+                                           actualFailureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+
+            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
+                                           actualFailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
+
+            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForLowerLimitNorm,
+                                           actualFailureMechanism.CalculationsForLowerLimitNorm);
+
+            AssertDuneLocationCalculations(expectedFailureMechanism.CalculationsForFactorizedLowerLimitNorm,
+                                           actualFailureMechanism.CalculationsForFactorizedLowerLimitNorm);
+        }
+
+        private static void AssertDuneLocationCalculations(IEnumerable<DuneLocationCalculation> expectedDuneLocationCalculations,
+                                                           IEnumerable<DuneLocationCalculation> actualDuneLocationCalculations)
+        {
+            AssertCollectionAndItems(expectedDuneLocationCalculations,
+                                     actualDuneLocationCalculations,
+                                     AssertDuneLocationCalculation);
+        }
+
         private static void AssertDuneBoundaryLocation(DuneLocation expectedLocation, DuneLocation actualLocation)
         {
             Assert.AreEqual(expectedLocation.Id, actualLocation.Id);
@@ -1069,7 +1097,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedLocation.Offset, actualLocation.Offset);
             Assert.AreEqual(expectedLocation.Orientation, actualLocation.Orientation);
             Assert.AreEqual(expectedLocation.D50, actualLocation.D50);
-            AssertDuneLocationCalculationOutput(expectedLocation.Calculation.Output, actualLocation.Calculation.Output);
+        }
+
+        private static void AssertDuneLocationCalculation(DuneLocationCalculation expectedCalculation, DuneLocationCalculation actualCalculation)
+        {
+            AssertDuneBoundaryLocation(expectedCalculation.DuneLocation, actualCalculation.DuneLocation);
+            AssertDuneLocationCalculationOutput(expectedCalculation.Output, actualCalculation.Output);
         }
 
         private static void AssertDuneLocationCalculationOutput(DuneLocationCalculationOutput expectedOutput, DuneLocationCalculationOutput actualOutput)

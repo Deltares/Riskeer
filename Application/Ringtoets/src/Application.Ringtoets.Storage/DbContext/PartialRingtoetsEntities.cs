@@ -56,6 +56,9 @@ namespace Application.Ringtoets.Storage.DbContext
             DuneErosionFailureMechanismMetaEntities.Load();
             DuneErosionSectionResultEntities.Load();
             DuneLocationEntities.Load();
+            DuneLocationCalculationCollectionEntities.Include(e => e.DuneLocationCalculationEntities)
+                                                     .Load();
+            DuneLocationCalculationEntities.Load();
             DuneLocationOutputEntities.Load();
             DuneLocationOutputEntities.Load();
             FailureMechanismEntities.Load();
