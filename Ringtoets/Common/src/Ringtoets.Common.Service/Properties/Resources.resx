@@ -136,10 +136,10 @@
     <value>Validatie is gestart.</value>
   </data>
   <data name="DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged" xml:space="preserve">
-    <value>Toetspeil berekening voor locatie '{0}' ({1}) is niet geconvergeerd.</value>
+    <value>Waterstand berekening voor locatie '{0}' ({1}) is niet geconvergeerd.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_Category_1_" xml:space="preserve">
-    <value>Toetspeil berekenen voor locatie '{0}' ({1})</value>
+    <value>Waterstand berekenen voor locatie '{0}' ({1})</value>
   </data>
   <data name="Hydraulic_boundary_database_connection_failed_0_" xml:space="preserve">
     <value>Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}</value>
@@ -172,7 +172,7 @@
     <value>De waarde voor '{0}' moet een concreet getal zijn.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
-    <value>Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+    <value>Waterstand berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
   <data name="WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
     <value>Golfhoogte berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>

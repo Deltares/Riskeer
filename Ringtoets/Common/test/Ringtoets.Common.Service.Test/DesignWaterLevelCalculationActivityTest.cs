@@ -244,7 +244,7 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
-                    StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
+                    StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
                 });
 

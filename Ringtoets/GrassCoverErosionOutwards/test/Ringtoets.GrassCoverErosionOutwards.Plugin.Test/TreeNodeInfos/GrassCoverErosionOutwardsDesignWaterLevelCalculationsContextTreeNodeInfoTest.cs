@@ -578,13 +578,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
+            const string categoryBoundaryName = "Category";
             var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext(
                 new ObservableList<HydraulicBoundaryLocationCalculation>
                 {
                     hydraulicBoundaryLocationCalculation
                 }, failureMechanism, assessmentSection,
                 () => 0.01,
-                "Category");
+                categoryBoundaryName);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -617,14 +618,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(8, msgs.Length);
-                            Assert.AreEqual($"Waterstand bij doorsnede-eis berekenen voor locatie '{hydraulicBoundaryLocation.Name}' is gestart.", msgs[0]);
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' ({categoryBoundaryName}) is gestart.", msgs[0]);
                             CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                             CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                             CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                            Assert.AreEqual($"Waterstand bij doorsnede-eis berekening voor locatie '{hydraulicBoundaryLocation.Name}' is niet geconvergeerd.", msgs[4]);
-                            StringAssert.StartsWith("Toetspeil berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
+                            Assert.AreEqual($"Waterstand berekening voor locatie '{hydraulicBoundaryLocation.Name}' ({categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                            StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                             CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                            Assert.AreEqual($"Waterstand bij doorsnede-eis berekenen voor locatie '{hydraulicBoundaryLocation.Name}' is gelukt.", msgs[7]);
+                            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' ({categoryBoundaryName}) is gelukt.", msgs[7]);
                         });
 
                         HydraulicBoundaryLocationCalculationOutput output = hydraulicBoundaryLocationCalculation.Output;

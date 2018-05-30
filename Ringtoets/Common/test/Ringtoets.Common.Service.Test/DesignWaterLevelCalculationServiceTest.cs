@@ -215,7 +215,7 @@ namespace Ringtoets.Common.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"Waterstand berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
@@ -320,7 +320,7 @@ namespace Ringtoets.Common.Service.Test
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(failedConvergenceMessage, msgs[1]);
-                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"Waterstand berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -379,7 +379,7 @@ namespace Ringtoets.Common.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual("Het uitlezen van illustratiepunten is mislukt.", msgs[1]);
-                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"Waterstand berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
 
@@ -440,7 +440,7 @@ namespace Ringtoets.Common.Service.Test
                     Assert.AreEqual($"Fout bij het uitlezen van de illustratiepunten voor berekening {locationName}: " +
                                     "Een of meerdere stochasten hebben dezelfde naam. " +
                                     "Het uitlezen van illustratiepunten wordt overgeslagen.", msgs[1]);
-                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"Waterstand berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -534,7 +534,7 @@ namespace Ringtoets.Common.Service.Test
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(parserErrorMessage, msgs[1]);
-                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"Waterstand berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });
@@ -578,7 +578,7 @@ namespace Ringtoets.Common.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
-                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"Waterstand berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[1]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[2]);
                 });
@@ -688,7 +688,7 @@ namespace Ringtoets.Common.Service.Test
                     Assert.AreEqual(4, msgs.Length);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
                     Assert.AreEqual(calculationFailedMessage, msgs[1]);
-                    Assert.AreEqual($"Toetspeil berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
+                    Assert.AreEqual($"Waterstand berekening is uitgevoerd op de tijdelijke locatie '{calculator.OutputDirectory}'. " +
                                     "Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.", msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                 });

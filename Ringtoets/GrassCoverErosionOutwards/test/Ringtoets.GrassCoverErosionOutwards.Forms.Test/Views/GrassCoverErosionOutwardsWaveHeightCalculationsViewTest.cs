@@ -44,7 +44,6 @@ using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
-using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 {
@@ -86,7 +85,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             using (var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                       new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                       assessmentSection,
-                                                                                      () => 0.01))
+                                                                                      () => 0.01,
+                                                                                      "Category"))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
@@ -105,7 +105,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                               null,
                                                                                               assessmentSection,
-                                                                                              () => 0.01);
+                                                                                              () => 0.01,
+                                                                                              "Category");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -123,7 +124,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             TestDelegate call = () => new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                               new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                               assessmentSection,
-                                                                                              null);
+                                                                                              null,
+                                                                                              "Category");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -138,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, testForm);
+            ShowWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "Category", testForm);
 
             // Assert
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -227,7 +229,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, testForm);
+            ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "Category", testForm);
 
             // Precondition
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -274,7 +276,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, testForm);
+            ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "Category", testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
@@ -322,7 +324,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, testForm);
+            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "Category", testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             object dataGridViewSource = calculationsDataGridView.DataSource;
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
@@ -406,6 +408,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
+            const string categoryBoundaryName = "Category";
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -437,7 +440,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations, assessmentSection, norm, testForm);
+            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations,
+                                                                                                      assessmentSection,
+                                                                                                      norm,
+                                                                                                      categoryBoundaryName,
+                                                                                                      testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -449,7 +456,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+                            messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
@@ -464,6 +473,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             const string databaseFilePath = "DatabaseFilePath";
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
             const double norm = 0.01;
+            const string categoryBoundaryName = "Category";
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -499,7 +509,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations, assessmentSection, norm, testForm);
+            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations,
+                                                                                                      assessmentSection,
+                                                                                                      norm,
+                                                                                                      categoryBoundaryName,
+                                                                                                      testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -511,7 +525,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+                            messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
@@ -525,6 +541,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
+            const string categoryBoundaryName = "Category";
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -560,7 +577,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations, assessmentSection, norm, testForm);
+            GrassCoverErosionOutwardsWaveHeightCalculationsView view = ShowWaveHeightCalculationsView(calculations,
+                                                                                                      assessmentSection,
+                                                                                                      norm,
+                                                                                                      categoryBoundaryName,
+                                                                                                      testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -572,7 +593,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+                            messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
@@ -613,6 +636,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private static GrassCoverErosionOutwardsWaveHeightCalculationsView ShowWaveHeightCalculationsView(ObservableList<HydraulicBoundaryLocationCalculation> calculations,
                                                                                                           IAssessmentSection assessmentSection,
                                                                                                           double norm,
+                                                                                                          string categoryName,
                                                                                                           Form form)
         {
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -623,7 +647,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(calculations,
                                                                                failureMechanism,
                                                                                assessmentSection,
-                                                                               () => norm);
+                                                                               () => norm,
+                                                                               categoryName);
 
             form.Controls.Add(view);
             form.Show();
@@ -634,7 +659,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private static GrassCoverErosionOutwardsWaveHeightCalculationsView ShowFullyConfiguredWaveHeightCalculationsView(IAssessmentSection assessmentSection,
                                                                                                                          Form form)
         {
-            return ShowWaveHeightCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, 0.01, form);
+            return ShowWaveHeightCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, 0.01, "Category", form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
@@ -703,7 +728,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowWaveHeightCalculationsView(calculations, new AssessmentSectionStub(), 0.01, form);
+                return ShowWaveHeightCalculationsView(calculations, new AssessmentSectionStub(), 0.01, "category", form);
             }
 
             protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)

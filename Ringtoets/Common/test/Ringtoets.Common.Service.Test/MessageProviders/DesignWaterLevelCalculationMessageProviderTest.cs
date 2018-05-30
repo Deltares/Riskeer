@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string activityDescription = provider.GetActivityDescription(name);
 
             // Assert
-            string expectedName = $"Toetspeil berekenen voor locatie '{name}' ({categoryBoundaryName})";
+            string expectedName = $"Waterstand berekenen voor locatie '{name}' ({categoryBoundaryName})";
             Assert.AreEqual(expectedName, activityDescription);
         }
 
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             string message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            string expectedMessage = $"Toetspeil berekening voor locatie '{name}' ({categoryBoundaryName}) is niet geconvergeerd.";
+            string expectedMessage = $"Waterstand berekening voor locatie '{name}' ({categoryBoundaryName}) is niet geconvergeerd.";
             Assert.AreEqual(expectedMessage, message);
         }
     }

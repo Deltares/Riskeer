@@ -138,7 +138,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekening voor locatie &apos;{0}&apos; ({1}) is niet geconvergeerd..
+        ///   Looks up a localized string similar to Waterstand berekening voor locatie &apos;{0}&apos; ({1}) is niet geconvergeerd..
         /// </summary>
         public static string DesignWaterLevelCalculationActivity_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged {
             get {
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
+        ///   Looks up a localized string similar to Waterstand berekening is uitgevoerd op de tijdelijke locatie &apos;{0}&apos;. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden..
         /// </summary>
         public static string DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0 {
             get {
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetspeil berekenen voor locatie &apos;{0}&apos; ({1}).
+        ///   Looks up a localized string similar to Waterstand berekenen voor locatie &apos;{0}&apos; ({1}).
         /// </summary>
         public static string DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_HydraulicBoundaryLocation_0_Category_1_ {
             get {

@@ -116,7 +116,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var view = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(calculations,
                                                                                      failureMechanism,
                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                                                     () => 0.01);
+                                                                                     () => 0.01,
+                                                                                     "Category");
 
             testForm.Controls.Add(view);
             testForm.Show();
