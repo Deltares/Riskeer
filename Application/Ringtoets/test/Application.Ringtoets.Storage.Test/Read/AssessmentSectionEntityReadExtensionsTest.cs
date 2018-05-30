@@ -1664,7 +1664,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new DuneErosionFailureMechanismMetaEntity
                     {
-                        N = n
+                        N = n,
+                        DuneLocationCalculationCollectionEntity = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity1 = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity2 = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity3 = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity4 = new DuneLocationCalculationCollectionEntity()
                     }
                 }
             };
@@ -1700,7 +1705,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new DuneErosionFailureMechanismMetaEntity
                     {
-                        N = 1
+                        N = 1,
+                        DuneLocationCalculationCollectionEntity = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity1 = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity2 = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity3 = new DuneLocationCalculationCollectionEntity(),
+                        DuneLocationCalculationCollectionEntity4 = new DuneLocationCalculationCollectionEntity()
                     }
                 }
             };
