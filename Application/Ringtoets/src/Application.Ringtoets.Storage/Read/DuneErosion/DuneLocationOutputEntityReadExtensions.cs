@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
@@ -36,8 +37,14 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
         /// </summary>
         /// <param name="entity">The <see cref="DuneLocationOutputEntity"/> to create <see cref="DuneLocationCalculationOutput"/> for.</param>
         /// <returns>A new <see cref="DuneLocationCalculationOutput"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         internal static DuneLocationCalculationOutput Read(this DuneLocationOutputEntity entity)
         {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
             return new DuneLocationCalculationOutput((CalculationConvergence) entity.CalculationConvergence, new DuneLocationCalculationOutput.ConstructionProperties
             {
                 WaterLevel = entity.WaterLevel.ToNullAsNaN(),

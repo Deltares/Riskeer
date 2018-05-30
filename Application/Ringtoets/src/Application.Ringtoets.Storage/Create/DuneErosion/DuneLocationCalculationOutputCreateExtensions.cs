@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
                 TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
                 CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
-                CalculationConvergence = (byte) output.CalculationConvergence
+                CalculationConvergence = Convert.ToByte(output.CalculationConvergence)
             };
         }
     }

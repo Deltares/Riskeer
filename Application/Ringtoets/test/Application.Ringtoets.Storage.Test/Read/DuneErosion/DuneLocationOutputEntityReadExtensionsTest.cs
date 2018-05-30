@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.DuneErosion;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -34,6 +33,17 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
     [TestFixture]
     public class DuneLocationOutputEntityReadExtensionsTest
     {
+        [Test]
+        public void Read_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((DuneLocationOutputEntity) null).Read();
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+
         [Test]
         public void Read_ValidParameters_ReturnsDuneLocationOutput()
         {

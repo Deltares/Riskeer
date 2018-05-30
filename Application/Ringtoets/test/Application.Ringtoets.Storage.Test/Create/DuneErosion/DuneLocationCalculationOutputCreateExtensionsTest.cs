@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability);
             Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
+            Assert.AreEqual(Convert.ToByte(output.CalculationConvergence), entity.CalculationConvergence);
         }
 
         [Test]
@@ -104,7 +104,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             Assert.IsNull(entity.TargetReliability);
             Assert.IsNull(entity.CalculatedProbability);
             Assert.IsNull(entity.CalculatedReliability);
-            Assert.AreEqual((byte) output.CalculationConvergence, entity.CalculationConvergence);
+            Assert.AreEqual(Convert.ToByte(output.CalculationConvergence), entity.CalculationConvergence);
         }
     }
 }
