@@ -23,9 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.DuneErosion;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 
@@ -99,7 +97,6 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             Assert.AreEqual(offset, location.Offset, location.Offset.GetAccuracy());
             Assert.AreEqual(orientation, location.Orientation, location.Orientation.GetAccuracy());
             Assert.AreEqual(d50, location.D50, location.D50.GetAccuracy());
-            Assert.IsNull(location.Calculation.Output);
 
             Assert.IsTrue(collector.Contains(entity));
         }
@@ -139,48 +136,8 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             Assert.IsNaN(location.Offset);
             Assert.IsNaN(location.Orientation);
             Assert.IsNaN(location.D50);
-            Assert.IsNull(location.Calculation.Output);
 
             Assert.IsTrue(collector.Contains(entity));
-        }
-
-        [Test]
-        public void Read_WithOutput_ReturnDuneLocationWithExpectedOutput()
-        {
-            // Setup
-            var random = new Random(21);
-            double waterLevel = random.NextDouble();
-            double waveHeight = random.NextDouble();
-            double waterPeriod = random.NextDouble();
-            var convergence = random.NextEnumValue<CalculationConvergence>();
-            var duneLocationOutputEntity = new DuneLocationOutputEntity
-            {
-                WaterLevel = waterLevel,
-                WaveHeight = waveHeight,
-                WavePeriod = waterPeriod,
-                TargetProbability = random.NextDouble(),
-                TargetReliability = random.NextDouble(),
-                CalculatedProbability = random.NextDouble(),
-                CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) convergence
-            };
-            var entity = new DuneLocationEntity
-            {
-                Name = "someName",
-                DuneLocationOutputEntities =
-                {
-                    duneLocationOutputEntity
-                }
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            DuneLocation location = entity.Read(collector);
-
-            // Assert
-            Assert.IsNotNull(location);
-            AssertDuneLocationCalculationOutput(duneLocationOutputEntity, location.Calculation.Output);
         }
 
         [Test]
@@ -200,26 +157,6 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 
             // Assert
             Assert.AreSame(location1, location2);
-        }
-
-        private static void AssertDuneLocationCalculationOutput(DuneLocationOutputEntity expected, DuneLocationCalculationOutput actual)
-        {
-            if (expected == null)
-            {
-                Assert.IsNull(actual);
-                return;
-            }
-
-            Assert.AreEqual(expected.WaterLevel.ToNullAsNaN(), actual.WaterLevel, actual.WaterLevel.GetAccuracy());
-            Assert.AreEqual(expected.WaveHeight.ToNullAsNaN(), actual.WaveHeight, actual.WaveHeight.GetAccuracy());
-            Assert.AreEqual(expected.WavePeriod.ToNullAsNaN(), actual.WavePeriod, actual.WavePeriod.GetAccuracy());
-            Assert.AreEqual(expected.TargetReliability.ToNullAsNaN(), actual.TargetReliability,
-                            actual.TargetReliability.GetAccuracy());
-            Assert.AreEqual(expected.TargetProbability.ToNullAsNaN(), actual.TargetProbability);
-            Assert.AreEqual(expected.CalculatedReliability.ToNullAsNaN(), actual.CalculatedReliability,
-                            actual.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(expected.CalculatedProbability.ToNullAsNaN(), actual.CalculatedProbability);
-            Assert.AreEqual((CalculationConvergence) expected.CalculationConvergence, actual.CalculationConvergence);
         }
     }
 }

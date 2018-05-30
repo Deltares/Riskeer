@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.DuneErosion;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -37,6 +34,17 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
     [TestFixture]
     public class DuneLocationCreateExtensionsTest
     {
+        [Test]
+        public void Create_DuneLocationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => ((DuneLocation)null).Create(new PersistenceRegistry(), 0);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("location", exception.ParamName);
+        }
+
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
@@ -85,7 +93,6 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             Assert.AreEqual(location.Offset, entity.Offset, location.Offset.GetAccuracy());
             Assert.AreEqual(location.Orientation, entity.Orientation, location.Orientation.GetAccuracy());
             Assert.AreEqual(location.D50, entity.D50, location.D50.GetAccuracy());
-            CollectionAssert.IsEmpty(entity.DuneLocationOutputEntities);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -118,7 +125,6 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             Assert.IsNull(entity.Offset);
             Assert.IsNull(entity.Orientation);
             Assert.IsNull(entity.D50);
-            CollectionAssert.IsEmpty(entity.DuneLocationOutputEntities);
             Assert.AreEqual(order, entity.Order);
         }
 
@@ -141,44 +147,6 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         }
 
         [Test]
-        public void Create_WithPersistenceRegistryAndInitializer_ReturnsDuneLocationEntityWithOutputSet()
-        {
-            // Setup
-            var random = new Random(21);
-            var output = new DuneLocationCalculationOutput(random.NextEnumValue<CalculationConvergence>(),
-                                                           new DuneLocationCalculationOutput.ConstructionProperties
-                                                           {
-                                                               WaterLevel = random.NextDouble(),
-                                                               WaveHeight = random.NextDouble(),
-                                                               WavePeriod = random.NextDouble(),
-                                                               TargetProbability = random.NextDouble(),
-                                                               TargetReliability = random.NextDouble(),
-                                                               CalculatedProbability = random.NextDouble(),
-                                                               CalculatedReliability = random.NextDouble()
-                                                           });
-
-            var location = new TestDuneLocation
-            {
-                Calculation =
-                {
-                    Output = output
-                }
-            };
-
-            var registry = new PersistenceRegistry();
-
-            // Call
-            DuneLocationEntity entity = location.Create(registry, 0);
-
-            // Assert
-            Assert.IsNotNull(entity);
-
-            DuneLocationOutputEntity duneLocationOutputEntity = entity.DuneLocationOutputEntities.SingleOrDefault();
-            Assert.IsNotNull(duneLocationOutputEntity);
-            AssertDuneLocationCalculationOutput(output, duneLocationOutputEntity);
-        }
-
-        [Test]
         public void Create_DuneLocationSavedMultipleTimes_ReturnSameEntity()
         {
             // Setup
@@ -192,18 +160,6 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
 
             // Assert
             Assert.AreSame(entity1, entity2);
-        }
-
-        private static void AssertDuneLocationCalculationOutput(DuneLocationCalculationOutput output, DuneLocationOutputEntity entity)
-        {
-            Assert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
-            Assert.AreEqual(output.WaveHeight, entity.WaveHeight, output.WaveHeight.GetAccuracy());
-            Assert.AreEqual(output.WavePeriod, entity.WavePeriod, output.WavePeriod.GetAccuracy());
-            Assert.AreEqual(output.TargetProbability, entity.TargetProbability, output.TargetProbability);
-            Assert.AreEqual(output.TargetReliability, entity.TargetReliability, output.TargetReliability.GetAccuracy());
-            Assert.AreEqual(output.CalculatedProbability, entity.CalculatedProbability, output.CalculatedProbability);
-            Assert.AreEqual(output.CalculatedReliability, entity.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
-            Assert.AreEqual(output.CalculationConvergence, (CalculationConvergence) entity.CalculationConvergence);
         }
     }
 }

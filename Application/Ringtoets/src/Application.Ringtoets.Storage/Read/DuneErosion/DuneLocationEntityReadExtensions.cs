@@ -65,14 +65,7 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
                                                     D50 = entity.D50.ToNullAsNaN()
                                                 });
 
-            DuneLocationOutputEntity duneLocationOutputEntity = entity.DuneLocationOutputEntities.SingleOrDefault();
-            if (duneLocationOutputEntity != null)
-            {
-                duneLocation.Calculation.Output = duneLocationOutputEntity.Read();
-            }
-
             collector.Read(entity, duneLocation);
-
             return duneLocation;
         }
     }

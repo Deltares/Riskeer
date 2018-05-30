@@ -38,9 +38,14 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="DuneLocationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static DuneLocationEntity Create(this DuneLocation location, PersistenceRegistry registry, int order)
         {
+            if (location == null)
+            {
+                throw new ArgumentNullException(nameof(location));
+            }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
@@ -63,18 +68,8 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
                 Order = order
             };
 
-            CreateDuneLocationCalculationOutput(entity, location.Calculation.Output);
-
             registry.Register(entity, location);
             return entity;
-        }
-
-        private static void CreateDuneLocationCalculationOutput(DuneLocationEntity entity, DuneLocationCalculationOutput output)
-        {
-            if (output != null)
-            {
-                entity.DuneLocationOutputEntities.Add(output.Create());
-            }
         }
     }
 }
