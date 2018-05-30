@@ -33,29 +33,22 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class DuneLocationEntity
+    public class DuneLocationCalculationEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DuneLocationEntity()
+        public DuneLocationCalculationEntity()
         {
-            DuneLocationCalculationEntities = new HashSet<DuneLocationCalculationEntity>();
+            DuneLocationOutputEntities = new HashSet<DuneLocationOutputEntity>();
         }
 
-        public long DuneLocationEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public long LocationId { get; set; }
-        public string Name { get; set; }
-        public double? LocationX { get; set; }
-        public double? LocationY { get; set; }
-        public int CoastalAreaId { get; set; }
-        public double? Offset { get; set; }
-        public double? Orientation { get; set; }
-        public double? D50 { get; set; }
-        public int Order { get; set; }
+        public long DuneLocationCalculationEntityId { get; set; }
+        public long? DuneLocationEntityId { get; set; }
+        public long? DuneLocationCalculationCollectionEntityId { get; set; }
+
+        public virtual DuneLocationCalculationCollectionEntity DuneLocationCalculationCollectionEntity { get; set; }
+        public virtual DuneLocationEntity DuneLocationEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneLocationCalculationEntity> DuneLocationCalculationEntities { get; set; }
-
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        public virtual ICollection<DuneLocationOutputEntity> DuneLocationOutputEntities { get; set; }
     }
 }

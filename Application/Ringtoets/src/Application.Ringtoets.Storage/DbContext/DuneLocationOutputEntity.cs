@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.DbContext
     public class DuneLocationOutputEntity
     {
         public long DuneLocationOutputEntityId { get; set; }
-        public long DuneLocationEntityId { get; set; }
+        public long DuneLocationCalculationEntityId { get; set; }
         public double? WaterLevel { get; set; }
         public double? WaveHeight { get; set; }
         public double? WavePeriod { get; set; }
@@ -43,6 +43,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public double? CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
 
-        public virtual DuneLocationEntity DuneLocationEntity { get; set; }
+        public virtual DuneLocationCalculationEntity DuneLocationCalculationEntity { get; set; }
     }
 }
