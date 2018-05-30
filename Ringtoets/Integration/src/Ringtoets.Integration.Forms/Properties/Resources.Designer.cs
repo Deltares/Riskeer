@@ -515,24 +515,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alles be&amp;rekenen.
-        /// </summary>
-        public static string DesignWaterLevel_Calculate_All {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_Calculate_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle toetspeilen berekenen..
-        /// </summary>
-        public static string DesignWaterLevel_Calculate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("DesignWaterLevel_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de toetspeil berekening?.
         /// </summary>
         public static string DesignWaterLevelCalculation_Convergence_Description {
@@ -901,24 +883,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string SignalingNorm_DisplayName {
             get {
                 return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alles be&amp;rekenen.
-        /// </summary>
-        public static string WaveHeight_Calculate_All {
-            get {
-                return ResourceManager.GetString("WaveHeight_Calculate_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle golfhoogtes berekenen..
-        /// </summary>
-        public static string WaveHeight_Calculate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("WaveHeight_Calculate_All_ToolTip", resourceCulture);
             }
         }
         

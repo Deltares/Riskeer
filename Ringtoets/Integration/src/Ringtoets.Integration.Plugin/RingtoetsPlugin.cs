@@ -62,6 +62,7 @@ using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Util.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -89,7 +90,6 @@ using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
-using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -1721,8 +1721,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip DesignWaterLevelCalculationsContextMenuStrip(DesignWaterLevelCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.DesignWaterLevel_Calculate_All,
-                RingtoetsFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -1753,8 +1753,8 @@ namespace Ringtoets.Integration.Plugin
         private ContextMenuStrip WaveHeightCalculationsContextMenuStrip(WaveHeightCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var waveHeightItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.WaveHeight_Calculate_All,
-                RingtoetsFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -1944,8 +1944,8 @@ namespace Ringtoets.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.DesignWaterLevel_Calculate_All,
-                RingtoetsFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -2003,8 +2003,8 @@ namespace Ringtoets.Integration.Plugin
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
             var waveHeightItem = new StrictContextMenuItem(
-                RingtoetsFormsResources.WaveHeight_Calculate_All,
-                RingtoetsFormsResources.WaveHeight_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {

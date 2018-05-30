@@ -141,12 +141,6 @@
     
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="DesignWaterLevel_Calculate_All" xml:space="preserve">
-    <value>Alles be&amp;rekenen</value>
-  </data>
-  <data name="DesignWaterLevel_Calculate_All_ToolTip" xml:space="preserve">
-    <value>Alle toetspeilen berekenen.</value>
-  </data>
   <data name="HydraulicBoundaryDatabase_Connect" xml:space="preserve">
     <value>&amp;Koppel aan database...</value>
   </data>
@@ -242,12 +236,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="WaveHeightCalculationsContext_DisplayName" xml:space="preserve">
     <value>Golfhoogtes</value>
-  </data>
-  <data name="WaveHeight_Calculate_All" xml:space="preserve">
-    <value>Alles be&amp;rekenen</value>
-  </data>
-  <data name="WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
-    <value>Alle golfhoogtes berekenen.</value>
   </data>
   <data name="DesignWaterLevelCalculation_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de toetspeil berekening?</value>

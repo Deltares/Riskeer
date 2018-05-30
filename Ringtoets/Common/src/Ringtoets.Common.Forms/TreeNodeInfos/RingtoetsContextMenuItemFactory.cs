@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
-                Resources.Calculate_all,
+                Resources.Calculate_All,
                 Resources.CalculationGroup_CalculateAll_ToolTip,
                 Resources.CalculateAllIcon,
                 (o, args) => calculateAllAction(calculationGroup, calculationGroupContext));
@@ -331,8 +331,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
-                Resources.Calculate_all,
-                Resources.Calculate_all_ToolTip,
+                Resources.Calculate_All,
+                Resources.Calculate_All_ToolTip,
                 Resources.CalculateAllIcon,
                 (o, args) => calculateAllAction(failureMechanismContext));
 

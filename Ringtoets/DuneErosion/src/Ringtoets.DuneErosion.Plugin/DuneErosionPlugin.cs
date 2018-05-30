@@ -321,7 +321,7 @@ namespace Ringtoets.DuneErosion.Plugin
         private ContextMenuStrip DuneLocationCalculationsContextMenuStrip(DuneLocationCalculationsContext context, object parent, TreeViewControl treeViewControl)
         {
             var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_all,
+                RingtoetsCommonFormsResources.Calculate_All,
                 Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_all_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>

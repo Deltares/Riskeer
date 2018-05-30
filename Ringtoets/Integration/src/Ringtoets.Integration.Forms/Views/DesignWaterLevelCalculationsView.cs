@@ -26,9 +26,9 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
-using Ringtoets.Integration.Service.MessageProviders;
 
 namespace Ringtoets.Integration.Forms.Views
 {

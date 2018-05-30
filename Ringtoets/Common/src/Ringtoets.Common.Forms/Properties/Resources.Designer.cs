@@ -265,18 +265,18 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Alles be&amp;rekenen.
         /// </summary>
-        public static string Calculate_all {
+        public static string Calculate_All {
             get {
-                return ResourceManager.GetString("Calculate_all", resourceCulture);
+                return ResourceManager.GetString("Calculate_All", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Voer alle berekeningen binnen dit toetsspoor uit..
         /// </summary>
-        public static string Calculate_all_ToolTip {
+        public static string Calculate_All_ToolTip {
             get {
-                return ResourceManager.GetString("Calculate_all_ToolTip", resourceCulture);
+                return ResourceManager.GetString("Calculate_All_ToolTip", resourceCulture);
             }
         }
         
@@ -1016,6 +1016,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string DesignVariableProperties_DesignValue_DisplayName {
             get {
                 return ResourceManager.GetString("DesignVariableProperties_DesignValue_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle toetspeilen berekenen..
+        /// </summary>
+        public static string DesignWaterLevel_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("DesignWaterLevel_Calculate_All_ToolTip", resourceCulture);
             }
         }
         
@@ -3852,6 +3861,15 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string WaveConditionsExporter_DisplayName {
             get {
                 return ResourceManager.GetString("WaveConditionsExporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle golfhoogtes berekenen..
+        /// </summary>
+        public static string WaveHeight_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("WaveHeight_Calculate_All_ToolTip", resourceCulture);
             }
         }
         

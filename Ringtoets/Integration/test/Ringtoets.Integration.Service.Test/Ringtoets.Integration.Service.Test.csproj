@@ -19,8 +19,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageProviders\DesignWaterLevelCalculationMessageProviderTest.cs" />
-    <Compile Include="MessageProviders\WaveHeightCalculationMessageProviderTest.cs" />
     <Compile Include="RingtoetsDataSynchronizationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -123,6 +121,9 @@
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>
       <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MessageProviders\" />
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

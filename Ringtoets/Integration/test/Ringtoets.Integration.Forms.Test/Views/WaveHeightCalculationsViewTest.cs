@@ -41,7 +41,6 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
-using Ringtoets.Integration.Service.MessageProviders;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {

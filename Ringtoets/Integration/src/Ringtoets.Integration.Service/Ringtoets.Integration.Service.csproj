@@ -11,8 +11,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageProviders\DesignWaterLevelCalculationMessageProvider.cs" />
-    <Compile Include="MessageProviders\WaveHeightCalculationMessageProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingtoetsDataSynchronizationService.cs" />
   </ItemGroup>
