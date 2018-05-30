@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -28,13 +30,24 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test
 {
     [TestFixture]
-    public class AssemblyErrorMessageTranslatorTest
+    public class AssemblyErrorMessageCreatorTest
     {
+        [Test]
+        public void CreateErrorMessage_ErrorMessagesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => AssemblyErrorMessageCreator.CreateErrorMessage(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("errorMessages", exception.ParamName);
+        }
+
         [Test]
         public void CreateErrorMessage_InvalidAssemblyError_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyErrorMessageTranslator.CreateErrorMessage(new[]
+            TestDelegate test = () => AssemblyErrorMessageCreator.CreateErrorMessage(new[]
             {
                 new AssemblyErrorMessage(string.Empty, (EAssemblyErrors) 9999)
             });
@@ -72,7 +85,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {
             // Call
-            string errorMessage = AssemblyErrorMessageTranslator.CreateErrorMessage(new[]
+            string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(new[]
             {
                 new AssemblyErrorMessage(string.Empty, assemblyError)
             });
@@ -85,7 +98,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test
         public void CreateErrorMessage_MultipleAssemblyErrors_ReturnsExpectedErrorMessage()
         {
             // Call
-            string errorMessage = AssemblyErrorMessageTranslator.CreateErrorMessage(new[]
+            string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(new[]
             {
                 new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryNotAllowed),
                 new AssemblyErrorMessage(string.Empty, EAssemblyErrors.FailureProbabilityOutOfRange)
@@ -97,10 +110,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test
         }
 
         [Test]
+        public void CreateErrorMessage_NoAssemblyErrors_ReturnsEmptyErrorMessage()
+        {
+            // Call
+            string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(Enumerable.Empty<AssemblyErrorMessage>());
+
+            // Assert
+            Assert.IsEmpty(errorMessage);
+        }
+
+        [Test]
         public void CreateGenericErrorMessage_Always_ReturnsExpectedErrorMessage()
         {
             // Call
-            string errorMessage = AssemblyErrorMessageTranslator.CreateGenericErrorMessage();
+            string errorMessage = AssemblyErrorMessageCreator.CreateGenericErrorMessage();
 
             // Assert
             Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het assembleren.", errorMessage);

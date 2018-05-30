@@ -50,7 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleCommonFailureMechanismSections_ThrowExceptionOnCalculateFalse_InputCorrectlySetToKernelAndCalculatedTrue()
+        public void AssembleCommonFailureMechanismSections_KernelDoesNotThrowException_InputCorrectlySetToKernelAndCalculatedTrue()
         {
             // Setup
             var random = new Random(21);
@@ -71,7 +71,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void AssembleCommonFailureMechanismSections_ThrowExceptionOnCalculateFalse_ReturnAssessmentGrade()
+        public void AssembleCommonFailureMechanismSections_KernelDoesNotThrowException_ReturnAssessmentGrade()
         {
             // Setup
             var random = new Random(21);

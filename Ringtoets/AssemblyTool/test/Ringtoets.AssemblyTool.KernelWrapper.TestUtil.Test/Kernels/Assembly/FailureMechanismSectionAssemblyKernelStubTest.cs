@@ -1352,7 +1352,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         }
 
         [Test]
-        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowAssemblyExceptionOnCalculateTrue_ThrowsException()
+        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(11);

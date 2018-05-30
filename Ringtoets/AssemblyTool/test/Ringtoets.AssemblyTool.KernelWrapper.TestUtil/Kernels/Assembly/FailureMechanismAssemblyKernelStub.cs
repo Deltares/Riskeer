@@ -81,7 +81,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public EFailureMechanismCategory AssembleFailureMechanismWbi1A1(IEnumerable<FmSectionAssemblyDirectResult> fmSectionAssemblyResults,
                                                                         bool partialAssembly)
         {
-            ThrowExceptions();
+            ThrowException();
 
             FmSectionAssemblyResultsInput = fmSectionAssemblyResults;
             PartialAssembly = partialAssembly;
@@ -101,7 +101,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              IEnumerable<FmSectionAssemblyDirectResult> fmSectionAssemblyResults,
                                                                              bool partialAssembly)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentSectionInput = section;
             FailureMechanismInput = failureMechanism;
@@ -112,7 +112,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismAssemblyResult;
         }
 
-        private void ThrowExceptions()
+        private void ThrowException()
         {
             if (ThrowExceptionOnCalculate)
             {

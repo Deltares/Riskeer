@@ -66,11 +66,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (AssemblyException e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
         }
 
@@ -90,11 +90,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
             catch (AssemblyException e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateErrorMessage(e.Errors), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageTranslator.CreateGenericErrorMessage(), e);
+                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
         }
     }

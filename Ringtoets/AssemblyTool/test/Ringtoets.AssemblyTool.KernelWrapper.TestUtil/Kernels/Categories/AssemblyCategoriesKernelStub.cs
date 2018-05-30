@@ -85,7 +85,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<AssessmentSectionCategoryLimits> CalculateAssessmentSectionCategoryLimitsWbi21(AssessmentSection section)
         {
-            ThrowExceptions();
+            ThrowException();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -97,7 +97,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<FailureMechanismCategoryLimits> CalculateFailureMechanismCategoryLimitsWbi11(AssessmentSection section, FailureMechanism failureMechanism)
         {
-            ThrowExceptions();
+            ThrowException();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -111,7 +111,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<FmSectionCategoryLimits> CalculateFmSectionCategoryLimitsWbi01(AssessmentSection section, FailureMechanism failureMechanism)
         {
-            ThrowExceptions();
+            ThrowException();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -125,7 +125,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public IEnumerable<FmSectionCategoryLimits> CalculateFmSectionCategoryLimitsWbi02(AssessmentSection section, FailureMechanism failureMechanism)
         {
-            ThrowExceptions();
+            ThrowException();
 
             SignalingNorm = section.FailureProbabilitySignallingLimit;
             LowerLimitNorm = section.FailureProbabilityLowerLimit;
@@ -137,7 +137,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
             return FailureMechanismSectionCategoriesOutput;
         }
 
-        private void ThrowExceptions()
+        private void ThrowException()
         {
             if (ThrowExceptionOnCalculate)
             {

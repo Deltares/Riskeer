@@ -14,7 +14,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Calculators\AssemblyErrorMessageTranslator.cs" />
+    <Compile Include="Calculators\AssemblyErrorMessageCreator.cs" />
     <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculator.cs" />
     <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorException.cs" />
     <Compile Include="Calculators\Assembly\FailureMechanismAssemblyCalculator.cs" />

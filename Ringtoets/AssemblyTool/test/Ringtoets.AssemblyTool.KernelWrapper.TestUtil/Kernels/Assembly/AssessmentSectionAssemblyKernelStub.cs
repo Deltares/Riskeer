@@ -85,7 +85,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public EAssessmentGrade AssembleAssessmentSectionWbi2A1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
                                                                 bool partialAssembly)
         {
-            ThrowExceptions();
+            ThrowException();
 
             PartialAssembly = partialAssembly;
             FailureMechanismAssemblyResults = failureMechanismAssemblyResults;
@@ -99,7 +99,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                                IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
                                                                                bool partialAssembly)
         {
-            ThrowExceptions();
+            ThrowException();
 
             PartialAssembly = partialAssembly;
             AssessmentSectionInput = section;
@@ -113,7 +113,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public AssessmentSectionAssemblyResult AssembleAssessmentSectionWbi2C1(AssessmentSectionAssemblyResult assemblyResultNoFailureProbability,
                                                                                AssessmentSectionAssemblyResult assemblyResultWithFailureProbability)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssemblyResultNoFailureProbability = assemblyResultNoFailureProbability;
             AssemblyResultWithFailureProbability = assemblyResultWithFailureProbability;
@@ -123,7 +123,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return AssessmentSectionAssemblyResult;
         }
 
-        private void ThrowExceptions()
+        private void ThrowException()
         {
             if (ThrowExceptionOnCalculate)
             {

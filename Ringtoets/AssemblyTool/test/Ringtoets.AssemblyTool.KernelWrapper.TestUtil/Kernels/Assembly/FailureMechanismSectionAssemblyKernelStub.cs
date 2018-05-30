@@ -136,7 +136,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0E1(EAssessmentResultTypeE1 assessment)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentResultTypeE1Input = assessment;
 
@@ -151,7 +151,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0E3(EAssessmentResultTypeE2 assessment)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentResultTypeE2Input = assessment;
 
@@ -166,7 +166,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G1(EAssessmentResultTypeG1 assessment)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentResultTypeG1Input = assessment;
 
@@ -184,7 +184,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              EAssessmentResultTypeG2 assessment,
                                                                              double? failureProbability)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentSectionInput = section;
             FailureMechanismInput = failureMechanism;
@@ -206,7 +206,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              EAssessmentResultTypeG2 assessment,
                                                                              double? failureProbability)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentSectionInput = section;
             FailureMechanismInput = failureMechanism;
@@ -220,7 +220,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G6(FmSectionCategoryCompliancyResults compliancyResults)
         {
-            ThrowExceptions();
+            ThrowException();
 
             CategoryCompliancyResultsInput = compliancyResults;
 
@@ -230,7 +230,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T1(EAssessmentResultTypeT1 assessment)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentResultTypeT1Input = assessment;
 
@@ -248,7 +248,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              EAssessmentResultTypeT3 assessment,
                                                                              double? failureProbability)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentSectionInput = section;
             FailureMechanismInput = failureMechanism;
@@ -261,7 +261,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T4(EAssessmentResultTypeT3 assessment, EFmSectionCategory? category)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentResultTypeT3Input = assessment;
             SectionCategoryInput = category;
@@ -276,7 +276,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              EAssessmentResultTypeT3 assessment,
                                                                              double? failureProbability)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentSectionInput = section;
             FailureMechanismInput = failureMechanism;
@@ -298,7 +298,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              EAssessmentResultTypeT4 assessment,
                                                                              double? failureProbability)
         {
-            ThrowExceptions();
+            ThrowException();
 
             AssessmentSectionInput = section;
             FailureMechanismInput = failureMechanism;
@@ -313,7 +313,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                        FmSectionAssemblyDirectResult detailedAssessmentResult,
                                                                        FmSectionAssemblyDirectResult tailorMadeAssessmentResult)
         {
-            ThrowExceptions();
+            ThrowException();
 
             SimpleAssessmentResultInput = simpleAssessmentResult;
             DetailedAssessmentResultInput = detailedAssessmentResult;
@@ -330,7 +330,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        private void ThrowExceptions()
+        private void ThrowException()
         {
             if (ThrowExceptionOnCalculate)
             {
