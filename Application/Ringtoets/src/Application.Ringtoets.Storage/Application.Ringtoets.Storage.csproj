@@ -39,7 +39,6 @@
     <Compile Include="Create\DuneErosion\DuneLocationCalculationCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCalculationOutputCreateExtensions.cs" />
-    <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeHeightOutputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensions.cs" />

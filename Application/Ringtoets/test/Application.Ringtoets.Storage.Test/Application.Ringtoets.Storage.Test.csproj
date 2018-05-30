@@ -51,7 +51,6 @@
     <Compile Include="Create\DuneErosion\DuneLocationCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneLocationCalculationOutputCreateExtensionsTest.cs" />
-    <Compile Include="Create\DuneErosion\GeneralDuneErosionInputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeHeightOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\OvertoppingRateOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensionsTest.cs" />
