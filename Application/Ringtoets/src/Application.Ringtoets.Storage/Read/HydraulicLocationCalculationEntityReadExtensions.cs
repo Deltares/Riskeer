@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Read
     internal static class HydraulicLocationCalculationEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HydraulicLocationCalculationEntity"/> and use the information to construct a 
+        /// Reads the <see cref="HydraulicLocationCalculationEntity"/> and uses the information to update a 
         /// <see cref="HydraulicBoundaryLocationCalculation"/>.
         /// </summary>
         /// <param name="entity">The <see cref="HydraulicLocationCalculationEntity"/> to update the 

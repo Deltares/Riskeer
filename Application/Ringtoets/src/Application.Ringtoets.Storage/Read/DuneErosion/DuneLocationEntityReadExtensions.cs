@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Geometry;
 using Ringtoets.DuneErosion.Data;
@@ -46,10 +45,12 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.Contains(entity))
             {
                 return collector.Get(entity);
