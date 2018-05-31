@@ -240,6 +240,21 @@
           <Property Name="DuneLocationEntityId" Type="integer" />
           <Property Name="DuneLocationCalculationCollectionEntityId" Type="integer" />
         </EntityType>
+        <EntityType Name="DuneLocationCalculationOutputEntity">
+          <Key>
+            <PropertyRef Name="DuneLocationCalculationOutputEntityId" />
+          </Key>
+          <Property Name="DuneLocationCalculationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DuneLocationCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="WaterLevel" Type="real" />
+          <Property Name="WaveHeight" Type="real" />
+          <Property Name="WavePeriod" Type="real" />
+          <Property Name="TargetProbability" Type="real" />
+          <Property Name="TargetReliability" Type="real" />
+          <Property Name="CalculatedProbability" Type="real" />
+          <Property Name="CalculatedReliability" Type="real" />
+          <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="DuneLocationEntity">
           <Key>
             <PropertyRef Name="DuneLocationEntityId" />
@@ -255,21 +270,6 @@
           <Property Name="Orientation" Type="real" />
           <Property Name="D50" Type="real" />
           <Property Name="Order" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DuneLocationOutputEntity">
-          <Key>
-            <PropertyRef Name="DuneLocationOutputEntityId" />
-          </Key>
-          <Property Name="DuneLocationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DuneLocationCalculationEntityId" Type="integer" Nullable="false" />
-          <Property Name="WaterLevel" Type="real" />
-          <Property Name="WaveHeight" Type="real" />
-          <Property Name="WavePeriod" Type="real" />
-          <Property Name="TargetProbability" Type="real" />
-          <Property Name="TargetReliability" Type="real" />
-          <Property Name="CalculatedProbability" Type="real" />
-          <Property Name="CalculatedReliability" Type="real" />
-          <Property Name="CalculationConvergence" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -1929,6 +1929,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_DuneLocationCalculationOutputEntity_0_0">
+          <End Role="DuneLocationCalculationEntity" Type="Self.DuneLocationCalculationEntity" Multiplicity="1" />
+          <End Role="DuneLocationCalculationOutputEntity" Type="Self.DuneLocationCalculationOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DuneLocationCalculationEntity">
+              <PropertyRef Name="DuneLocationCalculationEntityId" />
+            </Principal>
+            <Dependent Role="DuneLocationCalculationOutputEntity">
+              <PropertyRef Name="DuneLocationCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DuneLocationEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="DuneLocationEntity" Type="Self.DuneLocationEntity" Multiplicity="*" />
@@ -1938,18 +1950,6 @@
             </Principal>
             <Dependent Role="DuneLocationEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DuneLocationOutputEntity_0_0">
-          <End Role="DuneLocationCalculationEntity" Type="Self.DuneLocationCalculationEntity" Multiplicity="1" />
-          <End Role="DuneLocationOutputEntity" Type="Self.DuneLocationOutputEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DuneLocationCalculationEntity">
-              <PropertyRef Name="DuneLocationCalculationEntityId" />
-            </Principal>
-            <Dependent Role="DuneLocationOutputEntity">
-              <PropertyRef Name="DuneLocationCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3408,8 +3408,8 @@
           <EntitySet Name="DuneErosionSectionResultEntity" EntityType="Self.DuneErosionSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="DuneLocationCalculationCollectionEntity" EntityType="Self.DuneLocationCalculationCollectionEntity" store:Type="Tables" />
           <EntitySet Name="DuneLocationCalculationEntity" EntityType="Self.DuneLocationCalculationEntity" store:Type="Tables" />
+          <EntitySet Name="DuneLocationCalculationOutputEntity" EntityType="Self.DuneLocationCalculationOutputEntity" store:Type="Tables" />
           <EntitySet Name="DuneLocationEntity" EntityType="Self.DuneLocationEntity" store:Type="Tables" />
-          <EntitySet Name="DuneLocationOutputEntity" EntityType="Self.DuneLocationOutputEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismEntity" EntityType="Self.FailureMechanismEntity" store:Type="Tables" />
           <EntitySet Name="FailureMechanismSectionEntity" EntityType="Self.FailureMechanismSectionEntity" store:Type="Tables" />
           <EntitySet Name="FaultTreeIllustrationPointEntity" EntityType="Self.FaultTreeIllustrationPointEntity" store:Type="Tables" />
@@ -3621,13 +3621,13 @@
             <End Role="DuneLocationCalculationCollectionEntity" EntitySet="DuneLocationCalculationCollectionEntity" />
             <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_DuneLocationCalculationOutputEntity_0_0" Association="Self.FK_DuneLocationCalculationOutputEntity_0_0">
+            <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntity" />
+            <End Role="DuneLocationCalculationOutputEntity" EntitySet="DuneLocationCalculationOutputEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="Self.FK_DuneLocationEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DuneLocationOutputEntity_0_0" Association="Self.FK_DuneLocationOutputEntity_0_0">
-            <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntity" />
-            <End Role="DuneLocationOutputEntity" EntitySet="DuneLocationOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_FailureMechanismEntity_0_0" Association="Self.FK_FailureMechanismEntity_0_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
@@ -4129,8 +4129,8 @@
           <EntitySet Name="DuneErosionSectionResultEntities" EntityType="RingtoetsEntitiesModel.DuneErosionSectionResultEntity" />
           <EntitySet Name="DuneLocationCalculationCollectionEntities" EntityType="RingtoetsEntitiesModel.DuneLocationCalculationCollectionEntity" />
           <EntitySet Name="DuneLocationCalculationEntities" EntityType="RingtoetsEntitiesModel.DuneLocationCalculationEntity" />
+          <EntitySet Name="DuneLocationCalculationOutputEntities" EntityType="RingtoetsEntitiesModel.DuneLocationCalculationOutputEntity" />
           <EntitySet Name="DuneLocationEntities" EntityType="RingtoetsEntitiesModel.DuneLocationEntity" />
-          <EntitySet Name="DuneLocationOutputEntities" EntityType="RingtoetsEntitiesModel.DuneLocationOutputEntity" />
           <EntitySet Name="FailureMechanismEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismEntity" />
           <EntitySet Name="FailureMechanismSectionEntities" EntityType="RingtoetsEntitiesModel.FailureMechanismSectionEntity" />
           <EntitySet Name="FaultTreeIllustrationPointEntities" EntityType="RingtoetsEntitiesModel.FaultTreeIllustrationPointEntity" />
@@ -4389,9 +4389,9 @@
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
             <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_DuneLocationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneLocationOutputEntity_0_0">
+          <AssociationSet Name="FK_DuneLocationCalculationOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneLocationCalculationOutputEntity_0_0">
             <End Role="DuneLocationCalculationEntity" EntitySet="DuneLocationCalculationEntities" />
-            <End Role="DuneLocationOutputEntity" EntitySet="DuneLocationOutputEntities" />
+            <End Role="DuneLocationCalculationOutputEntity" EntitySet="DuneLocationCalculationOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -5098,7 +5098,23 @@
           <Property Name="DuneLocationCalculationCollectionEntityId" Type="Int64" />
           <NavigationProperty Name="DuneLocationCalculationCollectionEntity" Relationship="RingtoetsEntitiesModel.FK_DuneLocationCalculationEntity_1_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationCalculationCollectionEntity" />
           <NavigationProperty Name="DuneLocationEntity" Relationship="RingtoetsEntitiesModel.FK_DuneLocationCalculationEntity_0_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationEntity" />
-          <NavigationProperty Name="DuneLocationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_DuneLocationOutputEntity_0_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationOutputEntity" />
+          <NavigationProperty Name="DuneLocationCalculationOutputEntities" Relationship="RingtoetsEntitiesModel.FK_DuneLocationCalculationOutputEntity_0_0" FromRole="DuneLocationCalculationEntity" ToRole="DuneLocationCalculationOutputEntity" />
+        </EntityType>
+        <EntityType Name="DuneLocationCalculationOutputEntity">
+          <Key>
+            <PropertyRef Name="DuneLocationCalculationOutputEntityId" />
+          </Key>
+          <Property Name="DuneLocationCalculationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DuneLocationCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="WaterLevel" Type="Double" />
+          <Property Name="WaveHeight" Type="Double" />
+          <Property Name="WavePeriod" Type="Double" />
+          <Property Name="TargetProbability" Type="Double" />
+          <Property Name="TargetReliability" Type="Double" />
+          <Property Name="CalculatedProbability" Type="Double" />
+          <Property Name="CalculatedReliability" Type="Double" />
+          <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="DuneLocationCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_DuneLocationCalculationOutputEntity_0_0" FromRole="DuneLocationCalculationOutputEntity" ToRole="DuneLocationCalculationEntity" />
         </EntityType>
         <EntityType Name="DuneLocationEntity">
           <Key>
@@ -5117,22 +5133,6 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DuneLocationCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_DuneLocationCalculationEntity_0_0" FromRole="DuneLocationEntity" ToRole="DuneLocationCalculationEntity" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="DuneLocationEntity" ToRole="FailureMechanismEntity" />
-        </EntityType>
-        <EntityType Name="DuneLocationOutputEntity">
-          <Key>
-            <PropertyRef Name="DuneLocationOutputEntityId" />
-          </Key>
-          <Property Name="DuneLocationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DuneLocationCalculationEntityId" Type="Int64" Nullable="false" />
-          <Property Name="WaterLevel" Type="Double" />
-          <Property Name="WaveHeight" Type="Double" />
-          <Property Name="WavePeriod" Type="Double" />
-          <Property Name="TargetProbability" Type="Double" />
-          <Property Name="TargetReliability" Type="Double" />
-          <Property Name="CalculatedProbability" Type="Double" />
-          <Property Name="CalculatedReliability" Type="Double" />
-          <Property Name="CalculationConvergence" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="DuneLocationCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_DuneLocationOutputEntity_0_0" FromRole="DuneLocationOutputEntity" ToRole="DuneLocationCalculationEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -7144,14 +7144,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DuneLocationOutputEntity_0_0">
+        <Association Name="FK_DuneLocationCalculationOutputEntity_0_0">
           <End Type="RingtoetsEntitiesModel.DuneLocationCalculationEntity" Role="DuneLocationCalculationEntity" Multiplicity="1" />
-          <End Type="RingtoetsEntitiesModel.DuneLocationOutputEntity" Role="DuneLocationOutputEntity" Multiplicity="*" />
+          <End Type="RingtoetsEntitiesModel.DuneLocationCalculationOutputEntity" Role="DuneLocationCalculationOutputEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DuneLocationCalculationEntity">
               <PropertyRef Name="DuneLocationCalculationEntityId" />
             </Principal>
-            <Dependent Role="DuneLocationOutputEntity">
+            <Dependent Role="DuneLocationCalculationOutputEntity">
               <PropertyRef Name="DuneLocationCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -8607,6 +8607,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="DuneLocationCalculationOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DuneLocationCalculationOutputEntity">
+              <MappingFragment StoreEntitySet="DuneLocationCalculationOutputEntity">
+                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
+                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
+                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
+                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
+                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
+                <ScalarProperty Name="WavePeriod" ColumnName="WavePeriod" />
+                <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
+                <ScalarProperty Name="WaterLevel" ColumnName="WaterLevel" />
+                <ScalarProperty Name="DuneLocationCalculationEntityId" ColumnName="DuneLocationCalculationEntityId" />
+                <ScalarProperty Name="DuneLocationCalculationOutputEntityId" ColumnName="DuneLocationCalculationOutputEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="DuneLocationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DuneLocationEntity">
               <MappingFragment StoreEntitySet="DuneLocationEntity">
@@ -8621,22 +8637,6 @@
                 <ScalarProperty Name="LocationId" ColumnName="LocationId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="DuneLocationEntityId" ColumnName="DuneLocationEntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DuneLocationOutputEntities">
-            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.DuneLocationOutputEntity">
-              <MappingFragment StoreEntitySet="DuneLocationOutputEntity">
-                <ScalarProperty Name="CalculationConvergence" ColumnName="CalculationConvergence" />
-                <ScalarProperty Name="CalculatedReliability" ColumnName="CalculatedReliability" />
-                <ScalarProperty Name="CalculatedProbability" ColumnName="CalculatedProbability" />
-                <ScalarProperty Name="TargetReliability" ColumnName="TargetReliability" />
-                <ScalarProperty Name="TargetProbability" ColumnName="TargetProbability" />
-                <ScalarProperty Name="WavePeriod" ColumnName="WavePeriod" />
-                <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
-                <ScalarProperty Name="WaterLevel" ColumnName="WaterLevel" />
-                <ScalarProperty Name="DuneLocationCalculationEntityId" ColumnName="DuneLocationCalculationEntityId" />
-                <ScalarProperty Name="DuneLocationOutputEntityId" ColumnName="DuneLocationOutputEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

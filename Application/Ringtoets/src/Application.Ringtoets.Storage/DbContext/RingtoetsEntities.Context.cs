@@ -49,8 +49,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual DbSet<DuneLocationCalculationCollectionEntity> DuneLocationCalculationCollectionEntities { get; set; }
         public virtual DbSet<DuneLocationCalculationEntity> DuneLocationCalculationEntities { get; set; }
+        public virtual DbSet<DuneLocationCalculationOutputEntity> DuneLocationCalculationOutputEntities { get; set; }
         public virtual DbSet<DuneLocationEntity> DuneLocationEntities { get; set; }
-        public virtual DbSet<DuneLocationOutputEntity> DuneLocationOutputEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         public virtual DbSet<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
         public virtual DbSet<FaultTreeIllustrationPointEntity> FaultTreeIllustrationPointEntities { get; set; }

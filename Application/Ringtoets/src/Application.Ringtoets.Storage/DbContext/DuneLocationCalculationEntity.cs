@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DuneLocationCalculationEntity()
         {
-            DuneLocationOutputEntities = new HashSet<DuneLocationOutputEntity>();
+            DuneLocationCalculationOutputEntities = new HashSet<DuneLocationCalculationOutputEntity>();
         }
 
         public long DuneLocationCalculationEntityId { get; set; }
@@ -49,6 +49,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DuneLocationEntity DuneLocationEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DuneLocationOutputEntity> DuneLocationOutputEntities { get; set; }
+        public virtual ICollection<DuneLocationCalculationOutputEntity> DuneLocationCalculationOutputEntities { get; set; }
     }
 }

@@ -30,9 +30,9 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public class DuneLocationOutputEntity
+    public class DuneLocationCalculationOutputEntity
     {
-        public long DuneLocationOutputEntityId { get; set; }
+        public long DuneLocationCalculationOutputEntityId { get; set; }
         public long DuneLocationCalculationEntityId { get; set; }
         public double? WaterLevel { get; set; }
         public double? WaveHeight { get; set; }

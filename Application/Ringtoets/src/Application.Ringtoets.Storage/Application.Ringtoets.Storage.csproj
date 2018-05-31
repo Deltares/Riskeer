@@ -114,10 +114,10 @@
     <Compile Include="DbContext\DuneLocationCalculationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\DuneLocationEntity.cs">
+    <Compile Include="DbContext\DuneLocationCalculationOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\DuneLocationOutputEntity.cs">
+    <Compile Include="DbContext\DuneLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\FailureMechanismEntity.cs">
