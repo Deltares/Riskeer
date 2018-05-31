@@ -98,76 +98,76 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-  <data name="AssemblyErrorMessageTranslator_SignallingLimitOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_SignallingLimitOutOfRange" xml:space="preserve">
     <value>Signaleringskans moet in het bereik [0,1] liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_LowerLimitOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_LowerLimitOutOfRange" xml:space="preserve">
     <value>Ondergrens moet in het bereik [0,1] liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_FailurePropbabilityMarginOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange" xml:space="preserve">
     <value>Faalkansruimte moet in het bereik [0,1] liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_LengthEffectFactorOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange" xml:space="preserve">
     <value>Lengte-effect factor moet minimaal 1 zijn.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_SectionLengthOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_SectionLengthOutOfRange" xml:space="preserve">
     <value>De trajectlengte moet groter zijn dan 0 [m].</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_SignallingLimitAboveLowerLimit" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit" xml:space="preserve">
     <value>De signaleringskans moet kleiner zijn dan de ondergrens.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_PsigDsnAbovePsig" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_PsigDsnAbovePsig" xml:space="preserve">
     <value>Berekende signaleringskans per doorsnede is groter dan de signaleringskans van het traject.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_PlowDsnAbovePlow" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_PlowDsnAbovePlow" xml:space="preserve">
     <value>Berekende ondergrens per doorsnede is groter dan de ondergrens van het traject.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_LowerLimitIsAboveUpperLimit" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit" xml:space="preserve">
     <value>De categoriebovengrens moet boven de categorieondergrens liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_CategoryLowerLimitOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange" xml:space="preserve">
     <value>Categoriebovengrens moet in het bereik [0,1] liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_CategoryUpperLimitOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange" xml:space="preserve">
     <value>Categorieondergrens moet in het bereik [0,1] liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_TranslateAssessmentInvalidInput" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput" xml:space="preserve">
     <value>Er is een ongeldig resultaat gespecificeerd voor de gebruikte methode.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_ValueMayNotBeNull" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_ValueMayNotBeNull" xml:space="preserve">
     <value>Er is ongeldige invoer gedefinieerd voor de gebruikte methode.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_CategoryNotAllowed" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_CategoryNotAllowed" xml:space="preserve">
     <value>Het specificeren van een assemblageresultaat voor deze categorie is niet mogelijk.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_DoesNotComplyAfterComply" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_DoesNotComplyAfterComply" xml:space="preserve">
     <value>Een lagere categorie moet als voldoende worden aangemerkt indien het vak voor een hogere categorie voldoet.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_FmSectionLengthInvalid" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FmSectionLengthInvalid" xml:space="preserve">
     <value>Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_FmSectionSectionStartEndInvalid" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FmSectionSectionStartEndInvalid" xml:space="preserve">
     <value>De lengte van een berekende deelvak kon niet goed worden bepaald.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_FailureProbabilityOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FailureProbabilityOutOfRange" xml:space="preserve">
     <value>De gespecificeerde kans moet in het bereik [0,1] liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_InputNotTheSameType" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_InputNotTheSameType" xml:space="preserve">
     <value>De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_NoSectionsImported" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_NoSectionsImported" xml:space="preserve">
     <value>Er moet een vakindeling zijn geimporteerd.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive" xml:space="preserve">
     <value>Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_RequestedPointOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_RequestedPointOutOfRange" xml:space="preserve">
     <value>De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_FailureMechanismDuplicateSection" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FailureMechanismDuplicateSection" xml:space="preserve">
     <value>De gespecificeerde vakindeling voor een of meerdere toetssporen bevat een of meer overlappende vakken.</value>
   </data>
-  <data name="AssemblyErrorMessageTranslator_GenericErrorMessage" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_GenericErrorMessage" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het assembleren.</value>
   </data>
 </root>

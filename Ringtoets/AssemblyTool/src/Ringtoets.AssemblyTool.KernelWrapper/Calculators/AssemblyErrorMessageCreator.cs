@@ -54,12 +54,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
         }
 
         /// <summary>
-        /// Creates a generic error message for when an unexpected exception has been thrown.
+        /// Creates a generic error message.
         /// </summary>
         /// <returns>A generic error message.</returns>
         public static string CreateGenericErrorMessage()
         {
-            return Resources.AssemblyErrorMessageTranslator_GenericErrorMessage;
+            return Resources.AssemblyErrorMessageCreator_GenericErrorMessage;
         }
 
         /// <summary>
@@ -81,53 +81,53 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
             switch (assemblyError)
             {
                 case EAssemblyErrors.SignallingLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_SignallingLimitOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_SignallingLimitOutOfRange;
                 case EAssemblyErrors.LowerLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_LowerLimitOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_LowerLimitOutOfRange;
                 case EAssemblyErrors.FailurePropbabilityMarginOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_FailurePropbabilityMarginOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange;
                 case EAssemblyErrors.LengthEffectFactorOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_LengthEffectFactorOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange;
                 case EAssemblyErrors.SectionLengthOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_SectionLengthOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_SectionLengthOutOfRange;
                 case EAssemblyErrors.SignallingLimitAboveLowerLimit:
-                    return Resources.AssemblyErrorMessageTranslator_SignallingLimitAboveLowerLimit;
+                    return Resources.AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit;
                 case EAssemblyErrors.PsigDsnAbovePsig:
-                    return Resources.AssemblyErrorMessageTranslator_PsigDsnAbovePsig;
+                    return Resources.AssemblyErrorMessageCreator_PsigDsnAbovePsig;
                 case EAssemblyErrors.PlowDsnAbovePlow:
-                    return Resources.AssemblyErrorMessageTranslator_PlowDsnAbovePlow;
+                    return Resources.AssemblyErrorMessageCreator_PlowDsnAbovePlow;
                 case EAssemblyErrors.LowerLimitIsAboveUpperLimit:
-                    return Resources.AssemblyErrorMessageTranslator_LowerLimitIsAboveUpperLimit;
+                    return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;
                 case EAssemblyErrors.CategoryLowerLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_CategoryLowerLimitOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange;
                 case EAssemblyErrors.CategoryUpperLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_CategoryUpperLimitOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange;
                 case EAssemblyErrors.TranslateAssessmentInvalidInput:
-                    return Resources.AssemblyErrorMessageTranslator_TranslateAssessmentInvalidInput;
+                    return Resources.AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput;
                 case EAssemblyErrors.ValueMayNotBeNull:
-                    return Resources.AssemblyErrorMessageTranslator_ValueMayNotBeNull;
+                    return Resources.AssemblyErrorMessageCreator_ValueMayNotBeNull;
                 case EAssemblyErrors.CategoryNotAllowed:
-                    return Resources.AssemblyErrorMessageTranslator_CategoryNotAllowed;
+                    return Resources.AssemblyErrorMessageCreator_CategoryNotAllowed;
                 case EAssemblyErrors.DoesNotComplyAfterComply:
-                    return Resources.AssemblyErrorMessageTranslator_DoesNotComplyAfterComply;
+                    return Resources.AssemblyErrorMessageCreator_DoesNotComplyAfterComply;
                 case EAssemblyErrors.FmSectionLengthInvalid:
-                    return Resources.AssemblyErrorMessageTranslator_FmSectionLengthInvalid;
+                    return Resources.AssemblyErrorMessageCreator_FmSectionLengthInvalid;
                 case EAssemblyErrors.FmSectionSectionStartEndInvalid:
-                    return Resources.AssemblyErrorMessageTranslator_FmSectionSectionStartEndInvalid;
+                    return Resources.AssemblyErrorMessageCreator_FmSectionSectionStartEndInvalid;
                 case EAssemblyErrors.FailureProbabilityOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_FailureProbabilityOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_FailureProbabilityOutOfRange;
                 case EAssemblyErrors.InputNotTheSameType:
-                    return Resources.AssemblyErrorMessageTranslator_InputNotTheSameType;
+                    return Resources.AssemblyErrorMessageCreator_InputNotTheSameType;
                 case EAssemblyErrors.FailureMechanismAssemblerInputInvalid:
-                    return Resources.AssemblyErrorMessageTranslator_NoSectionsImported;
+                    return Resources.AssemblyErrorMessageCreator_NoSectionsImported;
                 case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
-                    return Resources.AssemblyErrorMessageTranslator_NoSectionsImported;
+                    return Resources.AssemblyErrorMessageCreator_NoSectionsImported;
                 case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
-                    return Resources.AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive;
+                    return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:
-                    return Resources.AssemblyErrorMessageTranslator_RequestedPointOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_RequestedPointOutOfRange;
                 case EAssemblyErrors.FailureMechanismDuplicateSection:
-                    return Resources.AssemblyErrorMessageTranslator_FailureMechanismDuplicateSection;
+                    return Resources.AssemblyErrorMessageCreator_FailureMechanismDuplicateSection;
                 default:
                     throw new NotSupportedException();
             }

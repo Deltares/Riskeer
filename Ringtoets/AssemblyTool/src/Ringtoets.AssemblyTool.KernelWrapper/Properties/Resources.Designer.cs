@@ -84,216 +84,216 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Categoriebovengrens moet in het bereik [0,1] liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_CategoryLowerLimitOutOfRange {
+        internal static string AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_CategoryLowerLimitOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Het specificeren van een assemblageresultaat voor deze categorie is niet mogelijk..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_CategoryNotAllowed {
+        internal static string AssemblyErrorMessageCreator_CategoryNotAllowed {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_CategoryNotAllowed", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CategoryNotAllowed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Categorieondergrens moet in het bereik [0,1] liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_CategoryUpperLimitOutOfRange {
+        internal static string AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_CategoryUpperLimitOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m]..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive {
+        internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_CommonFailureMechanismSectionsNotConsecutive", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Een lagere categorie moet als voldoende worden aangemerkt indien het vak voor een hogere categorie voldoet..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_DoesNotComplyAfterComply {
+        internal static string AssemblyErrorMessageCreator_DoesNotComplyAfterComply {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_DoesNotComplyAfterComply", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_DoesNotComplyAfterComply", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De gespecificeerde vakindeling voor een of meerdere toetssporen bevat een of meer overlappende vakken..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_FailureMechanismDuplicateSection {
+        internal static string AssemblyErrorMessageCreator_FailureMechanismDuplicateSection {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_FailureMechanismDuplicateSection", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureMechanismDuplicateSection", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De gespecificeerde kans moet in het bereik [0,1] liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_FailureProbabilityOutOfRange {
+        internal static string AssemblyErrorMessageCreator_FailureProbabilityOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_FailureProbabilityOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureProbabilityOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Faalkansruimte moet in het bereik [0,1] liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_FailurePropbabilityMarginOutOfRange {
+        internal static string AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_FailurePropbabilityMarginOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_FmSectionLengthInvalid {
+        internal static string AssemblyErrorMessageCreator_FmSectionLengthInvalid {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_FmSectionLengthInvalid", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FmSectionLengthInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De lengte van een berekende deelvak kon niet goed worden bepaald..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_FmSectionSectionStartEndInvalid {
+        internal static string AssemblyErrorMessageCreator_FmSectionSectionStartEndInvalid {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_FmSectionSectionStartEndInvalid", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FmSectionSectionStartEndInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het assembleren..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_GenericErrorMessage {
+        internal static string AssemblyErrorMessageCreator_GenericErrorMessage {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_GenericErrorMessage", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_GenericErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_InputNotTheSameType {
+        internal static string AssemblyErrorMessageCreator_InputNotTheSameType {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_InputNotTheSameType", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_InputNotTheSameType", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Lengte-effect factor moet minimaal 1 zijn..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_LengthEffectFactorOutOfRange {
+        internal static string AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_LengthEffectFactorOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De categoriebovengrens moet boven de categorieondergrens liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_LowerLimitIsAboveUpperLimit {
+        internal static string AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_LowerLimitIsAboveUpperLimit", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ondergrens moet in het bereik [0,1] liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_LowerLimitOutOfRange {
+        internal static string AssemblyErrorMessageCreator_LowerLimitOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_LowerLimitOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_LowerLimitOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er moet een vakindeling zijn geimporteerd..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_NoSectionsImported {
+        internal static string AssemblyErrorMessageCreator_NoSectionsImported {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_NoSectionsImported", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_NoSectionsImported", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekende ondergrens per doorsnede is groter dan de ondergrens van het traject..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_PlowDsnAbovePlow {
+        internal static string AssemblyErrorMessageCreator_PlowDsnAbovePlow {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_PlowDsnAbovePlow", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_PlowDsnAbovePlow", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Berekende signaleringskans per doorsnede is groter dan de signaleringskans van het traject..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_PsigDsnAbovePsig {
+        internal static string AssemblyErrorMessageCreator_PsigDsnAbovePsig {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_PsigDsnAbovePsig", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_PsigDsnAbovePsig", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_RequestedPointOutOfRange {
+        internal static string AssemblyErrorMessageCreator_RequestedPointOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_RequestedPointOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_RequestedPointOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De trajectlengte moet groter zijn dan 0 [m]..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_SectionLengthOutOfRange {
+        internal static string AssemblyErrorMessageCreator_SectionLengthOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_SectionLengthOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SectionLengthOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De signaleringskans moet kleiner zijn dan de ondergrens..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_SignallingLimitAboveLowerLimit {
+        internal static string AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_SignallingLimitAboveLowerLimit", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Signaleringskans moet in het bereik [0,1] liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_SignallingLimitOutOfRange {
+        internal static string AssemblyErrorMessageCreator_SignallingLimitOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_SignallingLimitOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignallingLimitOutOfRange", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een ongeldig resultaat gespecificeerd voor de gebruikte methode..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_TranslateAssessmentInvalidInput {
+        internal static string AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_TranslateAssessmentInvalidInput", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is ongeldige invoer gedefinieerd voor de gebruikte methode..
         /// </summary>
-        internal static string AssemblyErrorMessageTranslator_ValueMayNotBeNull {
+        internal static string AssemblyErrorMessageCreator_ValueMayNotBeNull {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageTranslator_ValueMayNotBeNull", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_ValueMayNotBeNull", resourceCulture);
             }
         }
     }
