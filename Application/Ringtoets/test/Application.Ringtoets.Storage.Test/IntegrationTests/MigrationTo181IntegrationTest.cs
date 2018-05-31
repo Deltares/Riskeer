@@ -1481,24 +1481,40 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "SELECT " +
                        "COUNT() = 0 " +
                        "FROM " +
-                       "(" +
+                       "( " +
+                       "SELECT " +
+                       "ase.AssessmentSectionEntityId, " +
+                       "COUNT() AS NewCount, " +
+                       "OldCount " +
+                       GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
+                       "LEFT JOIN  " +
+                       "( " +
+                       "SELECT   " +
+                       "sourceAse.AssessmentSectionEntityId, " +
+                       "COUNT(distinct HydraulicLocationEntityId) AS OldCount " +
+                       "FROM [SOURCEPROJECT].HydraulicLocationEntity sourceHle " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse ON sourceHle.AssessmentSectionEntityId = sourceAse.AssessmentSectionEntityId " +
+                       "GROUP BY sourceAse.AssessmentSectionEntityId " + 
+                       ") USING(AssessmentSectionEntityId) " +
+                       "GROUP BY ase.AssessmentSectionEntityId " +
+                       "UNION " +
                        "SELECT " +
                        "sourceAse.AssessmentSectionEntityId, " +
-                       "COUNT(distinct HydraulicLocationEntityId) AS OldCount, " +
-                       "NewCount " +
+                       "NewCount, " +
+                       "COUNT(distinct HydraulicLocationEntityId) AS OldCount " +
                        "FROM [SOURCEPROJECT].HydraulicLocationEntity sourceHle " +
                        "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse ON sourceHle.AssessmentSectionEntityId = sourceAse.AssessmentSectionEntityId " +
                        "LEFT JOIN " +
-                       "(" +
+                       "( " +
                        "SELECT " +
                        "ase.AssessmentSectionEntityId, " +
-                       "COUNT(distinct HydraulicLocationEntityId) AS NewCount " +
+                       "COUNT() AS NewCount " +
                        GetHydraulicLocationCalculationsFromCollectionQuery(calculationType) +
                        "GROUP BY ase.AssessmentSectionEntityId " +
                        ") USING(AssessmentSectionEntityId) " +
                        "GROUP BY sourceAse.AssessmentSectionEntityId " +
                        ") " +
-                       "WHERE OldCount IS NOT NewCount; " +
+                       "WHERE NewCount IS NOT OldCount; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
