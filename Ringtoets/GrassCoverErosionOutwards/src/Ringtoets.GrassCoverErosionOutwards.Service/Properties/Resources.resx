@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GrassCoverErosionOutwardsPlugin_DesignWaterLevelCalculation_for_HydraulicBoundaryLocation_0_not_converged" xml:space="preserve">
-    <value>Waterstand bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsPlugin_Name_Calculate_DesignWaterLevel_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
-    <value>Waterstand bij doorsnede-eis berekenen voor locatie '{0}'</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsPlugin_Name_Calculate_WaveHeight_for_HydraulicBoundaryLocation_0_" xml:space="preserve">
-    <value>Golfhoogte bij doorsnede-eis berekenen voor locatie '{0}'</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsPlugin_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_not_converged" xml:space="preserve">
-    <value>Golfhoogte bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.</value>
-  </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name" xml:space="preserve">
     <value>de waterstand bij doorsnede-eis</value>
   </data>
