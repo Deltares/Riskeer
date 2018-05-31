@@ -82,7 +82,6 @@ SELECT
 	1
 FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
-INSERT INTO DuneLocationOutputEntity SELECT * FROM [SOURCEPROJECT].DuneLocationOutputEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
@@ -798,6 +797,7 @@ SELECT FailureMechanismEntityId,
 	1.0
 FROM FailureMechanismEntity WHERE FailureMechanismType = 11;
 
+-- Migrate the Hydraulic Boundary Locations and associated data
 /*
 Note, the following conventions are used for the calculation type on AssessmentSectionEntity:
 - The water level calculations for the factorized signaling norm = 0.
@@ -1285,7 +1285,7 @@ JOIN CalculationGroupEntity USING(CalculationGroupEntityId)
 JOIN FailureMechanismEntity USING(CalculationGroupEntityId)
 JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId);
 
--- Start Dune Location migration
+-- Migrate dune locations and associated data.
 /*
 Note, the following conventions are used for the calculation type on AssessmentSectionEntity:
 - The dune calculations for the mechanism specific factorized signaling norm = 0.
@@ -1424,6 +1424,41 @@ JOIN (
 		DuneErosionFailureMechanismMetaEntityId
 	FROM TempDuneLocationCalculationCollectionEntity WHERE CalculationType = 4
 ) USING (DuneErosionFailureMechanismMetaEntityId);
+
+-- Migrate the dune location outputs
+INSERT INTO DuneLocationOutputEntity (
+	[DuneLocationOutputEntityId],
+	[DuneLocationCalculationEntityId],
+	[WaterLevel],
+	[WaveHeight],
+	[WavePeriod],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence])
+SELECT
+	[DuneLocationOutputEntityId],
+	[DuneLocationCalculationEntityId],
+	[WaterLevel],
+	[WaveHeight],
+	[WavePeriod],
+	[TargetProbability],
+	[TargetReliability],
+	[CalculatedProbability],
+	[CalculatedReliability],
+	[CalculationConvergence]
+FROM DuneErosionFailureMechanismMetaEntity defmme
+JOIN FailureMechanismEntity fm USING(FailureMechanismEntityId)
+JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId)
+JOIN DuneLocationCalculationCollectionEntity dlcce 
+ON defmme.DuneLocationCalculationCollectionEntity2Id = dlcce.DuneLocationCalculationCollectionEntityId
+OR defmme.DuneLocationCalculationCollectionEntity3Id = dlcce.DuneLocationCalculationCollectionEntityId 
+JOIN DuneLocationCalculationEntity USING(DuneLocationCalculationCollectionEntityId)
+JOIN DuneLocationEntity dl USING(DuneLocationEntityId)
+JOIN [SOURCEPROJECT].DuneLocationOutputEntity USING(DuneLocationEntityId)
+WHERE (NormativeNormType = 2 AND defmme.DuneLocationCalculationCollectionEntity2Id = dlcce.DuneLocationCalculationCollectionEntityId)
+OR (NormativeNormType = 1 AND defmme.DuneLocationCalculationCollectionEntity3Id = dlcce.DuneLocationCalculationCollectionEntityId);
 
 -- Cleanup
 DROP TABLE TempCalculationTypes;

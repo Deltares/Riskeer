@@ -724,6 +724,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                  DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerLimitNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
                                                  DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerFactorizedLimitNorm));
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.SignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.LowerLimitNorm));
+            
+            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForMechanismSpecificFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerLimitNorm));
+            reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerFactorizedLimitNorm));
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1431,7 +1441,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// Generates a query to validate the new hydraulic boundary location calculation outputs that are not based on migrated data.
             /// </summary>
             /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
-            /// <returns>The query to validate the hydraulic boundary location calculation input.</returns>
+            /// <returns>The query to validate the hydraulic boundary location calculation output.</returns>
             public static string GetNewCalculationOutputsValidationQuery(CalculationType calculationType)
             {
                 return "SELECT  " +
@@ -1789,7 +1799,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// Generates a query to validate the new hydraulic boundary location calculations that are not based on migrated data.
             /// </summary>
             /// <param name="calculationType">The type of calculation on which the input should be validated.</param>
-            /// <returns>The query to validate the hydraulic boundary location calculation input.</returns>
+            /// <returns>The query to validate the hydraulic boundary location calculation output.</returns>
             public string GetNewCalculationsValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
@@ -1942,7 +1952,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 /// <summary>
                 /// Represents the calculations for the factorized lower limit norm.
                 /// </summary>
-                CalculationsForLowerFactorizedLimitNorm = 5,
+                CalculationsForLowerFactorizedLimitNorm = 5
             }
 
             private readonly string sourceFilePath;
@@ -1980,10 +1990,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "[DuneErosionFailureMechanismMetaEntityId], " +
                        "COUNT() as NewCount, " +
                        "OldCount " +
-                       "FROM DuneErosionFailureMechanismMetaEntity fme " +
-                       "JOIN DuneLocationCalculationCollectionEntity " +
-                       $"ON DuneLocationCalculationCollectionEntityId = fme.DuneLocationCalculationCollectionEntity{(int)calculationType}Id " +
-                       "JOIN DuneLocationCalculationEntity USING (DuneLocationCalculationCollectionEntityId) " +
+                       GetDuneLocationCalculationsQuery(calculationType) +
                        "LEFT JOIN " +
                        "( " +
                        "SELECT  " +
@@ -1997,6 +2004,88 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        ") " +
                        "WHERE OldCount IS NOT NewCount; " +
                        "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate the new dune location outputs that are not based on migrated data.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
+            /// <returns>The query to validate the dune location output.</returns>
+            public static string GetNewDuneLocationCalculationOutputValidationQuery(CalculationType calculationType)
+            {
+                return "SELECT COUNT() = 0 " +
+                       GetDuneLocationCalculationsQuery(calculationType) + 
+                       "JOIN DuneLocationOutputEntity USING(DuneLocationCalculationEntityId);";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the dune location outputs are migrated correctly to the 
+            /// corresponding calculation entities.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the dune location outputs.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType normType)
+            {
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT COUNT() = ( " +
+                       "SELECT COUNT() " +
+                       "FROM [SOURCEPROJECT].DuneLocationOutputEntity " +
+                       "JOIN [SOURCEPROJECT].DuneLocationEntity USING(DuneLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)  " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
+                       $"WHERE NormativeNormType = {(int)normType} " +
+                       ") " +
+                       GetDuneLocationCalculationsQuery(ConvertToCalculationType(normType)) +
+                       "JOIN DuneLocationOutputEntity NEW USING(DuneLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].DuneLocationOutputEntity OLD USING(DuneLocationOutputEntityId) " +
+                       "WHERE NEW.WaterLevel IS OLD.WaterLevel " +
+                       "AND NEW.WaveHeight IS OLD.WaveHeight " +
+                       "AND NEW.WavePeriod IS OLD.WavePeriod " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            private static string GetDuneLocationCalculationsQuery(CalculationType calculationType)
+            {
+                return "FROM DuneErosionFailureMechanismMetaEntity fme " +
+                       "JOIN DuneLocationCalculationCollectionEntity ON  " +
+                       $"DuneLocationCalculationCollectionEntityId = fme.DuneLocationCalculationCollectionEntity{(int) calculationType}Id " +
+                       "JOIN DuneLocationCalculationEntity USING(DuneLocationCalculationCollectionEntityId) ";
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding calculation from <see cref="CalculationType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but is unsupported.</exception>
+            private static CalculationType ConvertToCalculationType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int)normType, typeof(NormativeNormType));
+                }
+
+                switch (normType)
+                {
+                    case NormativeNormType.LowerLimitNorm:
+                        return CalculationType.CalculationsForMechanismSpecificLowerLimitNorm;
+                    case NormativeNormType.SignalingNorm:
+                        return CalculationType.CalculationsForMechanismSpecificSignalingNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
             }
         }
 
