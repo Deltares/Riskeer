@@ -1494,7 +1494,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        "COUNT(distinct HydraulicLocationEntityId) AS OldCount " +
                        "FROM [SOURCEPROJECT].HydraulicLocationEntity sourceHle " +
                        "JOIN [SOURCEPROJECT].AssessmentSectionEntity sourceAse ON sourceHle.AssessmentSectionEntityId = sourceAse.AssessmentSectionEntityId " +
-                       "GROUP BY sourceAse.AssessmentSectionEntityId " + 
+                       "GROUP BY sourceAse.AssessmentSectionEntityId " +
                        ") USING(AssessmentSectionEntityId) " +
                        "GROUP BY ase.AssessmentSectionEntityId " +
                        "UNION " +
@@ -1846,27 +1846,43 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             public string GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT COUNT() = 0 " +
+                       "SELECT " +
+                       "COUNT() = 0 " +
                        "FROM " +
                        "( " +
                        "SELECT " +
                        "[FailureMechanismEntityId], " +
-                       "COUNT(distinct GrassCoverErosionOutwardsHydraulicLocationEntityId) as OldCount, " +
-                       "NEWCount " +
+                       "COUNT() AS NewCount, " +
+                       "OldCount " +
+                       GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
+                       "LEFT JOIN  " +
+                       "( " +
+                       "SELECT   " +
+                       "[FailureMechanismEntityId], " +
+                       "COUNT(distinct GrassCoverErosionOutwardsHydraulicLocationEntityId) AS OldCount " +
+                       "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                       "GROUP BY FailureMechanismEntityId " +
+                       ") USING(FailureMechanismEntityId) " +
+                       "GROUP BY FailureMechanismEntityId " +
+                       "UNION " +
+                       "SELECT " +
+                       "[FailureMechanismEntityId], " +
+                       "NewCount, " +
+                       "COUNT(distinct GrassCoverErosionOutwardsHydraulicLocationEntityId) AS OldCount " +
                        "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity " +
                        "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId) " +
                        "LEFT JOIN " +
                        "( " +
                        "SELECT " +
                        "[FailureMechanismEntityId], " +
-                       "COUNT(distinct HydraulicLocationEntityId) AS NewCount " +
+                       "COUNT() AS NewCount " +
                        GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
-                       "JOIN FailureMechanismEntity USING(FailureMechanismEntityId) " +
-                       "GROUP BY GrassCoverErosionOutwardsFailureMechanismMetaEntityId " +
-                       ") USING(FailureMechanismEntityId) " +
                        "GROUP BY FailureMechanismEntityId " +
+                       ") USING(FailureMechanismEntityId) " +
+                       "GROUP BY FailureMechanismEntityId" +
                        ") " +
-                       "WHERE OldCount IS NOT NewCount; " +
+                       "WHERE NewCount IS NOT OldCount; " +
                        "DETACH DATABASE SOURCEPROJECT;";
             }
 
