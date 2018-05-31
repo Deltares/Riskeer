@@ -726,7 +726,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.SignalingNorm));
             reader.AssertReturnedDataIsValid(queryGenerator.GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType.LowerLimitNorm));
-            
+
             reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
                                                  DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForMechanismSpecificFactorizedSignalingNorm));
             reader.AssertReturnedDataIsValid(DuneErosionFailureMechanismValidationQueryGenerator.GetNewDuneLocationCalculationOutputValidationQuery(
@@ -765,6 +765,196 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
+
+        #region Dune Locations
+
+        /// <summary>
+        /// Class to generate queries which can be used if the dune locations  are correctly migrated.
+        /// </summary>
+        private class DuneErosionFailureMechanismValidationQueryGenerator
+        {
+            /// <summary>
+            /// Enum to indicate the hydraulic location calculation type.
+            /// </summary>
+            public enum CalculationType
+            {
+                /// <summary>
+                /// Represents the calculations for the mechanism specific factorized signaling norm.
+                /// </summary>
+                CalculationsForMechanismSpecificFactorizedSignalingNorm = 1,
+
+                /// <summary>
+                /// Represents the calculations for the mechanism specific signaling norm.
+                /// </summary>
+                CalculationsForMechanismSpecificSignalingNorm = 2,
+
+                /// <summary>
+                /// Represents the calculations for the mechanism specific lower limit norm.
+                /// </summary>
+                CalculationsForMechanismSpecificLowerLimitNorm = 3,
+
+                /// <summary>
+                /// Represents the calculations for the lower limit norm.
+                /// </summary>
+                CalculationsForLowerLimitNorm = 4,
+
+                /// <summary>
+                /// Represents the calculations for the factorized lower limit norm.
+                /// </summary>
+                CalculationsForLowerFactorizedLimitNorm = 5
+            }
+
+            private readonly string sourceFilePath;
+
+            /// <summary>
+            /// Creates a new instance of <see cref="DuneErosionFailureMechanismValidationQueryGenerator"/>.
+            /// </summary>
+            /// <param name="sourceFilePath">The file path of the original database.</param>
+            /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFilePath"/>
+            /// is <c>null</c> or empty.</exception>
+            public DuneErosionFailureMechanismValidationQueryGenerator(string sourceFilePath)
+            {
+                if (string.IsNullOrWhiteSpace(sourceFilePath))
+                {
+                    throw new ArgumentException(@"Sourcefile path cannot be null or empty",
+                                                nameof(sourceFilePath));
+                }
+
+                this.sourceFilePath = sourceFilePath;
+            }
+
+            /// <summary>
+            /// Generates a query to validate the number of created dune location calculations per failure mechanism.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation that should be validated.</param>
+            /// <returns>The query to validate the number of dune location calculations per calculation type.</returns>
+            public string GetDuneLocationCalculationsCountValidationQuery(CalculationType calculationType)
+            {
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT  " +
+                       "COUNT() = 0 " +
+                       "FROM   " +
+                       "( " +
+                       "SELECT   " +
+                       "[DuneErosionFailureMechanismMetaEntityId], " +
+                       "COUNT() AS NewCount,  " +
+                       "OldCount  " +
+                       GetDuneLocationCalculationsQuery(calculationType) +
+                       "LEFT JOIN  " +
+                       "(  " +
+                       "SELECT   " +
+                       "[DuneErosionFailureMechanismMetaEntityId], " +
+                       "COUNT() as OldCount " +
+                       "FROM [SourceProject].DuneErosionFailureMechanismMetaEntity  " +
+                       "JOIN [SourceProject].DuneLocationEntity USING(FailureMechanismEntityId) " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId  " +
+                       ") USING(DuneErosionFailureMechanismMetaEntityId)  " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId  " +
+                       "UNION  " +
+                       "SELECT   " +
+                       "[DuneErosionFailureMechanismMetaEntityId],  " +
+                       "NewCount, " +
+                       "COUNT() AS OldCount " +
+                       "FROM [SourceProject].DuneErosionFailureMechanismMetaEntity " +
+                       "JOIN [SourceProject].DuneLocationEntity USING(FailureMechanismEntityId) " +
+                       "LEFT JOIN  " +
+                       "(  " +
+                       "SELECT " +
+                       "[DuneErosionFailureMechanismMetaEntityId],  " +
+                       "COUNT() as NewCount " +
+                       GetDuneLocationCalculationsQuery(calculationType) +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId  " +
+                       ") USING(DuneErosionFailureMechanismMetaEntityId) " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
+                       ") " +
+                       "WHERE NewCount IS NOT OldCount; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            /// <summary>
+            /// Generates a query to validate the new dune location outputs that are not based on migrated data.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
+            /// <returns>The query to validate the dune location output.</returns>
+            public static string GetNewDuneLocationCalculationOutputValidationQuery(CalculationType calculationType)
+            {
+                return "SELECT COUNT() = 0 " +
+                       GetDuneLocationCalculationsQuery(calculationType) +
+                       "JOIN DuneLocationCalculationOutputEntity USING(DuneLocationCalculationEntityId);";
+            }
+
+            /// <summary>
+            /// Generates a query to validate if the dune location outputs are migrated correctly to the 
+            /// corresponding calculation entities.
+            /// </summary>
+            /// <param name="normType">The norm type to generate the query for.</param>
+            /// <returns>A query to validate the dune location outputs.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
+            /// but is unsupported.</exception>
+            public string GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType normType)
+            {
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT COUNT() = ( " +
+                       "SELECT COUNT() " +
+                       "FROM [SOURCEPROJECT].DuneLocationOutputEntity " +
+                       "JOIN [SOURCEPROJECT].DuneLocationEntity USING(DuneLocationEntityId) " +
+                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)  " +
+                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
+                       $"WHERE NormativeNormType = {(int) normType} " +
+                       ") " +
+                       GetDuneLocationCalculationsQuery(ConvertToCalculationType(normType)) +
+                       "JOIN DuneLocationCalculationOutputEntity NEW USING(DuneLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].DuneLocationOutputEntity OLD ON OLD.DuneLocationOutputEntityId = NEW.DuneLocationCalculationOutputEntityId " +
+                       "WHERE NEW.WaterLevel IS OLD.WaterLevel " +
+                       "AND NEW.WaveHeight IS OLD.WaveHeight " +
+                       "AND NEW.WavePeriod IS OLD.WavePeriod " +
+                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
+                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
+                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
+                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
+                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
+            }
+
+            private static string GetDuneLocationCalculationsQuery(CalculationType calculationType)
+            {
+                return "FROM DuneErosionFailureMechanismMetaEntity fme " +
+                       "JOIN DuneLocationCalculationCollectionEntity ON  " +
+                       $"DuneLocationCalculationCollectionEntityId = fme.DuneLocationCalculationCollectionEntity{(int) calculationType}Id " +
+                       "JOIN DuneLocationCalculationEntity USING(DuneLocationCalculationCollectionEntityId) ";
+            }
+
+            /// <summary>
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding calculation from <see cref="CalculationType"/>.
+            /// </summary>
+            /// <param name="normType">The norm type to convert.</param>
+            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
+            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
+            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but is unsupported.</exception>
+            private static CalculationType ConvertToCalculationType(NormativeNormType normType)
+            {
+                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
+                {
+                    throw new InvalidEnumArgumentException(nameof(normType), (int) normType, typeof(NormativeNormType));
+                }
+
+                switch (normType)
+                {
+                    case NormativeNormType.LowerLimitNorm:
+                        return CalculationType.CalculationsForMechanismSpecificLowerLimitNorm;
+                    case NormativeNormType.SignalingNorm:
+                        return CalculationType.CalculationsForMechanismSpecificSignalingNorm;
+                    default:
+                        throw new NotSupportedException();
+                }
+            }
+        }
+
+        #endregion
 
         #region Failure Mechanism Section Result Entities
 
@@ -1908,180 +2098,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                         return CalculationType.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm;
                     case NormativeNormType.SignalingNorm:
                         return CalculationType.WaveHeightCalculationsForMechanismSpecificSignalingNorm;
-                    default:
-                        throw new NotSupportedException();
-                }
-            }
-        }
-
-        #endregion
-
-        #region Dune Locations
-
-        /// <summary>
-        /// Class to generate queries which can be used if the dune locations  are correctly migrated.
-        /// </summary>
-        private class DuneErosionFailureMechanismValidationQueryGenerator
-        {
-            /// <summary>
-            /// Enum to indicate the hydraulic location calculation type.
-            /// </summary>
-            public enum CalculationType
-            {
-                /// <summary>
-                /// Represents the calculations for the mechanism specific factorized signaling norm.
-                /// </summary>
-                CalculationsForMechanismSpecificFactorizedSignalingNorm = 1,
-
-                /// <summary>
-                /// Represents the calculations for the mechanism specific signaling norm.
-                /// </summary>
-                CalculationsForMechanismSpecificSignalingNorm = 2,
-
-                /// <summary>
-                /// Represents the calculations for the mechanism specific lower limit norm.
-                /// </summary>
-                CalculationsForMechanismSpecificLowerLimitNorm = 3,
-
-                /// <summary>
-                /// Represents the calculations for the lower limit norm.
-                /// </summary>
-                CalculationsForLowerLimitNorm = 4,
-
-                /// <summary>
-                /// Represents the calculations for the factorized lower limit norm.
-                /// </summary>
-                CalculationsForLowerFactorizedLimitNorm = 5
-            }
-
-            private readonly string sourceFilePath;
-
-            /// <summary>
-            /// Creates a new instance of <see cref="DuneErosionFailureMechanismValidationQueryGenerator"/>.
-            /// </summary>
-            /// <param name="sourceFilePath">The file path of the original database.</param>
-            /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFilePath"/>
-            /// is <c>null</c> or empty.</exception>
-            public DuneErosionFailureMechanismValidationQueryGenerator(string sourceFilePath)
-            {
-                if (string.IsNullOrWhiteSpace(sourceFilePath))
-                {
-                    throw new ArgumentException(@"Sourcefile path cannot be null or empty",
-                                                nameof(sourceFilePath));
-                }
-
-                this.sourceFilePath = sourceFilePath;
-            }
-
-            /// <summary>
-            /// Generates a query to validate the number of created dune location calculations per failure mechanism.
-            /// </summary>
-            /// <param name="calculationType">The type of calculation that should be validated.</param>
-            /// <returns>The query to validate the number of dune location calculations per calculation type.</returns>
-            public string GetDuneLocationCalculationsCountValidationQuery(CalculationType calculationType)
-            {
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT " +
-                       "COUNT() = 0 " +
-                       "FROM  " +
-                       "( " +
-                       "SELECT  " +
-                       "[DuneErosionFailureMechanismMetaEntityId], " +
-                       "COUNT() as NewCount, " +
-                       "OldCount " +
-                       GetDuneLocationCalculationsQuery(calculationType) +
-                       "LEFT JOIN " +
-                       "( " +
-                       "SELECT  " +
-                       "[DuneErosionFailureMechanismMetaEntityId], " +
-                       "COUNT() as OldCount " +
-                       "FROM [SourceProject].DuneErosionFailureMechanismMetaEntity " +
-                       "JOIN [SourceProject].DuneLocationEntity USING(FailureMechanismEntityId) " +
-                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
-                       ") USING(DuneErosionFailureMechanismMetaEntityId) " +
-                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
-                       ") " +
-                       "WHERE OldCount IS NOT NewCount; " +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            /// <summary>
-            /// Generates a query to validate the new dune location outputs that are not based on migrated data.
-            /// </summary>
-            /// <param name="calculationType">The type of calculation on which the output should be validated.</param>
-            /// <returns>The query to validate the dune location output.</returns>
-            public static string GetNewDuneLocationCalculationOutputValidationQuery(CalculationType calculationType)
-            {
-                return "SELECT COUNT() = 0 " +
-                       GetDuneLocationCalculationsQuery(calculationType) + 
-                       "JOIN DuneLocationCalculationOutputEntity USING(DuneLocationCalculationEntityId);";
-            }
-
-            /// <summary>
-            /// Generates a query to validate if the dune location outputs are migrated correctly to the 
-            /// corresponding calculation entities.
-            /// </summary>
-            /// <param name="normType">The norm type to generate the query for.</param>
-            /// <returns>A query to validate the dune location outputs.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
-            public string GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType normType)
-            {
-                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT COUNT() = ( " +
-                       "SELECT COUNT() " +
-                       "FROM [SOURCEPROJECT].DuneLocationOutputEntity " +
-                       "JOIN [SOURCEPROJECT].DuneLocationEntity USING(DuneLocationEntityId) " +
-                       "JOIN [SOURCEPROJECT].FailureMechanismEntity USING(FailureMechanismEntityId)  " +
-                       "JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId) " +
-                       $"WHERE NormativeNormType = {(int)normType} " +
-                       ") " +
-                       GetDuneLocationCalculationsQuery(ConvertToCalculationType(normType)) +
-                       "JOIN DuneLocationCalculationOutputEntity NEW USING(DuneLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].DuneLocationOutputEntity OLD ON OLD.DuneLocationOutputEntityId = NEW.DuneLocationCalculationOutputEntityId " +
-                       "WHERE NEW.WaterLevel IS OLD.WaterLevel " +
-                       "AND NEW.WaveHeight IS OLD.WaveHeight " +
-                       "AND NEW.WavePeriod IS OLD.WavePeriod " +
-                       "AND NEW.TargetProbability IS OLD.TargetProbability " +
-                       "AND NEW.TargetReliability IS OLD.TargetReliability " +
-                       "AND NEW.CalculatedProbability IS OLD.CalculatedProbability " +
-                       "AND NEW.CalculatedReliability IS OLD.CalculatedReliability " +
-                       "AND NEW.CalculationConvergence = OLD.CalculationConvergence; " +
-                       "DETACH DATABASE SOURCEPROJECT;";
-            }
-
-            private static string GetDuneLocationCalculationsQuery(CalculationType calculationType)
-            {
-                return "FROM DuneErosionFailureMechanismMetaEntity fme " +
-                       "JOIN DuneLocationCalculationCollectionEntity ON  " +
-                       $"DuneLocationCalculationCollectionEntityId = fme.DuneLocationCalculationCollectionEntity{(int) calculationType}Id " +
-                       "JOIN DuneLocationCalculationEntity USING(DuneLocationCalculationCollectionEntityId) ";
-            }
-
-            /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding calculation from <see cref="CalculationType"/>.
-            /// </summary>
-            /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="CalculationType"/>.</returns>
-            /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
-            /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
-            private static CalculationType ConvertToCalculationType(NormativeNormType normType)
-            {
-                if (!Enum.IsDefined(typeof(NormativeNormType), normType))
-                {
-                    throw new InvalidEnumArgumentException(nameof(normType), (int)normType, typeof(NormativeNormType));
-                }
-
-                switch (normType)
-                {
-                    case NormativeNormType.LowerLimitNorm:
-                        return CalculationType.CalculationsForMechanismSpecificLowerLimitNorm;
-                    case NormativeNormType.SignalingNorm:
-                        return CalculationType.CalculationsForMechanismSpecificSignalingNorm;
                     default:
                         throw new NotSupportedException();
                 }
