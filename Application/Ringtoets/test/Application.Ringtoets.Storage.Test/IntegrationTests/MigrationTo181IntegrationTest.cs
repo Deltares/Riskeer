@@ -147,7 +147,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "DuneErosionFailureMechanismMetaEntity",
                 "DuneErosionSectionResultEntity",
                 "DuneLocationEntity",
-                "DuneLocationOutputEntity",
                 "FailureMechanismEntity",
                 "FailureMechanismSectionEntity",
                 "FaultTreeIllustrationPointEntity",
@@ -2015,7 +2014,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 return "SELECT COUNT() = 0 " +
                        GetDuneLocationCalculationsQuery(calculationType) + 
-                       "JOIN DuneLocationOutputEntity USING(DuneLocationCalculationEntityId);";
+                       "JOIN DuneLocationCalculationOutputEntity USING(DuneLocationCalculationEntityId);";
             }
 
             /// <summary>
@@ -2040,8 +2039,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        $"WHERE NormativeNormType = {(int)normType} " +
                        ") " +
                        GetDuneLocationCalculationsQuery(ConvertToCalculationType(normType)) +
-                       "JOIN DuneLocationOutputEntity NEW USING(DuneLocationCalculationEntityId) " +
-                       "JOIN [SOURCEPROJECT].DuneLocationOutputEntity OLD USING(DuneLocationOutputEntityId) " +
+                       "JOIN DuneLocationCalculationOutputEntity NEW USING(DuneLocationCalculationEntityId) " +
+                       "JOIN [SOURCEPROJECT].DuneLocationOutputEntity OLD ON OLD.DuneLocationOutputEntityId = NEW.DuneLocationCalculationOutputEntityId " +
                        "WHERE NEW.WaterLevel IS OLD.WaterLevel " +
                        "AND NEW.WaveHeight IS OLD.WaveHeight " +
                        "AND NEW.WavePeriod IS OLD.WavePeriod " +

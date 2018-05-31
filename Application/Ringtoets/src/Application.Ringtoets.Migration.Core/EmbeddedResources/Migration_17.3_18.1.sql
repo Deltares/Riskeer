@@ -1426,8 +1426,8 @@ JOIN (
 ) USING (DuneErosionFailureMechanismMetaEntityId);
 
 -- Migrate the dune location outputs
-INSERT INTO DuneLocationOutputEntity (
-	[DuneLocationOutputEntityId],
+INSERT INTO DuneLocationCalculationOutputEntity (
+	[DuneLocationCalculationOutputEntityId],
 	[DuneLocationCalculationEntityId],
 	[WaterLevel],
 	[WaveHeight],
