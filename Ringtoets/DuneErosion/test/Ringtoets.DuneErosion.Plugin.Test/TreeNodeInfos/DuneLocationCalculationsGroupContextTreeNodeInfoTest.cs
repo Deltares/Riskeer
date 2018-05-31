@@ -52,7 +52,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.IsNotNull(info.Text);
-                Assert.IsNull(info.ForeColor);
+                Assert.IsNotNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -85,6 +85,53 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual("Hydraulische randvoorwaarden", text);
+            }
+        }
+
+        [Test]
+        public void ForeColor_LocationsEmpty_ReturnGrayText()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var locations = new ObservableList<DuneLocation>();
+
+            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                Color textColor = info.ForeColor(calculationsGroupContext);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);
+            }
+        }
+
+        [Test]
+        public void ForeColor_WithLocations_ReturnControlText()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var locations = new ObservableList<DuneLocation>
+            {
+                new TestDuneLocation()
+            };
+
+            var calculationsGroupContext = new DuneLocationCalculationsGroupContext(locations, failureMechanism, assessmentSection);
+
+            using (var plugin = new DuneErosionPlugin())
+            {
+                TreeNodeInfo info = GetInfo(plugin);
+
+                // Call
+                Color textColor = info.ForeColor(calculationsGroupContext);
+
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), textColor);
             }
         }
 

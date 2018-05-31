@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -94,6 +95,9 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return new TreeNodeInfo<DuneLocationCalculationsGroupContext>
             {
                 Text = context => RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                ForeColor = context => context.WrappedData.Any()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = DuneLocationCalculationsGroupContextMenuStrip,
                 ChildNodeObjects = DuneLocationCalculationsGroupContextChildNodeObjects
