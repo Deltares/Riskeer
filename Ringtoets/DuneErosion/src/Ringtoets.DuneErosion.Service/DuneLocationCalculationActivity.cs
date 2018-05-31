@@ -100,6 +100,7 @@ namespace Ringtoets.DuneErosion.Service
 
         protected override void OnFinish()
         {
+            duneLocationCalculation.DuneLocation.NotifyObservers();
             duneLocationCalculation.NotifyObservers();
         }
 

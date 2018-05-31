@@ -90,8 +90,7 @@ namespace Ringtoets.DuneErosion.Service
         }
 
         /// <summary>
-        /// Performs the provided <see cref="DuneLocationCalculation"/>
-        /// and sets its output if the calculation is successful.
+        /// Performs the provided <see cref="DuneLocationCalculation"/> and sets its output if the calculation is successful.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to perform.</param>
