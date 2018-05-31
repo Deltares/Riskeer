@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Read.DuneErosion
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            DuneLocationOutputEntity duneLocationCalculationOutputEntity = entity.DuneLocationOutputEntities.SingleOrDefault();
+            DuneLocationCalculationOutputEntity duneLocationCalculationOutputEntity = entity.DuneLocationCalculationOutputEntities.SingleOrDefault();
             if (duneLocationCalculationOutputEntity != null)
             {
                 calculation.Output = duneLocationCalculationOutputEntity.Read();

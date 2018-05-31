@@ -328,7 +328,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             if (random.NextBoolean())
             {
-                duneLocationCalculationEntity.DuneLocationOutputEntities.Add(new DuneLocationOutputEntity());
+                duneLocationCalculationEntity.DuneLocationCalculationOutputEntities.Add(new DuneLocationCalculationOutputEntity());
             }
 
             return new DuneLocationCalculationCollectionEntity
@@ -346,7 +346,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             Assert.AreSame(expectedDuneLocation, actualCalculation.DuneLocation);
 
-            DuneLocationOutputEntity expectedOutput = expectedCalculationEntity.DuneLocationOutputEntities.SingleOrDefault();
+            DuneLocationCalculationOutputEntity expectedOutput = expectedCalculationEntity.DuneLocationCalculationOutputEntities.SingleOrDefault();
             if (expectedOutput != null)
             {
                 Assert.IsNotNull(actualCalculation.Output);

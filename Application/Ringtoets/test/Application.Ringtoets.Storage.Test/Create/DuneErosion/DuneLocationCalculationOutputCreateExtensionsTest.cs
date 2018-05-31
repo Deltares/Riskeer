@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         }
 
         [Test]
-        public void Create_WithValidParameters_ReturnsDuneLocationEntityWithOutputSet()
+        public void Create_WithValidParameters_ReturnsDuneLocationCalculationOutputEntity()
         {
             // Setup
             var random = new Random(21);
@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             });
 
             // Call
-            DuneLocationOutputEntity entity = output.Create();
+            DuneLocationCalculationOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNotNull(entity);
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         }
 
         [Test]
-        public void Create_WithNaNParameters_ReturnsDuneLocationEntityWithOutputSet()
+        public void Create_WithNaNParameters_ReturnsDuneLocationCalculationOutputEntityWithNullValues()
         {
             // Setup
             var random = new Random(21);
@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             });
 
             // Call
-            DuneLocationOutputEntity entity = output.Create();
+            DuneLocationCalculationOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNotNull(entity);

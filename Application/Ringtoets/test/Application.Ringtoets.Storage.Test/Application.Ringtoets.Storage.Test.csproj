@@ -97,8 +97,8 @@
     <Compile Include="Read\DuneErosion\DuneErosionFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosion\DuneLocationCalculationCollectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosion\DuneLocationCalculationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\DuneErosion\DuneLocationCalculationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosion\DuneLocationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosion\DuneLocationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsDikeHeightOutputEntityReadExtensionsTest.cs" />

@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
 
             // Assert
             Assert.IsNotNull(entity);
-            CollectionAssert.IsEmpty(entity.DuneLocationOutputEntities);
+            CollectionAssert.IsEmpty(entity.DuneLocationCalculationOutputEntities);
         }
 
         [Test]
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             // Assert
             Assert.IsNotNull(entity);
 
-            DuneLocationOutputEntity outputEntity = entity.DuneLocationOutputEntities.Single();
+            DuneLocationCalculationOutputEntity outputEntity = entity.DuneLocationCalculationOutputEntities.Single();
             Assert.AreEqual(output.WaterLevel, outputEntity.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(output.WaveHeight, outputEntity.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(output.WavePeriod, outputEntity.WavePeriod, output.WavePeriod.GetAccuracy());

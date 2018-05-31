@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
 
             DuneLocationCalculationEntity calculationEntity = entity.DuneLocationCalculationEntities.Single();
             Assert.AreSame(duneLocationEntity, calculationEntity.DuneLocationEntity);
-            CollectionAssert.IsEmpty(calculationEntity.DuneLocationOutputEntities);
+            CollectionAssert.IsEmpty(calculationEntity.DuneLocationCalculationOutputEntities);
         }
     }
 }

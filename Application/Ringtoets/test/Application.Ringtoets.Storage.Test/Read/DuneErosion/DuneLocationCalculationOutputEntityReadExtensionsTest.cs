@@ -27,21 +27,17 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 {
     [TestFixture]
-    public class DuneLocationCalculationEntityReadExtensionsTest
+    public class DuneLocationCalculationOutputEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var calculation = new DuneLocationCalculation(new TestDuneLocation());
-
             // Call
-            TestDelegate call = () => ((DuneLocationCalculationEntity) null).Read(calculation);
+            TestDelegate call = () => ((DuneLocationCalculationOutputEntity) null).Read();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,41 +45,10 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
         }
 
         [Test]
-        public void Read_CalculationNull_ThrowsArgumentNullException()
+        public void Read_ValidParameters_ReturnsDuneLocationOutput()
         {
             // Setup
-            var entity = new DuneLocationCalculationEntity();
-
-            // Call
-            TestDelegate call = () => entity.Read(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void Read_CalculationEntityWithOutput_SetsDuneLocationCalculationWithoutOutput()
-        {
-            // Setup
-            var calculation = new DuneLocationCalculation(new TestDuneLocation());
-
-            var entity = new DuneLocationCalculationEntity();
-
-            // Call
-            entity.Read(calculation);
-
-            // Assert
-            Assert.IsNull(calculation.Output);
-        }
-
-        [Test]
-        public void Read_CalculationEntityWithOutput_SetsDuneLocationCalculationWithOutput()
-        {
-            // Setup
-            var calculation = new DuneLocationCalculation(new TestDuneLocation());
-
-            var random = new Random(21);
+            var random = new Random(22);
             double waterLevel = random.NextDouble();
             double waveHeight = random.NextDouble();
             double wavePeriod = random.NextDouble();
@@ -92,31 +57,22 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             double calculatedProbability = random.NextDouble();
             double calculatedReliability = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
-
-            var entity = new DuneLocationCalculationEntity
+            var entity = new DuneLocationCalculationOutputEntity
             {
-                DuneLocationCalculationOutputEntities = 
-                {
-                    new DuneLocationCalculationOutputEntity()
-                    {
-                        WaterLevel = waterLevel,
-                        WaveHeight = waveHeight,
-                        WavePeriod = wavePeriod,
-                        TargetProbability = targetProbability,
-                        TargetReliability = targetReliability,
-                        CalculatedProbability = calculatedProbability,
-                        CalculatedReliability = calculatedReliability,
-                        CalculationConvergence = (byte) convergence
-                    }
-                }
+                WaterLevel = waterLevel,
+                WaveHeight = waveHeight,
+                WavePeriod = wavePeriod,
+                TargetProbability = targetProbability,
+                TargetReliability = targetReliability,
+                CalculatedProbability = calculatedProbability,
+                CalculatedReliability = calculatedReliability,
+                CalculationConvergence = (byte) convergence
             };
 
             // Call
-            entity.Read(calculation);
+            DuneLocationCalculationOutput output = entity.Read();
 
             // Assert
-            DuneLocationCalculationOutput output = calculation.Output;
-            Assert.IsNotNull(output);
             Assert.AreEqual(waterLevel, output.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(waveHeight, output.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(wavePeriod, output.WavePeriod, output.WavePeriod.GetAccuracy());
@@ -124,6 +80,37 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             Assert.AreEqual(targetReliability, output.TargetReliability, output.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, output.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, output.CalculatedReliability, output.CalculatedReliability.GetAccuracy());
+            Assert.AreEqual(convergence, output.CalculationConvergence);
+        }
+
+        [Test]
+        public void Read_NullParameters_ReturnsDuneLocationOutputWithNaN()
+        {
+            // Setup
+            var convergence = new Random(36).NextEnumValue<CalculationConvergence>();
+            var entity = new DuneLocationCalculationOutputEntity
+            {
+                WaterLevel = null,
+                WaveHeight = null,
+                WavePeriod = null,
+                TargetProbability = null,
+                TargetReliability = null,
+                CalculatedProbability = null,
+                CalculatedReliability = null,
+                CalculationConvergence = (byte) convergence
+            };
+
+            // Call
+            DuneLocationCalculationOutput output = entity.Read();
+
+            // Assert
+            Assert.IsNaN(output.WaterLevel);
+            Assert.IsNaN(output.WaveHeight);
+            Assert.IsNaN(output.WavePeriod);
+            Assert.IsNaN(output.TargetProbability);
+            Assert.IsNaN(output.TargetReliability);
+            Assert.IsNaN(output.CalculatedProbability);
+            Assert.IsNaN(output.CalculatedReliability);
             Assert.AreEqual(convergence, output.CalculationConvergence);
         }
     }

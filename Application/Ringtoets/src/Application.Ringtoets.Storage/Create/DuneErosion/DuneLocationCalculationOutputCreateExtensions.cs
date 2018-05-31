@@ -26,24 +26,26 @@ using Ringtoets.DuneErosion.Data;
 namespace Application.Ringtoets.Storage.Create.DuneErosion
 {
     /// <summary>
-    /// Extension methods for <see cref="DuneLocationCalculationOutput"/> related to creating a <see cref="DuneLocationOutputEntity"/>.
+    /// Extension methods for <see cref="DuneLocationCalculationOutput"/> related to creating
+    /// a <see cref="DuneLocationCalculationOutputEntity"/>.
     /// </summary>
     internal static class DuneLocationCalculationOutputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="DuneLocationOutputEntity"/> based on the information of the <see cref="DuneLocationCalculationOutput"/>.
+        /// Creates a <see cref="DuneLocationCalculationOutputEntity"/> based on the
+        /// information of the <see cref="DuneLocationCalculationOutput"/>.
         /// </summary>
         /// <param name="output">The output to create a database entity for.</param>
-        /// <returns>A new <see cref="DuneLocationOutputEntity"/>.</returns>
+        /// <returns>A new <see cref="DuneLocationCalculationOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> is <c>null</c>.</exception>
-        internal static DuneLocationOutputEntity Create(this DuneLocationCalculationOutput output)
+        internal static DuneLocationCalculationOutputEntity Create(this DuneLocationCalculationOutput output)
         {
             if (output == null)
             {
                 throw new ArgumentNullException(nameof(output));
             }
 
-            return new DuneLocationOutputEntity
+            return new DuneLocationCalculationOutputEntity
             {
                 WaterLevel = output.WaterLevel.ToNaNAsNull(),
                 WaveHeight = output.WaveHeight.ToNaNAsNull(),

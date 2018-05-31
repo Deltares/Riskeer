@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         {
             if (output != null)
             {
-                calculationEntity.DuneLocationOutputEntities.Add(output.Create());
+                calculationEntity.DuneLocationCalculationOutputEntities.Add(output.Create());
             }
         }
     }

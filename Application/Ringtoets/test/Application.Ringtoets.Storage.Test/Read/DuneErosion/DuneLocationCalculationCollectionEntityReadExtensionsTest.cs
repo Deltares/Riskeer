@@ -89,9 +89,9 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             var calculationEntityWithOutput = new DuneLocationCalculationEntity
             {
                 DuneLocationEntity = duneLocationEntityTwo,
-                DuneLocationOutputEntities =
+                DuneLocationCalculationOutputEntities = 
                 {
-                    new DuneLocationOutputEntity()
+                    new DuneLocationCalculationOutputEntity()
                 }
             };
 

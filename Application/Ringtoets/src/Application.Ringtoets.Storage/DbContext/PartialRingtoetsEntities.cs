@@ -59,8 +59,7 @@ namespace Application.Ringtoets.Storage.DbContext
             DuneLocationCalculationCollectionEntities.Include(e => e.DuneLocationCalculationEntities)
                                                      .Load();
             DuneLocationCalculationEntities.Load();
-            DuneLocationOutputEntities.Load();
-            DuneLocationOutputEntities.Load();
+            DuneLocationCalculationOutputEntities.Load();
             FailureMechanismEntities.Load();
             FailureMechanismSectionEntities.Load();
             ForeshoreProfileEntities.Load();

@@ -262,7 +262,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
                 DuneLocation expectedDuneLocation = expectedDuneLocationCalculation.DuneLocation;
                 Assert.AreSame(registry.Get(expectedDuneLocation), duneLocationCalculationEntity.DuneLocationEntity);
 
-                DuneLocationOutputEntity actualOutput = duneLocationCalculationEntity.DuneLocationOutputEntities.SingleOrDefault();
+                DuneLocationCalculationOutputEntity actualOutput = duneLocationCalculationEntity.DuneLocationCalculationOutputEntities.SingleOrDefault();
                 if (expectedDuneLocationCalculation.Output != null)
                 {
                     Assert.IsNotNull(actualOutput);
