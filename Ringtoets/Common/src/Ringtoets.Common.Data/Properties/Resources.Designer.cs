@@ -92,60 +92,6 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toets niet uitgevoerd.
-        /// </summary>
-        public static string AssessmentLayerOneState_NotAssessed {
-            get {
-                return ResourceManager.GetString("AssessmentLayerOneState_NotAssessed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nog geen oordeel.
-        /// </summary>
-        public static string AssessmentLayerOneState_NoVerdict {
-            get {
-                return ResourceManager.GetString("AssessmentLayerOneState_NoVerdict", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voldoende / Niet relevant.
-        /// </summary>
-        public static string AssessmentLayerOneState_Sufficient {
-            get {
-                return ResourceManager.GetString("AssessmentLayerOneState_Sufficient", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Onvoldoende.
-        /// </summary>
-        public static string AssessmentLayerTwoAResult_Failed {
-            get {
-                return ResourceManager.GetString("AssessmentLayerTwoAResult_Failed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Niet berekend.
-        /// </summary>
-        public static string AssessmentLayerTwoAResult_NotCalculated {
-            get {
-                return ResourceManager.GetString("AssessmentLayerTwoAResult_NotCalculated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voldoende.
-        /// </summary>
-        public static string AssessmentLayerTwoAResult_Successful {
-            get {
-                return ResourceManager.GetString("AssessmentLayerTwoAResult_Successful", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to C-&gt;D.
         /// </summary>
         public static string AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName {

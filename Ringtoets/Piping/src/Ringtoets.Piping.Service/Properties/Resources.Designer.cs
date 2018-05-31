@@ -257,15 +257,5 @@ namespace Ringtoets.Piping.Service.Properties {
                         "e_larger_than_WaterVolumetricWeight", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Veiligheidsfactor voor piping kan niet worden berekend..
-        /// </summary>
-        internal static string PipingSemiProbabilisticCalculationService_ValidateOutputOnCalculation_Factor_of_safety_cannot_be_calculated {
-            get {
-                return ResourceManager.GetString("PipingSemiProbabilisticCalculationService_ValidateOutputOnCalculation_Factor_of_s" +
-                        "afety_cannot_be_calculated", resourceCulture);
-            }
-        }
     }
 }

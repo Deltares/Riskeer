@@ -109,15 +109,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Semi-probabilistische parameters.
-        /// </summary>
-        public static string Categories_SemiProbabilisticParameters {
-            get {
-                return ResourceManager.GetString("Categories_SemiProbabilisticParameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Opbarsten.
         /// </summary>
         public static string Categories_Uplift {

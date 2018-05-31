@@ -82,16 +82,6 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden bij het bepalen van categoriegrenzen..
-        /// </summary>
-        public static string AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCategories_Error_in_assembly_categories_calculation {
-            get {
-                return ResourceManager.GetString("AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCatego" +
-                        "ries_Error_in_assembly_categories_calculation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Berekening is beëindigd..
         /// </summary>
         public static string Calculation_ended {

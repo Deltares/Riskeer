@@ -295,9 +295,6 @@
   <data name="PipingInput_HydraulicBoundaryLocation_DisplayName" xml:space="preserve">
     <value>Locatie met hydraulische randvoorwaarden</value>
   </data>
-  <data name="Categories_SemiProbabilisticParameters" xml:space="preserve">
-    <value>Semi-probabilistische parameters</value>
-  </data>
   <data name="PipingOutput_PipingFactorOfSafety_Description" xml:space="preserve">
     <value>De veiligheidsfactor voor deze berekening.</value>
   </data>

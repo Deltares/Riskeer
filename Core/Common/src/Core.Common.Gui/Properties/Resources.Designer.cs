@@ -415,15 +415,6 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geen documentvenster geregistreerd voor: {0}..
-        /// </summary>
-        public static string DocumentViewController_OpenViewForData_No_view_registered_for_0_ {
-            get {
-                return ResourceManager.GetString("DocumentViewController_OpenViewForData_No_view_registered_for_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kaart.
         /// </summary>
         public static string DotSpatialPlugin_GetViewInfoObjects_Map {

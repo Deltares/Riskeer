@@ -215,7 +215,4 @@
   <data name="CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1" xml:space="preserve">
     <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0}: {1} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
-  <data name="AssemblyToolCategoriesCalculationService_CalculateAssessmentSectionAssemblyCategories_Error_in_assembly_categories_calculation" xml:space="preserve">
-    <value>Er is een onverwachte fout opgetreden bij het bepalen van categoriegrenzen.</value>
-  </data>
 </root>
