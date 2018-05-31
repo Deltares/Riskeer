@@ -56,7 +56,6 @@ SELECT
 	NULL
 FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
-INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
 INSERT INTO DuneErosionSectionResultEntity (
 	[DuneErosionSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
@@ -1286,11 +1285,155 @@ JOIN CalculationGroupEntity USING(CalculationGroupEntityId)
 JOIN FailureMechanismEntity USING(CalculationGroupEntityId)
 JOIN AssessmentSectionEntity USING(AssessmentSectionEntityId);
 
+-- Start Dune Location migration
+/*
+Note, the following conventions are used for the calculation type on AssessmentSectionEntity:
+- The dune calculations for the mechanism specific factorized signaling norm = 0.
+- The dune calculations for the mechanism specific signaling norm = 1.
+- The dune calculations for the mechanism specific lower limit norm = 2.
+- The dune calculations for the lower limit norm = 3.
+- The dune calculations for the factorized lower limit norm = 4.
+*/
+CREATE TEMP TABLE TempDuneCalculationTypes ( 'CalculationType' TINYINT (1) NOT NULL);
+INSERT INTO TempDuneCalculationTypes VALUES (0);
+INSERT INTO TempDuneCalculationTypes VALUES (1);
+INSERT INTO TempDuneCalculationTypes VALUES (2);
+INSERT INTO TempDuneCalculationTypes VALUES (3);
+INSERT INTO TempDuneCalculationTypes VALUES (4);
+
+-- Create the calculation collections
+CREATE TEMP TABLE TempDuneLocationCalculationCollectionEntity
+(
+	'DuneLocationCalculationCollectionEntityId' INTEGER NOT NULL,
+	'DuneErosionFailureMechanismMetaEntityId' INTEGER NOT NULL,
+	'CalculationType' TINYINT (1) NOT NULL,
+	PRIMARY KEY
+	(
+		'DuneLocationCalculationCollectionEntityId' AUTOINCREMENT
+	)
+);
+
+INSERT INTO TempDuneLocationCalculationCollectionEntity (
+	[DuneErosionFailureMechanismMetaEntityId],
+	[CalculationType])
+SELECT 
+	[DuneErosionFailureMechanismMetaEntityId],
+	[CalculationType]
+FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity
+JOIN (
+	SELECT *
+	FROM TempDuneCalculationTypes
+);
+
+INSERT INTO DuneLocationCalculationCollectionEntity(
+	[DuneLocationCalculationCollectionEntityId])
+SELECT 
+	[DuneLocationCalculationCollectionEntityId]
+FROM TempDuneLocationCalculationCollectionEntity;
+
+-- Create the calculation entities
+CREATE TEMP TABLE TempDuneLocationCalculationEntity
+(
+	'DuneLocationCalculationEntityId' INTEGER NOT NULL,
+	'DuneLocationEntityId' INTEGER NOT NULL,
+	'DuneErosionFailureMechanismMetaEntityId' INTEGER,
+	'CalculationType' TINYINT (1) NOT NULL,
+	PRIMARY KEY
+	(
+		'DuneLocationCalculationEntityId' AUTOINCREMENT
+	)
+);
+
+INSERT INTO TempDuneLocationCalculationEntity(
+	[DuneLocationEntityId],
+	[DuneErosionFailureMechanismMetaEntityId],
+	[CalculationType])
+SELECT 
+	[DuneLocationEntityId],
+	[DuneErosionFailureMechanismMetaEntityId],
+	[CalculationType]
+FROM [SourceProject].FailureMechanismEntity 
+JOIN [SourceProject].DuneLocationEntity USING(FailureMechanismEntityId)
+JOIN [SourceProject].DuneErosionFailureMechanismMetaEntity USING(FailureMechanismEntityId)
+JOIN (
+	SELECT *
+	FROM TempDuneCalculationTypes
+);
+
+INSERT INTO DuneLocationCalculationEntity(
+	[DuneLocationCalculationEntityId],
+	[DuneLocationEntityId],
+	[DuneLocationCalculationCollectionEntityId])
+SELECT
+	[DuneLocationCalculationEntityId],
+	[DuneLocationEntityId],
+	[DuneLocationCalculationCollectionEntityId]
+FROM TempDuneLocationCalculationCollectionEntity collections
+JOIN TempDuneLocationCalculationEntity calculations 
+ON collections.CalculationType = calculations.CalculationType
+AND collections.DuneErosionFailureMechanismMetaEntityId = calculations.DuneErosionFailureMechanismMetaEntityId;
+
+-- Migrate the dune erosion failure mechanism meta entity
+INSERT INTO DuneErosionFailureMechanismMetaEntity (
+	DuneErosionFailureMechanismMetaEntityId,
+	FailureMechanismEntityId,
+	DuneLocationCalculationCollectionEntity1Id,
+	DuneLocationCalculationCollectionEntity2Id,
+	DuneLocationCalculationCollectionEntity3Id,
+	DuneLocationCalculationCollectionEntity4Id,
+	DuneLocationCalculationCollectionEntity5Id,
+	N
+)
+SELECT 
+	[DuneErosionFailureMechanismMetaEntityId],
+	[FailureMechanismEntityId],
+	[CalculationsForMechanismSpecificFactorizedSignalingNorm],
+	[CalculationsForMechanismSpecificSignalingNorm],
+	[CalculationsForMechanismSpecificLowerLimitNorm],
+	[CalculationsForLowerLimitNorm],
+	[CalculationsForFactorizedLowerLimitNorm],
+	[N]
+FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity
+JOIN (
+	SELECT
+		DuneLocationCalculationCollectionEntityId AS CalculationsForMechanismSpecificFactorizedSignalingNorm,
+		DuneErosionFailureMechanismMetaEntityId
+	FROM TempDuneLocationCalculationCollectionEntity WHERE CalculationType = 0
+) USING (DuneErosionFailureMechanismMetaEntityId)
+JOIN (
+	SELECT
+		DuneLocationCalculationCollectionEntityId AS CalculationsForMechanismSpecificSignalingNorm,
+		DuneErosionFailureMechanismMetaEntityId
+	FROM TempDuneLocationCalculationCollectionEntity WHERE CalculationType = 1
+) USING (DuneErosionFailureMechanismMetaEntityId)
+JOIN (
+	SELECT
+		DuneLocationCalculationCollectionEntityId AS CalculationsForMechanismSpecificLowerLimitNorm,
+		DuneErosionFailureMechanismMetaEntityId
+	FROM TempDuneLocationCalculationCollectionEntity WHERE CalculationType = 2
+) USING (DuneErosionFailureMechanismMetaEntityId)
+JOIN (
+	SELECT
+		DuneLocationCalculationCollectionEntityId AS CalculationsForLowerLimitNorm,
+		DuneErosionFailureMechanismMetaEntityId
+	FROM TempDuneLocationCalculationCollectionEntity WHERE CalculationType = 3
+) USING (DuneErosionFailureMechanismMetaEntityId)
+JOIN (
+	SELECT
+		DuneLocationCalculationCollectionEntityId AS CalculationsForFactorizedLowerLimitNorm,
+		DuneErosionFailureMechanismMetaEntityId
+	FROM TempDuneLocationCalculationCollectionEntity WHERE CalculationType = 4
+) USING (DuneErosionFailureMechanismMetaEntityId);
+
 -- Cleanup
 DROP TABLE TempCalculationTypes;
 DROP TABLE TempHydraulicLocationCalculationEntity;
 DROP TABLE TempHydraulicLocationCalculationCollectionEntity;
 DROP TABLE TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable;
+
+DROP TABLE TempDuneCalculationTypes;
+DROP TABLE TempDuneLocationCalculationCollectionEntity;
+DROP TABLE TempDuneLocationCalculationEntity;
 
 /* 
 Write migration logging

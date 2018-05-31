@@ -98,6 +98,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                     AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(reader, sourceFilePath);
 
+                    AssertDuneErosionFailureMechanismMetaEntity(reader, sourceFilePath);
+                    AssertDuneLocations(reader, sourceFilePath);
+
                     AssertHeightStructuresSectionResultEntity(reader, sourceFilePath);
                     AssertClosingStructuresSectionResultEntity(reader, sourceFilePath);
                     AssertStabilityPointStructuresSectionResultEntity(reader, sourceFilePath);
@@ -707,6 +710,22 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertWaveHeightCalculationEntitiesOnGrassCoverErosionOutwardsFailureMechanism(reader, queryGenerator);
         }
 
+        private static void AssertDuneLocations(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            var queryGenerator = new DuneErosionFailureMechanismValidationQueryGenerator(sourceFilePath);
+
+            reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForMechanismSpecificFactorizedSignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForMechanismSpecificSignalingNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForMechanismSpecificLowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerLimitNorm));
+            reader.AssertReturnedDataIsValid(queryGenerator.GetDuneLocationCalculationsCountValidationQuery(
+                                                 DuneErosionFailureMechanismValidationQueryGenerator.CalculationType.CalculationsForLowerFactorizedLimitNorm));
+        }
+
         private static void AssertGrassCoverErosionOutwardsFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string validateMetaEntity =
@@ -718,6 +737,21 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 "WHERE new.FailureMechanismEntityId = OLD.FailureMechanismEntityId " +
                 "AND NEW.N = OLD.N " +
                 "AND NEW.ForeshoreProfileCollectionSourcePath IS OLD.ForeshoreProfileCollectionSourcePath; " +
+                "DETACH DATABASE SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateMetaEntity);
+        }
+
+        private static void AssertDuneErosionFailureMechanismMetaEntity(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateMetaEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT " +
+                "COUNT() = (SELECT COUNT() FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity) " +
+                "FROM DuneErosionFailureMechanismMetaEntity NEW " +
+                "JOIN [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity OLD USING(DuneErosionFailureMechanismMetaEntityId) " +
+                "WHERE new.FailureMechanismEntityId = OLD.FailureMechanismEntityId " +
+                "AND NEW.N = OLD.N; " +
                 "DETACH DATABASE SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
@@ -1590,10 +1624,10 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
 
             /// <summary>
-            /// Generates a query to validate the number of created hydraulic boundary location calculations per failure mechanism section.
+            /// Generates a query to validate the number of created hydraulic boundary location calculations per failure mechanism.
             /// </summary>
             /// <param name="calculationType">The type of calculation that should be validated.</param>
-            /// <returns>The query to validate the number of hydraulic boundary location calculations per assessment section.</returns>
+            /// <returns>The query to validate the number of hydraulic boundary location calculations per failure mechanism.</returns>
             public string GetHydraulicBoundaryLocationCalculationsPerFailureMechanismCountValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
@@ -1868,6 +1902,101 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     default:
                         throw new NotSupportedException();
                 }
+            }
+        }
+
+        #endregion
+
+        #region Dune Locations
+
+        /// <summary>
+        /// Class to generate queries which can be used if the dune locations  are correctly migrated.
+        /// </summary>
+        private class DuneErosionFailureMechanismValidationQueryGenerator
+        {
+            /// <summary>
+            /// Enum to indicate the hydraulic location calculation type.
+            /// </summary>
+            public enum CalculationType
+            {
+                /// <summary>
+                /// Represents the calculations for the mechanism specific factorized signaling norm.
+                /// </summary>
+                CalculationsForMechanismSpecificFactorizedSignalingNorm = 1,
+
+                /// <summary>
+                /// Represents the calculations for the mechanism specific signaling norm.
+                /// </summary>
+                CalculationsForMechanismSpecificSignalingNorm = 2,
+
+                /// <summary>
+                /// Represents the calculations for the mechanism specific lower limit norm.
+                /// </summary>
+                CalculationsForMechanismSpecificLowerLimitNorm = 3,
+
+                /// <summary>
+                /// Represents the calculations for the lower limit norm.
+                /// </summary>
+                CalculationsForLowerLimitNorm = 4,
+
+                /// <summary>
+                /// Represents the calculations for the factorized lower limit norm.
+                /// </summary>
+                CalculationsForLowerFactorizedLimitNorm = 5,
+            }
+
+            private readonly string sourceFilePath;
+
+            /// <summary>
+            /// Creates a new instance of <see cref="DuneErosionFailureMechanismValidationQueryGenerator"/>.
+            /// </summary>
+            /// <param name="sourceFilePath">The file path of the original database.</param>
+            /// <exception cref="ArgumentException">Thrown when <paramref name="sourceFilePath"/>
+            /// is <c>null</c> or empty.</exception>
+            public DuneErosionFailureMechanismValidationQueryGenerator(string sourceFilePath)
+            {
+                if (string.IsNullOrWhiteSpace(sourceFilePath))
+                {
+                    throw new ArgumentException(@"Sourcefile path cannot be null or empty",
+                                                nameof(sourceFilePath));
+                }
+
+                this.sourceFilePath = sourceFilePath;
+            }
+
+            /// <summary>
+            /// Generates a query to validate the number of created dune location calculations per failure mechanism.
+            /// </summary>
+            /// <param name="calculationType">The type of calculation that should be validated.</param>
+            /// <returns>The query to validate the number of dune location calculations per calculation type.</returns>
+            public string GetDuneLocationCalculationsCountValidationQuery(CalculationType calculationType)
+            {
+                return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                       "SELECT " +
+                       "COUNT() = 0 " +
+                       "FROM  " +
+                       "( " +
+                       "SELECT  " +
+                       "[DuneErosionFailureMechanismMetaEntityId], " +
+                       "COUNT() as NewCount, " +
+                       "OldCount " +
+                       "FROM DuneErosionFailureMechanismMetaEntity fme " +
+                       "JOIN DuneLocationCalculationCollectionEntity " +
+                       $"ON DuneLocationCalculationCollectionEntityId = fme.DuneLocationCalculationCollectionEntity{(int)calculationType}Id " +
+                       "JOIN DuneLocationCalculationEntity USING (DuneLocationCalculationCollectionEntityId) " +
+                       "LEFT JOIN " +
+                       "( " +
+                       "SELECT  " +
+                       "[DuneErosionFailureMechanismMetaEntityId], " +
+                       "COUNT() as OldCount " +
+                       "FROM [SourceProject].DuneErosionFailureMechanismMetaEntity " +
+                       "JOIN [SourceProject].DuneLocationEntity USING(FailureMechanismEntityId) " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
+                       ") USING(DuneErosionFailureMechanismMetaEntityId) " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
+                       ") " +
+                       "WHERE OldCount IS NOT NewCount; " +
+                       "DETACH DATABASE SOURCEPROJECT;";
             }
         }
 
