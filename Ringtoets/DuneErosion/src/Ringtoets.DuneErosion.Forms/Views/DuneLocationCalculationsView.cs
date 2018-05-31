@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -38,23 +37,23 @@ namespace Ringtoets.DuneErosion.Forms.Views
     /// </summary>
     public partial class DuneLocationCalculationsView : DuneLocationCalculationsViewBase
     {
-        private readonly Observer duneLocationsObserver;
         private readonly Observer failureMechanismObserver;
+        private readonly Observer duneLocationCalculationsObserver;
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
         private readonly Func<double> getNormFunc;
-        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationObserver;
+        private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsView"/>.
         /// </summary>
-        /// <param name="calculations">The calculations to show in the view</param>
+        /// <param name="calculations">The calculations to show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                             DuneErosionFailureMechanism failureMechanism,
-                                            IAssessmentSection assessmentSection, 
+                                            IAssessmentSection assessmentSection,
                                             Func<double> getNormFunc)
         {
             if (calculations == null)
@@ -84,11 +83,11 @@ namespace Ringtoets.DuneErosion.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            duneLocationsObserver = new Observer(UpdateDataGridViewDataSource)
+            duneLocationCalculationsObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = calculations
             };
-            duneLocationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(dataGridViewControl.RefreshDataGridView, list => list)
+            duneLocationCalculationObserver = new RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation>(dataGridViewControl.RefreshDataGridView, list => list)
             {
                 Observable = calculations
             };
@@ -109,7 +108,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         /// <summary>
         /// Gets the <see cref="DuneErosionFailureMechanism"/> for which the
-        /// locations are shown.
+        /// calculations are shown.
         /// </summary>
         public DuneErosionFailureMechanism FailureMechanism { get; }
 
@@ -121,8 +120,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            duneLocationsObserver.Dispose();
-            duneLocationObserver.Dispose();
+            duneLocationCalculationsObserver.Dispose();
+            duneLocationCalculationObserver.Dispose();
             failureMechanismObserver.Dispose();
 
             base.Dispose(disposing);
@@ -166,8 +165,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
         {
             if (CalculationGuiService != null)
             {
-                IEnumerable<DuneLocationCalculation> selectedCalculations = GetSelectedCalculatableObjects();
-                HandleCalculateSelectedLocations(selectedCalculations);
+                CalculationGuiService.Calculate(GetSelectedCalculatableObjects(),
+                                                AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                getNormFunc());
             }
         }
 
@@ -179,14 +180,6 @@ namespace Ringtoets.DuneErosion.Forms.Views
             }
 
             return base.ValidateCalculatableObjects();
-        }
-
-        private void HandleCalculateSelectedLocations(IEnumerable<DuneLocationCalculation> calculations)
-        {
-            CalculationGuiService.Calculate(calculations,
-                                            AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                            getNormFunc());
         }
     }
 }

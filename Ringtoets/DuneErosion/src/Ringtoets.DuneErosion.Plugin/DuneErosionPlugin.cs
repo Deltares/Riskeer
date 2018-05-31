@@ -128,11 +128,11 @@ namespace Ringtoets.DuneErosion.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RingtoetsCommonFormsResources.CalculationIcon,
                 CloseForData = CloseFailureMechanismViewForData,
-                CreateInstance = (context) => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent),
+                CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent),
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant
             };
 
-            yield return new ViewInfo<DuneLocationCalculationsContext, IEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
+            yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
                 GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - {context.CategoryBoundaryName}",
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,

@@ -40,7 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// Creates a new instance of <see cref="DuneLocationCalculationRow"/>.
         /// </summary>
         /// <param name="duneLocationCalculation">The <see cref="DuneLocationCalculation"/> to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
         public DuneLocationCalculationRow(DuneLocationCalculation duneLocationCalculation)
             : base(duneLocationCalculation) {}
 

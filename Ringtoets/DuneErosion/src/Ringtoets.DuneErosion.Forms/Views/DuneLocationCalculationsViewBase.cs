@@ -31,7 +31,7 @@ using Ringtoets.DuneErosion.Data;
 namespace Ringtoets.DuneErosion.Forms.Views
 {
     /// <summary>
-    /// Base view for selecting calculatable calculations and starting calculation for said objects.
+    /// Base view for selecting dune location calculations and starting a calculation for said objects.
     /// </summary>
     public abstract partial class DuneLocationCalculationsViewBase : UserControl, ISelectionProvider, IView
     {

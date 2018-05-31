@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
@@ -89,7 +88,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             Type viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IEnumerable<DuneLocationCalculation>), viewDataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<DuneLocationCalculation>), viewDataType);
         }
 
         [Test]

@@ -50,7 +50,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
     [TestFixture]
     public class DuneLocationCalculationsViewTest
     {
-        private const int locationCalculateColumnIndex = 0;
+        private const int calculateColumnIndex = 0;
         private const int waterLevelColumnIndex = 6;
         private const int waveHeightColumnIndex = 7;
         private const int wavePeriodColumnIndex = 8;
@@ -281,7 +281,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Selection_WithSelectedCalculation_ReturnsSelectedCalculationWrappedInContext()
+        public void Selection_WithSelectedCalculation_ReturnsSelectedCalculation()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -290,14 +290,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (DuneLocationCalculationsView view = ShowFullyConfiguredDuneLocationCalculationsView(assessmentSection))
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-                DataGridViewRow selectedLocationRow = dataGridView.Rows[0];
+                DataGridViewRow selectedCalculationRow = dataGridView.Rows[0];
 
                 // Call
-                selectedLocationRow.Cells[0].Value = true;
+                selectedCalculationRow.Cells[0].Value = true;
 
                 // Assert
                 var selection = view.Selection as DuneLocationCalculation;
-                var dataBoundItem = selectedLocationRow.DataBoundItem as DuneLocationCalculationRow;
+                var dataBoundItem = selectedCalculationRow.DataBoundItem as DuneLocationCalculationRow;
 
                 Assert.NotNull(selection);
                 Assert.NotNull(dataBoundItem);
@@ -433,7 +433,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 object originalDataSource = dataGridView.DataSource;
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
 
                 calculations.Attach(calculationsObserver);
 
@@ -467,8 +467,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                     Assert.AreSame(originalDataSource, dataGridView.DataSource);
 
-                    Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
-                    Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+                    Assert.IsTrue((bool) rows[0].Cells[calculateColumnIndex].Value);
+                    Assert.IsFalse((bool) rows[1].Cells[calculateColumnIndex].Value);
                 }
             }
         }
@@ -484,7 +484,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
 
                 var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -516,7 +516,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 {
                     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                     DataGridViewRowCollection rows = dataGridView.Rows;
-                    rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                    rows[0].Cells[calculateColumnIndex].Value = true;
                 }
 
                 if (contributionZero)
@@ -570,7 +570,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -631,7 +631,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 
@@ -693,7 +693,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 testForm.Show();
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                rows[0].Cells[locationCalculateColumnIndex].Value = true;
+                rows[0].Cells[calculateColumnIndex].Value = true;
 
                 var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
 

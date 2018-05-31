@@ -38,7 +38,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         [Test]
         [TestCase(34.1)]
         [TestCase(34.0)]
-        public void Constructor_WithOutput_ExpectedValues(double offSet)
+        public void Constructor_DuneLocationCalculationWithOutput_ExpectedValues(double offSet)
         {
             // Setup
             var duneLocation = new DuneLocation(1, "test location", new Point2D(3.3, 4.4), new DuneLocation.ConstructionProperties
@@ -82,7 +82,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithoutOutput_ExpectedValues()
+        public void Constructor_DuneLocationCalculationWithoutOutput_ExpectedValues()
         {
             // Setup
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
