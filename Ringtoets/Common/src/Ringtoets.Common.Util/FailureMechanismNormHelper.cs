@@ -55,7 +55,7 @@ namespace Ringtoets.Common.Util
         /// Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="failureMechanismContribution"/> is not in the interval [0.0, 100.0] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="n"/> is not larger than 1 or is <see cref="double.NaN"/>.</item>
+        /// <item><paramref name="n"/> is smaller than 1 or is <see cref="double.NaN"/>.</item>
         /// </list>
         /// </exception>
         public static double GetNorm(IAssessmentSection assessmentSection,
@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Util
             if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
             {
                 throw new InvalidEnumArgumentException(nameof(categoryType),
-                                                       (int)categoryType,
+                                                       (int) categoryType,
                                                        typeof(FailureMechanismCategoryType));
             }
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Common.Util
 
             if (double.IsNaN(n) || n < 1.0)
             {
-                throw new ArgumentOutOfRangeException(nameof(n), $@"The value for '{nameof(n)}' must be larger than 1.0.");
+                throw new ArgumentOutOfRangeException(nameof(n), $@"The value for '{nameof(n)}' must be 1.0 or larger.");
             }
         }
     }

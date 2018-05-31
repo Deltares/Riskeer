@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -42,8 +42,8 @@ namespace Ringtoets.Common.Util.Test
             // Call
             TestDelegate test = () => FailureMechanismNormHelper.GetNorm(null,
                                                                          FailureMechanismCategoryType.FactorizedLowerLimitNorm,
-                                                                         random.NextDouble(),
-                                                                         random.NextDouble());
+                                                                         random.NextDouble(0, 100),
+                                                                         random.NextDouble(1, 20));
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -60,8 +60,8 @@ namespace Ringtoets.Common.Util.Test
             // Call
             TestDelegate test = () => FailureMechanismNormHelper.GetNorm(new AssessmentSectionStub(),
                                                                          (FailureMechanismCategoryType) invalidValue,
-                                                                         random.NextDouble(),
-                                                                         random.NextDouble());
+                                                                         random.NextDouble(0, 100),
+                                                                         random.NextDouble(1, 20));
 
             // Assert
             string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
@@ -102,11 +102,11 @@ namespace Ringtoets.Common.Util.Test
             // Call
             TestDelegate call = () => FailureMechanismNormHelper.GetNorm(new AssessmentSectionStub(),
                                                                          random.NextEnumValue<FailureMechanismCategoryType>(),
-                                                                         random.NextDouble(1, 100),
+                                                                         random.NextDouble(0, 100),
                                                                          n);
 
             // Assert
-            const string message = "The value for 'n' must be larger than 1.0.";
+            const string message = "The value for 'n' must be 1.0 or larger.";
             string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, message).ParamName;
             Assert.AreEqual("n", paramName);
         }
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Util.Test
             Assert.AreEqual(expectedNorm, norm, 1e-5);
         }
 
-        private static IEnumerable GetNormConfigurationPerFailureMechanismCategoryType()
+        private static IEnumerable<TestCaseData> GetNormConfigurationPerFailureMechanismCategoryType()
         {
             const double signalingNorm = 0.002;
             const double lowerLimitNorm = 0.005;

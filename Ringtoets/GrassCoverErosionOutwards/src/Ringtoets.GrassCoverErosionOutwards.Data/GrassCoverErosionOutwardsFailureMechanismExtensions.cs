@@ -127,13 +127,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
-            {
-                throw new InvalidEnumArgumentException(nameof(categoryType),
-                                                       (int) categoryType,
-                                                       typeof(FailureMechanismCategoryType));
-            }
-
             return FailureMechanismNormHelper.GetNorm(assessmentSection,
                                                       categoryType,
                                                       failureMechanism.Contribution,
