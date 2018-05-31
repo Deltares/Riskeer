@@ -53,7 +53,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                                                  new RoundedDouble(), new RoundedDouble(), new RoundedDouble(), new RoundedDouble(), new RoundedDouble(),
                                                                  new RoundedDouble(), new RoundedDouble(), new RoundedDouble(), new RoundedDouble(), new RoundedDouble(),
                                                                  new RoundedDouble(), new RoundedDouble(), new RoundedDouble(), new RoundedDouble(), new RoundedDouble());
-            ;
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

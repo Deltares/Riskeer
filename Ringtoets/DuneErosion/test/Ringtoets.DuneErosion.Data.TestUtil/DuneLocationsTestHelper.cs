@@ -92,11 +92,13 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm);
-            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
+            var random = new Random(39);
+
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, random);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, random);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, random);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm, random);
+            SetDuneLocationCalculationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm, random);
         }
 
         private static bool HasDuneLocationCalculationOutput(DuneLocationCalculation calculation)
@@ -104,9 +106,8 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
             return calculation.Output != null;
         }
 
-        private static void SetDuneLocationCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
+        private static void SetDuneLocationCalculationOutput(IEnumerable<DuneLocationCalculation> calculations, Random random)
         {
-            var random = new Random(21);
             foreach (DuneLocationCalculation duneLocationCalculation in calculations)
             {
                 duneLocationCalculation.Output = new TestDuneLocationCalculationOutput(random.NextDouble(),

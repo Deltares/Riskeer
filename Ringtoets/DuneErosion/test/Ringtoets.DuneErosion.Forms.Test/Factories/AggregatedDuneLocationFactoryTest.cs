@@ -49,7 +49,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
         public void CreateAggregatedDuneLocations_DuneLocationWithOutput_ReturnsAggregatedDuneLocations()
         {
             // Setup
-            var duneLocations = new[]
+            DuneLocation[] duneLocations =
             {
                 CreateDuneLocation(20),
                 CreateDuneLocation(21)
@@ -78,33 +78,33 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
 
                 AssertDuneLocationOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
                                          expectedDuneLocation,
-                                         () => aggregatedDuneLocation.WaterLevelForMechanismSpecificFactorizedSignalingNorm,
-                                         () => aggregatedDuneLocation.WaveHeightForMechanismSpecificFactorizedSignalingNorm,
-                                         () => aggregatedDuneLocation.WavePeriodForMechanismSpecificFactorizedSignalingNorm);
+                                         aggregatedDuneLocation.WaterLevelForMechanismSpecificFactorizedSignalingNorm,
+                                         aggregatedDuneLocation.WaveHeightForMechanismSpecificFactorizedSignalingNorm,
+                                         aggregatedDuneLocation.WavePeriodForMechanismSpecificFactorizedSignalingNorm);
 
                 AssertDuneLocationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm,
                                          expectedDuneLocation,
-                                         () => aggregatedDuneLocation.WaterLevelForMechanismSpecificSignalingNorm,
-                                         () => aggregatedDuneLocation.WaveHeightForMechanismSpecificSignalingNorm,
-                                         () => aggregatedDuneLocation.WavePeriodForMechanismSpecificSignalingNorm);
+                                         aggregatedDuneLocation.WaterLevelForMechanismSpecificSignalingNorm,
+                                         aggregatedDuneLocation.WaveHeightForMechanismSpecificSignalingNorm,
+                                         aggregatedDuneLocation.WavePeriodForMechanismSpecificSignalingNorm);
 
                 AssertDuneLocationOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
                                          expectedDuneLocation,
-                                         () => aggregatedDuneLocation.WaterLevelForMechanismSpecificLowerLimitNorm,
-                                         () => aggregatedDuneLocation.WaveHeightForMechanismSpecificLowerLimitNorm,
-                                         () => aggregatedDuneLocation.WavePeriodForMechanismSpecificLowerLimitNorm);
+                                         aggregatedDuneLocation.WaterLevelForMechanismSpecificLowerLimitNorm,
+                                         aggregatedDuneLocation.WaveHeightForMechanismSpecificLowerLimitNorm,
+                                         aggregatedDuneLocation.WavePeriodForMechanismSpecificLowerLimitNorm);
 
                 AssertDuneLocationOutput(failureMechanism.CalculationsForLowerLimitNorm,
                                          expectedDuneLocation,
-                                         () => aggregatedDuneLocation.WaterLevelForLowerLimitNorm,
-                                         () => aggregatedDuneLocation.WaveHeightForLowerLimitNorm,
-                                         () => aggregatedDuneLocation.WavePeriodForLowerLimitNorm);
+                                         aggregatedDuneLocation.WaterLevelForLowerLimitNorm,
+                                         aggregatedDuneLocation.WaveHeightForLowerLimitNorm,
+                                         aggregatedDuneLocation.WavePeriodForLowerLimitNorm);
 
                 AssertDuneLocationOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm,
                                          expectedDuneLocation,
-                                         () => aggregatedDuneLocation.WaterLevelForFactorizedLowerLimitNorm,
-                                         () => aggregatedDuneLocation.WaveHeightForFactorizedLowerLimitNorm,
-                                         () => aggregatedDuneLocation.WavePeriodForFactorizedLowerLimitNorm);
+                                         aggregatedDuneLocation.WaterLevelForFactorizedLowerLimitNorm,
+                                         aggregatedDuneLocation.WaveHeightForFactorizedLowerLimitNorm,
+                                         aggregatedDuneLocation.WavePeriodForFactorizedLowerLimitNorm);
             }
         }
 
@@ -112,7 +112,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
         public void CreateAggregatedDuneLocations_DuneLocationWithoutOutput_ReturnsAggregatedDuneLocations()
         {
             // Setup
-            var duneLocations = new[]
+            DuneLocation[] duneLocations =
             {
                 CreateDuneLocation(20),
                 CreateDuneLocation(21)
@@ -173,17 +173,17 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
 
         private static void AssertDuneLocationOutput(IEnumerable<DuneLocationCalculation> calculations,
                                                      DuneLocation duneLocation,
-                                                     Func<RoundedDouble> getWaterLevelFunc,
-                                                     Func<RoundedDouble> getWaveHeightFunc,
-                                                     Func<RoundedDouble> getWavePeriodFunc)
+                                                     RoundedDouble getWaterLevelFunc,
+                                                     RoundedDouble getWaveHeightFunc,
+                                                     RoundedDouble getWavePeriodFunc)
         {
             DuneLocationCalculationOutput expectedOutput =
                 calculations.Single(calculation => ReferenceEquals(duneLocation, calculation.DuneLocation))
                             .Output;
 
-            Assert.AreEqual(expectedOutput.WaterLevel, getWaterLevelFunc());
-            Assert.AreEqual(expectedOutput.WaveHeight, getWaveHeightFunc());
-            Assert.AreEqual(expectedOutput.WavePeriod, getWavePeriodFunc());
+            Assert.AreEqual(expectedOutput.WaterLevel, getWaterLevelFunc);
+            Assert.AreEqual(expectedOutput.WaveHeight, getWaveHeightFunc);
+            Assert.AreEqual(expectedOutput.WavePeriod, getWavePeriodFunc);
         }
     }
 }

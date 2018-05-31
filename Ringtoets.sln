@@ -1950,6 +1950,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.GrassCoverErosion
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.DuneErosion.Forms.TestUtil", "Ringtoets\DuneErosion\test\Ringtoets.DuneErosion.Forms.TestUtil\Ringtoets.DuneErosion.Forms.TestUtil.csproj", "{AB95EC86-28CF-47E6-ABB0-927EBBE61445}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

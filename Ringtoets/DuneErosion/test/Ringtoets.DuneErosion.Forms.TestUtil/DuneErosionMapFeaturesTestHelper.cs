@@ -31,7 +31,7 @@ using Ringtoets.DuneErosion.Data;
 namespace Ringtoets.DuneErosion.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to test properties of a <see cref="MapFeature"/>
+    /// Class that can be used to test properties of a <see cref="MapFeature"/>.
     /// </summary>
     public static class DuneErosionMapFeaturesTestHelper
     {
@@ -40,6 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.TestUtil
         /// dune locations and calculations in <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism that contains the first part of the original data.</param>
+        /// <param name="features">The collection of <see cref="MapFeature"/> to assert.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item>the number of dune locations and features are not the same;</item>
@@ -64,8 +65,9 @@ namespace Ringtoets.DuneErosion.Forms.TestUtil
                 Assert.AreEqual(expectedDuneLocation.Id, mapFeature.MetaData["ID"]);
                 Assert.AreEqual(expectedDuneLocation.Name, mapFeature.MetaData["Naam"]);
                 Assert.AreEqual(expectedDuneLocation.CoastalAreaId, mapFeature.MetaData["Kustvaknummer"]);
-                Assert.AreEqual(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), mapFeature.MetaData["Metrering"]);
+                Assert.AreEqual(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.CurrentCulture), mapFeature.MetaData["Metrering"]);
                 Assert.AreEqual(expectedDuneLocation.Location, mapFeature.MapGeometries.First().PointCollections.First().Single());
+                MapFeaturesMetaDataTestHelper.AssertMetaData(expectedDuneLocation.D50.ToString(), mapFeature, "Rekenwaarde d50");
 
                 MapFeaturesMetaDataTestHelper.AssertMetaData(
                     GetExpectedWaterLevel(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, expectedDuneLocation),
@@ -115,7 +117,7 @@ namespace Ringtoets.DuneErosion.Forms.TestUtil
                     GetExpectedWavePeriod(failureMechanism.CalculationsForFactorizedLowerLimitNorm, expectedDuneLocation),
                     mapFeature, "Rekenwaarde Tp(Vv->VIv)");
 
-                Assert.AreEqual(19, mapFeature.MetaData.Keys.Count);
+                Assert.AreEqual(20, mapFeature.MetaData.Keys.Count);
             }
         }
 

@@ -61,7 +61,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Factories
         public void CreateDuneLocationsFeatures_WithFailureMechanism_ReturnFeatures(bool withOutput)
         {
             // Setup
-            var duneLocations = new[]
+            DuneLocation[] duneLocations =
             {
                 CreateDuneLocation(1),
                 CreateDuneLocation(2)

@@ -45,7 +45,7 @@ namespace Ringtoets.DuneErosion.Forms.Factories
         /// Create dune location features based on the provided <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to create the location features for.</param>
-        /// <returns>An array of features or an empty array when <see cref="DuneErosionFailureMechanism"/> does not contain
+        /// <returns>A collection of features or an empty collection when <see cref="DuneErosionFailureMechanism"/> does not contain
         /// any dune locations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateDuneLocationFeatures(DuneErosionFailureMechanism failureMechanism)
@@ -67,7 +67,8 @@ namespace Ringtoets.DuneErosion.Forms.Factories
             feature.MetaData[RingtoetsCommonUtilResources.MetaData_Name] = location.Name;
             feature.MetaData[Resources.MetaData_CoastalAreaId] = location.CoastalAreaId;
             feature.MetaData[Resources.MetaData_Offset] = location.Offset.ToString(RingtoetsDuneErosionDataResources.DuneLocation_Offset_format,
-                                                                                   CultureInfo.InvariantCulture);
+                                                                                   CultureInfo.CurrentCulture);
+            feature.MetaData[Resources.MetaData_D50] = location.D50.ToString();
 
             feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificFactorizedSignalingNorm] = location.WaterLevelForMechanismSpecificFactorizedSignalingNorm.ToString();
             feature.MetaData[Resources.MetaData_WaterLevelForMechanismSpecificSignalingNorm] = location.WaterLevelForMechanismSpecificSignalingNorm.ToString();
