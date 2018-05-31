@@ -831,39 +831,39 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             public string GetDuneLocationCalculationsCountValidationQuery(CalculationType calculationType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                       "SELECT  " +
+                       "SELECT " +
                        "COUNT() = 0 " +
-                       "FROM   " +
+                       "FROM " +
                        "( " +
-                       "SELECT   " +
+                       "SELECT " +
                        "[DuneErosionFailureMechanismMetaEntityId], " +
-                       "COUNT() AS NewCount,  " +
-                       "OldCount  " +
+                       "COUNT() AS NewCount, " +
+                       "OldCount " +
                        GetDuneLocationCalculationsQuery(calculationType) +
-                       "LEFT JOIN  " +
-                       "(  " +
-                       "SELECT   " +
+                       "LEFT JOIN " +
+                       "( " +
+                       "SELECT " +
                        "[DuneErosionFailureMechanismMetaEntityId], " +
                        "COUNT() as OldCount " +
                        "FROM [SourceProject].DuneErosionFailureMechanismMetaEntity  " +
                        "JOIN [SourceProject].DuneLocationEntity USING(FailureMechanismEntityId) " +
-                       "GROUP BY DuneErosionFailureMechanismMetaEntityId  " +
-                       ") USING(DuneErosionFailureMechanismMetaEntityId)  " +
-                       "GROUP BY DuneErosionFailureMechanismMetaEntityId  " +
-                       "UNION  " +
-                       "SELECT   " +
-                       "[DuneErosionFailureMechanismMetaEntityId],  " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
+                       ") USING(DuneErosionFailureMechanismMetaEntityId) " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
+                       "UNION " +
+                       "SELECT " +
+                       "[DuneErosionFailureMechanismMetaEntityId], " +
                        "NewCount, " +
                        "COUNT() AS OldCount " +
                        "FROM [SourceProject].DuneErosionFailureMechanismMetaEntity " +
                        "JOIN [SourceProject].DuneLocationEntity USING(FailureMechanismEntityId) " +
-                       "LEFT JOIN  " +
-                       "(  " +
+                       "LEFT JOIN " +
+                       "( " +
                        "SELECT " +
                        "[DuneErosionFailureMechanismMetaEntityId],  " +
                        "COUNT() as NewCount " +
                        GetDuneLocationCalculationsQuery(calculationType) +
-                       "GROUP BY DuneErosionFailureMechanismMetaEntityId  " +
+                       "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
                        ") USING(DuneErosionFailureMechanismMetaEntityId) " +
                        "GROUP BY DuneErosionFailureMechanismMetaEntityId " +
                        ") " +
@@ -1857,7 +1857,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                        GetHydraulicLocationCalculationsFromFailureMechanismQuery(calculationType) +
                        "LEFT JOIN  " +
                        "( " +
-                       "SELECT   " +
+                       "SELECT " +
                        "[FailureMechanismEntityId], " +
                        "COUNT(distinct GrassCoverErosionOutwardsHydraulicLocationEntityId) AS OldCount " +
                        "FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity " +
