@@ -40,6 +40,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class DuneLocationCalculationsGroupContextTreeNodeInfoTest
     {
+        private const double failureMechanismSpecificNormFactor = 2.15;
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -148,7 +150,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             const double signalingNorm = 0.002;
             const double lowerLimitNorm = 0.005;
-            const double failureMechanismSpecificNormFactor = 2.15;
 
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
@@ -231,7 +232,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
         private static double GetExpectedNorm(DuneErosionFailureMechanism failureMechanism, double norm)
         {
-            return 2.15 * norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
+            return failureMechanismSpecificNormFactor * norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
         }
 
         private static TreeNodeInfo GetInfo(DuneErosionPlugin plugin)

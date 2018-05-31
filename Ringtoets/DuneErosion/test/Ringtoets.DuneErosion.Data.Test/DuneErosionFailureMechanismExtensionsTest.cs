@@ -34,6 +34,8 @@ namespace Ringtoets.DuneErosion.Data.Test
     [TestFixture]
     public class DuneErosionFailureMechanismExtensionsTest
     {
+        private const double failureMechanismSpecificNormFactor = 2.15;
+
         [Test]
         public void GetNorm_FailureMechanismNull_ThrowArgumentNullException()
         {
@@ -106,7 +108,6 @@ namespace Ringtoets.DuneErosion.Data.Test
 
         private static IEnumerable<TestCaseData> GetNormConfigurationPerFailureMechanismCategoryType()
         {
-            const double failureMechanismSpecificNormFactor = 2.15;
             const double signalingNorm = 0.002;
             const double lowerLimitNorm = 0.005;
 
@@ -163,7 +164,7 @@ namespace Ringtoets.DuneErosion.Data.Test
         private static double GetMechanismSpecificNorm(DuneErosionFailureMechanism failureMechanism,
                                                        double norm)
         {
-            return 2.15 * norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
+            return failureMechanismSpecificNormFactor * norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
         }
     }
 }

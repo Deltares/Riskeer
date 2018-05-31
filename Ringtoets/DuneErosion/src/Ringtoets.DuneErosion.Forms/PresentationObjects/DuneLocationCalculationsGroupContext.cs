@@ -36,7 +36,7 @@ namespace Ringtoets.DuneErosion.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsGroupContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The calculations the context belongs to.</param>
+        /// <param name="wrappedData">The calculations wrapped by the context.</param>
         /// <param name="failureMechanism">The failure mechanism the context belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

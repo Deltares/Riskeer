@@ -106,7 +106,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             this.CalculateForSelectedButtonErrorProvider.Icon = Common.Forms.Properties.Resources.warning;
             this.CalculateForSelectedButtonErrorProvider.SetIconPadding(CalculateForSelectedButton, 2);
             // 
-            // LocationsView
+            // DuneLocationCalculationsViewBase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;

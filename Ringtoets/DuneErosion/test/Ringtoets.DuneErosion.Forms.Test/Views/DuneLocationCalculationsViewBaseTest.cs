@@ -56,7 +56,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void DefaultConstructor_DefaultValues()
         {
             // Call
-            using (var view = new TestLocationCalculationsView())
+            using (var view = new TestDuneLocationCalculationsView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -71,7 +71,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Constructor_CalculateAllButtonCorrectlyInitialized()
         {
             // Setup & Call
-            TestLocationCalculationsView view = ShowTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowTestCalculatableView();
 
             // Assert
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -82,7 +82,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void OnLoad_DataGridViewCorrectlyInitialized()
         {
             // Setup & Call
-            TestLocationCalculationsView view = ShowTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowTestCalculatableView();
 
             // Assert
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -100,7 +100,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenSelectingCellInRow_ThenSelectionChangedFired()
         {
             // Given
-            TestLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var createdSelection = new object();
             view.CreateForSelection = createdSelection;
@@ -122,7 +122,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void Selection_Always_ReturnsCreatedSelectionObject()
         {
             // Setup
-            TestLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var createdSelection = new object();
             view.CreateForSelection = createdSelection;
@@ -138,7 +138,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void SelectAllButton_SelectAllButtonClicked_AllCalculatableItemsSelected()
         {
             // Setup
-            TestLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -160,7 +160,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void DeselectAllButton_AllCalculatableItemsSelectedDeselectAllButtonClicked_AllCalculatableItemsNotSelected()
         {
             // Setup
-            TestLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
             var button = new ButtonTester("DeselectAllButton", testForm);
@@ -187,7 +187,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenNoRowsSelected_ThenCalculateForSelectedButtonDisabledAndErrorMessageProvided()
         {
             // Given & When
-            TestLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
@@ -200,7 +200,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void GivenFullyConfiguredView_WhenRowsSelected_ThenCalculateForSelectedButtonEnabledAndNoErrorMessageProvided()
         {
             // Given
-            TestLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
             // When
@@ -217,7 +217,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_OneSelected_CallsCalculateHandleCalculateSelectedObjects()
         {
             // Setup
-            TestLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowFullyConfiguredTestCalculatableView();
 
             var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
 
@@ -235,18 +235,18 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual(expectedObject, view.ObjectsToCalculate.First());
         }
 
-        private TestLocationCalculationsView ShowTestCalculatableView()
+        private TestDuneLocationCalculationsView ShowTestCalculatableView()
         {
-            var view = new TestLocationCalculationsView();
+            var view = new TestDuneLocationCalculationsView();
 
             testForm.Controls.Add(view);
             testForm.Show();
             return view;
         }
 
-        private TestLocationCalculationsView ShowFullyConfiguredTestCalculatableView()
+        private TestDuneLocationCalculationsView ShowFullyConfiguredTestCalculatableView()
         {
-            TestLocationCalculationsView view = ShowTestCalculatableView();
+            TestDuneLocationCalculationsView view = ShowTestCalculatableView();
             view.Data = new[]
             {
                 new TestCalculatableObject(),
@@ -269,11 +269,11 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             public bool IsChecked { get; }
         }
 
-        private class TestLocationCalculationsView : DuneLocationCalculationsViewBase
+        private class TestDuneLocationCalculationsView : DuneLocationCalculationsViewBase
         {
             private IEnumerable<TestCalculatableObject> data;
 
-            public TestLocationCalculationsView()
+            public TestDuneLocationCalculationsView()
             {
                 ObjectsToCalculate = new List<DuneLocationCalculation>();
             }
