@@ -60,8 +60,6 @@ namespace Ringtoets.DuneErosion.Data
             Offset = new RoundedDouble(1, properties.Offset);
             Orientation = new RoundedDouble(1, properties.Orientation);
             D50 = new RoundedDouble(6, properties.D50);
-
-            Calculation = new DuneLocationCalculation(this);
         }
 
         /// <summary>
@@ -98,11 +96,6 @@ namespace Ringtoets.DuneErosion.Data
         /// Gets the d50 of the dune location.
         /// </summary>
         public RoundedDouble D50 { get; }
-
-        /// <summary>
-        /// Gets the dune location calculation.
-        /// </summary>
-        public DuneLocationCalculation Calculation { get; }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="DuneLocation"/>.
