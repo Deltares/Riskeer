@@ -253,13 +253,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
-            var duneLocation1 = new TestDuneLocation
-            {
-                Calculation =
-                {
-                    Output = new TestDuneLocationCalculationOutput()
-                }
-            };
+            var duneLocation1 = new TestDuneLocation();
             var duneLocation2 = new TestDuneLocation();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -397,7 +391,6 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsFalse(grassHydraulicBoundaryLocationCalculation5.HasOutput);
             Assert.IsFalse(grassHydraulicBoundaryLocationCalculation6.HasOutput);
 
-            Assert.IsNull(duneLocation1.Calculation.Output);
             Assert.IsNull(duneLocationCalculation1.Output);
             Assert.IsNull(duneLocationCalculation2.Output);
             Assert.IsNull(duneLocationCalculation3.Output);
@@ -1702,19 +1695,10 @@ namespace Ringtoets.Integration.Service.Test
 
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism, bool hasOutput)
         {
-            var duneLocation = new TestDuneLocation
+            failureMechanism.SetDuneLocations(new[]
             {
-                Calculation =
-                {
-                    Output = hasOutput ? new TestDuneLocationCalculationOutput() : null
-                }
-            };
-
-            var duneLocations = new[]
-            {
-                duneLocation
-            };
-            failureMechanism.SetDuneLocations(duneLocations);
+                new TestDuneLocation()
+            });
 
             if (hasOutput)
             {

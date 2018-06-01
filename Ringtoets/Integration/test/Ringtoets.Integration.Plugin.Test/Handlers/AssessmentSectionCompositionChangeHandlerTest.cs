@@ -196,9 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();
 
-            DuneLocationCalculation[] duneLocationCalculationsWithOutput = assessmentSection.DuneErosion.DuneLocations.Select(loc => loc.Calculation)
-                                                                                            .Where(calc => calc.Output != null)
-                                                                                            .Concat(assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneLocationCalculationOutput))
+            DuneLocationCalculation[] duneLocationCalculationsWithOutput = assessmentSection.DuneErosion.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneLocationCalculationOutput)
                                                                                             .Concat(assessmentSection.DuneErosion.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneLocationCalculationOutput))
                                                                                             .Concat(assessmentSection.DuneErosion.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
                                                                                             .Concat(assessmentSection.DuneErosion.CalculationsForLowerLimitNorm.Where(HasDuneLocationCalculationOutput))

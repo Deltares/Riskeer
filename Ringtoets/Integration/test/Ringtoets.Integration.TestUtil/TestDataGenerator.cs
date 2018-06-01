@@ -1029,17 +1029,10 @@ namespace Ringtoets.Integration.TestUtil
 
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
-            var duneLocations = new[]
+            failureMechanism.SetDuneLocations(new[]
             {
-                new TestDuneLocation
-                {
-                    Calculation =
-                    {
-                        Output = new TestDuneLocationCalculationOutput()
-                    }
-                },
-            };
-            failureMechanism.SetDuneLocations(duneLocations);
+                new TestDuneLocation()
+            });
 
             failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();
             failureMechanism.CalculationsForMechanismSpecificSignalingNorm.First().Output = new TestDuneLocationCalculationOutput();

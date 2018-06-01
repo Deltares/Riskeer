@@ -680,8 +680,6 @@ namespace Ringtoets.Integration.TestUtil.Test
 
             if (hasOutput)
             {
-                Assert.True(failureMechanism.DuneLocations.All(dl => dl.Calculation.Output != null));
-
                 Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output != null));
                 Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output != null));
                 Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output != null));
@@ -690,8 +688,6 @@ namespace Ringtoets.Integration.TestUtil.Test
             }
             else
             {
-                Assert.True(failureMechanism.DuneLocations.All(dl => dl.Calculation.Output == null));
-
                 Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
                 Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
                 Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
