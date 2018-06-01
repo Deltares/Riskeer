@@ -1072,12 +1072,12 @@ namespace Ringtoets.Integration.TestUtil
             var endPoint = new Point2D(15, 15);
             double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
             double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
-            
+
             for (var i = 1; i <= numberOfSections; i++)
             {
                 endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
-                failureMechanism.AddSection(new FailureMechanismSection(i.ToString(), 
-                                                                        new []
+                failureMechanism.AddSection(new FailureMechanismSection(i.ToString(),
+                                                                        new[]
                                                                         {
                                                                             startPoint,
                                                                             endPoint

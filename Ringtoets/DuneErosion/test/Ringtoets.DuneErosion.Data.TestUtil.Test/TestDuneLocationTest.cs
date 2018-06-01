@@ -40,8 +40,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             Assert.AreEqual(0, testLocation.Orientation.Value);
             Assert.AreEqual(0, testLocation.CoastalAreaId);
             Assert.AreEqual(0, testLocation.D50.Value);
-
-            Assert.IsNull(testLocation.Calculation.Output);
         }
 
         [Test]
@@ -61,8 +59,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil.Test
             Assert.AreEqual(0, testLocation.Orientation.Value);
             Assert.AreEqual(0, testLocation.CoastalAreaId);
             Assert.AreEqual(0, testLocation.D50.Value);
-
-            Assert.IsNull(testLocation.Calculation.Output);
         }
     }
 }

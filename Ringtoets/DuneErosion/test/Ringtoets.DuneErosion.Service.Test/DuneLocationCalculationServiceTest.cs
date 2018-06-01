@@ -385,7 +385,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
-                Assert.IsNull(duneLocation.Calculation.Output);
+                Assert.IsNull(duneLocationCalculation.Output);
             }
 
             mockRepository.VerifyAll();
@@ -444,7 +444,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
-                Assert.IsNull(duneLocation.Calculation.Output);
+                Assert.IsNull(duneLocationCalculation.Output);
             }
 
             mockRepository.VerifyAll();
@@ -506,7 +506,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
                     });
                 Assert.IsTrue(exceptionThrown);
-                Assert.IsNull(duneLocation.Calculation.Output);
+                Assert.IsNull(duneLocationCalculation.Output);
                 Assert.AreEqual(calculator.LastErrorFileContent, exceptionMessage);
             }
 

@@ -362,7 +362,6 @@ namespace Ringtoets.Integration.Service.Test
                 grassHydraulicBoundaryLocationCalculation4,
                 grassHydraulicBoundaryLocationCalculation5,
                 grassHydraulicBoundaryLocationCalculation6,
-                duneLocation1,
                 duneLocationCalculation1,
                 duneLocationCalculation2,
                 duneLocationCalculation3,

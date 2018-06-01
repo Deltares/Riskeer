@@ -400,7 +400,7 @@ namespace Ringtoets.Integration.TestUtil.Test
             for (var i = 1; i <= sectionsCount; i++)
             {
                 endPoint = new Point2D(startPoint.X + endPointStepsX, startPoint.Y + endPointStepsY);
-                FailureMechanismSection currentSection = sections.ElementAt(i-1);
+                FailureMechanismSection currentSection = sections.ElementAt(i - 1);
                 Assert.AreEqual(currentSection.StartPoint, startPoint);
                 Assert.AreEqual(currentSection.EndPoint, endPoint);
 
@@ -413,6 +413,32 @@ namespace Ringtoets.Integration.TestUtil.Test
                 Assert.AreEqual(sections.Count(), failureMechanismHasSectionResults.SectionResults.Count());
             }
         }
+
+        #region Dune Erosion
+
+        private static void AssertDuneLocationCalculationOutput(DuneErosionFailureMechanism failureMechanism, bool hasOutput)
+        {
+            CollectionAssert.IsNotEmpty(failureMechanism.DuneLocations);
+
+            if (hasOutput)
+            {
+                Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output != null));
+                Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output != null));
+                Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output != null));
+                Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output != null));
+                Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output != null));
+            }
+            else
+            {
+                Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
+                Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
+                Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
+                Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
+                Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
+            }
+        }
+
+        #endregion
 
         #region Grass Cover Erosion Inwards
 
@@ -668,32 +694,6 @@ namespace Ringtoets.Integration.TestUtil.Test
         private static void AssertHasForeshoreProfiles(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             CollectionAssert.IsNotEmpty(failureMechanism.ForeshoreProfiles);
-        }
-
-        #endregion
-
-        #region Dune Erosion
-
-        private static void AssertDuneLocationCalculationOutput(DuneErosionFailureMechanism failureMechanism, bool hasOutput)
-        {
-            CollectionAssert.IsNotEmpty(failureMechanism.DuneLocations);
-
-            if (hasOutput)
-            {
-                Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output != null));
-                Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output != null));
-                Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output != null));
-                Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output != null));
-                Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output != null));
-            }
-            else
-            {
-                Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => calc.Output == null));
-                Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => calc.Output == null));
-                Assert.True(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.All(calc => calc.Output == null));
-                Assert.True(failureMechanism.CalculationsForLowerLimitNorm.All(calc => calc.Output == null));
-                Assert.True(failureMechanism.CalculationsForFactorizedLowerLimitNorm.All(calc => calc.Output == null));
-            }
         }
 
         #endregion
