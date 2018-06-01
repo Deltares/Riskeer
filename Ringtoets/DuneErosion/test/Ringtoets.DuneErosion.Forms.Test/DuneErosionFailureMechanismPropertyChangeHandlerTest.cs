@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
@@ -86,60 +85,6 @@ namespace Ringtoets.DuneErosion.Forms.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(ChangePropertyTestCases))]
-        public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_MessageDialogShownSetValueCalledAffectedObjectsReturned(ChangePropertyTestCase testCase)
-        {
-            // Setup
-            bool dialogBoxWillBeShown = testCase.ExpectedAffectedLocations.Any();
-
-            var title = "";
-            var message = "";
-            if (dialogBoxWillBeShown)
-            {
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var tester = new MessageBoxTester(wnd);
-                    title = tester.Title;
-                    message = tester.Text;
-
-                    tester.ClickOk();
-                };
-            }
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(testCase.Locations);
-
-            var propertySet = 0;
-
-            var changeHandler = new DuneErosionFailureMechanismPropertyChangeHandler();
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = changeHandler.SetPropertyValueAfterConfirmation(
-                failureMechanism,
-                3,
-                (f, v) => propertySet++);
-
-            // Assert
-            if (dialogBoxWillBeShown)
-            {
-                Assert.AreEqual("Bevestigen", title);
-                string expectedMessage = "Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties in dit toetsspoor verwijderd worden." + Environment.NewLine +
-                                         Environment.NewLine +
-                                         "Weet u zeker dat u wilt doorgaan?";
-                Assert.AreEqual(expectedMessage, message);
-            }
-
-            Assert.AreEqual(1, propertySet);
-            var expectedAffectedObjects = new List<IObservable>(new[]
-            {
-                failureMechanism
-            });
-            expectedAffectedObjects.AddRange(testCase.ExpectedAffectedLocations);
-
-            CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
-        }
-
-        [Test]
         [TestCaseSource(nameof(ChangePropertyFailureMechanismTestCases))]
         public void SetPropertyValueAfterConfirmation_IfConfirmationRequiredThenGiven_MessageDialogShownSetValueCalledAffectedObjectsReturned(ChangePropertyFailureMechanismTestCase testCase)
         {
@@ -202,11 +147,8 @@ namespace Ringtoets.DuneErosion.Forms.Test
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
-            {
-                CreateDuneLocationWithoutOutput(),
-                CreateDuneLocationWithOutput()
-            });
+            ConfigureFailureMechanismWithOneDuneLocation(failureMechanism);
+            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
 
             var propertySet = 0;
 
@@ -221,18 +163,6 @@ namespace Ringtoets.DuneErosion.Forms.Test
             // Assert
             Assert.AreEqual(0, propertySet);
             CollectionAssert.IsEmpty(affectedObjects);
-        }
-
-        public class ChangePropertyTestCase
-        {
-            public ChangePropertyTestCase(ICollection<DuneLocation> locations)
-            {
-                Locations = locations;
-                ExpectedAffectedLocations = locations.Where(c => c.Calculation.Output != null).ToArray();
-            }
-
-            public ICollection<DuneLocation> Locations { get; }
-            public ICollection<IObservable> ExpectedAffectedLocations { get; }
         }
 
         public class ChangePropertyFailureMechanismTestCase
@@ -312,86 +242,15 @@ namespace Ringtoets.DuneErosion.Forms.Test
 
         private static void ConfigureFailureMechanismWithOneDuneLocation(DuneErosionFailureMechanism failureMechanism)
         {
-            var duneLocations = new[]
+            failureMechanism.SetDuneLocations(new[]
             {
                 new TestDuneLocation()
-            };
-            failureMechanism.SetDuneLocations(duneLocations);
+            });
         }
 
         private static void SetCalculationOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
             calculations.First().Output = new TestDuneLocationCalculationOutput();
-        }
-
-        private static IEnumerable ChangePropertyTestCases()
-        {
-            yield return new TestCaseData(
-                new ChangePropertyTestCase(new TestDuneLocation[0])
-            ).SetName("SetPropertyValueAfterConfirmation No locations");
-
-            yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateDuneLocationWithoutOutput()
-                })
-            ).SetName("SetPropertyValueAfterConfirmation Single location without output");
-
-            yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateDuneLocationWithOutput()
-                })
-            ).SetName("SetPropertyValueAfterConfirmation Single location with output");
-
-            yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateDuneLocationWithoutOutput(),
-                    CreateDuneLocationWithoutOutput()
-                })
-            ).SetName("SetPropertyValueAfterConfirmation Two locations without output");
-
-            yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateDuneLocationWithOutput(),
-                    CreateDuneLocationWithoutOutput()
-                })
-            ).SetName("SetPropertyValueAfterConfirmation Location with and location without output");
-
-            yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateDuneLocationWithOutput(),
-                    CreateDuneLocationWithOutput()
-                })
-            ).SetName("SetPropertyValueAfterConfirmation Two locations with output");
-
-            yield return new TestCaseData(
-                new ChangePropertyTestCase(new[]
-                {
-                    CreateDuneLocationWithOutput(),
-                    CreateDuneLocationWithoutOutput(),
-                    CreateDuneLocationWithOutput()
-                })
-            ).SetName("SetPropertyValueAfterConfirmation Two locations with and one location without output");
-        }
-
-        private static DuneLocation CreateDuneLocationWithoutOutput()
-        {
-            return new TestDuneLocation();
-        }
-
-        private static DuneLocation CreateDuneLocationWithOutput()
-        {
-            return new TestDuneLocation
-            {
-                Calculation =
-                {
-                    Output = new TestDuneLocationCalculationOutput()
-                }
-            };
         }
     }
 }
