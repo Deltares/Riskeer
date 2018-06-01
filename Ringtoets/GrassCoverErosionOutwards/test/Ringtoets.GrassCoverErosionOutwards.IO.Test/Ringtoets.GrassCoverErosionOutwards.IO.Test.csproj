@@ -19,7 +19,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationGrassCoverErosionOutwardsCategoryTypeTest.cs" />
-    <Compile Include="Configurations\Converters\ConfigurationFailureMechanismCategoryTypeConverterTest.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationGrassCoverErosionOutwardsCategoryTypeConverterTest.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationWriterTest.cs" />

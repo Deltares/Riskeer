@@ -31,13 +31,13 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
 {
     [TestFixture]
-    public class ConfigurationFailureMechanismCategoryTypeConverterTest
+    public class ConfigurationGrassCoverErosionOutwardsCategoryTypeConverterTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Assert
             Assert.IsInstanceOf<TypeConverter>(converter);
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void CanConvertTo_String_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             bool canConvertTo = converter.CanConvertTo(typeof(string));
@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void CanConvertTo_FailureMechanismCategoryType_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             bool canConvertTo = converter.CanConvertTo(typeof(FailureMechanismCategoryType));
@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void CanConvertTo_OtherType_ReturnFalse()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             bool canConvertTo = converter.CanConvertTo(typeof(object));
@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             ConfigurationGrassCoverErosionOutwardsCategoryType value, string expectedText)
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             object convertTo = converter.ConvertTo(null, CultureInfo.CurrentCulture, value, typeof(string));
@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             ConfigurationGrassCoverErosionOutwardsCategoryType originalValue, FailureMechanismCategoryType expectedResult)
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             object categoryType = converter.ConvertTo(null, CultureInfo.CurrentCulture, originalValue, typeof(FailureMechanismCategoryType));
@@ -127,7 +127,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         {
             // Setup
             const ConfigurationGrassCoverErosionOutwardsCategoryType invalidValue = (ConfigurationGrassCoverErosionOutwardsCategoryType) 99;
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void CanConvertFrom_String_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             bool canConvertFrom = converter.CanConvertFrom(typeof(string));
@@ -154,7 +154,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void CanConvertFrom_FailureMechanismCategoryType_ReturnTrue()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             bool canConvertFrom = converter.CanConvertFrom(typeof(FailureMechanismCategoryType));
@@ -167,7 +167,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void CanConvertFrom_OtherType_ReturnFalse()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             bool canConvertFrom = converter.CanConvertFrom(typeof(object));
@@ -186,7 +186,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             string value, ConfigurationGrassCoverErosionOutwardsCategoryType expectedResult)
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             object convertFrom = converter.ConvertFrom(value);
@@ -199,7 +199,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void ConvertFrom_InvalidText_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom("1x");
@@ -218,7 +218,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
             FailureMechanismCategoryType originalValue, ConfigurationGrassCoverErosionOutwardsCategoryType expectedResult)
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             object categoryType = converter.ConvertFrom(originalValue);
@@ -232,7 +232,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         {
             // Setup
             const FailureMechanismCategoryType invalidValue = (FailureMechanismCategoryType) 99;
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(invalidValue);
@@ -246,7 +246,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void ConvertFrom_Null_ThrowNotSupportedException()
         {
             // Setup
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertFrom(null);

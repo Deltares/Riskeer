@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
                 return;
             }
 
-            var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
+            var converter = new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter();
             writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType,
                                       converter.ConvertToInvariantString(configuration.CategoryType.Value));
         }

@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
     /// Converts <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/> to <see cref="string"/>
     /// or <see cref="FailureMechanismCategoryType"/> and back.
     /// </summary>
-    public class ConfigurationFailureMechanismCategoryTypeConverter : TypeConverter
+    public class ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter : TypeConverter
     {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
