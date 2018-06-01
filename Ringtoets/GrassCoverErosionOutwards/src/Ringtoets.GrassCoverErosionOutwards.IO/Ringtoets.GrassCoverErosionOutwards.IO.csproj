@@ -16,7 +16,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\ConfigurationFailureMechanismCategoryType.cs" />
+    <Compile Include="Configurations\ConfigurationGrassCoverErosionOutwardsCategoryType.cs" />
     <Compile Include="Configurations\Converters\ConfigurationFailureMechanismCategoryTypeConverter.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfiguration.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter.cs" />

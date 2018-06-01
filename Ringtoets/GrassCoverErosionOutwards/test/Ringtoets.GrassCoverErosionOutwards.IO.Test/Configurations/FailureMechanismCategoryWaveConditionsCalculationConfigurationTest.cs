@@ -49,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
         {
             // Setup
             const string calculationName = "Name of the calculation";
-            var categoryType = new Random(21).NextEnumValue<ConfigurationFailureMechanismCategoryType>();
+            var categoryType = new Random(21).NextEnumValue<ConfigurationGrassCoverErosionOutwardsCategoryType>();
 
             // Call
             var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration(calculationName)

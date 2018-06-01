@@ -22,9 +22,10 @@
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary> 
-    /// Enum defining the possible failure mechanism category type value in a read wave conditions calculation. 
+    /// Enum defining the possible grass cover erosion outwards category type
+    /// value in a read wave conditions calculation. 
     /// </summary> 
-    public enum ConfigurationFailureMechanismCategoryType
+    public enum ConfigurationGrassCoverErosionOutwardsCategoryType
     {
         /// <summary>
         /// The mechanism specific factorized signaling norm.

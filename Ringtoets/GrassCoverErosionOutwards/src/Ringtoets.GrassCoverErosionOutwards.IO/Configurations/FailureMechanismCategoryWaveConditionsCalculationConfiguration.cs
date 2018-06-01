@@ -26,7 +26,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Class that represents a wave conditions calculation configuration
-    /// containing <see cref="ConfigurationFailureMechanismCategoryType"/>.
+    /// containing <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/>.
     /// </summary>
     public class FailureMechanismCategoryWaveConditionsCalculationConfiguration : WaveConditionsCalculationConfiguration
     {
@@ -41,6 +41,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         /// <summary>
         /// Gets or sets the category type.
         /// </summary>
-        public ConfigurationFailureMechanismCategoryType? CategoryType { get; set; }
+        public ConfigurationGrassCoverErosionOutwardsCategoryType? CategoryType { get; set; }
     }
 }

@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             var calculation = new FailureMechanismCategoryWaveConditionsCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
-                CategoryType = ConfigurationFailureMechanismCategoryType.LowerLimitNorm,
+                CategoryType = ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm,
                 UpperBoundaryRevetment = (RoundedDouble) 1.5,
                 LowerBoundaryRevetment = (RoundedDouble) 0.5,
                 UpperBoundaryWaterLevels = (RoundedDouble) 1.4,
@@ -131,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             // Setup
             var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration("fail")
             {
-                CategoryType = (ConfigurationFailureMechanismCategoryType?) 99
+                CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) 99
             };
 
             var writer = new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter("valid");

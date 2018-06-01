@@ -27,28 +27,28 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
-    public class ConfigurationFailureMechanismCategoryTypeTest : EnumValuesTestFixture<ConfigurationFailureMechanismCategoryType, int>
+    public class ConfigurationGrassCoverErosionOutwardsCategoryTypeTest : EnumValuesTestFixture<ConfigurationGrassCoverErosionOutwardsCategoryType, int>
     {
-        protected override IDictionary<ConfigurationFailureMechanismCategoryType, int> ExpectedValueForEnumValues
+        protected override IDictionary<ConfigurationGrassCoverErosionOutwardsCategoryType, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<ConfigurationFailureMechanismCategoryType, int>
+                return new Dictionary<ConfigurationGrassCoverErosionOutwardsCategoryType, int>
                 {
                     {
-                        ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, 1
+                        ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm, 1
                     },
                     {
-                        ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm, 2
+                        ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm, 2
                     },
                     {
-                        ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, 3
+                        ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, 3
                     },
                     {
-                        ConfigurationFailureMechanismCategoryType.LowerLimitNorm, 4
+                        ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm, 4
                     },
                     {
-                        ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm, 5
+                        ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm, 5
                     }
                 };
             }

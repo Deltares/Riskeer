@@ -56,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         {
             var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);
-            configuration.CategoryType = (ConfigurationFailureMechanismCategoryType?) new ConfigurationFailureMechanismCategoryTypeConverter()
+            configuration.CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) new ConfigurationFailureMechanismCategoryTypeConverter()
                 .ConvertFrom(calculation.InputParameters.CategoryType);
             return configuration;
         }

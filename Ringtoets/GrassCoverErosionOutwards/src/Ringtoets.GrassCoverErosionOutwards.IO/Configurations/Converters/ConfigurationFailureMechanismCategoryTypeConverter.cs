@@ -28,7 +28,7 @@ using Ringtoets.GrassCoverErosionOutwards.IO.Properties;
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
 {
     /// <summary>
-    /// Converts <see cref="Ringtoets.GrassCoverErosionOutwards.IO.Configurations.ConfigurationFailureMechanismCategoryType"/> to <see cref="string"/>
+    /// Converts <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/> to <see cref="string"/>
     /// or <see cref="FailureMechanismCategoryType"/> and back.
     /// </summary>
     public class ConfigurationFailureMechanismCategoryTypeConverter : TypeConverter
@@ -41,30 +41,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
 
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
-        /// contains an invalid value of <see cref="Ringtoets.GrassCoverErosionOutwards.IO.Configurations.ConfigurationFailureMechanismCategoryType"/>.</exception>
+        /// contains an invalid value of <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            var categoryType = (ConfigurationFailureMechanismCategoryType) value;
-            if (!Enum.IsDefined(typeof(ConfigurationFailureMechanismCategoryType), categoryType))
+            var categoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType) value;
+            if (!Enum.IsDefined(typeof(ConfigurationGrassCoverErosionOutwardsCategoryType), categoryType))
             {
                 throw new InvalidEnumArgumentException(nameof(value),
                                                        (int) categoryType,
-                                                       typeof(ConfigurationFailureMechanismCategoryType));
+                                                       typeof(ConfigurationGrassCoverErosionOutwardsCategoryType));
             }
 
             if (destinationType == typeof(FailureMechanismCategoryType))
             {
                 switch (categoryType)
                 {
-                    case ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm:
                         return FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm;
-                    case ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm:
                         return FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
-                    case ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm:
                         return FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
-                    case ConfigurationFailureMechanismCategoryType.LowerLimitNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm:
                         return FailureMechanismCategoryType.LowerLimitNorm;
-                    case ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm:
                         return FailureMechanismCategoryType.FactorizedLowerLimitNorm;
                     default:
                         throw new NotSupportedException();
@@ -75,15 +75,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
             {
                 switch (categoryType)
                 {
-                    case ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm:
                         return Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName;
-                    case ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm:
                         return Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName;
-                    case ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm:
                         return Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName;
-                    case ConfigurationFailureMechanismCategoryType.LowerLimitNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm:
                         return Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName;
-                    case ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm:
+                    case ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm:
                         return Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName;
                     default:
                         throw new NotSupportedException();
@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
 
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
-        /// contains an invalid value of <see cref="Ringtoets.GrassCoverErosionOutwards.IO.Configurations.ConfigurationFailureMechanismCategoryType"/>.</exception>
+        /// contains an invalid value of <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is FailureMechanismCategoryType)
@@ -118,15 +118,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
                 switch (categoryType)
                 {
                     case FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
-                        return ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm;
+                        return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm;
                     case FailureMechanismCategoryType.MechanismSpecificSignalingNorm:
-                        return ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                        return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm;
                     case FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
-                        return ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                        return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm;
                     case FailureMechanismCategoryType.LowerLimitNorm:
-                        return ConfigurationFailureMechanismCategoryType.LowerLimitNorm;
+                        return ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm;
                     case FailureMechanismCategoryType.FactorizedLowerLimitNorm:
-                        return ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm;
+                        return ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm;
                     default:
                         throw new NotSupportedException();
                 }
@@ -137,27 +137,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
             {
                 if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)
                 {
-                    return ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm;
+                    return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm;
                 }
 
                 if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)
                 {
-                    return ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                    return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm;
                 }
 
                 if (stringValue == Resources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)
                 {
-                    return ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                    return ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm;
                 }
 
                 if (stringValue == Resources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)
                 {
-                    return ConfigurationFailureMechanismCategoryType.LowerLimitNorm;
+                    return ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm;
                 }
 
                 if (stringValue == Resources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
                 {
-                    return ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm;
+                    return ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm;
                 }
             }
 

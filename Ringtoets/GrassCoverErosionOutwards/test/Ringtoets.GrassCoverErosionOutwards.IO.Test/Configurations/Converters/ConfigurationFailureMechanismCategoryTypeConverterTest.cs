@@ -83,13 +83,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, "Iv-IIv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm, "IIv-IIIv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, "IIIv-IVv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.LowerLimitNorm, "IVv-Vv")]
-        [TestCase(ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm, "Vv-VIv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm, "Iv-IIv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm, "IIv-IIIv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, "IIIv-IVv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm, "IVv-Vv")]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm, "Vv-VIv")]
         public void ConvertTo_ValidConfigurationFailureMechanismCategoryType_ReturnExpectedText(
-            ConfigurationFailureMechanismCategoryType value, string expectedText)
+            ConfigurationGrassCoverErosionOutwardsCategoryType value, string expectedText)
         {
             // Setup
             var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
@@ -102,13 +102,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm)]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        [TestCase(ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase(ConfigurationFailureMechanismCategoryType.LowerLimitNorm, FailureMechanismCategoryType.LowerLimitNorm)]
-        [TestCase(ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm, FailureMechanismCategoryType.FactorizedLowerLimitNorm)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm, FailureMechanismCategoryType.LowerLimitNorm)]
+        [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm, FailureMechanismCategoryType.FactorizedLowerLimitNorm)]
         public void ConvertTo_ValidConfigurationFailureMechanismCategoryType_ReturnFailureMechanismCategoryType(
-            ConfigurationFailureMechanismCategoryType originalValue, FailureMechanismCategoryType expectedResult)
+            ConfigurationGrassCoverErosionOutwardsCategoryType originalValue, FailureMechanismCategoryType expectedResult)
         {
             // Setup
             var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
@@ -126,14 +126,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         public void ConvertTo_InvalidConfigurationFailureMechanismCategoryType_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
-            const ConfigurationFailureMechanismCategoryType invalidValue = (ConfigurationFailureMechanismCategoryType) 99;
+            const ConfigurationGrassCoverErosionOutwardsCategoryType invalidValue = (ConfigurationGrassCoverErosionOutwardsCategoryType) 99;
             var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
 
             // Call
             TestDelegate call = () => converter.ConvertTo(invalidValue, destinationType);
 
             // Assert
-            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationFailureMechanismCategoryType)}'.";
+            string expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(ConfigurationGrassCoverErosionOutwardsCategoryType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, expectedMessage);
         }
 
@@ -177,13 +177,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase("Iv-IIv", ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm)]
-        [TestCase("IIv-IIIv", ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        [TestCase("IIIv-IVv", ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase("IVv-Vv", ConfigurationFailureMechanismCategoryType.LowerLimitNorm)]
-        [TestCase("Vv-VIv", ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm)]
+        [TestCase("Iv-IIv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm)]
+        [TestCase("IIv-IIIv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm)]
+        [TestCase("IIIv-IVv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase("IVv-Vv", ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm)]
+        [TestCase("Vv-VIv", ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm)]
         public void ConvertFrom_ValidStringValue_ReturnConfigurationFailureMechanismCategoryType(
-            string value, ConfigurationFailureMechanismCategoryType expectedResult)
+            string value, ConfigurationGrassCoverErosionOutwardsCategoryType expectedResult)
         {
             // Setup
             var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
@@ -209,13 +209,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         }
 
         [Test]
-        [TestCase(FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, ConfigurationFailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm)]
-        [TestCase(FailureMechanismCategoryType.MechanismSpecificSignalingNorm, ConfigurationFailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
-        [TestCase(FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, ConfigurationFailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
-        [TestCase(FailureMechanismCategoryType.LowerLimitNorm, ConfigurationFailureMechanismCategoryType.LowerLimitNorm)]
-        [TestCase(FailureMechanismCategoryType.FactorizedLowerLimitNorm, ConfigurationFailureMechanismCategoryType.FactorizedLowerLimitNorm)]
+        [TestCase(FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificFactorizedSignalingNorm)]
+        [TestCase(FailureMechanismCategoryType.MechanismSpecificSignalingNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificSignalingNorm)]
+        [TestCase(FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase(FailureMechanismCategoryType.LowerLimitNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm)]
+        [TestCase(FailureMechanismCategoryType.FactorizedLowerLimitNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm)]
         public void ConvertFrom_ValidFailureMechanismCategoryType_ReturnConfigurationFailureMechanismCategoryType(
-            FailureMechanismCategoryType originalValue, ConfigurationFailureMechanismCategoryType expectedResult)
+            FailureMechanismCategoryType originalValue, ConfigurationGrassCoverErosionOutwardsCategoryType expectedResult)
         {
             // Setup
             var converter = new ConfigurationFailureMechanismCategoryTypeConverter();
