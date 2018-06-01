@@ -111,7 +111,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
             {
-
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
@@ -135,7 +134,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.PropertyClasses
 
             using (var properties = new DuneLocationCalculationsProperties(duneLocationCalculations))
             {
-
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 

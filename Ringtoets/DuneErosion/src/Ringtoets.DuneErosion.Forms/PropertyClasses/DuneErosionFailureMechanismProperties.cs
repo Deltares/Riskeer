@@ -58,6 +58,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (propertyChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(propertyChangeHandler));
@@ -100,6 +101,7 @@ namespace Ringtoets.DuneErosion.Forms.PropertyClasses
             {
                 return false;
             }
+
             return true;
         }
 

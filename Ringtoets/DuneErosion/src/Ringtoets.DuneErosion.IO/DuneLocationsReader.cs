@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.IO
             }
         }
 
-        private IEnumerable<ReadDuneLocation> CreateDuneLocations(FeatureBasedMapData locationsData)
+        private static IEnumerable<ReadDuneLocation> CreateDuneLocations(FeatureBasedMapData locationsData)
         {
             foreach (MapFeature locationData in locationsData.Features)
             {

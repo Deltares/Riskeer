@@ -131,7 +131,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                                          new DuneErosionFailureMechanism(), 
+                                                                          new DuneErosionFailureMechanism(),
                                                                           assessmentSection,
                                                                           () => 0.01,
                                                                           null);
@@ -151,7 +151,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                                          new DuneErosionFailureMechanism(), 
+                                                                          new DuneErosionFailureMechanism(),
                                                                           assessmentSection,
                                                                           () => 0.01,
                                                                           string.Empty);

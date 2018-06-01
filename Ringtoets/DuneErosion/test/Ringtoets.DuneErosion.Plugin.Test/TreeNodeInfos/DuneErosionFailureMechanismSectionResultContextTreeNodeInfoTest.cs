@@ -133,6 +133,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
+
             // Assert
             // Assert expectations are called in TearDown()
         }

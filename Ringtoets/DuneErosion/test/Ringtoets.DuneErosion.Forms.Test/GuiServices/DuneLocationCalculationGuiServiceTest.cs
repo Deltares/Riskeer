@@ -201,7 +201,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.Calculate(new []
+                Action call = () => guiService.Calculate(new[]
                                                          {
                                                              new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
                                                          },

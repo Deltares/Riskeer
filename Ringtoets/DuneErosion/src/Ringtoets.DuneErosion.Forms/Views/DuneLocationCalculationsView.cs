@@ -163,13 +163,10 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
         protected override void CalculateForSelectedRows()
         {
-            if (CalculationGuiService != null)
-            {
-                CalculationGuiService.Calculate(GetSelectedCalculatableObjects(),
-                                                AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                getNormFunc());
-            }
+            CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
+                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                             getNormFunc());
         }
 
         protected override string ValidateCalculatableObjects()

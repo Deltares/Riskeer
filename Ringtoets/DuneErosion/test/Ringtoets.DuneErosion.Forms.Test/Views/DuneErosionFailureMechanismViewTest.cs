@@ -416,26 +416,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             Assert.AreEqual("Hydraulische randvoorwaarden", duneLocationsMapData.Name);
         }
 
-        private static void AssertDuneLocationsMapData(IEnumerable<DuneLocation> duneLocations, MapData mapData)
-        {
-            Assert.IsInstanceOf<MapPointData>(mapData);
-            var duneLocationsMapData = (MapPointData) mapData;
-            if (duneLocations == null)
-            {
-                CollectionAssert.IsEmpty(duneLocationsMapData.Features);
-            }
-            else
-            {
-                DuneLocation[] duneLocationsArray = duneLocations.ToArray();
-
-                Assert.AreEqual(duneLocationsArray.Length, duneLocationsMapData.Features.Count());
-                CollectionAssert.AreEqual(duneLocationsArray.Select(duneLocation => duneLocation.Location),
-                                          duneLocationsMapData.Features.SelectMany(f => f.MapGeometries.First().PointCollections.First()));
-            }
-
-            Assert.AreEqual("Hydraulische randvoorwaarden", mapData.Name);
-        }
-
         private static void AssertDuneLocationsMapData(DuneErosionFailureMechanism failureMechanism,
                                                        MapData mapData)
         {

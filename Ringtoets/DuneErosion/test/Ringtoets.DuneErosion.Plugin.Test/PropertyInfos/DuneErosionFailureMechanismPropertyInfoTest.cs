@@ -71,6 +71,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
+
             mocks.VerifyAll();
         }
 

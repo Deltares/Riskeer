@@ -99,7 +99,7 @@ namespace Ringtoets.DuneErosion.IO.Test
 
                 // Call
                 TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
-                
+
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
