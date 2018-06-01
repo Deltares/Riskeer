@@ -132,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            var tables = new[]
+            string[] tables =
             {
                 "AssessmentSectionEntity",
                 "BackgroundDataEntity",
@@ -769,12 +769,12 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         #region Dune Locations
 
         /// <summary>
-        /// Class to generate queries which can be used if the dune locations  are correctly migrated.
+        /// Class to generate queries which can be used to assert if the dune locations are correctly migrated.
         /// </summary>
         private class DuneErosionFailureMechanismValidationQueryGenerator
         {
             /// <summary>
-            /// Enum to indicate the hydraulic location calculation type.
+            /// Enum to indicate the dune location calculation type.
             /// </summary>
             public enum CalculationType
             {
@@ -891,8 +891,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the dune location outputs.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but unsupported</exception>
             public string GetMigratedDuneLocationCalculationOutputValidationQuery(NormativeNormType normType)
             {
                 return $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
@@ -934,7 +934,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             private static CalculationType ConvertToCalculationType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
@@ -1400,7 +1400,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         /// <summary>
-        /// Class to generate queries which can be used if the hydraulic boundary locations 
+        /// Class to generate queries which can be used to assert if the hydraulic boundary locations 
         /// are correctly migrated on the assessment section level.
         /// </summary>
         private class HydraulicLocationCalculationOnAssessmentSectionValidationQueryGenerator
@@ -1526,8 +1526,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the hydraulic boundary location calculation input for the design water level calculations.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but unsupported</exception>
             public string GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
@@ -1552,8 +1552,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but unsupported</exception>
             public string GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
@@ -1582,7 +1582,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             public string GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
@@ -1607,8 +1607,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but unsupported</exception>
             public string GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
@@ -1684,7 +1684,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             private static CalculationType ConvertToDesignWaterLevelCalculationType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
@@ -1711,7 +1711,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             private static CalculationType ConvertToWaveHeightCalculationType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
@@ -1778,7 +1778,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         /// <summary>
-        /// Class to generate queries which can be used if the hydraulic boundary locations 
+        /// Class to generate queries which can be used to assert if the hydraulic boundary locations 
         /// are correctly migrated on the grass cover erosion outwards failure mechanism level.
         /// </summary>
         private class HydraulicLocationOnGrassCoverErosionOutwardsFailureMechanismValidationQueryGenerator
@@ -1895,7 +1895,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             public string GetMigratedDesignWaterLevelCalculationsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
@@ -1930,8 +1930,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but unsupported</exception>
             public string GetMigratedDesignWaterLevelCalculationOutputsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToDesignWaterLevelCalculationType(normType);
@@ -1960,7 +1960,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             public string GetMigratedWaveHeightCalculationsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
@@ -1995,8 +1995,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <returns>A query to validate the hydraulic boundary location calculation outputs.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
-            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is an unsupported value,
-            /// but is unsupported.</exception>
+            /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+            /// but unsupported</exception>
             public string GetMigratedWaveHeightCalculationOutputsValidationQuery(NormativeNormType normType)
             {
                 CalculationType calculationType = ConvertToWaveHeightCalculationType(normType);
@@ -2089,7 +2089,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             private static CalculationType ConvertToDesignWaterLevelCalculationType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
@@ -2116,7 +2116,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             private static CalculationType ConvertToWaveHeightCalculationType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
@@ -2155,7 +2155,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         /// <summary>
-        /// Class to generate queries which can be used if the wave conditions calculations
+        /// Class to generate queries which can be used to assert if the wave conditions calculations
         /// are correctly migrated.
         /// </summary>
         private class WaveConditionsCalculationValidationQueryGenerator
@@ -2187,7 +2187,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             public string GetGrassCoverErosionOutwardsCalculationValidationQuery(NormativeNormType normType)
             {
                 FailureMechanismCategoryType categoryType = ConvertToFailureMechanismCategoryType(normType);
@@ -2246,7 +2246,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             public string GetStabilityStoneCoverCalculationValidationQuery(NormativeNormType normType)
             {
                 AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
@@ -2278,7 +2278,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             public string GetWaveImpactAsphaltCoverCalculationValidationQuery(NormativeNormType normType)
             {
                 AssessmentSectionCategoryType categoryType = ConvertToAssessmentSectionCategoryType(normType);
@@ -2333,7 +2333,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             private static FailureMechanismCategoryType ConvertToFailureMechanismCategoryType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))
@@ -2360,7 +2360,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
-            /// but is unsupported.</exception>
+            /// but unsupported</exception>
             private static AssessmentSectionCategoryType ConvertToAssessmentSectionCategoryType(NormativeNormType normType)
             {
                 if (!Enum.IsDefined(typeof(NormativeNormType), normType))

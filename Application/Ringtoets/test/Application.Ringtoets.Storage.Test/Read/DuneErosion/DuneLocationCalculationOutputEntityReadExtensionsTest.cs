@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
                 TargetReliability = targetReliability,
                 CalculatedProbability = calculatedProbability,
                 CalculatedReliability = calculatedReliability,
-                CalculationConvergence = (byte) convergence
+                CalculationConvergence = Convert.ToByte(convergence)
             };
 
             // Call
@@ -97,7 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
                 TargetReliability = null,
                 CalculatedProbability = null,
                 CalculatedReliability = null,
-                CalculationConvergence = (byte) convergence
+                CalculationConvergence = Convert.ToByte(convergence)
             };
 
             // Call

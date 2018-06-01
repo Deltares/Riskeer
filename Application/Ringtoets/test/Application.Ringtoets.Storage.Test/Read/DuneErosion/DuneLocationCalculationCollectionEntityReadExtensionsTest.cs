@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             var calculationEntityWithOutput = new DuneLocationCalculationEntity
             {
                 DuneLocationEntity = duneLocationEntityTwo,
-                DuneLocationCalculationOutputEntities = 
+                DuneLocationCalculationOutputEntities =
                 {
                     new DuneLocationCalculationOutputEntity()
                 }
@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
             var calculationTwo = new DuneLocationCalculation(duneLocationTwo);
 
             // Call
-            collectionEntity.Read(new []
+            collectionEntity.Read(new[]
             {
                 calculationOne,
                 calculationTwo

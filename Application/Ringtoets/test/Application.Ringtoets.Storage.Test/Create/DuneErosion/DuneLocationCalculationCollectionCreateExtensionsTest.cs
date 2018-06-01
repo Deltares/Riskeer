@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         {
             // Call
             TestDelegate call = () =>
-                ((IEnumerable<DuneLocationCalculation>)null).Create(new PersistenceRegistry()); 
+                ((IEnumerable<DuneLocationCalculation>) null).Create(new PersistenceRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             // Setup
             var duneLocation = new TestDuneLocation();
             var calculation = new DuneLocationCalculation(duneLocation);
-            var calculations = new[]
+            DuneLocationCalculation[] calculations =
             {
                 calculation
             };

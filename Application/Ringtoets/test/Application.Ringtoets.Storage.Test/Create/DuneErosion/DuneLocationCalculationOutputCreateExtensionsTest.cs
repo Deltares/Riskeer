@@ -83,13 +83,13 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             var random = new Random(21);
             var output = new DuneLocationCalculationOutput(random.NextEnumValue<CalculationConvergence>(), new DuneLocationCalculationOutput.ConstructionProperties
             {
-                WaterLevel = RoundedDouble.NaN,
-                WaveHeight = RoundedDouble.NaN,
-                WavePeriod = RoundedDouble.NaN,
-                TargetProbability = RoundedDouble.NaN,
-                TargetReliability = RoundedDouble.NaN,
-                CalculatedProbability = RoundedDouble.NaN,
-                CalculatedReliability = RoundedDouble.NaN
+                WaterLevel = double.NaN,
+                WaveHeight = double.NaN,
+                WavePeriod = double.NaN,
+                TargetProbability = double.NaN,
+                TargetReliability = double.NaN,
+                CalculatedProbability = double.NaN,
+                CalculatedReliability = double.NaN
             });
 
             // Call

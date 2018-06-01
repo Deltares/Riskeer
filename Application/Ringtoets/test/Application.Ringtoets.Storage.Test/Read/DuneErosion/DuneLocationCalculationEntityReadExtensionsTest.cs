@@ -95,9 +95,9 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
 
             var entity = new DuneLocationCalculationEntity
             {
-                DuneLocationCalculationOutputEntities = 
+                DuneLocationCalculationOutputEntities =
                 {
-                    new DuneLocationCalculationOutputEntity()
+                    new DuneLocationCalculationOutputEntity
                     {
                         WaterLevel = waterLevel,
                         WaveHeight = waveHeight,
@@ -106,7 +106,7 @@ namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
                         TargetReliability = targetReliability,
                         CalculatedProbability = calculatedProbability,
                         CalculatedReliability = calculatedReliability,
-                        CalculationConvergence = (byte) convergence
+                        CalculationConvergence = Convert.ToByte(convergence)
                     }
                 }
             };
