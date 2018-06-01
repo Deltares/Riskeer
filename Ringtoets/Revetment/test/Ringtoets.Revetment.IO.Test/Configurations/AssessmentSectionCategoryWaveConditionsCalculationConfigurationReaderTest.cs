@@ -106,6 +106,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);
             Assert.AreEqual(6.6, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsFalse(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.AreEqual(ConfigurationAssessmentSectionCategoryType.SignalingNorm, calculation.CategoryType);
         }
     }
 }
