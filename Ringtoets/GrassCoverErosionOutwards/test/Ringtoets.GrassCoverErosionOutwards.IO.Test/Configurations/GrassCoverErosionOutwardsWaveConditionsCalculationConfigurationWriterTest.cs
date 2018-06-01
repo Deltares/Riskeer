@@ -33,8 +33,8 @@ using Ringtoets.Revetment.IO.Configurations;
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
-    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
-        FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
+        GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter,
         GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
         [Test]
@@ -46,13 +46,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
+                Path.Combine(nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("Berekening 1");
 
             try
             {
-                var writer = new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+                var writer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(
                 TestDataPath.Ringtoets.Revetment.IO,
-                Path.Combine(nameof(FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
+                Path.Combine(nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("Berekening 1")
             {
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 
             try
             {
-                var writer = new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+                var writer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath);
 
                 // Call
                 writer.Write(new[]
@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) 99
             };
 
-            var writer = new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter("valid");
+            var writer = new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter("valid");
 
             // Call
             TestDelegate call = () => writer.Write(new[]
@@ -147,9 +147,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
-        protected override FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
+        protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter CreateWriterInstance(string filePath)
         {
-            return new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(filePath);
+            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath);
         }
     }
 }

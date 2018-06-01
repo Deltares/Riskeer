@@ -22,7 +22,7 @@
     <Compile Include="Configurations\Converters\ConfigurationGrassCoverErosionOutwardsCategoryTypeConverterTest.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationTest.cs" />
-    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationWriterTest.cs" />
+    <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProviderTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriterTest.cs" />

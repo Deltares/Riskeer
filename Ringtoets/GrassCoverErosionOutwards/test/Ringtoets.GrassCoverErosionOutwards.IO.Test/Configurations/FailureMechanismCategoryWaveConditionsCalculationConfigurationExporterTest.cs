@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
     public class FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter,
-            FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
+            GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter,
             ICalculation<FailureMechanismCategoryWaveConditionsInput>,
             GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
