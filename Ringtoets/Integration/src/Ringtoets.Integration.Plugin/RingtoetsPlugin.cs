@@ -32,6 +32,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
@@ -1985,7 +1986,7 @@ namespace Ringtoets.Integration.Plugin
                                               assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                               new DesignWaterLevelCalculationMessageProvider(Resources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)));
 
-                    hydraulicBoundaryLocationCalculationGuiService.RunActivities(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory, calculations);
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
@@ -2044,7 +2045,7 @@ namespace Ringtoets.Integration.Plugin
                                               assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm),
                                               new WaveHeightCalculationMessageProvider(Resources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)));
 
-                    hydraulicBoundaryLocationCalculationGuiService.RunActivities(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory, calculations);
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);

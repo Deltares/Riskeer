@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base.Service;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
 
@@ -67,18 +66,5 @@ namespace Ringtoets.Common.Forms.GuiServices
                                   IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                   double norm,
                                   ICalculationMessageProvider messageProvider);
-
-        /// <summary>
-        /// Runs the given <paramref name="activities"/>.
-        /// </summary>
-        /// <typeparam name="TActivity">The type of activity to run.</typeparam>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <param name="activities">The collection of <typeparamref name="TActivity"/> to run.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="activities"/> is <c>null</c>.</exception>
-        void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,
-                                      string preprocessorDirectory,
-                                      IEnumerable<TActivity> activities)
-            where TActivity : Activity;
     }
 }

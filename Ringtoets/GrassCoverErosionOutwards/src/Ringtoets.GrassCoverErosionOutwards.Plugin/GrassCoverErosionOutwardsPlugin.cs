@@ -1035,7 +1035,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                               failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
                                               new DesignWaterLevelCalculationMessageProvider(RingtoetsCommonPluginResources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)));
 
-                    hydraulicBoundaryLocationCalculationGuiService.RunActivities(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory, calculations);
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
@@ -1144,7 +1144,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                               failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
                                               new WaveHeightCalculationMessageProvider(RingtoetsCommonPluginResources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)));
 
-                    hydraulicBoundaryLocationCalculationGuiService.RunActivities(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory, calculations);
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);

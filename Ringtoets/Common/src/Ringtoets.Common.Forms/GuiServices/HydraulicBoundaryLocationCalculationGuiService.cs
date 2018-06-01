@@ -106,9 +106,9 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                                                                            messageProvider));
         }
 
-        public void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,
-                                             string preprocessorDirectory,
-                                             IEnumerable<TActivity> activities)
+        private void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,
+                                              string preprocessorDirectory,
+                                              IEnumerable<TActivity> activities)
             where TActivity : Activity
         {
             if (activities == null)
