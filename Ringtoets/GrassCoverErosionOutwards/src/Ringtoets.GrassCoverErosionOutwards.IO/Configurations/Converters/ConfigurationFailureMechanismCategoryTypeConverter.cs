@@ -23,12 +23,12 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Revetment.IO.Properties;
+using Ringtoets.GrassCoverErosionOutwards.IO.Properties;
 
-namespace Ringtoets.Revetment.IO.Configurations.Converters
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters
 {
     /// <summary>
-    /// Converts <see cref="ConfigurationFailureMechanismCategoryType"/> to <see cref="string"/>
+    /// Converts <see cref="Ringtoets.GrassCoverErosionOutwards.IO.Configurations.ConfigurationFailureMechanismCategoryType"/> to <see cref="string"/>
     /// or <see cref="FailureMechanismCategoryType"/> and back.
     /// </summary>
     public class ConfigurationFailureMechanismCategoryTypeConverter : TypeConverter
@@ -41,7 +41,7 @@ namespace Ringtoets.Revetment.IO.Configurations.Converters
 
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
-        /// contains an invalid value of <see cref="ConfigurationFailureMechanismCategoryType"/>.</exception>
+        /// contains an invalid value of <see cref="Ringtoets.GrassCoverErosionOutwards.IO.Configurations.ConfigurationFailureMechanismCategoryType"/>.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             var categoryType = (ConfigurationFailureMechanismCategoryType) value;
@@ -102,7 +102,7 @@ namespace Ringtoets.Revetment.IO.Configurations.Converters
 
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value" />
-        /// contains an invalid value of <see cref="ConfigurationFailureMechanismCategoryType"/>.</exception>
+        /// contains an invalid value of <see cref="Ringtoets.GrassCoverErosionOutwards.IO.Configurations.ConfigurationFailureMechanismCategoryType"/>.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is FailureMechanismCategoryType)

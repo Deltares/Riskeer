@@ -21,16 +21,17 @@
 
 using System;
 using System.Xml;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations.Converters;
+using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Writer for calculations that contain <see cref="FailureMechanismCategoryWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter 
+    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter
         : WaveConditionsCalculationConfigurationWriter<FailureMechanismCategoryWaveConditionsCalculationConfiguration>
     {
         /// <summary>

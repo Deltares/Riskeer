@@ -27,9 +27,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
     public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<

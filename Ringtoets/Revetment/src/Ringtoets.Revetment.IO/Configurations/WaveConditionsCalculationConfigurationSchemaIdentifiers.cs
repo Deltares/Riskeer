@@ -24,7 +24,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// <summary>
     /// Container of identifiers related to the wave conditions calculation configuration schema definition.
     /// </summary>
-    internal static class WaveConditionsCalculationConfigurationSchemaIdentifiers
+    public static class WaveConditionsCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
         /// The tag of elements containing the category type of revetment.

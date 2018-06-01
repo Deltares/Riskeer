@@ -13,8 +13,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configurations\ConfigurationFailureMechanismCategoryType.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationFailureMechanismCategoryTypeConverter.cs" />
+    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfiguration.cs" />
+    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\failureMechanismCategoryWaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsWriter.cs" />

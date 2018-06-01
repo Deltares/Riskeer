@@ -28,11 +28,11 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
-using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
     public class FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest

@@ -82,6 +82,52 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vv-VIv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IVv-Vv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_LowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_LowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iv-IIv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIIv-IVv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IIv-IIIv.
+        /// </summary>
+        internal static string FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to h V-VI.
         /// </summary>
         internal static string MetaData_WaterLevelCalculationForFactorizedLowerLimitNorm {

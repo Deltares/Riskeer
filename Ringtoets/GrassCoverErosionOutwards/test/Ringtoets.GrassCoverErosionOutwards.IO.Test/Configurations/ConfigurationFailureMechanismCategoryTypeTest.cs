@@ -22,9 +22,9 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Revetment.IO.Configurations;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
     public class ConfigurationFailureMechanismCategoryTypeTest : EnumValuesTestFixture<ConfigurationFailureMechanismCategoryType, int>

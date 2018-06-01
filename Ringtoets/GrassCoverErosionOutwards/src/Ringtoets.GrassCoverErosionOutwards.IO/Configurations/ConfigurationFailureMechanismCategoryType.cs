@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary> 
     /// Enum defining the possible failure mechanism category type value in a read wave conditions calculation. 

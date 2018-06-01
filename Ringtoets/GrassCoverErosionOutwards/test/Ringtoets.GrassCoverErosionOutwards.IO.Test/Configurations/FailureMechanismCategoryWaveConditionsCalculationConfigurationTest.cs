@@ -22,9 +22,10 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
     public class FailureMechanismCategoryWaveConditionsCalculationConfigurationTest

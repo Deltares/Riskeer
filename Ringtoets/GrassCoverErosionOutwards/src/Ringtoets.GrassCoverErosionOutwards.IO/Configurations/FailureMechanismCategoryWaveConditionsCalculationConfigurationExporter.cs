@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations.Converters;
 
-namespace Ringtoets.Revetment.IO.Configurations
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Exports a failure mechanism category wave conditions calculation configuration and stores it as an XML file.

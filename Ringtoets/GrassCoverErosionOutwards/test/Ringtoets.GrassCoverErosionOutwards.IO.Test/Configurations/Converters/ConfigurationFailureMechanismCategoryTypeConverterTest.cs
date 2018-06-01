@@ -25,10 +25,10 @@ using System.Globalization;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Revetment.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations.Converters;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
+using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
+namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
 {
     [TestFixture]
     public class ConfigurationFailureMechanismCategoryTypeConverterTest
