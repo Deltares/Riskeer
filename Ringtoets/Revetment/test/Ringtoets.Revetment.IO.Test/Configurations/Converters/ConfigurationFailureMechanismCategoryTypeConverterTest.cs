@@ -26,9 +26,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Revetment.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations.Helpers;
+using Ringtoets.Revetment.IO.Configurations.Converters;
 
-namespace Ringtoets.Revetment.IO.Test.Configurations.Helpers
+namespace Ringtoets.Revetment.IO.Test.Configurations.Converters
 {
     [TestFixture]
     public class ConfigurationFailureMechanismCategoryTypeConverterTest

@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Export;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations.Helpers;
+using Ringtoets.Revetment.IO.Configurations.Converters;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {

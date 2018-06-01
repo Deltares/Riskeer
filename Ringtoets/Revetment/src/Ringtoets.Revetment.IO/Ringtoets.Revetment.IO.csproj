@@ -25,8 +25,8 @@
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfiguration.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter.cs" />
-    <Compile Include="Configurations\Helpers\ConfigurationAssessmentSectionCategoryTypeConverter.cs" />
-    <Compile Include="Configurations\Helpers\ConfigurationFailureMechanismCategoryTypeConverter.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationAssessmentSectionCategoryTypeConverter.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationFailureMechanismCategoryTypeConverter.cs" />
     <Compile Include="Configurations\WaveConditionsCalculationConfigurationExporter.cs" />
     <Compile Include="WaveConditions\CoverType.cs" />
     <Compile Include="WaveConditions\ExportableWaveConditions.cs" />
@@ -44,7 +44,7 @@
     <Compile Include="Configurations\WaveConditionsCalculationConfigurationSchemaIdentifiers.cs" />
     <Compile Include="Configurations\WaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="WaveConditions\WaveConditionsExporterBase.cs" />
-    <Compile Include="Configurations\Helpers\ConfigurationWaveConditionsInputStepSizeConverter.cs" />
+    <Compile Include="Configurations\Converters\ConfigurationWaveConditionsInputStepSizeConverter.cs" />
     <Compile Include="WaveConditions\WaveConditionsWriter.cs" />
   </ItemGroup>
   <ItemGroup>

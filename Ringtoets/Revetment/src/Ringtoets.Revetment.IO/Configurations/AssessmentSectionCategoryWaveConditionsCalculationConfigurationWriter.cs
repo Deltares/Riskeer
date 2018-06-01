@@ -22,7 +22,7 @@
 using System;
 using System.Xml;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.IO.Configurations.Helpers;
+using Ringtoets.Revetment.IO.Configurations.Converters;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {

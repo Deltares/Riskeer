@@ -25,7 +25,7 @@ using System.Globalization;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Revetment.IO.Properties;
 
-namespace Ringtoets.Revetment.IO.Configurations.Helpers
+namespace Ringtoets.Revetment.IO.Configurations.Converters
 {
     /// <summary>
     /// Converts <see cref="ConfigurationAssessmentSectionCategoryType"/> to <see cref="string"/>
