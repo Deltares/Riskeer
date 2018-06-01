@@ -301,10 +301,7 @@ namespace Ringtoets.Integration.Service
                 var duneErosionFailureMechanism = failureMechanism as DuneErosionFailureMechanism;
                 if (duneErosionFailureMechanism != null)
                 {
-                    IEnumerable<IObservable> affectedDuneLocations =
-                        DuneErosionDataSynchronizationService.ClearDuneLocationOutput(duneErosionFailureMechanism.DuneLocations)
-                                                             .Concat(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(duneErosionFailureMechanism));
-                    changedObservables.AddRange(affectedDuneLocations);
+                    changedObservables.AddRange(DuneErosionDataSynchronizationService.ClearDuneLocationCalculationOutput(duneErosionFailureMechanism));
                 }
             }
 
