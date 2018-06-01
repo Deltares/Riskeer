@@ -28,17 +28,15 @@ using NUnit.Framework;
 namespace Ringtoets.DuneErosion.Data.TestUtil
 {
     /// <summary>
-    /// Test helper for dealing with dune locations and calculations in
-    /// <see cref="DuneErosionFailureMechanism"/>.
+    /// Test helper for dealing with dune location calculations in <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
     public static class DuneLocationsTestHelper
     {
         /// <summary>
-        /// Gets all the <see cref="DuneLocation"/> and <see cref="DuneLocationCalculation"/>
-        /// that have an output within the <paramref name="failureMechanism"/>.
+        /// Gets all the dune location calculations within the <paramref name="failureMechanism"/> that have an output.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to retrieve the dune locations and calculations from.</param>
-        /// <returns>A collection of all the dune locations and calculations that contain an output.</returns>
+        /// <param name="failureMechanism">The failure mechanism to retrieve the dune location calculations from.</param>
+        /// <returns>A collection of all dune location calculations that contain an output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public static IEnumerable<IObservable> GetAllDuneLocationCalculationsWithOutput(DuneErosionFailureMechanism failureMechanism)
         {
@@ -47,8 +45,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            return failureMechanism.DuneLocations.Where(loc => loc.Calculation.Output != null).Cast<IObservable>()
-                                   .Concat(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneLocationCalculationOutput))
+            return failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Where(HasDuneLocationCalculationOutput)
                                    .Concat(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Where(HasDuneLocationCalculationOutput))
                                    .Concat(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
                                    .Concat(failureMechanism.CalculationsForLowerLimitNorm.Where(HasDuneLocationCalculationOutput))
@@ -57,12 +54,11 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         }
 
         /// <summary>
-        /// Asserts if all the dune locations and calculations within the <paramref name="failureMechanism"/>
-        /// have no outputs.
+        /// Asserts if all the dune location calculations within the <paramref name="failureMechanism"/> have no output.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assert.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
-        /// <exception cref="AssertionException">Thrown when any of the dune locations and calculations within the 
+        /// <exception cref="AssertionException">Thrown when any of the dune location calculations within the 
         /// <paramref name="failureMechanism"/> contains output.</exception>
         public static void AssertDuneLocationCalculationsHaveNoOutputs(DuneErosionFailureMechanism failureMechanism)
         {
@@ -70,8 +66,6 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-
-            Assert.True(failureMechanism.DuneLocations.All(dl => !HasDuneLocationCalculationOutput(dl.Calculation)));
 
             Assert.True(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
             Assert.True(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.All(calc => !HasDuneLocationCalculationOutput(calc)));
@@ -81,7 +75,7 @@ namespace Ringtoets.DuneErosion.Data.TestUtil
         }
 
         /// <summary>
-        /// Sets dummy dune location calculation output for all dune location calculations within <paramref name="failureMechanism"/>.
+        /// Sets dummy output for all dune location calculations within <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to set the dune location calculation outputs for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
