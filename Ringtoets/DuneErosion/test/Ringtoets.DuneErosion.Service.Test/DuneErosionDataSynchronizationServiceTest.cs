@@ -80,7 +80,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void SetDuneLocations_ReadDuneLocationsNull_ThrowArgumentNullException()
+        public void SetDuneLocations_DuneLocationsNull_ThrowArgumentNullException()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -114,7 +114,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     duneLocation
                 }, failureMechanism.DuneLocations);
 
-            // call
+            // Call
             DuneErosionDataSynchronizationService.SetDuneLocations(failureMechanism,
                                                                    new HydraulicBoundaryLocation[0],
                                                                    new ReadDuneLocation[0]);
@@ -163,7 +163,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         [TestCase(-0.123)]
         [TestCase(1)]
         [TestCase(123.456789)]
-        public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DeuneLocationNotAddedLogMessage(double offset)
+        public void SetDuneLocations_DuneLocationsMatchNameNotAccordingFormat_DuneLocationNotAddedLogMessage(double offset)
         {
             // Setup
             string locationName = $"Location_{offset}";
@@ -215,45 +215,6 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-        }
-
-        [Test]
-        public void ClearDuneLocationOutput_LocationsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => DuneErosionDataSynchronizationService.ClearDuneLocationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("locations", exception.ParamName);
-        }
-
-        [Test]
-        public void ClearDuneLocationOutput_LocationWithOutput_OutputClearedAndAffectedItemReturned()
-        {
-            // Setup
-            var location = new TestDuneLocation
-            {
-                Calculation =
-                {
-                    Output = new TestDuneLocationCalculationOutput()
-                }
-            };
-
-            // Call
-            IEnumerable<IObservable> affected = DuneErosionDataSynchronizationService.ClearDuneLocationOutput(
-                new []
-                {
-                    location
-                });
-
-            // Assert
-            Assert.IsNull(location.Calculation.Output);
-            CollectionAssert.AreEqual(
-                new[]
-                {
-                    location
-                }, affected);
         }
 
         [Test]

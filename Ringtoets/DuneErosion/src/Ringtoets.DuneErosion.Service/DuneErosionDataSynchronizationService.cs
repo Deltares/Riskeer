@@ -101,23 +101,6 @@ namespace Ringtoets.DuneErosion.Service
         }
 
         /// <summary>
-        /// Clears the output of the dune locations within the collection.
-        /// </summary>
-        /// <param name="locations">The locations for which the output needs to be cleared.</param>
-        /// <returns>All objects changed during the clear.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="locations"/> is <c>null</c>.</exception>
-        public static IEnumerable<IObservable> ClearDuneLocationOutput(IEnumerable<DuneLocation> locations)
-        {
-            if (locations == null)
-            {
-                throw new ArgumentNullException(nameof(locations));
-            }
-
-            return locations.SelectMany(ClearDuneLocationOutput)
-                            .ToArray();
-        }
-
-        /// <summary>
         /// Clears the output of the dune location calculations within the dune erosion failure mechanism.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism for which the output of the calculations needs to be cleared.</param>
@@ -132,18 +115,19 @@ namespace Ringtoets.DuneErosion.Service
 
             var affectedCalculations = new List<IObservable>();
 
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForLowerLimitNorm));
-            affectedCalculations.AddRange(ClearDuneCalculationsOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm));
+            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm));
+            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm));
+            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm));
+            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForLowerLimitNorm));
+            affectedCalculations.AddRange(ClearDuneLocationCalculationsOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm));
 
             return affectedCalculations;
         }
 
-        private static IEnumerable<IObservable> ClearDuneCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
+        private static IEnumerable<IObservable> ClearDuneLocationCalculationsOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
             IEnumerable<DuneLocationCalculation> affectedCalculations = calculations.Where(c => c.Output != null).ToArray();
+
             affectedCalculations.ForEachElementDo(c => c.Output = null);
 
             return affectedCalculations;
@@ -174,15 +158,6 @@ namespace Ringtoets.DuneErosion.Service
                                                                          CultureInfo.InvariantCulture);
 
             return match.Groups["Offset"].Value == duneLocationOffset;
-        }
-
-        private static IEnumerable<IObservable> ClearDuneLocationOutput(DuneLocation location)
-        {
-            if (location.Calculation.Output != null)
-            {
-                location.Calculation.Output = null;
-                yield return location;
-            }
         }
     }
 }
