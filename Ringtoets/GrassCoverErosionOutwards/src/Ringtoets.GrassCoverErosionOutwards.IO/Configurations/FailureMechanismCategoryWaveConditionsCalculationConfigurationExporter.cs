@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
     /// </summary>
     public class FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
         FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
-        FailureMechanismCategoryWaveConditionsCalculationConfiguration,
+        GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration,
         ICalculation<FailureMechanismCategoryWaveConditionsInput>>
     {
         /// <summary>
@@ -52,9 +52,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
             return new FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter(filePath);
         }
 
-        protected override FailureMechanismCategoryWaveConditionsCalculationConfiguration ToConfiguration(ICalculation<FailureMechanismCategoryWaveConditionsInput> calculation)
+        protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ToConfiguration(ICalculation<FailureMechanismCategoryWaveConditionsInput> calculation)
         {
-            var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration(calculation.Name);
+            var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);
             configuration.CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) new ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter()
                 .ConvertFrom(calculation.InputParameters.CategoryType);

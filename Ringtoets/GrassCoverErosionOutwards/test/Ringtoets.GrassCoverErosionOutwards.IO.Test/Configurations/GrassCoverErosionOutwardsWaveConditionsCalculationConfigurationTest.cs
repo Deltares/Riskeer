@@ -28,7 +28,7 @@ using Ringtoets.Revetment.IO.Configurations;
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
-    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationTest
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             const string name = "some name";
 
             // Call
-            var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration(name);
+            var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(name);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsCalculationConfiguration>(configuration);
@@ -52,7 +52,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             var categoryType = new Random(21).NextEnumValue<ConfigurationGrassCoverErosionOutwardsCategoryType>();
 
             // Call
-            var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration(calculationName)
+            var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(calculationName)
             {
                 CategoryType = categoryType
             };

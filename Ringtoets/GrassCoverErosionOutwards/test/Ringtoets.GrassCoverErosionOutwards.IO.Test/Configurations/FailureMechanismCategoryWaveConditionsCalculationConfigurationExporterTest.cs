@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter,
             FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
             ICalculation<FailureMechanismCategoryWaveConditionsInput>,
-            FailureMechanismCategoryWaveConditionsCalculationConfiguration>
+            GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()

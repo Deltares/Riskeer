@@ -35,7 +35,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
     [TestFixture]
     public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriterTest : CustomCalculationConfigurationWriterDesignGuidelinesTestFixture<
         FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter,
-        FailureMechanismCategoryWaveConditionsCalculationConfiguration>
+        GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
         [Test]
         public void Write_SparseCalculation_WritesSparseConfigurationToFile()
@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 TestDataPath.Ringtoets.Revetment.IO,
                 Path.Combine(nameof(FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter), "sparseConfiguration.xml"));
 
-            var calculation = new FailureMechanismCategoryWaveConditionsCalculationConfiguration("Berekening 1");
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("Berekening 1");
 
             try
             {
@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 TestDataPath.Ringtoets.Revetment.IO,
                 Path.Combine(nameof(FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter), "completeConfiguration.xml"));
 
-            var calculation = new FailureMechanismCategoryWaveConditionsCalculationConfiguration("Berekening 1")
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("Berekening 1")
             {
                 HydraulicBoundaryLocationName = "Locatie1",
                 CategoryType = ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm,
@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
         public void Write_InvalidCategoryType_ThrowsCriticalFileWriteException()
         {
             // Setup
-            var configuration = new FailureMechanismCategoryWaveConditionsCalculationConfiguration("fail")
+            var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration("fail")
             {
                 CategoryType = (ConfigurationGrassCoverErosionOutwardsCategoryType?) 99
             };

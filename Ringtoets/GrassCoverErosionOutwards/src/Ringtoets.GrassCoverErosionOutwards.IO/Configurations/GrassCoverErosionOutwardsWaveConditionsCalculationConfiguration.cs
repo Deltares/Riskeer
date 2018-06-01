@@ -28,14 +28,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
     /// Class that represents a wave conditions calculation configuration
     /// containing <see cref="ConfigurationGrassCoverErosionOutwardsCategoryType"/>.
     /// </summary>
-    public class FailureMechanismCategoryWaveConditionsCalculationConfiguration : WaveConditionsCalculationConfiguration
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration : WaveConditionsCalculationConfiguration
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsCalculationConfiguration"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration"/>.
         /// </summary>
         /// <param name="name">The name of the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
-        public FailureMechanismCategoryWaveConditionsCalculationConfiguration(string name)
+        public GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(string name)
             : base(name) {}
 
         /// <summary>

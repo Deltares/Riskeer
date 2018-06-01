@@ -32,7 +32,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
     /// to XML format.
     /// </summary>
     public class FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter
-        : WaveConditionsCalculationConfigurationWriter<FailureMechanismCategoryWaveConditionsCalculationConfiguration>
+        : WaveConditionsCalculationConfigurationWriter<GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsCalculationConfigurationWriter"/>.
@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
             : base(filePath) {}
 
         protected override void WriteConfigurationCategoryTypeWhenAvailable(
-            XmlWriter writer, FailureMechanismCategoryWaveConditionsCalculationConfiguration configuration)
+            XmlWriter writer, GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration configuration)
         {
             if (!configuration.CategoryType.HasValue)
             {
