@@ -25,26 +25,25 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
-using Ringtoets.Revetment.IO.Configurations.Converters;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
     /// Exports a failure mechanism category wave conditions calculation configuration and stores it as an XML file.
     /// </summary>
-    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
         GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter,
         GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration,
         ICalculation<FailureMechanismCategoryWaveConditionsInput>>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
         /// <param name="calculations">The hierarchy of calculations to export.</param>
         /// <param name="filePath">The path of the XML file to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
+        public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)

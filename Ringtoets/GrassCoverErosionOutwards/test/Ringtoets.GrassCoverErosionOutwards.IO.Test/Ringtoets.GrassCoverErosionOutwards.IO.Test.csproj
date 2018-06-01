@@ -20,7 +20,7 @@
   <ItemGroup>
     <Compile Include="Configurations\ConfigurationGrassCoverErosionOutwardsCategoryTypeTest.cs" />
     <Compile Include="Configurations\Converters\ConfigurationGrassCoverErosionOutwardsCategoryTypeConverterTest.cs" />
-    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporterTest.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriterTest.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProviderTest.cs" />

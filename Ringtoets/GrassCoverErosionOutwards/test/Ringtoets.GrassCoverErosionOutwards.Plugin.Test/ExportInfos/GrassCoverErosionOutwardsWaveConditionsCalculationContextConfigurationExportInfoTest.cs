@@ -81,7 +81,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             IFileExporter fileExporter = exportInfo.CreateFileExporter(context, "test");
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter>(fileExporter);
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter>(fileExporter);
             mocks.VerifyAll();
         }
 

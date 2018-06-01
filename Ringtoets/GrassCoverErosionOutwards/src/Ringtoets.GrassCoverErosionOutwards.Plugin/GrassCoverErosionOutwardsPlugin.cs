@@ -354,11 +354,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
 
             yield return RingtoetsExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                (context, filePath) => new FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
+                (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(context.WrappedData.Children, filePath),
                 context => context.WrappedData.Children.Any());
 
             yield return RingtoetsExportInfoFactory.CreateCalculationConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
-                (context, filePath) => new FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter(new[]
+                (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
                 }, filePath));

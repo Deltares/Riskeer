@@ -19,7 +19,7 @@
     <Compile Include="Configurations\ConfigurationGrassCoverErosionOutwardsCategoryType.cs" />
     <Compile Include="Configurations\Converters\ConfigurationGrassCoverErosionOutwardsCategoryTypeConverter.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration.cs" />
-    <Compile Include="Configurations\FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter.cs" />
+    <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationExportMetaDataAttributeNameProvider.cs" />
     <Compile Include="Exporters\GrassCoverErosionOutwardsHydraulicBoundaryLocationsExporter.cs" />

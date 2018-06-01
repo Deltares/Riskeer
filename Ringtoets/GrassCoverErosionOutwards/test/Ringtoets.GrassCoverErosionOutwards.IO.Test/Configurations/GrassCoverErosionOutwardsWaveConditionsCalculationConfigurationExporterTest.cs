@@ -35,9 +35,9 @@ using Ringtoets.Revetment.Data.TestUtil;
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {
     [TestFixture]
-    public class FailureMechanismCategoryWaveConditionsCalculationConfigurationExporterTest
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporterTest
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
-            FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter,
+            GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter,
             GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter,
             ICalculation<FailureMechanismCategoryWaveConditionsInput>,
             GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
@@ -87,7 +87,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 
             string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
                                                                     Path.Combine(
-                                                                        nameof(FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter),
+                                                                        nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));
             // Call and Assert
             WriteAndValidate(new[]
@@ -101,9 +101,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             return new TestWaveConditionsCalculation<FailureMechanismCategoryWaveConditionsInput>(new FailureMechanismCategoryWaveConditionsInput());
         }
 
-        protected override FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
+        protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
         {
-            return new FailureMechanismCategoryWaveConditionsCalculationConfigurationExporter(calculations, filePath);
+            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(calculations, filePath);
         }
     }
 }
