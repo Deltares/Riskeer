@@ -19,9 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Xml.Schema;
+using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Revetment.IO.Configurations;
 
 namespace Ringtoets.Revetment.IO.Test.Configurations
@@ -30,7 +35,20 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationReaderTest
     {
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
-                                                                               nameof(WaveConditionsCalculationConfigurationReader));
+                                                                               nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader));
+
+        private static IEnumerable<TestCaseData> InvalidConfigurations
+        {
+            get
+            {
+                yield return new TestCaseData("invalidCalculationMultipleCategoryType.xml",
+                                              "Element 'categoriegrens' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleCategoryType");
+                yield return new TestCaseData("invalidCategoryTypeUnknownValue.xml",
+                                              "The 'categoriegrens' element is invalid - The value 'F-G' is invalid according to its datatype 'String' - The Enumeration constraint failed.")
+                    .SetName("invalidCategoryTypeUnknownValue");
+            }
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +60,52 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             var reader = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationReader>(reader);
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationReader<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>>(reader);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(InvalidConfigurations))]
+        public void Constructor_FileInvalidBasedOnSchemaDefinition_ThrowCriticalFileReadException(string fileName, string expectedParsingMessage)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, fileName);
+
+            // Call
+            TestDelegate call = () => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileReadException>(call);
+            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
+        }
+
+        [Test]
+        [TestCase("validConfigurationFullCalculation.xml")]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation(string fileName)
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, fileName);
+            var reader = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
+
+            // Assert
+            var calculation = (AssessmentSectionCategoryWaveConditionsCalculationConfiguration)readItems.Single();
+
+            Assert.IsNotNull(calculation);
+            Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
+            Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
+            Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
+            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
+            Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfileId);
+            Assert.AreEqual(5.5, calculation.Orientation);
+            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);
+            Assert.AreEqual(6.6, calculation.WaveReduction.BreakWaterHeight);
+            Assert.IsFalse(calculation.WaveReduction.UseForeshoreProfile);
         }
     }
 }

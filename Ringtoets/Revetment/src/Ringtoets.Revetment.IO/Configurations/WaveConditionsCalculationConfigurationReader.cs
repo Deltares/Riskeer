@@ -36,7 +36,9 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// This class reads a wave conditions calculation configuration from XML and creates a collection of corresponding
     /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="WaveConditionsCalculationConfiguration"/>.
     /// </summary>
-    public class WaveConditionsCalculationConfigurationReader : CalculationConfigurationReader<WaveConditionsCalculationConfiguration>
+    /// <typeparam name="T">The type of the calculation configuration.</typeparam>
+    public abstract class WaveConditionsCalculationConfigurationReader<T> : CalculationConfigurationReader<T>
+    where T : WaveConditionsCalculationConfiguration
     {
         private const string hydraulicBoundaryLocationSchemaName = "HrLocatieSchema.xsd";
         private const string orientationSchemaName = "OrientatieSchema.xsd";
@@ -44,7 +46,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         private const string waveReductionSchemaName = "GolfReductieSchema.xsd";
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T]"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
@@ -75,20 +77,19 @@ namespace Ringtoets.Revetment.IO.Configurations
                        }
                    }) {}
 
-        protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
+        protected abstract override T ParseCalculationElement(XElement calculationElement);
+
+        protected void ParseCalculationElementData(XElement calculationElement, T configuration)
         {
-            return new WaveConditionsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
-            {
-                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
-                UpperBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment),
-                LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment),
-                UpperBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels),
-                LowerBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels),
-                StepSize = (ConfigurationWaveConditionsInputStepSize?) calculationElement.GetConvertedValueFromDescendantDoubleElement<ConfigurationWaveConditionsInputStepSizeConverter>(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize),
-                ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile),
-                Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
-                WaveReduction = calculationElement.GetWaveReductionParameters()
-            };
+            configuration.HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
+            configuration.UpperBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryRevetment);
+            configuration.LowerBoundaryRevetment = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryRevetment);
+            configuration.UpperBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.UpperBoundaryWaterLevels);
+            configuration.LowerBoundaryWaterLevels = calculationElement.GetDoubleValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.LowerBoundaryWaterLevels);
+            configuration.StepSize = (ConfigurationWaveConditionsInputStepSize?) calculationElement.GetConvertedValueFromDescendantDoubleElement<ConfigurationWaveConditionsInputStepSizeConverter>(WaveConditionsCalculationConfigurationSchemaIdentifiers.StepSize);
+            configuration.ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(WaveConditionsCalculationConfigurationSchemaIdentifiers.ForeshoreProfile);
+            configuration.Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation);
+            configuration.WaveReduction = calculationElement.GetWaveReductionParameters();
         }
     }
 }

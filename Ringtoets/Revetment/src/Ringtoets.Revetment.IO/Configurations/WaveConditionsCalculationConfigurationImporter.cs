@@ -39,7 +39,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// </summary>
     /// <typeparam name="T">The type of the calculation to import.</typeparam>
     public class WaveConditionsCalculationConfigurationImporter<T>
-        : CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, WaveConditionsCalculationConfiguration>
+        : CalculationConfigurationImporter<AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
         where T : ICalculation<WaveConditionsInput>, new()
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
@@ -74,12 +74,12 @@ namespace Ringtoets.Revetment.IO.Configurations
             availableForeshoreProfiles = foreshoreProfiles;
         }
 
-        protected override WaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
+        protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
-            return new WaveConditionsCalculationConfigurationReader(xmlFilePath);
+            return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(xmlFilePath);
         }
 
-        protected override ICalculation ParseReadCalculation(WaveConditionsCalculationConfiguration calculationConfiguration)
+        protected override ICalculation ParseReadCalculation(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration)
         {
             var waveConditionsCalculation = new T
             {

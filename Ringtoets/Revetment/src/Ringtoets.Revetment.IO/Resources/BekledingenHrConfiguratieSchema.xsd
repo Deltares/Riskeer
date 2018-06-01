@@ -105,10 +105,10 @@ All rights reserved.
   <xs:element name="categoriegrens">
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:enumeration value="A+->A"/>
-        <xs:enumeration value="A->B"/>
-        <xs:enumeration value="B->C"/>
-        <xs:enumeration value="C->D"/>
+        <xs:enumeration value="A+-A"/>
+        <xs:enumeration value="A-B"/>
+        <xs:enumeration value="B-C"/>
+        <xs:enumeration value="C-D"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>

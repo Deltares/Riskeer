@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Xml.Linq;
 using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
+using Ringtoets.Common.IO.Configurations.Helpers;
+using Ringtoets.Revetment.IO.Configurations.Converters;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {
@@ -29,7 +32,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// This class reads a wave conditions calculation configuration from XML and creates a collection of corresponding
     /// <see cref="IConfigurationItem"/>, typically containing one or more <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfiguration"/>.
     /// </summary>
-    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader : WaveConditionsCalculationConfigurationReader
+    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader : WaveConditionsCalculationConfigurationReader<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader"/>.
@@ -46,5 +49,12 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(string xmlFilePath)
             : base(xmlFilePath) {}
+
+        protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
+        {
+            var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value);
+            ParseCalculationElementData(calculationElement, configuration);
+            return configuration;
+        }
     }
 };

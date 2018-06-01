@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<WaveConditionsCalculationConfigurationReader, WaveConditionsCalculationConfiguration>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>>(importer);
         }
 
         [Test]
