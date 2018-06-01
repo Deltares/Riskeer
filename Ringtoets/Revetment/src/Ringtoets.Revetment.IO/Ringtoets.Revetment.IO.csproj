@@ -19,6 +19,7 @@
   <ItemGroup>
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter.cs" />
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfiguration.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader.cs" />
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter.cs" />
     <Compile Include="Configurations\ConfigurationAssessmentSectionCategoryType.cs" />
     <Compile Include="Configurations\ConfigurationFailureMechanismCategoryType.cs" />
