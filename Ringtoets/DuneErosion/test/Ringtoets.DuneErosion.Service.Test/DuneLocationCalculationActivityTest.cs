@@ -400,10 +400,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             var duneLocation = new TestDuneLocation();
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
 
-            var locationObserver = mockRepository.StrictMock<IObserver>();
-            locationObserver.Expect(o => o.UpdateObserver());
-            duneLocation.Attach(locationObserver);
-
             var calculationObserver = mockRepository.StrictMock<IObserver>();
             calculationObserver.Expect(o => o.UpdateObserver());
             duneLocationCalculation.Attach(calculationObserver);
