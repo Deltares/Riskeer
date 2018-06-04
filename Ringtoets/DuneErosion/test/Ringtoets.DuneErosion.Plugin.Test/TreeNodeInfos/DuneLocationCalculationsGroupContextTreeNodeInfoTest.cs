@@ -161,6 +161,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (mockRepository.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);

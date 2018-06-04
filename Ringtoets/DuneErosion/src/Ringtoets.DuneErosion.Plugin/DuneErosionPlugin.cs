@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
@@ -156,11 +157,22 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return new ExportInfo<DuneLocationCalculationsContext>
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                CreateFileExporter = (context, filePath) => new DuneLocationCalculationsExporter(context.WrappedData.Select(calc => new ExportableDuneLocationCalculation(
-                                                                                                                                calc,
-                                                                                                                                context.GetNormFunc(),
-                                                                                                                                context.CategoryBoundaryName)).ToArray(), filePath),
+                CreateFileExporter = (context, filePath) => new DuneLocationCalculationsExporter(context.WrappedData
+                                                                                                        .Select(calc => new ExportableDuneLocationCalculation(
+                                                                                                                    calc,
+                                                                                                                    context.GetNormFunc(),
+                                                                                                                    context.CategoryBoundaryName)).ToArray(), filePath),
                 IsEnabled = context => context.WrappedData.Any(calculation => calculation.Output != null),
+                FileFilterGenerator = new FileFilterGenerator(
+                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
+                    Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description)
+            };
+
+            yield return new ExportInfo<DuneLocationCalculationsGroupContext>
+            {
+                Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
+                CreateFileExporter = CreateDuneLocationCalculationsGroupContextFileExporter,
+                IsEnabled = IsDuneLocationCalculationsGroupContextExportMenuItemEnabled,
                 FileFilterGenerator = new FileFilterGenerator(
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description)
@@ -177,6 +189,72 @@ namespace Ringtoets.DuneErosion.Plugin
             }
 
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
+        }
+
+        private bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsGroupContext context)
+        {
+            if (context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null))
+            {
+                return true;
+            }
+
+            if (context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null))
+            {
+                return true;
+            }
+
+            if (context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(calculation => calculation.Output != null))
+            {
+                return true;
+            }
+
+            if (context.FailureMechanism.CalculationsForLowerLimitNorm.Any(calculation => calculation.Output != null))
+            {
+                return true;
+            }
+
+            if (context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsGroupContext context, string filePath)
+        {
+            var exportableCalculations = new List<ExportableDuneLocationCalculation>();
+            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm
+                                                   .Select(calc => new ExportableDuneLocationCalculation(
+                                                               calc,
+                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
+                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)).ToArray());
+
+            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm
+                                                   .Select(calc => new ExportableDuneLocationCalculation(
+                                                               calc,
+                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
+                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)).ToArray());
+
+            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm
+                                                   .Select(calc => new ExportableDuneLocationCalculation(
+                                                               calc,
+                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
+                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)).ToArray());
+
+            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForLowerLimitNorm
+                                                   .Select(calc => new ExportableDuneLocationCalculation(
+                                                               calc,
+                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
+                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)).ToArray());
+
+            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm
+                                                   .Select(calc => new ExportableDuneLocationCalculation(
+                                                               calc,
+                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
+                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)).ToArray());
+
+            return new DuneLocationCalculationsExporter(exportableCalculations, filePath);
         }
 
         private static string FormatCategoryBoundaryName(string categoryBoundaryName)
@@ -271,6 +349,8 @@ namespace Ringtoets.DuneErosion.Plugin
             DuneLocationCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
+                      .AddExportItem()
+                      .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
                       .Build();

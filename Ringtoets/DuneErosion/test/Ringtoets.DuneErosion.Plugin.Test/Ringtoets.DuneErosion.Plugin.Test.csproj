@@ -22,6 +22,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DuneErosionPluginTest.cs" />
+    <Compile Include="ExportInfos\DuneLocationCalculationsGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\DuneLocationCalculationsContextExportInfoTest.cs" />
     <Compile Include="Handlers\DuneLocationsReplacementHandlerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
