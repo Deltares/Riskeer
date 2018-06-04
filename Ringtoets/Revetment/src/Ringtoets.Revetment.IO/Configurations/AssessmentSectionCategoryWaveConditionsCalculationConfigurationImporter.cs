@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -33,7 +34,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// <see cref="CalculationGroup"/>.
     /// </summary>
     /// <typeparam name="T">The type of the calculation to import.</typeparam>
-    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<T> 
+    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<T>
         : WaveConditionsCalculationConfigurationImporter<T, AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
         where T : ICalculation<AssessmentSectionCategoryWaveConditionsInput>, new()
     {
@@ -57,6 +58,14 @@ namespace Ringtoets.Revetment.IO.Configurations
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
             return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(xmlFilePath);
+        }
+
+        protected override void SetCategoryType(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration, T calculation)
+        {
+            if (calculationConfiguration.CategoryType.HasValue)
+            {
+                calculation.InputParameters.CategoryType = (AssessmentSectionCategoryType) calculationConfiguration.CategoryType;
+            }
         }
     }
 }

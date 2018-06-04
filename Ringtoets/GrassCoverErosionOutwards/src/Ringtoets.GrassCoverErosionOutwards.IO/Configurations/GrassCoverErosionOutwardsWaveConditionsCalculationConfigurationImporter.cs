@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.IO.Configurations;
@@ -57,6 +58,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
         {
             return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader(xmlFilePath);
+        }
+
+        protected override void SetCategoryType(GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration calculationConfiguration,
+                                                GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        {
+            if (calculationConfiguration.CategoryType.HasValue)
+            {
+                calculation.InputParameters.CategoryType = (FailureMechanismCategoryType) calculationConfiguration.CategoryType;
+            }
         }
     }
 }

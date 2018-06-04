@@ -19,8 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
@@ -33,6 +38,9 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
     [TestFixture]
     public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporterTest
     {
+        private readonly string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+                                                                  nameof(AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>));
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -47,10 +55,94 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>>(importer);
         }
 
+        [Test]
+        public void Import_ValidConfigurationWithValidData_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
+
+            var calculationGroup = new CalculationGroup();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HRlocatie", 10, 20);
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2)
+            }, new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties
+            {
+                Id = "Voorlandprofiel",
+                Name = "VoorlandProfielName"
+            });
+
+            var importer = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+                filePath,
+                calculationGroup,
+                new[]
+                {
+                    hydraulicBoundaryLocation
+                },
+                new[]
+                {
+                    foreshoreProfile
+                });
+
+            // Call
+            bool successful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new TestTargetTestWaveConditionsCalculation
+            {
+                Name = "Berekening 1",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    LowerBoundaryRevetment = (RoundedDouble) 2,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 9,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 4,
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    ForeshoreProfile = foreshoreProfile,
+                    Orientation = (RoundedDouble) 5.5,
+                    UseForeshore = false,
+                    UseBreakWater = true,
+                    BreakWater =
+                    {
+                        Height = (RoundedDouble) 6.6,
+                        Type = BreakWaterType.Caisson
+                    },
+                    CategoryType = AssessmentSectionCategoryType.SignalingNorm
+                }
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertWaveConditionsCalculation(expectedCalculation, (ICalculation<AssessmentSectionCategoryWaveConditionsInput>) calculationGroup.Children[0]);
+        }
+
+        private static void AssertWaveConditionsCalculation(ICalculation<AssessmentSectionCategoryWaveConditionsInput> expectedCalculation,
+                                                            ICalculation<AssessmentSectionCategoryWaveConditionsInput> actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryRevetment, actualCalculation.InputParameters.UpperBoundaryRevetment);
+            Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryRevetment, actualCalculation.InputParameters.LowerBoundaryRevetment);
+            Assert.AreEqual(expectedCalculation.InputParameters.UpperBoundaryWaterLevels, actualCalculation.InputParameters.UpperBoundaryWaterLevels);
+            Assert.AreEqual(expectedCalculation.InputParameters.LowerBoundaryWaterLevels, actualCalculation.InputParameters.LowerBoundaryWaterLevels);
+            Assert.AreEqual(expectedCalculation.InputParameters.StepSize, actualCalculation.InputParameters.StepSize);
+            Assert.AreEqual(expectedCalculation.InputParameters.Orientation, actualCalculation.InputParameters.Orientation);
+            Assert.AreEqual(expectedCalculation.InputParameters.ForeshoreProfile, actualCalculation.InputParameters.ForeshoreProfile);
+            Assert.AreEqual(expectedCalculation.InputParameters.UseForeshore, actualCalculation.InputParameters.UseForeshore);
+            Assert.AreEqual(expectedCalculation.InputParameters.UseBreakWater, actualCalculation.InputParameters.UseBreakWater);
+            Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
+            Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
+            Assert.AreEqual(expectedCalculation.InputParameters.CategoryType, actualCalculation.InputParameters.CategoryType);
+        }
+
         private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>
         {
-            public TestTargetTestWaveConditionsCalculation() 
-                : base(new AssessmentSectionCategoryWaveConditionsInput()) { }
+            public TestTargetTestWaveConditionsCalculation()
+                : base(new AssessmentSectionCategoryWaveConditionsInput()) {}
         }
     }
 }

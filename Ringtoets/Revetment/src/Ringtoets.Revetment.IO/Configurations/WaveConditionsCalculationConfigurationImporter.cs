@@ -61,19 +61,21 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
         protected WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
-                                                              CalculationGroup importTarget,
-                                                              IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                              IEnumerable<ForeshoreProfile> foreshoreProfiles)
+                                                                 CalculationGroup importTarget,
+                                                                 IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
+
             if (foreshoreProfiles == null)
             {
                 throw new ArgumentNullException(nameof(foreshoreProfiles));
             }
+
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
         }
@@ -88,6 +90,7 @@ namespace Ringtoets.Revetment.IO.Configurations
             };
 
             SetStepSize(calculationConfiguration, waveConditionsCalculation);
+            SetCategoryType(calculationConfiguration, waveConditionsCalculation);
 
             if (TrySetHydraulicBoundaryLocation(calculationConfiguration.HydraulicBoundaryLocationName, waveConditionsCalculation)
                 && TrySetBoundaries(calculationConfiguration, waveConditionsCalculation)
@@ -99,8 +102,16 @@ namespace Ringtoets.Revetment.IO.Configurations
                 SetWaveReductionParameters(calculationConfiguration.WaveReduction, waveConditionsCalculation.InputParameters);
                 return waveConditionsCalculation;
             }
+
             return null;
         }
+
+        /// <summary>
+        /// Assigns the category type of the calculation.
+        /// </summary>
+        /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
+        /// <param name="calculation">The calculation to configure.</param>
+        protected abstract void SetCategoryType(TCalculationConfiguration calculationConfiguration, TCalculation calculation);
 
         /// <summary>
         /// Assigns the boundaries of the calculation.
@@ -149,6 +160,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                     return false;
                 }
             }
+
             return true;
         }
 
@@ -214,6 +226,7 @@ namespace Ringtoets.Revetment.IO.Configurations
                     return false;
                 }
             }
+
             return true;
         }
     }

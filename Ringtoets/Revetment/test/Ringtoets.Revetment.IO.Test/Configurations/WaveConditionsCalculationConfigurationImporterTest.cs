@@ -352,6 +352,9 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             {
                 return new TestWaveConditionsCalculationConfigurationReader(xmlFilePath);
             }
+
+            protected override void SetCategoryType(WaveConditionsCalculationConfiguration calculationConfiguration,
+                                                    TestTargetTestWaveConditionsCalculation calculation) {}
         }
 
         private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<TestWaveConditionsInput>
