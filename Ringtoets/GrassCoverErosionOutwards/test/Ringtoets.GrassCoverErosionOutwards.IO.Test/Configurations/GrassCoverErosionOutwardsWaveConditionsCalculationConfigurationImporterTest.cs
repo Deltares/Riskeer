@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader, GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>>(importer);
         }
     }
 }

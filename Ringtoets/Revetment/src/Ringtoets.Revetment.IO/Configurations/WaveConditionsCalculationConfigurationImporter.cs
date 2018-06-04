@@ -37,16 +37,20 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// Imports a wave conditions calculation configuration from an XML file and stores it on a
     /// <see cref="CalculationGroup"/>.
     /// </summary>
-    /// <typeparam name="T">The type of the calculation to import.</typeparam>
-    public class WaveConditionsCalculationConfigurationImporter<T>
-        : CalculationConfigurationImporter<AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
-        where T : ICalculation<WaveConditionsInput>, new()
+    /// <typeparam name="TCalculation">The type of the calculation to import.</typeparam>
+    /// <typeparam name="TCalculationConfigurationReader">The type of the reader to use.</typeparam>
+    /// <typeparam name="TCalculationConfiguration">The type of calculation configuration.</typeparam>
+    public abstract class WaveConditionsCalculationConfigurationImporter<TCalculation, TCalculationConfigurationReader, TCalculationConfiguration>
+        : CalculationConfigurationImporter<TCalculationConfigurationReader, TCalculationConfiguration>
+        where TCalculation : ICalculation<WaveConditionsInput>, new()
+        where TCalculationConfigurationReader : CalculationConfigurationReader<TCalculationConfiguration>
+        where TCalculationConfiguration : WaveConditionsCalculationConfiguration
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{T}"/>.
+        /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationImporter{TCalculation, TCalculationConfigurationReader, TCalculationConfiguration}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The path to the XML file to import from.</param>
         /// <param name="importTarget">The calculation group to update.</param>
@@ -56,7 +60,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// the imported objects contain the right profile.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
-        public WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
+        protected WaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                               CalculationGroup importTarget,
                                                               IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                               IEnumerable<ForeshoreProfile> foreshoreProfiles)
@@ -74,14 +78,11 @@ namespace Ringtoets.Revetment.IO.Configurations
             availableForeshoreProfiles = foreshoreProfiles;
         }
 
-        protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
-        {
-            return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(xmlFilePath);
-        }
+        protected abstract override TCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath);
 
-        protected override ICalculation ParseReadCalculation(AssessmentSectionCategoryWaveConditionsCalculationConfiguration calculationConfiguration)
+        protected override ICalculation ParseReadCalculation(TCalculationConfiguration calculationConfiguration)
         {
-            var waveConditionsCalculation = new T
+            var waveConditionsCalculation = new TCalculation
             {
                 Name = calculationConfiguration.Name
             };

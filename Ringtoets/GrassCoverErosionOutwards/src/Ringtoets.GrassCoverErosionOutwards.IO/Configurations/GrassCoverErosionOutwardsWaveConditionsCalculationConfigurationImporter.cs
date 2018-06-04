@@ -34,7 +34,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
     /// from an XML file and stores it on a <see cref="CalculationGroup"/>.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter
-        : WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation>
+        : WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation,
+            GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader, GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter"/>.
@@ -52,5 +53,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
                                                                                        IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                                        IEnumerable<ForeshoreProfile> foreshoreProfiles) 
             : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles) {}
+
+        protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
+        {
+            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader(xmlFilePath);
+        }
     }
 }

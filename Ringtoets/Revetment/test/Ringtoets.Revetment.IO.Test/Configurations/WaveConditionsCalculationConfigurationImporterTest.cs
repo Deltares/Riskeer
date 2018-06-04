@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -46,21 +48,21 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
-            Assert.IsInstanceOf<CalculationConfigurationImporter<AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>>(importer);
+            Assert.IsInstanceOf<CalculationConfigurationImporter<TestWaveConditionsCalculationConfigurationReader, WaveConditionsCalculationConfiguration>>(importer);
         }
 
         [Test]
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            TestDelegate test = () => new TestWaveConditionsCalculationConfigurationImporter(
                 "",
                 new CalculationGroup(),
                 null,
@@ -75,7 +77,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            TestDelegate test = () => new TestWaveConditionsCalculationConfigurationImporter(
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -100,7 +102,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, file);
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -124,7 +126,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationContainingUnknownHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -135,7 +137,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Action call = () => successful = importer.Import();
 
             // Assert
-            const string expectedMessage = "De locatie met hydraulische randvoorwaarden 'HRlocatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
+            const string expectedMessage = "De locatie met hydraulische randvoorwaarden 'HRlocatie' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 1);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
@@ -148,7 +150,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationContainingUnknownForeshoreProfile.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -172,7 +174,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(path, "validConfigurationCalculationContainingWaveReductionWithoutForeshoreProfile.xml");
 
             var calculationGroup = new CalculationGroup();
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -197,7 +199,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
             var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -225,7 +227,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
             var calculationGroup = new CalculationGroup();
             var foreshoreProfile = new TestForeshoreProfile("Voorlandprofiel");
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
@@ -274,7 +276,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 Name = "VoorlandProfielName"
             });
 
-            var importer = new WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>(
+            var importer = new TestWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,
                 new[]
@@ -336,9 +338,41 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
         }
 
+        private class TestWaveConditionsCalculationConfigurationImporter
+            : WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation, TestWaveConditionsCalculationConfigurationReader, WaveConditionsCalculationConfiguration>
+        {
+            public TestWaveConditionsCalculationConfigurationImporter(string xmlFilePath,
+                                                                      CalculationGroup importTarget,
+                                                                      IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                                                      IEnumerable<ForeshoreProfile> foreshoreProfiles)
+                : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles) {}
+
+            protected override TestWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(
+                string xmlFilePath)
+            {
+                return new TestWaveConditionsCalculationConfigurationReader(xmlFilePath);
+            }
+        }
+
         private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<TestWaveConditionsInput>
         {
             public TestTargetTestWaveConditionsCalculation() : base(new TestWaveConditionsInput()) {}
+        }
+
+        private class TestWaveConditionsCalculationConfigurationReader : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
+        {
+            private static readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+                                                                                          nameof(WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation, WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration>));
+
+            public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath)
+                : base(xmlFilePath, File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))) {}
+
+            protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
+            {
+                var configuration = new WaveConditionsCalculationConfiguration("Berekening 1");
+                ParseCalculationElementData(calculationElement, configuration);
+                return configuration;
+            }
         }
     }
 }

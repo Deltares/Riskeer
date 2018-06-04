@@ -44,7 +44,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 Enumerable.Empty<ForeshoreProfile>());
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>>(importer);
         }
 
         private class TestTargetTestWaveConditionsCalculation : TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>
