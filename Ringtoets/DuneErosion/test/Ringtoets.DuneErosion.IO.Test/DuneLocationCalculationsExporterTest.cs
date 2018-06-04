@@ -42,21 +42,21 @@ namespace Ringtoets.DuneErosion.IO.Test
             string filePath = TestHelper.GetScratchPadPath(Path.Combine(nameof(DuneLocationCalculationsExporterTest), "test.bnd"));
 
             // Call
-            var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<DuneLocationCalculation>(), filePath);
+            var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
         }
 
         [Test]
-        public void Constructor_DuneLocationCalculationsNull_ThrowArgumentNullException()
+        public void Constructor_ExportableDuneLocationCalculationsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => new DuneLocationCalculationsExporter(null, "IAmValid.bnd");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("duneLocationCalculations", exception.ParamName);
+            Assert.AreEqual("exportableDuneLocationCalculations", exception.ParamName);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationsExporter(Enumerable.Empty<DuneLocationCalculation>(), filePath);
+            TestDelegate test = () => new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -76,19 +76,28 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            var calculationWithoutOutput = new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4));
+            var calculationWithoutOutput = new ExportableDuneLocationCalculation(
+                new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4)),
+                0.5,
+                "A");
 
-            var calculationWithUncalculatedOutput = new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
-            {
-                Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
-            };
+            var calculationWithUncalculatedOutput = new ExportableDuneLocationCalculation(
+                new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
+                {
+                    Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
+                },
+                0.25,
+                "B");
 
-            var calculationWithOutput = new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
-            {
-                Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
-            };
+            var calculationWithOutput = new ExportableDuneLocationCalculation(
+                new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
+                {
+                    Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
+                },
+                0.1,
+                "C");
 
-            DuneLocationCalculation[] duneLocationCalculations =
+            ExportableDuneLocationCalculation[] exportableDuneLocationCalculations =
             {
                 calculationWithoutOutput,
                 calculationWithUncalculatedOutput,
@@ -100,7 +109,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");
 
-                var exporter = new DuneLocationCalculationsExporter(duneLocationCalculations, filePath);
+                var exporter = new DuneLocationCalculationsExporter(exportableDuneLocationCalculations, filePath);
 
                 // Call
                 bool isExported = exporter.Export();
@@ -109,11 +118,12 @@ namespace Ringtoets.DuneErosion.IO.Test
                 Assert.IsTrue(isExported);
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50{Environment.NewLine}" +
-                                      $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]{Environment.NewLine}" +
-                                      $"9\t9740\t*\t*\t*\t*\t0.000196{Environment.NewLine}" +
-                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196{Environment.NewLine}" +
-                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134{Environment.NewLine}";
+                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_WBI2017_ID\t_WBI2017_Categorie\t_WBI2017_Waarde{Environment.NewLine}" +
+                                      $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tScenario\tCategorie\tPfdsn{Environment.NewLine}" +
+                                      $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[-]\t[-]\t[1/jaar]{Environment.NewLine}" +
+                                      $"9\t9740\t*\t*\t*\t*\t0.000196\tA (Pfdsn = 1/2 jaar)\tA\t0.5{Environment.NewLine}" +
+                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\tB (Pfdsn = 1/4 jaar)\tB\t0.25{Environment.NewLine}" +
+                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\tC (Pfdsn = 1/10 jaar)\tC\t0.1{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -126,7 +136,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");
-                var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<DuneLocationCalculation>(), filePath);
+                var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
                 var isExported = true;

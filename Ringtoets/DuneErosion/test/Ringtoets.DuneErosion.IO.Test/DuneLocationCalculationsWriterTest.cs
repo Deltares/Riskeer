@@ -36,21 +36,21 @@ namespace Ringtoets.DuneErosion.IO.Test
     public class DuneLocationCalculationsWriterTest
     {
         [Test]
-        public void WriteDuneLocationCalculations_DuneLocationCalculationsNull_ThrowArgumentNullException()
+        public void WriteDuneLocationCalculations_ExportableDuneLocationCalculationsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("duneLocationCalculations", exception.ParamName);
+            Assert.AreEqual("exportableDuneLocationCalculations", exception.ParamName);
         }
 
         [Test]
         public void WriteDuneLocationCalculations_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<DuneLocationCalculation>(), null);
+            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -64,7 +64,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocationCalculations_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
+            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -79,7 +79,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
+            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -98,7 +98,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<DuneLocationCalculation>(), filePath);
+                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -118,7 +118,7 @@ namespace Ringtoets.DuneErosion.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<DuneLocationCalculation>(), path);
+                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), path);
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -131,19 +131,28 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocationCalculations_ValidData_ValidFile()
         {
             // Setup
-            var calculationWithoutOutput = new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4));
+            var calculationWithoutOutput = new ExportableDuneLocationCalculation(
+                new DuneLocationCalculation(CreateDuneLocationForExport(9, 9740, 1.9583e-4)),
+                0.5,
+                "A");
 
-            var calculationWithUncalculatedOutput = new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
-            {
-                Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
-            };
+            var calculationWithUncalculatedOutput = new ExportableDuneLocationCalculation(
+                new DuneLocationCalculation(CreateDuneLocationForExport(10, 9770.1, 1.9583e-4))
+                {
+                    Output = CreateDuneLocationCalculationOutputForExport(double.NaN, double.NaN, double.NaN)
+                },
+                0.25,
+                "B");
 
-            var calculationWithOutput = new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
-            {
-                Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
-            };
+            var calculationWithOutput = new ExportableDuneLocationCalculation(
+                new DuneLocationCalculation(CreateDuneLocationForExport(11, 9771.34, 1.337e-4))
+                {
+                    Output = CreateDuneLocationCalculationOutputForExport(5.89, 14.11, 8.53)
+                },
+                0.1,
+                "C");
 
-            DuneLocationCalculation[] duneLocationCalculations =
+            ExportableDuneLocationCalculation[] exportableDuneLocationCalculations =
             {
                 calculationWithoutOutput,
                 calculationWithUncalculatedOutput,
@@ -157,16 +166,17 @@ namespace Ringtoets.DuneErosion.IO.Test
             try
             {
                 // Call
-                DuneLocationCalculationsWriter.WriteDuneLocationCalculations(duneLocationCalculations, filePath);
+                DuneLocationCalculationsWriter.WriteDuneLocationCalculations(exportableDuneLocationCalculations, filePath);
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 string fileContent = File.ReadAllText(filePath);
-                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50{Environment.NewLine}" +
-                                      $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]{Environment.NewLine}" +
-                                      $"9\t9740\t*\t*\t*\t*\t0.000196{Environment.NewLine}" +
-                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196{Environment.NewLine}" +
-                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134{Environment.NewLine}";
+                string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_WBI2017_ID\t_WBI2017_Categorie\t_WBI2017_Waarde{Environment.NewLine}" +
+                                      $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tScenario\tCategorie\tPfdsn{Environment.NewLine}" +
+                                      $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[-]\t[-]\t[1/jaar]{Environment.NewLine}" +
+                                      $"9\t9740\t*\t*\t*\t*\t0.000196\tA (Pfdsn = 1/2 jaar)\tA\t0.5{Environment.NewLine}" +
+                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\tB (Pfdsn = 1/4 jaar)\tB\t0.25{Environment.NewLine}" +
+                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\tC (Pfdsn = 1/10 jaar)\tC\t0.1{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
             finally

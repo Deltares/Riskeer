@@ -54,7 +54,6 @@ namespace Ringtoets.DuneErosion.IO.Test
         }
 
         [Test]
-        [TestCase("Category")]
         public void Constructor_WithValidParameters_ExpectedProperties()
         {
             // Setup

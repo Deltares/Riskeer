@@ -156,7 +156,10 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return new ExportInfo<DuneLocationCalculationsContext>
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                CreateFileExporter = (context, filePath) => new DuneLocationCalculationsExporter(context.WrappedData, filePath),
+                CreateFileExporter = (context, filePath) => new DuneLocationCalculationsExporter(context.WrappedData.Select(calc => new ExportableDuneLocationCalculation(
+                                                                                                                                calc,
+                                                                                                                                context.GetNormFunc(),
+                                                                                                                                context.CategoryBoundaryName)).ToArray(), filePath),
                 IsEnabled = context => context.WrappedData.Any(calculation => calculation.Output != null),
                 FileFilterGenerator = new FileFilterGenerator(
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,

@@ -26,6 +26,7 @@ using System.IO;
 using System.Text;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
@@ -43,16 +44,16 @@ namespace Ringtoets.DuneErosion.IO
         /// <summary>
         /// Writes dune location calculations to a bnd file.
         /// </summary>
-        /// <param name="duneLocationCalculations">The dune location calculations to be written to the file.</param>
+        /// <param name="exportableDuneLocationCalculations">The dune location calculations to be written to the file.</param>
         /// <param name="filePath">The path to the file.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
-        public static void WriteDuneLocationCalculations(IEnumerable<DuneLocationCalculation> duneLocationCalculations,
+        public static void WriteDuneLocationCalculations(IEnumerable<ExportableDuneLocationCalculation> exportableDuneLocationCalculations,
                                                          string filePath)
         {
-            if (duneLocationCalculations == null)
+            if (exportableDuneLocationCalculations == null)
             {
-                throw new ArgumentNullException(nameof(duneLocationCalculations));
+                throw new ArgumentNullException(nameof(exportableDuneLocationCalculations));
             }
 
             if (filePath == null)
@@ -61,11 +62,12 @@ namespace Ringtoets.DuneErosion.IO
             }
 
             var stringBuilder = new StringBuilder(Resources.DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine + Environment.NewLine);
+            stringBuilder.AppendLine(Resources.DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine);
             stringBuilder.AppendLine(Resources.DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine);
 
             try
             {
-                foreach (DuneLocationCalculation calculation in duneLocationCalculations)
+                foreach (ExportableDuneLocationCalculation calculation in exportableDuneLocationCalculations)
                 {
                     stringBuilder.AppendLine(CreateCsvLine(calculation));
                 }
@@ -78,18 +80,21 @@ namespace Ringtoets.DuneErosion.IO
             }
         }
 
-        private static string CreateCsvLine(DuneLocationCalculation calculation)
+        private static string CreateCsvLine(ExportableDuneLocationCalculation calculation)
         {
-            DuneLocation duneLocation = calculation.DuneLocation;
+            DuneLocation duneLocation = calculation.Calculation.DuneLocation;
             var stringComponents = new List<string>
             {
                 duneLocation.CoastalAreaId.ToString(null, CultureInfo.InvariantCulture),
                 duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
                 Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
-                duneLocation.D50.ToString(null, CultureInfo.InvariantCulture)
+                duneLocation.D50.ToString(null, CultureInfo.InvariantCulture),
+                calculation.CategoryBoundaryName + " (Pfdsn = " + new NoProbabilityValueDoubleConverter().ConvertToInvariantString(calculation.Norm) + " jaar)",
+                calculation.CategoryBoundaryName,
+                calculation.Norm.ToString(CultureInfo.InvariantCulture)
             };
 
-            stringComponents.InsertRange(2, GetOutputValues(calculation.Output));
+            stringComponents.InsertRange(2, GetOutputValues(calculation.Calculation.Output));
 
             return string.Join(separator, stringComponents);
         }

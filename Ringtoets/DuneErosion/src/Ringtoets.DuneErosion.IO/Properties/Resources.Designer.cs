@@ -91,7 +91,16 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50.
+        ///   Looks up a localized string similar to *Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Scenario	Categorie	Pfdsn.
+        /// </summary>
+        internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kv	Nr	Rp	Hs	Tp	Tm-1,0	D50	_WBI2017_ID	_WBI2017_Categorie	_WBI2017_Waarde.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_HeaderLine {
             get {
@@ -100,7 +109,7 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m].
+        ///   Looks up a localized string similar to *[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m]	[-]	[-]	[1/jaar].
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine {
             get {
