@@ -193,37 +193,16 @@ namespace Ringtoets.DuneErosion.Plugin
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
         }
 
-        private bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsGroupContext context)
+        private static bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsGroupContext context)
         {
-            if (context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null))
-            {
-                return true;
-            }
-
-            if (context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null))
-            {
-                return true;
-            }
-
-            if (context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(calculation => calculation.Output != null))
-            {
-                return true;
-            }
-
-            if (context.FailureMechanism.CalculationsForLowerLimitNorm.Any(calculation => calculation.Output != null))
-            {
-                return true;
-            }
-
-            if (context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null))
-            {
-                return true;
-            }
-
-            return false;
+            return context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForLowerLimitNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null);
         }
 
-        private IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsGroupContext context, string filePath)
+        private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsGroupContext context, string filePath)
         {
             var exportableCalculations = new List<ExportableDuneLocationCalculation>();
             exportableCalculations.AddRange(context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm
