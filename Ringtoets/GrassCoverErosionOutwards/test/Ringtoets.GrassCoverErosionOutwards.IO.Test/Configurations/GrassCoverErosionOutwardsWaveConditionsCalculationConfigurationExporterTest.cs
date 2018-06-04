@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 }
             };
 
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO,
                                                                     Path.Combine(
                                                                         nameof(GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter),
                                                                         "fullValidConfiguration.xml"));
