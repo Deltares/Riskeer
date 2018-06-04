@@ -52,7 +52,7 @@ namespace Ringtoets.Revetment.Data
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInput"/>.
         /// </summary>
-        public WaveConditionsInput()
+        protected WaveConditionsInput()
         {
             orientation = new RoundedDouble(orientationNumberOfDecimals, double.NaN);
 

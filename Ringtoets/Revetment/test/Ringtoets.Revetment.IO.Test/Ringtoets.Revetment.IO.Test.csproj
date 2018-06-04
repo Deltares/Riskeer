@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporterTest.cs" />
+    <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporterTest.cs" />
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationReaderTest.cs" />
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationTest.cs" />
     <Compile Include="Configurations\AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriterTest.cs" />
