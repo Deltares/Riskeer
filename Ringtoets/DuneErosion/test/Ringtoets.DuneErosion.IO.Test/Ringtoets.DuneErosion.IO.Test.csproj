@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DuneLocationCalculationsExporterTest.cs" />
+    <Compile Include="ExportableDuneLocationCalculationTest.cs" />
     <Compile Include="DuneLocationsReaderTest.cs" />
     <Compile Include="DuneLocationCalculationsWriterTest.cs" />
     <Compile Include="ReadDuneLocationTest.cs" />
