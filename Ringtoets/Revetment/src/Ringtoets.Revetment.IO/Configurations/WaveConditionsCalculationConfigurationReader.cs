@@ -44,11 +44,13 @@ namespace Ringtoets.Revetment.IO.Configurations
         private const string orientationSchemaName = "OrientatieSchema.xsd";
         private const string foreshoreProfileSchemaName = "VoorlandProfielSchema.xsd";
         private const string waveReductionSchemaName = "GolfReductieSchema.xsd";
+        private const string revetmentBaseSchemaName = "BekledingenHrConfiguratieSchemaBasis.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T]"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
+        /// <param name="mainSchemaDefinition">A <c>string</c> representing the main schema definition.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
@@ -56,13 +58,16 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain valid XML.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
+        /// <item><paramref name="mainSchemaDefinition"/> is invalid.</item>
         /// </list>
         /// </exception>
-        protected WaveConditionsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath,
-                   Resources.BekledingenHrConfiguratieSchema,
+        protected WaveConditionsCalculationConfigurationReader(string xmlFilePath, string mainSchemaDefinition)
+            : base(xmlFilePath, mainSchemaDefinition,
                    new Dictionary<string, string>
                    {
+                       {
+                           revetmentBaseSchemaName,  Resources.BekledingenHrConfiguratieSchemaBasis
+                       },
                        {
                            hydraulicBoundaryLocationSchemaName, RingtoetsCommonIOResources.HrLocatieSchema
                        },

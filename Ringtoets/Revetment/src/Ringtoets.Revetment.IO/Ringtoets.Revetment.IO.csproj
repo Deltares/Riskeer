@@ -48,6 +48,9 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="Resources\BekledingenHrConfiguratieSchemaBasis.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\BekledingenHrConfiguratieSchema.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -25,6 +25,7 @@ using Core.Common.Base.IO;
 using Ringtoets.Common.IO.Configurations;
 using Ringtoets.Common.IO.Configurations.Helpers;
 using Ringtoets.Revetment.IO.Configurations.Converters;
+using Ringtoets.Revetment.IO.Properties;
 
 namespace Ringtoets.Revetment.IO.Configurations
 {
@@ -48,7 +49,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </list>
         /// </exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath) {}
+            : base(xmlFilePath, Resources.BekledingenHrConfiguratieSchema) {}
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
