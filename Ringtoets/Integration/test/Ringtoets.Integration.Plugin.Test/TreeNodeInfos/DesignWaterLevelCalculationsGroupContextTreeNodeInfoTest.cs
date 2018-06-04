@@ -496,19 +496,19 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
 
-                Assert.AreEqual("Categorie A+->A", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("A+->A", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(signalingNorm / 30, calculationsContexts[0].GetNormFunc());
 
-                Assert.AreEqual("Categorie A->B", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("A->B", calculationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("Categorie B->C", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("B->C", calculationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, calculationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("Categorie C->D", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("C->D", calculationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[3].GetNormFunc());
             }

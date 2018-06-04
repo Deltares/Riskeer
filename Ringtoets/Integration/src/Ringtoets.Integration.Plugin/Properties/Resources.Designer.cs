@@ -219,42 +219,6 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie C-&gt;D.
-        /// </summary>
-        public static string Hydraulic_category_boundary_factorizedLowerLimitNorm_name {
-            get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedLowerLimitNorm_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categorie A+-&gt;A.
-        /// </summary>
-        public static string Hydraulic_category_boundary_factorizedSignalingNorm_name {
-            get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_factorizedSignalingNorm_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categorie B-&gt;C.
-        /// </summary>
-        public static string Hydraulic_category_boundary_lowerLimitNorm_name {
-            get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_lowerLimitNorm_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categorie A-&gt;B.
-        /// </summary>
-        public static string Hydraulic_category_boundary_signalingNorm_name {
-            get {
-                return ResourceManager.GetString("Hydraulic_category_boundary_signalingNorm_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
         ///
         ///Wilt u doorgaan?.

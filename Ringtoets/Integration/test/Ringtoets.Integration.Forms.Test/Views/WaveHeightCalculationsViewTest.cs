@@ -405,7 +405,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
@@ -477,7 +477,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
@@ -548,7 +548,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(string.Empty, preprocessorDirectoryValue);

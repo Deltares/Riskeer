@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
 
             FailureMechanism = failureMechanism;
-            messageProvider = new DesignWaterLevelCalculationMessageProvider(string.Format(RingtoetsCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName));
+            messageProvider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
 
             failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
             {
