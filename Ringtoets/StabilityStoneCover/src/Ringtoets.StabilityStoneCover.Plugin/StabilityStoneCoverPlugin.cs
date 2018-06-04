@@ -179,7 +179,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<StabilityStoneCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
-                    new WaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
+                    new AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
                         context.AssessmentSection.HydraulicBoundaryDatabase.Locations,

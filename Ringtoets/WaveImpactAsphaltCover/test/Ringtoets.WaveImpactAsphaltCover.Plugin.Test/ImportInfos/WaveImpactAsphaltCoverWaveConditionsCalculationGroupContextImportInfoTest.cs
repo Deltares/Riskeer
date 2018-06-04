@@ -125,7 +125,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(context, "");
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>>(importer);
             mocks.VerifyAll();
         }
     }

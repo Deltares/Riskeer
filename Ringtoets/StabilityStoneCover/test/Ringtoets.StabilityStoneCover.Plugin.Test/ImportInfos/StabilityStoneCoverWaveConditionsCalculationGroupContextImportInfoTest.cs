@@ -125,7 +125,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ImportInfos
             IFileImporter importer = importInfo.CreateFileImporter(context, "");
 
             // Assert
-            Assert.IsInstanceOf<WaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>>(importer);
+            Assert.IsInstanceOf<AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<StabilityStoneCoverWaveConditionsCalculation>>(importer);
             mocks.VerifyAll();
         }
     }

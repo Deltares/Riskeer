@@ -121,7 +121,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
-                    new WaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
+                    new AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter<WaveImpactAsphaltCoverWaveConditionsCalculation>(
                         filePath,
                         context.WrappedData,
                         context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
