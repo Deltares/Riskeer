@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             yield return RingtoetsImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
                 (context, filePath) =>
-                    new WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation>(
+                    new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(
                         filePath,
                         context.WrappedData,
                         context.HydraulicBoundaryLocations,
