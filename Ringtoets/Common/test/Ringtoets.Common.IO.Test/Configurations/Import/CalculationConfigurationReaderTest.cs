@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
     [TestFixture]
     public class CalculationConfigurationReaderTest
     {
-        private readonly string validMainSchemaDefinition;
+        private string validMainSchemaDefinition;
 
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                                "CalculationConfigurationReader");
@@ -76,6 +76,12 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
                         "'Nieuw' is an unexpected token. The expected token is '\"' or '''. Line 3, position 20.")
                     .SetName("FileDoesNotContainValidXml_withoutQoutationMarks.xml");
             }
+        }
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
         }
 
         [Test]
@@ -335,11 +341,6 @@ namespace Ringtoets.Common.IO.Test.Configurations.Import
             var calculation5 = group4Items[0] as ReadCalculation;
             Assert.IsNotNull(calculation5);
             Assert.AreEqual("Calculation 5", calculation5.Name);
-        }
-
-        public CalculationConfigurationReaderTest()
-        {
-            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
         }
 
         private class CalculationConfigurationReader : CalculationConfigurationReader<ReadCalculation>

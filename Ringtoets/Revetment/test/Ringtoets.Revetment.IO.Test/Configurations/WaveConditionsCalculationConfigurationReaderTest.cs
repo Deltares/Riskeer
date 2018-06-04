@@ -338,9 +338,12 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
         }
 
-        private class TestWaveConditionsCalculationConfigurationReader : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
+        private class TestWaveConditionsCalculationConfigurationReader 
+            : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
         {
-            public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath) : base(xmlFilePath) {}
+            public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath)
+                : base(xmlFilePath) {}
+
             protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
             {
                 var configuration = new WaveConditionsCalculationConfiguration("test");

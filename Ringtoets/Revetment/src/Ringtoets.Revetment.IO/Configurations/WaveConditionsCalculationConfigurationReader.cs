@@ -38,7 +38,7 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// </summary>
     /// <typeparam name="T">The type of the calculation configuration.</typeparam>
     public abstract class WaveConditionsCalculationConfigurationReader<T> : CalculationConfigurationReader<T>
-    where T : WaveConditionsCalculationConfiguration
+        where T : WaveConditionsCalculationConfiguration
     {
         private const string hydraulicBoundaryLocationSchemaName = "HrLocatieSchema.xsd";
         private const string orientationSchemaName = "OrientatieSchema.xsd";
@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
         /// </list>
         /// </exception>
-        public WaveConditionsCalculationConfigurationReader(string xmlFilePath)
+        protected WaveConditionsCalculationConfigurationReader(string xmlFilePath)
             : base(xmlFilePath,
                    Resources.BekledingenHrConfiguratieSchema,
                    new Dictionary<string, string>
