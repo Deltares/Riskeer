@@ -410,23 +410,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(failureMechanism, c.FailureMechanism)));
 
-                Assert.AreEqual("Categorie Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm / 30), calculationsContexts[0].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("Categorie IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => signalingNorm), calculationsContexts[1].GetNormFunc());
 
-                Assert.AreEqual("Categorie IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, () => lowerLimitNorm), calculationsContexts[2].GetNormFunc());
 
-                Assert.AreEqual("Categorie IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(lowerLimitNorm, calculationsContexts[3].GetNormFunc());
 
-                Assert.AreEqual("Categorie Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
+                Assert.AreEqual("Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
                 Assert.AreSame(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
                 Assert.AreEqual(lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc());
             }

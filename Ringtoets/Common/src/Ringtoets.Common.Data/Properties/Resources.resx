@@ -420,4 +420,7 @@
   <data name="FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName" xml:space="preserve">
     <value>Vv-&gt;VIv</value>
   </data>
+  <data name="Hydraulic_category_boundary_0_" xml:space="preserve">
+    <value>Categorie {0}</value>
+  </data>
 </root>

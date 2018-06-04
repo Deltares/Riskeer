@@ -229,23 +229,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(assessmentSection, c.AssessmentSection)));
                 Assert.IsTrue(calculationsContexts.All(c => ReferenceEquals(failureMechanism, c.FailureMechanism)));
 
-                Assert.AreEqual("Categorie Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
+                Assert.AreEqual("Iv->IIv", calculationsContexts[0].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm, calculationsContexts[0].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, signalingNorm / 30), calculationsContexts[0].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("Categorie IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
+                Assert.AreEqual("IIv->IIIv", calculationsContexts[1].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificSignalingNorm, calculationsContexts[1].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, signalingNorm), calculationsContexts[1].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("Categorie IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
+                Assert.AreEqual("IIIv->IVv", calculationsContexts[2].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm, calculationsContexts[2].WrappedData);
                 Assert.AreEqual(GetExpectedNorm(failureMechanism, lowerLimitNorm), calculationsContexts[2].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("Categorie IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
+                Assert.AreEqual("IVv->Vv", calculationsContexts[3].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForLowerLimitNorm, calculationsContexts[3].WrappedData);
                 Assert.AreEqual(failureMechanismSpecificNormFactor * lowerLimitNorm, calculationsContexts[3].GetNormFunc(), 1e-6);
 
-                Assert.AreEqual("Categorie Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
+                Assert.AreEqual("Vv->VIv", calculationsContexts[4].CategoryBoundaryName);
                 Assert.AreSame(failureMechanism.CalculationsForFactorizedLowerLimitNorm, calculationsContexts[4].WrappedData);
                 Assert.AreEqual(failureMechanismSpecificNormFactor * lowerLimitNorm * 30, calculationsContexts[4].GetNormFunc(), 1e-6);
             }

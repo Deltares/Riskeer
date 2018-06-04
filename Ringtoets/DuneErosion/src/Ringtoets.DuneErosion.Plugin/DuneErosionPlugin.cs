@@ -45,7 +45,6 @@ using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using RingtoetsCommonPluginResources = Ringtoets.Common.Plugin.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin
 {
@@ -105,7 +104,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
-                Text = context => context.CategoryBoundaryName,
+                Text = context => FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
             };
@@ -138,7 +137,8 @@ namespace Ringtoets.DuneErosion.Plugin
 
             yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - {context.CategoryBoundaryName}",
+                GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
+                                                 $"{FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationCalculationsViewForData,
@@ -177,6 +177,11 @@ namespace Ringtoets.DuneErosion.Plugin
             }
 
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
+        }
+
+        private static string FormatCategoryBoundaryName(string categoryBoundaryName)
+        {
+            return string.Format(RingtoetsCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName);
         }
 
         #region TreeNodeInfo
@@ -282,31 +287,31 @@ namespace Ringtoets.DuneErosion.Plugin
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificFactorizedSignalingNorm_name),
+                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificSignalingNorm_name),
+                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_mechanismSpecificLowerLimitNorm_name),
+                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_lowerLimitNorm_name),
+                               RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName),
                            new DuneLocationCalculationsContext(
                                context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm,
                                context.FailureMechanism,
                                context.AssessmentSection,
                                () => context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                               RingtoetsCommonPluginResources.Hydraulic_category_boundary_factorizedLowerLimitNorm_name)
+                               RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)
                        };
         }
 

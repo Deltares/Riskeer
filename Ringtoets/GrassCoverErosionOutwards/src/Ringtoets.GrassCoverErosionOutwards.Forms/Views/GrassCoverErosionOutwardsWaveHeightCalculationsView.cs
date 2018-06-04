@@ -31,6 +31,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
@@ -72,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
 
             FailureMechanism = failureMechanism;
-            messageProvider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
+            messageProvider = new WaveHeightCalculationMessageProvider(string.Format(RingtoetsCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName));
 
             failureMechanismObserver = new Observer(UpdateCalculateForSelectedButton)
             {

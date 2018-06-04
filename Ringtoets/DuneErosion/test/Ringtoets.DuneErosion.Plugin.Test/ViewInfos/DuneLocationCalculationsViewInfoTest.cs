@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            const string categoryBoundaryName = "Category Boundary Name";
+            const string categoryBoundaryName = "Boundary Name";
             var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
@@ -77,7 +77,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, context);
 
             // Assert
-            Assert.AreEqual($"Hydraulische randvoorwaarden - {categoryBoundaryName}", viewName);
+            Assert.AreEqual($"Hydraulische randvoorwaarden - Categorie {categoryBoundaryName}", viewName);
             mocks.VerifyAll();
         }
 

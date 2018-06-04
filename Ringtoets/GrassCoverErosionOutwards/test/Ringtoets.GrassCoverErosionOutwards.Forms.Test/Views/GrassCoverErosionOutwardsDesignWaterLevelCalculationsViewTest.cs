@@ -457,7 +457,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
@@ -526,7 +526,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
@@ -594,7 +594,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' ({categoryBoundaryName})",
+            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);

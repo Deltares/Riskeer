@@ -111,7 +111,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            const string categoryBoundaryName = "Category Boundary Name";
+            const string categoryBoundaryName = "Boundary Name";
             var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
@@ -122,7 +122,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             string text = info.Text(context);
 
             // Assert
-            Assert.AreEqual(categoryBoundaryName, text);
+            Assert.AreEqual("Categorie " + categoryBoundaryName, text);
         }
 
         [Test]
