@@ -80,11 +80,10 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculation.xml")]
-        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation(string fileName)
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, fileName);
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationFullCalculation.xml");
             var reader = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
 
             // Call
