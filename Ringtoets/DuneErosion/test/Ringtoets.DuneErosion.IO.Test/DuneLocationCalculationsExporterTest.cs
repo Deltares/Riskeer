@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -42,7 +44,9 @@ namespace Ringtoets.DuneErosion.IO.Test
             string filePath = TestHelper.GetScratchPadPath(Path.Combine(nameof(DuneLocationCalculationsExporterTest), "test.bnd"));
 
             // Call
-            var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
+            var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                filePath,
+                                                                new TestTypeConverter());
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -52,11 +56,24 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_ExportableDuneLocationCalculationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationsExporter(null, "IAmValid.bnd");
+            TestDelegate test = () => new DuneLocationCalculationsExporter(null, "IAmValid.bnd", new TestTypeConverter());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("exportableDuneLocationCalculations", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ProbabilityConverterNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                           "IAmValid.bnd",
+                                                                           null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("probabilityConverter", exception.ParamName);
         }
 
         [Test]
@@ -66,7 +83,9 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_FilePathInvalid_ThrowArgumentException(string filePath)
         {
             // Call
-            TestDelegate test = () => new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
+            TestDelegate test = () => new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                           filePath,
+                                                                           new TestTypeConverter());
 
             // Assert
             Assert.Throws<ArgumentException>(test);
@@ -109,7 +128,9 @@ namespace Ringtoets.DuneErosion.IO.Test
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");
 
-                var exporter = new DuneLocationCalculationsExporter(exportableDuneLocationCalculations, filePath);
+                var exporter = new DuneLocationCalculationsExporter(exportableDuneLocationCalculations,
+                                                                    filePath,
+                                                                    new TestTypeConverter());
 
                 // Call
                 bool isExported = exporter.Export();
@@ -121,9 +142,9 @@ namespace Ringtoets.DuneErosion.IO.Test
                 string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_WBI2017_ID\t_WBI2017_Categorie\t_WBI2017_Waarde{Environment.NewLine}" +
                                       $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tScenario\tCategorie\tPfdsn{Environment.NewLine}" +
                                       $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[-]\t[-]\t[1/jaar]{Environment.NewLine}" +
-                                      $"9\t9740\t*\t*\t*\t*\t0.000196\tA (Pfdsn = 1/2 jaar)\tA\t0.5{Environment.NewLine}" +
-                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\tB (Pfdsn = 1/4 jaar)\tB\t0.25{Environment.NewLine}" +
-                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\tC (Pfdsn = 1/10 jaar)\tC\t0.1{Environment.NewLine}";
+                                      $"9\t9740\t*\t*\t*\t*\t0.000196\tA (Pfdsn = Converted 0.5 jaar)\tA\t0.5{Environment.NewLine}" +
+                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\tB (Pfdsn = Converted 0.25 jaar)\tB\t0.25{Environment.NewLine}" +
+                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\tC (Pfdsn = Converted 0.1 jaar)\tC\t0.1{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
         }
@@ -136,7 +157,9 @@ namespace Ringtoets.DuneErosion.IO.Test
             using (var disposeHelper = new DirectoryDisposeHelper(TestHelper.GetScratchPadPath(), nameof(Export_InvalidDirectoryRights_LogErrorAndReturnFalse)))
             {
                 string filePath = Path.Combine(directoryPath, "test.bnd");
-                var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
+                var exporter = new DuneLocationCalculationsExporter(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                    filePath,
+                                                                    new TestTypeConverter());
 
                 disposeHelper.LockDirectory(FileSystemRights.Write);
                 var isExported = true;
@@ -170,6 +193,14 @@ namespace Ringtoets.DuneErosion.IO.Test
                 Offset = offset,
                 D50 = d50
             });
+        }
+
+        private class TestTypeConverter : TypeConverter
+        {
+            public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+            {
+                return "Converted " + ((double) value).ToString(culture);
+            }
         }
     }
 }

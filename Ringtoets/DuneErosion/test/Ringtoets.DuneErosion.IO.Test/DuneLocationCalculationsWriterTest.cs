@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
@@ -39,7 +41,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocationCalculations_ExportableDuneLocationCalculationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(null, string.Empty);
+            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(null, string.Empty, new TestTypeConverter());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -47,10 +49,25 @@ namespace Ringtoets.DuneErosion.IO.Test
         }
 
         [Test]
+        public void WriteDuneLocationCalculations_ProbabilityConverterNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                                                   string.Empty,
+                                                                                                   null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("probabilityConverter", exception.ParamName);
+        }
+
+        [Test]
         public void WriteDuneLocationCalculations_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), null);
+            TestDelegate test = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                                                   null,
+                                                                                                   new TestTypeConverter());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -64,7 +81,9 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void WriteDuneLocationCalculations_FilePathInvalid_ThrowCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
+            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                                                   filePath,
+                                                                                                   new TestTypeConverter());
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -79,7 +98,9 @@ namespace Ringtoets.DuneErosion.IO.Test
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
+            TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                                                   filePath,
+                                                                                                   new TestTypeConverter());
 
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -98,7 +119,9 @@ namespace Ringtoets.DuneErosion.IO.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), filePath);
+                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                                                       filePath,
+                                                                                                       new TestTypeConverter());
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -118,7 +141,9 @@ namespace Ringtoets.DuneErosion.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(), path);
+                TestDelegate call = () => DuneLocationCalculationsWriter.WriteDuneLocationCalculations(Enumerable.Empty<ExportableDuneLocationCalculation>(),
+                                                                                                       path,
+                                                                                                       new TestTypeConverter());
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileWriteException>(call);
@@ -166,7 +191,9 @@ namespace Ringtoets.DuneErosion.IO.Test
             try
             {
                 // Call
-                DuneLocationCalculationsWriter.WriteDuneLocationCalculations(exportableDuneLocationCalculations, filePath);
+                DuneLocationCalculationsWriter.WriteDuneLocationCalculations(exportableDuneLocationCalculations,
+                                                                             filePath,
+                                                                             new TestTypeConverter());
 
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
@@ -174,9 +201,9 @@ namespace Ringtoets.DuneErosion.IO.Test
                 string expectedText = $"Kv\tNr\tRp\tHs\tTp\tTm-1,0\tD50\t_WBI2017_ID\t_WBI2017_Categorie\t_WBI2017_Waarde{Environment.NewLine}" +
                                       $"*Kustvaknummer\tMetrering\tRekenpeil\tSignificante golfhoogte\tPiekperiode\tSpectrale periode\tKorreldiameter\tScenario\tCategorie\tPfdsn{Environment.NewLine}" +
                                       $"*[-]\t[dam]\t[m+NAP]\t[m]\t[s]\t[s]\t[m]\t[-]\t[-]\t[1/jaar]{Environment.NewLine}" +
-                                      $"9\t9740\t*\t*\t*\t*\t0.000196\tA (Pfdsn = 1/2 jaar)\tA\t0.5{Environment.NewLine}" +
-                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\tB (Pfdsn = 1/4 jaar)\tB\t0.25{Environment.NewLine}" +
-                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\tC (Pfdsn = 1/10 jaar)\tC\t0.1{Environment.NewLine}";
+                                      $"9\t9740\t*\t*\t*\t*\t0.000196\tA (Pfdsn = Converted 0.5 jaar)\tA\t0.5{Environment.NewLine}" +
+                                      $"10\t9770.1\t*\t*\t*\t*\t0.000196\tB (Pfdsn = Converted 0.25 jaar)\tB\t0.25{Environment.NewLine}" +
+                                      $"11\t9771.3\t5.89\t8.53\t14.11\t*\t0.000134\tC (Pfdsn = Converted 0.1 jaar)\tC\t0.1{Environment.NewLine}";
                 Assert.AreEqual(expectedText, fileContent);
             }
             finally
@@ -203,6 +230,14 @@ namespace Ringtoets.DuneErosion.IO.Test
                 Offset = offset,
                 D50 = d50
             });
+        }
+
+        private class TestTypeConverter : TypeConverter
+        {
+            public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+            {
+                return "Converted " + ((double) value).ToString(culture);
+            }
         }
     }
 }

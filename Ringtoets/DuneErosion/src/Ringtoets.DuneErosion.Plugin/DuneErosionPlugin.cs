@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms;
@@ -157,11 +158,12 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return new ExportInfo<DuneLocationCalculationsContext>
             {
                 Name = RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                CreateFileExporter = (context, filePath) => new DuneLocationCalculationsExporter(context.WrappedData
-                                                                                                        .Select(calc => new ExportableDuneLocationCalculation(
-                                                                                                                    calc,
-                                                                                                                    context.GetNormFunc(),
-                                                                                                                    context.CategoryBoundaryName)).ToArray(), filePath),
+                CreateFileExporter = (context, filePath) => CreateDuneLocationCalculationsExporter(context.WrappedData
+                                                                                                          .Select(calc => new ExportableDuneLocationCalculation(
+                                                                                                                      calc,
+                                                                                                                      context.GetNormFunc(),
+                                                                                                                      context.CategoryBoundaryName)).ToArray(),
+                                                                                                   filePath),
                 IsEnabled = context => context.WrappedData.Any(calculation => calculation.Output != null),
                 FileFilterGenerator = new FileFilterGenerator(
                     Resources.DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension,
@@ -254,7 +256,13 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
                                                                RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)).ToArray());
 
-            return new DuneLocationCalculationsExporter(exportableCalculations, filePath);
+            return CreateDuneLocationCalculationsExporter(exportableCalculations, filePath);
+        }
+
+        private static DuneLocationCalculationsExporter CreateDuneLocationCalculationsExporter(IEnumerable<ExportableDuneLocationCalculation> exportableCalculations,
+                                                                                               string filePath)
+        {
+            return new DuneLocationCalculationsExporter(exportableCalculations, filePath, new NoProbabilityValueDoubleConverter());
         }
 
         private static string FormatCategoryBoundaryName(string categoryBoundaryName)
