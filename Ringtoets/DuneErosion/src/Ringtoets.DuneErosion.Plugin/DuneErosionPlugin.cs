@@ -401,7 +401,7 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_all_ToolTip,
+                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {

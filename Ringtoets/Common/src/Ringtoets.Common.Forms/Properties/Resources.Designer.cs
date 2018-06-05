@@ -465,9 +465,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze map met berekeningen..
         /// </summary>
-        public static string CalculationGroup_Validate_all_ToolTip {
+        public static string CalculationGroup_Validate_All_ToolTip {
             get {
-                return ResourceManager.GetString("CalculationGroup_Validate_all_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CalculationGroup_Validate_All_ToolTip", resourceCulture);
             }
         }
         
@@ -1376,9 +1376,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit toetsspoor..
         /// </summary>
-        public static string FailureMechanism_Validate_all_ToolTip {
+        public static string FailureMechanism_Validate_All_ToolTip {
             get {
-                return ResourceManager.GetString("FailureMechanism_Validate_all_ToolTip", resourceCulture);
+                return ResourceManager.GetString("FailureMechanism_Validate_All_ToolTip", resourceCulture);
             }
         }
         
@@ -3743,9 +3743,9 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Alles &amp;valideren.
         /// </summary>
-        public static string Validate_all {
+        public static string Validate_All {
             get {
-                return ResourceManager.GetString("Validate_all", resourceCulture);
+                return ResourceManager.GetString("Validate_All", resourceCulture);
             }
         }
         

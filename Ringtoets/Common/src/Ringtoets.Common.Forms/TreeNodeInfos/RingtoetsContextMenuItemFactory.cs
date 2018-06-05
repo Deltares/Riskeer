@@ -155,8 +155,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         {
             CalculationGroup calculationGroup = calculationGroupContext.WrappedData;
             var menuItem = new StrictContextMenuItem(
-                Resources.Validate_all,
-                Resources.CalculationGroup_Validate_all_ToolTip,
+                Resources.Validate_All,
+                Resources.CalculationGroup_Validate_All_ToolTip,
                 Resources.ValidateAllIcon,
                 (o, args) => validateAllAction(calculationGroupContext));
 
@@ -366,8 +366,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
-                Resources.Validate_all,
-                Resources.FailureMechanism_Validate_all_ToolTip,
+                Resources.Validate_All,
+                Resources.FailureMechanism_Validate_All_ToolTip,
                 Resources.ValidateAllIcon,
                 (o, args) => validateAllAction(failureMechanism));
 
