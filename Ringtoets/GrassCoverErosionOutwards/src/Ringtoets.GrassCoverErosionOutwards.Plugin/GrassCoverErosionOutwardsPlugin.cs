@@ -245,7 +245,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Text = context => Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip,
-                ChildNodeObjects = DesignWaterlevelCalculationsGroupContextChildNodeObjects
+                ChildNodeObjects = DesignWaterLevelCalculationsGroupContextChildNodeObjects
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext>
@@ -590,7 +590,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaveHeightCalculationsContext TreeNodeInfo
 
-        private ContextMenuStrip GrassCoverErosionOutwardsWaveHeightCalculationsContextMenuStrip(GrassCoverErosionOutwardsWaveHeightCalculationsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip GrassCoverErosionOutwardsWaveHeightCalculationsContextMenuStrip(GrassCoverErosionOutwardsWaveHeightCalculationsContext nodeData,
+                                                                                                 object parentData,
+                                                                                                 TreeViewControl treeViewControl)
         {
             var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
@@ -604,11 +606,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().FirstOrDefault();
-                    if (failureMechanism == null)
-                    {
-                        return;
-                    }
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
@@ -978,9 +975,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
-            var waveHeightItem = new StrictContextMenuItem(
+            var designWaterLevelItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
                 RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
@@ -991,58 +987,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
-                    string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-                    var calculations = new List<DesignWaterLevelCalculationActivity>();
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                              new DesignWaterLevelCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)));
+                    IEnumerable<DesignWaterLevelCalculationActivity> activities =
+                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
+                            .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
+                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                            context.WrappedData,
+                                            context.GetNormFunc(),
+                                            new DesignWaterLevelCalculationMessageProvider(context.CategoryBoundaryName)))
+                            .ToArray();
 
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                              new DesignWaterLevelCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)));
-
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                              new DesignWaterLevelCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)));
-
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                              new DesignWaterLevelCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)));
-
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                              new DesignWaterLevelCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)));
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
-                      .AddCustomItem(waveHeightItem)
+                      .AddCustomItem(designWaterLevelItem)
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
                       .Build();
         }
 
-        private static object[] DesignWaterlevelCalculationsGroupContextChildNodeObjects(GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext context)
+        private static object[] DesignWaterLevelCalculationsGroupContextChildNodeObjects(GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext context)
         {
             return new object[]
             {
@@ -1087,7 +1056,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
         {
             IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
             var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
@@ -1100,45 +1068,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
-                    string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
-                    var calculations = new List<WaveHeightCalculationActivity>();
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                              new WaveHeightCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)));
+                    IEnumerable<WaveHeightCalculationActivity> activities =
+                        WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
+                            .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
+                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                            context.WrappedData,
+                                            context.GetNormFunc(),
+                                            new WaveHeightCalculationMessageProvider(context.CategoryBoundaryName)))
+                            .ToArray();
 
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                              new WaveHeightCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)));
-
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                              new WaveHeightCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)));
-
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                              new WaveHeightCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)));
-
-                    calculations.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                              hydraulicBoundaryDatabaseFilePath,
-                                              preprocessorDirectory,
-                                              assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
-                                              failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                              new WaveHeightCalculationMessageProvider(RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)));
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, waveHeightItem);

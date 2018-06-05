@@ -352,7 +352,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                       contextMenuRunWaveHeightCalculationsIndex,
                                                                       "Alles be&rekenen",
-                                                                      "Alle golfhoogtes bij doorsnede-eis berekenen.",
+                                                                      "Alle golfhoogten berekenen.",
                                                                       RingtoetsCommonFormsResources.CalculateAllIcon);
                     }
                 }

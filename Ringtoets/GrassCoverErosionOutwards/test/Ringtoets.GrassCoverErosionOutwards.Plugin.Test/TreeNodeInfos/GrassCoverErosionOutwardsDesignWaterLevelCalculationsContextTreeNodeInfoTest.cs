@@ -365,7 +365,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                       contextMenuRunDesignWaterLevelCalculationsIndex,
                                                                       "Alles be&rekenen",
-                                                                      "Alle waterstanden bij doorsnede-eis berekenen.",
+                                                                      "Alle waterstanden berekenen.",
                                                                       RingtoetsCommonFormsResources.CalculateAllIcon);
                     }
                 }
