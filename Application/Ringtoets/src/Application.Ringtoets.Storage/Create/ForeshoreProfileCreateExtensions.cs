@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Create
             if (foreshoreProfile.HasBreakWater)
             {
                 foreshoreProfileEntity.BreakWaterHeight = foreshoreProfile.BreakWater.Height;
-                foreshoreProfileEntity.BreakWaterType = (byte) foreshoreProfile.BreakWater.Type;
+                foreshoreProfileEntity.BreakWaterType = Convert.ToByte(foreshoreProfile.BreakWater.Type);
             }
 
             registry.Register(foreshoreProfileEntity, foreshoreProfile);

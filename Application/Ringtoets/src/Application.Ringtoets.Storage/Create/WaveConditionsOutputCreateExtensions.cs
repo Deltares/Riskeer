@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Revetment.Data;
 
@@ -53,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create
                 TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
                 CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
-                CalculationConvergence = (byte) output.CalculationConvergence
+                CalculationConvergence = Convert.ToByte(output.CalculationConvergence)
             };
             return entity;
         }
@@ -77,13 +78,13 @@ namespace Application.Ringtoets.Storage.Create
                 WaveHeight = output.WaveHeight.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.ToNaNAsNull(),
                 WaveAngle = output.WaveAngle.ToNaNAsNull(),
-                OutputType = (byte) type,
+                OutputType = Convert.ToByte(type),
                 WaveDirection = output.WaveDirection.ToNaNAsNull(),
                 TargetProbability = output.TargetProbability.ToNaNAsNull(),
                 TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
                 CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
-                CalculationConvergence = (byte) output.CalculationConvergence
+                CalculationConvergence = Convert.ToByte(output.CalculationConvergence)
             };
             return entity;
         }
@@ -111,7 +112,7 @@ namespace Application.Ringtoets.Storage.Create
                 TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
                 CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
-                CalculationConvergence = (byte) output.CalculationConvergence
+                CalculationConvergence = Convert.ToByte(output.CalculationConvergence)
             };
             return entity;
         }

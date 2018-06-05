@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 Name = "testName",
                 Bottom = bottom,
-                SourceType = (byte) sourceType,
+                SourceType = Convert.ToByte(sourceType),
                 PipingSoilLayerEntities =
                 {
                     new PipingSoilLayerEntity
@@ -145,7 +145,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             {
                 Name = "testName",
                 Bottom = random.NextDouble(),
-                SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
+                SourceType = Convert.ToByte(random.NextEnumValue<SoilProfileType>()),
                 PipingSoilLayerEntities =
                 {
                     new PipingSoilLayerEntity

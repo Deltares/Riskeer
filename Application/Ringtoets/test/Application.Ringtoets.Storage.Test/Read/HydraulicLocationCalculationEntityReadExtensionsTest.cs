@@ -128,7 +128,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 TargetReliability = random.NextDouble(),
                 CalculatedProbability = random.NextDouble(),
                 CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
+                CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated)
             };
             return hydraulicLocationOutputEntity;
         }

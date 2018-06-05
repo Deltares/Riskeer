@@ -63,7 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 TargetReliability = targetReliability,
                 CalculatedProbability = calculatedProbability,
                 CalculatedReliability = calculatedReliability,
-                CalculationConvergence = (byte) convergence
+                CalculationConvergence = Convert.ToByte(convergence)
             };
 
             // Call
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             var convergence = random.NextEnumValue<CalculationConvergence>();
             var entity = new GrassCoverErosionInwardsOvertoppingRateOutputEntity
             {
-                CalculationConvergence = (byte) convergence
+                CalculationConvergence = Convert.ToByte(convergence)
             };
 
             // Call
@@ -119,7 +119,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             var convergence = random.NextEnumValue<CalculationConvergence>();
             var entity = new GrassCoverErosionInwardsOvertoppingRateOutputEntity
             {
-                CalculationConvergence = (byte) convergence,
+                CalculationConvergence = Convert.ToByte(convergence),
                 GeneralResultFaultTreeIllustrationPointEntity = generalResultEntity
             };
 

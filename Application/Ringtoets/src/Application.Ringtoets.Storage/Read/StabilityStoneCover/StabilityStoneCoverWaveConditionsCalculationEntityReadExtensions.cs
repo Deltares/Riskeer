@@ -105,11 +105,11 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
             foreach (StabilityStoneCoverWaveConditionsOutputEntity conditionsOutputEntity in entity.StabilityStoneCoverWaveConditionsOutputEntities.OrderBy(oe => oe.Order))
             {
                 WaveConditionsOutput output = conditionsOutputEntity.Read();
-                if (conditionsOutputEntity.OutputType == (byte) WaveConditionsOutputType.Columns)
+                if (conditionsOutputEntity.OutputType == Convert.ToByte(WaveConditionsOutputType.Columns))
                 {
                     columnsOutput.Add(output);
                 }
-                else if (conditionsOutputEntity.OutputType == (byte) WaveConditionsOutputType.Blocks)
+                else if (conditionsOutputEntity.OutputType == Convert.ToByte(WaveConditionsOutputType.Blocks))
                 {
                     blocksOutput.Add(output);
                 }

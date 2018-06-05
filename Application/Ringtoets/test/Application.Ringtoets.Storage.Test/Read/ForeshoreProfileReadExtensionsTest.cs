@@ -141,7 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = name,
                 Orientation = orientation,
                 X0 = x0,
-                BreakWaterType = (byte) breakWaterType,
+                BreakWaterType = Convert.ToByte(breakWaterType),
                 BreakWaterHeight = height,
                 GeometryXml = pointXml
             };

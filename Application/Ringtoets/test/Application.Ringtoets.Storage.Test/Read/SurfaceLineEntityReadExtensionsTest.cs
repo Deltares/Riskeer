@@ -715,7 +715,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             return new PipingCharacteristicPointEntity
             {
-                Type = (byte) type,
+                Type = Convert.ToByte(type),
                 X = point.X,
                 Y = point.Y,
                 Z = point.Z
@@ -728,7 +728,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         {
             return new MacroStabilityInwardsCharacteristicPointEntity
             {
-                Type = (byte) type,
+                Type = Convert.ToByte(type),
                 X = point.X,
                 Y = point.Y,
                 Z = point.Z

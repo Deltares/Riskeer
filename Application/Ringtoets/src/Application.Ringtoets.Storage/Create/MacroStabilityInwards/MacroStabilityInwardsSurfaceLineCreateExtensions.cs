@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
         {
             var entity = new MacroStabilityInwardsCharacteristicPointEntity
             {
-                Type = (byte) type,
+                Type = Convert.ToByte(type),
                 X = point.X.ToNaNAsNull(),
                 Y = point.Y.ToNaNAsNull(),
                 Z = point.Z.ToNaNAsNull()

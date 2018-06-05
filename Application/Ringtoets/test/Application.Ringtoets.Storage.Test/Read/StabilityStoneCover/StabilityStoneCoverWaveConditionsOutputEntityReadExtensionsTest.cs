@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
                 TargetReliability = random.NextDouble(),
                 CalculatedProbability = random.NextDouble(),
                 CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) CalculationConvergence.CalculatedConverged
+                CalculationConvergence = Convert.ToByte(CalculationConvergence.CalculatedConverged)
             };
 
             // Call
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
                 TargetReliability = null,
                 CalculatedProbability = null,
                 CalculatedReliability = null,
-                CalculationConvergence = (byte) CalculationConvergence.NotCalculated
+                CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated)
             };
 
             // Call

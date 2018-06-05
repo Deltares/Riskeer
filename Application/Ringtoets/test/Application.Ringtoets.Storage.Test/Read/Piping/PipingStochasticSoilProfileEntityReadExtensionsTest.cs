@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 PipingSoilProfileEntity = new PipingSoilProfileEntity
                 {
                     Name = "StochasticSoilProfile",
-                    SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
+                    SourceType = Convert.ToByte(random.NextEnumValue<SoilProfileType>()),
                     PipingSoilLayerEntities =
                     {
                         new PipingSoilLayerEntity()
@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var soilProfileEntity = new PipingSoilProfileEntity
             {
                 Name = "StochasticSoilProfile",
-                SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
+                SourceType = Convert.ToByte(random.NextEnumValue<SoilProfileType>()),
                 PipingSoilLayerEntities =
                 {
                     new PipingSoilLayerEntity()
@@ -136,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 PipingSoilProfileEntity = new PipingSoilProfileEntity
                 {
                     Name = "StochasticSoilProfile",
-                    SourceType = (byte) random.NextEnumValue<SoilProfileType>(),
+                    SourceType = Convert.ToByte(random.NextEnumValue<SoilProfileType>()),
                     PipingSoilLayerEntities =
                     {
                         new PipingSoilLayerEntity()

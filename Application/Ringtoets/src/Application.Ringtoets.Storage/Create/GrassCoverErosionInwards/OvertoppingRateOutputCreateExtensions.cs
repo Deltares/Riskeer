@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 TargetReliability = output.TargetReliability.ToNaNAsNull(),
                 CalculatedProbability = output.CalculatedProbability.ToNaNAsNull(),
                 CalculatedReliability = output.CalculatedReliability.ToNaNAsNull(),
-                CalculationConvergence = (byte) output.CalculationConvergence,
+                CalculationConvergence = Convert.ToByte(output.CalculationConvergence),
                 GeneralResultFaultTreeIllustrationPointEntity = output.GeneralResult?.CreateGeneralResultFaultTreeIllustrationPointEntity()
             };
         }

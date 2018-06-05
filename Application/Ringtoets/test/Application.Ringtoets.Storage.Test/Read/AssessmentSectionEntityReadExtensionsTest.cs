@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 Id = testId,
                 Name = testName,
-                Composition = (byte) assessmentSectionComposition,
+                Composition = Convert.ToByte(assessmentSectionComposition),
                 Comments = comments,
                 LowerLimitNorm = lowerLimitNorm,
                 SignalingNorm = signalingNorm,

@@ -64,7 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 TargetReliability = targetReliability,
                 CalculatedProbability = calculatedProbability,
                 CalculatedReliability = calculatedReliability,
-                CalculationConvergence = (byte) convergence
+                CalculationConvergence = Convert.ToByte(convergence)
             };
 
             // Call
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 TargetReliability = double.NaN,
                 CalculatedProbability = double.NaN,
                 CalculatedReliability = double.NaN,
-                CalculationConvergence = (byte) convergence
+                CalculationConvergence = Convert.ToByte(convergence)
             };
 
             // Call
@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 TargetReliability = double.NaN,
                 CalculatedProbability = double.NaN,
                 CalculatedReliability = double.NaN,
-                CalculationConvergence = (byte) random.NextEnumValue<CalculationConvergence>(),
+                CalculationConvergence = Convert.ToByte(random.NextEnumValue<CalculationConvergence>()),
                 GeneralResultSubMechanismIllustrationPointEntity = new GeneralResultSubMechanismIllustrationPointEntity
                 {
                     GoverningWindDirectionName = "SSE",

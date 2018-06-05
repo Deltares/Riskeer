@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
                 TargetReliability = random.NextDouble(),
                 CalculatedProbability = random.NextDouble(),
                 CalculatedReliability = random.NextDouble(),
-                CalculationConvergence = (byte) CalculationConvergence.CalculatedConverged
+                CalculationConvergence = Convert.ToByte(CalculationConvergence.CalculatedConverged)
             };
 
             // Call
