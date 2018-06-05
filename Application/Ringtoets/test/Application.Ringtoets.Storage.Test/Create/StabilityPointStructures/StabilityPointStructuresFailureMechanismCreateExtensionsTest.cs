@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
     public class StabilityPointStructuresFailureMechanismCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();

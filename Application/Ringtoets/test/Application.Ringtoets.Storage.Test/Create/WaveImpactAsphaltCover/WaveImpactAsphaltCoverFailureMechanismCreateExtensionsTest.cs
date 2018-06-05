@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
     public class WaveImpactAsphaltCoverFailureMechanismCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();

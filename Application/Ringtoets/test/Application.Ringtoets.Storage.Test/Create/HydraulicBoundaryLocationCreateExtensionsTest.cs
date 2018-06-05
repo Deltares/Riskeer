@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class HydraulicBoundaryLocationCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", 2, 3);

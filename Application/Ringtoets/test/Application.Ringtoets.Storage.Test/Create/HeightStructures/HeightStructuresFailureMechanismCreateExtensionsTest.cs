@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
     public class HeightStructuresFailureMechanismCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();

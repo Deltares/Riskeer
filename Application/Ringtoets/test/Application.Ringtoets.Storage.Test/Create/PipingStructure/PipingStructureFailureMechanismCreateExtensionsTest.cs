@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Create.PipingStructure
     public class PipingStructureFailureMechanismCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism();

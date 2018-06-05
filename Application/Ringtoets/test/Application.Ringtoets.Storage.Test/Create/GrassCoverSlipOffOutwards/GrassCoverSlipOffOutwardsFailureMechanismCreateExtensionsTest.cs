@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffOutwards
     public class GrassCoverSlipOffOutwardsFailureMechanismCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();

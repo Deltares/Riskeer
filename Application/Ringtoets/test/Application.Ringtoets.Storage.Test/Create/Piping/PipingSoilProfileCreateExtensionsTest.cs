@@ -34,7 +34,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingSoilProfileCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
             PipingSoilProfile soilProfile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
