@@ -119,14 +119,14 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_All,
-                Resources.CalculationGroup_CalculateAll_ToolTip,
+                Resources.CalculationGroup_Calculate_All_ToolTip,
                 Resources.CalculateAllIcon,
                 (o, args) => calculateAllAction(calculationGroup, calculationGroupContext));
 
             if (!calculationGroupContext.WrappedData.GetCalculations().Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = Resources.CalculationGroup_CalculateAll_No_calculations_to_run;
+                menuItem.ToolTipText = Resources.CalculationGroup_Calculate_All_No_calculations_to_run;
             }
             else
             {
@@ -310,6 +310,7 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 clearAllItem.Enabled = false;
                 clearAllItem.ToolTipText = Resources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear;
             }
+
             return clearAllItem;
         }
 
@@ -480,8 +481,8 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.CreateUpdateForeshoreProfileOfCalculationsItem_Update_calculations_with_ForeshoreProfile_ToolTip;
             ICalculation<TCalculationInput>[] calculationsToUpdate = calculations
-                .Where(c => c.InputParameters.ForeshoreProfile != null && !c.InputParameters.IsForeshoreProfileInputSynchronized)
-                .ToArray();
+                                                                     .Where(c => c.InputParameters.ForeshoreProfile != null && !c.InputParameters.IsForeshoreProfileInputSynchronized)
+                                                                     .ToArray();
 
             if (!calculationsToUpdate.Any())
             {

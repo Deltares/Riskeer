@@ -91,15 +91,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle golfhoogtes bij doorsnede-eis berekenen..
-        /// </summary>
-        public static string GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?.
         /// </summary>
         public static string GrassCoverErosionOutwardsDesignWaterLevelCalculation_Convergence_Description {
@@ -135,24 +126,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_com" +
                         "position_and_clear_dependent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alles be&amp;rekenen.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle waterstanden bij doorsnede-eis berekenen..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip", resourceCulture);
             }
         }
         
@@ -284,15 +257,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         public static string MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm {
             get {
                 return ResourceManager.GetString("MetaData_WaterLevelCalculationForMechanismSpecificSignalingNorm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis.
-        /// </summary>
-        public static string MetaData_WaveHeight {
-            get {
-                return ResourceManager.GetString("MetaData_WaveHeight", resourceCulture);
             }
         }
         

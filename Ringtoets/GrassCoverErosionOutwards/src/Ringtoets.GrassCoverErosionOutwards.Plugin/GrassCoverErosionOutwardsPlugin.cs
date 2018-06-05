@@ -555,8 +555,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                                        TreeViewControl treeViewControl)
         {
             var designWaterLevelItem = new StrictContextMenuItem(
-                RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All,
-                RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -599,7 +599,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -992,7 +992,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.DesignWaterLevel_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
@@ -1101,7 +1101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             var waveHeightItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.WaveHeight_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {

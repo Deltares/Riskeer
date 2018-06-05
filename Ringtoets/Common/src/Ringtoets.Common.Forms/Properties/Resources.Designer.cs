@@ -384,18 +384,18 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er zijn geen berekeningen om uit te voeren..
         /// </summary>
-        public static string CalculationGroup_CalculateAll_No_calculations_to_run {
+        public static string CalculationGroup_Calculate_All_No_calculations_to_run {
             get {
-                return ResourceManager.GetString("CalculationGroup_CalculateAll_No_calculations_to_run", resourceCulture);
+                return ResourceManager.GetString("CalculationGroup_Calculate_All_No_calculations_to_run", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Voer alle berekeningen binnen deze map met berekeningen uit..
         /// </summary>
-        public static string CalculationGroup_CalculateAll_ToolTip {
+        public static string CalculationGroup_Calculate_All_ToolTip {
             get {
-                return ResourceManager.GetString("CalculationGroup_CalculateAll_ToolTip", resourceCulture);
+                return ResourceManager.GetString("CalculationGroup_Calculate_All_ToolTip", resourceCulture);
             }
         }
         
@@ -1020,7 +1020,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle toetspeilen berekenen..
+        ///   Looks up a localized string similar to Alle waterstanden berekenen..
         /// </summary>
         public static string DesignWaterLevel_Calculate_All_ToolTip {
             get {
@@ -3865,7 +3865,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle golfhoogtes berekenen..
+        ///   Looks up a localized string similar to Alle golfhoogten berekenen..
         /// </summary>
         public static string WaveHeight_Calculate_All_ToolTip {
             get {

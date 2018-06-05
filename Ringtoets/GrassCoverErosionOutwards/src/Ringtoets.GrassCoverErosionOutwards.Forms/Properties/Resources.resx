@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All" xml:space="preserve">
-    <value>Alles be&amp;rekenen</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaterLevelLocation_Calculate_All_ToolTip" xml:space="preserve">
-    <value>Alle waterstanden bij doorsnede-eis berekenen.</value>
-  </data>
   <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_Description" xml:space="preserve">
     <value>Berekende waterstand bij doorsnede-eis.</value>
   </data>
@@ -131,9 +125,6 @@
   </data>
   <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?</value>
-  </data>
-  <data name="GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
-    <value>Alle golfhoogtes bij doorsnede-eis berekenen.</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveHeightCalculation_Convergence_Description" xml:space="preserve">
     <value>Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?</value>
@@ -164,9 +155,6 @@
   </data>
   <data name="DesignWaterLevel_DisplayName" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis</value>
-  </data>
-  <data name="MetaData_WaveHeight" xml:space="preserve">
-    <value>Golfhoogte bij doorsnede-eis</value>
   </data>
   <data name="GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data" xml:space="preserve">
     <value>Als u deze parameter wijzigt, zal de uitvoer van alle randvoorwaarden locaties en berekeningen in dit toetsspoor verwijderd worden.

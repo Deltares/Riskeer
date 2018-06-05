@@ -263,10 +263,6 @@
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>
       <Name>Ringtoets.Integration.TestUtil</Name>

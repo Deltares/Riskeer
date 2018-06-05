@@ -69,10 +69,6 @@
       <Project>{D1234D03-76BC-437D-B941-DFF14A2A108D}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Data.TestUtil</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\test\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil\Ringtoets.GrassCoverErosionOutwards.Util.TestUtil.csproj">
-      <Project>{C700ED66-8565-48B2-9A4E-B0D33FB2B26D}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Util.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\HeightStructures\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
@@ -122,9 +118,7 @@
       <Name>Ringtoets.Integration.TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MessageProviders\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
