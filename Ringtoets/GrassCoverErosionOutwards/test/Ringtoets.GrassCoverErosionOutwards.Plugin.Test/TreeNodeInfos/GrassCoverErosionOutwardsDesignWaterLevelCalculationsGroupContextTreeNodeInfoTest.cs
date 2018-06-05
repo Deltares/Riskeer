@@ -164,6 +164,47 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
+                                                                                                new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
+                mockRepository.ReplayAll();
+
+                using (var plugin = new GrassCoverErosionOutwardsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    // Call
+                    using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
+                    {
+                        // Assert
+                        TestHelper.AssertContextMenuStripContainsItem(menu,
+                                                                      contextMenuRunDesignWaterLevelCalculationsIndex,
+                                                                      "Alles be&rekenen",
+                                                                      "De bijdrage van dit toetsspoor is nul.",
+                                                                      RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                      false);
+                    }
+                }
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         [Apartment(ApartmentState.STA)]
         public void CalculateDesignWaterLevelsFromContextMenu_AllRequiredInputSet_SendsRightInputToCalculationService()
         {

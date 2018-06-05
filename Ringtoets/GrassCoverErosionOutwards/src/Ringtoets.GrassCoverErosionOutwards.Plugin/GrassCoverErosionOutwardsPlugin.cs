@@ -575,12 +575,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
-            string validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
-            if (!string.IsNullOrEmpty(validationText))
-            {
-                designWaterLevelItem.Enabled = false;
-                designWaterLevelItem.ToolTipText = validationText;
-            }
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, nodeData.FailureMechanism, designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -623,12 +618,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
-            string validationText = ValidateAllDataAvailableAndGetErrorMessage(nodeData.AssessmentSection, nodeData.FailureMechanism);
-            if (!string.IsNullOrEmpty(validationText))
-            {
-                waveHeightItem.Enabled = false;
-                waveHeightItem.ToolTipText = validationText;
-            }
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, nodeData.FailureMechanism, waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1042,7 +1032,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(waveHeightItem)
@@ -1151,7 +1141,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(waveHeightItem)
@@ -1200,9 +1190,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
-        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, StrictContextMenuItem menuItem)
+        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
+                                                                        IFailureMechanism failureMechanism,
+                                                                        StrictContextMenuItem menuItem)
         {
-            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string validationText = ValidateAllDataAvailableAndGetErrorMessage(assessmentSection, failureMechanism);
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;
