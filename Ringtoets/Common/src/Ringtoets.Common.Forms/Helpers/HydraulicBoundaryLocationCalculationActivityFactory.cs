@@ -29,9 +29,9 @@ using Ringtoets.Common.Service.MessageProviders;
 namespace Ringtoets.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper methods related to hydraulic boundary calculation activities.
+    /// Factory for creating hydraulic boundary location calculation activities.
     /// </summary>
-    public static class HydraulicBoundaryCalculationActivityHelper
+    public static class HydraulicBoundaryLocationCalculationActivityFactory
     {
         /// <summary>
         /// Creates a collection of <see cref="WaveHeightCalculationActivity"/> based on the
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="messageProvider">The message provider for the activities.</param>
         /// <returns>A collection of <see cref="WaveHeightCalculationActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>
@@ -74,11 +74,11 @@ namespace Ringtoets.Common.Forms.Helpers
         /// Creates a collection of <see cref="DesignWaterLevelCalculationActivity"/> based on the
         /// given parameters.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used by the calculations.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="messageProvider">The message provider for the activities.</param>
         /// <returns>A collection of <see cref="DesignWaterLevelCalculationActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>

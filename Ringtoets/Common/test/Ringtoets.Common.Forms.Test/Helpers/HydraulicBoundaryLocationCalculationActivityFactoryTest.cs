@@ -41,7 +41,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 namespace Ringtoets.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class HydraulicBoundaryCalculationActivityHelperTest
+    public class HydraulicBoundaryLocationCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => HydraulicBoundaryCalculationActivityHelper.CreateWaveHeightCalculationActivities(
+            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 string.Empty,
                 string.Empty,
                 null,
@@ -70,10 +70,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void CreateWaveHeightCalculationActivities_MesageProviderNull_ThrowsArgumentNullException()
+        public void CreateWaveHeightCalculationActivities_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryCalculationActivityHelper.CreateWaveHeightCalculationActivities(
+            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 string.Empty,
                 string.Empty,
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
@@ -101,22 +101,22 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-            
+
             var calculationMessageProvider = mocks.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
 
             var messageProvider = mocks.Stub<ICalculationMessageProvider>();
             messageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-            
+
             mocks.ReplayAll();
-            
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             // Call
-            IEnumerable<WaveHeightCalculationActivity> activities = HydraulicBoundaryCalculationActivityHelper.CreateWaveHeightCalculationActivities(
+            IEnumerable<WaveHeightCalculationActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 validFilePath,
                 validPreprocessorDirectory,
-                new []
+                new[]
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                 },
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => HydraulicBoundaryCalculationActivityHelper.CreateDesignWaterLevelCalculationActivities(
+            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 string.Empty,
                 string.Empty,
                 null,
@@ -173,10 +173,10 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void CreateDesignWaterLevelCalculationActivities_MesageProviderNull_ThrowsArgumentNullException()
+        public void CreateDesignWaterLevelCalculationActivities_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HydraulicBoundaryCalculationActivityHelper.CreateDesignWaterLevelCalculationActivities(
+            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 string.Empty,
                 string.Empty,
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
@@ -204,22 +204,22 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-            
+
             var calculationMessageProvider = mocks.Stub<ICalculationMessageProvider>();
             calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
 
             var messageProvider = mocks.Stub<ICalculationMessageProvider>();
             messageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-            
+
             mocks.ReplayAll();
-            
+
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             // Call
-            IEnumerable<DesignWaterLevelCalculationActivity> activities = HydraulicBoundaryCalculationActivityHelper.CreateDesignWaterLevelCalculationActivities(
+            IEnumerable<DesignWaterLevelCalculationActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 validFilePath,
                 validPreprocessorDirectory,
-                new []
+                new[]
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                 },

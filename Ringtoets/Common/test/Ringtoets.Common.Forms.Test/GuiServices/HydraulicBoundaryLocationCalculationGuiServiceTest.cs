@@ -72,63 +72,6 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                                validPreprocessorDirectory,
-                                                                                null,
-                                                                                0.01,
-                                                                                calculationMessageProvider);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "calculations";
-                Assert.AreEqual(expectedParamName, paramName);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CalculateDesignWaterLevels_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                                validPreprocessorDirectory,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                                                                                0.01,
-                                                                                null);
-
-                // Assert
-                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "messageProvider";
-                Assert.AreEqual(expectedParamName, paramName);
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
