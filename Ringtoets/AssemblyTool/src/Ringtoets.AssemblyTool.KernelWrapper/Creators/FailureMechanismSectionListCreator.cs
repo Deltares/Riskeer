@@ -55,7 +55,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             }
 
             return failureMechanismSectionsCollection.Select(sectionCollection => new FailureMechanismSectionList(
-                                                                 new FailureMechanism(1, 0),
+                                                                 string.Empty,
                                                                  sectionCollection.Select(s => new FmSectionWithDirectCategory(
                                                                                               s.SectionStart, s.SectionEnd,
                                                                                               AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(

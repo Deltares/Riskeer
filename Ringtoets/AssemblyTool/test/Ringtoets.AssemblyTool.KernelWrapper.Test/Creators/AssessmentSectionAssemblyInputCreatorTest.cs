@@ -131,7 +131,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             Assert.AreEqual(expectedGroup, result.Category);
-            Assert.IsNull(result.FailureProbability);
+            Assert.IsNaN(result.FailureProbability);
         }
 
         [Test]
@@ -200,7 +200,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             Assert.AreEqual(expectedGroup, result.Category);
-            Assert.IsNull(result.FailureProbability);
+            Assert.IsNaN(result.FailureProbability);
         }
     }
 }

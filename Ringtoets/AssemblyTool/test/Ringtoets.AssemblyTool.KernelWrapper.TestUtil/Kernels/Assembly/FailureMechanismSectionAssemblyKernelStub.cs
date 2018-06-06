@@ -34,6 +34,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     public class FailureMechanismSectionAssemblyKernelStub : IAssessmentResultsTranslator
     {
         /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyKernelStub"/>.
+        /// </summary>
+        public FailureMechanismSectionAssemblyKernelStub()
+        {
+            FailureProbabilityInput = double.NaN;
+            LengthEffectFactorInput = double.NaN;
+        }
+
+        /// <summary>
         /// Gets the input used in <see cref="TranslateAssessmentResultWbi0E1"/>.
         /// </summary>
         public EAssessmentResultTypeE1? AssessmentResultTypeE1Input { get; private set; }
@@ -101,13 +110,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets the probability of failure used as input parameter for assembly methods.
         /// </summary>
-        public double? FailureProbabilityInput { get; private set; }
+        public double FailureProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect' which is 
         /// used as input parameter for assembly methods.
         /// </summary>
-        public double? LengthEffectFactorInput { get; private set; }
+        public double LengthEffectFactorInput { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="FmSectionCategoryCompliancyResults"/> used as input parameter for assembly methods.
@@ -182,7 +191,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G3(AssessmentSection section,
                                                                              FailureMechanism failureMechanism,
                                                                              EAssessmentResultTypeG2 assessment,
-                                                                             double? failureProbability)
+                                                                             double failureProbability)
         {
             ThrowException();
 
@@ -204,7 +213,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              FailureMechanism failureMechanism,
                                                                              double fmSectionLengthEffectFactor,
                                                                              EAssessmentResultTypeG2 assessment,
-                                                                             double? failureProbability)
+                                                                             double failureProbability)
         {
             ThrowException();
 
@@ -246,7 +255,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T3(AssessmentSection section,
                                                                              FailureMechanism failureMechanism,
                                                                              EAssessmentResultTypeT3 assessment,
-                                                                             double? failureProbability)
+                                                                             double failureProbability)
         {
             ThrowException();
 
@@ -274,7 +283,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                              FailureMechanism failureMechanism,
                                                                              double fmSectionLengthEffectFactor,
                                                                              EAssessmentResultTypeT3 assessment,
-                                                                             double? failureProbability)
+                                                                             double failureProbability)
         {
             ThrowException();
 
@@ -296,7 +305,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(AssessmentSection section,
                                                                              FailureMechanism failureMechanism,
                                                                              EAssessmentResultTypeT4 assessment,
-                                                                             double? failureProbability)
+                                                                             double failureProbability)
         {
             ThrowException();
 

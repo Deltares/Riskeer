@@ -300,7 +300,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 FailureMechanismAssemblyResult actualFailureMechanismAssemblyInput = kernel.FailureMechanismAssemblyResults.Single();
                 Assert.AreEqual(GetGroup(failureMechanismAssemblyCategoryGroup), actualFailureMechanismAssemblyInput.Category);
-                Assert.IsNull(actualFailureMechanismAssemblyInput.FailureProbability);
+                Assert.IsNaN(actualFailureMechanismAssemblyInput.FailureProbability);
             }
         }
 
@@ -620,7 +620,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
                 kernel.AssemblyResult = new AssemblyResult(new[]
                 {
-                    new FailureMechanismSectionList(new FailureMechanism(random.NextDouble(1, 2), random.NextDouble()), new[]
+                    new FailureMechanismSectionList(string.Empty, new[]
                     {
                         new FmSectionWithDirectCategory(0, 1, random.NextEnumValue<EFmSectionCategory>())
                     })
@@ -653,7 +653,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
                 kernel.AssemblyResult = new AssemblyResult(new[]
                 {
-                    new FailureMechanismSectionList(new FailureMechanism(random.NextDouble(1, 2), random.NextDouble()), new[]
+                    new FailureMechanismSectionList(string.Empty, new[]
                     {
                         new FmSectionWithDirectCategory(0, 1, random.NextEnumValue<EFmSectionCategory>())
                     })
@@ -690,7 +690,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
                 kernel.AssemblyResult = new AssemblyResult(new[]
                 {
-                    new FailureMechanismSectionList(new FailureMechanism(random.NextDouble(1, 2), random.NextDouble()), new[]
+                    new FailureMechanismSectionList(string.Empty, new[]
                     {
                         new FmSectionWithDirectCategory(0, 1, (EFmSectionCategory) 99)
                     })

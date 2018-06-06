@@ -2377,7 +2377,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
         private static void AssertAssembly(FailureMechanismSectionAssembly assembly, FmSectionAssemblyDirectResult kernelAssemblyResult)
         {
-            Assert.AreEqual(assembly.Probability, kernelAssemblyResult.FailureProbability ?? double.NaN);
+            Assert.AreEqual(assembly.Probability, kernelAssemblyResult.FailureProbability);
             Assert.AreEqual(assembly.Group, AssemblyCategoryAssert.GetFailureMechanismSectionCategoryGroup(kernelAssemblyResult.Result));
         }
 

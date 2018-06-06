@@ -50,6 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
             {
                 CombinedAssemblyFailureMechanismSection[] sections = original.ElementAt(i);
                 FailureMechanismSectionList sectionList = actual.ElementAt(i);
+                Assert.IsEmpty(sectionList.FailureMechanismId);
                 AssertSections(sections, sectionList.Results);
             }
         }

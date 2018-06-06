@@ -49,7 +49,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new FailureMechanismSectionAssembly(result.FailureProbability ?? double.NaN,
+            return new FailureMechanismSectionAssembly(result.FailureProbability,
                                                        CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
         }
 

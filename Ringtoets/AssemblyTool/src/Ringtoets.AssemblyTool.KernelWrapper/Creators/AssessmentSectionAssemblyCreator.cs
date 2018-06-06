@@ -49,7 +49,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new AssessmentSectionAssembly(result.FailureProbability ?? double.NaN,
+            return new AssessmentSectionAssembly(result.FailureProbability,
                                                  AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(result.Category));
         }
     }

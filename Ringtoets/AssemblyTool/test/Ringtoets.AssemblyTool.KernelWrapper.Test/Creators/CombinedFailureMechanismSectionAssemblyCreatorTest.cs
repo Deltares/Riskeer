@@ -60,13 +60,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var failureMechanismResults = new[]
             {
-                new FailureMechanismSectionList(new FailureMechanism(random.NextDouble(1, 2), random.NextDouble()), new[]
+                new FailureMechanismSectionList(string.Empty, new[]
                 {
                     CreateCategory(sections[0], random),
                     CreateCategory(sections[1], random),
                     CreateCategory(sections[2], random)
                 }),
-                new FailureMechanismSectionList(new FailureMechanism(random.NextDouble(1, 2), random.NextDouble()), new[]
+                new FailureMechanismSectionList(string.Empty, new[]
                 {
                     CreateCategory(sections[0], random),
                     CreateCategory(sections[1], random),

@@ -56,8 +56,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
-            Assert.IsNull(kernel.FailureProbabilityInput);
-            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.LengthEffectFactorInput);
             Assert.IsNull(kernel.CategoryCompliancyResultsInput);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -443,7 +443,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeG2Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -474,7 +474,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeG2Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -576,9 +576,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNotNull(exception.InnerException);
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
-            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsNaN(kernel.LengthEffectFactorInput);
             Assert.IsNull(kernel.AssessmentResultTypeG2Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -613,9 +613,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
-            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsNaN(kernel.LengthEffectFactorInput);
             Assert.IsNull(kernel.AssessmentResultTypeG2Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -888,7 +888,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeT3Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -922,7 +922,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeT3Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -1102,8 +1102,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeT3Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
-            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.LengthEffectFactorInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -1139,8 +1139,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeT3Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
-            Assert.IsNull(kernel.LengthEffectFactorInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.LengthEffectFactorInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -1237,7 +1237,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeT4Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -1271,7 +1271,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.AssessmentSectionInput);
             Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeT4Input);
-            Assert.IsNull(kernel.FailureProbabilityInput);
+            Assert.IsNaN(kernel.FailureProbabilityInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }

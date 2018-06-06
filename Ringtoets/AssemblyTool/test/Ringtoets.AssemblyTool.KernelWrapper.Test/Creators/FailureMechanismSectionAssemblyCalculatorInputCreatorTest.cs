@@ -326,7 +326,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             Assert.AreEqual(expectedGroup, actualResult.Result);
-            Assert.IsNull(actualResult.FailureProbability);
+            Assert.IsNaN(actualResult.FailureProbability);
         }
 
         [Test]
