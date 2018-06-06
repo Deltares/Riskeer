@@ -40,7 +40,7 @@
     </Compile>
     <Compile Include="DerivedMacroStabilityInwardsInput.cs" />
     <Compile Include="MacroStabilityInwardsGrid.cs" />
-	<Compile Include="GeneralMacroStabilityInwardsInput.cs" />
+    <Compile Include="GeneralMacroStabilityInwardsInput.cs" />
     <Compile Include="MacroStabilityInwardsGridDeterminationType.cs" />
     <Compile Include="MacroStabilityInwardsCalculation.cs" />
     <Compile Include="MacroStabilityInwardsCalculationScenario.cs" />
