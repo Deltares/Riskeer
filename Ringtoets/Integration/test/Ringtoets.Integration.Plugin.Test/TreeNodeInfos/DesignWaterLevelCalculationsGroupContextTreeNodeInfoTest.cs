@@ -277,7 +277,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     {
                         // Assert
                         const string expectedItemText = @"Alles be&rekenen";
-                        const string expectedItemTooltip = @"Alle toetspeilen berekenen.";
+                        const string expectedItemTooltip = @"Alle waterstanden berekenen.";
 
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunDesignWaterLevelCalculationsIndex,
                                                                       expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon);

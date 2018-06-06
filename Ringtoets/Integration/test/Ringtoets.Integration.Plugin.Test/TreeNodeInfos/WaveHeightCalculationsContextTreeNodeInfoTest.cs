@@ -297,7 +297,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     {
                         // Assert
                         const string expectedItemText = "Alles be&rekenen";
-                        const string expectedItemTooltip = "Alle golfhoogtes berekenen.";
+                        const string expectedItemTooltip = "Alle golfhoogten berekenen.";
 
                         TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuRunWaveHeightCalculationsIndex,
                                                                       expectedItemText, expectedItemTooltip, RingtoetsCommonFormsResources.CalculateAllIcon);

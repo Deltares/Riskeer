@@ -188,7 +188,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                           failureMechanism,
                                                                                           assessmentSection,
                                                                                           () => 0.01,
-                    "Category"))
+                                                                                          "Category"))
                 {
                     info.AfterCreate(view, data);
 
