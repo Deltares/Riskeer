@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms;
@@ -106,7 +107,7 @@ namespace Ringtoets.DuneErosion.Plugin
 
             yield return new TreeNodeInfo<DuneLocationCalculationsContext>
             {
-                Text = context => FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DuneLocationCalculationsContextMenuStrip
             };
@@ -140,7 +141,7 @@ namespace Ringtoets.DuneErosion.Plugin
             yield return new ViewInfo<DuneLocationCalculationsContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>
             {
                 GetViewName = (view, context) => $"{RingtoetsCommonDataResources.HydraulicBoundaryConditions_DisplayName} - " +
-                                                 $"{FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseDuneLocationCalculationsViewForData,
@@ -204,49 +205,19 @@ namespace Ringtoets.DuneErosion.Plugin
 
         private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsGroupContext context, string filePath)
         {
-            var exportableCalculations = new List<ExportableDuneLocationCalculation>();
-            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm
-                                                   .Select(calc => new ExportableDuneLocationCalculation(
-                                                               calc,
-                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName)).ToArray());
-
-            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm
-                                                   .Select(calc => new ExportableDuneLocationCalculation(
-                                                               calc,
-                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName)).ToArray());
-
-            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm
-                                                   .Select(calc => new ExportableDuneLocationCalculation(
-                                                               calc,
-                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName)).ToArray());
-
-            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForLowerLimitNorm
-                                                   .Select(calc => new ExportableDuneLocationCalculation(
-                                                               calc,
-                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName)).ToArray());
-
-            exportableCalculations.AddRange(context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm
-                                                   .Select(calc => new ExportableDuneLocationCalculation(
-                                                               calc,
-                                                               context.FailureMechanism.GetNorm(context.AssessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                                               RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName)).ToArray());
-
-            return CreateDuneLocationCalculationsExporter(exportableCalculations, filePath);
+            return CreateDuneLocationCalculationsExporter(DuneLocationCalculationsGroupContextChildNodeObjects(context)
+                                                          .Cast<DuneLocationCalculationsContext>()
+                                                          .SelectMany(c => c.WrappedData.Select(
+                                                                          calc => new ExportableDuneLocationCalculation(
+                                                                              calc,
+                                                                              c.GetNormFunc(),
+                                                                              c.CategoryBoundaryName))), filePath);
         }
 
         private static DuneLocationCalculationsExporter CreateDuneLocationCalculationsExporter(IEnumerable<ExportableDuneLocationCalculation> exportableCalculations,
                                                                                                string filePath)
         {
             return new DuneLocationCalculationsExporter(exportableCalculations, filePath, new NoProbabilityValueDoubleConverter());
-        }
-
-        private static string FormatCategoryBoundaryName(string categoryBoundaryName)
-        {
-            return string.Format(RingtoetsCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName);
         }
 
         #region TreeNodeInfo

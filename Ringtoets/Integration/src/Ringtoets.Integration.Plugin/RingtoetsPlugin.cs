@@ -403,7 +403,8 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<DesignWaterLevelCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName} - {FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                GetViewName = (view, context) => $"{RingtoetsFormsResources.DesignWaterLevelCalculationsContext_DisplayName} - " +
+                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
@@ -416,7 +417,8 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{RingtoetsFormsResources.WaveHeightCalculationsContext_DisplayName} - {FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                GetViewName = (view, context) => $"{RingtoetsFormsResources.WaveHeightCalculationsContext_DisplayName} - " +
+                                                 $"{RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseHydraulicBoundaryCalculationsViewForData,
@@ -804,7 +806,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<DesignWaterLevelCalculationsContext>
             {
-                Text = context => FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = DesignWaterLevelCalculationsContextMenuStrip
             };
@@ -819,7 +821,7 @@ namespace Ringtoets.Integration.Plugin
 
             yield return new TreeNodeInfo<WaveHeightCalculationsContext>
             {
-                Text = context => FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = WaveHeightCalculationsContextMenuStrip
             };
@@ -966,11 +968,6 @@ namespace Ringtoets.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 CreateInstance = createInstanceFunc
             };
-        }
-
-        private static string FormatCategoryBoundaryName(string categoryBoundaryName)
-        {
-            return string.Format(RingtoetsCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName);
         }
 
         private TreeNodeInfo<FailureMechanismSectionResultContext<T>> CreateFailureMechanismSectionResultTreeNodeInfo<T>()

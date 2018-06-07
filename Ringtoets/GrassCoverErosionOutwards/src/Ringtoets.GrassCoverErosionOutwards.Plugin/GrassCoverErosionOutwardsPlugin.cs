@@ -151,7 +151,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 GrassCoverErosionOutwardsDesignWaterLevelCalculationsView>
             {
-                GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName} - {FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName} " +
+                                                 $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(context.WrappedData,
@@ -168,7 +169,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
                 GrassCoverErosionOutwardsWaveHeightCalculationsView>
             {
-                GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName} - {FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
+                GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName} " +
+                                                 $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsView(context.WrappedData,
@@ -257,14 +259,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>
             {
-                Text = context => FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextMenuStrip
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext>
             {
-                Text = context => FormatCategoryBoundaryName(context.CategoryBoundaryName),
+                Text = context => RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName),
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = GrassCoverErosionOutwardsWaveHeightCalculationsContextMenuStrip
             };
@@ -372,11 +374,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
 
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-        }
-
-        private static string FormatCategoryBoundaryName(string categoryBoundaryName)
-        {
-            return string.Format(RingtoetsCommonDataResources.Hydraulic_category_boundary_0_, categoryBoundaryName);
         }
 
         #region ViewInfos
