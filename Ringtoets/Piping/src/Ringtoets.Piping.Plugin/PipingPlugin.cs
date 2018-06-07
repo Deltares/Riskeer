@@ -34,6 +34,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
@@ -718,8 +719,12 @@ namespace Ringtoets.Piping.Plugin
 
         private static IEnumerable<object> GetOutputs(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
             return new object[]
             {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                              assessmentSection,
+                                                              () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments

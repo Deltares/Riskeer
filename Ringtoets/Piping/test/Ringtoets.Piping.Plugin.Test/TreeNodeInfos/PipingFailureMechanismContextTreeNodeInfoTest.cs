@@ -37,6 +37,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
@@ -171,18 +172,24 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(3, outputsFolder.Contents.Count());
-            var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents.ElementAt(0);
+            Assert.AreEqual(4, outputsFolder.Contents.Count());
+            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
+            Assert.AreSame(pipingFailureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+            PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanism.PipingProbabilityAssessmentInput;
+            Assert.AreEqual(probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength), failureMechanismAssemblyCategoriesContext.GetNFunc());
+
+            var failureMechanismScenariosContext = (PipingScenariosContext) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(pipingFailureMechanism, failureMechanismScenariosContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismScenariosContext.AssessmentSection);
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(pipingFailureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(pipingFailureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
-            var commentContext = (Comment) outputsFolder.Contents.ElementAt(2);
+            var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
             Assert.AreSame(pipingFailureMechanism.OutputComments, commentContext);
         }
 
