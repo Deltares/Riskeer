@@ -63,6 +63,7 @@
     <Compile Include="Observers\CalculatableFailureMechanismResultObserver.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsGroupContext.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismAssemblyCategoriesContext.cs" />
     <Compile Include="PresentationObjects\NormContext.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryLocationCalculationContext.cs" />
