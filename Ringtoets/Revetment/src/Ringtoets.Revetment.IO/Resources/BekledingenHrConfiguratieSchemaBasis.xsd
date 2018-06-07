@@ -25,6 +25,26 @@ All rights reserved.
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
   
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
+  <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+    <xs:complexType name="berekeningType">
+      <xs:complexContent>
+        <xs:extension base="berekeningType">
+          <xs:all>
+            <xs:element ref="hrlocatie" minOccurs="0"/>
+            <xs:element ref="bovengrensbekleding" minOccurs="0"/>
+            <xs:element ref="ondergrensbekleding" minOccurs="0"/>
+            <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
+            <xs:element ref="ondergrenswaterstanden" minOccurs="0"/>
+            <xs:element ref="stapgrootte" minOccurs="0"/>
+            <xs:element ref="voorlandprofiel" minOccurs="0"/>
+            <xs:element ref="orientatie" minOccurs="0"/>
+            <xs:element ref="golfreductie" minOccurs="0"/>
+            <xs:element ref="categoriegrens" minOccurs="0"/>
+          </xs:all>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:redefine>
   
   <!--Generieke definitie van de geselecteerde HR locatie voor alle toetssporen.-->
   <xs:include schemaLocation="HrLocatieSchema.xsd"/>
@@ -80,5 +100,12 @@ All rights reserved.
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
+
+  <!--Specificeert de categoriegrens waarmee de berekening uitgevoerd moet worden.-->
+  <xs:element name="categoriegrens" type="categoriegrensType"/>
+
+  <xs:simpleType name="categoriegrensType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
   
 </xs:schema>

@@ -25,33 +25,12 @@ All rights reserved.
   
   <!--Basis elementen voor een bekledingen configuratie.-->
   <xs:include schemaLocation="BekledingenHrConfiguratieSchemaBasis.xsd" />
+  <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
-  <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
-    <xs:complexType name="berekeningType">
-      <xs:complexContent>
-        <xs:extension base="berekeningType">
-          <xs:all>
-            <xs:element ref="hrlocatie" minOccurs="0"/>
-            <xs:element ref="bovengrensbekleding" minOccurs="0"/>
-            <xs:element ref="ondergrensbekleding" minOccurs="0"/>
-            <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
-            <xs:element ref="ondergrenswaterstanden" minOccurs="0"/>
-            <xs:element ref="stapgrootte" minOccurs="0"/>
-            <xs:element ref="voorlandprofiel" minOccurs="0"/>
-            <xs:element ref="orientatie" minOccurs="0"/>
-            <xs:element ref="golfreductie" minOccurs="0"/>
-            <xs:element ref="categoriegrens" minOccurs="0"/>
-          </xs:all>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:redefine>
-
-  <!--Specificeert de categoriegrens waarmee de berekening uitgevoerd moet worden.-->
-  <xs:element name="categoriegrens">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
+  <!--Herdefinieer categorie grens, zodat deze de juiste inhoud heeft.-->
+  <xs:redefine schemaLocation="BekledingenHrConfiguratieSchemaBasis.xsd">
+    <xs:simpleType name="categoriegrensType">
+      <xs:restriction base="categoriegrensType">
         <xs:enumeration value="Iv-IIv"/>
         <xs:enumeration value="IIv-IIIv"/>
         <xs:enumeration value="IIIv-IVv"/>
@@ -59,5 +38,5 @@ All rights reserved.
         <xs:enumeration value="Vv-VIv"/>
       </xs:restriction>
     </xs:simpleType>
-  </xs:element>
+  </xs:redefine>
 </xs:schema>
