@@ -35,8 +35,10 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -169,14 +171,21 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.InputComments, inputComment);
 
             var outputFolder = (CategoryTreeFolder) children[1];
+            Assert.AreEqual(3, outputFolder.Contents.Count());
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
+            var failureMechanismAssemblyCategoriesContext = (GeotechnicalFailureMechanismAssemblyCategoriesContext) outputFolder.Contents.ElementAt(0);
+            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
+            Assert.AreEqual(probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength), failureMechanismAssemblyCategoriesContext.GetNFunc());
+
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>)
-                outputFolder.Contents.ElementAt(0);
+                outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputFolder.Contents.ElementAt(1);
+            var outputComment = (Comment) outputFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 

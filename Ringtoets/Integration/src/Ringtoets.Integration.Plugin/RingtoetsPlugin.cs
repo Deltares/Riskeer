@@ -48,6 +48,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Controls;
@@ -76,6 +77,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Commands;
@@ -1439,7 +1441,6 @@ namespace Ringtoets.Integration.Plugin
             var technicalInnovation = nodeData as IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>;
             var strengthStabilityLengthwiseConstruction = nodeData as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
             var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
-            var macroStabilityOutwards = nodeData as IHasSectionResults<MacroStabilityOutwardsFailureMechanismSectionResult>;
 
             var failureMechanismSectionResultContexts = new object[2];
             if (grassCoverSlipOffInwards != null)
@@ -1489,13 +1490,6 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<WaterPressureAsphaltCoverFailureMechanismSectionResult>(
                         waterPressureAsphaltCover.SectionResults, nodeData);
-            }
-
-            if (macroStabilityOutwards != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
-                        macroStabilityOutwards.SectionResults, nodeData, assessmentSection);
             }
 
             failureMechanismSectionResultContexts[1] = nodeData.OutputComments;
@@ -1600,6 +1594,25 @@ namespace Ringtoets.Integration.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
+        }
+
+        private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
+                                                      IAssessmentSection assessmentSection)
+        {
+            var failureMechanismResultContexts = new object[3];
+
+            MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
+            failureMechanismResultContexts[0] =
+                new GeotechnicalFailureMechanismAssemblyCategoriesContext(nodeData,
+                                                                          assessmentSection,
+                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength));
+            failureMechanismResultContexts[1] =
+                new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData, assessmentSection);
+
+            failureMechanismResultContexts[2] = nodeData.OutputComments;
+
+            return failureMechanismResultContexts;
         }
 
         #endregion
