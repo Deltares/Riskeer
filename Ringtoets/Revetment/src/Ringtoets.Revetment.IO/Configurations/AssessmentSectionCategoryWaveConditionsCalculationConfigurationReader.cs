@@ -55,7 +55,9 @@ namespace Ringtoets.Revetment.IO.Configurations
         {
             var configuration = new AssessmentSectionCategoryWaveConditionsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value);
             ParseCalculationElementData(calculationElement, configuration);
-            configuration.CategoryType = (ConfigurationAssessmentSectionCategoryType?) calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationAssessmentSectionCategoryTypeConverter>(WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType);
+            configuration.CategoryType = (ConfigurationAssessmentSectionCategoryType?)
+                calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationAssessmentSectionCategoryTypeConverter>(
+                    WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType);
             return configuration;
         }
     }

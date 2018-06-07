@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration)readItems.Single();
+            var calculation = (GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration) readItems.Single();
 
             Assert.IsNotNull(calculation);
             Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);

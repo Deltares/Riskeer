@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
@@ -29,20 +30,17 @@ using Ringtoets.Revetment.IO.Configurations;
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
 {
     /// <summary>
-    /// Exports a failure mechanism category wave conditions calculation configuration and stores it as an XML file.
+    /// Exports a grass cover erosion outwards wave conditions calculation configuration and stores it as an XML file.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<
         GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter,
         GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration,
-        ICalculation<FailureMechanismCategoryWaveConditionsInput>>
+        GrassCoverErosionOutwardsWaveConditionsCalculation>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="calculations">The hierarchy of calculations to export.</param>
-        /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 
@@ -51,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
             return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath);
         }
 
-        protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ToConfiguration(ICalculation<FailureMechanismCategoryWaveConditionsInput> calculation)
+        protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
             var configuration = new GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration(calculation.Name);
             SetConfigurationProperties(configuration, calculation);

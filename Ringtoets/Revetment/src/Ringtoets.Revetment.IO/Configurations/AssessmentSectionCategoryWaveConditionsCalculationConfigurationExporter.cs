@@ -35,13 +35,10 @@ namespace Ringtoets.Revetment.IO.Configurations
         AssessmentSectionCategoryWaveConditionsCalculationConfiguration,
         ICalculation<AssessmentSectionCategoryWaveConditionsInput>>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="calculations">The hierarchy of calculations to export.</param>
-        /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
 

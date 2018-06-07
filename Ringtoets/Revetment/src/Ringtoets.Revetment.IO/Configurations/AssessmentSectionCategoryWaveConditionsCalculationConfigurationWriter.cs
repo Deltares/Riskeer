@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Xml;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations.Converters;
@@ -30,22 +29,14 @@ namespace Ringtoets.Revetment.IO.Configurations
     /// Writer for calculations that contain <see cref="AssessmentSectionCategoryWaveConditionsInput"/> as input,
     /// to XML format.
     /// </summary>
-    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter 
+    public class AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter
         : WaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter"/>.
         /// </summary>
-        /// <param name="filePath">The path of the file to write to.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        /// <remarks>A valid path:
-        /// <list type="bullet">
-        /// <item>is not empty or <c>null</c>,</item>
-        /// <item>does not consist out of only whitespace characters,</item>
-        /// <item>does not contain an invalid character,</item>
-        /// <item>does not end with a directory or path separator (empty file name).</item>
-        /// </list></remarks>
-        public AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(string filePath) 
+        public AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter(string filePath)
             : base(filePath) {}
 
         protected override void WriteConfigurationCategoryTypeWhenAvailable(

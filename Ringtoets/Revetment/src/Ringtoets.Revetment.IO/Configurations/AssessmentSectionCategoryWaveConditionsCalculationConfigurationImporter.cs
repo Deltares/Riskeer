@@ -38,17 +38,10 @@ namespace Ringtoets.Revetment.IO.Configurations
         : WaveConditionsCalculationConfigurationImporter<T, AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader, AssessmentSectionCategoryWaveConditionsCalculationConfiguration>
         where T : ICalculation<AssessmentSectionCategoryWaveConditionsInput>, new()
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter{T}"/>.
         /// </summary>
-        /// <param name="xmlFilePath">The path to the XML file to import from.</param>
-        /// <param name="importTarget">The calculation group to update.</param>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
-        /// used to check if the imported objects contain the right location.</param>
-        /// <param name="foreshoreProfiles">The foreshore profiles used to check if
-        /// the imported objects contain the right profile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is
-        /// <c>null</c>.</exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                                        CalculationGroup importTarget,
                                                                                        IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,

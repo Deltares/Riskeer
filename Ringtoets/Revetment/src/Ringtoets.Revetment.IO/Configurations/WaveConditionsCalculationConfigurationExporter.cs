@@ -32,7 +32,7 @@ using Ringtoets.Revetment.IO.Configurations.Converters;
 namespace Ringtoets.Revetment.IO.Configurations
 {
     /// <summary>
-    /// Base implementation of exporter to export a wave conditions calculation configuration and stores it as an XML file.
+    /// Base implementation of an exporter for a wave conditions calculation configuration that stores it as an XML file.
     /// </summary>
     /// <typeparam name="TWaveConditionsCalculationConfigurationWriter">The type of writer to use.</typeparam>
     /// <typeparam name="TWaveConditionsCalculationConfiguration">The type of calculation configuration to export.</typeparam>
@@ -52,10 +52,6 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         protected WaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, filePath) {}
-
-        protected abstract override TWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath);
-
-        protected abstract override TWaveConditionsCalculationConfiguration ToConfiguration(TCalculation calculation);
 
         /// <summary>
         /// Sets the properties of a <see cref="TCalculation"/> to a <see cref="TWaveConditionsCalculationConfiguration"/>.

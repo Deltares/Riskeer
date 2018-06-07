@@ -103,7 +103,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// </summary>
         /// <param name="writer">The writer to use for writing.</param>
         /// <param name="configuration">The configuration to get the category type from.</param>
-        ///  /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
+        /// <exception cref="InvalidOperationException">Thrown when the <paramref name="writer"/> 
         /// is closed.</exception>
         /// <exception cref="NotSupportedException">Thrown when the conversion of the category type 
         /// cannot be performed.</exception>

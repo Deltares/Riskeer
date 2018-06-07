@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, "IIIv-IVv")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm, "IVv-Vv")]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm, "Vv-VIv")]
-        public void ConvertTo_ValidConfigurationFailureMechanismCategoryType_ReturnExpectedText(
+        public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCategoryType_ReturnExpectedText(
             ConfigurationGrassCoverErosionOutwardsCategoryType value, string expectedText)
         {
             // Setup
@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm, FailureMechanismCategoryType.LowerLimitNorm)]
         [TestCase(ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm, FailureMechanismCategoryType.FactorizedLowerLimitNorm)]
-        public void ConvertTo_ValidConfigurationFailureMechanismCategoryType_ReturnFailureMechanismCategoryType(
+        public void ConvertTo_ValidConfigurationGrassCoverErosionOutwardsCategoryType_ReturnFailureMechanismCategoryType(
             ConfigurationGrassCoverErosionOutwardsCategoryType originalValue, FailureMechanismCategoryType expectedResult)
         {
             // Setup
@@ -123,7 +123,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [Test]
         [TestCase(typeof(string))]
         [TestCase(typeof(FailureMechanismCategoryType))]
-        public void ConvertTo_InvalidConfigurationFailureMechanismCategoryType_ThrowInvalidEnumArgumentException(Type destinationType)
+        public void ConvertTo_InvalidConfigurationGrassCoverErosionOutwardsCategoryType_ThrowInvalidEnumArgumentException(Type destinationType)
         {
             // Setup
             const ConfigurationGrassCoverErosionOutwardsCategoryType invalidValue = (ConfigurationGrassCoverErosionOutwardsCategoryType) 99;
@@ -182,7 +182,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase("IIIv-IVv", ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm)]
         [TestCase("IVv-Vv", ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm)]
         [TestCase("Vv-VIv", ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm)]
-        public void ConvertFrom_ValidStringValue_ReturnConfigurationFailureMechanismCategoryType(
+        public void ConvertFrom_ValidStringValue_ReturnConfigurationGrassCoverErosionOutwardsCategoryType(
             string value, ConfigurationGrassCoverErosionOutwardsCategoryType expectedResult)
         {
             // Setup
@@ -214,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations.Converters
         [TestCase(FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.MechanismSpecificLowerLimitNorm)]
         [TestCase(FailureMechanismCategoryType.LowerLimitNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.LowerLimitNorm)]
         [TestCase(FailureMechanismCategoryType.FactorizedLowerLimitNorm, ConfigurationGrassCoverErosionOutwardsCategoryType.FactorizedLowerLimitNorm)]
-        public void ConvertFrom_ValidFailureMechanismCategoryType_ReturnConfigurationFailureMechanismCategoryType(
+        public void ConvertFrom_ValidFailureMechanismCategoryType_ReturnConfigurationGrassCoverErosionOutwardsCategoryType(
             FailureMechanismCategoryType originalValue, ConfigurationGrassCoverErosionOutwardsCategoryType expectedResult)
         {
             // Setup

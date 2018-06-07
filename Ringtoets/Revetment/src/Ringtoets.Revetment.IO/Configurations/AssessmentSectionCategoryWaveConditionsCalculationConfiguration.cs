@@ -32,7 +32,7 @@ namespace Ringtoets.Revetment.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfiguration"/>.
         /// </summary>
-        /// <param name="name">The name of the <see cref="WaveConditionsCalculationConfiguration"/>.</param>
+        /// <param name="name">The name of the <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfiguration"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/> is <c>null</c>.</exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfiguration(string name) 
             : base(name) {}

@@ -38,17 +38,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         : WaveConditionsCalculationConfigurationImporter<GrassCoverErosionOutwardsWaveConditionsCalculation,
             GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader, GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter"/>.
         /// </summary>
-        /// <param name="xmlFilePath">The path to the XML file to import from.</param>
-        /// <param name="importTarget">The calculation group to update.</param>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations
-        /// used to check if the imported objects contain the right location.</param>
-        /// <param name="foreshoreProfiles">The foreshore profiles used to check if
-        /// the imported objects contain the right profile.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is
-        /// <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                                        CalculationGroup importTarget,
                                                                                        IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,

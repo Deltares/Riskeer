@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
@@ -39,14 +40,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter,
             GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter,
-            ICalculation<FailureMechanismCategoryWaveConditionsInput>,
+            GrassCoverErosionOutwardsWaveConditionsCalculation,
             GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            var calculation1 = new TestWaveConditionsCalculation<FailureMechanismCategoryWaveConditionsInput>(new FailureMechanismCategoryWaveConditionsInput())
+            var calculation1 = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "Calculation A",
                 InputParameters =
@@ -55,7 +56,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 }
             };
 
-            var calculation2 = new TestWaveConditionsCalculation<FailureMechanismCategoryWaveConditionsInput>(new FailureMechanismCategoryWaveConditionsInput())
+            var calculation2 = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "PK001_0002 W1-6_4_1D1",
                 InputParameters =
@@ -96,9 +97,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
-        protected override ICalculation<FailureMechanismCategoryWaveConditionsInput> CreateCalculation()
+        protected override GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculation()
         {
-            return new TestWaveConditionsCalculation<FailureMechanismCategoryWaveConditionsInput>(new FailureMechanismCategoryWaveConditionsInput());
+            return new GrassCoverErosionOutwardsWaveConditionsCalculation();
         }
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

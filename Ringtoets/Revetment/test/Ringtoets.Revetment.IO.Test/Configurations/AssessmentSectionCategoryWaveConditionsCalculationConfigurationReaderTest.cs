@@ -90,7 +90,7 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (AssessmentSectionCategoryWaveConditionsCalculationConfiguration)readItems.Single();
+            var calculation = (AssessmentSectionCategoryWaveConditionsCalculationConfiguration) readItems.Single();
 
             Assert.IsNotNull(calculation);
             Assert.AreEqual("HRlocatie", calculation.HydraulicBoundaryLocationName);

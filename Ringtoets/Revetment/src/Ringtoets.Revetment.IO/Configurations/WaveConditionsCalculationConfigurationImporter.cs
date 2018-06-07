@@ -80,8 +80,6 @@ namespace Ringtoets.Revetment.IO.Configurations
             availableForeshoreProfiles = foreshoreProfiles;
         }
 
-        protected abstract override TCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath);
-
         protected override ICalculation ParseReadCalculation(TCalculationConfiguration calculationConfiguration)
         {
             var waveConditionsCalculation = new TCalculation
