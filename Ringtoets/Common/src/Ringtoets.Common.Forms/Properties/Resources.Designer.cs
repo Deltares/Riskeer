@@ -1383,6 +1383,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categoriegrenzen.
+        /// </summary>
+        public static string FailureMechanismAssemblyCategories_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategories_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I&amp;s relevant.
         /// </summary>
         public static string FailureMechanismContextMenuStrip_Is_relevant {

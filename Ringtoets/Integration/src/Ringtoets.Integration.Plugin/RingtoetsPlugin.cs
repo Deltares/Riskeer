@@ -946,6 +946,17 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.NormsIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
         }
 
         private static ViewInfo<FailureMechanismSectionResultContext<TResult>, IObservableEnumerable<TResult>, TView> CreateFailureMechanismResultViewInfo<

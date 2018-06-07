@@ -491,7 +491,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(31, treeNodeInfos.Length);
+                Assert.AreEqual(32, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundData)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(NormContext)));
@@ -523,6 +523,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultTotalContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultPerSectionContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext)));
             }
         }
 

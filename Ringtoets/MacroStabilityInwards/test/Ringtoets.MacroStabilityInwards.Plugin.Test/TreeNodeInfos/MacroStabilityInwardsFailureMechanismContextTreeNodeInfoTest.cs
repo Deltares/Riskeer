@@ -37,6 +37,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
@@ -171,18 +172,24 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(3, outputsFolder.Contents.Count());
-            var failureMechanismScenariosContext = (MacroStabilityInwardsScenariosContext) outputsFolder.Contents.ElementAt(0);
+            Assert.AreEqual(4, outputsFolder.Contents.Count());
+            var failureMechanismAssemblyCategoriesContext = (GeotechnicalFailureMechanismAssemblyCategoriesContext)outputsFolder.Contents.ElementAt(0);
+            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
+            Assert.AreEqual(probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength), failureMechanismAssemblyCategoriesContext.GetNFunc());
+
+            var failureMechanismScenariosContext = (MacroStabilityInwardsScenariosContext) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismScenariosContext.FailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismScenariosContext.AssessmentSection);
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
-            var commentContext = (Comment) outputsFolder.Contents.ElementAt(2);
+            var commentContext = (Comment) outputsFolder.Contents.ElementAt(3);
             Assert.AreSame(failureMechanism.OutputComments, commentContext);
         }
 

@@ -34,6 +34,7 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
@@ -725,8 +726,12 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         private static IEnumerable<object> GetOutputs(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             return new object[]
             {
+                new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                                          assessmentSection,
+                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
