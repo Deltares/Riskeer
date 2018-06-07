@@ -66,7 +66,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            const string categoryBoundaryName = "Boundary Name";
+            const string categoryBoundaryName = "A";
             var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
@@ -123,7 +123,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             // Call
             object viewData = info.GetViewData(context);
@@ -145,7 +145,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
@@ -171,7 +171,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
@@ -196,7 +196,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                                                               failureMechanism,
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             plugin.Gui = gui;
             plugin.Activate();
@@ -232,7 +232,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
                                                            failureMechanism,
                                                            assessmentSection,
                                                            getNormFunc,
-                                                           "Category Boundary Name");
+                                                           "A");
 
             plugin.Gui = gui;
             plugin.Activate();

@@ -111,7 +111,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            const string categoryBoundaryName = "Boundary Name";
+            const string categoryBoundaryName = "A";
             var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
@@ -149,7 +149,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   new DuneErosionFailureMechanism(),
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "Category Boundary Name");
+                                                                  "A");
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -200,7 +200,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   failureMechanism,
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "Category Boundary Name");
+                                                                  "A");
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
@@ -247,7 +247,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   failureMechanism,
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "Category Boundary Name");
+                                                                  "A");
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
@@ -303,7 +303,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   failureMechanism,
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "Category Boundary Name");
+                                                                  "A");
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
@@ -376,7 +376,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   failureMechanism,
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "Category Boundary Name");
+                                                                  "A");
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -480,7 +480,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                               failureMechanism,
                                                               assessmentSection,
                                                               () => norm,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -561,7 +561,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                               failureMechanism,
                                                               assessmentSection,
                                                               () => norm,
-                                                              "Category boundary name");
+                                                              "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -641,7 +641,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                               failureMechanism,
                                                               assessmentSection,
                                                               () => norm,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             using (var treeViewControl = new TreeViewControl())
             {

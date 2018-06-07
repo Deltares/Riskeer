@@ -33,7 +33,7 @@ namespace Ringtoets.DuneErosion.IO.Test
         public void Constructor_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableDuneLocationCalculation(null, new Random(39).NextDouble(), "Category");
+            TestDelegate call = () => new ExportableDuneLocationCalculation(null, new Random(39).NextDouble(), "A");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Ringtoets.DuneErosion.IO.Test
             // Setup
             var calculation = new DuneLocationCalculation(new TestDuneLocation());
             double norm = new Random(39).NextDouble();
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             // Call
             var exportableCalculation = new ExportableDuneLocationCalculation(calculation, norm, categoryBoundaryName);

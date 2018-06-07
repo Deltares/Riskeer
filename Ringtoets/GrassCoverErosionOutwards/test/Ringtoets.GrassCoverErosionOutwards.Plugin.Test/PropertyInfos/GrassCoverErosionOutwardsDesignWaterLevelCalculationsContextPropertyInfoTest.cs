@@ -65,7 +65,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                                                                                            new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                            assessmentSection,
                                                                                            () => 0.01,
-                                                                                           "Category");
+                                                                                           "A");
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {

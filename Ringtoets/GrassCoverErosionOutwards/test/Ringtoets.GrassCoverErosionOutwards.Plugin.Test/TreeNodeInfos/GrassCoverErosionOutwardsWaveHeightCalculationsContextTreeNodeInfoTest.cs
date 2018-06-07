@@ -98,7 +98,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
             var context = new GrassCoverErosionOutwardsWaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                      assessmentSection, () => 0.1,

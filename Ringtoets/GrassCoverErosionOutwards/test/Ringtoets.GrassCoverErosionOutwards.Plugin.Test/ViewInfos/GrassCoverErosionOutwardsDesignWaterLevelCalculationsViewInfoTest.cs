@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                            new GrassCoverErosionOutwardsFailureMechanism(),
                                                            assessmentSection,
                                                            () => 0.01,
-                                                           "Category"));
+                                                           "A"));
 
                 // Assert
                 Assert.AreSame(calculations, expectedCalculations);
@@ -108,7 +108,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                                grassCoverErosionOutwardsFailureMechanism,
                                                                                                assessmentSection,
                                                                                                () => 0.01,
-                                                                                               "Category");
+                                                                                               "A");
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -144,7 +144,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void GetViewName_WithContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
             // Setup
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -190,7 +190,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                             grassCoverErosionOutwardsFailureMechanism,
                                                                                             assessmentSection,
                                                                                             () => 0.01,
-                                                                                            "Category");
+                                                                                            "A");
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -199,7 +199,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                                 grassCoverErosionOutwardsFailureMechanism,
                                                                                                 assessmentSection,
                                                                                                 () => 0.01,
-                                                                                                "Category"))
+                                                                                                "A"))
                 {
                     // Call
                     info.AfterCreate(view, data);
@@ -232,7 +232,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                             failureMechanism,
                                                                                             assessmentSection,
                                                                                             () => 0.01,
-                                                                                            "Category"))
+                                                                                            "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -272,7 +272,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                             failureMechanism,
                                                                                             assessmentSectionA,
                                                                                             () => 0.01,
-                                                                                            "Category"))
+                                                                                            "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -309,7 +309,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                             assessmentSection,
                                                                                             () => 0.01,
-                                                                                            "Category"))
+                                                                                            "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -351,7 +351,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                             assessmentSectionA,
                                                                                             () => 0.01,
-                                                                                            "Category"))
+                                                                                            "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -384,7 +384,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                             assessmentSection,
                                                                                             () => 0.01,
-                                                                                            "Category"))
+                                                                                            "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);

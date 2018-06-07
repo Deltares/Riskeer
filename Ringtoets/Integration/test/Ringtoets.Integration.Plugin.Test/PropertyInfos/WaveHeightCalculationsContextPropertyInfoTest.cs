@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                             assessmentSection,
                                                             () => 0.01,
-                                                            "Category");
+                                                            "A");
 
             using (var plugin = new RingtoetsPlugin())
             {

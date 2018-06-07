@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
         public void Constructor_ExpectedValues()
         {
             // Call
-            var provider = new WaveHeightCalculationMessageProvider("Category description");
+            var provider = new WaveHeightCalculationMessageProvider("A");
 
             // Assert
             Assert.IsInstanceOf<ICalculationMessageProvider>(provider);
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
         public void GetActivityDescription_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            const string categoryBoundaryName = "Category description";
+            const string categoryBoundaryName = "A";
             var provider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
 
             // Call
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
         public void GetCalculationFailedMessage_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            const string categoryBoundaryName = "Category description";
+            const string categoryBoundaryName = "A";
             var provider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
 
             // Call
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
         public void GetCalculationFailedWithErrorReportMessage_ValidNames_ExpectedValues(string name)
         {
             // Setup
-            const string categoryBoundaryName = "Category description";
+            const string categoryBoundaryName = "A";
             var provider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
             const string failureMessage = "It failed";
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
         public void GetCalculationFailedWithErrorReportMessage_ValidFailureMessages_ExpectedValues(string failureMessage)
         {
             // Setup
-            const string categoryBoundaryName = "Category description";
+            const string categoryBoundaryName = "A";
             var provider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
             const string name = "calculation name";
 
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
         public void GetCalculatedNotConvergedMessage_VariousParameters_ReturnsExpectedValue(string name)
         {
             // Setup
-            const string categoryBoundaryName = "Category description";
+            const string categoryBoundaryName = "A";
             var provider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
 
             // Call

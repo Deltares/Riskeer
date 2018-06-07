@@ -38,7 +38,7 @@ namespace Ringtoets.DuneErosion.IO.Test
     public class DuneLocationCalculationsExporterTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath(Path.Combine(nameof(DuneLocationCalculationsExporterTest), "test.bnd"));

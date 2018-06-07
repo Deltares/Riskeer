@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             TestDelegate test = () => new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                      assessmentSection,
                                                                      null,
-                                                                     "Category");
+                                                                     "A");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -100,7 +100,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "Category"))
+                                                             "A"))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
@@ -119,7 +119,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             ShowWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                            assessmentSection,
                                            0.01,
-                                           "Category",
+                                           "A",
                                            testForm);
 
             // Assert
@@ -352,7 +352,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -421,7 +421,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const string databaseFilePath = "DatabaseFilePath";
             const string preprocessorDirectory = "PreprocessorDirectory";
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -492,7 +492,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -609,7 +609,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             var assessmentSection = new AssessmentSectionStub();
 
-            return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "Category", form);
+            return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "A", form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()

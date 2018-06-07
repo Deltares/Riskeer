@@ -117,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                                                                                      failureMechanism,
                                                                                      new AssessmentSection(AssessmentSectionComposition.Dike),
                                                                                      () => 0.01,
-                                                                                     "Category");
+                                                                                     "A");
 
             testForm.Controls.Add(view);
             testForm.Show();

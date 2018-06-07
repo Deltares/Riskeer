@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
             var context = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                             assessmentSection,
                                                             () => 0.01,
@@ -152,7 +152,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "Category");
+                                                             "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -186,7 +186,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "Category");
+                                                             "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -228,7 +228,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "Category");
+                                                             "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -276,7 +276,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var nodeData = new WaveHeightCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                              assessmentSection,
                                                              () => 0.01,
-                                                             "Category");
+                                                             "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -332,7 +332,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                             assessmentSection,
                                                             getNormFunc,
-                                                            "Category");
+                                                            "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -405,7 +405,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                             assessmentSection,
                                                             getNormFunc,
-                                                            "Category");
+                                                            "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -477,7 +477,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             var context = new WaveHeightCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                             assessmentSection,
                                                             getNormFunc,
-                                                            "Category");
+                                                            "A");
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -537,7 +537,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Id = string.Empty
             };
 
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation("locationName"));
             var hydraulicBoundaryLocationCalculations = new ObservableList<HydraulicBoundaryLocationCalculation>

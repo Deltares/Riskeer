@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                             assessmentSection,
                                                                                             () => 0.01,
-                                                                                            "Category"))
+                                                                                            "A"))
             {
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
@@ -106,7 +106,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                                                                     null,
                                                                                                     assessmentSection,
                                                                                                     () => 0.01,
-                                                                                                    "Category");
+                                                                                                    "A");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -125,7 +125,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                                                                     new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                                     assessmentSection,
                                                                                                     null,
-                                                                                                    "Category");
+                                                                                                    "A");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -140,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "Category", testForm);
+            ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A", testForm);
 
             // Assert
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -229,7 +229,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "Category", testForm);
+            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "A", testForm);
 
             // Precondition
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -276,7 +276,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "Category", testForm);
+            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "A", testForm);
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
@@ -324,7 +324,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "Category", testForm);
+            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "A", testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             object dataGridViewSource = calculationsDataGridView.DataSource;
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
@@ -408,7 +408,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -473,7 +473,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             const string databaseFilePath = "DatabaseFilePath";
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -541,7 +541,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
@@ -659,7 +659,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         private static GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(IAssessmentSection assessmentSection,
                                                                                                                                      Form form)
         {
-            return ShowDesignWaterLevelCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, 0.01, "Category", form);
+            return ShowDesignWaterLevelCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, 0.01, "A", form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
@@ -728,7 +728,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowDesignWaterLevelCalculationsView(calculations, new AssessmentSectionStub(), 0.01, "Category", form);
+                return ShowDesignWaterLevelCalculationsView(calculations, new AssessmentSectionStub(), 0.01, "A", form);
             }
 
             protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)

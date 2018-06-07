@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_WithDesignWaterLevelCalculationsContext_ReturnsViewNameContainingCategoryBoundaryName()
         {
             // Setup
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             var context = new DesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                   new AssessmentSectionStub(),
@@ -125,7 +125,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new DesignWaterLevelCalculationsContext(calculations,
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "Category");
+                                                                  "A");
 
             // Call
             object viewData = info.GetViewData(context);
@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new DesignWaterLevelCalculationsContext(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "Category");
+                                                                  "A");
 
             // Call
             var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
@@ -172,7 +172,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new DesignWaterLevelCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                                   new AssessmentSectionStub(),
                                                                   () => 0.01,
-                                                                  "Category");
+                                                                  "A");
 
             // Call
             var view = (DesignWaterLevelCalculationsView) info.CreateInstance(context);
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var context = new DesignWaterLevelCalculationsContext(hydraulicBoundaryLocationCalculations,
                                                                   new AssessmentSectionStub(),
                                                                   getNormFunc,
-                                                                  "Category");
+                                                                  "A");
 
             var mockRepository = new MockRepository();
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
@@ -266,7 +266,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            const string categoryBoundaryName = "Category";
+            const string categoryBoundaryName = "A";
 
             var context = new DesignWaterLevelCalculationsContext(calculations,
                                                                   assessmentSection,
@@ -303,7 +303,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSection,
                                                                    () => 0.01,
-                                                                   "Category"))
+                                                                   "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -323,7 +323,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSectionA,
                                                                    () => 0.01,
-                                                                   "Category"))
+                                                                   "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
@@ -342,7 +342,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             using (var view = new DesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
                                                                    assessmentSectionA,
                                                                    () => 0.01,
-                                                                   "Category"))
+                                                                   "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());

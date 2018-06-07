@@ -32,7 +32,7 @@ namespace Ringtoets.DuneErosion.IO
         /// <summary>
         /// Creates a new instance of <see cref="ExportableDuneLocationCalculation"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="DuneLocationCalculation"/> will be exported.</param>
+        /// <param name="calculation">The <see cref="DuneLocationCalculation"/> that will be exported.</param>
         /// <param name="norm">The norm belonging to the calculation.</param>
         /// <param name="categoryBoundaryName">The display name of the category boundary.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>

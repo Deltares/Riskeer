@@ -70,7 +70,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -118,7 +118,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -153,7 +153,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ExportInfos
                                                               new DuneErosionFailureMechanism(),
                                                               assessmentSection,
                                                               () => 0.01,
-                                                              "Category Boundary Name");
+                                                              "A");
 
             using (var plugin = new DuneErosionPlugin())
             {
