@@ -76,7 +76,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         {
             get
             {
-                return SectionLength / deltaL;
+                return Math.Max(1, SectionLength / deltaL);
             }
         }
     }

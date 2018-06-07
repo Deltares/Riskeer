@@ -44,20 +44,43 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         }
 
         [Test]
-        public void N_GetWithSectionLength_ReturnsCorrectValue()
+        public void N_DeltaLBiggerThanSectionLength_ReturnsCorrectValue()
         {
             // Setup
             var random = new Random(39);
+
             var generalInput = new GeneralWaveImpactAsphaltCoverInput
             {
-                SectionLength = random.Next(0, 99999)
+                SectionLength = random.Next(0, 1000),
+                DeltaL = random.NextRoundedDouble(1001, 99999)
             };
 
             // Call
             double n = generalInput.N;
 
             // Assert
-            Assert.AreEqual(generalInput.SectionLength / 1000.0, n);
+            Assert.AreEqual(1, n);
+        }
+
+        [Test]
+        public void N_DeltaLSmallerThanSectionLength_ReturnsCorrectValue()
+        {
+            // Setup
+            var random = new Random(39);
+            double sectionLength = random.Next(1001, 99999);
+            RoundedDouble deltaL = random.NextRoundedDouble(0, 1000);
+
+            var generalInput = new GeneralWaveImpactAsphaltCoverInput
+            {
+                SectionLength = sectionLength,
+                DeltaL = deltaL
+            };
+
+            // Call
+            double n = generalInput.N;
+
+            // Assert
+            Assert.AreEqual(sectionLength / deltaL, n, 1e-2);
         }
 
         [Test]
