@@ -1410,7 +1410,7 @@ namespace Ringtoets.Integration.Plugin
                                        GetInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
@@ -1432,12 +1432,11 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetOutputs(IFailureMechanism nodeData)
         {
             var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;
             var grassCoverSlipOffOutwards = nodeData as IHasSectionResults<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>;
             var microstability = nodeData as IHasSectionResults<MicrostabilityFailureMechanismSectionResult>;
-            var pipingStructure = nodeData as IHasSectionResults<PipingStructureFailureMechanismSectionResult>;
             var technicalInnovation = nodeData as IHasSectionResults<TechnicalInnovationFailureMechanismSectionResult>;
             var strengthStabilityLengthwiseConstruction = nodeData as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
             var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
@@ -1462,13 +1461,6 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MicrostabilityFailureMechanismSectionResult>(
                         microstability.SectionResults, nodeData);
-            }
-
-            if (pipingStructure != null)
-            {
-                failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
-                        pipingStructure.SectionResults, nodeData);
             }
 
             if (technicalInnovation != null)
@@ -1680,6 +1672,24 @@ namespace Ringtoets.Integration.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
+        }
+
+        private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData,
+                                                      IAssessmentSection assessmentSection)
+        {
+            var failureMechanismResultContexts = new object[3];
+
+            failureMechanismResultContexts[0] =
+                new GeotechnicalFailureMechanismAssemblyCategoriesContext(nodeData,
+                                                                          assessmentSection,
+                                                                          () => nodeData.N);
+            failureMechanismResultContexts[1] =
+                new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
+                    nodeData.SectionResults, nodeData, assessmentSection);
+
+            failureMechanismResultContexts[2] = nodeData.OutputComments;
+
+            return failureMechanismResultContexts;
         }
 
         #endregion
