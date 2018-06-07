@@ -91,6 +91,15 @@ namespace Ringtoets.DuneErosion.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} (Pfdsn = {1} jaar).
+        /// </summary>
+        internal static string DuneLocationCalculationsWriter_WBI2017_ID_Format {
+            get {
+                return ResourceManager.GetString("DuneLocationCalculationsWriter_WBI2017_ID_Format", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *Kustvaknummer	Metrering	Rekenpeil	Significante golfhoogte	Piekperiode	Spectrale periode	Korreldiameter	Scenario	Categorie	Pfdsn.
         /// </summary>
         internal static string DuneLocationCalculationsWriter_WriteDuneLocationCalculations_DisplayNameLine {

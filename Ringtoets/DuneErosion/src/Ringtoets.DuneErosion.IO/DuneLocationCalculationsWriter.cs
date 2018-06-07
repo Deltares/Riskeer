@@ -92,11 +92,12 @@ namespace Ringtoets.DuneErosion.IO
             DuneLocation duneLocation = calculation.Calculation.DuneLocation;
             var stringComponents = new List<string>
             {
-                duneLocation.CoastalAreaId.ToString(null, CultureInfo.InvariantCulture),
+                duneLocation.CoastalAreaId.ToString(CultureInfo.InvariantCulture),
                 duneLocation.Offset.ToString(DuneErosionDataResources.DuneLocation_Offset_format, CultureInfo.InvariantCulture),
                 Resources.DuneLocationCalculationsWriter_CreateCsvLine_Parameter_without_value,
                 duneLocation.D50.ToString(null, CultureInfo.InvariantCulture),
-                calculation.CategoryBoundaryName + " (Pfdsn = " + probabilityConverter.ConvertToInvariantString(calculation.Norm) + " jaar)",
+                string.Format(Resources.DuneLocationCalculationsWriter_WBI2017_ID_Format, calculation.CategoryBoundaryName, 
+                              probabilityConverter.ConvertToInvariantString(calculation.Norm)),
                 calculation.CategoryBoundaryName,
                 calculation.Norm.ToString(CultureInfo.InvariantCulture)
             };

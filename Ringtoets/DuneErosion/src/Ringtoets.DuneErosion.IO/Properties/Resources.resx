@@ -129,4 +129,7 @@
   <data name="DuneLocationCalculationsWriter_WriteDuneLocationCalculations_UnitsLine" xml:space="preserve">
     <value>*[-]	[dam]	[m+NAP]	[m]	[s]	[s]	[m]	[-]	[-]	[1/jaar]</value>
   </data>
+  <data name="DuneLocationCalculationsWriter_WBI2017_ID_Format" xml:space="preserve">
+    <value>{0} (Pfdsn = {1} jaar)</value>
+  </data>
 </root>
