@@ -450,11 +450,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
         {
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = failureMechanismContext.WrappedData;
+            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(failureMechanismContext.Parent.HydraulicBoundaryDatabase, failureMechanism, failureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, failureMechanism, assessmentSection),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -476,10 +478,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
                 new FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.OutputComments

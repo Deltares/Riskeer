@@ -213,13 +213,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(2, outputsFolder.Contents.Count());
+            Assert.AreEqual(3, outputsFolder.Contents.Count());
+            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext)outputsFolder.Contents.ElementAt(0);
+            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismAssemblyCategoriesContext.GetNFunc());
+
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)
-                outputsFolder.Contents.ElementAt(0);
+                outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputsFolder.Contents.ElementAt(1);
+            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
