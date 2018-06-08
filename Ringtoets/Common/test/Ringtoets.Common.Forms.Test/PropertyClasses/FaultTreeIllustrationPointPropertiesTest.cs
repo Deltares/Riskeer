@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                                        3.5,
                                                                                                        new Stochast[0],
                                                                                                        CombinationType.Or));
-            var illustrationPointNodeChildren = new[]
+            IllustrationPointNode[] illustrationPointNodeChildren =
             {
                 illustrationPointNodeChild1,
                 illustrationPointNodeChild2

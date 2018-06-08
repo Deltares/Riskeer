@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -61,7 +60,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             Assert.AreEqual(section.Name, properties.Name);
             Assert.AreEqual(2, properties.Length.NumberOfDecimalPlaces);
-            Assert.AreEqual(section.Length, properties.Length, properties.Length.GetAccuracy());            
+            Assert.AreEqual(section.Length, properties.Length, properties.Length.GetAccuracy());
             Assert.AreEqual(section.StartPoint, properties.StartPoint);
             Assert.AreEqual(section.EndPoint, properties.EndPoint);
         }

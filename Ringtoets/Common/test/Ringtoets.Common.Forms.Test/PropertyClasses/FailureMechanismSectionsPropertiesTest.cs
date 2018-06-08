@@ -99,6 +99,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     FailureMechanismSectionProperties property = properties.Sections[i];
                     Assert.AreSame(section, property.Data);
                 }
+
                 mocks.VerifyAll();
             }
         }

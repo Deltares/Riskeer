@@ -253,7 +253,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
         private class SimpleStructuresOutputProperties : StructuresOutputProperties
         {
-            public SimpleStructuresOutputProperties(StructuresOutput structuresOutput) 
+            public SimpleStructuresOutputProperties(StructuresOutput structuresOutput)
                 : base(structuresOutput) {}
 
             protected override ProbabilityAssessmentOutput CreateDerivedOutput()
