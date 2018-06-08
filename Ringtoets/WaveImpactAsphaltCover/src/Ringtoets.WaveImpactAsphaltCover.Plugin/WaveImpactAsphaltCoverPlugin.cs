@@ -279,7 +279,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
                 new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(wrappedData.WaveConditionsCalculationGroup, null, wrappedData, failureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Output)
             };
         }
 
@@ -301,10 +301,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                      IAssessmentSection assessmentSection)
         {
             return new object[]
             {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralWaveImpactAsphaltCoverInput.N),
                 new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.OutputComments
@@ -350,7 +352,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         #endregion
 
-        #region WaveImpactAsphaltCover TreeNodeOnfo
+        #region WaveImpactAsphaltCover TreeNodeInfo
 
         private static object[] WaveConditionsCalculationGroupContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
