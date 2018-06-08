@@ -30,8 +30,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 {

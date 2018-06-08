@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Xml;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
 using Ringtoets.Revetment.Data;

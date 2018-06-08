@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -45,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(string xmlFilePath,
                                                                                        CalculationGroup importTarget,
                                                                                        IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles) 
+                                                                                       IEnumerable<ForeshoreProfile> foreshoreProfiles)
             : base(xmlFilePath, importTarget, hydraulicBoundaryLocations, foreshoreProfiles) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

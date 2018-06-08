@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations.Converters;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.IO.Configurations;
 
 namespace Ringtoets.GrassCoverErosionOutwards.IO.Configurations
