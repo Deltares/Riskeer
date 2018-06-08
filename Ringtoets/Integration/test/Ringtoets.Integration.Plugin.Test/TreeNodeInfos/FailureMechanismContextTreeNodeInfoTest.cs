@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -40,9 +39,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.DuneErosion.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.StabilityStoneCover.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
@@ -90,6 +87,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
             }
+
             mocks.VerifyAll();
         }
 
@@ -113,6 +111,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(failureMechanism.Name, text);
             }
+
             mocks.VerifyAll();
         }
 
@@ -132,6 +131,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, image);
             }
+
             mocks.VerifyAll();
         }
 
@@ -196,6 +196,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var outputComment = (Comment) outputFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism.OutputComments, outputComment);
             }
+
             mocks.VerifyAll();
         }
 
@@ -206,16 +207,12 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(GrassCoverSlipOffOutwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(MicrostabilityFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MicrostabilityFailureMechanismSectionResult)")]
-        [TestCase(typeof(PipingStructureFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(PipingStructureFailureMechanismSectionResult)")]
         [TestCase(typeof(TechnicalInnovationFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(TechnicalInnovationFailureMechanismSectionResult)")]
         [TestCase(typeof(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult)")]
         [TestCase(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(WaterPressureAsphaltCoverFailureMechanismSectionResult)")]
-        [TestCase(typeof(MacroStabilityOutwardsFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacroStabilityOutwardsFailureMechanismSectionResult)")]
         public void ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type t)
         {
             // Delegate actual test
@@ -256,6 +253,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 var comment = (Comment) children[0];
                 Assert.AreSame(failureMechanism.NotRelevantComments, comment);
             }
+
             mocks.VerifyAll();
         }
 
@@ -298,6 +296,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     info.ContextMenuStrip(context, assessmentSection, treeView);
                 }
+
                 // Assert
                 mocks.VerifyAll();
             }
@@ -341,6 +340,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     // Call
                     info.ContextMenuStrip(context, assessmentSection, treeView);
                 }
+
                 // Assert
                 mocks.VerifyAll();
             }
@@ -431,6 +431,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -480,6 +481,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                     }
                 }
             }
+
             mocks.VerifyAll();
         }
 
@@ -514,6 +516,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             }
+
             mocks.VerifyAll();
         }
 
