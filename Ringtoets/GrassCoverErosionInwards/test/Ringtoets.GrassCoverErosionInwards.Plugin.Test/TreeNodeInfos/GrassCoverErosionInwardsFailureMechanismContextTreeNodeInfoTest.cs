@@ -147,16 +147,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
-            Assert.AreEqual(3, outputsFolder.Contents.Count());
-            var scenariosContext = (GrassCoverErosionInwardsScenariosContext) outputsFolder.Contents.ElementAt(0);
+            Assert.AreEqual(4, outputsFolder.Contents.Count());
+            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext)outputsFolder.Contents.ElementAt(0);
+            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismAssemblyCategoriesContext.GetNFunc());
+            
+            var scenariosContext = (GrassCoverErosionInwardsScenariosContext) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
 
-            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
+            var outputComment = (Comment) outputsFolder.Contents.ElementAt(3);
             Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
