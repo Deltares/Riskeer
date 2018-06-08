@@ -346,7 +346,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext),
-                    typeof(GeotechnicFailureMechanismAssemblyCategoriesProperties));
+                    typeof(GeotechnicalFailureMechanismAssemblyCategoriesProperties));
             }
         }
 

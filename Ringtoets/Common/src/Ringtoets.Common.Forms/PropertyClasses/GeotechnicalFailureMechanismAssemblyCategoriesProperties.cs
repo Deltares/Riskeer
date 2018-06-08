@@ -31,27 +31,27 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of the category boundaries in a geotechnic <see cref="IFailureMechanism"/> for properties panel.
+    /// ViewModel of the category boundaries in a geotechnical <see cref="IFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GeotechnicFailureMechanismAssemblyCategoriesProperties : FailureMechanismAssemblyCategoriesBaseProperties
+    public class GeotechnicalFailureMechanismAssemblyCategoriesProperties : FailureMechanismAssemblyCategoriesBaseProperties
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="GeotechnicFailureMechanismAssemblyCategoriesProperties"/>.
+        /// Creates a new instance of <see cref="GeotechnicalFailureMechanismAssemblyCategoriesProperties"/>.
         /// </summary>
-        public GeotechnicFailureMechanismAssemblyCategoriesProperties(IFailureMechanism failureMechanism,
-                                                                      IAssessmentSection assessmentSection,
-                                                                      Func<double> getNFunc) : base(failureMechanism, assessmentSection, getNFunc) {}
+        public GeotechnicalFailureMechanismAssemblyCategoriesProperties(IFailureMechanism failureMechanism,
+                                                                        IAssessmentSection assessmentSection,
+                                                                        Func<double> getNFunc) : base(failureMechanism, assessmentSection, getNFunc) {}
 
         /// <inheritdoc />
         /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
         protected override IEnumerable<FailureMechanismSectionAssemblyCategoryProperties> CreateFailureMechanismSectionAssemblyCategories()
         {
             FailureMechanismContribution failureMechanismContribution = AssessmentSection.FailureMechanismContribution;
-            return AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(failureMechanismContribution.SignalingNorm,
-                                                                                                           failureMechanismContribution.LowerLimitNorm,
-                                                                                                           data.Contribution,
-                                                                                                           GetNFunc())
+            return AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(failureMechanismContribution.SignalingNorm,
+                                                                                                             failureMechanismContribution.LowerLimitNorm,
+                                                                                                             data.Contribution,
+                                                                                                             GetNFunc())
                                                 .Select(category => new FailureMechanismSectionAssemblyCategoryProperties(category));
         }
     }

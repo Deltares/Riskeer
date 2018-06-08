@@ -41,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GeotechnicFailureMechanismAssemblyCategoriesProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GeotechnicalFailureMechanismAssemblyCategoriesProperties));
         }
 
         [TearDown]
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<GeotechnicFailureMechanismAssemblyCategoriesProperties>(objectProperties);
+            Assert.IsInstanceOf<GeotechnicalFailureMechanismAssemblyCategoriesProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

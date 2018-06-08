@@ -65,7 +65,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             AssemblyCategoriesInput assemblyCategoriesInput);
 
         /// <summary>
-        /// Performs the calculation for getting the geotechnic failure mechanism section categories.
+        /// Performs the calculation for getting the geotechnical failure mechanism section categories.
         /// </summary>
         /// <param name="assemblyCategoriesInput">The object containing the input parameters for
         /// determining the assembly categories.</param>
@@ -73,7 +73,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
-        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
+        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(
             AssemblyCategoriesInput assemblyCategoriesInput);
     }
 }

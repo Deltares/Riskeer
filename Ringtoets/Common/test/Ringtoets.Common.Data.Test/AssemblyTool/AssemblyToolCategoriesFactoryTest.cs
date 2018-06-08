@@ -268,7 +268,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
+        public void CreateGeotechnicalFailureMechanismSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(11);
@@ -283,10 +283,10 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(signalingNorm,
-                                                                                                        lowerLimitNorm,
-                                                                                                        failureMechanismContribution,
-                                                                                                        n);
+                AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(signalingNorm,
+                                                                                                          lowerLimitNorm,
+                                                                                                          failureMechanismContribution,
+                                                                                                          n);
 
                 // Assert
                 AssemblyCategoriesInput assemblyCategoriesInput = calculator.AssemblyCategoriesInput;
@@ -298,7 +298,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_CalculatorRan_ReturnsOutput()
+        public void CreateGeotechnicalFailureMechanismSectionAssemblyCategories_CalculatorRan_ReturnsOutput()
         {
             // Setup
             var random = new Random(11);
@@ -313,7 +313,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(
+                FailureMechanismSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(
                     signalingNorm,
                     lowerLimitNorm,
                     failureMechanismContribution,
@@ -330,7 +330,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateGeotechnicFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
+        public void CreateGeotechnicalFailureMechanismSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -340,7 +340,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate test = () => AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(0, 0, 0, 0);
+                TestDelegate test = () => AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(0, 0, 0, 0);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(test);

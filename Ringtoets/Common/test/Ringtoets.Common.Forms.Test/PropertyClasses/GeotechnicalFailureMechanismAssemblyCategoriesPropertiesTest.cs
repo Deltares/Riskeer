@@ -35,7 +35,7 @@ using Ringtoets.Common.Forms.TestUtil;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GeotechnicFailureMechanismAssemblyCategoriesPropertiesTest
+    public class GeotechnicalFailureMechanismAssemblyCategoriesPropertiesTest
     {
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
@@ -52,9 +52,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                var properties = new GeotechnicFailureMechanismAssemblyCategoriesProperties(failureMechanism,
-                                                                                            assessmentSection,
-                                                                                            () => n);
+                var properties = new GeotechnicalFailureMechanismAssemblyCategoriesProperties(failureMechanism,
+                                                                                              assessmentSection,
+                                                                                              () => n);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesBaseProperties>(properties);
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                         n);
 
                 IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories =
-                    AssemblyToolCategoriesFactory.CreateGeotechnicFailureMechanismSectionAssemblyCategories(
+                    AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(
                         failureMechanismContribution.SignalingNorm,
                         failureMechanismContribution.LowerLimitNorm,
                         failureMechanism.Contribution,
@@ -93,9 +93,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new GeotechnicFailureMechanismAssemblyCategoriesProperties(failureMechanism,
-                                                                                        assessmentSection,
-                                                                                        () => 0.01);
+            var properties = new GeotechnicalFailureMechanismAssemblyCategoriesProperties(failureMechanism,
+                                                                                          assessmentSection,
+                                                                                          () => 0.01);
             // Assert
             Assert.AreEqual(2, PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties).Count);
             mocks.VerifyAll();

@@ -378,11 +378,11 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new ReferenceLineProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, GeotechnicFailureMechanismAssemblyCategoriesProperties>
+            yield return new PropertyInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, GeotechnicalFailureMechanismAssemblyCategoriesProperties>
             {
-                CreateInstance = context => new GeotechnicFailureMechanismAssemblyCategoriesProperties(context.WrappedData,
-                                                                                                       context.AssessmentSection,
-                                                                                                       context.GetNFunc)
+                CreateInstance = context => new GeotechnicalFailureMechanismAssemblyCategoriesProperties(context.WrappedData,
+                                                                                                         context.AssessmentSection,
+                                                                                                         context.GetNFunc)
             };
             yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
             {

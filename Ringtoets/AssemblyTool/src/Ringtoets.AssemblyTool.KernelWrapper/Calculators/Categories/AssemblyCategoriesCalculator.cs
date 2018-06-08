@@ -116,7 +116,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             }
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicFailureMechanismSectionCategories(
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(
             AssemblyCategoriesInput assemblyCategoriesInput)
         {
             try
