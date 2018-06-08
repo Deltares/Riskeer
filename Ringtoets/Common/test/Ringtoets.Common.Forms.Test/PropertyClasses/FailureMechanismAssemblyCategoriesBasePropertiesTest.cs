@@ -22,24 +22,25 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismCategoryBoundariesBasePropertiesTest
+    public class FailureMechanismAssemblyCategoriesBasePropertiesTest
     {
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -50,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new TestFailureMechanismCategoryBoundariesProperties(null,
+            TestDelegate call = () => new TestFailureMechanismAssemblyCategoriesProperties(null,
                                                                                            assessmentSection,
                                                                                            () => 0.01);
 
@@ -69,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new TestFailureMechanismCategoryBoundariesProperties(failureMechanism,
+            TestDelegate call = () => new TestFailureMechanismAssemblyCategoriesProperties(failureMechanism,
                                                                                            null,
                                                                                            () => 0.01);
 
@@ -89,7 +90,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new TestFailureMechanismCategoryBoundariesProperties(failureMechanism,
+            TestDelegate call = () => new TestFailureMechanismAssemblyCategoriesProperties(failureMechanism,
                                                                                            assessmentSection,
                                                                                            null);
 
@@ -111,43 +112,40 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSectionStub();
             mocks.ReplayAll();
 
-            // Call
-            var properties = new TestFailureMechanismCategoryBoundariesProperties(failureMechanism,
-                                                                                  assessmentSection,
-                                                                                  () => n);
-
-            // Assert
-            Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
-            Assert.AreSame(failureMechanism, properties.Data);
-
-            TestHelper.AssertTypeConverter<TestFailureMechanismCategoryBoundariesProperties, ExpandableArrayConverter>(
-                nameof(TestFailureMechanismCategoryBoundariesProperties.FailureMechanismAssemblyCategoryProperties));
-            TestHelper.AssertTypeConverter<TestFailureMechanismCategoryBoundariesProperties, ExpandableArrayConverter>(
-                nameof(TestFailureMechanismCategoryBoundariesProperties.FailureMechanismSectionAssemblyCategoryProperties));
-
-            FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-            IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories = AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(
-                failureMechanismContribution.SignalingNorm,
-                failureMechanismContribution.LowerLimitNorm,
-                failureMechanism.Contribution,
-                n);
-
-            Assert.AreEqual(expectedFailureMechanismCategories.Count(), properties.FailureMechanismAssemblyCategoryProperties.Length);
-            for (var i = 0; i < expectedFailureMechanismCategories.Count(); i++)
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                FailureMechanismAssemblyCategory category = expectedFailureMechanismCategories.ElementAt(i);
-                FailureMechanismAssemblyCategoryProperties property = properties.FailureMechanismAssemblyCategoryProperties[i];
-                Assert.AreEqual(category.Group, property.Group);
-                Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
+                // Call
+                var properties = new TestFailureMechanismAssemblyCategoriesProperties(failureMechanism,
+                                                                                      assessmentSection,
+                                                                                      () => n);
+
+                // Assert
+                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
+                Assert.AreSame(failureMechanism, properties.Data);
+
+                TestHelper.AssertTypeConverter<TestFailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
+                    nameof(TestFailureMechanismAssemblyCategoriesProperties.FailureMechanismAssemblyCategories));
+                TestHelper.AssertTypeConverter<TestFailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
+                    nameof(TestFailureMechanismAssemblyCategoriesProperties.FailureMechanismSectionAssemblyCategories));
+
+                FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+                IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories =
+                    AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(
+                        failureMechanismContribution.SignalingNorm,
+                        failureMechanismContribution.LowerLimitNorm,
+                        failureMechanism.Contribution,
+                        n);
+
+                AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
+                    expectedFailureMechanismCategories,
+                    new[]
+                    {
+                        new FailureMechanismSectionAssemblyCategory(0.0, 1.0, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                    },
+                    properties);
+
+                mocks.VerifyAll();
             }
-
-            FailureMechanismSectionAssemblyCategoryProperties actualSectionCategoryProperties = properties.FailureMechanismSectionAssemblyCategoryProperties.Single();
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.IIIv, actualSectionCategoryProperties.Group);
-            Assert.AreEqual(0.0, actualSectionCategoryProperties.LowerBoundary);
-            Assert.AreEqual(1.0, actualSectionCategoryProperties.UpperBoundary);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -160,7 +158,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new TestFailureMechanismCategoryBoundariesProperties(failureMechanism,
+            var properties = new TestFailureMechanismAssemblyCategoriesProperties(failureMechanism,
                                                                                   assessmentSection,
                                                                                   () => 0.01);
             // Assert
@@ -186,16 +184,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.VerifyAll();
         }
 
-        private class TestFailureMechanismCategoryBoundariesProperties : FailureMechanismCategoryBoundariesBaseProperties
+        private class TestFailureMechanismAssemblyCategoriesProperties : FailureMechanismAssemblyCategoriesBaseProperties
         {
-            public TestFailureMechanismCategoryBoundariesProperties(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection, Func<double> getNFunc)
+            public TestFailureMechanismAssemblyCategoriesProperties(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection, Func<double> getNFunc)
                 : base(failureMechanism, assessmentSection, getNFunc) {}
 
-            protected override IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionCategoryBoundaries()
+            protected override IEnumerable<FailureMechanismSectionAssemblyCategoryProperties> CreateFailureMechanismSectionAssemblyCategories()
             {
                 return new[]
                 {
-                    new FailureMechanismSectionAssemblyCategory(0.0, 1.0, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                    new FailureMechanismSectionAssemblyCategoryProperties(
+                        new FailureMechanismSectionAssemblyCategory(0.0, 1.0, FailureMechanismSectionAssemblyCategoryGroup.IIIv))
                 };
             }
         }
