@@ -93,6 +93,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismCategoryBoundariesBaseProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProperties.cs" />

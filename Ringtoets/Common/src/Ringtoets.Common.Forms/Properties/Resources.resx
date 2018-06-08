@@ -1401,4 +1401,34 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="FailureMechanismAssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen</value>
   </data>
+  <data name="CategoryProperties_Group_Description" xml:space="preserve">
+    <value>Naam van de categorie.</value>
+  </data>
+  <data name="CategoryProperties_Group_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="CategoryProperties_LowerBoundary_Description" xml:space="preserve">
+    <value>Ondergrens van de categorie.</value>
+  </data>
+  <data name="CategoryProperties_LowerBoundary_DisplayName" xml:space="preserve">
+    <value>Ondergrens [1/jaar]</value>
+  </data>
+  <data name="CategoryProperties_UpperBoundary_Description" xml:space="preserve">
+    <value>Bovengrens van de categorie.</value>
+  </data>
+  <data name="CategoryProperties_UpperBoundary_DisplayName" xml:space="preserve">
+    <value>Bovengrens [1/jaar]</value>
+  </data>
+  <data name="FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_Description" xml:space="preserve">
+    <value>De categoriegrenzen per traject voor dit toetsspoor.</value>
+  </data>
+  <data name="FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_DisplayName" xml:space="preserve">
+    <value>Categoriegrenzen per traject</value>
+  </data>
+  <data name="FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_Description" xml:space="preserve">
+    <value>De categoriegrenzen per vak voor dit toetsspoor.</value>
+  </data>
+  <data name="FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_DisplayName" xml:space="preserve">
+    <value>Categoriegrenzen per vak</value>
+  </data>
 </root>

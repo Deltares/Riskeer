@@ -680,6 +680,60 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Naam van de categorie..
+        /// </summary>
+        public static string CategoryProperties_Group_Description {
+            get {
+                return ResourceManager.GetString("CategoryProperties_Group_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string CategoryProperties_Group_DisplayName {
+            get {
+                return ResourceManager.GetString("CategoryProperties_Group_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens van de categorie..
+        /// </summary>
+        public static string CategoryProperties_LowerBoundary_Description {
+            get {
+                return ResourceManager.GetString("CategoryProperties_LowerBoundary_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens [1/jaar].
+        /// </summary>
+        public static string CategoryProperties_LowerBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("CategoryProperties_LowerBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens van de categorie..
+        /// </summary>
+        public static string CategoryProperties_UpperBoundary_Description {
+            get {
+                return ResourceManager.GetString("CategoryProperties_UpperBoundary_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens [1/jaar].
+        /// </summary>
+        public static string CategoryProperties_UpperBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("CategoryProperties_UpperBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie van het begin van de slootbodem wanneer deze van de kant van de dijk wordt benaderd..
         /// </summary>
         public static string CharacteristicPoint_BottomDitchDikeSide_Description {
@@ -1388,6 +1442,46 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string FailureMechanismAssemblyCategories_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismAssemblyCategories_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De categoriegrenzen per traject voor dit toetsspoor..
+        /// </summary>
+        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_Descripti" +
+                        "on", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoriegrenzen per traject.
+        /// </summary>
+        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_DisplayNa" +
+                        "me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De categoriegrenzen per vak voor dit toetsspoor..
+        /// </summary>
+        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_De" +
+                        "scription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoriegrenzen per vak.
+        /// </summary>
+        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_Di" +
+                        "splayName", resourceCulture);
             }
         }
         
