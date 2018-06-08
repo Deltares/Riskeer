@@ -227,11 +227,13 @@ namespace Ringtoets.DuneErosion.Plugin
         private static object[] FailureMechanismEnabledChildNodeObjects(DuneErosionFailureMechanismContext failureMechanismContext)
         {
             DuneErosionFailureMechanism wrappedData = failureMechanismContext.WrappedData;
+            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, failureMechanismContext.Parent), TreeFolderCategory.Input),
-                new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, failureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new DuneLocationCalculationsGroupContext(failureMechanismContext.WrappedData.DuneLocations, failureMechanismContext.WrappedData, assessmentSection),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -244,10 +246,11 @@ namespace Ringtoets.DuneErosion.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(DuneErosionFailureMechanism failureMechanism)
+        private static IEnumerable<object> GetOutputs(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
                 new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.OutputComments
