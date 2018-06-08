@@ -379,11 +379,13 @@ namespace Ringtoets.HeightStructures.Plugin
         private static object[] FailureMechanismEnabledChildNodeObjects(HeightStructuresFailureMechanismContext context)
         {
             HeightStructuresFailureMechanism wrappedData = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, context.Parent), TreeFolderCategory.Input),
-                new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, context.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, context.Parent), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, assessmentSection), TreeFolderCategory.Input),
+                new HeightStructuresCalculationGroupContext(wrappedData.CalculationsGroup, null, wrappedData, assessmentSection),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
@@ -402,6 +404,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new object[]
             {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
