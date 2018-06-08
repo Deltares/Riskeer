@@ -65,11 +65,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
         private MockRepository mocksRepository;
 
-        public override void Setup()
-        {
-            mocksRepository = new MockRepository();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -150,20 +145,26 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var outputsFolder = (CategoryTreeFolder) children[2];
                 Assert.AreEqual("Oordeel", outputsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-                Assert.AreEqual(3, outputsFolder.Contents.Count());
+                Assert.AreEqual(4, outputsFolder.Contents.Count());
 
-                var scenariosContext = (StabilityPointStructuresScenariosContext) outputsFolder.Contents.ElementAt(0);
+                var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
+                Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+                Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+                Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismAssemblyCategoriesContext.GetNFunc());
+
+                var scenariosContext = (StabilityPointStructuresScenariosContext) outputsFolder.Contents.ElementAt(1);
                 Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
                 Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
 
-                var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+                var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(2);
                 Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
                 Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
                 Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
-                var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
+                var outputComment = (Comment) outputsFolder.Contents.ElementAt(3);
                 Assert.AreSame(failureMechanism.OutputComments, outputComment);
             }
+
             mocksRepository.VerifyAll();
         }
 
@@ -192,6 +193,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 var comment = (Comment) children[0];
                 Assert.AreSame(failureMechanism.NotRelevantComments, comment);
             }
+
             mocksRepository.VerifyAll();
         }
 
@@ -373,6 +375,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.Checkbox_empty);
                 }
             }
+
             mocksRepository.VerifyAll();
         }
 
@@ -792,6 +795,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     });
                 }
             }
+        }
+
+        public override void Setup()
+        {
+            mocksRepository = new MockRepository();
         }
 
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin plugin)

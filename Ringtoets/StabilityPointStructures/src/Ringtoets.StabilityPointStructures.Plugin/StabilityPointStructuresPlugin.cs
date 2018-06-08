@@ -369,17 +369,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         private static object[] FailureMechanismEnabledChildNodeObjects(StabilityPointStructuresFailureMechanismContext context)
         {
             StabilityPointStructuresFailureMechanism wrappedData = context.WrappedData;
+            IAssessmentSection assessmentSection = context.Parent;
+
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(wrappedData, context.Parent),
+                                       GetInputs(wrappedData, assessmentSection),
                                        TreeFolderCategory.Input),
                 new StabilityPointStructuresCalculationGroupContext(wrappedData.CalculationsGroup,
                                                                     null,
                                                                     wrappedData,
-                                                                    context.Parent),
+                                                                    assessmentSection),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(wrappedData, context.Parent),
+                                       GetOutputs(wrappedData, assessmentSection),
                                        TreeFolderCategory.Output)
             };
         }
@@ -409,6 +411,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
