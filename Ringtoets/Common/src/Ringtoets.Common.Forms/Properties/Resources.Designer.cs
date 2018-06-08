@@ -1448,40 +1448,40 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De categoriegrenzen per traject voor dit toetsspoor..
         /// </summary>
-        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_Description {
+        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description {
             get {
-                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_Descripti" +
-                        "on", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_D" +
+                        "escription", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Categoriegrenzen per traject.
         /// </summary>
-        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_DisplayName {
+        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismBoundaries_DisplayNa" +
-                        "me", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_D" +
+                        "isplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De categoriegrenzen per vak voor dit toetsspoor..
         /// </summary>
-        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_Description {
+        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description {
             get {
-                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_De" +
-                        "scription", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCateg" +
+                        "ories_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Categoriegrenzen per vak.
         /// </summary>
-        public static string FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_DisplayName {
+        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismCategoryBoundariesProperties_FailureMechanismSectionBoundaries_Di" +
-                        "splayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCateg" +
+                        "ories_DisplayName", resourceCulture);
             }
         }
         
