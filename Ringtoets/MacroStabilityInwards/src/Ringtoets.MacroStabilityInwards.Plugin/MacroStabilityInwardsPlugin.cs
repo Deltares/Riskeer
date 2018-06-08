@@ -731,9 +731,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
             return new object[]
             {
-                new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                          assessmentSection,
-                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                              assessmentSection,
+                                                              () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityInwardsFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments

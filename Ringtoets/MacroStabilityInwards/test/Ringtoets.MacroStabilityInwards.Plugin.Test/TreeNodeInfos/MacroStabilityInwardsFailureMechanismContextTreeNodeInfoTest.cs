@@ -173,7 +173,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
 
             Assert.AreEqual(4, outputsFolder.Contents.Count());
-            var failureMechanismAssemblyCategoriesContext = (GeotechnicalFailureMechanismAssemblyCategoriesContext)outputsFolder.Contents.ElementAt(0);
+            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext)outputsFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
             MacroStabilityInwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput;
