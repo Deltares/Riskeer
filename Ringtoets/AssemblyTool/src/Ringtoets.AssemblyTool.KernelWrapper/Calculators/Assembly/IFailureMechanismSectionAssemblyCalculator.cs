@@ -178,6 +178,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(TailorMadeAssessmentCategoryGroupResultType tailorMadeAssessmentResult);
 
         /// <summary>
+        /// Assembles the combined assembly based on the given <paramref name="simpleAssembly"/>.
+        /// </summary>
+        /// <param name="simpleAssembly">The simple assembly.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs while assembling.</exception>
+        FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly);
+
+        /// <summary>
         /// Assembles the combined assembly based on the input parameters.
         /// </summary>
         /// <param name="simpleAssembly">The simple assembly.</param>
@@ -189,6 +198,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
                                                          FailureMechanismSectionAssembly detailedAssembly,
                                                          FailureMechanismSectionAssembly tailorMadeAssembly);
+
+        /// <summary>
+        /// Assembles the combined assembly based on the given <paramref name="simpleAssembly"/>.
+        /// </summary>
+        /// <param name="simpleAssembly">The simple assembly.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs while assembling.</exception>
+        FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly);
 
         /// <summary>
         /// Assembles the combined assembly based on the input parameters.
