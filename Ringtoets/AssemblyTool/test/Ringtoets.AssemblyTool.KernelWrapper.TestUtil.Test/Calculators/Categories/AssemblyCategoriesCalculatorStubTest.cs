@@ -305,25 +305,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicalFailureMechanismSectionCategories(CreateAssemblyCategoriesInput());
 
             // Assert
-            Assert.AreSame(calculator.FailureMechanismSectionCategoriesOutput, result);
+            Assert.AreSame(calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput, result);
             Assert.AreEqual(3, result.Count());
             CollectionAssert.AreEqual(new[]
             {
                 1,
-                2.01,
-                3.01
+                2.2,
+                3.2
             }, result.Select(r => r.LowerBoundary));
             CollectionAssert.AreEqual(new[]
             {
-                2,
-                3,
+                2.1,
+                3.1,
                 4
             }, result.Select(r => r.UpperBoundary));
             CollectionAssert.AreEqual(new[]
             {
-                FailureMechanismSectionAssemblyCategoryGroup.Iv,
-                FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                FailureMechanismSectionAssemblyCategoryGroup.IIIv
+                FailureMechanismSectionAssemblyCategoryGroup.IIIv,
+                FailureMechanismSectionAssemblyCategoryGroup.IVv,
+                FailureMechanismSectionAssemblyCategoryGroup.Vv
             }, result.Select(r => r.Group));
         }
 
@@ -333,14 +333,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Categor
             // Setup
             var calculator = new AssemblyCategoriesCalculatorStub
             {
-                FailureMechanismSectionCategoriesOutput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>()
+                GeoTechnicalFailureMechanismSectionCategoriesOutput = Enumerable.Empty<FailureMechanismSectionAssemblyCategory>()
             };
 
             // Call
             IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicalFailureMechanismSectionCategories(CreateAssemblyCategoriesInput());
 
             // Assert
-            Assert.AreSame(calculator.FailureMechanismSectionCategoriesOutput, result);
+            Assert.AreSame(calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput, result);
         }
 
         [Test]

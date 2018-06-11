@@ -62,6 +62,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public IEnumerable<FailureMechanismSectionAssemblyCategory> FailureMechanismSectionCategoriesOutput { get; set; }
 
         /// <summary>
+        /// Gets or sets the output of the <see cref="CalculateFailureMechanismSectionCategories"/> calculation.
+        /// </summary>
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> GeoTechnicalFailureMechanismSectionCategoriesOutput { get; set; }
+
+        /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
@@ -132,12 +137,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 
             AssemblyCategoriesInput = assemblyCategoriesInput;
 
-            return FailureMechanismSectionCategoriesOutput
-                   ?? (FailureMechanismSectionCategoriesOutput = new[]
+            return GeoTechnicalFailureMechanismSectionCategoriesOutput
+                   ?? (GeoTechnicalFailureMechanismSectionCategoriesOutput = new[]
                           {
-                              new FailureMechanismSectionAssemblyCategory(1, 2, FailureMechanismSectionAssemblyCategoryGroup.Iv),
-                              new FailureMechanismSectionAssemblyCategory(2.01, 3, FailureMechanismSectionAssemblyCategoryGroup.IIv),
-                              new FailureMechanismSectionAssemblyCategory(3.01, 4, FailureMechanismSectionAssemblyCategoryGroup.IIIv)
+                              new FailureMechanismSectionAssemblyCategory(1, 2.1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
+                              new FailureMechanismSectionAssemblyCategory(2.2, 3.1, FailureMechanismSectionAssemblyCategoryGroup.IVv),
+                              new FailureMechanismSectionAssemblyCategory(3.2, 4, FailureMechanismSectionAssemblyCategoryGroup.Vv)
                           });
         }
     }

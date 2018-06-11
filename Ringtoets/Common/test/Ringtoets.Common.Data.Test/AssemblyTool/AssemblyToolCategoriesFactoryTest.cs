@@ -320,7 +320,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                     n).ToArray();
 
                 // Assert
-                FailureMechanismSectionAssemblyCategory[] calculatorOutput = calculator.FailureMechanismSectionCategoriesOutput.ToArray();
+                FailureMechanismSectionAssemblyCategory[] calculatorOutput = calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput.ToArray();
 
                 Assert.AreEqual(calculatorOutput.Length, output.Length);
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
