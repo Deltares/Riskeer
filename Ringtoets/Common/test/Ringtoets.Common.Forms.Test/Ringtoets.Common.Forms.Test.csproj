@@ -98,8 +98,6 @@
     <Compile Include="PropertyClasses\DesignVariablePropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GeotechnicalFailureMechanismAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProbabilityAssessmentPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentPropertiesTest.cs" />

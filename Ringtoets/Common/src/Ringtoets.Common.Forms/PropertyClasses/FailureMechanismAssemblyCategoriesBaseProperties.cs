@@ -27,10 +27,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.AssemblyTool;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 
@@ -39,42 +36,42 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Base ViewModel of the assembly categories in a <see cref="IFailureMechanism"/> for properties panel.
     /// </summary>
-    public abstract class FailureMechanismAssemblyCategoriesBaseProperties : ObjectProperties<IFailureMechanism>
+    public class FailureMechanismAssemblyCategoriesBaseProperties : ObjectProperties<IFailureMechanism>
     {
         private const int failureMechanismAssemblyCategoryPropertyIndex = 1;
         private const int failureMechanismSectionAssemblyCategoryPropertyIndex = 2;
-
-        protected readonly IAssessmentSection AssessmentSection;
-        protected readonly Func<double> GetNFunc;
+        private readonly Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoryFunc;
+        private readonly Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoryFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesBaseProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <param name="assessmentSection">The assessment section to show the properties for.</param>
-        /// <param name="getNFunc">The function to get the 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="getFailureMechanismAssemblyCategoryFunc">The function to get a collection of <see cref="FailureMechanismAssemblyCategory"/>.</param>
+        /// <param name="getFailureMechanismSectionAssemblyCategoryFunc">The function to get a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected FailureMechanismAssemblyCategoriesBaseProperties(IFailureMechanism failureMechanism,
-                                                                   IAssessmentSection assessmentSection,
-                                                                   Func<double> getNFunc)
+        public FailureMechanismAssemblyCategoriesBaseProperties(IFailureMechanism failureMechanism,
+                                                                Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoryFunc,
+                                                                Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoryFunc)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            if (assessmentSection == null)
+            if (getFailureMechanismAssemblyCategoryFunc == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(getFailureMechanismAssemblyCategoryFunc));
             }
 
-            if (getNFunc == null)
+            if (getFailureMechanismSectionAssemblyCategoryFunc == null)
             {
-                throw new ArgumentNullException(nameof(getNFunc));
+                throw new ArgumentNullException(nameof(getFailureMechanismSectionAssemblyCategoryFunc));
             }
 
-            AssessmentSection = assessmentSection;
-            GetNFunc = getNFunc;
+            this.getFailureMechanismAssemblyCategoryFunc = getFailureMechanismAssemblyCategoryFunc;
+            this.getFailureMechanismSectionAssemblyCategoryFunc = getFailureMechanismSectionAssemblyCategoryFunc;
+
             Data = failureMechanism;
         }
 
@@ -87,7 +84,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return CreateFailureMechanismAssemblyCategories().ToArray();
+                return getFailureMechanismAssemblyCategoryFunc().Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
             }
         }
 
@@ -100,31 +97,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return CreateFailureMechanismSectionAssemblyCategories().ToArray();
+                return getFailureMechanismSectionAssemblyCategoryFunc().Select(category => new FailureMechanismSectionAssemblyCategoryProperties(category)).ToArray();
             }
-        }
-
-        /// <summary>
-        /// Creates the collection of <see cref="FailureMechanismSectionAssemblyCategoryProperties"/> for the
-        /// <see cref="IFailureMechanism"/> in <see cref="Data"/>.
-        /// </summary>
-        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyCategoryProperties"/>.</returns>
-        protected abstract IEnumerable<FailureMechanismSectionAssemblyCategoryProperties> CreateFailureMechanismSectionAssemblyCategories();
-
-        /// <summary>
-        /// Creates the collection of <see cref="FailureMechanismAssemblyCategoryProperties"/> for the
-        /// <see cref="IFailureMechanism"/> in <see cref="Data"/>.
-        /// </summary>
-        /// <returns>A collection of <see cref="FailureMechanismAssemblyCategoryProperties"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
-        private IEnumerable<FailureMechanismAssemblyCategoryProperties> CreateFailureMechanismAssemblyCategories()
-        {
-            FailureMechanismContribution failureMechanismContribution = AssessmentSection.FailureMechanismContribution;
-            return AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(failureMechanismContribution.SignalingNorm,
-                                                                                          failureMechanismContribution.LowerLimitNorm,
-                                                                                          data.Contribution,
-                                                                                          GetNFunc())
-                                                .Select(category => new FailureMechanismAssemblyCategoryProperties(category));
         }
     }
 }
