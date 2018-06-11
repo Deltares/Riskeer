@@ -26,7 +26,7 @@ using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Ringtoets.AssemblyTool.KernelWrapper.Properties;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators
+namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
     /// Class that creates to localized error messages for the assembly tool.

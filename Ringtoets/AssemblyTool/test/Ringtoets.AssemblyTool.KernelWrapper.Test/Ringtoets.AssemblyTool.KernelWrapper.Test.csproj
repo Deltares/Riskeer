@@ -20,7 +20,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyErrorMessageCreatorTest.cs" />
+    <Compile Include="Creators\AssemblyErrorMessageCreatorTest.cs" />
     <Compile Include="Calculators\AssemblyToolCalculatorFactoryTest.cs" />
     <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorExceptionTest.cs" />
     <Compile Include="Calculators\Assembly\AssessmentSectionAssemblyCalculatorTest.cs" />

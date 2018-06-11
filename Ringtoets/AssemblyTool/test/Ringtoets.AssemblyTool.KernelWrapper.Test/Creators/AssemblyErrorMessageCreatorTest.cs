@@ -25,9 +25,9 @@ using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 
-namespace Ringtoets.AssemblyTool.KernelWrapper.Test
+namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
     public class AssemblyErrorMessageCreatorTest
