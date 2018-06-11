@@ -504,7 +504,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssemblyNoneOrApplicable_SetsInputOnCalculator(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -513,7 +516,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -541,6 +547,43 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 AssemblyToolTestHelper.AssertAreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyInput);
                 AssemblyToolTestHelper.AssertAreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyInput);
                 AssemblyToolTestHelper.AssertAreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyInput);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_WithInputSimpleAssemblyNotApplicable_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult,
+                    failureMechanism,
+                    assessmentSection);
+
+                // Assert
+                FailureMechanismSectionAssembly expectedSimpleAssembly = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
+                    sectionResult);
+
+                AssemblyToolTestHelper.AssertAreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyInput);
+                Assert.IsNull(calculator.CombinedDetailedAssemblyInput);
+                Assert.IsNull(calculator.CombinedTailorMadeAssemblyInput);
                 mocks.VerifyAll();
             }
         }
