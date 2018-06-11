@@ -1614,20 +1614,16 @@ namespace Ringtoets.Integration.Plugin
         private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
                                                       IAssessmentSection assessmentSection)
         {
-            var failureMechanismResultContexts = new object[3];
-
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
-            failureMechanismResultContexts[0] =
+            return new object[]
+            {
                 new GeotechnicalFailureMechanismAssemblyCategoriesContext(nodeData,
                                                                           assessmentSection,
-                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength));
-            failureMechanismResultContexts[1] =
+                                                                          () => probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength)),
                 new ProbabilityFailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData, assessmentSection);
-
-            failureMechanismResultContexts[2] = nodeData.OutputComments;
-
-            return failureMechanismResultContexts;
+                    nodeData.SectionResults, nodeData, assessmentSection),
+                nodeData.OutputComments
+            };
         }
 
         #endregion
@@ -1700,19 +1696,15 @@ namespace Ringtoets.Integration.Plugin
         private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData,
                                                       IAssessmentSection assessmentSection)
         {
-            var failureMechanismResultContexts = new object[3];
-
-            failureMechanismResultContexts[0] =
+            return new object[]
+            {
                 new FailureMechanismAssemblyCategoriesContext(nodeData,
                                                               assessmentSection,
-                                                              () => nodeData.N);
-            failureMechanismResultContexts[1] =
+                                                              () => nodeData.N),
                 new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
-                    nodeData.SectionResults, nodeData, assessmentSection);
-
-            failureMechanismResultContexts[2] = nodeData.OutputComments;
-
-            return failureMechanismResultContexts;
+                    nodeData.SectionResults, nodeData, assessmentSection),
+                nodeData.OutputComments
+            };
         }
 
         #endregion
