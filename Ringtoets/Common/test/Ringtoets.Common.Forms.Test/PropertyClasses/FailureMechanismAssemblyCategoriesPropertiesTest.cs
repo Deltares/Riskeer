@@ -35,15 +35,15 @@ using Ringtoets.Common.Forms.TestUtil;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCategoriesBasePropertiesTest
+    public class FailureMechanismAssemblyCategoriesPropertiesTest
     {
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesBaseProperties(null,
-                                                                                           GetFailureMechanismAssemblyCategory,
-                                                                                           GetFailureMechanismSectionAssemblyCategory);
+            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(null,
+                                                                                       GetFailureMechanismAssemblyCategory,
+                                                                                       GetFailureMechanismSectionAssemblyCategory);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,9 +59,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesBaseProperties(failureMechanism,
-                                                                                           null,
-                                                                                           GetFailureMechanismSectionAssemblyCategory);
+            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
+                                                                                       null,
+                                                                                       GetFailureMechanismSectionAssemblyCategory);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -78,9 +78,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesBaseProperties(failureMechanism,
-                                                                                           GetFailureMechanismAssemblyCategory,
-                                                                                           null);
+            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
+                                                                                       GetFailureMechanismAssemblyCategory,
+                                                                                       null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -97,18 +97,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesBaseProperties(failureMechanism,
-                                                                                  GetFailureMechanismAssemblyCategory,
-                                                                                  GetFailureMechanismSectionAssemblyCategory);
+            var properties = new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
+                                                                              GetFailureMechanismAssemblyCategory,
+                                                                              GetFailureMechanismSectionAssemblyCategory);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
 
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesBaseProperties, ExpandableArrayConverter>(
-                nameof(FailureMechanismAssemblyCategoriesBaseProperties.FailureMechanismAssemblyCategories));
-            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesBaseProperties, ExpandableArrayConverter>(
-                nameof(FailureMechanismAssemblyCategoriesBaseProperties.FailureMechanismSectionAssemblyCategories));
+            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
+                nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismAssemblyCategories));
+            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
+                nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismSectionAssemblyCategories));
 
             AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
                 GetFailureMechanismAssemblyCategory(),
@@ -127,9 +127,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesBaseProperties(failureMechanism,
-                                                                                  GetFailureMechanismAssemblyCategory,
-                                                                                  GetFailureMechanismSectionAssemblyCategory);
+            var properties = new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
+                                                                              GetFailureMechanismAssemblyCategory,
+                                                                              GetFailureMechanismSectionAssemblyCategory);
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(2, dynamicProperties.Count);

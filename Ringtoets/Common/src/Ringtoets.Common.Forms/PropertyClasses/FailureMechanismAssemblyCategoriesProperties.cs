@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Base ViewModel of the assembly categories in a <see cref="IFailureMechanism"/> for properties panel.
     /// </summary>
-    public class FailureMechanismAssemblyCategoriesBaseProperties : ObjectProperties<IFailureMechanism>
+    public class FailureMechanismAssemblyCategoriesProperties : ObjectProperties<IFailureMechanism>
     {
         private const int failureMechanismAssemblyCategoryPropertyIndex = 1;
         private const int failureMechanismSectionAssemblyCategoryPropertyIndex = 2;
@@ -44,15 +44,15 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private readonly Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoryFunc;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesBaseProperties"/>.
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
         /// <param name="getFailureMechanismAssemblyCategoryFunc">The function to get a collection of <see cref="FailureMechanismAssemblyCategory"/>.</param>
         /// <param name="getFailureMechanismSectionAssemblyCategoryFunc">The function to get a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismAssemblyCategoriesBaseProperties(IFailureMechanism failureMechanism,
-                                                                Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoryFunc,
-                                                                Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoryFunc)
+        public FailureMechanismAssemblyCategoriesProperties(IFailureMechanism failureMechanism,
+                                                            Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoryFunc,
+                                                            Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoryFunc)
         {
             if (failureMechanism == null)
             {

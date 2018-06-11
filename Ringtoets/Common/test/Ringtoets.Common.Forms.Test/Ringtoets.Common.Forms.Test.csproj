@@ -101,7 +101,7 @@
     <Compile Include="PropertyClasses\FailureMechanismSectionProbabilityAssessmentPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesBasePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsPropertiesTest.cs" />

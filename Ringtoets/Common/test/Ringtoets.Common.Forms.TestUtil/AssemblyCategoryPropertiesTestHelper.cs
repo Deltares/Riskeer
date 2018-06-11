@@ -38,13 +38,13 @@ namespace Ringtoets.Common.Forms.TestUtil
         /// </summary>
         /// <param name="expectedFailureMechanismCategories">The collection of expected <see cref="FailureMechanismAssemblyCategory"/>.</param>
         /// <param name="expectedFailureMechanismSectionCategories">The collection of expected <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
-        /// <param name="properties">The actual <see cref="FailureMechanismAssemblyCategoriesBaseProperties"/> to assert.</param>
+        /// <param name="properties">The actual <see cref="FailureMechanismAssemblyCategoriesProperties"/> to assert.</param>
         /// <exception cref="AssertionException">Thrown when the content of <paramref name="properties"/> does not equal
         /// <paramref name="expectedFailureMechanismCategories"/> and <paramref name="expectedFailureMechanismSectionCategories"/>.</exception>
         public static void AssertFailureMechanismAssemblyCategoryProperties(
             IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories,
             IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories,
-            FailureMechanismAssemblyCategoriesBaseProperties properties)
+            FailureMechanismAssemblyCategoriesProperties properties)
         {
             Assert.AreEqual(expectedFailureMechanismCategories.Count(), properties.FailureMechanismAssemblyCategories.Length);
             for (var i = 0; i < expectedFailureMechanismCategories.Count(); i++)

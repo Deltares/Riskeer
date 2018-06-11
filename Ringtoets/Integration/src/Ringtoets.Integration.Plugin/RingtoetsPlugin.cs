@@ -378,17 +378,17 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new ReferenceLineProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesBaseProperties>
+            yield return new PropertyInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
             {
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesBaseProperties(context.WrappedData,
-                                                                                                 context.GetFailureMechanismCategoriesFunc,
-                                                                                                 context.GetFailureMechanismSectionAssemblyCategoriesFunc)
+                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.WrappedData,
+                                                                                             context.GetFailureMechanismCategoriesFunc,
+                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
-            yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesBaseProperties>
+            yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
             {
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesBaseProperties(context.WrappedData,
-                                                                                                 context.GetFailureMechanismCategoriesFunc,
-                                                                                                 context.GetFailureMechanismSectionAssemblyCategoriesFunc)
+                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.WrappedData,
+                                                                                             context.GetFailureMechanismCategoriesFunc,
+                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
         }
 
