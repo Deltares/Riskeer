@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for failure mechanism category boundaries for a <see cref="IFailureMechanism"/> instance.
+    /// This class is a base presentation object for failure mechanism category boundaries for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
     public abstract class FailureMechanismAssemblyCategoriesContextBase : ObservableWrappedObjectContextBase<IFailureMechanism>
     {
@@ -58,11 +58,21 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             }
 
             AssessmentSection = assessmentSection;
-            FailureMechanismContribution failureMechanismContribution = AssessmentSection.FailureMechanismContribution;
-            GetFailureMechanismCategoriesFunc = () => AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(failureMechanismContribution.SignalingNorm,
-                                                                                                                             failureMechanismContribution.LowerLimitNorm,
+            GetFailureMechanismCategoriesFunc = () => AssemblyToolCategoriesFactory.CreateFailureMechanismAssemblyCategories(FailureMechanismContribution.SignalingNorm,
+                                                                                                                             FailureMechanismContribution.LowerLimitNorm,
                                                                                                                              wrappedData.Contribution,
                                                                                                                              getNFunc());
+        }
+
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismContribution"/>
+        /// </summary>
+        protected FailureMechanismContribution FailureMechanismContribution
+        {
+            get
+            {
+                return AssessmentSection.FailureMechanismContribution;
+            }
         }
 
         /// <summary>
@@ -74,5 +84,10 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// Gets the function to retrieve a collection of <see cref="FailureMechanismAssemblyCategory"/>.
         /// </summary>
         public Func<IEnumerable<FailureMechanismAssemblyCategory>> GetFailureMechanismCategoriesFunc { get; }
+
+        /// <summary>
+        /// Gets the function to retrieve a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.
+        /// </summary>
+        public abstract Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
     }
 }

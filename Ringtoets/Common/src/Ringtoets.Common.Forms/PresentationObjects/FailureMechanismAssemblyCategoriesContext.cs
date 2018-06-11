@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
+using System.Collections.Generic;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -29,7 +31,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for failure mechanism category boundaries for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public class FailureMechanismAssemblyCategoriesContext : ObservableWrappedObjectContextBase<IFailureMechanism>
+    public class FailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesContext"/>.
@@ -41,26 +43,18 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         public FailureMechanismAssemblyCategoriesContext(IFailureMechanism wrappedData,
                                                          IAssessmentSection assessmentSection,
                                                          Func<double> getNFunc)
-            : base(wrappedData)
+            : base(wrappedData, assessmentSection, getNFunc)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (getNFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNFunc));
-            }
-
-            AssessmentSection = assessmentSection;
             GetNFunc = getNFunc;
+
+            GetFailureMechanismSectionAssemblyCategoriesFunc = () =>
+                AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(FailureMechanismContribution.SignalingNorm,
+                                                                                              FailureMechanismContribution.LowerLimitNorm,
+                                                                                              wrappedData.Contribution,
+                                                                                              getNFunc());
         }
 
-        /// <summary>
-        /// Gets the assessment section the <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
+        public override Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
 
         /// <summary>
         /// Gets the function to get the 'N' parameter used to factor in the 'length effect'.

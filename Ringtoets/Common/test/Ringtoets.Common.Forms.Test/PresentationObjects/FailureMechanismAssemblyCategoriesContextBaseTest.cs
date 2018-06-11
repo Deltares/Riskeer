@@ -136,6 +136,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                                                                      IAssessmentSection assessmentSection,
                                                                      Func<double> getNFunc)
                 : base(wrappedData, assessmentSection, getNFunc) {}
+
+            public override Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
         }
     }
 }

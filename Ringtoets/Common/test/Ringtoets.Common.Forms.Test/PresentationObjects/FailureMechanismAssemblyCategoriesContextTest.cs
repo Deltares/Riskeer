@@ -20,11 +20,17 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Controls.PresentationObjects;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
@@ -32,69 +38,53 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     [TestFixture]
     public class FailureMechanismAssemblyCategoriesContextTest
     {
+        private const double tolerance = 1e-5;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
             var random = new Random(21);
-            Func<double> getNFunc = () => random.NextDouble();
+            double n = random.NextDouble();
 
-            // Call
-            var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                        assessmentSection,
-                                                                        getNFunc);
-
-            // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism>>(context);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(getNFunc, context.GetNFunc);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessementSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Contribution = random.NextDouble();
             mocks.ReplayAll();
 
-            // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                    null,
-                                                                                    () => 0);
+            var assessmentSection = new AssessmentSectionStub();
 
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                // Call
+                var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                                            assessmentSection,
+                                                                            () => n);
+
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesContextBase>(context);
+                Assert.AreSame(failureMechanism, context.WrappedData);
+                Assert.AreSame(assessmentSection, context.AssessmentSection);
+
+                IEnumerable<FailureMechanismSectionAssemblyCategory> output = context.GetFailureMechanismSectionAssemblyCategoriesFunc();
+                IEnumerable<FailureMechanismSectionAssemblyCategory> calculatorOutput = calculator.FailureMechanismSectionCategoriesOutput;
+                Assert.AreEqual(calculatorOutput.Count(), output.Count());
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+
+                AssemblyCategoriesInput actualCalculatorInput = calculator.AssemblyCategoriesInput;
+                FailureMechanismContribution expectedContribution = assessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(failureMechanism.Contribution / 100, actualCalculatorInput.FailureMechanismContribution, tolerance);
+                Assert.AreEqual(expectedContribution.LowerLimitNorm, actualCalculatorInput.LowerLimitNorm, tolerance);
+                Assert.AreEqual(expectedContribution.SignalingNorm, actualCalculatorInput.SignalingNorm, tolerance);
+                Assert.AreEqual(n, actualCalculatorInput.N);
+            }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_GetNFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                    assessmentSection,
-                                                                                    null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getNFunc", exception.ParamName);
         }
     }
 }
