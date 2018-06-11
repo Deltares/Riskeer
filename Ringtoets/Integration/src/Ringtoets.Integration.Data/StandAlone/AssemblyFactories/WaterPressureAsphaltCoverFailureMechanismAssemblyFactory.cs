@@ -137,7 +137,6 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
                 return calculator.AssembleCombined(
                     simpleAssembly,
-                    FailureMechanismSectionAssemblyCategoryGroup.None,
                     AssembleTailorMadeAssessment(failureMechanismSectionResult));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)

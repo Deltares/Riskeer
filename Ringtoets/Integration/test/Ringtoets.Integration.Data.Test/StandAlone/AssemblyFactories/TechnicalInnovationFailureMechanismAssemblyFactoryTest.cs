@@ -244,7 +244,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                     TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
                 Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
