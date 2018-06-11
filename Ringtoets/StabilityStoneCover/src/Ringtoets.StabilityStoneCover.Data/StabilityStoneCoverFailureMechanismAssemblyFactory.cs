@@ -28,6 +28,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.StabilityStoneCover.Data
 {
@@ -154,17 +155,23 @@ namespace Ringtoets.StabilityStoneCover.Data
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = AssembleDetailedAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = AssembleTailorMadeAssessment(failureMechanismSectionResult);
-
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculator calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
             try
             {
-                return calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
+                FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
+
+                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentValidityOnlyResultType.NotApplicable)
+                {
+                    return calculator.AssembleCombined(simpleAssembly);
+                }
+
+                return calculator.AssembleCombined(
+                    simpleAssembly,
+                    AssembleDetailedAssessment(failureMechanismSectionResult),
+                    AssembleTailorMadeAssessment(failureMechanismSectionResult));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
