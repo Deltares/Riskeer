@@ -20,6 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -29,7 +32,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// This class is a presentation object for failure mechanism category boundaries for a geotechnical
     /// <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public class GeotechnicalFailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContext
+    public class GeotechnicalFailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesContext"/>.
@@ -41,6 +44,15 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         public GeotechnicalFailureMechanismAssemblyCategoriesContext(IFailureMechanism wrappedData,
                                                                      IAssessmentSection assessmentSection,
                                                                      Func<double> getNFunc)
-            : base(wrappedData, assessmentSection, getNFunc) {}
+            : base(wrappedData, assessmentSection, getNFunc)
+        {
+            GetFailureMechanismSectionAssemblyCategoriesFunc = () =>
+                AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(FailureMechanismContribution.SignalingNorm,
+                                                                                                          FailureMechanismContribution.LowerLimitNorm,
+                                                                                                          wrappedData.Contribution,
+                                                                                                          getNFunc());
+        }
+
+        public override Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
     }
 }

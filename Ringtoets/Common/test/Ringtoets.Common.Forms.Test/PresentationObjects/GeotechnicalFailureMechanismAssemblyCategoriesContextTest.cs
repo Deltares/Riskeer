@@ -20,10 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
@@ -31,28 +38,51 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     [TestFixture]
     public class GeotechnicalFailureMechanismAssemblyCategoriesContextTest
     {
+        private const double tolerance = 1e-5;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            double n = random.NextDouble();
+
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Contribution = random.NextDouble();
             mocks.ReplayAll();
 
-            var random = new Random(21);
-            Func<double> getNFunc = () => random.NextDouble();
+            var assessmentSection = new AssessmentSectionStub();
 
-            // Call
-            var context = new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                    assessmentSection,
-                                                                                    getNFunc);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesContext>(context);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(getNFunc, context.GetNFunc);
+                // Call
+                var context = new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                                                        assessmentSection,
+                                                                                        () => n);
+
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesContextBase>(context);
+                Assert.AreSame(failureMechanism, context.WrappedData);
+                Assert.AreSame(assessmentSection, context.AssessmentSection);
+
+                IEnumerable<FailureMechanismSectionAssemblyCategory> output = context.GetFailureMechanismSectionAssemblyCategoriesFunc();
+                IEnumerable<FailureMechanismSectionAssemblyCategory> calculatorOutput = calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput;
+                Assert.AreEqual(calculatorOutput.Count(), output.Count());
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+
+                AssemblyCategoriesInput actualCalculatorInput = calculator.AssemblyCategoriesInput;
+                FailureMechanismContribution expectedContribution = assessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(failureMechanism.Contribution / 100, actualCalculatorInput.FailureMechanismContribution, tolerance);
+                Assert.AreEqual(expectedContribution.LowerLimitNorm, actualCalculatorInput.LowerLimitNorm, tolerance);
+                Assert.AreEqual(expectedContribution.SignalingNorm, actualCalculatorInput.SignalingNorm, tolerance);
+                Assert.AreEqual(n, actualCalculatorInput.N);
+            }
 
             mocks.VerifyAll();
         }

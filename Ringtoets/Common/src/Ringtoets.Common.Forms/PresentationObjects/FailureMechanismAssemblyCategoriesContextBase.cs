@@ -26,6 +26,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Forms.PresentationObjects
@@ -88,6 +89,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the function to retrieve a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.
         /// </summary>
+        /// <exception cref="AssemblyException">Thrown when an error occurs while creating the categories.</exception>
         public abstract Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
     }
 }
