@@ -28,6 +28,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
@@ -120,16 +121,24 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
             }
 
-            FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = AssembleTailorMadeAssessment(failureMechanismSectionResult);
-
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculator calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
             try
             {
-                return calculator.AssembleCombined(simpleAssembly, FailureMechanismSectionAssemblyCategoryGroup.None, tailorMadeAssembly);
+                FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
+
+                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable
+                    || failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible)
+                {
+                    return calculator.AssembleCombined(simpleAssembly);
+                }
+
+                return calculator.AssembleCombined(
+                    simpleAssembly,
+                    FailureMechanismSectionAssemblyCategoryGroup.None,
+                    AssembleTailorMadeAssessment(failureMechanismSectionResult));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

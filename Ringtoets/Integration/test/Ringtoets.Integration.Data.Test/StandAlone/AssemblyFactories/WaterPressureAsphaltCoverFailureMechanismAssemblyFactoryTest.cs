@@ -218,10 +218,16 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNoneOrAssessFurther_SetsInputOnCalculator(
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -232,14 +238,44 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
-                    sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
+                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly =
+                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, calculator.CombinedDetailedAssemblyGroupInput);
                 Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNotApplicableOrProbabilityNegligible_SetsInputOnCalculator(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
+                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+
+                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
 

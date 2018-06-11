@@ -504,7 +504,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNoneOrAssessFurther_SetsInputOnCalculator(
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
@@ -513,7 +516,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -521,26 +527,56 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
-                    sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
-                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
+                    MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssembly =
+                    MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult, failureMechanism, assessmentSection);
+                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly =
+                    MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult, failureMechanism, assessmentSection);
 
                 Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
                 Assert.AreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyGroupInput);
                 Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNotApplicableOrProbabilityNegligible_SetsInputOnCalculator(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var sectionResult = new MacroStabilityOutwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult, failureMechanism, assessmentSection);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
+                    MacroStabilityOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+
+                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedTailorMadeAssemblyGroupInput);
                 mocks.VerifyAll();
             }
         }

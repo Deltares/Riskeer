@@ -218,10 +218,16 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         }
 
         [Test]
-        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNoneOrAssessFurther_SetsInputOnCalculator(
+            SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -232,14 +238,44 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
-                    sectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly = TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
+                    TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssembly =
+                    TechnicalInnovationFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
 
                 Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, calculator.CombinedDetailedAssemblyGroupInput);
                 Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.NotApplicable)]
+        [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNotApplicableOrProbabilityNegligible_SetsInputOnCalculator(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                TechnicalInnovationFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
+                    TechnicalInnovationFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+
+                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
 
