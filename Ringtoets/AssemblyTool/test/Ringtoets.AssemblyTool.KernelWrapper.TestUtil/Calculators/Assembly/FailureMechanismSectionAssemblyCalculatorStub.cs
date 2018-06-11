@@ -403,6 +403,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return TailorMadeAssemblyCategoryOutput.Value;
         }
 
+        public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly)
+        {
+            if (ThrowExceptionOnCalculateCombinedAssembly)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CombinedSimpleAssemblyInput = simpleAssembly;
+
+            return CombinedAssemblyOutput ?? (CombinedAssemblyOutput = simpleAssembly);
+        }
+
         public FailureMechanismSectionAssembly AssembleCombined(FailureMechanismSectionAssembly simpleAssembly,
                                                                 FailureMechanismSectionAssembly detailedAssembly,
                                                                 FailureMechanismSectionAssembly tailorMadeAssembly)
@@ -417,6 +429,23 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             CombinedTailorMadeAssemblyInput = tailorMadeAssembly;
 
             return CombinedAssemblyOutput ?? (CombinedAssemblyOutput = tailorMadeAssembly);
+        }
+
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly)
+        {
+            if (ThrowExceptionOnCalculateCombinedAssembly)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CombinedSimpleAssemblyGroupInput = simpleAssembly;
+
+            if (CombinedAssemblyCategoryOutput == null)
+            {
+                CombinedAssemblyCategoryOutput = simpleAssembly;
+            }
+
+            return CombinedAssemblyCategoryOutput.Value;
         }
 
         public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
