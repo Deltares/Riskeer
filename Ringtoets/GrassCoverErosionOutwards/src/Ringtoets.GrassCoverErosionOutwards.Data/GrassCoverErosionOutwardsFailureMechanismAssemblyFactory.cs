@@ -163,8 +163,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
             {
                 FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
 
-                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.None
-                    || failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
+                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable
+                    || failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible)
                 {
                     return calculator.AssembleCombined(simpleAssembly);
                 }
