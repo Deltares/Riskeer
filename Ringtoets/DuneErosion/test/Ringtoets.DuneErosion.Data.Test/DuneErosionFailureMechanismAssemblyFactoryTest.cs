@@ -314,10 +314,16 @@ namespace Ringtoets.DuneErosion.Data.Test
         }
 
         [Test]
-        public void AssembleCombinedAssessment_WithInput_SetsInputOnCalculator()
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void AssembleCombinedAssessment_WithInputSimpleAssemblyNoneOrApplicable_SetsInputOnCalculator(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -325,8 +331,7 @@ namespace Ringtoets.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult);
+                DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
@@ -339,6 +344,33 @@ namespace Ringtoets.DuneErosion.Data.Test
                 Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
                 Assert.AreEqual(expectedDetailedAssembly, calculator.CombinedDetailedAssemblyGroupInput);
                 Assert.AreEqual(expectedTailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+            }
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_WithInputSimpleAssemblyNotApplicable_SetsInputOnCalculator()
+        {
+            // Setup
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+
+                // Assert
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(
+                    sectionResult);
+
+                Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
+                Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedTailorMadeAssemblyGroupInput);
             }
         }
 
