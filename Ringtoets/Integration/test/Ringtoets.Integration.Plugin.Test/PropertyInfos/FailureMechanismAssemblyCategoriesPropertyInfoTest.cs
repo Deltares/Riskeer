@@ -41,7 +41,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismAssemblyCategoriesProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismAssemblyCategoriesBaseProperties)
+                                                          && tni.DataType == typeof(FailureMechanismAssemblyCategoriesContext));
         }
 
         [TearDown]
@@ -72,7 +73,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesProperties>(objectProperties);
+            Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesBaseProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

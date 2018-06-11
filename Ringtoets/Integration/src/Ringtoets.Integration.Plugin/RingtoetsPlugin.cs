@@ -378,17 +378,17 @@ namespace Ringtoets.Integration.Plugin
             {
                 CreateInstance = context => new ReferenceLineProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, GeotechnicalFailureMechanismAssemblyCategoriesProperties>
+            yield return new PropertyInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesBaseProperties>
             {
-                CreateInstance = context => new GeotechnicalFailureMechanismAssemblyCategoriesProperties(context.WrappedData,
-                                                                                                         context.AssessmentSection,
-                                                                                                         context.GetNFunc)
+                CreateInstance = context => new FailureMechanismAssemblyCategoriesBaseProperties(context.WrappedData,
+                                                                                                 context.GetFailureMechanismCategoriesFunc,
+                                                                                                 context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
-            yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
+            yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesBaseProperties>
             {
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.WrappedData,
-                                                                                             context.AssessmentSection,
-                                                                                             context.GetNFunc)
+                CreateInstance = context => new FailureMechanismAssemblyCategoriesBaseProperties(context.WrappedData,
+                                                                                                 context.GetFailureMechanismCategoriesFunc,
+                                                                                                 context.GetFailureMechanismSectionAssemblyCategoriesFunc)
             };
         }
 
@@ -1703,9 +1703,9 @@ namespace Ringtoets.Integration.Plugin
             var failureMechanismResultContexts = new object[3];
 
             failureMechanismResultContexts[0] =
-                new GeotechnicalFailureMechanismAssemblyCategoriesContext(nodeData,
-                                                                          assessmentSection,
-                                                                          () => nodeData.N);
+                new FailureMechanismAssemblyCategoriesContext(nodeData,
+                                                              assessmentSection,
+                                                              () => nodeData.N);
             failureMechanismResultContexts[1] =
                 new ProbabilityFailureMechanismSectionResultContext<PipingStructureFailureMechanismSectionResult>(
                     nodeData.SectionResults, nodeData, assessmentSection);
