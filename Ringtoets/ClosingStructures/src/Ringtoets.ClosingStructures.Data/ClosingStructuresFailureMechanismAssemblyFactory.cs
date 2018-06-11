@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Exceptions;
+using Ringtoets.Common.Primitives;
 
 namespace Ringtoets.ClosingStructures.Data
 {
@@ -196,17 +197,24 @@ namespace Ringtoets.ClosingStructures.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
-            FailureMechanismSectionAssembly detailedAssembly = AssembleDetailedAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection);
-            FailureMechanismSectionAssembly tailorMadeAssembly = AssembleTailorMadeAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection);
-
             IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
             IFailureMechanismSectionAssemblyCalculator calculator =
                 calculatorFactory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
             try
             {
-                return calculator.AssembleCombined(simpleAssembly, detailedAssembly, tailorMadeAssembly);
+                FailureMechanismSectionAssembly simpleAssembly = AssembleSimpleAssessment(failureMechanismSectionResult);
+
+                if (failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.ProbabilityNegligible ||
+                    failureMechanismSectionResult.SimpleAssessmentResult == SimpleAssessmentResultType.NotApplicable)
+                {
+                    return calculator.AssembleCombined(simpleAssembly);
+                }
+
+                return calculator.AssembleCombined(
+                    simpleAssembly,
+                    AssembleDetailedAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection),
+                    AssembleTailorMadeAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {
