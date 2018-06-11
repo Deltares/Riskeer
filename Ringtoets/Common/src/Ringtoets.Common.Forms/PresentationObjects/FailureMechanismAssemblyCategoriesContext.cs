@@ -45,8 +45,6 @@ namespace Ringtoets.Common.Forms.PresentationObjects
                                                          Func<double> getNFunc)
             : base(wrappedData, assessmentSection, getNFunc)
         {
-            GetNFunc = getNFunc;
-
             GetFailureMechanismSectionAssemblyCategoriesFunc = () =>
                 AssemblyToolCategoriesFactory.CreateFailureMechanismSectionAssemblyCategories(FailureMechanismContribution.SignalingNorm,
                                                                                               FailureMechanismContribution.LowerLimitNorm,
@@ -55,10 +53,5 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         public override Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
-
-        /// <summary>
-        /// Gets the function to get the 'N' parameter used to factor in the 'length effect'.
-        /// </summary>
-        public Func<double> GetNFunc { get; }
     }
 }

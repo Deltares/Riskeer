@@ -31,8 +31,12 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -185,8 +189,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
@@ -236,7 +239,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
                 Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
                 Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-                Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.N, failureMechanismAssemblyCategoriesContext.GetNFunc());
+
+                using (new AssemblyToolCalculatorFactoryConfig())
+                {
+                    var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                    AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+
+                    failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
+                    Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.N, calculator.AssemblyCategoriesInput.N);
+                }
 
                 var failureMechanismResultsContext = (FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)
                     outputsFolder.Contents.ElementAt(1);
