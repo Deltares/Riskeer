@@ -51,7 +51,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 
             var generalInput = new GeneralWaveImpactAsphaltCoverInput
             {
-                SectionLength = random.Next(0, 1000),
+                SectionLength = random.NextDouble(0, 1000),
                 DeltaL = random.NextRoundedDouble(1001, 99999)
             };
 
@@ -67,7 +67,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
         {
             // Setup
             var random = new Random(39);
-            double sectionLength = random.Next(1001, 99999);
+            double sectionLength = random.NextDouble(1001, 99999);
             RoundedDouble deltaL = random.NextRoundedDouble(0, 1000);
 
             var generalInput = new GeneralWaveImpactAsphaltCoverInput

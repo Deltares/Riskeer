@@ -70,7 +70,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public double SectionLength { get; set; }
 
         /// <summary>
-        /// Gets or sets the 'N' parameter used to factor in the 'length effect'.
+        /// Gets the 'N' parameter used to factor in the 'length effect'.
         /// </summary>
         public double N
         {
