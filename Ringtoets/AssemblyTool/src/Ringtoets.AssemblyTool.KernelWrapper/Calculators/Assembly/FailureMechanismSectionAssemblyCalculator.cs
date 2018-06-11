@@ -410,16 +410,28 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                FmSectionAssemblyDirectResult simpleAssemblyResult =
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
+                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                                        null,
+                                        null);
+            }
+            catch (AssemblyException e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
+        }
 
-                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
-                    simpleAssemblyResult,
-                    null,
-                    null);
-
-                return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(output.Result);
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
+                                                                             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly)
+        {
+            try
+            {
+                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                                        null,
+                                        FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
             }
             catch (AssemblyException e)
             {
@@ -437,24 +449,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                FmSectionAssemblyDirectResult simpleAssemblyResult =
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly);
-                FmSectionAssemblyDirectResult detailedAssemblyResult = null;
-                FmSectionAssemblyDirectResult tailorMadeAssemblyResult = null;
-
-                if (simpleAssemblyResult.Result != EFmSectionCategory.NotApplicable && simpleAssemblyResult.Result != EFmSectionCategory.Iv)
-                {
-                    detailedAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly);
-                    tailorMadeAssemblyResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly);
-                }
-
-                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
-                    simpleAssemblyResult,
-                    detailedAssemblyResult,
-                    tailorMadeAssemblyResult);
-
-                return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(output.Result);
+                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                                        FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
+                                        FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
             }
             catch (AssemblyException e)
             {
@@ -464,6 +461,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
+        }
+
+        /// <summary>
+        /// Assembles the combined assembly based on the input parameters.
+        /// </summary>
+        /// <param name="simpleAssemblyResult">The simple assembly result.</param>
+        /// <param name="detailedAssemblyResult">The simple assembly result.</param>
+        /// <param name="tailorMadeAssemblyResult">The tailor made assembly result.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="AssemblyException">Thrown when an error occurs while assembling.</exception>
+        private FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FmSectionAssemblyDirectResult simpleAssemblyResult,
+                                                                              FmSectionAssemblyDirectResult detailedAssemblyResult,
+                                                                              FmSectionAssemblyDirectResult tailorMadeAssemblyResult)
+        {
+            IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+            var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
+                simpleAssemblyResult,
+                detailedAssemblyResult,
+                tailorMadeAssemblyResult);
+
+            return FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(output.Result);
         }
 
         #endregion

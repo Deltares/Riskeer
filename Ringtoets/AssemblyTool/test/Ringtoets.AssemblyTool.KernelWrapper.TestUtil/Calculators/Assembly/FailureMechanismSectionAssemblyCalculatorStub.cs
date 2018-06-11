@@ -448,6 +448,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return CombinedAssemblyCategoryOutput.Value;
         }
 
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly, FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly)
+        {
+            if (ThrowExceptionOnCalculateCombinedAssembly)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            CombinedSimpleAssemblyGroupInput = simpleAssembly;
+            CombinedTailorMadeAssemblyGroupInput = tailorMadeAssembly;
+
+            if (CombinedAssemblyCategoryOutput == null)
+            {
+                CombinedAssemblyCategoryOutput = tailorMadeAssembly;
+            }
+
+            return CombinedAssemblyCategoryOutput.Value;
+        }
+
         public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
                                                                              FailureMechanismSectionAssemblyCategoryGroup detailedAssembly,
                                                                              FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly)

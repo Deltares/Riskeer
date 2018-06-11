@@ -212,6 +212,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the combined assembly based on the input parameters.
         /// </summary>
         /// <param name="simpleAssembly">The simple assembly.</param>
+        /// <param name="tailorMadeAssembly">The tailor made assembly.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs while assembling.</exception>
+        FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly,
+                                                                      FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly);
+
+        /// <summary>
+        /// Assembles the combined assembly based on the input parameters.
+        /// </summary>
+        /// <param name="simpleAssembly">The simple assembly.</param>
         /// <param name="detailedAssembly">The detailed assembly.</param>
         /// <param name="tailorMadeAssembly">The tailor made assembly.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>

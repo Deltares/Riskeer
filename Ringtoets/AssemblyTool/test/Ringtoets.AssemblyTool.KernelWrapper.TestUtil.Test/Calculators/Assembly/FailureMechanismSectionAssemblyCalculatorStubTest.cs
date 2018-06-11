@@ -1099,6 +1099,78 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
         }
 
         [Test]
+        public void AssembleCombinedWithSimpleAndTailorMadeAssemblyOnly_ThrowExceptionOnCalculateCombinedAssemblyFalseAndOutputNotSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var tailorMadeAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup combinedAssembly = calculator.AssembleCombined(
+                random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
+                tailorMadeAssembly);
+
+            // Assert
+            Assert.AreEqual(tailorMadeAssembly, combinedAssembly);
+        }
+
+        [Test]
+        public void AssembleCombinedWithSimpleAndTailorMadeAssemblyOnly_ThrowExceptionOnCalculateCombinedAssemblyFalseAndOutputSet_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                CombinedAssemblyCategoryOutput = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
+            };
+
+            // Call
+            FailureMechanismSectionAssemblyCategoryGroup combinedAssembly = calculator.AssembleCombined(0, 0);
+
+            // Assert
+            Assert.AreEqual(calculator.CombinedAssemblyCategoryOutput, combinedAssembly);
+        }
+
+        [Test]
+        public void AssembleCombinedWithSimpleAndTailorMadeAssemblyOnly_ThrowExceptionOnCalculateCombinedAssemblyFalse_SetsInput()
+        {
+            // Setup
+            var random = new Random(39);
+            var simpleAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+            var tailorMadeAssembly = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
+
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub();
+
+            // Call
+            calculator.AssembleCombined(simpleAssembly, tailorMadeAssembly);
+
+            // Assert
+            Assert.AreEqual(simpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
+            Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
+            Assert.AreEqual(tailorMadeAssembly, calculator.CombinedTailorMadeAssemblyGroupInput);
+        }
+
+        [Test]
+        public void AssembleCombinedWithSimpleAndTailorMadeAssemblyOnly_ThrowExceptionOnCalculateCombinedAssemblyTrue_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var calculator = new FailureMechanismSectionAssemblyCalculatorStub
+            {
+                ThrowExceptionOnCalculateCombinedAssembly = true
+            };
+
+            // Call
+            TestDelegate test = () => calculator.AssembleCombined(0, 0);
+
+            // Assert
+            var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);
+            Assert.AreEqual("Message", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+        }
+
+        [Test]
         public void AssembleCombinedWithSimpleAssemblyOnly_ThrowExceptionOnCalculateCombinedAssemblyFalseAndOutputNotSet_ReturnOutput()
         {
             // Setup
