@@ -85,9 +85,9 @@ namespace Ringtoets.Common.Service
                 return true;
             }
 
-            return DesignWaterLevelCalculationService.Validate(hydraulicBoundaryDatabaseFilePath,
-                                                               preprocessorDirectory,
-                                                               norm);
+            return calculationService.Validate(hydraulicBoundaryDatabaseFilePath,
+                                               preprocessorDirectory,
+                                               norm);
         }
 
         protected override void PerformCalculation()

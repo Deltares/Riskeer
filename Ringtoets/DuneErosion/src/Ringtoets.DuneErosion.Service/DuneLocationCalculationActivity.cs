@@ -79,7 +79,9 @@ namespace Ringtoets.DuneErosion.Service
                 return true;
             }
 
-            return DuneLocationCalculationService.Validate(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
+            return calculationService.Validate(hydraulicBoundaryDatabaseFilePath,
+                                               preprocessorDirectory,
+                                               norm);
         }
 
         protected override void PerformCalculation()
