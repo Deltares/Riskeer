@@ -28,51 +28,41 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Base ViewModel of the assembly categories in a <see cref="IFailureMechanism"/> for properties panel.
+    /// ViewModel of a collection of <see cref="FailureMechanismAssemblyCategory"/> for properties panel.
     /// </summary>
-    public class FailureMechanismAssemblyCategoriesProperties : ObjectProperties<IFailureMechanism>
+    public class FailureMechanismAssemblyCategoriesProperties : ObjectProperties<IEnumerable<FailureMechanismAssemblyCategory>>
     {
         private const int failureMechanismAssemblyCategoryPropertyIndex = 1;
         private const int failureMechanismSectionAssemblyCategoryPropertyIndex = 2;
-        private readonly Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoryFunc;
-        private readonly Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoryFunc;
+        private readonly IEnumerable<FailureMechanismSectionAssemblyCategory> failureMechanismSectionAssemblyCategories;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCategoriesProperties"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <param name="getFailureMechanismAssemblyCategoryFunc">The function to get a collection of <see cref="FailureMechanismAssemblyCategory"/>.</param>
-        /// <param name="getFailureMechanismSectionAssemblyCategoryFunc">The function to get a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
+        /// <param name="failureMechanismAssemblyCategories">The collection of <see cref="FailureMechanismAssemblyCategory"/>.</param>
+        /// <param name="failureMechanismSectionAssemblyCategories">The collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismAssemblyCategoriesProperties(IFailureMechanism failureMechanism,
-                                                            Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismAssemblyCategoryFunc,
-                                                            Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoryFunc)
+        public FailureMechanismAssemblyCategoriesProperties(IEnumerable<FailureMechanismAssemblyCategory> failureMechanismAssemblyCategories,
+                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> failureMechanismSectionAssemblyCategories)
         {
-            if (failureMechanism == null)
+            if (failureMechanismAssemblyCategories == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanism));
+                throw new ArgumentNullException(nameof(failureMechanismAssemblyCategories));
             }
 
-            if (getFailureMechanismAssemblyCategoryFunc == null)
+            if (failureMechanismSectionAssemblyCategories == null)
             {
-                throw new ArgumentNullException(nameof(getFailureMechanismAssemblyCategoryFunc));
+                throw new ArgumentNullException(nameof(failureMechanismSectionAssemblyCategories));
             }
 
-            if (getFailureMechanismSectionAssemblyCategoryFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getFailureMechanismSectionAssemblyCategoryFunc));
-            }
+            this.failureMechanismSectionAssemblyCategories = failureMechanismSectionAssemblyCategories;
 
-            this.getFailureMechanismAssemblyCategoryFunc = getFailureMechanismAssemblyCategoryFunc;
-            this.getFailureMechanismSectionAssemblyCategoryFunc = getFailureMechanismSectionAssemblyCategoryFunc;
-
-            Data = failureMechanism;
+            Data = failureMechanismAssemblyCategories;
         }
 
         [PropertyOrder(failureMechanismAssemblyCategoryPropertyIndex)]
@@ -84,7 +74,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return getFailureMechanismAssemblyCategoryFunc().Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
+                return data.Select(category => new FailureMechanismAssemblyCategoryProperties(category)).ToArray();
             }
         }
 
@@ -97,7 +87,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return getFailureMechanismSectionAssemblyCategoryFunc().Select(category => new FailureMechanismSectionAssemblyCategoryProperties(category)).ToArray();
+                return failureMechanismSectionAssemblyCategories.Select(category => new FailureMechanismSectionAssemblyCategoryProperties(category)).ToArray();
             }
         }
     }

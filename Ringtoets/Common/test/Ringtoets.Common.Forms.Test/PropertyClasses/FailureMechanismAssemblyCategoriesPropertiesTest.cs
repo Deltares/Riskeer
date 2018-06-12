@@ -27,9 +27,7 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -38,75 +36,43 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class FailureMechanismAssemblyCategoriesPropertiesTest
     {
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_GetFailureMechanismAssemblyCategoryFuncNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(null,
-                                                                                       GetFailureMechanismAssemblyCategory,
-                                                                                       GetFailureMechanismSectionAssemblyCategory);
+                                                                                       GetFailureMechanismSectionAssemblyCategories());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetFailureMechanismAssemblyCategoryFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
-                                                                                       null,
-                                                                                       GetFailureMechanismSectionAssemblyCategory);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getFailureMechanismAssemblyCategoryFunc", exception.ParamName);
-            mocks.VerifyAll();
+            Assert.AreEqual("failureMechanismAssemblyCategories", exception.ParamName);
         }
 
         [Test]
         public void Constructor_GetFailureMechanismSectionAssemblyCategoryFuncNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
-                                                                                       GetFailureMechanismAssemblyCategory,
+            TestDelegate call = () => new FailureMechanismAssemblyCategoriesProperties(GetFailureMechanismAssemblyCategories(),
                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getFailureMechanismSectionAssemblyCategoryFunc", exception.ParamName);
-            mocks.VerifyAll();
+            Assert.AreEqual("failureMechanismSectionAssemblyCategories", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
-            IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories = GetFailureMechanismAssemblyCategory();
-            IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories = GetFailureMechanismSectionAssemblyCategory();
+            IEnumerable<FailureMechanismAssemblyCategory> expectedFailureMechanismCategories = GetFailureMechanismAssemblyCategories();
+            IEnumerable<FailureMechanismSectionAssemblyCategory> expectedFailureMechanismSectionCategories = GetFailureMechanismSectionAssemblyCategories();
 
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
-                                                                              () => expectedFailureMechanismCategories,
-                                                                              () => expectedFailureMechanismSectionCategories);
+            var properties = new FailureMechanismAssemblyCategoriesProperties(expectedFailureMechanismCategories,
+                                                                              expectedFailureMechanismSectionCategories);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
-            Assert.AreSame(failureMechanism, properties.Data);
+            Assert.IsInstanceOf<ObjectProperties<IEnumerable<FailureMechanismAssemblyCategory>>>(properties);
+            Assert.AreSame(expectedFailureMechanismCategories, properties.Data);
 
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
                 nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismAssemblyCategories));
@@ -132,22 +98,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
                 Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
-            mocks.ReplayAll();
-
             // Call
-            var properties = new FailureMechanismAssemblyCategoriesProperties(failureMechanism,
-                                                                              GetFailureMechanismAssemblyCategory,
-                                                                              GetFailureMechanismSectionAssemblyCategory);
+            var properties = new FailureMechanismAssemblyCategoriesProperties(GetFailureMechanismAssemblyCategories(),
+                                                                              GetFailureMechanismSectionAssemblyCategories());
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(2, dynamicProperties.Count);
@@ -167,22 +125,30 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Categoriegrenzen per vak",
                                                                             "De categoriegrenzen per vak voor dit toetsspoor.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
-        private static IEnumerable<FailureMechanismSectionAssemblyCategory> GetFailureMechanismSectionAssemblyCategory()
+        private static IEnumerable<FailureMechanismSectionAssemblyCategory> GetFailureMechanismSectionAssemblyCategories()
         {
             var random = new Random(21);
 
-            yield return new FailureMechanismSectionAssemblyCategory(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            return new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
+                                                            random.NextDouble(),
+                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+            };
         }
 
-        private static IEnumerable<FailureMechanismAssemblyCategory> GetFailureMechanismAssemblyCategory()
+        private static IEnumerable<FailureMechanismAssemblyCategory> GetFailureMechanismAssemblyCategories()
         {
             var random = new Random(21);
 
-            yield return new FailureMechanismAssemblyCategory(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            return new[]
+            {
+                new FailureMechanismAssemblyCategory(random.NextDouble(), 
+                                                     random.NextDouble(), 
+                                                     random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>())
+            };
         }
     }
 }
