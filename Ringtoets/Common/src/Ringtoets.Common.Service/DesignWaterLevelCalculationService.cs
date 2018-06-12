@@ -49,13 +49,15 @@ namespace Ringtoets.Common.Service
         private bool canceled;
 
         /// <summary>
-        /// Performs validation on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/> and <paramref name="preprocessorDirectory"/>.
-        /// Error and status information is logged during the execution of the operation.
+        /// Performs validation on the given input parameters. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
+        /// <param name="norm">The norm to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        public static bool Validate(string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
+        public static bool Validate(string hydraulicBoundaryDatabaseFilePath,
+                                    string preprocessorDirectory,
+                                    double norm)
         {
             var isValid = true;
 
@@ -96,7 +98,7 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to perform.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
-        /// <param name="norm">The norm of the assessment section.</param>
+        /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
