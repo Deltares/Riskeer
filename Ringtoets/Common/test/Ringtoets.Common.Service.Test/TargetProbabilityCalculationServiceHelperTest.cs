@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 
 namespace Ringtoets.Common.Service.Test
@@ -54,6 +55,17 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void ValidateTargetProbability_HandleLogMessageActionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(0.005, null);
+
+            // Assert
+            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("handleLogMessageAction", parameter);
         }
 
         [Test]
