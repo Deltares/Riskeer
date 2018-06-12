@@ -48,8 +48,8 @@
     <Compile Include="ImportInfos\ReferenceLineContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
-    <Compile Include="PropertyInfos\GeotechnicalFailureMechanismAssemblyCategoriesPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\FailureMechanismAssemblyCategoriesPropertyInfoTest.cs" />
+    <Compile Include="PropertyInfos\GeotechnicalFailureMechanismAssemblyCategoriesPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\NormContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\WaveHeightCalculationContextPropertyInfoTest.cs" />
     <Compile Include="PropertyInfos\DesignWaterLevelCalculationContextPropertyInfoTest.cs" />
@@ -346,6 +346,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{c8383b76-b3f1-4e6e-b56c-527b469fa20a}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Forms.TestUtil\Ringtoets.Integration.Forms.TestUtil.csproj">
+      <Project>{93C3B757-C591-4451-BA56-140FF91EFE9A}</Project>
+      <Name>Ringtoets.Integration.Forms.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174ba68d-6176-4ac5-8dfd-98cdd2c4d971}</Project>

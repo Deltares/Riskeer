@@ -1954,6 +1954,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.DuneErosion.Forms
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Integration.Forms.TestUtil", "Ringtoets\Integration\test\Ringtoets.Integration.Forms.TestUtil\Ringtoets.Integration.Forms.TestUtil.csproj", "{93C3B757-C591-4451-BA56-140FF91EFE9A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|x86 = CreateInstaller|x86
@@ -5160,6 +5165,16 @@ Global
 		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.Release|x86.Build.0 = Release|x86
 		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{AB95EC86-28CF-47E6-ABB0-927EBBE61445}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.Debug|x86.ActiveCfg = Debug|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.Debug|x86.Build.0 = Debug|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.Release|x86.ActiveCfg = Release|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.Release|x86.Build.0 = Release|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{93C3B757-C591-4451-BA56-140FF91EFE9A}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -5576,6 +5591,7 @@ Global
 		{F20FCF45-A545-4ED9-9634-02DD4CDFB181} = {2B6156FD-080B-4869-B148-E4A2995F0EFB}
 		{E51E2489-FD03-42DE-A4A8-4DF00E3490C3} = {2B6156FD-080B-4869-B148-E4A2995F0EFB}
 		{AB95EC86-28CF-47E6-ABB0-927EBBE61445} = {FED0898A-BA03-4FBC-8F99-87817B34557B}
+		{93C3B757-C591-4451-BA56-140FF91EFE9A} = {88E04195-C43E-40D3-B5F2-3A25E1E79E03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}

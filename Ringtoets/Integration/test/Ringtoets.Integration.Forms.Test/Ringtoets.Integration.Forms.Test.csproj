@@ -44,6 +44,9 @@
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
@@ -262,6 +265,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Forms.TestUtil\Ringtoets.Integration.Forms.TestUtil.csproj">
+      <Project>{93C3B757-C591-4451-BA56-140FF91EFE9A}</Project>
+      <Name>Ringtoets.Integration.Forms.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.TestUtil\Ringtoets.Integration.TestUtil.csproj">
       <Project>{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}</Project>

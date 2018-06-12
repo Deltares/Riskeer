@@ -27,10 +27,10 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.TestUtil;
 
-namespace Ringtoets.Common.Forms.Test.PropertyClasses
+namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class FailureMechanismAssemblyCategoriesPropertiesTest
@@ -130,8 +130,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             return new[]
             {
-                new FailureMechanismAssemblyCategory(random.NextDouble(), 
-                                                     random.NextDouble(), 
+                new FailureMechanismAssemblyCategory(random.NextDouble(),
+                                                     random.NextDouble(),
                                                      random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>())
             };
         }

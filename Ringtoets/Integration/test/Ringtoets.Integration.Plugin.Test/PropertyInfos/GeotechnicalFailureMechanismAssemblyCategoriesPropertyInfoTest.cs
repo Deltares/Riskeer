@@ -32,8 +32,8 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TestUtil;
+using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.TestUtil;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {

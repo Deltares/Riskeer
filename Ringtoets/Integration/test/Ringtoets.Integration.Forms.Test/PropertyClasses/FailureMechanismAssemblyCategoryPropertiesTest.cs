@@ -26,18 +26,18 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.Test.PropertyClasses
+namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyCategoryPropertiesTest
+    public class FailureMechanismAssemblyCategoryPropertiesTest
     {
         [Test]
         public void Constructor_AssemblyCategoryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionAssemblyCategoryProperties(null);
+            TestDelegate call = () => new FailureMechanismAssemblyCategoryProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -49,17 +49,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var assemblyCategory = new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
-                                                                               random.NextDouble(),
-                                                                               random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var assemblyCategory = new FailureMechanismAssemblyCategory(random.NextDouble(),
+                                                                        random.NextDouble(),
+                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
 
             // Call
-            var properties = new FailureMechanismSectionAssemblyCategoryProperties(assemblyCategory);
+            var properties = new FailureMechanismAssemblyCategoryProperties(assemblyCategory);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<FailureMechanismSectionAssemblyCategory>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<FailureMechanismAssemblyCategory>>(properties);
             Assert.AreSame(assemblyCategory, properties.Data);
-            TestHelper.AssertTypeConverter<FailureMechanismSectionAssemblyCategoryProperties, ExpandableObjectConverter>();
+            TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoryProperties, ExpandableObjectConverter>();
 
             Assert.AreEqual(assemblyCategory.Group, properties.Group);
             Assert.AreEqual(assemblyCategory.LowerBoundary, properties.LowerBoundary);
@@ -71,12 +71,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var assemblyCategory = new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
-                                                                               random.NextDouble(),
-                                                                               random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var assemblyCategory = new FailureMechanismAssemblyCategory(random.NextDouble(),
+                                                                        random.NextDouble(),
+                                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
 
             // Call
-            var properties = new FailureMechanismSectionAssemblyCategoryProperties(assemblyCategory);
+            var properties = new FailureMechanismAssemblyCategoryProperties(assemblyCategory);
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
@@ -110,16 +110,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var categoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var properties = new FailureMechanismSectionAssemblyCategoryProperties(new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
-                                                                                                                               random.NextDouble(),
-                                                                                                                               categoryGroup));
+            var categoryGroup = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
+            var properties = new FailureMechanismAssemblyCategoryProperties(new FailureMechanismAssemblyCategory(random.NextDouble(),
+                                                                                                                 random.NextDouble(),
+                                                                                                                 categoryGroup));
 
             // Call
             string result = properties.ToString();
 
             // Assert
-            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismSectionAssemblyCategoryGroup>(categoryGroup).DisplayName,
+            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismAssemblyCategoryGroup>(categoryGroup).DisplayName,
                             result);
         }
     }

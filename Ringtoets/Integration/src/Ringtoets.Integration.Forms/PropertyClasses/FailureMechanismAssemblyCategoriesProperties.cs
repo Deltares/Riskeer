@@ -28,9 +28,10 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of a collection of <see cref="FailureMechanismAssemblyCategory"/> for properties panel.
@@ -66,7 +67,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(failureMechanismAssemblyCategoryPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
@@ -79,7 +80,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(failureMechanismSectionAssemblyCategoryPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]

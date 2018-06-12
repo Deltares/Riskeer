@@ -26,10 +26,10 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.TypeConverters;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Common.Forms.PropertyClasses
+namespace Ringtoets.Integration.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of a <see cref="FailureMechanismSectionAssemblyCategory"/> for properties panel.
@@ -55,9 +55,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CategoryProperties_Group_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.CategoryProperties_Group_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_Group_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_Group_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
         public FailureMechanismSectionAssemblyCategoryGroup Group
         {
@@ -68,9 +68,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(lowerBoundaryPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CategoryProperties_LowerBoundary_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.CategoryProperties_LowerBoundary_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_LowerBoundary_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_LowerBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double LowerBoundary
         {
@@ -81,9 +81,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         [PropertyOrder(upperBoundaryPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CategoryProperties_UpperBoundary_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.CategoryProperties_UpperBoundary_Description))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_UpperBoundary_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CategoryProperties_UpperBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double UpperBoundary
         {

@@ -1419,16 +1419,4 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   <data name="CategoryProperties_UpperBoundary_DisplayName" xml:space="preserve">
     <value>Bovengrens [1/jaar]</value>
   </data>
-  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description" xml:space="preserve">
-    <value>De categoriegrenzen voor dit traject en toetsspoor.</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName" xml:space="preserve">
-    <value>Categoriegrenzen voor dit traject</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description" xml:space="preserve">
-    <value>De categoriegrenzen per vak voor dit toetsspoor.</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_DisplayName" xml:space="preserve">
-    <value>Categoriegrenzen per vak</value>
-  </data>
 </root>

@@ -1446,46 +1446,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen voor dit traject en toetsspoor..
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_D" +
-                        "escription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen voor dit traject.
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_D" +
-                        "isplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen per vak voor dit toetsspoor..
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCateg" +
-                        "ories_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen per vak.
-        /// </summary>
-        public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCateg" +
-                        "ories_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to I&amp;s relevant.
         /// </summary>
         public static string FailureMechanismContextMenuStrip_Is_relevant {

@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Integration.Forms.PropertyClasses;
 
-namespace Ringtoets.Common.Forms.TestUtil
+namespace Ringtoets.Integration.Forms.TestUtil
 {
     /// <summary>
     /// Class that can be used to assert property classes related to assembly categories.

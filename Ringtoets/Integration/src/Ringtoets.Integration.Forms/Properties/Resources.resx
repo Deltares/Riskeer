@@ -396,4 +396,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate" xml:space="preserve">
     <value>Assemblageresultaat is verouderd. Druk op de "Assemblageresultaat verversen" knop om opnieuw te berekenen.</value>
   </data>
+  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description" xml:space="preserve">
+    <value>De categoriegrenzen voor dit traject en toetsspoor.</value>
+  </data>
+  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName" xml:space="preserve">
+    <value>Categoriegrenzen voor dit traject</value>
+  </data>
+  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description" xml:space="preserve">
+    <value>De categoriegrenzen per vak voor dit toetsspoor.</value>
+  </data>
+  <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_DisplayName" xml:space="preserve">
+    <value>Categoriegrenzen per vak</value>
+  </data>
 </root>
