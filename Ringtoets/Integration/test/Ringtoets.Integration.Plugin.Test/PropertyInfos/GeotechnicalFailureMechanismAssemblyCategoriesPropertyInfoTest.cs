@@ -23,12 +23,17 @@ using System;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
@@ -63,19 +68,34 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_ValidArguments_ReturnProperties()
         {
             // Setup
+            var random = new Random(21);
+            double n = random.NextDouble(1, 10);
+
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => new Random(39).NextDouble());
+            var assessmentSection = new AssessmentSectionStub();
+            var context = new GeotechnicalFailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => n);
 
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(context);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesProperties>(objectProperties);
-            Assert.AreSame(failureMechanism, objectProperties.Data);
+                // Call
+                IObjectProperties objectProperties = info.CreateInstance(context);
+
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismAssemblyCategoriesProperties>(objectProperties);
+                Assert.AreSame(calculator.FailureMechanismCategoriesOutput, objectProperties.Data);
+
+                var properties = (FailureMechanismAssemblyCategoriesProperties) objectProperties;
+                AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
+                    calculator.FailureMechanismCategoriesOutput,
+                    calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput,
+                    properties);
+            }
 
             mocks.VerifyAll();
         }
