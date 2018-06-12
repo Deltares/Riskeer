@@ -44,18 +44,22 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class WaveHeightCalculationServiceTest
     {
+        private const double validNorm = 0.005;
+
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
-        public void Validate_ValidPaths_ReturnsTrue()
+        public void Validate_ValidInput_ReturnsTrue()
         {
             // Setup
             var valid = false;
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath, validPreprocessorDirectory);
+            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath,
+                                                                              validPreprocessorDirectory,
+                                                                              validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -76,7 +80,9 @@ namespace Ringtoets.Common.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
+            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath,
+                                                                              validPreprocessorDirectory,
+                                                                              validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -98,7 +104,9 @@ namespace Ringtoets.Common.Service.Test
             var valid = false;
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
+            Action call = () => valid = WaveHeightCalculationService.Validate(notValidFilePath,
+                                                                              validPreprocessorDirectory,
+                                                                              validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -120,7 +128,9 @@ namespace Ringtoets.Common.Service.Test
             var valid = true;
 
             // Call
-            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath, invalidPreprocessorDirectory);
+            Action call = () => valid = WaveHeightCalculationService.Validate(validFilePath,
+                                                                              invalidPreprocessorDirectory,
+                                                                              validNorm);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>

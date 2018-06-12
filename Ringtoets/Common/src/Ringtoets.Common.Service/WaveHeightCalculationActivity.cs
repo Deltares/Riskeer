@@ -85,7 +85,9 @@ namespace Ringtoets.Common.Service
                 return true;
             }
 
-            return WaveHeightCalculationService.Validate(hydraulicBoundaryDatabaseFilePath, preprocessorDirectory);
+            return WaveHeightCalculationService.Validate(hydraulicBoundaryDatabaseFilePath,
+                                                         preprocessorDirectory,
+                                                         norm);
         }
 
         protected override void PerformCalculation()
