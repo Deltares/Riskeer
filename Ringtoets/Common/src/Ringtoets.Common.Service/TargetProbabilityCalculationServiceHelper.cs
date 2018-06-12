@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Util;
+using Ringtoets.Common.Service.Properties;
 
 namespace Ringtoets.Common.Service
 {
@@ -43,7 +44,7 @@ namespace Ringtoets.Common.Service
         /// Validates the provided target probability. Log messages are handled during the execution of the operation.
         /// </summary>
         /// <param name="targetProbability">The target probability to validate.</param>
-        /// <param name="handleLogMessageAction">The action to perform in case of log messages.</param>
+        /// <param name="handleLogMessageAction">The action to perform for handling log messages.</param>
         /// <returns><c>true</c> if <paramref name="targetProbability"/> gives no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="handleLogMessageAction"/> is <c>null</c>.</exception>
         public static bool ValidateTargetProbability(double targetProbability, Action<string> handleLogMessageAction)
@@ -55,7 +56,7 @@ namespace Ringtoets.Common.Service
 
             if (double.IsNaN(targetProbability))
             {
-                handleLogMessageAction("Kon geen doelkans bepalen voor deze berekening.");
+                handleLogMessageAction(Resources.TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_invalid);
 
                 return false;
             }
@@ -63,7 +64,7 @@ namespace Ringtoets.Common.Service
             double targetBeta = StatisticsConverter.ProbabilityToReliability(targetProbability);
             if (targetBeta < -1)
             {
-                handleLogMessageAction("Doelkans is te groot om een berekening uit te kunnen voeren.");
+                handleLogMessageAction(Resources.TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_big);
 
                 return false;
             }

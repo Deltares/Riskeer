@@ -52,6 +52,7 @@
     <Compile Include="RingtoetsCommonDataSynchronizationServiceTest.cs" />
     <Compile Include="Structures\StructuresCalculationServiceBaseTest.cs" />
     <Compile Include="SynchronizeCalculationWithForeshoreProfileHelperTest.cs" />
+    <Compile Include="TargetProbabilityCalculationServiceHelperTest.cs" />
     <Compile Include="TargetProbabilityCalculationServiceTest.cs" />
     <Compile Include="ValidationRules\NumericInputRuleTest.cs" />
     <Compile Include="ValidationRules\UseBreakWaterRuleTest.cs" />
