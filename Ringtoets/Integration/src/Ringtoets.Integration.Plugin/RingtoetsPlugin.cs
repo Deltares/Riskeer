@@ -380,15 +380,13 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
             {
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.WrappedData,
-                                                                                             context.GetFailureMechanismCategoriesFunc,
-                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc)
+                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.GetFailureMechanismCategoriesFunc(),
+                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc())
             };
             yield return new PropertyInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesProperties>
             {
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.WrappedData,
-                                                                                             context.GetFailureMechanismCategoriesFunc,
-                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc)
+                CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.GetFailureMechanismCategoriesFunc(),
+                                                                                             context.GetFailureMechanismSectionAssemblyCategoriesFunc())
             };
         }
 
