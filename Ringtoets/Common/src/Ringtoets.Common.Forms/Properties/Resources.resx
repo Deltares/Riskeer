@@ -1420,10 +1420,10 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
     <value>Bovengrens [1/jaar]</value>
   </data>
   <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description" xml:space="preserve">
-    <value>De categoriegrenzen per traject voor dit toetsspoor.</value>
+    <value>De categoriegrenzen voor dit traject en toetsspoor.</value>
   </data>
   <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName" xml:space="preserve">
-    <value>Categoriegrenzen per traject</value>
+    <value>Categoriegrenzen voor dit traject</value>
   </data>
   <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description" xml:space="preserve">
     <value>De categoriegrenzen per vak voor dit toetsspoor.</value>

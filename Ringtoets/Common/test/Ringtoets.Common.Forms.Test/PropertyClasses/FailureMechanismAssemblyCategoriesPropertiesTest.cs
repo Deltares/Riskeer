@@ -157,8 +157,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor failureMechanismCategoriesProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismCategoriesProperty,
                                                                             generalCategoryName,
-                                                                            "Categoriegrenzen per traject",
-                                                                            "De categoriegrenzen per traject voor dit toetsspoor.",
+                                                                            "Categoriegrenzen voor dit traject",
+                                                                            "De categoriegrenzen voor dit traject en toetsspoor.",
                                                                             true);
 
             PropertyDescriptor failureMechanismSectionCategoriesProperty = dynamicProperties[1];

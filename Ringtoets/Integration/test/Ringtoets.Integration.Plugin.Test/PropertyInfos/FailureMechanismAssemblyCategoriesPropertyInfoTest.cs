@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
@@ -67,7 +68,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => 0.01);
+            var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => new Random(39).NextDouble());
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

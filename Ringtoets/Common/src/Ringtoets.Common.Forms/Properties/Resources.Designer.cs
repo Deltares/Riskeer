@@ -1446,7 +1446,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen per traject voor dit toetsspoor..
+        ///   Looks up a localized string similar to De categoriegrenzen voor dit traject en toetsspoor..
         /// </summary>
         public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description {
             get {
@@ -1456,7 +1456,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen per traject.
+        ///   Looks up a localized string similar to Categoriegrenzen voor dit traject.
         /// </summary>
         public static string FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName {
             get {
