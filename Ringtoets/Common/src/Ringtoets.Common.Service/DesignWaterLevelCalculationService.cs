@@ -27,70 +27,25 @@ using log4net;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
-using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for design water level.
     /// </summary>
-    public class DesignWaterLevelCalculationService
+    public class DesignWaterLevelCalculationService : TargetProbabilityCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationService));
         private IDesignWaterLevelCalculator calculator;
         private bool canceled;
-
-        /// <summary>
-        /// Performs validation on the given input parameters. Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database to validate.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <param name="norm">The norm to validate.</param>
-        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        public static bool Validate(string hydraulicBoundaryDatabaseFilePath,
-                                    string preprocessorDirectory,
-                                    double norm)
-        {
-            var isValid = true;
-
-            CalculationServiceHelper.LogValidationBegin();
-
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                   preprocessorDirectory);
-            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
-            {
-                CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
-                                                            new[]
-                                                            {
-                                                                databaseFilePathValidationProblem
-                                                            });
-
-                isValid = false;
-            }
-
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                CalculationServiceHelper.LogMessagesAsError(new[]
-                {
-                    preprocessorDirectoryValidationProblem
-                });
-
-                isValid = false;
-            }
-
-            CalculationServiceHelper.LogValidationEnd();
-
-            return isValid;
-        }
 
         /// <summary>
         /// Performs a calculation for the design water level.
@@ -172,7 +127,7 @@ namespace Ringtoets.Common.Service
                     log.Error(messageProvider.GetCalculationFailedWithErrorReportMessage(hydraulicBoundaryLocation.Name, lastErrorFileContent));
                 }
 
-                log.InfoFormat(Resources.DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                log.InfoFormat(RingtoetsCommonServiceResources.DesignWaterLevelCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
                 CalculationServiceHelper.LogCalculationEnd();
 
                 if (errorOccurred)
@@ -233,7 +188,7 @@ namespace Ringtoets.Common.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                log.Warn(string.Format(RingtoetsCommonServiceResources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
                                        hydraulicBoundaryLocation.Name,
                                        e.Message));
             }
@@ -264,7 +219,7 @@ namespace Ringtoets.Common.Service
             }
             catch (IllustrationPointConversionException e)
             {
-                log.Warn(Resources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
+                log.Warn(RingtoetsCommonServiceResources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
 
             return null;

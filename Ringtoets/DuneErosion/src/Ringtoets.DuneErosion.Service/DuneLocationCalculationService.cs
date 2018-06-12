@@ -25,7 +25,6 @@ using Core.Common.Base.IO;
 using Core.Common.Util;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
@@ -33,61 +32,18 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for dune locations.
     /// </summary>
-    public class DuneLocationCalculationService
+    public class DuneLocationCalculationService : TargetProbabilityCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(DuneLocationCalculationService));
 
         private bool canceled;
         private IDunesBoundaryConditionsCalculator calculator;
-
-        /// <summary>
-        /// Performs validation on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/> and <paramref name="preprocessorDirectory"/>.
-        /// Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
-        public static bool Validate(string hydraulicBoundaryDatabaseFilePath, string preprocessorDirectory)
-        {
-            var isValid = true;
-
-            CalculationServiceHelper.LogValidationBegin();
-
-            string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                   preprocessorDirectory);
-            if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
-            {
-                CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                                                            new[]
-                                                            {
-                                                                databaseFilePathValidationProblem
-                                                            });
-
-                isValid = false;
-            }
-
-            string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
-            if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
-            {
-                CalculationServiceHelper.LogMessagesAsError(new[]
-                {
-                    preprocessorDirectoryValidationProblem
-                });
-
-                isValid = false;
-            }
-
-            CalculationServiceHelper.LogValidationEnd();
-
-            return isValid;
-        }
 
         /// <summary>
         /// Performs the provided <see cref="DuneLocationCalculation"/> and sets its output if the calculation is successful.
