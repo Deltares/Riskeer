@@ -22,13 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TestUtil;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
@@ -79,25 +79,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<FailureMechanismAssemblyCategoriesProperties, ExpandableArrayConverter>(
                 nameof(FailureMechanismAssemblyCategoriesProperties.FailureMechanismSectionAssemblyCategories));
 
-            Assert.AreEqual(expectedFailureMechanismCategories.Count(), properties.FailureMechanismAssemblyCategories.Length);
-            for (var i = 0; i < expectedFailureMechanismCategories.Count(); i++)
-            {
-                FailureMechanismAssemblyCategory category = expectedFailureMechanismCategories.ElementAt(i);
-                FailureMechanismAssemblyCategoryProperties property = properties.FailureMechanismAssemblyCategories[i];
-                Assert.AreEqual(category.Group, property.Group);
-                Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
-            }
-
-            Assert.AreEqual(expectedFailureMechanismSectionCategories.Count(), properties.FailureMechanismSectionAssemblyCategories.Length);
-            for (var i = 0; i < expectedFailureMechanismSectionCategories.Count(); i++)
-            {
-                FailureMechanismSectionAssemblyCategory category = expectedFailureMechanismSectionCategories.ElementAt(i);
-                FailureMechanismSectionAssemblyCategoryProperties property = properties.FailureMechanismSectionAssemblyCategories[i];
-                Assert.AreEqual(category.Group, property.Group);
-                Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
-            }
+            AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
+                expectedFailureMechanismCategories,
+                expectedFailureMechanismSectionCategories,
+                properties);
         }
 
         [Test]
