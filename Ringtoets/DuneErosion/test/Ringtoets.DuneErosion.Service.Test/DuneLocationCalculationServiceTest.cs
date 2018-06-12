@@ -28,6 +28,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -46,89 +47,13 @@ namespace Ringtoets.DuneErosion.Service.Test
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
-        public void Validate_ValidPaths_ReturnsTrue()
+        public void Constructor_ExpectedValues()
         {
-            // Setup
-            var valid = false;
-
             // Call
-            Action call = () => valid = DuneLocationCalculationService.Validate(validFilePath, validPreprocessorDirectory);
+            var calculationService = new DuneLocationCalculationService();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-            });
-            Assert.IsTrue(valid);
-        }
-
-        [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabasePath_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            var valid = true;
-
-            // Call
-            Action call = () => valid = DuneLocationCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            string notValidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
-            var valid = false;
-
-            // Call
-            Action call = () => valid = DuneLocationCalculationService.Validate(notValidFilePath, validPreprocessorDirectory);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            const string notValidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
-            var valid = true;
-
-            // Call
-            Action call = () => valid = DuneLocationCalculationService.Validate(validFilePath, notValidPreprocessorDirectory);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
+            Assert.IsInstanceOf<TargetProbabilityCalculationService>(calculationService);
         }
 
         [Test]

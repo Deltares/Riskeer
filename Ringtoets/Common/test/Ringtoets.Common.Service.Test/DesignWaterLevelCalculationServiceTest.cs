@@ -44,103 +44,18 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class DesignWaterLevelCalculationServiceTest
     {
-        private const double validNorm = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
-        public void Validate_ValidInput_ReturnsTrue()
+        public void Constructor_ExpectedValues()
         {
-            // Setup
-            var valid = false;
-
             // Call
-            Action call = () => valid = DesignWaterLevelCalculationService.Validate(validFilePath,
-                                                                                    validPreprocessorDirectory,
-                                                                                    validNorm);
+            var calculationService = new DesignWaterLevelCalculationService();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-            });
-            Assert.IsTrue(valid);
-        }
-
-        [Test]
-        public void Validate_InvalidHydraulicBoundaryDatabasePath_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            var valid = true;
-
-            // Call
-            Action call = () => valid = DesignWaterLevelCalculationService.Validate(notValidFilePath,
-                                                                                    validPreprocessorDirectory,
-                                                                                    validNorm);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            string notValidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
-            var valid = false;
-
-            // Call
-            Action call = () => valid = DesignWaterLevelCalculationService.Validate(notValidFilePath,
-                                                                                    validPreprocessorDirectory,
-                                                                                    validNorm);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
-        }
-
-        [Test]
-        public void Validate_InvalidPreprocessorDirectory_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
-            var valid = true;
-
-            // Call
-            Action call = () => valid = DesignWaterLevelCalculationService.Validate(validFilePath,
-                                                                                    invalidPreprocessorDirectory,
-                                                                                    validNorm);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-            });
-            Assert.IsFalse(valid);
+            Assert.IsInstanceOf<TargetProbabilityCalculationService>(calculationService);
         }
 
         [Test]
