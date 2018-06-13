@@ -376,7 +376,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(19, viewInfos.Length);
+                Assert.AreEqual(21, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -488,6 +488,18 @@ namespace Ringtoets.Integration.Plugin.Test
                     typeof(AssemblyResultPerSectionContext),
                     typeof(AssessmentSection),
                     typeof(AssemblyResultPerSectionView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(FailureMechanismAssemblyCategoriesContext),
+                    typeof(FailureMechanismAssemblyCategoriesContext),
+                    typeof(FailureMechanismAssemblyCategoriesView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext),
+                    typeof(GeotechnicalFailureMechanismAssemblyCategoriesContext),
+                    typeof(FailureMechanismAssemblyCategoriesView));
             }
         }
 

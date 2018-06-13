@@ -20,21 +20,21 @@
 // All rights reserved.
 
 using System.Linq;
+using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
 
 namespace Ringtoets.Common.Plugin.TestUtil
 {
     /// <summary>
-    /// Class for testing <see cref="ShouldCloseMethod"/> for failure mechanism sections views.
+    /// Class for testing <see cref="ShouldCloseMethod"/> for views related to a failure mechanism.
     /// </summary>
     [TestFixture]
-    public abstract class ShouldCloseFailureMechanismSectionsViewTester
+    public abstract class ShouldCloseViewWithFailureMechanismTester
     {
         [Test]
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
 
             var failureMechanism = new TestFailureMechanism();
 
-            using (FailureMechanismSectionsView view = GetView(failureMechanism))
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, assessmentSection);
@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             });
             mocks.ReplayAll();
 
-            using (FailureMechanismSectionsView view = GetView(failureMechanism))
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, assessmentSection);
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            using (FailureMechanismSectionsView view = GetView(failureMechanism))
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, new TestFailureMechanism());
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            using (FailureMechanismSectionsView view = GetView(failureMechanism))
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, failureMechanism);
@@ -128,7 +128,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(new TestFailureMechanism(), assessmentSection);
 
-            using (FailureMechanismSectionsView view = GetView(failureMechanism))
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Plugin.TestUtil
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismContext = new FailureMechanismContext<IFailureMechanism>(failureMechanism, assessmentSection);
 
-            using (FailureMechanismSectionsView view = GetView(failureMechanism))
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
@@ -169,13 +169,13 @@ namespace Ringtoets.Common.Plugin.TestUtil
         /// <param name="view">The failure mechanism sections view involved.</param>
         /// <param name="o">The object involved.</param>
         /// <returns>Whether the view should close or not.</returns>
-        protected abstract bool ShouldCloseMethod(FailureMechanismSectionsView view, object o);
+        protected abstract bool ShouldCloseMethod(IView view, object o);
 
         /// <summary>
-        /// Gets a failure mechanism sections view for testing purposes.
+        /// Gets a view for testing purposes.
         /// </summary>
         /// <param name="data">The failure mechanism containing the data to set to the view.</param>
-        /// <returns>A failure mechanism sections view object.</returns>
-        protected abstract FailureMechanismSectionsView GetView(IFailureMechanism data);
+        /// <returns>A view object.</returns>
+        protected abstract IView GetView(IFailureMechanism data);
     }
 }

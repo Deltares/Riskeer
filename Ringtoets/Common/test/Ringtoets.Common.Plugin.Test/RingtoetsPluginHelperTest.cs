@@ -84,14 +84,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [TestFixture]
-        public class ShouldCloseFailureMechanismSectionsViewTest : ShouldCloseFailureMechanismSectionsViewTester
+        public class ShouldCloseFailureMechanismSectionsViewForDataTester : ShouldCloseViewWithFailureMechanismTester
         {
-            protected override bool ShouldCloseMethod(FailureMechanismSectionsView view, object o)
+            protected override bool ShouldCloseMethod(IView view, object o)
             {
-                return RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView(view, o);
+                return RingtoetsPluginHelper.ShouldCloseFailureMechanismSectionsView((FailureMechanismSectionsView) view, o);
             }
 
-            protected override FailureMechanismSectionsView GetView(IFailureMechanism failureMechanism)
+            protected override IView GetView(IFailureMechanism failureMechanism)
             {
                 return new TestFailureMechanismSectionsView(failureMechanism);
             }

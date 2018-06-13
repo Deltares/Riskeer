@@ -19,26 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.AssemblyTool.Data;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin.TestUtil;
+using Ringtoets.Integration.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailureMechanismSectionsViewInfoTest
+    public class FailureMechanismAssemblyCategoriesViewInfoTest
     {
         private static ViewInfo info;
 
@@ -47,7 +47,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             using (var plugin = new RingtoetsPlugin())
             {
-                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionsView));
+                info = plugin.GetViewInfos().First(tni =>  tni.ViewType == typeof(FailureMechanismAssemblyCategoriesView)
+                                                           && tni.DataType == typeof(FailureMechanismAssemblyCategoriesContext));
             }
         }
 
@@ -55,8 +56,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionsContext), info.DataType);
-            Assert.AreEqual(typeof(IEnumerable<FailureMechanismSection>), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContext), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContext), info.ViewDataType);
         }
 
         [Test]
@@ -66,40 +67,41 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Vakindeling", viewName);
+            Assert.AreEqual("Categoriegrenzen", viewName);
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsFailureMechanismSections()
+        public void CreateInstance_WithContext_SetsExpectedViewProperties()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
+            var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
+            var failureMechanismAssemblyCategoriesContext = new FailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                                                                          assessmentSection,
+                                                                                                          () => new Random(39).NextDouble());
 
-            // Call
-            object viewData = info.GetViewData(failureMechanismSectionsContext);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var view = (FailureMechanismAssemblyCategoriesView) info.CreateInstance(failureMechanismAssemblyCategoriesContext);
 
-            // Assert
-            Assert.AreSame(failureMechanism.Sections, viewData);
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+            }
         }
 
         [Test]
-        public void Image_Always_ReturnsSectionsIcon()
+        public void Image_Always_ReturnsNormIcon()
         {
             // Call
             Image image = info.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.SectionsIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.NormsIcon, image);
         }
 
         [TestFixture]
-        public class ShouldCloseFailureMechanismSectionsViewForDataTester : ShouldCloseViewWithFailureMechanismTester
+        public class ShouldCloseFailureMechanismAssemblyCategoriesViewForDataTester : ShouldCloseViewWithFailureMechanismTester
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
@@ -108,7 +110,10 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             protected override IView GetView(IFailureMechanism failureMechanism)
             {
-                return new FailureMechanismSectionsView(failureMechanism.Sections, failureMechanism);
+                return new FailureMechanismAssemblyCategoriesView(failureMechanism,
+                                                                  new AssessmentSectionStub(),
+                                                                  Enumerable.Empty<FailureMechanismAssemblyCategory>,
+                                                                  Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
             }
         }
     }

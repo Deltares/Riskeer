@@ -22,6 +22,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -98,14 +99,14 @@ namespace Ringtoets.Piping.Plugin.Test.ViewInfos
         }
 
         [TestFixture]
-        public class PipingFailureMechanismSectionsProbabilityAssessmentViewInfoCloseForDataTester : ShouldCloseFailureMechanismSectionsViewTester
+        public class ShouldClosePipingSectionsViewForDataTester : ShouldCloseViewWithFailureMechanismTester
         {
-            protected override bool ShouldCloseMethod(FailureMechanismSectionsView view, object o)
+            protected override bool ShouldCloseMethod(IView view, object o)
             {
                 return info.CloseForData(view, o);
             }
 
-            protected override FailureMechanismSectionsView GetView(IFailureMechanism failureMechanism)
+            protected override IView GetView(IFailureMechanism failureMechanism)
             {
                 return new FailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                              failureMechanism,
