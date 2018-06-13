@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(failureMechanismContribution, view.FailureMechanismContribution);
 
-                AssessmentSectionAssemblyCategoriesTable tableControl = GetCategoriesTable(view);
+                AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> tableControl = GetCategoriesTable(view);
                 Assert.NotNull(tableControl);
                 Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
 
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
-                AssessmentSectionAssemblyCategoriesTable categoriesTable = GetCategoriesTable(view);
+                AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> categoriesTable = GetCategoriesTable(view);
 
                 // Precondition
                 Assert.AreEqual(calculator.AssessmentSectionCategoriesOutput.Count(), categoriesTable.Rows.Count);
@@ -121,9 +121,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static AssessmentSectionAssemblyCategoriesTable GetCategoriesTable(AssessmentSectionAssemblyCategoriesView view)
+        private static AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> GetCategoriesTable(AssessmentSectionAssemblyCategoriesView view)
         {
-            return ControlTestHelper.GetControls<AssessmentSectionAssemblyCategoriesTable>(view, "assessmentSectionAssemblyCategoriesTable").Single();
+            return ControlTestHelper.GetControls<AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>>(
+                view, "assessmentSectionAssemblyCategoriesTable").Single();
         }
     }
 }

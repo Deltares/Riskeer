@@ -24,42 +24,44 @@ using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Util;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row displaying the properties of a <see cref="AssessmentSectionAssemblyCategory"/>.
+    /// This class represents a row displaying the properties of a <see cref="AssemblyCategory"/>.
     /// </summary>
-    internal class AssessmentSectionAssemblyCategoryRow
+    internal class AssemblyCategoryRow<T>
+        where T : struct
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategoryRow"/>.
+        /// Creates a new instance of <see cref="AssemblyCategoryRow{T}"/>.
         /// </summary>
-        /// <param name="assessmentSectionAssemblyCategory">The <see cref="AssessmentSectionAssemblyCategory"/> to use.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSectionAssemblyCategory"/>
+        /// <param name="assemblyCategory">The <see cref="AssemblyCategory"/> to use.</param>
+        /// <param name="assemblyColor">The <see cref="Color"/> belonging to this category.</param>
+        /// <param name="assemblyCategoryGroup">The category group of this category.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assemblyCategory"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        public AssessmentSectionAssemblyCategoryRow(AssessmentSectionAssemblyCategory assessmentSectionAssemblyCategory)
+        public AssemblyCategoryRow(AssemblyCategory assemblyCategory,
+                                   Color assemblyColor,
+                                   T assemblyCategoryGroup)
         {
-            if (assessmentSectionAssemblyCategory == null)
+            if (assemblyCategory == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSectionAssemblyCategory));
+                throw new ArgumentNullException(nameof(assemblyCategory));
             }
 
-            Group = assessmentSectionAssemblyCategory.Group;
-            Color = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assessmentSectionAssemblyCategory.Group);
-            UpperBoundary = assessmentSectionAssemblyCategory.UpperBoundary;
-            LowerBoundary = assessmentSectionAssemblyCategory.LowerBoundary;
+            Group = assemblyCategoryGroup;
+            Color = assemblyColor;
+            UpperBoundary = assemblyCategory.UpperBoundary;
+            LowerBoundary = assemblyCategory.LowerBoundary;
         }
 
         /// <summary>
         /// Gets the display name of the category group.
         /// </summary>
         [TypeConverter(typeof(EnumTypeConverter))]
-        public AssessmentSectionAssemblyCategoryGroup Group { get; }
+        public T Group { get; }
 
         /// <summary>
         /// Gets the color of the category.

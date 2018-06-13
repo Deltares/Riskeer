@@ -20,28 +20,33 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryRowTest
+    public class AssemblyCategoryRowTest
     {
         [Test]
-        public void Constructor_AssessmentSectionAssemblyCategoryNull_ThrowsArgumentNullException()
+        public void Constructor_AssemblyCategoryNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(39);
+
             // Call
-            TestDelegate test = () => new AssessmentSectionAssemblyCategoryRow(null);
+            TestDelegate test = () => new AssemblyCategoryRow<TestAssemblyCategoryGroup>(null, 
+                                                                                         Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                                                                                         random.NextEnumValue<TestAssemblyCategoryGroup>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("assessmentSectionAssemblyCategory", paramName);
+            Assert.AreEqual("assemblyCategory", paramName);
         }
 
         [Test]
@@ -51,26 +56,35 @@ namespace Ringtoets.Integration.Forms.Test.Views
             var random = new Random(39);
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
-            var categoryGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
-            var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryGroup);
+            var categoryGroup = random.NextEnumValue<TestAssemblyCategoryGroup>();
+            Color categoryColor = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
+            var category = new TestAssemblyCategory(lowerBoundary, upperBoundary);
 
             // Call
-            var categoryRow = new AssessmentSectionAssemblyCategoryRow(category);
+            var categoryRow = new AssemblyCategoryRow<TestAssemblyCategoryGroup>(category, categoryColor, categoryGroup);
 
             // Assert
             Assert.AreEqual(categoryGroup, categoryRow.Group);
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(categoryGroup), categoryRow.Color);
+            Assert.AreEqual(categoryColor, categoryRow.Color);
             Assert.AreEqual(lowerBoundary, categoryRow.LowerBoundary);
             Assert.AreEqual(upperBoundary, categoryRow.UpperBoundary);
 
-            TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
-                EnumTypeConverter>(nameof(AssessmentSectionAssemblyCategoryRow.Group));
-            TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
+            TestHelper.AssertTypeConverter<AssemblyCategoryRow<TestAssemblyCategoryGroup>,
+                EnumTypeConverter>(nameof(AssemblyCategoryRow<TestAssemblyCategoryGroup>.Group));
+            TestHelper.AssertTypeConverter<AssemblyCategoryRow<TestAssemblyCategoryGroup>,
                 NoProbabilityValueDoubleConverter>(
-                nameof(AssessmentSectionAssemblyCategoryRow.LowerBoundary));
-            TestHelper.AssertTypeConverter<AssessmentSectionAssemblyCategoryRow,
+                nameof(AssemblyCategoryRow<TestAssemblyCategoryGroup>.LowerBoundary));
+            TestHelper.AssertTypeConverter<AssemblyCategoryRow<TestAssemblyCategoryGroup>,
                 NoProbabilityValueDoubleConverter>(
-                nameof(AssessmentSectionAssemblyCategoryRow.UpperBoundary));
+                nameof(AssemblyCategoryRow<TestAssemblyCategoryGroup>.UpperBoundary));
         }
+
+        private class TestAssemblyCategory : AssemblyCategory
+        {
+            public TestAssemblyCategory(double lowerBoundary, double upperBoundary)
+                : base(lowerBoundary, upperBoundary) {}
+        }
+
+        private enum TestAssemblyCategoryGroup {}
     }
 }

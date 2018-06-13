@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.AssemblyTool.Data;
+
 namespace Ringtoets.Integration.Forms.Views
 {
     partial class AssessmentSectionAssemblyCategoriesView
@@ -38,19 +40,19 @@ namespace Ringtoets.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyCategoriesView));
-            this.assessmentSectionAssemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssessmentSectionAssemblyCategoriesTable();
+            this.assemblyCategoriesTable = new Ringtoets.Integration.Forms.Views.AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>();
             this.SuspendLayout();
             // 
             // assessmentSectionAssemblyCategoriesTable
             // 
-            resources.ApplyResources(this.assessmentSectionAssemblyCategoriesTable, "assessmentSectionAssemblyCategoriesTable");
-            this.assessmentSectionAssemblyCategoriesTable.MultiSelect = true;
-            this.assessmentSectionAssemblyCategoriesTable.Name = "assessmentSectionAssemblyCategoriesTable";
-            this.assessmentSectionAssemblyCategoriesTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            resources.ApplyResources(this.assemblyCategoriesTable, "assemblyCategoriesTable");
+            this.assemblyCategoriesTable.MultiSelect = true;
+            this.assemblyCategoriesTable.Name = "assemblyCategoriesTable";
+            this.assemblyCategoriesTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
             // FailureMechanismSectionsView
             // 
-            this.Controls.Add(this.assessmentSectionAssemblyCategoriesTable);
+            this.Controls.Add(this.assemblyCategoriesTable);
             this.Name = "AssessmentSectionAssemblyCategoriesView";
             resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
@@ -60,6 +62,6 @@ namespace Ringtoets.Integration.Forms.Views
 
         #endregion
 
-        private AssessmentSectionAssemblyCategoriesTable assessmentSectionAssemblyCategoriesTable;
+        private AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> assemblyCategoriesTable;
     }
 }

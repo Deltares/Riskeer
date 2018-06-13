@@ -109,8 +109,8 @@
       <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\IAssessmentSectionCompositionChangeHandler.cs" />
-    <Compile Include="Views\AssessmentSectionAssemblyCategoryRow.cs" />
-    <Compile Include="Views\AssessmentSectionAssemblyCategoriesTable.cs">
+    <Compile Include="Views\AssemblyCategoryRow.cs" />
+    <Compile Include="Views\AssemblyCategoriesTable.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\AssessmentSectionAssemblyCategoriesView.cs">

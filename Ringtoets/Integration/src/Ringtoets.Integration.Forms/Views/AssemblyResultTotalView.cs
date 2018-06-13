@@ -134,7 +134,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.CategoryGroup),
-                                                 Resources.AssemblyCategory_Group_DisplayName,
+                                                 RingtoetsCommonFormsResources.AssemblyCategory_Group_DisplayName,
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRowBase.Probablity),

@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -68,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Views
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
         public object Data { get; set; }
-        
+
         protected override void Dispose(bool disposing)
         {
             failureMechanismContributionObserver.Dispose();
@@ -83,9 +86,14 @@ namespace Ringtoets.Integration.Forms.Views
 
         private void UpdateTableData()
         {
-            assessmentSectionAssemblyCategoriesTable.SetData(AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(
-                                                                 FailureMechanismContribution.SignalingNorm,
-                                                                 FailureMechanismContribution.LowerLimitNorm));
+            assemblyCategoriesTable.SetData(
+                AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(
+                                                 FailureMechanismContribution.SignalingNorm,
+                                                 FailureMechanismContribution.LowerLimitNorm)
+                                             .Select(category => new Tuple<AssemblyCategory, Color, AssessmentSectionAssemblyCategoryGroup>(
+                                                         category,
+                                                         AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group),
+                                                         category.Group)));
         }
     }
 }

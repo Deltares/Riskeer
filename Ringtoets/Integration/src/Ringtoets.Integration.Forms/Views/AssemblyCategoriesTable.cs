@@ -19,24 +19,27 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class defines a table in which properties of <see cref="AssessmentSectionAssemblyCategory"/> instances
+    /// This class defines a table in which properties of <see cref="AssemblyCategory"/> instances
     /// are shown as rows.
     /// </summary>
-    public class AssessmentSectionAssemblyCategoriesTable : DataGridViewControl
+    public class AssemblyCategoriesTable<T> : DataGridViewControl 
+        where T : struct
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategoriesTable"/>.
+        /// Creates a new instance of <see cref="AssemblyCategoriesTable{T}"/>.
         /// </summary>
-        public AssessmentSectionAssemblyCategoriesTable()
+        public AssemblyCategoriesTable()
         {
             AddColumns();
         }
@@ -46,26 +49,26 @@ namespace Ringtoets.Integration.Forms.Views
         /// are shown in the table.
         /// </summary>
         /// <param name="categories">The collection of categories to show.</param>
-        public void SetData(IEnumerable<AssessmentSectionAssemblyCategory> categories)
+        public void SetData(IEnumerable<Tuple<AssemblyCategory, Color, T>> categories)
         {
-            SetDataSource(categories?.Select(category => new AssessmentSectionAssemblyCategoryRow(category)).ToArray());
+            SetDataSource(categories?.Select(category => new AssemblyCategoryRow<T>(category.Item1, category.Item2, category.Item3)).ToArray());
         }
 
         private void AddColumns()
         {
-            AddTextBoxColumn(nameof(AssessmentSectionAssemblyCategoryRow.Group),
-                             Resources.AssemblyCategory_Group_DisplayName,
+            AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.Group),
+                             RingtoetsCommonFormsResources.AssemblyCategory_Group_DisplayName,
                              true);
 
-            AddColorColumn(nameof(AssessmentSectionAssemblyCategoryRow.Color),
-                           Resources.AssessmentSectionAssemblyCategory_Color_DisplayName);
+            AddColorColumn(nameof(AssemblyCategoryRow<T>.Color),
+                           RingtoetsCommonFormsResources.AssemblyCategory_Color_DisplayName);
 
-            AddTextBoxColumn(nameof(AssessmentSectionAssemblyCategoryRow.LowerBoundary),
-                             Resources.AssessmentSectionAssemblyCategory_LowerBoundary_DisplayName,
+            AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.LowerBoundary),
+                             RingtoetsCommonFormsResources.AssemblyCategory_LowerBoundary_DisplayName,
                              true);
 
-            AddTextBoxColumn(nameof(AssessmentSectionAssemblyCategoryRow.UpperBoundary),
-                             Resources.AssessmentSectionAssemblyCategory_UpperBoundary_DisplayName,
+            AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.UpperBoundary),
+                             RingtoetsCommonFormsResources.AssemblyCategory_UpperBoundary_DisplayName,
                              true);
         }
     }

@@ -20,19 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoriesTableTest
+    public class AssemblyCategoriesTableTest
     {
         private const int categoryGroupColumnIndex = 0;
         private const int colorColumnIndex = 1;
@@ -43,7 +42,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_InitializesWithColumns()
         {
             // Call
-            using (var table = new AssessmentSectionAssemblyCategoriesTable())
+            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
                 // Assert
                 Assert.IsInstanceOf<DataGridViewControl>(table);
@@ -78,9 +77,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void SetData_NoDataAlreadySet_SetNewData()
         {
             // Setup
-            using (var table = new AssessmentSectionAssemblyCategoriesTable())
+            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
-                var categories = new[]
+                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] categories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -99,9 +98,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void SetData_SetNullDataAfterDataAlreadySet_ClearsData()
         {
             // Setup
-            using (var table = new AssessmentSectionAssemblyCategoriesTable())
+            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
-                var categories = new[]
+                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] categories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -121,14 +120,14 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void SetData_SetNewDataAfterDataAlreadySet_ClearDataAndAddNewData()
         {
             // Setup
-            using (var table = new AssessmentSectionAssemblyCategoriesTable())
+            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
                 table.SetData(new[]
                 {
                     CreateAssessmentSectionAssemblyCategory()
                 });
 
-                var newCategories = new[]
+                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] newCategories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -147,9 +146,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void SetData_WithData_ExpectedValuesInTable()
         {
             // Setup
-            using (var table = new AssessmentSectionAssemblyCategoriesTable())
+            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
             {
-                var categories = new[]
+                Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>[] categories =
                 {
                     CreateAssessmentSectionAssemblyCategory(),
                     CreateAssessmentSectionAssemblyCategory(),
@@ -163,23 +162,31 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(categories.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
-                    AssessmentSectionAssemblyCategory category = categories[i];
+                    Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup> category = categories[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
-                    Assert.AreEqual(category.Group, rowCells[categoryGroupColumnIndex].Value);
-                    Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group), rowCells[colorColumnIndex].Value);
-                    Assert.AreEqual(category.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
-                    Assert.AreEqual(category.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);
+                    Assert.AreEqual(category.Item3, rowCells[categoryGroupColumnIndex].Value);
+                    Assert.AreEqual(category.Item2, rowCells[colorColumnIndex].Value);
+                    Assert.AreEqual(category.Item1.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
+                    Assert.AreEqual(category.Item1.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);
                 }
             }
         }
 
-        private static AssessmentSectionAssemblyCategory CreateAssessmentSectionAssemblyCategory()
+        private static Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup> CreateAssessmentSectionAssemblyCategory()
         {
             var random = new Random(39);
-            return new AssessmentSectionAssemblyCategory(random.NextDouble(),
-                                                         random.NextDouble(),
-                                                         random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+            return new Tuple<AssemblyCategory, Color, TestAssemblyCategoryGroup>(new TestAssemblyCategory(random.NextDouble(), random.NextDouble()),
+                                                                                 Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                                                                                 random.NextEnumValue<TestAssemblyCategoryGroup>());
         }
+
+        private class TestAssemblyCategory : AssemblyCategory
+        {
+            public TestAssemblyCategory(double lowerBoundary, double upperBoundary)
+                : base(lowerBoundary, upperBoundary) {}
+        }
+
+        private enum TestAssemblyCategoryGroup {}
     }
 }

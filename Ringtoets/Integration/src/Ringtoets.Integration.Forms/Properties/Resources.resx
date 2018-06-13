@@ -339,18 +339,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismProperties_Contribution_Other_Percentage_0" xml:space="preserve">
     <value>Overig ({0})</value>
   </data>
-  <data name="AssessmentSectionAssemblyCategory_Color_DisplayName" xml:space="preserve">
-    <value>Kleur</value>
-  </data>
-  <data name="AssemblyCategory_Group_DisplayName" xml:space="preserve">
-    <value>Categorie</value>
-  </data>
-  <data name="AssessmentSectionAssemblyCategory_LowerBoundary_DisplayName" xml:space="preserve">
-    <value>Ondergrens [1/jaar]</value>
-  </data>
-  <data name="AssessmentSectionAssemblyCategory_UpperBoundary_DisplayName" xml:space="preserve">
-    <value>Bovengrens [1/jaar]</value>
-  </data>
   <data name="AssemblyResultCategoryTreeFolder_DisplayName" xml:space="preserve">
     <value>Assemblage</value>
   </data>

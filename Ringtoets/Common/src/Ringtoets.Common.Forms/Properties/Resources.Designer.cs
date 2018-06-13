@@ -92,6 +92,42 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kleur.
+        /// </summary>
+        public static string AssemblyCategory_Color_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyCategory_Color_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categorie.
+        /// </summary>
+        public static string AssemblyCategory_Group_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyCategory_Group_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens [1/jaar].
+        /// </summary>
+        public static string AssemblyCategory_LowerBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyCategory_LowerBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens [1/jaar].
+        /// </summary>
+        public static string AssemblyCategory_UpperBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyCategory_UpperBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm..
         /// </summary>
         public static string AssessmentLevel_Description {
