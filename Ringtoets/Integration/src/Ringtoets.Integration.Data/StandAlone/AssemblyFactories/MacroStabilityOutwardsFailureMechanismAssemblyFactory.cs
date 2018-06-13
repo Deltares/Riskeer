@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 {
@@ -289,22 +290,26 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                 return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
             }
 
-            IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                failureMechanism.SectionResults.Select(sectionResult => GetSectionAssemblyCategoryGroup(sectionResult,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection)).ToArray();
-
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismAssemblyCalculator calculator =
-                calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
             try
             {
+                IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
+                    failureMechanism.SectionResults.Select(sectionResult => GetSectionAssemblyCategoryGroup(sectionResult,
+                                                                                                            failureMechanism,
+                                                                                                            assessmentSection)).ToArray();
+
+                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IFailureMechanismAssemblyCalculator calculator =
+                    calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
                 return calculator.Assemble(sectionAssemblies);
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyException(RingtoetsCommonDataResources.FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism, e);
             }
         }
 
