@@ -506,7 +506,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNoneOrAssessFurther_SetsInputOnCalculator(SimpleAssessmentResultType simpleAssessmentResult)
+        public void AssembleCombinedAssessment_WithVariousSimpleAssessmentInputAssemblesWithAllInformation_SetsInputOnCalculator(SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -553,7 +553,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         [Test]
         [TestCase(SimpleAssessmentResultType.NotApplicable)]
         [TestCase(SimpleAssessmentResultType.ProbabilityNegligible)]
-        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNotApplicableOrProbabilityNegligible_SetsInputOnCalculator(
+        public void AssembleCombinedAssessment_WithVariousSimpleAssessmentInputAssemblesWithOnlySimpleAssessmentInput_SetsInputOnCalculator(
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
