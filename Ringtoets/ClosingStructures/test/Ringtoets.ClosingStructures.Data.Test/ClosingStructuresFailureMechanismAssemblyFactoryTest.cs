@@ -1102,8 +1102,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
                 Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<AssemblyException>(innerException);
+                Assert.AreEqual("Voor een of meerdere vakken kan geen resultaat worden bepaald.", exception.Message);
                 mocks.VerifyAll();
             }
         }
