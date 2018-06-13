@@ -806,7 +806,7 @@ namespace Ringtoets.Piping.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
@@ -855,7 +855,7 @@ namespace Ringtoets.Piping.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                
+
                 // Call
                 PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
@@ -867,7 +867,6 @@ namespace Ringtoets.Piping.Data.Test
                 mocks.VerifyAll();
             }
         }
-
 
         [Test]
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
@@ -919,7 +918,7 @@ namespace Ringtoets.Piping.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                
+
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult,
@@ -953,7 +952,7 @@ namespace Ringtoets.Piping.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 if (useManualAssembly)
                 {
@@ -1186,8 +1185,8 @@ namespace Ringtoets.Piping.Data.Test
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
                 Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
-                Assert.AreEqual(innerException.Message, exception.Message);
+                Assert.IsInstanceOf<AssemblyException>(innerException);
+                Assert.AreEqual("Voor een of meerdere vakken kan geen resultaat worden bepaald.", exception.Message);
                 mocks.VerifyAll();
             }
         }
