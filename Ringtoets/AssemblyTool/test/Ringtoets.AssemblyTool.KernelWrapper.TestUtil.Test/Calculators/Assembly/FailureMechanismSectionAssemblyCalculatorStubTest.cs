@@ -69,6 +69,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.IsNull(calculator.CombinedTailorMadeAssemblyInput);
             Assert.IsNull(calculator.CombinedAssemblyOutput);
 
+            Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedSimpleAssemblyGroupInput);
+            Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
+            Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedTailorMadeAssemblyGroupInput);
+            Assert.IsNull(calculator.CombinedAssemblyCategoryOutput);
+
             Assert.AreEqual(0.0, calculator.ManualAssemblyNInput);
             Assert.AreEqual(0.0, calculator.ManualAssemblyProbabilityInput);
             Assert.IsNull(calculator.ManualAssemblyAssemblyOutput);
@@ -76,7 +81,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.IsNull(calculator.AssemblyCategoriesInput);
         }
 
-        private AssemblyCategoriesInput CreateAssemblyCategoriesInput()
+        private static AssemblyCategoriesInput CreateAssemblyCategoriesInput()
         {
             var random = new Random(39);
             return new AssemblyCategoriesInput(random.NextDouble(),
@@ -995,8 +1000,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Assert
             Assert.AreSame(simpleAssembly, calculator.CombinedSimpleAssemblyInput);
-            Assert.IsNull(calculator.CombinedDetailedAssemblyInput);
-            Assert.IsNull(calculator.CombinedTailorMadeAssemblyInput);
         }
 
         [Test]
@@ -1217,8 +1220,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Assert
             Assert.AreEqual(simpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
-            Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedDetailedAssemblyGroupInput);
-            Assert.AreEqual((FailureMechanismSectionAssemblyCategoryGroup) 0, calculator.CombinedTailorMadeAssemblyGroupInput);
         }
 
         [Test]
