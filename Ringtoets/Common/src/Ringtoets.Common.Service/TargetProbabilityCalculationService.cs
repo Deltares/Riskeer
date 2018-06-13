@@ -68,6 +68,15 @@ namespace Ringtoets.Common.Service
                 isValid = false;
             }
 
+            if (!TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm,
+                                                                                     message => CalculationServiceHelper.LogMessagesAsError(new[]
+                                                                                     {
+                                                                                         message
+                                                                                     })))
+            {
+                isValid = false;
+            }
+
             CalculationServiceHelper.LogValidationEnd();
 
             return isValid;

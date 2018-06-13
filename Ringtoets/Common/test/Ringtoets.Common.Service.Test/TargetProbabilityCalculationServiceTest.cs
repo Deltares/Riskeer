@@ -131,6 +131,52 @@ namespace Ringtoets.Common.Service.Test
             Assert.IsFalse(valid);
         }
 
+        [Test]
+        public void Validate_NormInvalid_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var valid = true;
+
+            // Call
+            Action call = () => valid = calculationService.Validate(validFilePath,
+                                                                    validPreprocessorDirectory,
+                                                                    double.NaN);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Kon geen doelkans bepalen voor deze berekening.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
+        [Test]
+        public void Validate_NormTooBig_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var valid = true;
+
+            // Call
+            Action call = () => valid = calculationService.Validate(validFilePath,
+                                                                    validPreprocessorDirectory,
+                                                                    1.0);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsFalse(valid);
+        }
+
         private class TestTargetProbabilityCalculationService : TargetProbabilityCalculationService {}
     }
 }
