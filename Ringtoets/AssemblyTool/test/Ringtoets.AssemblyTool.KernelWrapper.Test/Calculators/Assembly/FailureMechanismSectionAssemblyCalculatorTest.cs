@@ -2455,6 +2455,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleCombinedWithSimpleAndTailorMadeAssemblyOnly_WithInvalidEnumInput_ThrowFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
+            var random = new Random(21);
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -2462,7 +2463,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 TestDelegate test = () => calculator.AssembleCombined((FailureMechanismSectionAssemblyCategoryGroup) 99,
-                                                                      (FailureMechanismSectionAssemblyCategoryGroup) 99);
+                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(test);

@@ -448,7 +448,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return CombinedAssemblyCategoryOutput.Value;
         }
 
-        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly, FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly)
+        public FailureMechanismSectionAssemblyCategoryGroup AssembleCombined(FailureMechanismSectionAssemblyCategoryGroup simpleAssembly, 
+                                                                             FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly)
         {
             if (ThrowExceptionOnCalculateCombinedAssembly)
             {
