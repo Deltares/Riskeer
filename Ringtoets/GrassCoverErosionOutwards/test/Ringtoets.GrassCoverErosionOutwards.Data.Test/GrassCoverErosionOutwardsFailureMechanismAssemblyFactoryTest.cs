@@ -368,7 +368,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
-                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly = 
+                FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssembly =
                     GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 Assert.AreEqual(expectedSimpleAssembly, calculator.CombinedSimpleAssemblyGroupInput);
@@ -653,7 +653,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 

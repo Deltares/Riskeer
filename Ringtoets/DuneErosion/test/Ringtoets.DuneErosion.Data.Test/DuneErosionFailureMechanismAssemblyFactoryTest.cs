@@ -647,10 +647,10 @@ namespace Ringtoets.DuneErosion.Data.Test
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
