@@ -506,7 +506,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [Test]
         [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void AssembleCombinedAssessment_WithInputSimpleAssessmentNoneOrApplicable_SetsInputOnCalculator(
+        public void AssembleCombinedAssessment_WithVariousSimpleAssessmentInputAssemblesWithAllInformation_SetsInputOnCalculator(
             SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
