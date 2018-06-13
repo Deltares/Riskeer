@@ -29,6 +29,7 @@ using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
 using Ringtoets.Common.Data.AssemblyTool;
 using Ringtoets.Common.Data.Exceptions;
 using Ringtoets.Common.Primitives;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Data
 {
@@ -200,7 +201,6 @@ namespace Ringtoets.StabilityStoneCover.Data
                        : AssembleCombinedAssessment(failureMechanismSectionResult);
         }
 
-
         /// <summary>
         /// Assembles the failure mechanism assembly.
         /// </summary>
@@ -222,20 +222,24 @@ namespace Ringtoets.StabilityStoneCover.Data
                 return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
             }
 
-            IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
-                failureMechanism.SectionResults.Select(GetSectionAssemblyCategoryGroup).ToArray();
-
-            IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
-            IFailureMechanismAssemblyCalculator calculator =
-                calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
-
             try
             {
+                IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionAssemblies =
+                    failureMechanism.SectionResults.Select(GetSectionAssemblyCategoryGroup).ToArray();
+
+                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IFailureMechanismAssemblyCalculator calculator =
+                    calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
                 return calculator.Assemble(sectionAssemblies);
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyException(RingtoetsCommonDataResources.FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism, e);
             }
         }
     }
