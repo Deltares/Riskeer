@@ -555,6 +555,26 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Categoriegrenzen per traject.
+        /// </summary>
+        public static string FailureMechanismAssemblyCategoriesView_FailureMechanismCategoriesGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesView_FailureMechanismCategoriesGroup_DisplayNam" +
+                        "e", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoriegrenzen per vak.
+        /// </summary>
+        public static string FailureMechanismAssemblyCategoriesView_FailureMechanismSectionCategoriesGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyCategoriesView_FailureMechanismSectionCategoriesGroup_Dis" +
+                        "playName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Trajecttype: {0}.
         /// </summary>
         public static string FailureMechanismContributionView_AssessmentSectionCompositionLabelText_AssessmentSectionComposition_0_ {

@@ -396,4 +396,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen per vak</value>
   </data>
+  <data name="FailureMechanismAssemblyCategoriesView_FailureMechanismCategoriesGroup_DisplayName" xml:space="preserve">
+    <value>Categoriegrenzen per traject</value>
+  </data>
+  <data name="FailureMechanismAssemblyCategoriesView_FailureMechanismSectionCategoriesGroup_DisplayName" xml:space="preserve">
+    <value>Categoriegrenzen per vak</value>
+  </data>
 </root>
