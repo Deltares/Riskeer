@@ -34,11 +34,11 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <param name="norm">The norm to validate.</param>
+        /// <param name="targetProbability">The target probability to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         public bool Validate(string hydraulicBoundaryDatabaseFilePath,
                              string preprocessorDirectory,
-                             double norm)
+                             double targetProbability)
         {
             var isValid = true;
 
@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Service
                 isValid = false;
             }
 
-            if (!TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm,
+            if (!TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability,
                                                                                      message => CalculationServiceHelper.LogMessagesAsError(new[]
                                                                                      {
                                                                                          message

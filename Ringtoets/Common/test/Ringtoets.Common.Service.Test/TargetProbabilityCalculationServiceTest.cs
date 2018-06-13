@@ -31,7 +31,7 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class TargetProbabilityCalculationServiceTest
     {
-        private const double validNorm = 0.005;
+        private const double validTargetProbability = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Service.Test
             // Call
             Action call = () => valid = calculationService.Validate(validFilePath,
                                                                     validPreprocessorDirectory,
-                                                                    validNorm);
+                                                                    validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service.Test
             // Call
             Action call = () => valid = calculationService.Validate(notValidFilePath,
                                                                     validPreprocessorDirectory,
-                                                                    validNorm);
+                                                                    validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Service.Test
             // Call
             Action call = () => valid = calculationService.Validate(notValidFilePath,
                                                                     validPreprocessorDirectory,
-                                                                    validNorm);
+                                                                    validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Service.Test
             // Call
             Action call = () => valid = calculationService.Validate(validFilePath,
                                                                     invalidPreprocessorDirectory,
-                                                                    validNorm);
+                                                                    validTargetProbability);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_NormInvalid_LogsErrorAndReturnsFalse()
+        public void Validate_TargetProbabilityInvalid_LogsErrorAndReturnsFalse()
         {
             // Setup
             var valid = true;
@@ -155,7 +155,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Validate_NormTooBig_LogsErrorAndReturnsFalse()
+        public void Validate_TargetProbabilityInvalidTooBig_LogsErrorAndReturnsFalse()
         {
             // Setup
             var valid = true;
