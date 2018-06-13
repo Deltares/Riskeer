@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         private static AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> GetCategoriesTable(AssessmentSectionAssemblyCategoriesView view)
         {
             return ControlTestHelper.GetControls<AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>>(
-                view, "assessmentSectionAssemblyCategoriesTable").Single();
+                view, "assemblyCategoriesTable").Single();
         }
     }
 }

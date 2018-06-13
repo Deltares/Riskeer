@@ -187,6 +187,9 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 : base(lowerBoundary, upperBoundary) {}
         }
 
-        private enum TestAssemblyCategoryGroup {}
+        private enum TestAssemblyCategoryGroup
+        {
+            I = 1
+        }
     }
 }
