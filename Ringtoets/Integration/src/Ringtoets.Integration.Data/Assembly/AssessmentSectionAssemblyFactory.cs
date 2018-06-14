@@ -34,6 +34,7 @@ using Ringtoets.DuneErosion.Data;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone.AssemblyFactories;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
@@ -77,6 +78,10 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 throw new AssemblyException(e.Message, e);
             }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
+            }
         }
 
         /// <summary>
@@ -104,6 +109,10 @@ namespace Ringtoets.Integration.Data.Assembly
             catch (AssessmentSectionAssemblyCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
             }
         }
 

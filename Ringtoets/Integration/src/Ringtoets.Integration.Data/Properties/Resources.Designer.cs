@@ -100,6 +100,15 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voor een of meerdere toetssporen kan geen oordeel worden bepaald..
+        /// </summary>
+        public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faalkansbegroting.
         /// </summary>
         public static string FailureMechanismContribution_DisplayName {

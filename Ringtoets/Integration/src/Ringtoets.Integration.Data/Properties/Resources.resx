@@ -174,4 +174,7 @@
   <data name="StrengthStabilityLengthwiseConstructionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Sterkte en stabiliteit langsconstructies</value>
   </data>
+  <data name="AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims" xml:space="preserve">
+    <value>Voor een of meerdere toetssporen kan geen oordeel worden bepaald.</value>
+  </data>
 </root>
