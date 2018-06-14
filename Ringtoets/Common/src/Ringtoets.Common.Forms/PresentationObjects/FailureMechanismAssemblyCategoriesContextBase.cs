@@ -66,6 +66,23 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         }
 
         /// <summary>
+        /// Gets the assessment section that the context belongs to.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Gets the function to retrieve a collection of <see cref="FailureMechanismAssemblyCategory"/>.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when an error occurs while creating the categories.</exception>
+        public Func<IEnumerable<FailureMechanismAssemblyCategory>> GetFailureMechanismCategoriesFunc { get; }
+
+        /// <summary>
+        /// Gets the function to retrieve a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.
+        /// </summary>
+        /// <exception cref="AssemblyException">Thrown when an error occurs while creating the categories.</exception>
+        public abstract Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
+
+        /// <summary>
         /// Gets the <see cref="FailureMechanismContribution"/>
         /// </summary>
         protected FailureMechanismContribution FailureMechanismContribution
@@ -75,21 +92,5 @@ namespace Ringtoets.Common.Forms.PresentationObjects
                 return AssessmentSection.FailureMechanismContribution;
             }
         }
-
-        /// <summary>
-        /// Gets the assessment section that the context belongs to.
-        /// </summary>
-        public IAssessmentSection AssessmentSection { get; }
-
-        /// <summary>
-        /// Gets the function to retrieve a collection of <see cref="FailureMechanismAssemblyCategory"/>.
-        /// </summary>
-        public Func<IEnumerable<FailureMechanismAssemblyCategory>> GetFailureMechanismCategoriesFunc { get; }
-
-        /// <summary>
-        /// Gets the function to retrieve a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.
-        /// </summary>
-        /// <exception cref="AssemblyException">Thrown when an error occurs while creating the categories.</exception>
-        public abstract Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
     }
 }

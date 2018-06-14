@@ -20,15 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -38,7 +41,7 @@ using Ringtoets.Integration.Forms.TestUtil;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class FailureMechanismAssemblyCategoriesPropertyInfoTest
+    public class FailureMechanismAssemblyCategoriesContextBasePropertyInfoTest
     {
         private RingtoetsPlugin plugin;
         private PropertyInfo info;
@@ -47,8 +50,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RingtoetsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismAssemblyCategoriesProperties)
-                                                          && tni.DataType == typeof(FailureMechanismAssemblyCategoriesContext));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(FailureMechanismAssemblyCategoriesProperties));
         }
 
         [TearDown]
@@ -61,7 +63,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContext), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContextBase), info.DataType);
         }
 
         [Test]
@@ -76,7 +78,11 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSectionStub();
-            var context = new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => n);
+
+            IEnumerable<FailureMechanismSectionAssemblyCategory> failureMechanismSectionAssemblyCategories = GetFailureMechanismSectionAssemblyCategories();
+            var context = new TestFailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection,
+                                                                            () => 0,
+                                                                            () => failureMechanismSectionAssemblyCategories);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -93,11 +99,37 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 var properties = (FailureMechanismAssemblyCategoriesProperties) objectProperties;
                 AssemblyCategoryPropertiesTestHelper.AssertFailureMechanismAssemblyCategoryProperties(
                     calculator.FailureMechanismCategoriesOutput,
-                    calculator.FailureMechanismSectionCategoriesOutput,
+                    failureMechanismSectionAssemblyCategories,
                     properties);
             }
 
             mocks.VerifyAll();
+        }
+
+        private class TestFailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase
+        {
+            public TestFailureMechanismAssemblyCategoriesContext(IFailureMechanism wrappedData,
+                                                                 IAssessmentSection assessmentSection,
+                                                                 Func<double> getNFunc,
+                                                                 Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> getFailureMechanismSectionAssemblyCategoriesFunc)
+                : base(wrappedData, assessmentSection, getNFunc)
+            {
+                GetFailureMechanismSectionAssemblyCategoriesFunc = getFailureMechanismSectionAssemblyCategoriesFunc;
+            }
+
+            public override Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc { get; }
+        }
+
+        private static IEnumerable<FailureMechanismSectionAssemblyCategory> GetFailureMechanismSectionAssemblyCategories()
+        {
+            var random = new Random(21);
+
+            return new[]
+            {
+                new FailureMechanismSectionAssemblyCategory(random.NextDouble(),
+                                                            random.NextDouble(),
+                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+            };
         }
     }
 }

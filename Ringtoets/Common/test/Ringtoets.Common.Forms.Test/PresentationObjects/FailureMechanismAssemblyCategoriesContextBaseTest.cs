@@ -40,12 +40,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
     [TestFixture]
     public class FailureMechanismAssemblyCategoriesContextBaseTest
     {
-        private const double tolerance = 1e-5;
-
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const double tolerance = 1e-5;
+
             var random = new Random(21);
             double n = random.NextDouble();
 
@@ -73,10 +73,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
                 IEnumerable<FailureMechanismAssemblyCategory> output = context.GetFailureMechanismCategoriesFunc();
                 IEnumerable<FailureMechanismAssemblyCategory> calculatorOutput = calculator.FailureMechanismCategoriesOutput;
-                Assert.AreEqual(calculatorOutput.Count(), output.Count());
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+                Assert.AreSame(calculatorOutput, output);
 
                 AssemblyCategoriesInput actualCalculatorInput = calculator.AssemblyCategoriesInput;
                 FailureMechanismContribution expectedContribution = assessmentSection.FailureMechanismContribution;

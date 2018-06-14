@@ -71,10 +71,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
                 IEnumerable<FailureMechanismSectionAssemblyCategory> output = context.GetFailureMechanismSectionAssemblyCategoriesFunc();
                 IEnumerable<FailureMechanismSectionAssemblyCategory> calculatorOutput = calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput;
-                Assert.AreEqual(calculatorOutput.Count(), output.Count());
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+                Assert.AreSame(calculatorOutput, output);
 
                 AssemblyCategoriesInput actualCalculatorInput = calculator.AssemblyCategoriesInput;
                 FailureMechanismContribution expectedContribution = assessmentSection.FailureMechanismContribution;
