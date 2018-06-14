@@ -98,13 +98,13 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-  <data name="AssemblyErrorMessageCreator_SignallingLimitOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_SignalingLimitOutOfRange" xml:space="preserve">
     <value>Signaleringskans moet in het bereik [0,1] liggen.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_LowerLimitOutOfRange" xml:space="preserve">
     <value>Ondergrens moet in het bereik [0,1] liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange" xml:space="preserve">
     <value>Faalkansruimte moet in het bereik [0,1] liggen.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange" xml:space="preserve">
@@ -113,7 +113,7 @@
   <data name="AssemblyErrorMessageCreator_SectionLengthOutOfRange" xml:space="preserve">
     <value>De trajectlengte moet groter zijn dan 0 [m].</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit" xml:space="preserve">
     <value>De signaleringskans moet kleiner zijn dan de ondergrens.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_PsigDsnAbovePsig" xml:space="preserve">
@@ -169,5 +169,8 @@
   </data>
   <data name="AssemblyErrorMessageCreator_GenericErrorMessage" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het assembleren.</value>
+  </data>
+  <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid" xml:space="preserve">
+    <value>Ieder relevant toetsspoor moet een vakindeling geimporteerd hebben.</value>
   </data>
 </root>

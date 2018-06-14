@@ -109,6 +109,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ieder relevant toetsspoor moet een vakindeling geimporteerd hebben..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m]..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive {
@@ -136,20 +145,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalkansruimte moet in het bereik [0,1] liggen..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De gespecificeerde kans moet in het bereik [0,1] liggen..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_FailureProbabilityOutOfRange {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureProbabilityOutOfRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkansruimte moet in het bereik [0,1] liggen..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange", resourceCulture);
             }
         }
         
@@ -264,18 +273,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De signaleringskans moet kleiner zijn dan de ondergrens..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit {
+        internal static string AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Signaleringskans moet in het bereik [0,1] liggen..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_SignallingLimitOutOfRange {
+        internal static string AssemblyErrorMessageCreator_SignalingLimitOutOfRange {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignallingLimitOutOfRange", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalingLimitOutOfRange", resourceCulture);
             }
         }
         

@@ -81,17 +81,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
             switch (assemblyError)
             {
                 case EAssemblyErrors.SignallingLimitOutOfRange:
-                    return Resources.AssemblyErrorMessageCreator_SignallingLimitOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_SignalingLimitOutOfRange;
                 case EAssemblyErrors.LowerLimitOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_LowerLimitOutOfRange;
                 case EAssemblyErrors.FailurePropbabilityMarginOutOfRange:
-                    return Resources.AssemblyErrorMessageCreator_FailurePropbabilityMarginOutOfRange;
+                    return Resources.AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange;
                 case EAssemblyErrors.LengthEffectFactorOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange;
                 case EAssemblyErrors.SectionLengthOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_SectionLengthOutOfRange;
                 case EAssemblyErrors.SignallingLimitAboveLowerLimit:
-                    return Resources.AssemblyErrorMessageCreator_SignallingLimitAboveLowerLimit;
+                    return Resources.AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit;
                 case EAssemblyErrors.PsigDsnAbovePsig:
                     return Resources.AssemblyErrorMessageCreator_PsigDsnAbovePsig;
                 case EAssemblyErrors.PlowDsnAbovePlow:
@@ -121,7 +121,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 case EAssemblyErrors.FailureMechanismAssemblerInputInvalid:
                     return Resources.AssemblyErrorMessageCreator_NoSectionsImported;
                 case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
-                    return Resources.AssemblyErrorMessageCreator_NoSectionsImported;
+                    return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid;
                 case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
                     return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:
