@@ -156,7 +156,7 @@
     <value>De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_NoSectionsImported" xml:space="preserve">
-    <value>Er moet een vakindeling zijn geimporteerd.</value>
+    <value>Er moet een vakindeling zijn geïmporteerd.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive" xml:space="preserve">
     <value>Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].</value>
@@ -171,6 +171,6 @@
     <value>Er is een onverwachte fout opgetreden tijdens het assembleren.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid" xml:space="preserve">
-    <value>Ieder relevant toetsspoor moet een vakindeling geimporteerd hebben.</value>
+    <value>Ieder relevant toetsspoor moet een vakindeling geïmporteerd hebben.</value>
   </data>
 </root>

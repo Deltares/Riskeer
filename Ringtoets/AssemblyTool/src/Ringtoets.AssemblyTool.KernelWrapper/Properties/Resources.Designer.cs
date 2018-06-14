@@ -109,7 +109,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ieder relevant toetsspoor moet een vakindeling geimporteerd hebben..
+        ///   Looks up a localized string similar to Ieder relevant toetsspoor moet een vakindeling geïmporteerd hebben..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid {
             get {
@@ -226,7 +226,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er moet een vakindeling zijn geimporteerd..
+        ///   Looks up a localized string similar to Er moet een vakindeling zijn geïmporteerd..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_NoSectionsImported {
             get {
