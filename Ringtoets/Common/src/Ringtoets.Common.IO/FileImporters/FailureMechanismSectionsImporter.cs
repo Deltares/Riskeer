@@ -96,7 +96,16 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
-            AddImportedDataToModel(readFailureMechanismSections);
+
+            IEnumerable<FailureMechanismSection> orderedReadSections = OrderSections(readFailureMechanismSections, referenceLine);
+            if (!HasMatchingEndPoints(referenceLine.Points.Last(), orderedReadSections.Last().EndPoint))
+            {
+                string message = string.Format(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_from_file_0_contains_unchained_sections, FilePath);
+                Log.Error(message);
+                return false;
+            }
+
+            AddImportedDataToModel(orderedReadSections);
             return true;
         }
 
@@ -225,15 +234,14 @@ namespace Ringtoets.Common.IO.FileImporters
             }
         }
 
-        private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> readSections, ReferenceLine referenceLine)
+        private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> failureMechanismSections,
+                                                                                            ReferenceLine referenceLine)
         {
-            IEnumerable<FailureMechanismSection> orderedReadSections = OrderSections(readSections, referenceLine);
-
-            double[] orderedSectionLengths = GetReferenceLineCutoffLengths(referenceLine, orderedReadSections);
+            double[] orderedSectionLengths = GetReferenceLineCutoffLengths(referenceLine, failureMechanismSections);
 
             Point2D[][] splitResults = Math2D.SplitLineAtLengths(referenceLine.Points, orderedSectionLengths);
 
-            return CreateFailureMechanismSectionsSnappedOnReferenceLine(orderedReadSections, splitResults);
+            return CreateFailureMechanismSectionsSnappedOnReferenceLine(failureMechanismSections, splitResults);
         }
 
         private static IEnumerable<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections, ReferenceLine referenceLine)
@@ -280,16 +288,16 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             double shortestDistance = double.MaxValue;
             FailureMechanismSection closestSectionToReferencePoint = null;
-            Dictionary<double, FailureMechanismSection> sectionReferenceLineDistances = sections.ToDictionary(s => Math.Min(referencePoint.GetEuclideanDistanceTo(s.StartPoint),
-                                                                                                                            referencePoint.GetEuclideanDistanceTo(s.EndPoint)),
-                                                                                                              s => s);
-            foreach (KeyValuePair<double, FailureMechanismSection> sectionReferenceLineDistance in sectionReferenceLineDistances)
+            Dictionary<FailureMechanismSection, double> sectionReferenceLineDistances = sections.ToDictionary(s => s,
+                                                                                                              s => Math.Min(referencePoint.GetEuclideanDistanceTo(s.StartPoint),
+                                                                                                                            referencePoint.GetEuclideanDistanceTo(s.EndPoint)));
+            foreach (KeyValuePair<FailureMechanismSection, double> sectionReferenceLineDistance in sectionReferenceLineDistances)
             {
-                double distance = sectionReferenceLineDistance.Key;
+                double distance = sectionReferenceLineDistance.Value;
                 if (distance < shortestDistance && distance <= snappingTolerance)
                 {
-                    shortestDistance = sectionReferenceLineDistance.Key;
-                    closestSectionToReferencePoint = sectionReferenceLineDistance.Value;
+                    shortestDistance = sectionReferenceLineDistance.Value;
+                    closestSectionToReferencePoint = sectionReferenceLineDistance.Key;
                 }
             }
 
@@ -305,6 +313,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
 
             return section;
+        }
+
+        private static bool HasMatchingEndPoints(Point2D referenceLineEndPoint, Point2D sectionEndPoint)
+        {
+            return referenceLineEndPoint.GetEuclideanDistanceTo(sectionEndPoint) < snappingTolerance;
         }
 
         private static double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> orderedReadSections)

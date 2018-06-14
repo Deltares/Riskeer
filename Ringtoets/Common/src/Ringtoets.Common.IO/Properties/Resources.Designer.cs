@@ -794,6 +794,16 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden bij het importeren van de vakindeling uit bestand &apos;{0}&apos;: Het bestand bevat vakken die niet op elkaar aansluiten..
+        /// </summary>
+        public static string FailureMechanismSectionsImporter_Import_Imported_sections_from_file_0_contains_unchained_sections {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionsImporter_Import_Imported_sections_from_file_0_contains_un" +
+                        "chained_sections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte..
         /// </summary>
         public static string FailureMechanismSectionsImporter_Import_Imported_sections_too_different_from_referenceline_length {

@@ -401,6 +401,33 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
+        public void Import_InvalidArtificialFileBecauseUnchainedSections_CancelImportWithErrorMessage()
+        {
+            // Setup
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_InvalidVakken_UnchainedSections.shp"));
+
+            ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
+
+            var failureMechanism = new TestFailureMechanism();
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
+
+            // Call
+            var importSuccessful = true;
+            Action call = () => importSuccessful = importer.Import();
+
+            // Assert
+            string expectedMessage = $"Er is een fout opgetreden bij het importeren van de vakindeling uit bestand '{sectionsFilePath}': " +
+                                     "Het bestand bevat vakken die niet op elkaar aansluiten.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            Assert.IsFalse(importSuccessful);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+        }
+
+        [Test]
         public void Import_InvalidArtificialFileBecauseSomePointsNotOnReferenceLine_CancelImportWithErrorMessage()
         {
             // Setup
