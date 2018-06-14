@@ -31,6 +31,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// This class represents a row displaying the properties of a <see cref="AssemblyCategory"/>.
     /// </summary>
+    /// <typeparam name="T">The type of the enum to display.</typeparam>
     internal class AssemblyCategoryRow<T>
         where T : struct
     {

@@ -33,6 +33,7 @@ namespace Ringtoets.Integration.Forms.Views
     /// This class defines a table in which properties of <see cref="AssemblyCategory"/> instances
     /// are shown as rows.
     /// </summary>
+    /// <typeparam name="T">The type of the enum to display in the table rows.</typeparam>
     public class AssemblyCategoriesTable<T> : DataGridViewControl 
         where T : struct
     {
@@ -48,7 +49,8 @@ namespace Ringtoets.Integration.Forms.Views
         /// Sets the given <paramref name="categories"/> for which the properties
         /// are shown in the table.
         /// </summary>
-        /// <param name="categories">The collection of categories to show.</param>
+        /// <param name="categories">The collection of tuples containing the relevant
+        /// data to show in the row.</param>
         public void SetData(IEnumerable<Tuple<AssemblyCategory, Color, T>> categories)
         {
             SetDataSource(categories?.Select(category => new AssemblyCategoryRow<T>(category.Item1, category.Item2, category.Item3)).ToArray());
