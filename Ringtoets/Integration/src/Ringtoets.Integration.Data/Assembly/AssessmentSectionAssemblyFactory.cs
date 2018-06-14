@@ -187,6 +187,10 @@ namespace Ringtoets.Integration.Data.Assembly
             {
                 throw new AssemblyException(e.Message, e);
             }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
+            }
         }
 
         private static IEnumerable<FailureMechanismAssembly> GetFailureMechanismWithProbabilityAssemblyResults(AssessmentSection assessmentSection)
