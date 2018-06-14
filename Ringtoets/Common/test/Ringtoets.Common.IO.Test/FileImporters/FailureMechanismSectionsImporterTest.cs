@@ -30,7 +30,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
@@ -151,6 +150,37 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                                                                       Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
             string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                                  Path.Combine("FailureMechanismSections", "Artificial_referencelijn_testA_ValidVakken.shp"));
+
+            ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
+
+            var failureMechanism = new TestFailureMechanism();
+
+            var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
+
+            // Call
+            bool importSuccessful = importer.Import();
+
+            // Assert
+            Assert.IsTrue(importSuccessful);
+
+            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
+            Assert.AreEqual(7, sections.Length);
+            AssertSectionsAreValidForReferenceLine(sections, importReferenceLine);
+        }
+
+        [Test]
+        [TestCase("StartSectionReversedCoordinates")]
+        [TestCase("EndSectionReversedCoordinates")]
+        [TestCase("InBetweenSectionReversedCoordinates")]
+        public void Import_ValidArtificialFileWithReversedSectionCoordinatesImperfectlyCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections(
+            string affectedSection)
+        {
+            // Setup
+            string fileName = $"Artificial_referencelijn_testA_ValidVakken_{affectedSection}.shp";
+            string referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                      Path.Combine("ReferenceLine", "Artificial_referencelijn_testA.shp"));
+            string sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                                 Path.Combine("FailureMechanismSections", fileName));
 
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
