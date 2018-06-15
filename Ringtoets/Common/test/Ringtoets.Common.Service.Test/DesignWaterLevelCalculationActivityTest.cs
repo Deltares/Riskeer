@@ -44,8 +44,9 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class DesignWaterLevelCalculationActivityTest
     {
+        private const double validNorm = 0.005;
+
         private MockRepository mockRepository;
-        private const double validTargetProbability = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
@@ -149,7 +150,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    invalidFilePath,
                                                                    validPreprocessorDirectory,
-                                                                   validTargetProbability,
+                                                                   validNorm,
                                                                    calculationMessageProvider);
 
             // Call
@@ -184,7 +185,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                                    validFilePath,
                                                                    invalidPreprocessorDirectory,
-                                                                   validTargetProbability,
+                                                                   validNorm,
                                                                    calculationMessageProvider);
 
             // Call
@@ -421,7 +422,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                                    validFilePath,
                                                                    validPreprocessorDirectory,
-                                                                   validTargetProbability,
+                                                                   validNorm,
                                                                    calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

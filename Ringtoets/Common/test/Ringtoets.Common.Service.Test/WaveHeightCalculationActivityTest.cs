@@ -43,7 +43,8 @@ namespace Ringtoets.Common.Service.Test
     [TestFixture]
     public class WaveHeightCalculationActivityTest
     {
-        private const double validTargetProbability = 0.005;
+        private const double validNorm = 0.005;
+
         private MockRepository mockRepository;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -148,7 +149,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              invalidFilePath,
                                                              validPreprocessorDirectory,
-                                                             validTargetProbability,
+                                                             validNorm,
                                                              calculationMessageProvider);
 
             // Call
@@ -182,7 +183,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
                                                              validFilePath,
                                                              invalidPreprocessorDirectory,
-                                                             validTargetProbability,
+                                                             validNorm,
                                                              calculationMessageProvider);
 
             // Call
@@ -418,7 +419,7 @@ namespace Ringtoets.Common.Service.Test
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
                                                              validFilePath,
                                                              validPreprocessorDirectory,
-                                                             validTargetProbability,
+                                                             validNorm,
                                                              calculationMessageProvider);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
