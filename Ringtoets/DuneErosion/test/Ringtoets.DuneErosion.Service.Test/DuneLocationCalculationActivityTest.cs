@@ -225,7 +225,6 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var random = new Random(123);
-            double norm = random.NextDouble();
             double expectedWaterLevel = random.NextDouble();
             double expectedWaveHeight = random.NextDouble();
             double expectedWavePeriod = random.NextDouble();
@@ -248,7 +247,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
                                                                validFilePath,
                                                                validPreprocessorDirectory,
-                                                               norm);
+                                                               0.005);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
