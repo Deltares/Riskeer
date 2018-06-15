@@ -794,7 +794,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden bij het importeren van de vakindeling uit bestand &apos;{0}&apos;: Het bestand bevat vakken die niet op elkaar aansluiten..
+        ///   Looks up a localized string similar to Er is een fout opgetreden bij het importeren van de vakindeling uit bestand &apos;{0}&apos;: Het bestand moet vakken bevatten die allen op elkaar aansluiten..
         /// </summary>
         public static string FailureMechanismSectionsImporter_Import_Imported_sections_from_file_0_contains_unchained_sections {
             get {

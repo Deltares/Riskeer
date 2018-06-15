@@ -421,7 +421,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             // Assert
             string expectedMessage = $"Er is een fout opgetreden bij het importeren van de vakindeling uit bestand '{sectionsFilePath}': " +
-                                     "Het bestand bevat vakken die niet op elkaar aansluiten.";
+                                     "Het bestand moet vakken bevatten die allen op elkaar aansluiten. " +
+                                     $"{ Environment.NewLine}Er is geen vakindeling geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

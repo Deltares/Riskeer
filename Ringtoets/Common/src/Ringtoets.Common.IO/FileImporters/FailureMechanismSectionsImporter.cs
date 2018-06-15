@@ -101,7 +101,7 @@ namespace Ringtoets.Common.IO.FileImporters
             if (!HasMatchingEndPoints(referenceLine.Points.Last(), orderedReadSections.Last().EndPoint))
             {
                 string message = string.Format(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_from_file_0_contains_unchained_sections, FilePath);
-                Log.Error(message);
+                LogCriticalFileReadError(message);
                 return false;
             }
 
