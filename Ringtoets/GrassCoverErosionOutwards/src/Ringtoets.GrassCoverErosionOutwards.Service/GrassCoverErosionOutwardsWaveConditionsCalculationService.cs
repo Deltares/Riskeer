@@ -47,12 +47,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// <param name="assessmentLevel">The assessment level to use for determining water levels.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
+        /// <param name="targetProbability">The target probability to validate.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public static bool Validate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                     RoundedDouble assessmentLevel,
                                     string hydraulicBoundaryDatabaseFilePath,
-                                    string preprocessorDirectory)
+                                    string preprocessorDirectory,
+                                    double targetProbability)
         {
             if (calculation == null)
             {
@@ -63,6 +65,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                assessmentLevel,
                                                hydraulicBoundaryDatabaseFilePath,
                                                preprocessorDirectory,
+                                               targetProbability,
                                                Resources.GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name);
         }
 
