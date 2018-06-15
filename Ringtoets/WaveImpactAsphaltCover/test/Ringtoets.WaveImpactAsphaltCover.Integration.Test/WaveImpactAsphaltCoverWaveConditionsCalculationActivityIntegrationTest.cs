@@ -136,6 +136,47 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
+        public void Run_InvalidNorm_DoesNotPerformCalculationAndLogsError()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
+
+            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
+                                                                                       validFilePath,
+                                                                                       waveImpactAsphaltCoverFailureMechanism,
+                                                                                       assessmentSection);
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                    Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Run_Always_SetProgressTexts()
         {
             // Setup
@@ -228,7 +269,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     var expectedInput = new WaveConditionsCosineCalculationInput(1,
                                                                                  input.Orientation,
                                                                                  input.HydraulicBoundaryLocation.Id,
-                                                                                 assessmentSection.FailureMechanismContribution.Norm,
+                                                                                 assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30,
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
                                                                                  new HydraRingBreakWater(BreakWaterTypeHelper.GetHydraRingBreakWaterType(breakWaterType), input.BreakWater.Height),
                                                                                  waterLevels.ElementAt(waterLevelIndex++),
@@ -498,7 +539,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -532,7 +573,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+            assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
 
             return assessmentSection;
         }
