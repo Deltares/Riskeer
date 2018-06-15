@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary
         /// database file which to validate.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory to validate.</param>
-        /// <param name="targetProbability">The target probability to validate.</param>
+        /// <param name="norm">The norm to validate.</param>
         /// <param name="designWaterLevelName">The name of the design water level property.</param>
         /// <returns><c>true</c> if there were no validation errors; <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/>
@@ -84,7 +84,7 @@ namespace Ringtoets.Revetment.Service
                                                           RoundedDouble assessmentLevel,
                                                           string hydraulicBoundaryDatabaseFilePath,
                                                           string preprocessorDirectory,
-                                                          double targetProbability,
+                                                          double norm,
                                                           string designWaterLevelName)
         {
             if (waveConditionsInput == null)
@@ -103,7 +103,7 @@ namespace Ringtoets.Revetment.Service
                                               preprocessorDirectory,
                                               waveConditionsInput,
                                               assessmentLevel,
-                                              targetProbability,
+                                              norm,
                                               designWaterLevelName);
 
             CalculationServiceHelper.LogMessagesAsError(messages);
@@ -214,7 +214,7 @@ namespace Ringtoets.Revetment.Service
                                               string preprocessorDirectory,
                                               WaveConditionsInput input,
                                               RoundedDouble assessmentLevel,
-                                              double targetProbability,
+                                              double norm,
                                               string designWaterLevelName)
         {
             var validationResults = new List<string>();
@@ -232,7 +232,7 @@ namespace Ringtoets.Revetment.Service
                 validationResults.Add(preprocessorDirectoryValidationProblem);
             }
 
-            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability, message => validationResults.Add(message));
+            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, message => validationResults.Add(message));
 
             if (validationResults.Any())
             {
