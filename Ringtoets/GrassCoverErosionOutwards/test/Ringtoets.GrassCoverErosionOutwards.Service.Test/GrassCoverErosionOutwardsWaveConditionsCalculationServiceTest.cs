@@ -51,6 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationServiceTest
     {
+        private const double validTargetProbability = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
@@ -72,7 +73,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(null,
                                                                                                          GetValidAssessmentLevel(),
                                                                                                          validFilePath,
-                                                                                                         validPreprocessorDirectory);
+                                                                                                         validPreprocessorDirectory,
+                                                                                                         validTargetProbability);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -98,7 +100,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  testFilePath,
-                                                                                                                 validPreprocessorDirectory);
+                                                                                                                 validPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -134,7 +137,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  invalidFilePath,
-                                                                                                                 validPreprocessorDirectory);
+                                                                                                                 validPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -170,7 +174,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
-                                                                                                                 invalidPreprocessorDirectory);
+                                                                                                                 invalidPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -206,7 +211,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  testFilePath,
-                                                                                                                 validPreprocessorDirectory);
+                                                                                                                 validPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -242,7 +248,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
-                                                                                                                 validPreprocessorDirectory);
+                                                                                                                 validPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -277,7 +284,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  RoundedDouble.NaN,
                                                                                                                  validFilePath,
-                                                                                                                 validPreprocessorDirectory);
+                                                                                                                 validPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -316,7 +324,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
-                                                                                                                 validPreprocessorDirectory);
+                                                                                                                 validPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -357,7 +366,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
                                                                                                                  GetValidAssessmentLevel(),
                                                                                                                  validFilePath,
-                                                                                                                 validPreprocessorDirectory);
+                                                                                                                 validPreprocessorDirectory,
+                                                                                                                 validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>

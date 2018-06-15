@@ -90,7 +90,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                                                                                           calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                           calculation.InputParameters.CategoryType),
                                                                                       hlcdFilePath,
-                                                                                      assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                                                                                      assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                      failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
         protected override void PerformCalculation()
