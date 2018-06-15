@@ -150,7 +150,36 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_ValidHydraulicBoundaryDatabaseAndDuneLocationCalculation_PerformValidationValidParameters()
+        public void Run_InvalidNorm_PerformValidationAndLogStartAndEndAndError()
+        {
+            // Setup
+            var duneLocation = new TestDuneLocation("testLocation");
+            var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
+
+            var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
+                                                               validFilePath,
+                                                               validPreprocessorDirectory,
+                                                               1.0);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+
+                Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}' is gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_ValidInput_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
             const double norm = 1.0 / 30;
@@ -200,7 +229,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_DuneLocationCalculationOutputSet_ValidationAndCalculationNotPerformedAndStateSkipped()
+        public void Run_OutputSet_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())

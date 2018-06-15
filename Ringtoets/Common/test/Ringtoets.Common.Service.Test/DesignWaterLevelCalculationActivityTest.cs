@@ -240,7 +240,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_ValidHydraulicBoundaryLocation_PerformValidationAndCalculationAndLogStartAndEnd()
+        public void Run_ValidInput_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
             const string locationName = "punt_flw_";
