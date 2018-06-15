@@ -45,6 +45,7 @@ namespace Ringtoets.Revetment.Service.Test
     [TestFixture]
     public class WaveConditionsCalculationServiceBaseTest
     {
+        private const double validTargetProbability = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
@@ -57,6 +58,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                GetValidAssessmentLevel(),
                                                                                                                validFilePath,
                                                                                                                validPreprocessorDirectory,
+                                                                                                               validTargetProbability,
                                                                                                                string.Empty);
 
             // Assert
@@ -78,6 +80,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                GetValidAssessmentLevel(),
                                                                                                                validFilePath,
                                                                                                                validPreprocessorDirectory,
+                                                                                                               validTargetProbability,
                                                                                                                null);
 
             // Assert
@@ -96,6 +99,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    string.Empty,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    string.Empty);
 
             // Assert
@@ -123,6 +127,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    invalidFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    string.Empty);
 
             // Assert
@@ -150,6 +155,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
                                                                                                                    invalidPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    string.Empty);
 
             // Assert
@@ -177,6 +183,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    dbFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    string.Empty);
 
             // Assert
@@ -205,6 +212,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    string.Empty);
 
             // Assert
@@ -238,6 +246,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    RoundedDouble.NaN,
                                                                                                                    validFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    designWaterLevelName);
 
             // Assert
@@ -281,6 +290,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    (RoundedDouble) assessmentLevel,
                                                                                                                    validFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    "DesignWaterLevelName");
 
             // Assert
@@ -314,6 +324,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    "DesignWaterLevelName");
 
             // Assert
@@ -347,6 +358,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    "DesignWaterLevelName");
 
             // Assert
@@ -393,6 +405,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    "DesignWaterLevelName");
 
             // Assert
@@ -421,6 +434,7 @@ namespace Ringtoets.Revetment.Service.Test
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
                                                                                                                    validPreprocessorDirectory,
+                                                                                                                   validTargetProbability,
                                                                                                                    "DesignWaterLevelName");
 
             // Assert
@@ -927,12 +941,14 @@ namespace Ringtoets.Revetment.Service.Test
                                                                  RoundedDouble assessmentLevel,
                                                                  string dbFilePath,
                                                                  string preprocessorDirectory,
+                                                                 double targetProbability,
                                                                  string valueName)
             {
                 return ValidateWaveConditionsInput(waveConditionsInput,
                                                    assessmentLevel,
                                                    dbFilePath,
                                                    preprocessorDirectory,
+                                                   targetProbability,
                                                    valueName);
             }
 
