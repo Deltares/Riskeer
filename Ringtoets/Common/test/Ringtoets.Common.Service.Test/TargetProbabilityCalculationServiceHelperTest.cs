@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using Core.Common.Util;
 using NUnit.Framework;
 
 namespace Ringtoets.Common.Service.Test
@@ -28,10 +30,11 @@ namespace Ringtoets.Common.Service.Test
     public class TargetProbabilityCalculationServiceHelperTest
     {
         [Test]
-        public void IsValidTargetProbability_ValidTargetProbability_ReturnsTrue()
+        [TestCaseSource(nameof(ValidTargetProbabilities))]
+        public void IsValidTargetProbability_ValidTargetProbability_ReturnsTrue(double targetProbability)
         {
             // Call
-            bool isValid = TargetProbabilityCalculationServiceHelper.IsValidTargetProbability(0.005);
+            bool isValid = TargetProbabilityCalculationServiceHelper.IsValidTargetProbability(targetProbability);
 
             // Assert
             Assert.IsTrue(isValid);
@@ -48,10 +51,11 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void IsValidTargetProbability_TargetProbabilityTooBig_ReturnsFalse()
+        [TestCaseSource(nameof(TargetProbabilitiesThatAreTooBig))]
+        public void IsValidTargetProbability_TargetProbabilityTooBig_ReturnsFalse(double targetProbability)
         {
             // Call
-            bool isValid = TargetProbabilityCalculationServiceHelper.IsValidTargetProbability(1.0);
+            bool isValid = TargetProbabilityCalculationServiceHelper.IsValidTargetProbability(targetProbability);
 
             // Assert
             Assert.IsFalse(isValid);
@@ -69,13 +73,14 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ValidateTargetProbability_ValidTargetProbability_ReturnsTrueAndHandlesNoLogMessage()
+        [TestCaseSource(nameof(ValidTargetProbabilities))]
+        public void ValidateTargetProbability_ValidTargetProbability_ReturnsTrueAndHandlesNoLogMessage(double targetProbability)
         {
             // Setup
             string logMessage = string.Empty;
 
             // Call
-            bool isValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(0.005, lm => logMessage = lm);
+            bool isValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability, lm => logMessage = lm);
 
             // Assert
             Assert.IsTrue(isValid);
@@ -97,17 +102,30 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ValidateTargetProbability_TargetProbabilityTooBig_ReturnsFalseAndHandlesExpectedLogMessage()
+        [TestCaseSource(nameof(TargetProbabilitiesThatAreTooBig))]
+        public void ValidateTargetProbability_TargetProbabilityTooBig_ReturnsFalseAndHandlesExpectedLogMessage(double targetProbability)
         {
             // Setup
             string logMessage = string.Empty;
 
             // Call
-            bool isValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(1.0, lm => logMessage = lm);
+            bool isValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability, lm => logMessage = lm);
 
             // Assert
             Assert.IsFalse(isValid);
             Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", logMessage);
+        }
+
+        private static IEnumerable<TestCaseData> ValidTargetProbabilities()
+        {
+            yield return new TestCaseData(0.005);
+            yield return new TestCaseData(StatisticsConverter.ReliabilityToProbability(-1));
+        }
+
+        private static IEnumerable<TestCaseData> TargetProbabilitiesThatAreTooBig()
+        {
+            yield return new TestCaseData(StatisticsConverter.ReliabilityToProbability(-1.005));
+            yield return new TestCaseData(5.0);
         }
     }
 }
