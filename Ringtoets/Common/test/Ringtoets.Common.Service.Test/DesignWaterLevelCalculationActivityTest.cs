@@ -205,7 +205,41 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_ValidHydraulicBoundaryDatabaseAndHydraulicBoundaryLocation_PerformValidationValidParameters()
+        public void Run_InvalidNorm_PerformValidationAndLogStartAndEndAndError()
+        {
+            // Setup
+            const string locationName = "testLocation";
+            const string activityDescription = "activityDescription";
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
+            mockRepository.ReplayAll();
+
+            var activity = new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName)),
+                                                                   validFilePath,
+                                                                   validPreprocessorDirectory,
+                                                                   1.0,
+                                                                   calculationMessageProvider);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Run_ValidHydraulicBoundaryLocation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
             const string locationName = "punt_flw_";
@@ -260,7 +294,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_HydraulicLocationValidOutputSet_ValidationAndCalculationNotPerformedAndStateSkipped()
+        public void Run_OutputSet_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
             const string locationName = "locationName";
