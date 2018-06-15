@@ -534,7 +534,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                                                 assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                      calculation.InputParameters.CategoryType),
                                                                                 assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                                                                                assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
             }
         }
 
@@ -636,11 +637,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private static void Validate(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
-            WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(context.WrappedData,
-                                                                            context.AssessmentSection.GetAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                         context.WrappedData.InputParameters.CategoryType),
-                                                                            context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                            context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            IAssessmentSection assessmentSection = context.AssessmentSection;
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = context.WrappedData;
+
+            WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                            assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                                 calculation.InputParameters.CategoryType),
+                                                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                            assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
         private void PerformCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,

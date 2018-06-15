@@ -89,7 +89,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                                                                                    assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                         calculation.InputParameters.CategoryType),
                                                                                    hlcdFilePath,
-                                                                                   assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                                                                                   assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                                   assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
         protected override void PerformCalculation()
