@@ -98,7 +98,7 @@ namespace Ringtoets.Common.IO.FileImporters
             NotifyProgress(Resources.Importer_ProgressText_Adding_imported_data_to_data_model, 3, 3);
 
             IEnumerable<FailureMechanismSection> orderedReadSections = OrderSections(readFailureMechanismSections, referenceLine);
-            if (!HasMatchingEndPoints(referenceLine.Points.Last(), orderedReadSections.Last().EndPoint))
+            if (!ArePointsSnapped(referenceLine.Points.Last(), orderedReadSections.Last().EndPoint))
             {
                 string message = string.Format(Resources.FailureMechanismSectionsImporter_Import_Imported_sections_from_file_0_contains_unchained_sections, FilePath);
                 LogCriticalFileReadError(message);
@@ -252,10 +252,9 @@ namespace Ringtoets.Common.IO.FileImporters
             FailureMechanismSection startSection = GetClosestSectionToReferencePoint(referenceLineStartPoint, sourceList);
             sourceList.Remove(startSection);
 
-            startSection = ClipSectionCoordinatesToReferencePoint(referenceLineStartPoint, startSection);
             var resultList = new List<FailureMechanismSection>(sourceList.Count)
             {
-                startSection
+                ClipSectionCoordinatesToReferencePoint(referenceLineStartPoint, startSection)
             };
 
             GrowTowardsEnd(resultList, sourceList);
@@ -278,8 +277,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 else
                 {
                     sourceList.Remove(closestSectionToConnectWith);
-                    closestSectionToConnectWith = ClipSectionCoordinatesToReferencePoint(pointToConnect, closestSectionToConnectWith);
-                    resultList.Add(closestSectionToConnectWith);
+                    resultList.Add(ClipSectionCoordinatesToReferencePoint(pointToConnect, closestSectionToConnectWith));
                 }
             }
         }
@@ -296,7 +294,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 double distance = sectionReferenceLineDistance.Value;
                 if (distance < shortestDistance && distance <= snappingTolerance)
                 {
-                    shortestDistance = sectionReferenceLineDistance.Value;
+                    shortestDistance = distance;
                     closestSectionToReferencePoint = sectionReferenceLineDistance.Key;
                 }
             }
@@ -306,18 +304,14 @@ namespace Ringtoets.Common.IO.FileImporters
 
         private static FailureMechanismSection ClipSectionCoordinatesToReferencePoint(Point2D referencePoint, FailureMechanismSection section)
         {
-            if (referencePoint.GetEuclideanDistanceTo(section.EndPoint) < snappingTolerance)
-            {
-                return new FailureMechanismSection(section.Name,
-                                                   section.Points.Reverse());
-            }
-
-            return section;
+            return ArePointsSnapped(referencePoint, section.StartPoint)
+                       ? section
+                       : new FailureMechanismSection(section.Name, section.Points.Reverse());
         }
 
-        private static bool HasMatchingEndPoints(Point2D referenceLineEndPoint, Point2D sectionEndPoint)
+        private static bool ArePointsSnapped(Point2D referencePoint, Point2D snappedPoint)
         {
-            return referenceLineEndPoint.GetEuclideanDistanceTo(sectionEndPoint) < snappingTolerance;
+            return referencePoint.GetEuclideanDistanceTo(snappedPoint) < snappingTolerance;
         }
 
         private static double[] GetReferenceLineCutoffLengths(ReferenceLine referenceLine, IEnumerable<FailureMechanismSection> orderedReadSections)
