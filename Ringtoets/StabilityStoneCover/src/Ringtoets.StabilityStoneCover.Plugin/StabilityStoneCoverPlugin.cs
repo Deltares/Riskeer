@@ -305,7 +305,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<StabilityStoneCoverFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.OutputComments
@@ -529,7 +529,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                                              assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                   calculation.InputParameters.CategoryType),
                                                                              assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                             assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+                                                                             assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                             assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
             }
         }
 
@@ -632,11 +633,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
-            StabilityStoneCoverWaveConditionsCalculationService.Validate(context.WrappedData,
-                                                                         context.AssessmentSection.GetAssessmentLevel(context.WrappedData.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                      context.WrappedData.InputParameters.CategoryType),
-                                                                         context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                         context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory());
+            IAssessmentSection assessmentSection = context.AssessmentSection;
+            StabilityStoneCoverWaveConditionsCalculation calculation = context.WrappedData;
+
+            StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
+                                                                         assessmentSection.GetAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                              calculation.InputParameters.CategoryType),
+                                                                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                         assessmentSection.GetNorm(calculation.InputParameters.CategoryType));
         }
 
         private void PerformCalculation(StabilityStoneCoverWaveConditionsCalculation calculation,

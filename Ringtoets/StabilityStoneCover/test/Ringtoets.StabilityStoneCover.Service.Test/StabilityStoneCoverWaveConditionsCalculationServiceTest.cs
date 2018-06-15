@@ -48,6 +48,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationServiceTest
     {
+        private const double validTargetProbability = 0.005;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
@@ -69,7 +70,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             TestDelegate test = () => StabilityStoneCoverWaveConditionsCalculationService.Validate(null,
                                                                                                    GetValidAssessmentLevel(),
                                                                                                    validFilePath,
-                                                                                                   validPreprocessorDirectory);
+                                                                                                   validPreprocessorDirectory,
+                                                                                                   validTargetProbability);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -95,7 +97,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            GetValidAssessmentLevel(),
                                                                                                            testFilePath,
-                                                                                                           validPreprocessorDirectory);
+                                                                                                           validPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -131,7 +134,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            GetValidAssessmentLevel(),
                                                                                                            invalidFilePath,
-                                                                                                           validPreprocessorDirectory);
+                                                                                                           validPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -167,7 +171,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            GetValidAssessmentLevel(),
                                                                                                            validFilePath,
-                                                                                                           invalidPreprocessorDirectory);
+                                                                                                           invalidPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -203,7 +208,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            GetValidAssessmentLevel(),
                                                                                                            testFilePath,
-                                                                                                           validPreprocessorDirectory);
+                                                                                                           validPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -238,7 +244,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            GetValidAssessmentLevel(),
                                                                                                            validFilePath,
-                                                                                                           validPreprocessorDirectory);
+                                                                                                           validPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -273,7 +280,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            RoundedDouble.NaN,
                                                                                                            validFilePath,
-                                                                                                           validPreprocessorDirectory);
+                                                                                                           validPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -312,7 +320,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            GetValidAssessmentLevel(),
                                                                                                            validFilePath,
-                                                                                                           validPreprocessorDirectory);
+                                                                                                           validPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -353,7 +362,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation,
                                                                                                            GetValidAssessmentLevel(),
                                                                                                            validFilePath,
-                                                                                                           validPreprocessorDirectory);
+                                                                                                           validPreprocessorDirectory,
+                                                                                                           validTargetProbability);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
