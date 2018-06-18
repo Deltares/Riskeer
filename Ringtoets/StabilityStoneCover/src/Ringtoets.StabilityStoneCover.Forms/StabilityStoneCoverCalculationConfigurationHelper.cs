@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
@@ -45,6 +46,9 @@ namespace Ringtoets.StabilityStoneCover.Forms
         /// <param name="normType">The <see cref="NormType"/> to set the category type input for.</param>
         /// <exception cref="ArgumentNullException">Throw when any <paramref name="locations"/>
         /// or <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// but unsupported.</exception>
         public static void AddCalculationsFromLocations(IEnumerable<HydraulicBoundaryLocation> locations,
                                                         List<ICalculationBase> calculations,
                                                         NormType normType)

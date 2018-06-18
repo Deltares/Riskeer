@@ -1478,7 +1478,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Given
             var random = new Random(21);
             var normType = random.NextEnumValue<NormType>();
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var existingGroup = new CalculationGroup();
