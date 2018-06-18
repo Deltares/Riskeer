@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismSectionAssemblyGroupBox.Name = "failureMechanismSectionAssemblyGroupBox";
             this.failureMechanismSectionAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismAssemblyCategoriesView_FailureMechanismSectionCategoriesGroup_DisplayName;
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanel
             // 
             this.tableLayoutPanel.ColumnCount = 2;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));

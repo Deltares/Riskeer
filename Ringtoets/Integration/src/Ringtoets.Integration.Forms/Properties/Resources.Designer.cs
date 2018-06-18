@@ -555,7 +555,7 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categoriegrenzen per traject.
+        ///   Looks up a localized string similar to Categoriegrenzen voor dit traject.
         /// </summary>
         public static string FailureMechanismAssemblyCategoriesView_FailureMechanismCategoriesGroup_DisplayName {
             get {

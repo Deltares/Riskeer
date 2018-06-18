@@ -143,11 +143,24 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
 
+                TableLayoutPanel tableLayoutPanel = ControlTestHelper.GetControls<TableLayoutPanel>(view, "tableLayoutPanel").Single();
+                Assert.AreEqual(2, tableLayoutPanel.ColumnCount);
+                Assert.AreEqual(1, tableLayoutPanel.RowCount);
+                Assert.AreEqual(DockStyle.Fill, tableLayoutPanel.Dock);
+
+                var failureMechanismAssemblyGroupBox = (GroupBox) tableLayoutPanel.GetControlFromPosition(0, 0);
+                Assert.AreEqual(1, failureMechanismAssemblyGroupBox.Controls.Count);
+                Assert.AreEqual(DockStyle.Fill, failureMechanismAssemblyGroupBox.Dock);
+                Assert.AreEqual("Categoriegrenzen voor dit traject", failureMechanismAssemblyGroupBox.Text);
+
+                var failureMechanismSectionAssemblyGroupBox = (GroupBox) tableLayoutPanel.GetControlFromPosition(1, 0);
+                Assert.AreEqual(1, failureMechanismSectionAssemblyGroupBox.Controls.Count);
+                Assert.AreEqual(DockStyle.Fill, failureMechanismSectionAssemblyGroupBox.Dock);
+                Assert.AreEqual("Categoriegrenzen per vak", failureMechanismSectionAssemblyGroupBox.Text);
+
                 AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismCategoriesTable = GetFailureMechanismCategoriesTable(view);
-                Assert.NotNull(failureMechanismCategoriesTable);
                 Assert.AreEqual(DockStyle.Fill, failureMechanismCategoriesTable.Dock);
                 AssemblyCategoriesTable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismSectionCategoriesTable(view);
-                Assert.NotNull(failureMechanismSectionCategoriesTable);
                 Assert.AreEqual(DockStyle.Fill, failureMechanismSectionCategoriesTable.Dock);
             }
 

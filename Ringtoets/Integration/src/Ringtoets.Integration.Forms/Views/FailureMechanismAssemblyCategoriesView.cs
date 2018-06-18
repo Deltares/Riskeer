@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
     /// View for an <see cref="IFailureMechanism"/> to show 
-    /// a collections of assembly categories.
+    /// its assembly categories.
     /// </summary>
     public partial class FailureMechanismAssemblyCategoriesView : UserControl, IView
     {
@@ -95,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Views
             };
 
             FailureMechanism = failureMechanism;
-            
+
             UpdateTableData();
         }
 

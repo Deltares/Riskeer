@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Views
                                              .Select(category => new Tuple<AssemblyCategory, Color, AssessmentSectionAssemblyCategoryGroup>(
                                                          category,
                                                          AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group),
-                                                         category.Group)));
+                                                         category.Group)).ToArray());
         }
     }
 }

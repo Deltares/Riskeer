@@ -397,7 +397,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Categoriegrenzen per vak</value>
   </data>
   <data name="FailureMechanismAssemblyCategoriesView_FailureMechanismCategoriesGroup_DisplayName" xml:space="preserve">
-    <value>Categoriegrenzen per traject</value>
+    <value>Categoriegrenzen voor dit traject</value>
   </data>
   <data name="FailureMechanismAssemblyCategoriesView_FailureMechanismSectionCategoriesGroup_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen per vak</value>

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.Views;
@@ -28,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -47,8 +49,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             using (var plugin = new RingtoetsPlugin())
             {
-                info = plugin.GetViewInfos().First(tni =>  tni.ViewType == typeof(FailureMechanismAssemblyCategoriesView)
-                                                           && tni.DataType == typeof(FailureMechanismAssemblyCategoriesContext));
+                info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismAssemblyCategoriesView));
             }
         }
 
@@ -56,8 +57,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContext), info.DataType);
-            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContext), info.ViewDataType);
+            Assert.AreEqual(typeof(FailureMechanismAssemblyCategoriesContextBase), info.DataType);
+            Assert.AreEqual(typeof(IFailureMechanism), info.ViewDataType);
         }
 
         [Test]
@@ -76,9 +77,9 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new TestFailureMechanism();
-            var failureMechanismAssemblyCategoriesContext = new FailureMechanismAssemblyCategoriesContext(failureMechanism,
-                                                                                                          assessmentSection,
-                                                                                                          () => new Random(39).NextDouble());
+            var failureMechanismAssemblyCategoriesContext = new TestFailureMechanismAssemblyCategoriesContext(failureMechanism,
+                                                                                                              assessmentSection,
+                                                                                                              () => new Random(39).NextDouble());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -114,6 +115,20 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                                                                   new AssessmentSectionStub(),
                                                                   Enumerable.Empty<FailureMechanismAssemblyCategory>,
                                                                   Enumerable.Empty<FailureMechanismSectionAssemblyCategory>);
+            }
+        }
+
+        private class TestFailureMechanismAssemblyCategoriesContext : FailureMechanismAssemblyCategoriesContextBase
+        {
+            public TestFailureMechanismAssemblyCategoriesContext(IFailureMechanism wrappedData, IAssessmentSection assessmentSection, Func<double> getNFunc)
+                : base(wrappedData, assessmentSection, getNFunc) {}
+
+            public override Func<IEnumerable<FailureMechanismSectionAssemblyCategory>> GetFailureMechanismSectionAssemblyCategoriesFunc
+            {
+                get
+                {
+                    return Enumerable.Empty<FailureMechanismSectionAssemblyCategory>;
+                }
             }
         }
     }

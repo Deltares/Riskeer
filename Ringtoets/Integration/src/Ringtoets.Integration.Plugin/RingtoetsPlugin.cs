@@ -583,18 +583,7 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionView(context.WrappedData)
             };
 
-            yield return new ViewInfo<FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesView>
-            {
-                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
-                Image = RingtoetsCommonFormsResources.NormsIcon,
-                CloseForData = CloseFailureMechanismAssemblyCategoriesViewForData,
-                CreateInstance = context => new FailureMechanismAssemblyCategoriesView(context.WrappedData,
-                                                                                       context.AssessmentSection,
-                                                                                       context.GetFailureMechanismCategoriesFunc,
-                                                                                       context.GetFailureMechanismSectionAssemblyCategoriesFunc)
-            };
-
-            yield return new ViewInfo<GeotechnicalFailureMechanismAssemblyCategoriesContext, GeotechnicalFailureMechanismAssemblyCategoriesContext, FailureMechanismAssemblyCategoriesView>
+            yield return new ViewInfo<FailureMechanismAssemblyCategoriesContextBase, IFailureMechanism, FailureMechanismAssemblyCategoriesView>
             {
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanismAssemblyCategories_DisplayName,
                 Image = RingtoetsCommonFormsResources.NormsIcon,

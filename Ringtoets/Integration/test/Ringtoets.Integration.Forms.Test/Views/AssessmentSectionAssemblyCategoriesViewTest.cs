@@ -70,7 +70,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 Assert.AreSame(failureMechanismContribution, view.FailureMechanismContribution);
 
                 AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> tableControl = GetCategoriesTable(view);
-                Assert.NotNull(tableControl);
                 Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
