@@ -1820,7 +1820,9 @@ namespace Ringtoets.Integration.Plugin
                                                                                               new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, designWaterLevelItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
+                                                        nodeData.GetNormFunc(),
+                                                        designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1852,7 +1854,9 @@ namespace Ringtoets.Integration.Plugin
                                                                                         new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
+                                                        nodeData.GetNormFunc(),
+                                                        waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1871,6 +1875,21 @@ namespace Ringtoets.Integration.Plugin
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = validationText;
             }
+        }
+
+        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection, double norm, StrictContextMenuItem menuItem)
+        {
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, menuItem);
+            if (!menuItem.Enabled)
+            {
+                return;
+            }
+
+            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage =>
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = logMessage;
+            });
         }
 
         private ContextMenuStrip HydraulicBoundaryDatabaseContextMenuStrip(HydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
