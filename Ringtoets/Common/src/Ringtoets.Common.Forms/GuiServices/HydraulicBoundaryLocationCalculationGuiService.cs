@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.HydraRing;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
 
 namespace Ringtoets.Common.Forms.GuiServices
@@ -74,6 +75,7 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
+                          norm,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(hydraulicBoundaryDatabaseFilePath,
                                                                                                                           preprocessorDirectory,
                                                                                                                           calculations,
@@ -99,6 +101,7 @@ namespace Ringtoets.Common.Forms.GuiServices
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
                           preprocessorDirectory,
+                          norm,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(hydraulicBoundaryDatabaseFilePath,
                                                                                                                     preprocessorDirectory,
                                                                                                                     calculations,
@@ -108,6 +111,7 @@ namespace Ringtoets.Common.Forms.GuiServices
 
         private void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,
                                               string preprocessorDirectory,
+                                              double norm,
                                               IEnumerable<TActivity> activities)
             where TActivity : Activity
         {
@@ -115,12 +119,18 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                                                                    preprocessorDirectory);
             if (string.IsNullOrEmpty(validationProblem))
             {
-                ActivityProgressDialogRunner.Run(viewParent, activities);
-                return;
+                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage => validationProblem = logMessage);
             }
 
-            log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
-                            validationProblem);
+            if (string.IsNullOrEmpty(validationProblem))
+            {
+                ActivityProgressDialogRunner.Run(viewParent, activities);
+            }
+            else
+            {
+                log.ErrorFormat(Resources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
+                                validationProblem);
+            }
         }
     }
 }

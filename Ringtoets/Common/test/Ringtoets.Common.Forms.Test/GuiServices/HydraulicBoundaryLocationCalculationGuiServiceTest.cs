@@ -161,6 +161,38 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
+        public void CalculateDesignWaterLevels_InvalidNorm_LogsError()
+        {
+            // Setup
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+                // Call
+                Action call = () => guiService.CalculateDesignWaterLevels(validFilePath,
+                                                                          validPreprocessorDirectory,
+                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                          1.0,
+                                                                          calculationMessageProvider);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", msgs.First());
+                });
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void CalculateDesignWaterLevels_ValidPathEmptyList_NoLog()
         {
             // Setup
@@ -329,6 +361,38 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);
                     StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
+                });
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateWaveHeights_InvalidNorm_LogsError()
+        {
+            // Setup
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
+            using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+                // Call
+                Action call = () => guiService.CalculateWaveHeights(validFilePath,
+                                                                    validPreprocessorDirectory,
+                                                                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                    1.0,
+                                                                    calculationMessageProvider);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", msgs.First());
                 });
             }
 
