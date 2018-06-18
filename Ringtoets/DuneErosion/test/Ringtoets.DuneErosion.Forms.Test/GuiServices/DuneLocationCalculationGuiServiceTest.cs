@@ -185,6 +185,37 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
+        public void Calculate_InvalidNorm_LogsError()
+        {
+            // Setup
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            mockRepository.ReplayAll();
+
+            using (var viewParent = new Form())
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                var guiService = new DuneLocationCalculationGuiService(viewParent);
+
+                // Call
+                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
+                                                         validFilePath,
+                                                         validPreprocessorDirectory,
+                                                         1.0);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(1, msgs.Length);
+                    Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", msgs.First());
+                });
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+
+        [Test]
         public void Calculate_ValidPathOneCalculationInTheList_LogsMessages()
         {
             // Setup

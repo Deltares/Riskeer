@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
 using Ringtoets.Common.IO.HydraRing;
+using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -78,6 +79,12 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    preprocessorDirectory);
+
+            if (string.IsNullOrEmpty(validationProblem))
+            {
+                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage => validationProblem = logMessage);
+            }
+
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 log.ErrorFormat(RingtoetsCommonFormsResources.CalculateHydraulicBoundaryLocation_Start_calculation_failed_0_,
