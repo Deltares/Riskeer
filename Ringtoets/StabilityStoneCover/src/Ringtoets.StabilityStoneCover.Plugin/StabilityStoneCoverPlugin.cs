@@ -517,6 +517,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                                   RingtoetsCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
+            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, 
+                                                      nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
+
             nodeData.WrappedData.Children.Add(calculation);
             nodeData.WrappedData.NotifyObservers();
         }

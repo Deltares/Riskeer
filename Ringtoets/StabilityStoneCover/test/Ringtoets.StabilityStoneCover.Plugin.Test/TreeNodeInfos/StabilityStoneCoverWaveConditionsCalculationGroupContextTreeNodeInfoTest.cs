@@ -39,6 +39,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
@@ -1409,6 +1410,66 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
+            }
+        }
+
+        [Test]
+        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
+        [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
+        public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers(
+            NormType normType,
+            AssessmentSectionCategoryType expectedAssessmentSectionCategoryType)
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = normType
+                }
+            };
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
+                                                                                        null,
+                                                                                        failureMechanism,
+                                                                                        assessmentSection);
+            var calculationItem = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Name = "Nieuwe berekening"
+            };
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                group.Children.Add(calculationItem);
+                nodeData.Attach(observer);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    ICalculationBase newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+
+                    var newCalculationItem = (StabilityStoneCoverWaveConditionsCalculation) newlyAddedItem;
+                    Assert.AreEqual(expectedAssessmentSectionCategoryType, newCalculationItem.InputParameters.CategoryType);
                 }
             }
         }
