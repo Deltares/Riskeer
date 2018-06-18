@@ -32,6 +32,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.ChangeHandlers;
@@ -500,18 +501,22 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(dialog.SelectedItems, nodeData.WrappedData.Children);
+                    GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(dialog.SelectedItems,
+                                                                             nodeData.WrappedData.Children,
+                                                                             nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
         private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                     List<ICalculationBase> calculationCollection)
+                                                                                     List<ICalculationBase> calculationCollection,
+                                                                                     NormType normType)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
-                calculationCollection);
+                calculationCollection,
+                normType);
         }
 
         private static void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)

@@ -1488,6 +1488,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
         {
             // Given
+            var random = new Random(21);
+            var normType = random.NextEnumValue<NormType>();
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var existingGroup = new CalculationGroup();
@@ -1501,17 +1504,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     }
                 };
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                var assessmentSection = new AssessmentSectionStub
                 {
-                    Locations =
+                    FailureMechanismContribution =
                     {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
+                        NormativeNorm = normType
                     }
+                };
+                assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(new[]
+                {
+                    hydraulicBoundaryLocation1,
+                    hydraulicBoundaryLocation2
                 });
 
                 var observer = mocks.StrictMock<IObserver>();
@@ -1553,12 +1559,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(existingcalculation, group.Children[1]);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
+
+                AssessmentSectionCategoryType expectedAssessmentSectionCategoryType = GetCategoryTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
-                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculation.InputParameters.HydraulicBoundaryLocation);
+                AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInput.HydraulicBoundaryLocation);
+                Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
+
                 var secondCalculation = group.Children[3] as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
-                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculation.InputParameters.HydraulicBoundaryLocation);
+                AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInput.HydraulicBoundaryLocation);
+                Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
             }
         }
 
