@@ -250,7 +250,7 @@ namespace Ringtoets.DuneErosion.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new FailureMechanismSectionResultContext<DuneErosionFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism),
                 failureMechanism.OutputComments
@@ -361,14 +361,22 @@ namespace Ringtoets.DuneErosion.Plugin
         #region DuneLocationCalculationsContext TreeNodeInfo
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
-                                                                         double failureMechanismContribution)
+                                                                         double failureMechanismContribution,
+                                                                         double norm)
         {
             if (failureMechanismContribution <= 0.0)
             {
                 return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
             }
 
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+            string errorMessage = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage => errorMessage = logMessage);
+            }
+
+            return errorMessage;
         }
 
         private ContextMenuStrip DuneLocationCalculationsContextMenuStrip(DuneLocationCalculationsContext context, object parent, TreeViewControl treeViewControl)
@@ -391,7 +399,9 @@ namespace Ringtoets.DuneErosion.Plugin
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
-                                                                               context.FailureMechanism.Contribution);
+                                                                               context.FailureMechanism.Contribution,
+                                                                               context.GetNormFunc());
+
             if (!string.IsNullOrEmpty(validationText))
             {
                 calculateAllItem.Enabled = false;
