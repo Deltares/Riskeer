@@ -574,7 +574,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, nodeData.FailureMechanism, designWaterLevelItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
+                                                        nodeData.FailureMechanism,
+                                                        nodeData.GetNormFunc(),
+                                                        designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -614,7 +617,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection, nodeData.FailureMechanism, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
+                                                        nodeData.FailureMechanism,
+                                                        nodeData.GetNormFunc(),
+                                                        waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1146,6 +1152,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = validationText;
             }
+        }
+
+        private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
+                                                                        IFailureMechanism failureMechanism,
+                                                                        double norm,
+                                                                        StrictContextMenuItem menuItem)
+        {
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, failureMechanism, menuItem);
+            if (!menuItem.Enabled)
+            {
+                return;
+            }
+
+            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, logMessage =>
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = logMessage;
+            });
         }
 
         #endregion
