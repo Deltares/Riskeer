@@ -30,38 +30,6 @@ namespace Ringtoets.Common.Service.Test
     public class TargetProbabilityCalculationServiceHelperTest
     {
         [Test]
-        [TestCaseSource(nameof(ValidTargetProbabilities))]
-        public void IsValidTargetProbability_ValidTargetProbability_ReturnsTrue(double targetProbability)
-        {
-            // Call
-            bool isValid = TargetProbabilityCalculationServiceHelper.IsValidTargetProbability(targetProbability);
-
-            // Assert
-            Assert.IsTrue(isValid);
-        }
-
-        [Test]
-        public void IsValidTargetProbability_TargetProbabilityInvalid_ReturnsFalse()
-        {
-            // Call
-            bool isValid = TargetProbabilityCalculationServiceHelper.IsValidTargetProbability(double.NaN);
-
-            // Assert
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(TargetProbabilitiesThatAreTooBig))]
-        public void IsValidTargetProbability_TargetProbabilityTooBig_ReturnsFalse(double targetProbability)
-        {
-            // Call
-            bool isValid = TargetProbabilityCalculationServiceHelper.IsValidTargetProbability(targetProbability);
-
-            // Assert
-            Assert.IsFalse(isValid);
-        }
-
-        [Test]
         public void ValidateTargetProbability_HandleLogMessageActionNull_ThrowsArgumentNullException()
         {
             // Call

@@ -31,16 +31,6 @@ namespace Ringtoets.Common.Service
     public static class TargetProbabilityCalculationServiceHelper
     {
         /// <summary>
-        /// Validates the provided target probability.
-        /// </summary>
-        /// <param name="targetProbability">The target probability to validate.</param>
-        /// <returns><c>true</c> if <paramref name="targetProbability"/> is valid; <c>false</c> otherwise.</returns>
-        public static bool IsValidTargetProbability(double targetProbability)
-        {
-            return ValidateTargetProbability(targetProbability, message => {});
-        }
-
-        /// <summary>
         /// Validates the provided target probability. Log messages are handled during the execution of the operation.
         /// </summary>
         /// <param name="targetProbability">The target probability to validate.</param>
