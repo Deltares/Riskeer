@@ -39,6 +39,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms;
@@ -1425,6 +1426,65 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        [TestCase(NormType.Signaling)]
+        [TestCase(NormType.LowerLimit)]
+        public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers(
+            NormType normType)
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = normType
+                }
+            };
+            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
+                                                                                           null,
+                                                                                           failureMechanism,
+                                                                                           assessmentSection);
+            var calculationItem = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Name = "Nieuwe berekening"
+            };
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                group.Children.Add(calculationItem);
+                nodeData.Attach(observer);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    ICalculationBase newlyAddedItem = group.Children.Last();
+
+                    var newCalculationItem = newlyAddedItem as WaveImpactAsphaltCoverWaveConditionsCalculation;
+                    Assert.IsNotNull(newCalculationItem);
+                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                    Assert.AreEqual(GetCategoryTypeFromNormType(normType), newCalculationItem.InputParameters.CategoryType);
+                }
+            }
+        }
+
+        [Test]
         public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
         {
             // Given
@@ -1851,6 +1911,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
+        }
+
+        private static AssessmentSectionCategoryType GetCategoryTypeFromNormType(NormType normType)
+        {
+            switch (normType)
+            {
+                case NormType.LowerLimit:
+                    return AssessmentSectionCategoryType.LowerLimitNorm;
+                case NormType.Signaling:
+                    return AssessmentSectionCategoryType.SignalingNorm;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
