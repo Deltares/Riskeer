@@ -204,14 +204,13 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Setup
             var isValid = false;
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
-                                                                                                                   invalidPreprocessorDirectory,
-                                                                                                                   validNorm,
+                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   double.NaN,
                                                                                                                    string.Empty);
 
             // Assert
@@ -232,14 +231,13 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Setup
             var isValid = false;
-            const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
 
             // Call
             Action action = () => isValid = TestWaveConditionsCalculationService.PublicValidateWaveConditionsInput(new TestWaveConditionsInput(),
                                                                                                                    GetValidAssessmentLevel(),
                                                                                                                    validFilePath,
-                                                                                                                   invalidPreprocessorDirectory,
-                                                                                                                   validNorm,
+                                                                                                                   validPreprocessorDirectory,
+                                                                                                                   1.0,
                                                                                                                    string.Empty);
 
             // Assert
