@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(failureMechanismAssemblyCategoryPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismAssemblyCategories_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         public FailureMechanismAssemblyCategoryProperties[] FailureMechanismAssemblyCategories
@@ -81,7 +81,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
         [PropertyOrder(failureMechanismSectionAssemblyCategoryPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategoriesProperties_FailureMechanismSectionAssemblyCategories_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         public FailureMechanismSectionAssemblyCategoryProperties[] FailureMechanismSectionAssemblyCategories

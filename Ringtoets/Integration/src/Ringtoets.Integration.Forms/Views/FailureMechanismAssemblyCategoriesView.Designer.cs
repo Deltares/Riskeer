@@ -70,14 +70,14 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismAssemblyGroupBox.Controls.Add(this.failureMechanismAssemblyCategoriesTable);
             this.failureMechanismAssemblyGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.failureMechanismAssemblyGroupBox.Name = "failureMechanismAssemblyGroupBox";
-            this.failureMechanismAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismAssemblyCategoriesView_FailureMechanismCategoriesGroup_DisplayName;
+            this.failureMechanismAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismAssemblyCategories_DisplayName;
             // 
             // failureMechanismSectionAssemblyGroupBox
             // 
             this.failureMechanismSectionAssemblyGroupBox.Controls.Add(this.failureMechanismSectionAssemblyCategoriesTable);
             this.failureMechanismSectionAssemblyGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.failureMechanismSectionAssemblyGroupBox.Name = "failureMechanismSectionAssemblyGroupBox";
-            this.failureMechanismSectionAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismAssemblyCategoriesView_FailureMechanismSectionCategoriesGroup_DisplayName;
+            this.failureMechanismSectionAssemblyGroupBox.Text = global::Ringtoets.Integration.Forms.Properties.Resources.FailureMechanismSectionAssemblyCategories_DisplayName;
             // 
             // tableLayoutPanel
             // 
