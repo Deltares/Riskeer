@@ -23,8 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Forms
@@ -36,25 +38,30 @@ namespace Ringtoets.StabilityStoneCover.Forms
     {
         /// <summary>
         /// Adds <see cref="StabilityStoneCoverWaveConditionsCalculation"/> based on the <paramref name="locations"/> 
-        /// in the <paramref name="calculations"/>.
+        /// in the <paramref name="calculations"/> and sets their initial category type input based on the <paramref name="normType"/>.
         /// </summary>
         /// <param name="locations">Locations to base the calculation upon.</param>
         /// <param name="calculations">The list to update.</param>
-        /// <exception cref="ArgumentNullException">Throw when any input parameter is <c>null</c>.</exception>
-        public static void AddCalculationsFromLocations(
-            IEnumerable<HydraulicBoundaryLocation> locations,
-            List<ICalculationBase> calculations
-        )
+        /// <param name="normType">The <see cref="NormType"/> to set the category type input for.</param>
+        /// <exception cref="ArgumentNullException">Throw when any <paramref name="locations"/>
+        /// or <paramref name="calculations"/> is <c>null</c>.</exception>
+        public static void AddCalculationsFromLocations(IEnumerable<HydraulicBoundaryLocation> locations,
+                                                        List<ICalculationBase> calculations,
+                                                        NormType normType)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
-            foreach (ICalculationBase calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location, calculations)))
+
+            foreach (ICalculationBase calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location,
+                                                                                                                                     calculations,
+                                                                                                                                     normType)))
             {
                 calculations.Add(calculation);
             }
@@ -62,12 +69,13 @@ namespace Ringtoets.StabilityStoneCover.Forms
 
         private static ICalculationBase CreateStabilityStoneCoverWaveConditionsCalculation(
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            IEnumerable<ICalculationBase> calculations)
+            IEnumerable<ICalculationBase> calculations,
+            NormType normType)
         {
             string nameBase = hydraulicBoundaryLocation.Name;
             string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new StabilityStoneCoverWaveConditionsCalculation
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -75,6 +83,8 @@ namespace Ringtoets.StabilityStoneCover.Forms
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
+            return calculation;
         }
     }
 }

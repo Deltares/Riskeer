@@ -1415,11 +1415,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
-        [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase(NormType.Signaling)]
+        [TestCase(NormType.LowerLimit)]
         public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers(
-            NormType normType,
-            AssessmentSectionCategoryType expectedAssessmentSectionCategoryType)
+            NormType normType)
         {
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -1464,12 +1463,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(newlyAddedItem);
+                    var newCalculationItem = newlyAddedItem as StabilityStoneCoverWaveConditionsCalculation;
+                    Assert.IsNotNull(newCalculationItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-
-                    var newCalculationItem = (StabilityStoneCoverWaveConditionsCalculation) newlyAddedItem;
-                    Assert.AreEqual(expectedAssessmentSectionCategoryType, newCalculationItem.InputParameters.CategoryType);
+                    Assert.AreEqual(GetCategoryTypeFromNormType(normType), newCalculationItem.InputParameters.CategoryType);
                 }
             }
         }
@@ -1478,6 +1476,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
         {
             // Given
+            var random = new Random(21);
+            var normType = random.NextEnumValue<NormType>();
+            
             using (var treeViewControl = new TreeViewControl())
             {
                 var existingGroup = new CalculationGroup();
@@ -1490,18 +1491,22 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         existingcalculation
                     }
                 };
+
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+                var assessmentSection = new AssessmentSectionStub
                 {
-                    Locations =
+                    FailureMechanismContribution =
                     {
-                        hydraulicBoundaryLocation1,
-                        hydraulicBoundaryLocation2
+                        NormativeNorm = normType
                     }
+                };
+                assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(new[]
+                {
+                    hydraulicBoundaryLocation1,
+                    hydraulicBoundaryLocation2
                 });
 
                 var observer = mocks.StrictMock<IObserver>();
@@ -1544,12 +1549,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(existingcalculation, group.Children[1]);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
+
+                AssessmentSectionCategoryType expectedAssessmentSectionCategoryType = GetCategoryTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as StabilityStoneCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
-                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculation.InputParameters.HydraulicBoundaryLocation);
+                AssessmentSectionCategoryWaveConditionsInput firstCalculationInputParameters = firstCalculation.InputParameters;
+                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInputParameters.HydraulicBoundaryLocation);
+                Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInputParameters.CategoryType);
+
                 var secondCalculation = group.Children[3] as StabilityStoneCoverWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
-                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculation.InputParameters.HydraulicBoundaryLocation);
+                AssessmentSectionCategoryWaveConditionsInput secondCalculationInputParameters = secondCalculation.InputParameters;
+                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInputParameters.HydraulicBoundaryLocation);
+                Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInputParameters.CategoryType);
             }
         }
 
@@ -1700,8 +1712,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
+            var assessmentSection = new AssessmentSectionStub();
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                        null,
                                                                                        failureMechanism,
@@ -1904,6 +1915,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
+        }
+
+        private static AssessmentSectionCategoryType GetCategoryTypeFromNormType(NormType normType)
+        {
+            switch (normType)
+            {
+                case NormType.LowerLimit:
+                    return AssessmentSectionCategoryType.LowerLimitNorm;
+                case NormType.Signaling:
+                    return AssessmentSectionCategoryType.SignalingNorm;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

@@ -22,9 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Test
@@ -36,10 +40,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         public void AddCalculationsFromLocations_LocationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var random = new Random(21);
             var calculations = new List<ICalculationBase>();
 
             // Call
-            TestDelegate test = () => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(null, calculations);
+            TestDelegate test = () => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(null,
+                                                                                                                     calculations,
+                                                                                                                     random.NextEnumValue<NormType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,10 +57,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         public void AddCalculationsFromLocations_CalculationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var random = new Random(21);
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            TestDelegate test = () => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null);
+            TestDelegate test = () => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null, random.NextEnumValue<NormType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -64,18 +72,23 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
         public void AddCalculationsFromLocations_EmptyCollections_ReturnsEmptyList()
         {
             // Setup
+            var random = new Random(21);
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
             var calculationBases = new List<ICalculationBase>();
 
             // Call
-            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases);
+            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, random.NextEnumValue<NormType>());
 
             // Assert
             CollectionAssert.IsEmpty(calculationBases);
         }
 
         [Test]
-        public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations()
+        [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
+        public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations(
+            NormType normType,
+            AssessmentSectionCategoryType expectedAssessmentSectionCategoryType)
         {
             // Setup
             const string name = "name";
@@ -87,21 +100,29 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             var calculationBases = new List<ICalculationBase>();
 
             // Call
-            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases);
+            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normType);
 
             // Assert
             Assert.AreEqual(2, calculationBases.Count);
             var firstCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.First();
             Assert.AreEqual(name, firstCalculation.Name);
-            Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
+            AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
 
             var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", secondCalculation.Name);
-            Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
+            AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
         }
 
         [Test]
-        public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations()
+        [TestCase(NormType.LowerLimit, AssessmentSectionCategoryType.LowerLimitNorm)]
+        [TestCase(NormType.Signaling, AssessmentSectionCategoryType.SignalingNorm)]
+        public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations(
+            NormType normType,
+            AssessmentSectionCategoryType expectedAssessmentSectionCategoryType)
         {
             // Setup
             const string name = "name";
@@ -119,17 +140,21 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             };
 
             // Call
-            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases);
+            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normType);
 
             // Assert
             Assert.AreEqual(3, calculationBases.Count);
             var firstCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", firstCalculation.Name);
-            Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
+            AssessmentSectionCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedAssessmentSectionCategoryType, firstCalculationInput.CategoryType);
 
             var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual($"{name} (2)", secondCalculation.Name);
-            Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
+            AssessmentSectionCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedAssessmentSectionCategoryType, secondCalculationInput.CategoryType);
         }
     }
 }
