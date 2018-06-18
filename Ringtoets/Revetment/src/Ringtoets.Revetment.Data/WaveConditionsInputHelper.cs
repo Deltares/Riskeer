@@ -19,7 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.ComponentModel;
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Revetment.Data
 {
@@ -39,6 +44,82 @@ namespace Ringtoets.Revetment.Data
         public static RoundedDouble GetUpperBoundaryDesignWaterLevel(RoundedDouble assessmentLevel)
         {
             return new RoundedDouble(2, assessmentLevel - designWaterLevelSubstraction);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="AssessmentSectionCategoryType"/> of the <paramref name="waveConditionsInput"/>
+        /// based on the <see cref="NormType"/>.
+        /// </summary>
+        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> to set.</param>
+        /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// but unsupported.</exception>
+        public static void SetCategoryType(AssessmentSectionCategoryWaveConditionsInput waveConditionsInput,
+                                           NormType normType)
+        {
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            if (!Enum.IsDefined(typeof(NormType), normType))
+            {
+                throw new InvalidEnumArgumentException(nameof(normType),
+                                                       (int) normType,
+                                                       typeof(NormType));
+            }
+
+            switch (normType)
+            {
+                case NormType.LowerLimit:
+                    waveConditionsInput.CategoryType = AssessmentSectionCategoryType.LowerLimitNorm;
+                    break;
+                case NormType.Signaling:
+                    waveConditionsInput.CategoryType = AssessmentSectionCategoryType.SignalingNorm;
+                    break;
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(NormType)}.{normType} is not supported.");
+            }
+        }
+
+        /// <summary>
+        /// Sets the <see cref="FailureMechanismCategoryType"/> of the <paramref name="waveConditionsInput"/>
+        /// based on the <see cref="NormType"/>.
+        /// </summary>
+        /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/> to set.</param>
+        /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// but unsupported.</exception>
+        public static void SetCategoryType(FailureMechanismCategoryWaveConditionsInput waveConditionsInput,
+                                           NormType normType)
+        {
+            if (waveConditionsInput == null)
+            {
+                throw new ArgumentNullException(nameof(waveConditionsInput));
+            }
+
+            if (!Enum.IsDefined(typeof(NormType), normType))
+            {
+                throw new InvalidEnumArgumentException(nameof(normType),
+                                                       (int) normType,
+                                                       typeof(NormType));
+            }
+
+            switch (normType)
+            {
+                case NormType.LowerLimit:
+                    waveConditionsInput.CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm;
+                    break;
+                case NormType.Signaling:
+                    waveConditionsInput.CategoryType = FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
+                    break;
+                default:
+                    throw new NotSupportedException($"The enum value {nameof(NormType)}.{normType} is not supported.");
+            }
         }
     }
 }
