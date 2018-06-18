@@ -888,6 +888,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
+        [TestCaseSource(nameof(GetPhreaticLineAndWaternetLineConfigurationsAboveSurfaceLineAndOutsideXInterval))]
+        public void CreateWaternetZonePoints_DifferentWaternetLineAndPhreaticLineAboveSurfaceLineAndOutsideSurfaceLineXCoordinatesInterval_ReturnPointsCollection(
+            MacroStabilityInwardsSurfaceLine surfaceLine,
+            MacroStabilityInwardsWaternetLine waternetLine,
+            IEnumerable<IEnumerable<Point2D>> expectedZones)
+        {
+            // Call
+            IEnumerable<IEnumerable<Point2D>> zones = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, surfaceLine);
+
+            // Assert
+            Assert.AreEqual(expectedZones.Count(), zones.Count());
+            for (var i = 0; i < expectedZones.Count(); i++)
+            {
+                CollectionAssert.AreEqual(expectedZones.ElementAt(i), zones.ElementAt(i));
+            }
+        }
+
+        [Test]
         public void CreateWaternetZonePoints_PhreaticLineAboveSurfaceLineBeforeIntersectionPointWithSurfaceLine_ReturnsPointsCollection()
         {
             // Setup
@@ -1011,13 +1029,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.AreEqual(new[]
             {
+                new Point2D(1.875, 5),
                 new Point2D(3.125, 7),
                 new Point2D(5, 7),
                 new Point2D(6.875, 7),
+                new Point2D(8.125, 5),
                 new Point2D(6.875, 5),
                 new Point2D(5, 5),
                 new Point2D(3.125, 5),
-                new Point2D(3.125, 7)
+                new Point2D(1.875, 5)
             }, zones.Single());
         }
 
@@ -1135,7 +1155,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
         [Test]
         [TestCaseSource(nameof(GetPhreaticLineAndWaternetLineWithDifferentLengths))]
         public void CreateWaternetZonePoints_PhreaticLineNotSameLength_ReturnsPointCollection(IEnumerable<Point2D> waternetLineGeometry,
-                                                                                         IEnumerable<Point2D> phreaticLineGeometry)
+                                                                                              IEnumerable<Point2D> phreaticLineGeometry)
         {
             // Setup
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
@@ -1196,11 +1216,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
             // Assert
             CollectionAssert.AreEqual(new[]
             {
+                new Point2D(10.17, 6.48),
                 new Point2D(11.18, 7),
                 new Point2D(15, 8.97),
                 new Point2D(15, -8),
                 new Point2D(11.18, 3.46),
-                new Point2D(11.18, 7)
+                new Point2D(10.17, 6.48)
             }, zones.Single(), new Point2DComparerWithTolerance(1e-2));
         }
 
@@ -1926,6 +1947,66 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Factories
                                               }
                                           })
                 .SetName("Waternetline below phreatic line after intersection.");
+        }
+
+        private static IEnumerable<TestCaseData> GetPhreaticLineAndWaternetLineConfigurationsAboveSurfaceLineAndOutsideXInterval()
+        {
+            const double surfaceLineStartXCoordinate = 0.0;
+            const double surfaceLineEndXCoordinate = 10.0;
+            const double offset = 1.0;
+
+            var surfaceLine = new MacroStabilityInwardsSurfaceLine("Test");
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(surfaceLineStartXCoordinate, 2, 5),
+                new Point3D(5, 2, 15),
+                new Point3D(surfaceLineEndXCoordinate, 2, 5)
+            });
+
+            const double zoneBottomYCoordinate = 7.5;
+            const double zoneTopYCoordinate = 10;
+            var expectedZones = new[]
+            {
+                new[]
+                {
+                    new Point2D(1.25, zoneBottomYCoordinate),
+                    new Point2D(2.5, zoneTopYCoordinate),
+                    new Point2D(5, zoneTopYCoordinate),
+                    new Point2D(7.5, zoneTopYCoordinate),
+                    new Point2D(8.75, zoneBottomYCoordinate),
+                    new Point2D(7.5, zoneBottomYCoordinate),
+                    new Point2D(5, zoneBottomYCoordinate),
+                    new Point2D(2.5, zoneBottomYCoordinate),
+                    new Point2D(1.25, zoneBottomYCoordinate)
+                }
+            };
+            yield return new TestCaseData(surfaceLine,
+                                          CreateWaternetLine(new[]
+                                                             {
+                                                                 new Point2D(surfaceLineStartXCoordinate - offset, zoneBottomYCoordinate),
+                                                                 new Point2D(surfaceLineEndXCoordinate, zoneBottomYCoordinate)
+                                                             },
+                                                             new[]
+                                                             {
+                                                                 new Point2D(surfaceLineStartXCoordinate - offset, zoneTopYCoordinate),
+                                                                 new Point2D(surfaceLineEndXCoordinate, zoneTopYCoordinate)
+                                                             }),
+                                          expectedZones)
+                .SetName("Waternetline and phreatic line X coordinate left from surface line");
+
+            yield return new TestCaseData(surfaceLine,
+                                          CreateWaternetLine(new[]
+                                                             {
+                                                                 new Point2D(surfaceLineStartXCoordinate, zoneBottomYCoordinate),
+                                                                 new Point2D(surfaceLineEndXCoordinate + offset, zoneBottomYCoordinate)
+                                                             },
+                                                             new[]
+                                                             {
+                                                                 new Point2D(surfaceLineStartXCoordinate, zoneTopYCoordinate),
+                                                                 new Point2D(surfaceLineEndXCoordinate + offset, zoneTopYCoordinate)
+                                                             }),
+                                          expectedZones)
+                .SetName("Waternetline and phreatic line X coordinate right from surface line");
         }
 
         #endregion

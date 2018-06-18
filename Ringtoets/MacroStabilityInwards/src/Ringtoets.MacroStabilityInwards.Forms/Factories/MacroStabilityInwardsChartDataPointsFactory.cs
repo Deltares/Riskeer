@@ -36,6 +36,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
     /// </summary>
     internal static class MacroStabilityInwardsChartDataPointsFactory
     {
+        private const double tolerance = 1e-6;
+
         /// <summary>
         /// Create surface line points in 2D space based on the provided <paramref name="surfaceLine"/>.
         /// </summary>
@@ -272,7 +274,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                                                                                  MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (waternetLine == null || surfaceLine == null
-                || !waternetLine.Geometry.Any() || !waternetLine.PhreaticLine.Geometry.Any())
+                                     || !waternetLine.Geometry.Any() || !waternetLine.PhreaticLine.Geometry.Any())
             {
                 return new Point2D[0][];
             }
@@ -573,8 +575,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
 
         private static IEnumerable<Point2D> ClipWaternetZoneToSurfaceLine(IEnumerable<Point2D> surfaceLineLocalGeometry, IEnumerable<Point2D> waternetZoneAsPolygon)
         {
-            double leftX = waternetZoneAsPolygon.Min(p => p.X);
-            double rightX = waternetZoneAsPolygon.Max(p => p.X);
+            double leftX = Math.Max(waternetZoneAsPolygon.Min(p => p.X), surfaceLineLocalGeometry.Select(p => p.X).Min());
+            double rightX = Math.Min(waternetZoneAsPolygon.Max(p => p.X), surfaceLineLocalGeometry.Select(p => p.X).Max());
 
             Segment2D[] surfaceLineSegments = Math2D.ConvertPointsToLineSegments(surfaceLineLocalGeometry).ToArray();
             Segment2D[] waternetZoneSegments = Math2D.ConvertPointsToLineSegments(waternetZoneAsPolygon).ToArray();
@@ -617,21 +619,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     double waternetBottomDelta = waternetZoneBottom - surfaceLineIntersection.Y;
                     double waternetTopDelta = waternetZoneTop - surfaceLineIntersection.Y;
 
-                    if ((Math.Abs(waternetBottomDelta) < 1e-6 || waternetBottomDelta > 0) && !intersectionPoints.Any(c => c.X.Equals(xCoordinate)))
+                    if ((Math.Abs(waternetBottomDelta) < tolerance || waternetBottomDelta > 0) && !intersectionPoints.Any(c => c.X.Equals(xCoordinate)))
                     {
                         continue;
                     }
 
                     IEnumerable<Point2D> waternetZonePoints = waternetZoneIntersection.OrderBy(p => p.Y);
 
-                    if (Math.Abs(waternetTopDelta) < 1e-6 || waternetTopDelta < 0)
+                    if (Math.Abs(waternetTopDelta) < tolerance || waternetTopDelta < 0)
                     {
                         bottomLine.Add(waternetZonePoints.First());
                         topLine.Add(waternetZonePoints.Last());
                     }
-                    else if (waternetTopDelta > 0 && waternetBottomDelta < 0)
+                    else if (waternetTopDelta > 0 && waternetBottomDelta < -1.0 * tolerance)
                     {
                         bottomLine.Add(waternetZonePoints.First());
+                        topLine.Add(surfaceLineIntersection);
+                    }
+                    else if (Math.Abs(waternetBottomDelta) < tolerance && waternetTopDelta > 0)
+                    {
                         topLine.Add(surfaceLineIntersection);
                     }
                 }
@@ -647,14 +653,15 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                     area.Add(topLine.First());
                 }
             }
-            return area;
+
+            return area.Count > 2 ? area : Enumerable.Empty<Point2D>();
         }
 
         private static bool AreaIsNotFlatLine(IEnumerable<Point2D> topLine, IEnumerable<Point2D> bottomLine)
         {
             return topLine.Count() != bottomLine.Count()
-                   || topLine.Where((t, i) => !(Math.Abs(t.X - bottomLine.ElementAt(i).X) < 1e-6)
-                                              || !(Math.Abs(t.Y - bottomLine.ElementAt(i).Y) < 1e-6)).Any();
+                   || topLine.Where((t, i) => !(Math.Abs(t.X - bottomLine.ElementAt(i).X) < tolerance)
+                                              || !(Math.Abs(t.Y - bottomLine.ElementAt(i).Y) < tolerance)).Any();
         }
 
         private static bool IsSurfaceLineAboveWaternetZone(IEnumerable<Point2D> surfaceLineLocalGeometry,
@@ -715,7 +722,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Factories
                 waternetLineArea.Add(new Point2D(xCoordinate, waternetLineIntersection.Y));
                 phreaticLineArea.Add(new Point2D(xCoordinate, phreaticLineIntersection.Y));
 
-                if (intersectionPoints.Any(p => Math.Abs(p.X - xCoordinate) < 1e-6))
+                if (intersectionPoints.Any(p => Math.Abs(p.X - xCoordinate) < tolerance))
                 {
                     areaPoints.AddRange(phreaticLineArea);
                     areaPoints.AddRange(waternetLineArea.OrderByDescending(p => p.X));
