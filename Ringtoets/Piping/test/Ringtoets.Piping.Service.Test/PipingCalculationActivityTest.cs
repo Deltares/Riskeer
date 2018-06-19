@@ -29,6 +29,7 @@ using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -49,32 +50,17 @@ namespace Ringtoets.Piping.Service.Test
                                                          RoundedDouble.NaN);
 
             // Assert
-            Assert.IsInstanceOf<Activity>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
 
         [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new PipingCalculationActivity(null,
-                                                                    RoundedDouble.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
-        public void Run_InvalidPipingCalculationWithOutput_LogValidationStartAndEndWithErrors()
+        public void Run_InvalidPipingCalculation_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            PipingOutput originalOutput = PipingOutputTestFactory.Create();
-
             PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
-            invalidPipingCalculation.Output = originalOutput;
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
                                                          AssessmentSectionHelper.GetTestAssessmentLevel());
@@ -99,7 +85,6 @@ namespace Ringtoets.Piping.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[7]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            Assert.AreSame(originalOutput, invalidPipingCalculation.Output);
         }
 
         [Test]
@@ -107,11 +92,9 @@ namespace Ringtoets.Piping.Service.Test
         {
             // Setup
             PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
-            validPipingCalculation.Output = null;
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
                                                          AssessmentSectionHelper.GetTestAssessmentLevel());
-            activity.Run();
 
             // Call
             Action call = () => activity.Run();

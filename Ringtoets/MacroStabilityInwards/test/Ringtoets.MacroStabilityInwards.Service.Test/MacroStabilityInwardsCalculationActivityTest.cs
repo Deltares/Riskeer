@@ -29,6 +29,7 @@ using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -49,31 +50,17 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var activity = new MacroStabilityInwardsCalculationActivity(calculation, RoundedDouble.NaN);
 
             // Assert
-            Assert.IsInstanceOf<Activity>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
 
         [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculationActivity(null, RoundedDouble.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
         public void Run_InvalidMacroStabilityInwardsCalculationWithOutput_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            MacroStabilityInwardsOutput originalOutput = MacroStabilityInwardsOutputTestFactory.CreateOutput();
-
             MacroStabilityInwardsCalculationScenario invalidMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
-            invalidMacroStabilityInwardsCalculation.Output = originalOutput;
 
             var activity = new MacroStabilityInwardsCalculationActivity(invalidMacroStabilityInwardsCalculation,
                                                                         AssessmentSectionHelper.GetTestAssessmentLevel());
@@ -96,7 +83,6 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            Assert.AreSame(originalOutput, invalidMacroStabilityInwardsCalculation.Output);
         }
 
         [Test]
@@ -104,13 +90,11 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             MacroStabilityInwardsCalculationScenario validMacroStabilityInwardsCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
-            validMacroStabilityInwardsCalculation.Output = null;
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var activity = new MacroStabilityInwardsCalculationActivity(validMacroStabilityInwardsCalculation,
                                                                             AssessmentSectionHelper.GetTestAssessmentLevel());
-                activity.Run();
 
                 // Call
                 Action call = () => activity.Run();
