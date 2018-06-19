@@ -89,23 +89,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedCalculation()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
-            var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(calculation.InputParameters,
-                                                                                  calculation,
-                                                                                  new AssessmentSectionStub(),
-                                                                                  new GrassCoverErosionOutwardsFailureMechanism());
-
-            // Call
-            object viewData = info.GetViewData(context);
-
-            // Assert
-            Assert.AreSame(calculation, viewData);
-        }
-
-        [Test]
         public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithStylingApplied()
         {
             // Setup
@@ -125,7 +108,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             // Call 
             var view = (WaveConditionsInputView) info.CreateInstance(context);
-            view.Data = context.Calculation;
 
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
@@ -172,7 +154,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);
-            view.Data = context.Calculation;
 
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
@@ -190,11 +171,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
         protected override IView GetView(ICalculation data)
         {
-            return new WaveConditionsInputView(new GrassCoverErosionOutwardsWaveConditionsInputViewStyle(),
-                                               () => (RoundedDouble) 1.1)
-            {
-                Data = data
-            };
+            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data, 
+                                               () => (RoundedDouble) 1.1, 
+                                               new GrassCoverErosionOutwardsWaveConditionsInputViewStyle());
         }
 
         protected override ICalculation GetCalculation()

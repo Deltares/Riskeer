@@ -90,23 +90,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnsWrappedCalculation()
-        {
-            // Setup
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
-            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(calculation.InputParameters,
-                                                                               calculation,
-                                                                               new AssessmentSectionStub(),
-                                                                               new ForeshoreProfile[0]);
-
-            // Call
-            object viewData = info.GetViewData(context);
-
-            // Assert
-            Assert.AreSame(calculation, viewData);
-        }
-
-        [Test]
         public void CreateInstance_WaveImpactAsphaltCoverWaveConditionsInputContext_ReturnViewWithStylingApplied()
         {
             // Setup
@@ -126,7 +109,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             // Call 
             var view = (WaveConditionsInputView) info.CreateInstance(context);
-            view.Data = context.Calculation;
 
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
@@ -173,7 +155,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             // Call
             var view = (WaveConditionsInputView) info.CreateInstance(context);
-            view.Data = context.Calculation;
 
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
@@ -190,11 +171,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
         protected override IView GetView(ICalculation data)
         {
-            return new WaveConditionsInputView(new WaveImpactAsphaltCoverWaveConditionsInputViewStyle(),
-                                               () => (RoundedDouble) 1.1)
-            {
-                Data = data
-            };
+            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data, 
+                                               () => (RoundedDouble) 1.1, 
+                                               new WaveImpactAsphaltCoverWaveConditionsInputViewStyle());
         }
 
         protected override ICalculation GetCalculation()

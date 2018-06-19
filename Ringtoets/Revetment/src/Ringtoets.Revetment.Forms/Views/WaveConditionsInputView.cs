@@ -56,25 +56,32 @@ namespace Ringtoets.Revetment.Forms.Views
         private readonly ChartLineData revetmentBaseChartData;
         private readonly ChartLineData revetmentChartData;
 
-        private ICalculation<WaveConditionsInput> data;
+        private readonly ICalculation<WaveConditionsInput> calculation;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputView"/>.
         /// </summary>
-        /// <param name="inputViewStyle">The style which should be applied to the <see cref="ChartLineData"/>.</param>
+        /// <param name="calculation">The calculation to show in the view.</param>
         /// <param name="getAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the assessment level.</param>
+        /// <param name="inputViewStyle">The style which should be applied to the <see cref="ChartLineData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public WaveConditionsInputView(IWaveConditionsInputViewStyle inputViewStyle,
-                                       Func<RoundedDouble> getAssessmentLevelFunc)
+        public WaveConditionsInputView(ICalculation<WaveConditionsInput> calculation,
+                                       Func<RoundedDouble> getAssessmentLevelFunc,
+                                       IWaveConditionsInputViewStyle inputViewStyle)
         {
-            if (inputViewStyle == null)
+            if (calculation == null)
             {
-                throw new ArgumentNullException(nameof(inputViewStyle));
+                throw new ArgumentNullException(nameof(calculation));
             }
 
             if (getAssessmentLevelFunc == null)
             {
                 throw new ArgumentNullException(nameof(getAssessmentLevelFunc));
+            }
+
+            if (inputViewStyle == null)
+            {
+                throw new ArgumentNullException(nameof(inputViewStyle));
             }
 
             InitializeComponent();
@@ -84,6 +91,12 @@ namespace Ringtoets.Revetment.Forms.Views
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateCalculationInput);
             hydraulicBoundaryLocationObserver = new Observer(UpdateChartData);
+
+            this.calculation = calculation;
+
+            calculationObserver.Observable = calculation;
+            calculationInputObserver.Observable = calculation.InputParameters;
+            hydraulicBoundaryLocationObserver.Observable = calculation.InputParameters.HydraulicBoundaryLocation;
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
@@ -105,35 +118,20 @@ namespace Ringtoets.Revetment.Forms.Views
             chartDataCollection.Add(waterLevelsChartData);
             chartDataCollection.Add(revetmentBaseChartData);
             chartDataCollection.Add(revetmentChartData);
+
+            SetChartData();
+
+            chartControl.Data = chartDataCollection;
+            UpdateChartTitle();
         }
 
         public object Data
         {
             get
             {
-                return data;
+                return calculation;
             }
-            set
-            {
-                data = value as ICalculation<WaveConditionsInput>;
-
-                calculationObserver.Observable = data;
-                calculationInputObserver.Observable = data?.InputParameters;
-                hydraulicBoundaryLocationObserver.Observable = data?.InputParameters.HydraulicBoundaryLocation;
-
-                if (data == null)
-                {
-                    chartControl.Data = null;
-                    chartControl.ChartTitle = string.Empty;
-                }
-                else
-                {
-                    SetChartData();
-
-                    chartControl.Data = chartDataCollection;
-                    UpdateChartTitle();
-                }
-            }
+            set {}
         }
 
         public IChartControl Chart
@@ -160,7 +158,7 @@ namespace Ringtoets.Revetment.Forms.Views
 
         private void UpdateCalculationInput()
         {
-            hydraulicBoundaryLocationObserver.Observable = data?.InputParameters.HydraulicBoundaryLocation;
+            hydraulicBoundaryLocationObserver.Observable = calculation?.InputParameters.HydraulicBoundaryLocation;
             UpdateChartData();
         }
 
@@ -173,12 +171,12 @@ namespace Ringtoets.Revetment.Forms.Views
 
         private void UpdateChartTitle()
         {
-            chartControl.ChartTitle = data.Name;
+            chartControl.ChartTitle = calculation.Name;
         }
 
         private void SetChartData()
         {
-            WaveConditionsInput input = data.InputParameters;
+            WaveConditionsInput input = calculation.InputParameters;
 
             WaveConditionsChartDataFactory.UpdateForeshoreGeometryChartDataName(foreshoreChartData, input);
 

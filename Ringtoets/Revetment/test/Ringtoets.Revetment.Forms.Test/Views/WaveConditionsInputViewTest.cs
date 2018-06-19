@@ -81,8 +81,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Constructor_InputViewStyleNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(null,
-                                                                  AssessmentSectionHelper.GetTestAssessmentLevel);
+            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(), AssessmentSectionHelper.GetTestAssessmentLevel, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -93,7 +92,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void Constructor_GetAssessmentLevelFuncNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), null);
+            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(), null, new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -101,131 +100,69 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_CalculationNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveConditionsInputView(null, AssessmentSectionHelper.GetTestAssessmentLevel, new TestWaveConditionsInputViewStyle());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
+            TestWaveConditionsCalculation<TestWaveConditionsInput> calculation = CreateTestCalculation();
+            using (var view = new WaveConditionsInputView(calculation, AssessmentSectionHelper.GetTestAssessmentLevel, new TestWaveConditionsInputViewStyle()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IChartView>(view);
                 Assert.IsNotNull(view.Chart);
-                Assert.IsNull(view.Data);
+                Assert.AreSame(calculation, view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
             }
         }
 
         [Test]
-        public void Constructor_Always_AddEmptyChartControl()
-        {
-            // Call
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
-            {
-                // Assert
-                var chartControl = (IChartControl) view.Controls.Find("chartControl", true).First();
-                Assert.IsInstanceOf<Control>(chartControl);
-                Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
-                Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
-                Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
-                Assert.IsNull(chartControl.Data);
-            }
-        }
-
-        [Test]
-        public void Data_IWaveConditionsCalculation_DataSet()
-        {
-            // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
-            {
-                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                Assert.AreSame(calculation, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_OtherThanWaveConditionsCalculation_DataNull()
-        {
-            // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
-            {
-                var calculation = new object();
-
-                // Call
-                view.Data = calculation;
-
-                // Assert
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_SetToNull_ChartDataCleared()
-        {
-            // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel)
-            {
-                Data = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
-            })
-            {
-                // Precondition
-                Assert.AreEqual(numberOfChartDataLayers, view.Chart.Data.Collection.Count());
-                Assert.AreEqual("Nieuwe berekening", view.Chart.ChartTitle);
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.Chart.Data);
-                Assert.IsEmpty(view.Chart.ChartTitle);
-            }
-        }
-
-        [Test]
-        public void Data_SetChartData_ChartDataSet()
+        public void Constructor_WithValidParameters_ChartDataSet()
         {
             // Setup
             const string calculationName = "Calculation name";
             var assessmentLevel = (RoundedDouble) 6;
-
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => assessmentLevel))
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
             {
-                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
+                Name = calculationName,
+                InputParameters =
                 {
-                    Name = calculationName,
-                    InputParameters =
+                    ForeshoreProfile = new TestForeshoreProfile(new[]
                     {
-                        ForeshoreProfile = new TestForeshoreProfile(new[]
-                        {
-                            new Point2D(0.0, 0.0),
-                            new Point2D(1.0, 1.0),
-                            new Point2D(2.0, 2.0)
-                        }),
-                        LowerBoundaryRevetment = (RoundedDouble) 5,
-                        UpperBoundaryRevetment = (RoundedDouble) 8,
-                        LowerBoundaryWaterLevels = (RoundedDouble) 3,
-                        UpperBoundaryWaterLevels = (RoundedDouble) 9
-                    }
-                };
+                        new Point2D(0.0, 0.0),
+                        new Point2D(1.0, 1.0),
+                        new Point2D(2.0, 2.0)
+                    }),
+                    LowerBoundaryRevetment = (RoundedDouble) 5,
+                    UpperBoundaryRevetment = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 3,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 9
+                }
+            };
 
-                // Call
-                view.Data = calculation;
-
+            // Call
+            using (var view = new WaveConditionsInputView(calculation, () => assessmentLevel, new TestWaveConditionsInputViewStyle()))
+            {
                 // Assert
-                Assert.AreSame(calculation, view.Data);
-                Assert.AreEqual(calculationName, view.Chart.ChartTitle);
+                IChartControl chartControl = view.Chart;
+                Assert.IsInstanceOf<Control>(chartControl);
+                Assert.AreEqual(DockStyle.Fill, ((Control) chartControl).Dock);
+                Assert.AreEqual("Afstand [m]", chartControl.BottomAxisTitle);
+                Assert.AreEqual("Hoogte [m+NAP]", chartControl.LeftAxisTitle);
 
-                ChartDataCollection chartData = view.Chart.Data;
+                Assert.AreEqual(calculationName, chartControl.ChartTitle);
+
+                ChartDataCollection chartData = chartControl.Data;
                 Assert.IsInstanceOf<ChartDataCollection>(chartData);
                 Assert.AreEqual(numberOfChartDataLayers, chartData.Collection.Count());
 
@@ -263,19 +200,16 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
+            const string initialName = "Initial name";
+            const string updatedName = "Updated name";
+
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
             {
-                const string initialName = "Initial name";
-                const string updatedName = "Updated name";
+                Name = initialName
+            };
 
-                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
-                {
-                    Name = initialName
-                };
-
-                view.Data = calculation;
-
+            using (var view = new WaveConditionsInputView(calculation, AssessmentSectionHelper.GetTestAssessmentLevel, new TestWaveConditionsInputViewStyle()))
+            {
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
 
@@ -286,41 +220,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 // Assert
                 Assert.AreEqual(updatedName, view.Chart.ChartTitle);
-            }
-        }
-
-        [Test]
-        public void UpdateObserver_PreviousCalculationNameUpdated_ChartTitleNotUpdated()
-        {
-            // Setup
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel))
-            {
-                const string initialName = "Initial name";
-                const string updatedName = "Updated name";
-
-                var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
-                {
-                    Name = initialName
-                };
-
-                view.Data = calculation;
-
-                // Precondition
-                Assert.AreEqual(initialName, view.Chart.ChartTitle);
-
-                view.Data = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
-                {
-                    Name = initialName
-                };
-
-                calculation.Name = updatedName;
-
-                // Call
-                calculation.NotifyObservers();
-
-                // Assert
-                Assert.AreEqual(initialName, view.Chart.ChartTitle);
             }
         }
 
@@ -351,10 +250,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), () => assessmentLevel)
-            {
-                Data = calculation
-            })
+            using (var view = new WaveConditionsInputView(calculation, () => assessmentLevel, new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -430,41 +326,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_PreviousCalculationUpdated_ChartDataNotUpdated()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            mocks.ReplayAll();
-
-            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
-
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(),
-                                                          AssessmentSectionHelper.GetTestAssessmentLevel)
-            {
-                Data = calculation
-            })
-            {
-                ((ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex)).Attach(observer);
-
-                view.Data = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
-
-                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(3, 3),
-                    new Point2D(8, 8)
-                });
-
-                // Call
-                calculation.InputParameters.NotifyObservers();
-
-                // Assert
-                mocks.VerifyAll(); // No update observer expected
-            }
-        }
-
-        [Test]
         [TestCaseSource(nameof(NotifyChange))]
         public void GivenViewWithInputData_WhenChangeNotified_ThenUpdatedDataIsShownInChart(Action<WaveConditionsInput> notifyChange)
         {
@@ -490,10 +351,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
             var assessmentLevel = (RoundedDouble) 6;
             Func<RoundedDouble> getAssessmentLevel = () => assessmentLevel;
-            using (var view = new WaveConditionsInputView(new TestWaveConditionsInputViewStyle(), getAssessmentLevel)
-            {
-                Data = calculation
-            })
+            using (var view = new WaveConditionsInputView(calculation, getAssessmentLevel, new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -546,6 +404,11 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertRevetmentChartData(profile.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
             }
+        }
+
+        private static TestWaveConditionsCalculation<TestWaveConditionsInput> CreateTestCalculation()
+        {
+            return new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput());
         }
 
         private static void AssertForeshoreChartData(ForeshoreProfile foreshoreProfile, ChartData chartData)
