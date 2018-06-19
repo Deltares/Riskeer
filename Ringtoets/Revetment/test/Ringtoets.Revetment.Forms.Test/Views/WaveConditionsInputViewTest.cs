@@ -31,7 +31,6 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -81,89 +80,48 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         [Test]
         public void Constructor_InputViewStyleNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
-                                                                  assessmentSection,
                                                                   GetHydraulicBoundaryLocationCalculation,
                                                                   null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("inputViewStyle", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GetHydraulicBoundaryLocationCalculationFuncNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
-                                                                  assessmentSection,
                                                                   null,
                                                                   new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("getHydraulicBoundaryLocationCalculationFunc", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => new WaveConditionsInputView(null,
-                                                                  assessmentSection,
                                                                   GetHydraulicBoundaryLocationCalculation,
                                                                   new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
-                                                                  null,
-                                                                  GetHydraulicBoundaryLocationCalculation,
-                                                                  new TestWaveConditionsInputViewStyle());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             TestWaveConditionsCalculation<TestWaveConditionsInput> calculation = CreateTestCalculation();
             using (var view = new WaveConditionsInputView(calculation,
-                                                          assessmentSection,
                                                           GetHydraulicBoundaryLocationCalculation,
                                                           new TestWaveConditionsInputViewStyle()))
             {
@@ -174,8 +132,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(calculation, view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -202,13 +158,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
             using (var view = new WaveConditionsInputView(calculation,
-                                                          assessmentSection,
                                                           () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
                                                           new TestWaveConditionsInputViewStyle()))
             {
@@ -253,8 +204,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                          calculation.InputParameters.UpperBoundaryRevetment,
                                          chartData.Collection.ElementAt(revetmentChartDataIndex));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -269,12 +218,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Name = initialName
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var view = new WaveConditionsInputView(calculation,
-                                                          assessmentSection,
                                                           GetHydraulicBoundaryLocationCalculation,
                                                           new TestWaveConditionsInputViewStyle()))
             {
@@ -289,8 +233,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(updatedName, view.Chart.ChartTitle);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -298,7 +240,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChartDataLayers);
             mocks.ReplayAll();
@@ -322,7 +263,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             };
 
             using (var view = new WaveConditionsInputView(calculation,
-                                                          assessmentSection,
                                                           () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
                                                           new TestWaveConditionsInputViewStyle()))
             {
@@ -424,12 +364,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             var assessmentLevel = (RoundedDouble) 6;
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation(assessmentLevel);
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var view = new WaveConditionsInputView(calculation,
-                                                          assessmentSection,
                                                           () => hydraulicBoundaryLocationCalculation,
                                                           new TestWaveConditionsInputViewStyle()))
             {
@@ -511,12 +446,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
             };
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation(new Random(39).NextRoundedDouble());
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var view = new WaveConditionsInputView(calculation,
-                                                          assessmentSection,
                                                           () => hydraulicBoundaryLocationCalculation,
                                                           new TestWaveConditionsInputViewStyle()))
             {
@@ -595,13 +525,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var assessmentLevel = (RoundedDouble) 6;
             using (var view = new WaveConditionsInputView(calculation,
-                                                          assessmentSection,
                                                           () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
                                                           new TestWaveConditionsInputViewStyle()))
             {

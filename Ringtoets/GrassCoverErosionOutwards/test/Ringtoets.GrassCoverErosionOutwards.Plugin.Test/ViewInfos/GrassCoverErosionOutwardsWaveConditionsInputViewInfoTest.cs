@@ -171,7 +171,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         protected override IView GetView(ICalculation data)
         {
             return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data,
-                                               new AssessmentSectionStub(),
                                                () => new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                                                new GrassCoverErosionOutwardsWaveConditionsInputViewStyle());
         }

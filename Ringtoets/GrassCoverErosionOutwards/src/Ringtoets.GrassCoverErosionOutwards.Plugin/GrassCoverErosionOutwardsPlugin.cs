@@ -190,13 +190,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new WaveConditionsInputView(context.Calculation,
-                                                                        context.AssessmentSection,
-                                                                        () => context.FailureMechanism.GetHydraulicBoundaryLocationCalculation(
-                                                                            context.AssessmentSection,
-                                                                            context.Calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                            context.Calculation.InputParameters.CategoryType),
-                                                                        new GrassCoverErosionOutwardsWaveConditionsInputViewStyle())
+                CreateInstance = context => new WaveConditionsInputView(
+                    context.Calculation,
+                    () => context.FailureMechanism.GetHydraulicBoundaryLocationCalculation(
+                        context.AssessmentSection,
+                        context.Calculation.InputParameters.HydraulicBoundaryLocation,
+                        context.Calculation.InputParameters.CategoryType),
+                    new GrassCoverErosionOutwardsWaveConditionsInputViewStyle())
             };
         }
 

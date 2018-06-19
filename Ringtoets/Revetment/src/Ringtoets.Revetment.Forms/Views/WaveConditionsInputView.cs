@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
@@ -46,7 +45,6 @@ namespace Ringtoets.Revetment.Forms.Views
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
         private readonly Observer hydraulicBoundaryLocationCalculationObserver;
-        private readonly Observer assessmentSectionObserver;
 
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartLineData foreshoreChartData;
@@ -65,23 +63,16 @@ namespace Ringtoets.Revetment.Forms.Views
         /// Creates a new instance of <see cref="WaveConditionsInputView"/>.
         /// </summary>
         /// <param name="calculation">The calculation to show in the view.</param>
-        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
-        /// <param name="getHydraulicBoundaryLocationCalculationFunc"><see cref="Func{TResult}"/> for obtaining the <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
+        /// <param name="getHydraulicBoundaryLocationCalculationFunc">The <see cref="Func{TResult}"/> for obtaining the <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
         /// <param name="inputViewStyle">The style which should be applied to the <see cref="ChartLineData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public WaveConditionsInputView(ICalculation<WaveConditionsInput> calculation,
-                                       IAssessmentSection assessmentSection,
                                        Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc,
                                        IWaveConditionsInputViewStyle inputViewStyle)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             if (getHydraulicBoundaryLocationCalculationFunc == null)
@@ -100,7 +91,6 @@ namespace Ringtoets.Revetment.Forms.Views
 
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateCalculationInput);
-            assessmentSectionObserver = new Observer(UpdateCalculationInput);
             hydraulicBoundaryLocationCalculationObserver = new Observer(UpdateChartData);
 
             this.calculation = calculation;
@@ -108,7 +98,6 @@ namespace Ringtoets.Revetment.Forms.Views
             calculationObserver.Observable = calculation;
             calculationInputObserver.Observable = calculation.InputParameters;
             hydraulicBoundaryLocationCalculationObserver.Observable = getHydraulicBoundaryLocationCalculationFunc();
-            assessmentSectionObserver.Observable = assessmentSection;
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
@@ -158,7 +147,6 @@ namespace Ringtoets.Revetment.Forms.Views
         {
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
-            assessmentSectionObserver.Dispose();
 
             if (disposing)
             {
@@ -177,7 +165,6 @@ namespace Ringtoets.Revetment.Forms.Views
         private void UpdateChartData()
         {
             SetChartData();
-
             chartDataCollection.Collection.ForEachElementDo(cd => cd.NotifyObservers());
         }
 

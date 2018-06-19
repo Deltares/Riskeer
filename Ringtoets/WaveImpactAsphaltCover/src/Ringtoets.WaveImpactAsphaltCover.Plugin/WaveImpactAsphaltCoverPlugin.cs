@@ -111,11 +111,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
-                CreateInstance = context => new WaveConditionsInputView(context.Calculation,
-                                                                        context.AssessmentSection,
-                                                                        () => context.AssessmentSection.GetHydraulicBoundaryLocationCalculation(context.Calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                                                                context.Calculation.InputParameters.CategoryType),
-                                                                        new WaveImpactAsphaltCoverWaveConditionsInputViewStyle())
+                CreateInstance = context => new WaveConditionsInputView(
+                    context.Calculation,
+                    () => context.AssessmentSection.GetHydraulicBoundaryLocationCalculation(context.Calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                            context.Calculation.InputParameters.CategoryType),
+                    new WaveImpactAsphaltCoverWaveConditionsInputViewStyle())
             };
         }
 
