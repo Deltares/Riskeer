@@ -243,12 +243,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
+                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                    }
+                }, true)
+                .SetName("NoOutputScenario2");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                         ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                         ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
                         ShouldDikeHeightIllustrationPointsBeCalculated = true
                     }
                 }, true)
-                .SetName("NoOutputScenario2");
+                .SetName("NoOutputScenario3");
 
             yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
                 {
