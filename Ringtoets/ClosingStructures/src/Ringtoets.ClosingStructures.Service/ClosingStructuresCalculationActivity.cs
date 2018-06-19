@@ -48,8 +48,11 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ClosingStructuresCalculationActivity(StructuresCalculation<ClosingStructuresInput> calculation, string hydraulicBoundaryDatabaseFilePath,
-                                                    ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public ClosingStructuresCalculationActivity(StructuresCalculation<ClosingStructuresInput> calculation,
+                                                    string hydraulicBoundaryDatabaseFilePath,
+                                                    ClosingStructuresFailureMechanism failureMechanism,
+                                                    IAssessmentSection assessmentSection)
+            : base(calculation)
         {
             if (calculation == null)
             {

@@ -51,6 +51,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                                                                        string hlcdFilePath,
                                                                        WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                        IAssessmentSection assessmentSection)
+            : base(calculation)
         {
             if (calculation == null)
             {

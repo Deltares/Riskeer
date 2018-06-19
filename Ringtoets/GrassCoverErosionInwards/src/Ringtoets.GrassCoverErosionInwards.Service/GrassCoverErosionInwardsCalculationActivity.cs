@@ -46,8 +46,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculationActivity(GrassCoverErosionInwardsCalculation calculation, string hydraulicBoundaryDatabaseFilePath,
-                                                           GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public GrassCoverErosionInwardsCalculationActivity(GrassCoverErosionInwardsCalculation calculation,
+                                                           string hydraulicBoundaryDatabaseFilePath,
+                                                           GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                           IAssessmentSection assessmentSection)
+            : base(calculation)
         {
             if (calculation == null)
             {

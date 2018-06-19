@@ -51,6 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                                           string hlcdFilePath,
                                                                           GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection)
+            : base(calculation)
         {
             if (calculation == null)
             {

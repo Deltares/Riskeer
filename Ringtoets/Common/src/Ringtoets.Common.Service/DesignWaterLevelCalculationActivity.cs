@@ -54,6 +54,7 @@ namespace Ringtoets.Common.Service
                                                    string preprocessorDirectory,
                                                    double norm,
                                                    ICalculationMessageProvider messageProvider)
+            : base(hydraulicBoundaryLocationCalculation)
         {
             if (hydraulicBoundaryLocationCalculation == null)
             {

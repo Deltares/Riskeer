@@ -53,6 +53,7 @@ namespace Ringtoets.DuneErosion.Service
                                                string hydraulicBoundaryDatabaseFilePath,
                                                string preprocessorDirectory,
                                                double norm)
+            : base(duneLocationCalculation)
         {
             if (duneLocationCalculation == null)
             {

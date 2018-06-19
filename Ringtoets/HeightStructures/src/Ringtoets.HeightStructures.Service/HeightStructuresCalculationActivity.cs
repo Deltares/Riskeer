@@ -48,8 +48,11 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation, string hydraulicBoundaryDatabaseFilePath,
-                                                   HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation,
+                                                   string hydraulicBoundaryDatabaseFilePath,
+                                                   HeightStructuresFailureMechanism failureMechanism,
+                                                   IAssessmentSection assessmentSection)
+            : base(calculation)
         {
             if (calculation == null)
             {
