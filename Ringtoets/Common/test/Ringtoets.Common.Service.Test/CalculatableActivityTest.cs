@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Service.Test
         public void Constructor_ValidParameter_ExpectedValues()
         {
             // Call
-            var activity = new TestCalculatableActivity(new TestCalculatable());
+            var activity = new TestCalculatableActivity(new TestCalculatable(true));
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -51,24 +51,38 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_NotValid_StateFailedCalculatedFalse()
+        public void Run_ShouldNotCalculate_StateSkippedAndCalculatedFalse()
         {
             // Setup
-            var activity = new TestCalculatableActivity(new TestCalculatable());
+            var activity = new TestCalculatableActivity(new TestCalculatable(false));
 
             // Call
             activity.Run();
 
             // Assert
-            Assert.AreEqual(activity.State, ActivityState.Failed);
+            Assert.AreEqual(ActivityState.Skipped, activity.State);
             Assert.IsFalse(activity.Calculated);
         }
 
         [Test]
-        public void Run_IsValid_StateExecutedCalculatedTrue()
+        public void Run_ShouldCalculateAndIsNotValid_StateFailedAndCalculatedFalse()
         {
             // Setup
-            var activity = new TestCalculatableActivity(new TestCalculatable())
+            var activity = new TestCalculatableActivity(new TestCalculatable(true));
+
+            // Call
+            activity.Run();
+
+            // Assert
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+            Assert.IsFalse(activity.Calculated);
+        }
+
+        [Test]
+        public void Run_ShouldCalculateAndIsValid_StateExecutedAndCalculatedTrue()
+        {
+            // Setup
+            var activity = new TestCalculatableActivity(new TestCalculatable(true))
             {
                 IsValid = true
             };
@@ -77,7 +91,7 @@ namespace Ringtoets.Common.Service.Test
             activity.Run();
 
             // Assert
-            Assert.AreEqual(activity.State, ActivityState.Executed);
+            Assert.AreEqual(ActivityState.Executed, activity.State);
             Assert.IsTrue(activity.Calculated);
         }
 
@@ -85,7 +99,7 @@ namespace Ringtoets.Common.Service.Test
         public void UpdateProgressText_Always_SetsProgressTextWithFormat()
         {
             // Setup
-            var activity = new TestCalculatableActivity(new TestCalculatable());
+            var activity = new TestCalculatableActivity(new TestCalculatable(true));
             const string currentStepName = "Some step name.";
             int totalStep = new Random(21).Next();
             int currentStep = new Random(21).Next();
@@ -99,13 +113,12 @@ namespace Ringtoets.Common.Service.Test
 
         private class TestCalculatable : ICalculatable
         {
-            public bool ShouldCalculate
+            public TestCalculatable(bool shouldCalculate)
             {
-                get
-                {
-                    return true;
-                }
+                ShouldCalculate = shouldCalculate;
             }
+
+            public bool ShouldCalculate { get; }
         }
 
         private class TestCalculatableActivity : CalculatableActivity

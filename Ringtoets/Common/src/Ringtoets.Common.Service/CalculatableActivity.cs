@@ -51,7 +51,11 @@ namespace Ringtoets.Common.Service
 
         protected override void OnRun()
         {
-            if (!Validate())
+            if (!calculatable.ShouldCalculate)
+            {
+                State = ActivityState.Skipped;
+            }
+            else if (!Validate())
             {
                 State = ActivityState.Failed;
             }
