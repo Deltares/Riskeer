@@ -37,7 +37,7 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInput>(waveConditionsInput);
-            Assert.AreEqual(FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm, waveConditionsInput.CategoryType);
+            Assert.AreEqual((FailureMechanismCategoryType) 0, waveConditionsInput.CategoryType);
         }
 
         [Test]

@@ -29,14 +29,6 @@ namespace Ringtoets.Revetment.Data
     public class AssessmentSectionCategoryWaveConditionsInput : WaveConditionsInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsInput"/>.
-        /// </summary>
-        public AssessmentSectionCategoryWaveConditionsInput()
-        {
-            CategoryType = AssessmentSectionCategoryType.FactorizedSignalingNorm;
-        }
-
-        /// <summary>
         /// Gets or sets the category type that is used for obtaining the relevant assessment level.
         /// </summary>
         public AssessmentSectionCategoryType CategoryType { get; set; }

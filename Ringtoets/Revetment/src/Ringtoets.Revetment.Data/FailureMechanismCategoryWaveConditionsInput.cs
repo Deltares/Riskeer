@@ -29,14 +29,6 @@ namespace Ringtoets.Revetment.Data
     public class FailureMechanismCategoryWaveConditionsInput : WaveConditionsInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismCategoryWaveConditionsInput"/>.
-        /// </summary>
-        public FailureMechanismCategoryWaveConditionsInput()
-        {
-            CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm;
-        }
-
-        /// <summary>
         /// Gets or sets the category type that is used for obtaining the relevant assessment level.
         /// </summary>
         public FailureMechanismCategoryType CategoryType { get; set; }

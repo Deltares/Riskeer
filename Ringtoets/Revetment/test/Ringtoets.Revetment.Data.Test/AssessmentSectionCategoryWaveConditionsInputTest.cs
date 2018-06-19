@@ -37,7 +37,7 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInput>(waveConditionsInput);
-            Assert.AreEqual(AssessmentSectionCategoryType.FactorizedSignalingNorm, waveConditionsInput.CategoryType);
+            Assert.AreEqual((AssessmentSectionCategoryType) 0, waveConditionsInput.CategoryType);
         }
 
         [Test]
