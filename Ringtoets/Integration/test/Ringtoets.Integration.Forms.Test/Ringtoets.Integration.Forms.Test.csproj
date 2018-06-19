@@ -44,6 +44,7 @@
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
