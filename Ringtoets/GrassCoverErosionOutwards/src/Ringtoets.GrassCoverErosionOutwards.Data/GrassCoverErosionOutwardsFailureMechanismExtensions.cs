@@ -72,37 +72,51 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
+            return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation,
+                                                      GetHydraulicBoundaryLocationCalculations(failureMechanism,
+                                                                                               assessmentSection,
+                                                                                               categoryType));
+        }
+
+        /// <summary>
+        /// Gets the <see cref="HydraulicBoundaryLocationCalculation"/> for a <see cref="HydraulicBoundaryLocation"/>
+        /// based on <see cref="FailureMechanismCategoryType"/>.</summary>
+        /// <param name="failureMechanism">The failure mechanism to get the <see cref="HydraulicBoundaryLocationCalculation"/> from.</param>
+        /// <param name="assessmentSection">The assessment section to get the <see cref="HydraulicBoundaryLocationCalculation"/> from.</param>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the <see cref="HydraulicBoundaryLocationCalculation"/> for.</param>
+        /// <param name="categoryType">The category type to use while obtaining the <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
+        /// <returns>The <see cref="HydraulicBoundaryLocationCalculation"/>, or <c>null</c> when:
+        /// <list type="bullet">
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation output.</item>
+        /// </list>
+        /// </returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
+        /// is an invalid <see cref="FailureMechanismCategoryType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
+        /// is a valid but unsupported <see cref="FailureMechanismCategoryType"/>.</exception>
+        public static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculation(this GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                                   IAssessmentSection assessmentSection,
+                                                                                                   HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                                                   FailureMechanismCategoryType categoryType)
+        {
+            if (failureMechanism == null)
             {
-                throw new InvalidEnumArgumentException(nameof(categoryType),
-                                                       (int) categoryType,
-                                                       typeof(FailureMechanismCategoryType));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
-
-            switch (categoryType)
+            if (assessmentSection == null)
             {
-                case FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
-                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm;
-                    break;
-                case FailureMechanismCategoryType.MechanismSpecificSignalingNorm:
-                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm;
-                    break;
-                case FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
-                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm;
-                    break;
-                case FailureMechanismCategoryType.LowerLimitNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
-                    break;
-                case FailureMechanismCategoryType.FactorizedLowerLimitNorm:
-                    calculations = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm;
-                    break;
-                default:
-                    throw new NotSupportedException();
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation, calculations);
+            return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation,
+                                                                           GetHydraulicBoundaryLocationCalculations(failureMechanism,
+                                                                                                                    assessmentSection,
+                                                                                                                    categoryType));
         }
 
         /// <summary>
@@ -133,11 +147,65 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                                                       failureMechanism.GeneralInput.N);
         }
 
+        /// <summary>
+        /// Gets the collection of <see cref="HydraulicBoundaryLocationCalculation"/> that belongs to
+        /// the given <paramref name="categoryType"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to get the calculations from.</param>
+        /// <param name="assessmentSection">The assessment section to get the calculations from.</param>
+        /// <param name="categoryType">The <see cref="FailureMechanismCategoryType"/> used to determine which calculations to return.</param>
+        /// <returns>A collection of <see cref="HydraulicBoundaryLocationCalculation"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryType"/>
+        /// is an invalid <see cref="FailureMechanismCategoryType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryType"/>
+        /// is a valid but unsupported <see cref="FailureMechanismCategoryType"/>.</exception>
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                                                  IAssessmentSection assessmentSection,
+                                                                                                                  FailureMechanismCategoryType categoryType)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismCategoryType), categoryType))
+            {
+                throw new InvalidEnumArgumentException(nameof(categoryType),
+                                                       (int) categoryType,
+                                                       typeof(FailureMechanismCategoryType));
+            }
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
+
+            switch (categoryType)
+            {
+                case FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm:
+                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm;
+                    break;
+                case FailureMechanismCategoryType.MechanismSpecificSignalingNorm:
+                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm;
+                    break;
+                case FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm:
+                    calculations = failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm;
+                    break;
+                case FailureMechanismCategoryType.LowerLimitNorm:
+                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    break;
+                case FailureMechanismCategoryType.FactorizedLowerLimitNorm:
+                    calculations = assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm;
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return calculations;
+        }
+
+        private static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculationFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                                                                    IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        {
+            return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+        }
+
         private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                         IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))?.Output?.Result
-                   ?? RoundedDouble.NaN;
+            return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation, calculations)?.Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }

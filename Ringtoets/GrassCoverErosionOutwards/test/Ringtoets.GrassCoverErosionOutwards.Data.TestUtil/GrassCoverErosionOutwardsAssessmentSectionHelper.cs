@@ -34,21 +34,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
     public static class GrassCoverErosionOutwardsAssessmentSectionHelper
     {
         /// <summary>
-        /// Gets a collection of <see cref="TestCaseData"/> containing an assessment level
+        /// Gets a collection of <see cref="TestCaseData"/> containing an hydraulic boundary location calculation
         /// configuration for all types of <see cref="FailureMechanismCategoryType"/>.
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/>, in which each item contains:
         /// <list type="bullet">
         /// <item>the configured assessment section;</item>
         /// <item>the configured <see cref="GrassCoverErosionOutwardsFailureMechanism"/>;</item>
-        /// <item>the hydraulic boundary location for which the assessment level output has been set;</item>
+        /// <item>the hydraulic boundary location for which the hydraulic boundary location calculation output has been set;</item>
         /// <item>the category type at stake;</item>
-        /// <item>the set assessment level (which makes it the "expected assessment level" given the combination
+        /// <item>the expected hydraulic boundary location calculation given the combination
         /// of the before-mentioned assessment section, failure mechanism, hydraulic boundary location and
-        /// category type).</item>
+        /// category type.</item>
         /// </list>
         /// </returns>
-        public static IEnumerable<TestCaseData> GetAssessmentLevelConfigurationPerFailureMechanismCategoryType()
+        public static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType()
         {
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -67,7 +67,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0).Output.Result
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ElementAt(0)
             ).SetName("MechanismSpecificFactorizedSignalingNorm");
 
             yield return new TestCaseData(
@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.MechanismSpecificSignalingNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0).Output.Result
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ElementAt(0)
             ).SetName("MechanismSpecificSignalingNorm");
 
             yield return new TestCaseData(
@@ -83,7 +83,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm,
-                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0).Output.Result
+                failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ElementAt(0)
             ).SetName("MechanismSpecificLowerLimitNorm");
 
             yield return new TestCaseData(
@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.LowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0)
             ).SetName("LowerLimitNorm");
 
             yield return new TestCaseData(
@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
                 failureMechanism,
                 hydraulicBoundaryLocation,
                 FailureMechanismCategoryType.FactorizedLowerLimitNorm,
-                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0).Output.Result
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0)
             ).SetName("FactorizedLowerLimitNorm");
         }
     }

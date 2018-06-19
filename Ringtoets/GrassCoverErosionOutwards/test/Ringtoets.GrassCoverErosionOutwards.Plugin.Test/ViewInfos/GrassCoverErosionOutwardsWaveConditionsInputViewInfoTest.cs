@@ -129,13 +129,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         [Test]
         [TestCaseSource(
             typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetAssessmentLevelConfigurationPerFailureMechanismCategoryType))]
+            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
         public void CreateInstance_GrassCoverErosionOutwardsWaveConditionsInputContext_ReturnViewWithCorrespondingAssessmentLevel(
             AssessmentSectionStub assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             FailureMechanismCategoryType categoryType,
-            RoundedDouble expectedAssessmentLevel)
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
         {
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -159,7 +159,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             ChartDataCollection chartData = view.Chart.Data;
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
 
-            Assert.AreEqual(expectedAssessmentLevel, designWaterLevelChartData.Points.First().Y);
+            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result, designWaterLevelChartData.Points.First().Y);
         }
 
         #region ShouldCloseViewWithCalculationDataTester

@@ -145,13 +145,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         [Test]
         [TestCaseSource(
             typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetAssessmentLevelConfigurationPerFailureMechanismCategoryType))]
+            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
         public void GetAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             FailureMechanismCategoryType categoryType,
-            RoundedDouble expectedAssessmentLevel)
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
         {
             // Call
             RoundedDouble assessmentLevel = failureMechanism.GetAssessmentLevel(assessmentSection,
@@ -159,7 +159,114 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                                                                                 categoryType);
 
             // Assert
-            Assert.AreEqual(expectedAssessmentLevel, assessmentLevel);
+            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result, assessmentLevel);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationCalculation_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsFailureMechanismExtensions.GetHydraulicBoundaryLocationCalculation(
+                null,
+                new AssessmentSectionStub(),
+                new TestHydraulicBoundaryLocation(),
+                FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("failureMechanism", paramName);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationCalculation_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate test = () => failureMechanism.GetHydraulicBoundaryLocationCalculation(
+                null,
+                new TestHydraulicBoundaryLocation(),
+                FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("assessmentSection", paramName);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationCalculation_InvalidFailureMechanismCategoryType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 9999;
+
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate test = () => failureMechanism.GetHydraulicBoundaryLocationCalculation(assessmentSection,
+                                                                                               new TestHydraulicBoundaryLocation(),
+                                                                                               (FailureMechanismCategoryType) invalidValue);
+
+            // Assert
+            string expectedMessage = $"The value of argument 'categoryType' ({invalidValue}) is invalid for Enum type '{nameof(FailureMechanismCategoryType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            Assert.AreEqual("categoryType", parameterName);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocationNull_ReturnsNull()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = failureMechanism.GetHydraulicBoundaryLocationCalculation(
+                assessmentSection,
+                null,
+                new Random(32).NextEnumValue<FailureMechanismCategoryType>());
+
+            // Assert
+            Assert.IsNull(hydraulicBoundaryLocationCalculation);
+        }
+
+        [Test]
+        public void GetHydraulicBoundaryLocationCalculation_NoCorrespondingCalculation_ReturnsNull()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = failureMechanism.GetHydraulicBoundaryLocationCalculation(
+                assessmentSection,
+                new TestHydraulicBoundaryLocation(),
+                new Random(32).NextEnumValue<FailureMechanismCategoryType>());
+
+            // Assert
+            Assert.IsNull(hydraulicBoundaryLocationCalculation);
+        }
+
+        [Test]
+        [TestCaseSource(
+            typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
+            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
+        public void GetHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
+            IAssessmentSection assessmentSection,
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            FailureMechanismCategoryType categoryType,
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
+        {
+            // Call
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = failureMechanism.GetHydraulicBoundaryLocationCalculation(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                categoryType);
+
+            // Assert
+            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
         }
 
         [Test]

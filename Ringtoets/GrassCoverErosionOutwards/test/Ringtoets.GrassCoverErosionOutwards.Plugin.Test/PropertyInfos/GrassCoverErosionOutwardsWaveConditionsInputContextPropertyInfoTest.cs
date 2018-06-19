@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -55,13 +54,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
         [Test]
         [TestCaseSource(
             typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
-            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetAssessmentLevelConfigurationPerFailureMechanismCategoryType))]
+            nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
             IAssessmentSection assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             FailureMechanismCategoryType categoryType,
-            RoundedDouble expectedAssessmentLevel)
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
         {
             // Setup
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -89,7 +88,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
 
-                Assert.AreEqual(expectedAssessmentLevel, ((GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
+                Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result,
+                                ((GrassCoverErosionOutwardsWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }
 

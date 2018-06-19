@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
@@ -55,12 +54,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
         [Test]
         [TestCaseSource(
             typeof(AssessmentSectionHelper),
-            nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
+            nameof(AssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ExpectedProperties(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             AssessmentSectionCategoryType categoryType,
-            RoundedDouble expectedAssessmentLevel)
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
         {
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -88,7 +87,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsInputContextProperties>(objectProperties);
                 Assert.AreSame(context, objectProperties.Data);
 
-                Assert.AreEqual(expectedAssessmentLevel, ((StabilityStoneCoverWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
+                Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result, 
+                                ((StabilityStoneCoverWaveConditionsInputContextProperties) objectProperties).AssessmentLevel);
             }
         }
 

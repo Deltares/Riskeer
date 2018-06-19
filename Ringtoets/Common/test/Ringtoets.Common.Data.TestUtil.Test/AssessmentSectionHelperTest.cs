@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -154,7 +153,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         public void GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
         {
             // Call
-            TestCaseData[] testCaseDataCollection = AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType().ToArray();
+            TestCaseData[] testCaseDataCollection = AssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType().ToArray();
 
             // Assert
             AssertTestCaseData(testCaseDataCollection,
@@ -186,10 +185,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             var assessmentSection = (IAssessmentSection) testCaseData.Arguments.ElementAt(0);
             var hydraulicBoundaryLocation = (HydraulicBoundaryLocation) testCaseData.Arguments.ElementAt(1);
-            var assessmentLevel = (RoundedDouble) testCaseData.Arguments.ElementAt(3);
+            var hydraulicBoundaryLocationCalculation = (HydraulicBoundaryLocationCalculation) testCaseData.Arguments.ElementAt(3);
 
-            RoundedDouble expectedAssessmentLevel = getCalculationsFunc(assessmentSection).First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation)).Output.Result;
-            Assert.AreEqual(expectedAssessmentLevel, assessmentLevel);
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation = getCalculationsFunc(assessmentSection).First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.AreSame(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
         }
     }
 }

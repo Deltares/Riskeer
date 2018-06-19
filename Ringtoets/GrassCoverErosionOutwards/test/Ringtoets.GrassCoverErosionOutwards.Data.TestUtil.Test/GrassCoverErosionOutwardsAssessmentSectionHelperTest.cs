@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -37,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
         public void GetAssessmentLevelConfigurationPerFailureMechanismCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
         {
             // Call
-            TestCaseData[] testCaseDataCollection = GrassCoverErosionOutwardsAssessmentSectionHelper.GetAssessmentLevelConfigurationPerFailureMechanismCategoryType().ToArray();
+            TestCaseData[] testCaseDataCollection = GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType().ToArray();
 
             // Assert
             AssertTestCaseData(testCaseDataCollection,
@@ -74,12 +73,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
             var assessmentSection = (IAssessmentSection) testCaseData.Arguments.ElementAt(0);
             var failureMechanism = (GrassCoverErosionOutwardsFailureMechanism) testCaseData.Arguments.ElementAt(1);
             var hydraulicBoundaryLocation = (HydraulicBoundaryLocation) testCaseData.Arguments.ElementAt(2);
-            var assessmentLevel = (RoundedDouble) testCaseData.Arguments.ElementAt(4);
+            var hydraulicBoundaryLocationCalculation = (HydraulicBoundaryLocationCalculation) testCaseData.Arguments.ElementAt(4);
 
-            RoundedDouble expectedAssessmentLevel = getCalculationsFunc(assessmentSection, failureMechanism)
-                                                    .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation))
-                                                    .Output.Result;
-            Assert.AreEqual(expectedAssessmentLevel, assessmentLevel);
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation = getCalculationsFunc(assessmentSection, failureMechanism)
+                .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
+            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
         }
     }
 }

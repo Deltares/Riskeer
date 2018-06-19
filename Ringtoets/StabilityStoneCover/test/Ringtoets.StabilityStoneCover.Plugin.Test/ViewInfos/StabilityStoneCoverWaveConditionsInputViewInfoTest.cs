@@ -130,12 +130,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         [Test]
         [TestCaseSource(
             typeof(AssessmentSectionHelper),
-            nameof(AssessmentSectionHelper.GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType))]
+            nameof(AssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType))]
         public void CreateInstance_WithContextThatHasInputWithSpecificCategoryType_ReturnViewWithCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             AssessmentSectionCategoryType categoryType,
-            RoundedDouble expectedAssessmentLevel)
+            HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation)
         {
             // Setup
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -159,7 +159,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
             // Assert
             ChartDataCollection chartData = view.Chart.Data;
             var designWaterLevelChartData = (ChartLineData) chartData.Collection.ElementAt(designWaterLevelChartDataIndex);
-            Assert.AreEqual(expectedAssessmentLevel, designWaterLevelChartData.Points.First().Y);
+            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation.Output.Result, designWaterLevelChartData.Points.First().Y);
         }
 
         #region ShouldCloseViewWithCalculationDataTester
