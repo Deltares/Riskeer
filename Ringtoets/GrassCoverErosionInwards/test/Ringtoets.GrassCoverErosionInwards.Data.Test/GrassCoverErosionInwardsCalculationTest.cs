@@ -203,6 +203,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
+                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                         ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                         ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
                         ShouldDikeHeightIllustrationPointsBeCalculated = true
@@ -215,11 +217,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
                 {
+                    InputParameters =
+                    {
+                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
+                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                    },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
                                                                 dikeHeightOutputWithoutGeneralResult,
                                                                 overtoppingRateOutputWithoutGeneralResult)
                 }, false)
                 .SetName("OutputSufficientScenario2");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
+                                                                null,
+                                                                null)
+                }, false)
+                .SetName("OutputSufficientScenario3");
 
             yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(), true)
                 .SetName("NoOutputScenario1");
