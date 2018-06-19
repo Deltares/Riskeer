@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Common.Data.Hydraulics
@@ -28,7 +27,7 @@ namespace Ringtoets.Common.Data.Hydraulics
     /// <summary>
     /// Location of a hydraulic boundary.
     /// </summary>
-    public class HydraulicBoundaryLocation : Observable
+    public class HydraulicBoundaryLocation
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocation"/>.

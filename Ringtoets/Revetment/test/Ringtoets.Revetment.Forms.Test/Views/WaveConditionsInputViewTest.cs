@@ -65,7 +65,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                     var newLocation = new TestHydraulicBoundaryLocation();
                     wci.HydraulicBoundaryLocation = newLocation;
                     wci.NotifyObservers();
-                    newLocation.NotifyObservers();
                 })).SetName("NotifyLocationAndWaterLevelChange");
 
                 yield return new TestCaseData(new Action<WaveConditionsInput>(wci =>
@@ -502,8 +501,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        [TestCaseSource(nameof(NotifyChange))]
-        public void GivenViewWithInputData_WhenChangeNotified_ThenUpdatedDataIsShownInChart(Action<WaveConditionsInput> notifyChange)
+        public void GivenViewWithInputData_WhenChangeNotified_ThenUpdatedDataIsShownInChart()
         {
             // Given
             var profile = new TestForeshoreProfile(new[]
@@ -542,7 +540,9 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 // When
                 assessmentLevel = (RoundedDouble) 8;
-                notifyChange(calculation.InputParameters);
+                var newLocation = new TestHydraulicBoundaryLocation();
+                calculation.InputParameters.HydraulicBoundaryLocation = newLocation;
+                calculation.InputParameters.NotifyObservers();
 
                 // Then
                 Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex));
