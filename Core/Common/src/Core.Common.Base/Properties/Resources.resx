@@ -183,4 +183,7 @@
   <data name="ObservableUniqueItemCollectionWithSourcePath_ValidateItems_TypeDescriptor_0_must_have_unique_FeatureDescription_1_Found_duplicate_items_DuplicateFeatures_2" xml:space="preserve">
     <value>{0} moeten een unieke {1} hebben. Gevonden dubbele elementen: {2}.</value>
   </data>
+  <data name="Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescription_2_" xml:space="preserve">
+    <value>Stap {0} van {1} | {2}</value>
+  </data>
 </root>

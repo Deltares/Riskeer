@@ -27,6 +27,7 @@ using Core.Common.Base.Service;
 using Core.Common.Base.Storage;
 using Core.Common.Gui.Properties;
 using log4net;
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Core.Common.Gui
 {
@@ -229,7 +230,7 @@ namespace Core.Common.Gui
         private void UpdateProgressText(string currentStepName, int currentStep, int totalSteps)
         {
             ProgressText = string.Format(CultureInfo.CurrentCulture,
-                                         Resources.Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_,
+                                         CoreCommonBaseResources.Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescription_2_,
                                          currentStep, totalSteps, currentStepName);
         }
 

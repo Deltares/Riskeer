@@ -110,16 +110,6 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stap {0} van {1} | {2}.
-        /// </summary>
-        internal static string HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2 {
-            get {
-                return ResourceManager.GetString("HydraRingActivityBase_UpdateProgressText_Step_0_of_TotalSteps_1_CurrentStepName_2" +
-                        "", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het besturingssysteem geeft de volgende melding:
         ///{0}.
         /// </summary>

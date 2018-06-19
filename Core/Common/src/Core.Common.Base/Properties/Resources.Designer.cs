@@ -127,6 +127,16 @@ namespace Core.Common.Base.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stap {0} van {1} | {2}.
+        /// </summary>
+        public static string Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescription_2_ {
+            get {
+                return ResourceManager.GetString("Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescrip" +
+                        "tion_2_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bevestigen.
         /// </summary>
         public static string Confirm {

@@ -565,9 +565,6 @@
   <data name="OpenProjectActivity_ProgressTextStepName_InitializeEmptyProject" xml:space="preserve">
     <value>Initialiseren van leeg project</value>
   </data>
-  <data name="Activity_UpdateProgressText_CurrentStepNumber_0_of_TotalStepsNumber_1_StepDescriptionName_2_" xml:space="preserve">
-    <value>Stap {0} van {1} | {2}</value>
-  </data>
   <data name="SaveProjectActivity_Save_existing_project" xml:space="preserve">
     <value>Opslaan van bestaand project</value>
   </data>
