@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
@@ -98,6 +99,18 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
+        [TestCaseSource(nameof(GetStructuresCalculations))]
+        public void ShouldCalculate_Always_ReturnsExpectedValue(TestStructuresCalculation calculation,
+                                                                bool expectedShouldCalculate)
+        {
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.AreEqual(expectedShouldCalculate, shouldCalculate);
+        }
+
+        [Test]
         public void ToString_Always_ReturnName()
         {
             // Setup
@@ -174,9 +187,9 @@ namespace Ringtoets.Common.Data.Test.Structures
             return calculation;
         }
 
-        private class TestStructuresCalculation : StructuresCalculation<TestStructuresInput> {}
+        public class TestStructuresCalculation : StructuresCalculation<TestStructuresInput> {}
 
-        private class TestStructuresInput : StructuresInputBase<TestStructure>
+        public class TestStructuresInput : StructuresInputBase<TestStructure>
         {
             public override bool IsStructureInputSynchronized
             {
@@ -187,6 +200,53 @@ namespace Ringtoets.Common.Data.Test.Structures
             }
 
             public override void SynchronizeStructureInput() {}
+        }
+
+        private static IEnumerable<TestCaseData> GetStructuresCalculations()
+        {
+            yield return new TestCaseData(new TestStructuresCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+                }, false)
+                .SetName("OutputSufficientScenario1");
+
+            yield return new TestCaseData(new TestStructuresCalculation
+                {
+                    Output = new TestStructuresOutput()
+                }, false)
+                .SetName("OutputSufficientScenario2");
+
+            yield return new TestCaseData(new TestStructuresCalculation(), true)
+                .SetName("NoOutputScenario1");
+
+            yield return new TestCaseData(new TestStructuresCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    }
+                }, true)
+                .SetName("NoOutputScenario2");
+
+            yield return new TestCaseData(new TestStructuresCalculation
+                {
+                    Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+                }, true)
+                .SetName("OutputWithRedundantGeneralResult");
+
+            yield return new TestCaseData(new TestStructuresCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = new TestStructuresOutput()
+                }, true)
+                .SetName("OutputWithMissingGeneralResult");
         }
     }
 }

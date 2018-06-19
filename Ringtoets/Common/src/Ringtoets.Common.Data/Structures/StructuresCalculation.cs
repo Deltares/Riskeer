@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Data.Structures
         {
             get
             {
-                return !HasOutput;
+                return !HasOutput || InputParameters.ShouldIllustrationPointsBeCalculated != Output.HasGeneralResult;
             }
         }
 
