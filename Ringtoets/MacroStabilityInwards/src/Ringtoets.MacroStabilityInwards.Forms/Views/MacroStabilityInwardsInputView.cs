@@ -28,6 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -44,6 +45,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
     {
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
+        private readonly Observer hydraulicLocationCalculationObserver;
 
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
@@ -66,7 +68,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly ChartPointData rightGridChartData;
         private readonly ChartMultipleLineData tangentLinesData;
 
-        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
+        private readonly Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc;
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
@@ -82,23 +84,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputView"/>.
         /// </summary>
         /// <param name="data">The calculation to show the input for.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
+        /// <param name="getHydraulicBoundaryLocationCalculationFunc">The <see cref="Func{TResult}"/> for
+        /// obtaining the hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsInputView(MacroStabilityInwardsCalculationScenario data,
-                                              Func<RoundedDouble> getNormativeAssessmentLevelFunc)
+                                              Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc)
         {
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (getNormativeAssessmentLevelFunc == null)
+            if (getHydraulicBoundaryLocationCalculationFunc == null)
             {
-                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+                throw new ArgumentNullException(nameof(getHydraulicBoundaryLocationCalculationFunc));
             }
 
             this.data = data;
-            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
+            this.getHydraulicBoundaryLocationCalculationFunc = getHydraulicBoundaryLocationCalculationFunc;
 
             InitializeComponent();
 
@@ -110,6 +113,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationInputObserver = new Observer(UpdateViewData)
             {
                 Observable = data.InputParameters
+            };
+
+            hydraulicLocationCalculationObserver = new Observer(UpdateViewData)
+            {
+                Observable = getHydraulicBoundaryLocationCalculationFunc()
             };
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
@@ -169,10 +177,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             {
                 return data;
             }
-            set
-            {
-                data = value as MacroStabilityInwardsCalculationScenario;
-            }
+            set {}
         }
 
         public IChartControl Chart
@@ -187,6 +192,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
+            hydraulicLocationCalculationObserver.Dispose();
 
             if (disposing)
             {
@@ -225,6 +231,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             MacroStabilityInwardsInput macroStabilityInwardsInput = data.InputParameters;
             MacroStabilityInwardsSurfaceLine surfaceLine = macroStabilityInwardsInput.SurfaceLine;
             IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile = macroStabilityInwardsInput.StochasticSoilProfile?.SoilProfile;
+            hydraulicLocationCalculationObserver.Observable = getHydraulicBoundaryLocationCalculationFunc();
 
             SetSurfaceLineChartData(surfaceLine);
             SetSoilProfileChartData(surfaceLine, soilProfile);
@@ -354,7 +361,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         {
             return data.InputParameters.UseAssessmentLevelManualInput
                        ? data.InputParameters.AssessmentLevel
-                       : getNormativeAssessmentLevelFunc();
+                       : getHydraulicBoundaryLocationCalculationFunc()?.Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }

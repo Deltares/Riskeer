@@ -30,6 +30,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -71,7 +72,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsInputView(null,
-                                                                         AssessmentSectionHelper.GetTestAssessmentLevel);
+                                                                         GetHydraulicBoundaryLocationCalculation);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -79,14 +80,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        public void Constructor_GetHydraulicBoundaryLocationCalculationFuncNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("getNormativeAssessmentLevelFunc", paramName);
+            Assert.AreEqual("getHydraulicBoundaryLocationCalculationFunc", paramName);
         }
 
         [Test]
@@ -97,7 +98,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -126,7 +127,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyChartData(view.Chart.Data);
@@ -141,7 +142,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 CollectionAssert.IsEmpty(GetSoilLayerTable(view).Rows);
@@ -166,7 +167,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
@@ -192,7 +193,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 ChartData[] chartData = view.Chart.Data.Collection.ToArray();
@@ -224,7 +225,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 ChartDataCollection chartData = view.Chart.Data;
@@ -264,7 +265,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -297,7 +298,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
                 var surfaceLineChartData = (ChartLineData) chartDataList[surfaceLineIndex];
@@ -343,7 +344,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
                 var surfaceLineChartData = (ChartDataCollection) chartDataList[soilProfileIndex];
@@ -397,7 +398,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
 
@@ -505,7 +506,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
                 List<ChartData> chartDataList = chartData.Collection.ToList();
@@ -543,7 +544,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
                 List<ChartData> chartDataList = chartData.Collection.ToList();
@@ -605,7 +606,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable = GetSoilLayerTable(view);
 
@@ -642,7 +643,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             SetGridValues(input.RightGrid);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
                 ChartDataCollection chartData = view.Chart.Data;
@@ -690,7 +691,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
                 ChartDataCollection chartData = view.Chart.Data;
@@ -737,7 +738,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
 
@@ -780,7 +781,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
                 ChartData[] chartData = view.Chart.Data.Collection.ToArray();
@@ -816,7 +817,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
@@ -827,6 +828,83 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     calculation.InputParameters.NotifyObservers();
 
                     // Assert
+                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                }
+            }
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
+        public void GivenViewWithEmptyWaternets_WhenHydraulicBoundaryLocationCalculationHasOutputAndNotifyObservers_ThenChartDataSet(
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+            RoundedDouble expectedAssessmentLevel)
+        {
+            // Given
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                }
+            };
+
+            using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 () => hydraulicBoundaryLocationCalculation))
+            {
+                // Precondition
+                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
+
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // When
+                    hydraulicBoundaryLocationCalculation.NotifyObservers();
+
+                    // Then
+                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, expectedAssessmentLevel),
+                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenViewWithEmptyWaternets_WhenInputUpdatedAndHydraulicBoundaryLocationCalculationNull_ThenChartDataSet()
+        {
+            // Given
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                }
+            };
+
+            using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 () => null))
+            {
+                // Precondition
+                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
+
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // When
+                    calculation.InputParameters.NotifyObservers();
+
+                    // Then
                     ChartData[] chartData = view.Chart.Data.Collection.ToArray();
                     MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                           (ChartDataCollection) chartData[waternetZonesDailyIndex]);
@@ -854,7 +932,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
                 ChartData[] chartData = view.Chart.Data.Collection.ToArray();
@@ -896,7 +974,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, view.Chart.Data);
@@ -966,6 +1044,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var surfaceLine = new MacroStabilityInwardsSurfaceLine("Surface line name");
             surfaceLine.SetGeometry(points);
             return surfaceLine;
+        }
+
+        private static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculation()
+        {
+            return new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+        }
+
+        private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
+        {
+            yield return new TestCaseData(GetHydraulicBoundaryLocationCalculation(), RoundedDouble.NaN)
+                .SetName("Hydraulic boundary location calculation without output");
+
+            var random = new Random(21);
+            double assessmentLevel = random.NextDouble();
+            HydraulicBoundaryLocationCalculation calculation = GetHydraulicBoundaryLocationCalculation();
+            calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(assessmentLevel);
+            yield return new TestCaseData(calculation, (RoundedDouble) assessmentLevel)
+                .SetName("Hydraulic boundary location calculation with output");
         }
     }
 }
