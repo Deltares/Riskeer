@@ -57,6 +57,14 @@ namespace Ringtoets.Piping.Data
 
         public string Name { get; set; }
 
+        public bool ShouldCalculate
+        {
+            get
+            {
+                return !HasOutput;
+            }
+        }
+
         public bool HasOutput
         {
             get

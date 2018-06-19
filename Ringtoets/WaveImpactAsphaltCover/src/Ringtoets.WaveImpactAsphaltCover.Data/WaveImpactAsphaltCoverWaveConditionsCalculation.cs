@@ -51,7 +51,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
 
         public string Name { get; set; }
 
-        public Comment Comments { get; private set; }
+        public bool ShouldCalculate
+        {
+            get
+            {
+                return !HasOutput;
+            }
+        }
 
         public bool HasOutput
         {
@@ -60,6 +66,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
                 return Output != null;
             }
         }
+
+        public Comment Comments { get; private set; }
 
         public void ClearOutput()
         {

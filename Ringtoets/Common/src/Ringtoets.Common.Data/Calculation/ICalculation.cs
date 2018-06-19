@@ -24,7 +24,7 @@ namespace Ringtoets.Common.Data.Calculation
     /// <summary>
     /// A calculation related object.
     /// </summary>
-    public interface ICalculation : ICalculatable, ICalculationBase
+    public interface ICalculation : ICalculationBase, ICalculatable
     {
         /// <summary>
         /// Gets a value indicating whether or not this calculation item contains calculation output.
