@@ -89,10 +89,10 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            bool calculationHasOutput = calculation.HasOutput;
+            bool hasOutput = calculation.HasOutput;
 
             // Assert
-            Assert.IsFalse(calculationHasOutput);
+            Assert.IsFalse(hasOutput);
         }
 
         [Test]
@@ -105,10 +105,42 @@ namespace Ringtoets.Piping.Data.Test
             };
 
             // Call
-            bool calculationHasOutput = calculation.HasOutput;
+            bool hasOutput = calculation.HasOutput;
 
             // Assert
-            Assert.IsTrue(calculationHasOutput);
+            Assert.IsTrue(hasOutput);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputNull_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = null
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsTrue(shouldCalculate);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputSet_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new PipingCalculation(new GeneralPipingInput())
+            {
+                Output = PipingOutputTestFactory.Create()
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsFalse(shouldCalculate);
         }
 
         [Test]
