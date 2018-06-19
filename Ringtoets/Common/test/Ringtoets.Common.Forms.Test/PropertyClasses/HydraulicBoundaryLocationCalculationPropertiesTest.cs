@@ -344,11 +344,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("some name")]
-        public void ToString_WithName_ReturnsName(string name)
+        public void ToString_Always_ReturnsNameAndLocation()
         {
             // Setup
+            const string name = "test";
             const long id = 1234L;
             const double x = 567.0;
             const double y = 890.0;

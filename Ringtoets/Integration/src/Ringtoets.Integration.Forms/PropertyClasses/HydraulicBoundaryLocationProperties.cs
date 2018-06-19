@@ -87,5 +87,10 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
                 return data.Location;
             }
         }
+
+        public override string ToString()
+        {
+            return $"{Name} {Location}";
+        }
     }
 }

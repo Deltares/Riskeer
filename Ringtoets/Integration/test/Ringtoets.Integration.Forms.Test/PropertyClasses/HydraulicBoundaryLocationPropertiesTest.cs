@@ -121,5 +121,23 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
         }
+
+        [Test]
+        public void ToString_Always_ReturnsNameAndLocation()
+        {
+            // Setup
+            const string name = "test";
+            const long id = 1234L;
+            const double x = 567.0;
+            const double y = 890.0;
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
+
+            // Call
+            var properties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocation);
+
+            // Assert
+            string expectedString = $"{name} {new Point2D(x, y)}";
+            Assert.AreEqual(expectedString, properties.ToString());
+        }
     }
 }
