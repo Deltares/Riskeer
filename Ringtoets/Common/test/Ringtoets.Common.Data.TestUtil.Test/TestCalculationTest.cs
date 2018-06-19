@@ -69,10 +69,10 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             };
 
             // Call
-            bool calculationHasOutput = calculation.HasOutput;
+            bool hasOutput = calculation.HasOutput;
 
             // Assert
-            Assert.IsTrue(calculationHasOutput);
+            Assert.IsTrue(hasOutput);
         }
 
         [Test]
@@ -85,10 +85,42 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             };
 
             // Call
-            bool calculationHasOutput = calculation.HasOutput;
+            bool hasOutput = calculation.HasOutput;
 
             // Assert
-            Assert.IsFalse(calculationHasOutput);
+            Assert.IsFalse(hasOutput);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputSet_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new TestCalculation
+            {
+                Output = new object()
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsFalse(shouldCalculate);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputNull_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new TestCalculation
+            {
+                Output = null
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsTrue(shouldCalculate);
         }
 
         [Test]

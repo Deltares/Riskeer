@@ -46,7 +46,13 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public string Name { get; set; }
 
-        public Comment Comments { get; }
+        public bool ShouldCalculate
+        {
+            get
+            {
+                return !HasOutput;
+            }
+        }
 
         public bool HasOutput
         {
@@ -55,6 +61,8 @@ namespace Ringtoets.Common.Data.TestUtil
                 return Output != null;
             }
         }
+
+        public Comment Comments { get; }
 
         public void ClearOutput()
         {
