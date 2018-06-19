@@ -1141,6 +1141,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 });
             ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
+            var random = new Random(21);
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "A",
@@ -1152,7 +1153,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                     UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0
+                    Orientation = (RoundedDouble) 0,
+                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
                 }
             };
 
@@ -1732,8 +1734,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
+            var assessmentSection = new AssessmentSectionStub();
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                              null,
                                                                                              failureMechanism,

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
@@ -50,7 +51,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
                 Name = "Calculation A",
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA")
+                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm
                 }
             };
 
@@ -97,7 +99,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.IO.Test.Configurations
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculation CreateCalculation()
         {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var random = new Random(21);
+            return new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
+                }
+            };
         }
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

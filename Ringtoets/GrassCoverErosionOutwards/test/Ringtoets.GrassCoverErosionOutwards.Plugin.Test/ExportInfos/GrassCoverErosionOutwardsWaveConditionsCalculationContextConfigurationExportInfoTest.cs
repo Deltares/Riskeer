@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
@@ -28,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.IO.Configurations;
@@ -70,7 +72,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+            var random = new Random(21);
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
+                }
+            };
+            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         new CalculationGroup(),
                                                                                         new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                         assessmentSection);

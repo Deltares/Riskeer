@@ -1053,14 +1053,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 });
             ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
-            var parent = new CalculationGroup();
+            var random = new Random(21);
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = validCalculation
                                                                                  ? GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First())
                                                                                  : new GrassCoverErosionOutwardsWaveConditionsCalculation
                                                                                  {
-                                                                                     Name = "A"
+                                                                                     Name = "A",
+                                                                                     InputParameters =
+                                                                                     {
+                                                                                         CategoryType = random.NextEnumValue<FailureMechanismCategoryType>()
+                                                                                     }
                                                                                  };
 
+            var parent = new CalculationGroup();
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
                                                                                         failureMechanism,
@@ -1323,20 +1328,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
-                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    StepSize = WaveConditionsInputStepSize.One,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0
-                }
-            };
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
