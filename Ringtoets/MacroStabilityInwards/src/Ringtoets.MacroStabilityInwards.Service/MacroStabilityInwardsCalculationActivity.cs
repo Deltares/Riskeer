@@ -21,51 +21,44 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Service;
+using Ringtoets.Common.Service;
 using Ringtoets.MacroStabilityInwards.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.MacroStabilityInwards.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a macro stability inwards calculation.
+    /// <see cref="CalculatableActivity"/> for running a macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsCalculationActivity : Activity
+    public class MacroStabilityInwardsCalculationActivity : CalculatableActivity
     {
         private readonly RoundedDouble normativeAssessmentLevel;
         private readonly MacroStabilityInwardsCalculation calculation;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MacroStabilityInwardsCalculationActivity"/> class.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationActivity"/>.
         /// </summary>
-        /// <param name="calculation">The macro stability inwards data used for the calculation.</param>
+        /// <param name="calculation">The macro stability inwards calculation to perform.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public MacroStabilityInwardsCalculationActivity(MacroStabilityInwardsCalculation calculation,
                                                         RoundedDouble normativeAssessmentLevel)
+            : base(calculation)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
             this.calculation = calculation;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
 
             Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
 
-        protected override void OnRun()
+        protected override void PerformCalculation()
         {
-            if (!MacroStabilityInwardsCalculationService.Validate(calculation, normativeAssessmentLevel))
-            {
-                State = ActivityState.Failed;
-                return;
-            }
-
-            MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
-
             MacroStabilityInwardsCalculationService.Calculate(calculation, normativeAssessmentLevel);
+        }
+
+        protected override bool Validate()
+        {
+            return MacroStabilityInwardsCalculationService.Validate(calculation, normativeAssessmentLevel);
         }
 
         protected override void OnCancel()

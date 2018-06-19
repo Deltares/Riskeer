@@ -21,51 +21,44 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Service;
+using Ringtoets.Common.Service;
 using Ringtoets.Piping.Data;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Piping.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a piping calculation.
+    /// <see cref="CalculatableActivity"/> for running a piping calculation.
     /// </summary>
-    public class PipingCalculationActivity : Activity
+    public class PipingCalculationActivity : CalculatableActivity
     {
         private readonly PipingCalculation calculation;
         private readonly RoundedDouble normativeAssessmentLevel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingCalculationActivity"/> class.
+        /// Creates a new instance of <see cref="PipingCalculationActivity"/>.
         /// </summary>
-        /// <param name="calculation">The piping data used for the calculation.</param>
+        /// <param name="calculation">The piping calculation to perform.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public PipingCalculationActivity(PipingCalculation calculation,
                                          RoundedDouble normativeAssessmentLevel)
+            : base(calculation)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
             this.calculation = calculation;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
 
             Description = string.Format(RingtoetsCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
         }
 
-        protected override void OnRun()
+        protected override void PerformCalculation()
         {
-            if (!PipingCalculationService.Validate(calculation, normativeAssessmentLevel))
-            {
-                State = ActivityState.Failed;
-                return;
-            }
-
-            PipingDataSynchronizationService.ClearCalculationOutput(calculation);
-
             PipingCalculationService.Calculate(calculation, normativeAssessmentLevel);
+        }
+
+        protected override bool Validate()
+        {
+            return PipingCalculationService.Validate(calculation, normativeAssessmentLevel);
         }
 
         protected override void OnCancel()
