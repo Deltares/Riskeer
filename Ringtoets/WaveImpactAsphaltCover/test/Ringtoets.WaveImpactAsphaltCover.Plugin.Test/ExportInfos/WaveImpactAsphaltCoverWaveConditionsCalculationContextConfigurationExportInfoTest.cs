@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
@@ -70,7 +71,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
+            var random = new Random(21);
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+                }
+            };
+            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      new CalculationGroup(),
                                                                                      new WaveImpactAsphaltCoverFailureMechanism(),
                                                                                      assessmentSection);

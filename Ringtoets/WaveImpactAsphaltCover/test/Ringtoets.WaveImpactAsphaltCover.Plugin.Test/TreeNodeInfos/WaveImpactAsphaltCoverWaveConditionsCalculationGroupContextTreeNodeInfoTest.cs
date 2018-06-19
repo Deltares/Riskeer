@@ -1058,6 +1058,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
+            var random = new Random(21);
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "A",
@@ -1069,7 +1070,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                     UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0
+                    Orientation = (RoundedDouble) 0,
+                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
                 }
             };
 
@@ -1720,7 +1722,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            var assessmentSection = new AssessmentSectionStub();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                           null,
