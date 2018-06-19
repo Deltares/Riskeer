@@ -383,6 +383,10 @@ namespace Ringtoets.Integration.Plugin
                 CreateInstance = context => new FailureMechanismAssemblyCategoriesProperties(context.GetFailureMechanismCategoriesFunc(),
                                                                                              context.GetFailureMechanismSectionAssemblyCategoriesFunc())
             };
+            yield return new PropertyInfo<DesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
+            {
+                CreateInstance = context => new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, context.AssessmentSection)
+            };
         }
 
         /// <summary>
