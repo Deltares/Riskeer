@@ -501,7 +501,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithInputData_WhenChangeNotified_ThenUpdatedDataIsShownInChart()
+        public void GivenViewWithInputData_WhenCalculationInputNotified_ThenUpdatedDataIsShownInChart()
         {
             // Given
             var profile = new TestForeshoreProfile(new[]
