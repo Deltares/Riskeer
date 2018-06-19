@@ -20,12 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Forms.Test.PropertyClasses
@@ -77,7 +81,55 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
             Assert.AreSame(locations, properties.Data);
+
+            TestHelper.AssertTypeConverter<DesignWaterLevelCalculationsGroupProperties, ExpandableArrayConverter>(
+                nameof(DesignWaterLevelCalculationsGroupProperties.Locations));
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            var properties = new DesignWaterLevelCalculationsGroupProperties(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
+
+            PropertyDescriptor locationsProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                            "Algemeen",
+                                                                            "Locaties",
+                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                            true);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetProperties_WithData_ReturnExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var location = new TestHydraulicBoundaryLocation();
+
+            // Call
+            var properties = new DesignWaterLevelCalculationsGroupProperties(new ObservableList<HydraulicBoundaryLocation>
+            {
+                location
+            }, assessmentSection);
+
+            // Assert
+            Assert.AreEqual(1, properties.Locations.Length);
+            Assert.AreSame(location, properties.Locations[0].Data);
         }
     }
 }

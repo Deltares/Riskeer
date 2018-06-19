@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
@@ -32,6 +33,7 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
         /// <summary>

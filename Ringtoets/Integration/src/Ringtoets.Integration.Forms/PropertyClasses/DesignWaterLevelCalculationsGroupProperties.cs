@@ -20,10 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.PropertyClasses
 {
@@ -55,6 +60,18 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
 
             Data = locations;
             this.assessmentSection = assessmentSection;
+        }
+
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
+        public HydraulicBoundaryLocationProperties[] Locations
+        {
+            get
+            {
+                return data.Select(location => new HydraulicBoundaryLocationProperties(location)).ToArray();
+            }
         }
     }
 }

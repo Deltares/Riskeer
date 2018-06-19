@@ -61,6 +61,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryLocation>>(properties);
             Assert.AreSame(location, properties.Data);
+            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, ExpandableObjectConverter>();
         }
 
         [Test]
