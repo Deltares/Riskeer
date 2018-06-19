@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
@@ -53,6 +54,7 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
             var calculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Assert
+            Assert.IsInstanceOf<ICalculatable>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreSame(hydraulicBoundaryLocation, calculation.HydraulicBoundaryLocation);
             Assert.IsNotNull(calculation.InputParameters);
@@ -78,48 +80,65 @@ namespace Ringtoets.Common.Data.Test.Hydraulics
         }
 
         [Test]
-        [TestCaseSource(nameof(GetHydraulicBoundaryLocationCalculations))]
-        public void IsCalculated_Always_ReturnIsCalculated(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                           bool expectedIsCalculated)
+        [TestCaseSource(nameof(GetCalculations))]
+        public void ShouldCalculate_Always_ReturnsExpectedValue(HydraulicBoundaryLocationCalculation calculation,
+                                                                bool expectedShouldCalculate)
         {
             // Call
-            bool isCalculated = hydraulicBoundaryLocationCalculation.IsCalculated;
+            bool shouldCalculate = calculation.ShouldCalculate;
 
             // Assert
-            Assert.AreEqual(expectedIsCalculated, isCalculated);
+            Assert.AreEqual(expectedShouldCalculate, shouldCalculate);
         }
 
-        private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
+        private static IEnumerable<TestCaseData> GetCalculations()
         {
+            var outputWithoutGeneralResult = new TestHydraulicBoundaryLocationCalculationOutput(1.0, CalculationConvergence.CalculatedConverged);
+            var outputWithGeneralResult = new TestHydraulicBoundaryLocationCalculationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint());
+
             yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                InputParameters =
                 {
-                    ShouldIllustrationPointsBeCalculated = true
-                },
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, CalculationConvergence.CalculatedConverged)
-            }, false);
-
-            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), false);
-
-            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, CalculationConvergence.CalculatedConverged)
-            }, true);
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = outputWithGeneralResult
+                }, false)
+                .SetName("OutputSufficientScenario1");
 
             yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                InputParameters =
                 {
-                    ShouldIllustrationPointsBeCalculated = true
-                },
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
-            }, true);
+                    Output = outputWithoutGeneralResult
+                }, false)
+                .SetName("OutputSufficientScenario2");
+
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), true)
+                .SetName("NoOutputScenario1");
 
             yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.0, new TestGeneralResultSubMechanismIllustrationPoint())
-            }, false);
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    }
+                }, true)
+                .SetName("NoOutputScenario2");
+
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                {
+                    Output = outputWithGeneralResult
+                }, true)
+                .SetName("OutputWithRedundantGeneralResult");
+
+            yield return new TestCaseData(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                {
+                    InputParameters =
+                    {
+                        ShouldIllustrationPointsBeCalculated = true
+                    },
+                    Output = outputWithoutGeneralResult
+                }, true)
+                .SetName("OutputWithMissingGeneralResult");
         }
     }
 }

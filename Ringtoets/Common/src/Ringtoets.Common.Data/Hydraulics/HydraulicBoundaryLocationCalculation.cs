@@ -21,13 +21,14 @@
 
 using System;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.Hydraulics
 {
     /// <summary>
     /// This class holds information about a calculation for a hydraulic boundary location.
     /// </summary>
-    public class HydraulicBoundaryLocationCalculation : Observable
+    public class HydraulicBoundaryLocationCalculation : Observable, ICalculatable
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculation"/>.
@@ -71,17 +72,11 @@ namespace Ringtoets.Common.Data.Hydraulics
             }
         }
 
-        /// <summary>
-        /// Gets a value indicating whether the calculation has already been calculated.
-        /// </summary>
-        /// <returns><c>true</c> if the calculation is fully calculated, <c>false</c> otherwise.</returns>
-        /// <remarks>A calculation is fully calculated, depending on whether the illustration points 
-        /// are set to be calculated.</remarks>
-        public bool IsCalculated
+        public bool ShouldCalculate
         {
             get
             {
-                return HasOutput && InputParameters.ShouldIllustrationPointsBeCalculated == Output.HasGeneralResult;
+                return !HasOutput || InputParameters.ShouldIllustrationPointsBeCalculated != Output.HasGeneralResult;
             }
         }
     }

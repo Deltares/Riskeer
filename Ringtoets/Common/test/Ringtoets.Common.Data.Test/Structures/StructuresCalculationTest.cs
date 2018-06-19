@@ -203,19 +203,22 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         private static IEnumerable<TestCaseData> GetCalculations()
         {
+            var outputWithoutGeneralResult = new TestStructuresOutput();
+            var outputWithGeneralResult = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
             yield return new TestCaseData(new TestStructuresCalculation
                 {
                     InputParameters =
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     },
-                    Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+                    Output = outputWithGeneralResult
                 }, false)
                 .SetName("OutputSufficientScenario1");
 
             yield return new TestCaseData(new TestStructuresCalculation
                 {
-                    Output = new TestStructuresOutput()
+                    Output = outputWithoutGeneralResult
                 }, false)
                 .SetName("OutputSufficientScenario2");
 
@@ -233,7 +236,7 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             yield return new TestCaseData(new TestStructuresCalculation
                 {
-                    Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
+                    Output = outputWithGeneralResult
                 }, true)
                 .SetName("OutputWithRedundantGeneralResult");
 
@@ -243,7 +246,7 @@ namespace Ringtoets.Common.Data.Test.Structures
                     {
                         ShouldIllustrationPointsBeCalculated = true
                     },
-                    Output = new TestStructuresOutput()
+                    Output = outputWithoutGeneralResult
                 }, true)
                 .SetName("OutputWithMissingGeneralResult");
         }
