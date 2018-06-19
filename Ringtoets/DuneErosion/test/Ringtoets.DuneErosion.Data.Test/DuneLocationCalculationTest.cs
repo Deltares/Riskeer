@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
 namespace Ringtoets.DuneErosion.Data.Test
@@ -50,9 +51,42 @@ namespace Ringtoets.DuneErosion.Data.Test
             var calculation = new DuneLocationCalculation(duneLocation);
 
             // Assert
+            Assert.IsInstanceOf<ICalculatable>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreSame(duneLocation, calculation.DuneLocation);
             Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputNull_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new DuneLocationCalculation(new TestDuneLocation())
+            {
+                Output = null
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsTrue(shouldCalculate);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputSet_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new DuneLocationCalculation(new TestDuneLocation())
+            {
+                Output = new TestDuneLocationCalculationOutput()
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsFalse(shouldCalculate);
         }
     }
 }

@@ -21,13 +21,14 @@
 
 using System;
 using Core.Common.Base;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.DuneErosion.Data
 {
     /// <summary>
     /// Adapter class for a dune location calculation.
     /// </summary>
-    public class DuneLocationCalculation : Observable
+    public class DuneLocationCalculation : Observable, ICalculatable
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculation"/>.
@@ -54,5 +55,13 @@ namespace Ringtoets.DuneErosion.Data
         /// Gets the dune location the calculation belongs to.
         /// </summary>
         public DuneLocation DuneLocation { get; }
+
+        public bool ShouldCalculate
+        {
+            get
+            {
+                return Output == null;
+            }
+        }
     }
 }
