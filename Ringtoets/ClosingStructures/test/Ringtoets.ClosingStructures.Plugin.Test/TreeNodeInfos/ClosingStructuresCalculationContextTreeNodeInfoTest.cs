@@ -951,7 +951,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenSuccessfulCalculation_WhenCalculatingFromContextMenu_ThenOutputSetLogMessagesAddedAndUpdateObserver()
+        public void GivenCalculationThatSucceeds_WhenCalculatingFromContextMenu_ThenOutputSetLogMessagesAddedAndUpdateObserver()
         {
             // Given
             var mainWindow = mocks.Stub<IMainWindow>();
@@ -977,11 +977,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            var initialOutput = new TestStructuresOutput();
             var parent = new CalculationGroup();
             var calculation = new TestClosingStructuresCalculation
             {
-                Output = initialOutput,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
@@ -1027,7 +1025,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
-                    Assert.AreNotSame(initialOutput, calculation.Output);
+                    Assert.IsNotNull(calculation.Output);
                 }
             }
         }

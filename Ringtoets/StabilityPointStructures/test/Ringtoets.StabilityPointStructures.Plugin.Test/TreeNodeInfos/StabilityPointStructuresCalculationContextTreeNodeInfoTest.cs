@@ -964,11 +964,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            var initialStructuresOutput = new TestStructuresOutput();
             var parent = new CalculationGroup();
             var calculation = new TestStabilityPointStructuresCalculation
             {
-                Output = initialStructuresOutput,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -1019,7 +1017,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
-                    Assert.AreNotSame(initialStructuresOutput, calculation.Output);
+                    Assert.IsNotNull(calculation.Output);
                 }
             }
         }

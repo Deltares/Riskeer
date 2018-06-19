@@ -66,21 +66,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private GrassCoverErosionInwardsPlugin plugin;
         private TreeNodeInfo info;
 
-        public override void Setup()
-        {
-            mocks = new MockRepository();
-            plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
-        }
-
-        public override void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-
-            base.TearDown();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
@@ -203,6 +188,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(nodeData, null, treeViewControl);
             }
+
             // Assert
             // Assert expectancies called in TearDown()
         }
@@ -865,13 +851,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            var initialOutput = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                   new TestDikeHeightOutput(double.NaN),
-                                                                   new TestOvertoppingRateOutput(double.NaN));
             var parent = new CalculationGroup();
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Output = initialOutput,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -920,7 +902,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
-                    Assert.AreNotSame(initialOutput, calculation.Output);
+                    Assert.IsNotNull(calculation.Output);
                 }
             }
         }
@@ -1115,6 +1097,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNull(result.Calculation);
+        }
+
+        public override void Setup()
+        {
+            mocks = new MockRepository();
+            plugin = new GrassCoverErosionInwardsPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
+        }
+
+        public override void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
+
+            base.TearDown();
         }
 
         private static void ChangeDikeProfile(DikeProfile dikeProfile)

@@ -1132,11 +1132,9 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
             });
 
-            var initialOutput = new TestStructuresOutput();
             var parent = new CalculationGroup();
             var calculation = new TestHeightStructuresCalculation
             {
-                Output = initialOutput,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
@@ -1184,7 +1182,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}' is gelukt.", msgs[6]);
                     });
 
-                    Assert.AreNotSame(initialOutput, calculation.Output);
+                    Assert.IsNotNull(calculation.Output);
                 }
             }
         }
