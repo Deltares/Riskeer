@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
@@ -70,7 +71,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(new StabilityStoneCoverWaveConditionsCalculation(),
+            var random = new Random(21);
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+                }
+            };
+            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   new CalculationGroup(),
                                                                                   new StabilityStoneCoverFailureMechanism(),
                                                                                   assessmentSection);

@@ -1032,14 +1032,19 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var parent = new CalculationGroup();
+            var random = new Random(21);
             StabilityStoneCoverWaveConditionsCalculation calculation = validCalculation
                                                                            ? GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First())
                                                                            : new StabilityStoneCoverWaveConditionsCalculation
                                                                            {
-                                                                               Name = "A"
+                                                                               Name = "A",
+                                                                               InputParameters =
+                                                                               {
+                                                                                   CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+                                                                               }
                                                                            };
 
+            var parent = new CalculationGroup();
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   parent,
                                                                                   failureMechanism,
@@ -1524,20 +1529,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var parent = new CalculationGroup();
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
-                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    StepSize = WaveConditionsInputStepSize.One,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0
-                }
-            };
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   parent,

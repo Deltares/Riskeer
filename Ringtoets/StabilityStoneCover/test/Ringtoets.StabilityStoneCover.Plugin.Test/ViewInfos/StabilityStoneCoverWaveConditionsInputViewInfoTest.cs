@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -109,9 +110,17 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CreateInstance_StabilityStoneCoverWaveConditionsInputContext_ReturnViewWithStylingApplied()
         {
             // Setup
+            var random = new Random(21);
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+                }
+            };
             var context = new StabilityStoneCoverWaveConditionsInputContext(
                 new AssessmentSectionCategoryWaveConditionsInput(),
-                new StabilityStoneCoverWaveConditionsCalculation(),
+                calculation,
                 new AssessmentSectionStub(),
                 new ForeshoreProfile[0]);
 

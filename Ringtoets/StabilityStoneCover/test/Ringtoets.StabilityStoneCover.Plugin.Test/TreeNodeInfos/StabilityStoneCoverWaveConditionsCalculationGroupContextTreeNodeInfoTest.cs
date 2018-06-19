@@ -1042,6 +1042,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
+            var random = new Random(21);
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "A",
@@ -1053,7 +1054,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
                     UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
-                    Orientation = (RoundedDouble) 0
+                    Orientation = (RoundedDouble) 0,
+                    CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
                 }
             };
 
