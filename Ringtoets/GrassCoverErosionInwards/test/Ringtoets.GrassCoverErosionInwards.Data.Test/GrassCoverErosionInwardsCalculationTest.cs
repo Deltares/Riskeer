@@ -265,8 +265,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
                 {
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithGeneralResult,
-                                                                dikeHeightOutputWithoutGeneralResult,
-                                                                overtoppingRateOutputWithoutGeneralResult)
+                                                                null,
+                                                                null)
                 }, true)
                 .SetName("OvertoppingOutputWithRedundantGeneralResult");
 
@@ -277,16 +277,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                         ShouldOvertoppingOutputIllustrationPointsBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
-                                                                dikeHeightOutputWithoutGeneralResult,
-                                                                overtoppingRateOutputWithoutGeneralResult)
+                                                                null,
+                                                                null)
                 }, true)
                 .SetName("OvertoppingOutputWithMissingGeneralResult");
 
             yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
                 {
+                    InputParameters =
+                    {
+                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm
+                    },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
                                                                 dikeHeightOutputWithGeneralResult,
-                                                                overtoppingRateOutputWithoutGeneralResult)
+                                                                null)
                 }, true)
                 .SetName("DikeHeightOutputWithRedundantGeneralResult");
 
@@ -294,18 +298,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
+                        DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                         ShouldDikeHeightIllustrationPointsBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
                                                                 dikeHeightOutputWithoutGeneralResult,
-                                                                overtoppingRateOutputWithoutGeneralResult)
+                                                                null)
                 }, true)
                 .SetName("DikeHeightOutputWithMissingGeneralResult");
 
             yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
                 {
+                    InputParameters =
+                    {
+                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                    },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
-                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                null,
                                                                 overtoppingRateOutputWithGeneralResult)
                 }, true)
                 .SetName("OvertoppingRateOutputWithRedundantGeneralResult");
@@ -314,10 +323,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 {
                     InputParameters =
                     {
+                        OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                         ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                     },
                     Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
-                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                null,
                                                                 overtoppingRateOutputWithoutGeneralResult)
                 }, true)
                 .SetName("OvertoppingRateOutputWithMissingGeneralResult");
