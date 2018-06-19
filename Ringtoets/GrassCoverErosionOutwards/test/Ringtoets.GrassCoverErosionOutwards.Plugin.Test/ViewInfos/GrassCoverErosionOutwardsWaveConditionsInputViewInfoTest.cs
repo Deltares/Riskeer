@@ -22,7 +22,6 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Data;
 using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -171,8 +170,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
         protected override IView GetView(ICalculation data)
         {
-            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data, 
-                                               () => (RoundedDouble) 1.1, 
+            return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data,
+                                               new AssessmentSectionStub(),
+                                               () => new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                                                new GrassCoverErosionOutwardsWaveConditionsInputViewStyle());
         }
 

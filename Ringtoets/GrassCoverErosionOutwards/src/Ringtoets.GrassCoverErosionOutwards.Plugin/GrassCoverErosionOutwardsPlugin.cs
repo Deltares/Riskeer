@@ -191,7 +191,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 CloseForData = RingtoetsPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new WaveConditionsInputView(context.Calculation,
-                                                                        () => context.FailureMechanism.GetAssessmentLevel(
+                                                                        context.AssessmentSection,
+                                                                        () => context.FailureMechanism.GetHydraulicBoundaryLocationCalculation(
                                                                             context.AssessmentSection,
                                                                             context.Calculation.InputParameters.HydraulicBoundaryLocation,
                                                                             context.Calculation.InputParameters.CategoryType),

@@ -26,11 +26,14 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
@@ -58,8 +61,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             get
             {
-                yield return new TestCaseData(new Action<WaveConditionsInput>(wci => { wci.HydraulicBoundaryLocation.NotifyObservers(); })).SetName("NotifyWaterLevelChange");
-
                 yield return new TestCaseData(new Action<WaveConditionsInput>(wci =>
                 {
                     var newLocation = new TestHydraulicBoundaryLocation();
@@ -80,42 +81,91 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         [Test]
         public void Constructor_InputViewStyleNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(), AssessmentSectionHelper.GetTestAssessmentLevel, null);
+            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
+                                                                  assessmentSection,
+                                                                  GetHydraulicBoundaryLocationCalculation,
+                                                                  null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("inputViewStyle", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_GetAssessmentLevelFuncNull_ThrowArgumentNullException()
+        public void Constructor_GetHydraulicBoundaryLocationCalculationFuncNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(), null, new TestWaveConditionsInputViewStyle());
+            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
+                                                                  assessmentSection,
+                                                                  null,
+                                                                  new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("getAssessmentLevelFunc", exception.ParamName);
+            Assert.AreEqual("getHydraulicBoundaryLocationCalculationFunc", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationNull_ThrowArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new WaveConditionsInputView(null, AssessmentSectionHelper.GetTestAssessmentLevel, new TestWaveConditionsInputViewStyle());
+            TestDelegate test = () => new WaveConditionsInputView(null,
+                                                                  assessmentSection,
+                                                                  GetHydraulicBoundaryLocationCalculation,
+                                                                  new TestWaveConditionsInputViewStyle());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new WaveConditionsInputView(CreateTestCalculation(),
+                                                                  null,
+                                                                  GetHydraulicBoundaryLocationCalculation,
+                                                                  new TestWaveConditionsInputViewStyle());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
             TestWaveConditionsCalculation<TestWaveConditionsInput> calculation = CreateTestCalculation();
-            using (var view = new WaveConditionsInputView(calculation, AssessmentSectionHelper.GetTestAssessmentLevel, new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(calculation,
+                                                          assessmentSection,
+                                                          GetHydraulicBoundaryLocationCalculation,
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -124,6 +174,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Assert.AreSame(calculation, view.Data);
                 Assert.AreEqual(1, view.Controls.Count);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -150,8 +202,15 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            using (var view = new WaveConditionsInputView(calculation, () => assessmentLevel, new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(calculation,
+                                                          assessmentSection,
+                                                          () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 // Assert
                 IChartControl chartControl = view.Chart;
@@ -194,6 +253,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                                          calculation.InputParameters.UpperBoundaryRevetment,
                                          chartData.Collection.ElementAt(revetmentChartDataIndex));
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -208,7 +269,14 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 Name = initialName
             };
 
-            using (var view = new WaveConditionsInputView(calculation, AssessmentSectionHelper.GetTestAssessmentLevel, new TestWaveConditionsInputViewStyle()))
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new WaveConditionsInputView(calculation,
+                                                          assessmentSection,
+                                                          GetHydraulicBoundaryLocationCalculation,
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 // Precondition
                 Assert.AreEqual(initialName, view.Chart.ChartTitle);
@@ -221,6 +289,8 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(updatedName, view.Chart.ChartTitle);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -228,6 +298,7 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChartDataLayers);
             mocks.ReplayAll();
@@ -250,7 +321,10 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
-            using (var view = new WaveConditionsInputView(calculation, () => assessmentLevel, new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(calculation,
+                                                          assessmentSection,
+                                                          () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -326,6 +400,178 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         }
 
         [Test]
+        public void GivenViewWithInputData_WhenHydraulicBoundaryLocationCalculationNotified_ThenUpdatedDataIsShownInChart()
+        {
+            // Given
+            var profile = new TestForeshoreProfile(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(2.0, 2.0)
+            });
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    ForeshoreProfile = profile,
+                    LowerBoundaryRevetment = (RoundedDouble) 5,
+                    UpperBoundaryRevetment = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 3,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 7
+                }
+            };
+            var assessmentLevel = (RoundedDouble) 6;
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation(assessmentLevel);
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new WaveConditionsInputView(calculation,
+                                                          assessmentSection,
+                                                          () => hydraulicBoundaryLocationCalculation,
+                                                          new TestWaveConditionsInputViewStyle()))
+            {
+                var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
+                var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
+                var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
+                var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
+                var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
+                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
+                var waterLevelsChartData = (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex);
+                var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
+                var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
+
+                // When
+                assessmentLevel = (RoundedDouble) 8;
+                hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(assessmentLevel);
+                hydraulicBoundaryLocationCalculation.NotifyObservers();
+
+                // Then
+                Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex));
+                Assert.AreSame(lowerBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex));
+                Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
+                Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
+                Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
+                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
+                Assert.AreSame(waterLevelsChartData, (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex));
+                Assert.AreSame(revetmentBaseChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex));
+                Assert.AreSame(revetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex));
+
+                AssertForeshoreChartData(profile, foreshoreChartData);
+
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.LowerBoundaryRevetment,
+                                lowerBoundaryRevetmentChartData, "Ondergrens bekleding");
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryRevetment,
+                                upperBoundaryRevetmentChartData, "Bovengrens bekleding");
+
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.LowerBoundaryWaterLevels,
+                                lowerBoundaryWaterLevelsChartData, "Ondergrens waterstanden");
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryWaterLevels,
+                                upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
+
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, assessmentLevel,
+                                designWaterLevelChartData, "Toetspeil");
+
+                AssertWaterLevelsChartData(calculation.InputParameters.ForeshoreGeometry,
+                                           calculation.InputParameters.GetWaterLevels(assessmentLevel),
+                                           waterLevelsChartData);
+
+                AssertRevetmentBaseChartData(profile.Geometry.Last(),
+                                             calculation.InputParameters.LowerBoundaryRevetment,
+                                             calculation.InputParameters.LowerBoundaryWaterLevels,
+                                             revetmentBaseChartData);
+                AssertRevetmentChartData(profile.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
+                                         calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
+            }
+        }
+
+        [Test]
+        public void GivenViewWithInputData_WhenHydraulicBoundaryLocationCalculationOutputClearedAndNotified_ThenUpdatedDataIsShownInChart()
+        {
+            // Given
+            var profile = new TestForeshoreProfile(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(2.0, 2.0)
+            });
+            var calculation = new TestWaveConditionsCalculation<TestWaveConditionsInput>(new TestWaveConditionsInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    ForeshoreProfile = profile,
+                    LowerBoundaryRevetment = (RoundedDouble) 5,
+                    UpperBoundaryRevetment = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 3,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 7
+                }
+            };
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation(new Random(39).NextRoundedDouble());
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new WaveConditionsInputView(calculation,
+                                                          assessmentSection,
+                                                          () => hydraulicBoundaryLocationCalculation,
+                                                          new TestWaveConditionsInputViewStyle()))
+            {
+                var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
+                var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
+                var upperBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex);
+                var lowerBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex);
+                var upperBoundaryWaterLevelsChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex);
+                var designWaterLevelChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex);
+                var waterLevelsChartData = (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex);
+                var revetmentBaseChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex);
+                var revetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex);
+
+                // When
+                hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+                hydraulicBoundaryLocationCalculation.NotifyObservers();
+
+                // Then
+                Assert.AreSame(foreshoreChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex));
+                Assert.AreSame(lowerBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex));
+                Assert.AreSame(upperBoundaryRevetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryRevetmentChartDataIndex));
+                Assert.AreSame(lowerBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryWaterLevelsChartDataIndex));
+                Assert.AreSame(upperBoundaryWaterLevelsChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(upperBoundaryWaterLevelsChartDataIndex));
+                Assert.AreSame(designWaterLevelChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(designWaterLevelChartDataIndex));
+                Assert.AreSame(waterLevelsChartData, (ChartMultipleLineData) view.Chart.Data.Collection.ElementAt(waterLevelsChartDataIndex));
+                Assert.AreSame(revetmentBaseChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentBaseChartDataIndex));
+                Assert.AreSame(revetmentChartData, (ChartLineData) view.Chart.Data.Collection.ElementAt(revetmentChartDataIndex));
+
+                AssertForeshoreChartData(profile, foreshoreChartData);
+
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.LowerBoundaryRevetment,
+                                lowerBoundaryRevetmentChartData, "Ondergrens bekleding");
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryRevetment,
+                                upperBoundaryRevetmentChartData, "Bovengrens bekleding");
+
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.LowerBoundaryWaterLevels,
+                                lowerBoundaryWaterLevelsChartData, "Ondergrens waterstanden");
+                AssertChartData(calculation.InputParameters.ForeshoreGeometry, calculation.InputParameters.UpperBoundaryWaterLevels,
+                                upperBoundaryWaterLevelsChartData, "Bovengrens waterstanden");
+
+                CollectionAssert.IsEmpty(designWaterLevelChartData.Points);
+                Assert.AreEqual("Toetspeil", designWaterLevelChartData.Name);
+                CollectionAssert.IsEmpty(waterLevelsChartData.Lines);
+                Assert.AreEqual("Waterstanden in berekening", waterLevelsChartData.Name);
+
+                AssertRevetmentBaseChartData(profile.Geometry.Last(),
+                                             calculation.InputParameters.LowerBoundaryRevetment,
+                                             calculation.InputParameters.LowerBoundaryWaterLevels,
+                                             revetmentBaseChartData);
+                AssertRevetmentChartData(profile.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
+                                         calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
+            }
+        }
+
+        [Test]
         [TestCaseSource(nameof(NotifyChange))]
         public void GivenViewWithInputData_WhenChangeNotified_ThenUpdatedDataIsShownInChart(Action<WaveConditionsInput> notifyChange)
         {
@@ -349,9 +595,15 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 }
             };
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var assessmentLevel = (RoundedDouble) 6;
-            Func<RoundedDouble> getAssessmentLevel = () => assessmentLevel;
-            using (var view = new WaveConditionsInputView(calculation, getAssessmentLevel, new TestWaveConditionsInputViewStyle()))
+            using (var view = new WaveConditionsInputView(calculation,
+                                                          assessmentSection,
+                                                          () => GetHydraulicBoundaryLocationCalculation(assessmentLevel),
+                                                          new TestWaveConditionsInputViewStyle()))
             {
                 var foreshoreChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(foreShoreChartDataIndex);
                 var lowerBoundaryRevetmentChartData = (ChartLineData) view.Chart.Data.Collection.ElementAt(lowerBoundaryRevetmentChartDataIndex);
@@ -404,6 +656,19 @@ namespace Ringtoets.Revetment.Forms.Test.Views
                 AssertRevetmentChartData(profile.Geometry.Last(), calculation.InputParameters.LowerBoundaryRevetment,
                                          calculation.InputParameters.UpperBoundaryRevetment, revetmentChartData);
             }
+        }
+
+        private static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculation()
+        {
+            return new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+        }
+
+        private static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculation(RoundedDouble assessmentLevel)
+        {
+            return new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+            {
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(assessmentLevel)
+            };
         }
 
         private static TestWaveConditionsCalculation<TestWaveConditionsInput> CreateTestCalculation()

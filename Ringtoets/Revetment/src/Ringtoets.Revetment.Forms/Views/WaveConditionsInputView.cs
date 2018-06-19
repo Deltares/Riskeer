@@ -26,7 +26,9 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.Factories;
@@ -39,11 +41,12 @@ namespace Ringtoets.Revetment.Forms.Views
     /// </summary>
     public partial class WaveConditionsInputView : UserControl, IChartView
     {
-        private readonly Func<RoundedDouble> getAssessmentLevelFunc;
+        private readonly Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc;
 
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
-        private readonly Observer hydraulicBoundaryLocationObserver;
+        private readonly Observer hydraulicBoundaryLocationCalculationObserver;
+        private readonly Observer assessmentSectionObserver;
 
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartLineData foreshoreChartData;
@@ -62,11 +65,13 @@ namespace Ringtoets.Revetment.Forms.Views
         /// Creates a new instance of <see cref="WaveConditionsInputView"/>.
         /// </summary>
         /// <param name="calculation">The calculation to show in the view.</param>
-        /// <param name="getAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the assessment level.</param>
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
+        /// <param name="getHydraulicBoundaryLocationCalculationFunc"><see cref="Func{TResult}"/> for obtaining the <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
         /// <param name="inputViewStyle">The style which should be applied to the <see cref="ChartLineData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public WaveConditionsInputView(ICalculation<WaveConditionsInput> calculation,
-                                       Func<RoundedDouble> getAssessmentLevelFunc,
+                                       IAssessmentSection assessmentSection,
+                                       Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc,
                                        IWaveConditionsInputViewStyle inputViewStyle)
         {
             if (calculation == null)
@@ -74,9 +79,14 @@ namespace Ringtoets.Revetment.Forms.Views
                 throw new ArgumentNullException(nameof(calculation));
             }
 
-            if (getAssessmentLevelFunc == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(getAssessmentLevelFunc));
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (getHydraulicBoundaryLocationCalculationFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getHydraulicBoundaryLocationCalculationFunc));
             }
 
             if (inputViewStyle == null)
@@ -86,17 +96,19 @@ namespace Ringtoets.Revetment.Forms.Views
 
             InitializeComponent();
 
-            this.getAssessmentLevelFunc = getAssessmentLevelFunc;
+            this.getHydraulicBoundaryLocationCalculationFunc = getHydraulicBoundaryLocationCalculationFunc;
 
             calculationObserver = new Observer(UpdateChartTitle);
             calculationInputObserver = new Observer(UpdateCalculationInput);
-            hydraulicBoundaryLocationObserver = new Observer(UpdateChartData);
+            assessmentSectionObserver = new Observer(UpdateCalculationInput);
+            hydraulicBoundaryLocationCalculationObserver = new Observer(UpdateChartData);
 
             this.calculation = calculation;
 
             calculationObserver.Observable = calculation;
             calculationInputObserver.Observable = calculation.InputParameters;
-            hydraulicBoundaryLocationObserver.Observable = calculation.InputParameters.HydraulicBoundaryLocation;
+            hydraulicBoundaryLocationCalculationObserver.Observable = getHydraulicBoundaryLocationCalculationFunc();
+            assessmentSectionObserver.Observable = assessmentSection;
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
             foreshoreChartData = RingtoetsChartDataFactory.CreateForeshoreGeometryChartData();
@@ -146,7 +158,7 @@ namespace Ringtoets.Revetment.Forms.Views
         {
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
-            hydraulicBoundaryLocationObserver.Dispose();
+            assessmentSectionObserver.Dispose();
 
             if (disposing)
             {
@@ -158,7 +170,7 @@ namespace Ringtoets.Revetment.Forms.Views
 
         private void UpdateCalculationInput()
         {
-            hydraulicBoundaryLocationObserver.Observable = calculation?.InputParameters.HydraulicBoundaryLocation;
+            hydraulicBoundaryLocationCalculationObserver.Observable = getHydraulicBoundaryLocationCalculationFunc();
             UpdateChartData();
         }
 
@@ -185,8 +197,11 @@ namespace Ringtoets.Revetment.Forms.Views
             upperBoundaryRevetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryRevetmentGeometryPoints(input);
             lowerBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateLowerBoundaryWaterLevelsGeometryPoints(input);
             upperBoundaryWaterLevelsChartData.Points = WaveConditionsChartDataPointsFactory.CreateUpperBoundaryWaterLevelsGeometryPoints(input);
-            designWaterLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, getAssessmentLevelFunc());
-            waterLevelsChartData.Lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, getAssessmentLevelFunc());
+
+            RoundedDouble assessmentLevel = getHydraulicBoundaryLocationCalculationFunc()?.Output?.Result ?? RoundedDouble.NaN;
+            designWaterLevelChartData.Points = WaveConditionsChartDataPointsFactory.CreateDesignWaterLevelGeometryPoints(input, assessmentLevel);
+            waterLevelsChartData.Lines = WaveConditionsChartDataPointsFactory.CreateWaterLevelsGeometryPoints(input, assessmentLevel);
+
             revetmentBaseChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentBaseGeometryPoints(input);
             revetmentChartData.Points = WaveConditionsChartDataPointsFactory.CreateRevetmentGeometryPoints(input);
         }

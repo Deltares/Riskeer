@@ -172,7 +172,8 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.ViewInfos
         protected override IView GetView(ICalculation data)
         {
             return new WaveConditionsInputView((ICalculation<WaveConditionsInput>) data, 
-                                               () => (RoundedDouble) 1.1, 
+                                               new AssessmentSectionStub(),
+                                               () => new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()), 
                                                new StabilityStoneCoverWaveConditionsInputViewStyle());
         }
 
