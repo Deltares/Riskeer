@@ -24,8 +24,8 @@ using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 {

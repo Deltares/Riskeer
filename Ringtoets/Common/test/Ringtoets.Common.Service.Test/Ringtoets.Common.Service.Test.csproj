@@ -27,6 +27,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculatableActivityTest.cs" />
     <Compile Include="ClearResultsTest.cs" />
     <Compile Include="HydraRingInputParserTest.cs" />
     <Compile Include="CalculationServiceHelperTest.cs" />

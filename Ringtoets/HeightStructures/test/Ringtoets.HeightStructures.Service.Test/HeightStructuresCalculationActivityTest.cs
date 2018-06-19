@@ -25,8 +25,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.HeightStructures.Service.Test
 {

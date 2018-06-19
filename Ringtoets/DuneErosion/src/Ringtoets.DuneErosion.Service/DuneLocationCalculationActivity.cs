@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Service;
+using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
-using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.DuneErosion.Service
 {

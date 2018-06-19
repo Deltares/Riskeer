@@ -22,7 +22,7 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.Common.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
 

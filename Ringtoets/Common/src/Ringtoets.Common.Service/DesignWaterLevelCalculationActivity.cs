@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.Common.Service
 {

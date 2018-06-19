@@ -23,8 +23,8 @@ using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HydraRing.Calculation.Activities;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Service

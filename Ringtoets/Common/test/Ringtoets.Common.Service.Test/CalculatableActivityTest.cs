@@ -22,9 +22,8 @@
 using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
-using Ringtoets.HydraRing.Calculation.Activities;
 
-namespace Ringtoets.HydraRing.Calculation.Test.Activities
+namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
     public class CalculatableActivityTest

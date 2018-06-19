@@ -24,7 +24,7 @@ using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.Common.Service;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service.Test

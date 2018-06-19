@@ -25,7 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.Common.Service;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Service.Test

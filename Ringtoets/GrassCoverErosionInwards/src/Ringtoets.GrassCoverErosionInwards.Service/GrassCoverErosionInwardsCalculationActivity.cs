@@ -21,8 +21,8 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.HydraRing.Calculation.Activities;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service

@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.Common.Service;
 
 namespace Ringtoets.ClosingStructures.Service.Test
 {

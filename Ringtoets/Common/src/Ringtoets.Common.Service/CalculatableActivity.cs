@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Base.Service;
-using Ringtoets.HydraRing.Calculation.Properties;
+using Ringtoets.Common.Data.Calculation;
 
-namespace Ringtoets.HydraRing.Calculation.Activities
+namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Base implementation of an <see cref="Activity"/> for running calculations

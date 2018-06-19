@@ -15,6 +15,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculatableActivity.cs" />
     <Compile Include="TargetProbabilityCalculationServiceHelper.cs" />
     <Compile Include="CalculationServiceHelper.cs" />
     <Compile Include="ClearResults.cs" />
