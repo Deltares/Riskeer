@@ -147,6 +147,7 @@ namespace Ringtoets.Revetment.Forms.Views
         {
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
+            hydraulicBoundaryLocationCalculationObserver.Dispose();
 
             if (disposing)
             {

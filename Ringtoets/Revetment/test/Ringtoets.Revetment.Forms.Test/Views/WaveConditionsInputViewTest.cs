@@ -56,26 +56,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
         private const int revetmentBaseChartDataIndex = 7;
         private const int revetmentChartDataIndex = 8;
 
-        private static IEnumerable<TestCaseData> NotifyChange
-        {
-            get
-            {
-                yield return new TestCaseData(new Action<WaveConditionsInput>(wci =>
-                {
-                    var newLocation = new TestHydraulicBoundaryLocation();
-                    wci.HydraulicBoundaryLocation = newLocation;
-                    wci.NotifyObservers();
-                })).SetName("NotifyLocationAndWaterLevelChange");
-
-                yield return new TestCaseData(new Action<WaveConditionsInput>(wci =>
-                {
-                    var newLocation = new TestHydraulicBoundaryLocation();
-                    wci.HydraulicBoundaryLocation = newLocation;
-                    wci.NotifyObservers();
-                })).SetName("NotifyLocationChange");
-            }
-        }
-
         [Test]
         public void Constructor_InputViewStyleNull_ThrowArgumentNullException()
         {
@@ -540,8 +520,6 @@ namespace Ringtoets.Revetment.Forms.Test.Views
 
                 // When
                 assessmentLevel = (RoundedDouble) 8;
-                var newLocation = new TestHydraulicBoundaryLocation();
-                calculation.InputParameters.HydraulicBoundaryLocation = newLocation;
                 calculation.InputParameters.NotifyObservers();
 
                 // Then
