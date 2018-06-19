@@ -57,25 +57,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(null, "", failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ParameteredConstructor_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Setup

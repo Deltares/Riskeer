@@ -53,11 +53,6 @@ namespace Ringtoets.StabilityStoneCover.Service
                                                                     IAssessmentSection assessmentSection)
             : base(calculation)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
             if (hlcdFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hlcdFilePath));

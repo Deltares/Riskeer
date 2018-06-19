@@ -56,11 +56,6 @@ namespace Ringtoets.Common.Service
                                                    ICalculationMessageProvider messageProvider)
             : base(hydraulicBoundaryLocationCalculation)
         {
-            if (hydraulicBoundaryLocationCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryLocationCalculation));
-            }
-
             if (messageProvider == null)
             {
                 throw new ArgumentNullException(nameof(messageProvider));

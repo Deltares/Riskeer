@@ -56,25 +56,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(null, string.Empty, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_HlcdDirectoryNull_ThrowsArgumentNullException()
         {
             // Setup

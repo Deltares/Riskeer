@@ -115,26 +115,6 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(null,
-                                                                        validFilePath,
-                                                                        validPreprocessorDirectory,
-                                                                        1,
-                                                                        calculationMessageProvider);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hydraulicBoundaryLocationCalculation", exception.ParamName);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup

@@ -57,25 +57,6 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new HeightStructuresCalculationActivity(null, "", failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void ParameteredConstructor_HlcdFilepathNull_ThrowsArgumentNullException()
         {
             // Setup

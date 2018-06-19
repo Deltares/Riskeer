@@ -54,11 +54,6 @@ namespace Ringtoets.ClosingStructures.Service
                                                     IAssessmentSection assessmentSection)
             : base(calculation)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
             if (hydraulicBoundaryDatabaseFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));

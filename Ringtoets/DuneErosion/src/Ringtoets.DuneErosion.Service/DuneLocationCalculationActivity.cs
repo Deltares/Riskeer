@@ -55,11 +55,6 @@ namespace Ringtoets.DuneErosion.Service
                                                double norm)
             : base(duneLocationCalculation)
         {
-            if (duneLocationCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(duneLocationCalculation));
-            }
-
             this.duneLocationCalculation = duneLocationCalculation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;

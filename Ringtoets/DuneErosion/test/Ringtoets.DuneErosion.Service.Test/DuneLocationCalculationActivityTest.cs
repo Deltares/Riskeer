@@ -75,20 +75,6 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Constructor_DuneLocationCalculationNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new DuneLocationCalculationActivity(null,
-                                                                          validFilePath,
-                                                                          validPreprocessorDirectory,
-                                                                          1.0 / 30000);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("duneLocationCalculation", exception.ParamName);
-        }
-
-        [Test]
         public void Run_InvalidHydraulicBoundaryDatabase_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
