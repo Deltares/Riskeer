@@ -57,10 +57,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             get
             {
-                return !HasOutput
-                       || Output.OvertoppingOutput.HasGeneralResult != InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated
-                       || Output.DikeHeightOutput.HasGeneralResult != InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated
-                       || Output.OvertoppingRateOutput.HasGeneralResult != InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated;
+                return ShouldCalculateOvertopping()
+                       || ShouldCalculateDikeHeight()
+                       || ShouldCalculateOvertoppingRate();
             }
         }
 
@@ -101,6 +100,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public void ClearOutput()
         {
             Output = null;
+        }
+
+        private bool ShouldCalculateOvertopping()
+        {
+            return !HasOutput || Output.OvertoppingOutput.HasGeneralResult != InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated;
+        }
+
+        private bool ShouldCalculateDikeHeight()
+        {
+            return HasOutput
+                   && InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation
+                   && (Output.DikeHeightOutput == null
+                       || Output.DikeHeightOutput.HasGeneralResult != InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
+        }
+
+        private bool ShouldCalculateOvertoppingRate()
+        {
+            return HasOutput
+                   && InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation
+                   && (Output.OvertoppingRateOutput == null
+                       || Output.OvertoppingRateOutput.HasGeneralResult != InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
         }
     }
 }

@@ -46,6 +46,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             {
                 throw new ArgumentNullException(nameof(overtoppingOutput));
             }
+
             OvertoppingOutput = overtoppingOutput;
             DikeHeightOutput = dikeHeightOutput;
             OvertoppingRateOutput = overtoppingRateOutput;
