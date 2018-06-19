@@ -38,6 +38,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
+            Assert.IsTrue(calculation.ShouldCalculate);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
 
@@ -68,6 +69,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsFalse(calculation.ShouldCalculate);
             Assert.IsTrue(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
 
@@ -106,6 +108,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
+            Assert.IsTrue(calculation.ShouldCalculate);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);
 
@@ -136,6 +139,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             calculation.ClearOutput();
 
             // Assert
+            Assert.IsTrue(calculation.ShouldCalculate);
             Assert.IsFalse(calculation.HasOutput);
         }
 
@@ -152,6 +156,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.DoesNotThrow(test);
+            Assert.IsTrue(calculation.ShouldCalculate);
             Assert.IsFalse(calculation.HasOutput);
         }
     }

@@ -43,6 +43,14 @@ namespace Ringtoets.Common.Data.TestUtil
 
         public string Name { get; set; }
 
+        public bool ShouldCalculate
+        {
+            get
+            {
+                return !HasOutput;
+            }
+        }
+
         public bool HasOutput { get; private set; }
 
         public Comment Comments { get; }
