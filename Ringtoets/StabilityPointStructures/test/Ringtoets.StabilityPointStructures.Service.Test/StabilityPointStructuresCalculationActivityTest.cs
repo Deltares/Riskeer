@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var activity = new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivityBase>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);

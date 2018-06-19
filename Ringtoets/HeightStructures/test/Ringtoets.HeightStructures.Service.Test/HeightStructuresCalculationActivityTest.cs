@@ -26,6 +26,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.HeightStructures.Service.Test
 {
@@ -47,7 +48,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<Activity>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.AreEqual($"Uitvoeren van berekening '{calculation.Name}'", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);

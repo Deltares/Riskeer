@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -29,9 +28,9 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a grass cover erosion inwards calculation.
+    /// <see cref="CalculatableActivity"/> for running a grass cover erosion inwards calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationActivity : HydraRingActivityBase
+    public class GrassCoverErosionInwardsCalculationActivity : CalculatableActivity
     {
         private readonly GrassCoverErosionInwardsCalculation calculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;
@@ -54,14 +53,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             {
                 throw new ArgumentNullException(nameof(calculation));
             }
+
             if (hydraulicBoundaryDatabaseFilePath == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabaseFilePath));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));

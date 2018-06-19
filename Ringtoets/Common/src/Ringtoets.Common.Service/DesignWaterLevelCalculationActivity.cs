@@ -28,9 +28,9 @@ using Ringtoets.HydraRing.Calculation.Activities;
 namespace Ringtoets.Common.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a design water level calculation.
+    /// <see cref="CalculatableActivity"/> for running a design water level calculation.
     /// </summary>
-    public class DesignWaterLevelCalculationActivity : HydraRingActivityBase
+    public class DesignWaterLevelCalculationActivity : CalculatableActivity
     {
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;

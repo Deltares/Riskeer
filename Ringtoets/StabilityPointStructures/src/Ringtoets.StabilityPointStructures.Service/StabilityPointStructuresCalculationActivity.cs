@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
@@ -31,9 +30,9 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 namespace Ringtoets.StabilityPointStructures.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a structures stability point calculation.
+    /// <see cref="CalculatableActivity"/> for running a structures stability point calculation.
     /// </summary>
-    public class StabilityPointStructuresCalculationActivity : HydraRingActivityBase
+    public class StabilityPointStructuresCalculationActivity : CalculatableActivity
     {
         private readonly StructuresCalculation<StabilityPointStructuresInput> calculation;
         private readonly StabilityPointStructuresCalculationService calculationService;

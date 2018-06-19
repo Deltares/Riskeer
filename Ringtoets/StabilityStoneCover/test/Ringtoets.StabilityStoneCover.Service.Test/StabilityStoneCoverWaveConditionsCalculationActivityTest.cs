@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivityBase>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual($"Golfcondities voor blokken en zuilen berekenen voor '{calculation.Name}'", activity.Description);

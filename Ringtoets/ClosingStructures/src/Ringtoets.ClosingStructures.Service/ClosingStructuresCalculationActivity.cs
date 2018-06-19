@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Service;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
@@ -31,9 +30,9 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 namespace Ringtoets.ClosingStructures.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a structures closure calculation.
+    /// <see cref="CalculatableActivity"/> for running a structures closure calculation.
     /// </summary>
-    public class ClosingStructuresCalculationActivity : HydraRingActivityBase
+    public class ClosingStructuresCalculationActivity : CalculatableActivity
     {
         private readonly StructuresCalculation<ClosingStructuresInput> calculation;
         private readonly ClosingStructuresCalculationService calculationService;

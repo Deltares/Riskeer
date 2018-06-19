@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -30,9 +29,9 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 namespace Ringtoets.WaveImpactAsphaltCover.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a wave impact asphalt cover wave conditions calculation.
+    /// <see cref="CalculatableActivity"/> for running a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : HydraRingActivityBase
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : CalculatableActivity
     {
         private readonly WaveImpactAsphaltCoverWaveConditionsCalculation calculation;
         private readonly string hlcdFilePath;

@@ -47,7 +47,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivityBase>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}'", activity.Description);

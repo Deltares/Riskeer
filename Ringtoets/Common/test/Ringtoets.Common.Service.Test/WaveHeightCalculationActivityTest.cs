@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -92,7 +93,7 @@ namespace Ringtoets.Common.Service.Test
                                                              calculationMessageProvider);
 
             // Assert
-            Assert.IsInstanceOf<Activity>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.AreSame(activityDescription, activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);

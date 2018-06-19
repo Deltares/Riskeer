@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Service.Test
                                                                    calculationMessageProvider);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivityBase>(activity);
+            Assert.IsInstanceOf<CalculatableActivity>(activity);
             Assert.AreSame(activityDescription, activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);

@@ -16,7 +16,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\HydraRingActivityBase.cs" />
+    <Compile Include="Activities\CalculatableActivity.cs" />
     <Compile Include="Calculator\HydraulicLoadsCalculator.cs" />
     <Compile Include="Calculator\DunesBoundaryConditionsCalculator.cs" />
     <Compile Include="Calculator\Factory\HydraRingCalculatorFactory.cs" />

@@ -28,9 +28,9 @@ using Ringtoets.HydraRing.Calculation.Activities;
 namespace Ringtoets.DuneErosion.Service
 {
     /// <summary>
-    /// <see cref="Activity"/> for running a dune location calculation.
+    /// <see cref="CalculatableActivity"/> for running a dune location calculation.
     /// </summary>
-    public class DuneLocationCalculationActivity : HydraRingActivityBase
+    public class DuneLocationCalculationActivity : CalculatableActivity
     {
         private readonly DuneLocationCalculation duneLocationCalculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;

@@ -24,7 +24,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\HydraRingActivityBaseTest.cs" />
+    <Compile Include="Activities\CalculatableActivityTest.cs" />
     <Compile Include="Calculator\DesignWaterLevelCalculatorTest.cs" />
     <Compile Include="Calculator\HydraulicLoadsCalculatorTest.cs" />
     <Compile Include="Calculator\DunesBoundaryConditionsCalculatorTest.cs" />
