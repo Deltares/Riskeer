@@ -57,7 +57,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             get
             {
-                return !HasOutput;
+                return !HasOutput
+                       || Output.OvertoppingOutput.HasGeneralResult != InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated
+                       || Output.DikeHeightOutput.HasGeneralResult != InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated
+                       || Output.OvertoppingRateOutput.HasGeneralResult != InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated;
             }
         }
 

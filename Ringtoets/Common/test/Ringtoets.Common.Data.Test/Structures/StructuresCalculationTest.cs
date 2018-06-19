@@ -46,7 +46,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments.Body);
-            Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Output);
         }
 
@@ -99,7 +98,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        [TestCaseSource(nameof(GetStructuresCalculations))]
+        [TestCaseSource(nameof(GetCalculations))]
         public void ShouldCalculate_Always_ReturnsExpectedValue(TestStructuresCalculation calculation,
                                                                 bool expectedShouldCalculate)
         {
@@ -202,7 +201,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             public override void SynchronizeStructureInput() {}
         }
 
-        private static IEnumerable<TestCaseData> GetStructuresCalculations()
+        private static IEnumerable<TestCaseData> GetCalculations()
         {
             yield return new TestCaseData(new TestStructuresCalculation
                 {

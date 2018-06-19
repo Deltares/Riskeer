@@ -19,10 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -42,7 +44,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
-            Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.DikeProfile);
@@ -129,6 +130,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
+        [TestCaseSource(nameof(GetCalculations))]
+        public void ShouldCalculate_Always_ReturnsExpectedValue(GrassCoverErosionInwardsCalculation calculation,
+                                                                bool expectedShouldCalculate)
+        {
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.AreEqual(expectedShouldCalculate, shouldCalculate);
+        }
+
+        [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
@@ -170,6 +183,117 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(calculation.InputParameters);
 
             return calculation;
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculations()
+        {
+            var overtoppingOutputWithoutGeneralResult = new TestOvertoppingOutput(1.0);
+            var overtoppingOutputWithGeneralResult = new OvertoppingOutput(1.0,
+                                                                           true,
+                                                                           1.0,
+                                                                           new TestGeneralResultFaultTreeIllustrationPoint());
+
+            var dikeHeightOutputWithoutGeneralResult = new TestDikeHeightOutput(1.0);
+            var dikeHeightOutputWithGeneralResult = new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            var overtoppingRateOutputWithoutGeneralResult = new TestOvertoppingRateOutput(1.0);
+            var overtoppingRateOutputWithGeneralResult = new TestOvertoppingRateOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                        ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
+                        ShouldDikeHeightIllustrationPointsBeCalculated = true
+                    },
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithGeneralResult,
+                                                                dikeHeightOutputWithGeneralResult,
+                                                                overtoppingRateOutputWithGeneralResult)
+                }, false)
+                .SetName("OutputSufficientScenario1");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
+                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                overtoppingRateOutputWithoutGeneralResult)
+                }, false)
+                .SetName("OutputSufficientScenario2");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation(), true)
+                .SetName("NoOutputScenario1");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                        ShouldOvertoppingRateIllustrationPointsBeCalculated = true,
+                        ShouldDikeHeightIllustrationPointsBeCalculated = true
+                    }
+                }, true)
+                .SetName("NoOutputScenario2");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithGeneralResult,
+                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                overtoppingRateOutputWithoutGeneralResult)
+                }, true)
+                .SetName("OvertoppingOutputWithRedundantGeneralResult");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldOvertoppingOutputIllustrationPointsBeCalculated = true
+                    },
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
+                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                overtoppingRateOutputWithoutGeneralResult)
+                }, true)
+                .SetName("OvertoppingOutputWithMissingGeneralResult");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
+                                                                dikeHeightOutputWithGeneralResult,
+                                                                overtoppingRateOutputWithoutGeneralResult)
+                }, true)
+                .SetName("DikeHeightOutputWithRedundantGeneralResult");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldDikeHeightIllustrationPointsBeCalculated = true
+                    },
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
+                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                overtoppingRateOutputWithoutGeneralResult)
+                }, true)
+                .SetName("DikeHeightOutputWithMissingGeneralResult");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
+                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                overtoppingRateOutputWithGeneralResult)
+                }, true)
+                .SetName("OvertoppingRateOutputWithRedundantGeneralResult");
+
+            yield return new TestCaseData(new GrassCoverErosionInwardsCalculation
+                {
+                    InputParameters =
+                    {
+                        ShouldOvertoppingRateIllustrationPointsBeCalculated = true
+                    },
+                    Output = new GrassCoverErosionInwardsOutput(overtoppingOutputWithoutGeneralResult,
+                                                                dikeHeightOutputWithoutGeneralResult,
+                                                                overtoppingRateOutputWithoutGeneralResult)
+                }, true)
+                .SetName("OvertoppingRateOutputWithMissingGeneralResult");
         }
     }
 }
