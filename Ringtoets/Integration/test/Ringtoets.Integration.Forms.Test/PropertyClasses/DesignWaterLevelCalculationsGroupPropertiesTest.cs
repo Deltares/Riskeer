@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -74,6 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new DesignWaterLevelCalculationsGroupProperties(locations, assessmentSection);
 
             // Assert
+            Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
             Assert.AreSame(locations, properties.Data);
             mocks.VerifyAll();
         }
