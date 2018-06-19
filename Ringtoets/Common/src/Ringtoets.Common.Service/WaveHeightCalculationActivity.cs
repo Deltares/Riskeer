@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Service
 
         protected override bool Validate()
         {
-            if (hydraulicBoundaryLocationCalculation.IsCalculated)
+            if (!hydraulicBoundaryLocationCalculation.ShouldCalculate)
             {
                 State = ActivityState.Skipped;
                 return true;
