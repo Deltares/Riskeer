@@ -272,40 +272,6 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_OutputSet_ValidationAndCalculationNotPerformedAndStateSkipped()
-        {
-            // Setup
-            const string locationName = "locationName";
-            const double norm = 1.0 / 30;
-
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            mockRepository.ReplayAll();
-
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(locationName))
-            {
-                InputParameters =
-                {
-                    ShouldIllustrationPointsBeCalculated = false
-                },
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(3.0, CalculationConvergence.CalculatedConverged)
-            };
-
-            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocationCalculation,
-                                                             validFilePath,
-                                                             validPreprocessorDirectory,
-                                                             norm,
-                                                             calculationMessageProvider);
-
-            // Call
-            activity.Run();
-
-            // Assert
-            Assert.AreEqual(ActivityState.Skipped, activity.State);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         [TestCaseSource(nameof(HydraulicBoundaryLocationCalculationsToPerform))]
         public void Run_ValidCalculation_SetsWaveHeightAndConvergence(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {

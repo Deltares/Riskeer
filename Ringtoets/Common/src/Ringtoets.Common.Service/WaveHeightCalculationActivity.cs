@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Service;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
 
@@ -74,12 +73,6 @@ namespace Ringtoets.Common.Service
 
         protected override bool Validate()
         {
-            if (!hydraulicBoundaryLocationCalculation.ShouldCalculate)
-            {
-                State = ActivityState.Skipped;
-                return true;
-            }
-
             return calculationService.Validate(hydraulicBoundaryDatabaseFilePath,
                                                preprocessorDirectory,
                                                norm);
@@ -87,14 +80,11 @@ namespace Ringtoets.Common.Service
 
         protected override void PerformCalculation()
         {
-            if (State != ActivityState.Skipped)
-            {
-                calculationService.Calculate(hydraulicBoundaryLocationCalculation,
-                                             hydraulicBoundaryDatabaseFilePath,
-                                             preprocessorDirectory,
-                                             norm,
-                                             messageProvider);
-            }
+            calculationService.Calculate(hydraulicBoundaryLocationCalculation,
+                                         hydraulicBoundaryDatabaseFilePath,
+                                         preprocessorDirectory,
+                                         norm,
+                                         messageProvider);
         }
 
         protected override void OnCancel()
