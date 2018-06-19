@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Core.Common.TestUtil;
@@ -51,7 +52,8 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
                 Name = "Calculation A",
                 InputParameters =
                 {
-                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA")
+                    ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
+                    CategoryType = AssessmentSectionCategoryType.FactorizedSignalingNorm
                 }
             };
 
@@ -98,7 +100,11 @@ namespace Ringtoets.Revetment.IO.Test.Configurations
 
         protected override ICalculation<AssessmentSectionCategoryWaveConditionsInput> CreateCalculation()
         {
-            return new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(new AssessmentSectionCategoryWaveConditionsInput());
+            var random = new Random(21);
+            return new TestWaveConditionsCalculation<AssessmentSectionCategoryWaveConditionsInput>(new AssessmentSectionCategoryWaveConditionsInput()
+            {
+                CategoryType = random.NextEnumValue<AssessmentSectionCategoryType>()
+            });
         }
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)
