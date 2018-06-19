@@ -64,9 +64,6 @@ namespace Ringtoets.HydraRing.Calculation.Activities
         /// then <c>false</c> is returned and the problems are logged.
         /// </summary>
         /// <returns><c>true</c> if no validation problems were found, <c>false</c> otherwise.</returns>
-        protected virtual bool Validate()
-        {
-            return true;
-        }
+        protected abstract bool Validate();
     }
 }
