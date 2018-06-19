@@ -185,9 +185,15 @@ namespace Demo.Ringtoets.Commands
         {
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionOutwards;
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm
+                }
+            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
         }
 
@@ -757,7 +763,14 @@ namespace Demo.Ringtoets.Commands
         {
             StabilityStoneCoverFailureMechanism failureMechanism = demoAssessmentSection.StabilityStoneCover;
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
+                }
+            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
@@ -771,7 +784,14 @@ namespace Demo.Ringtoets.Commands
         {
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = demoAssessmentSection.WaveImpactAsphaltCover;
 
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm
+                }
+            };
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
