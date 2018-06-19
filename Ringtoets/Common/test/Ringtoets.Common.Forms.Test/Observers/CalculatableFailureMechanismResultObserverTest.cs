@@ -120,8 +120,13 @@ namespace Ringtoets.Common.Forms.Test.Observers
             }
 
             public TestCalculationInput InputParameters { get; }
+
             public string Name { get; set; }
+
+            public bool ShouldCalculate { get; }
+
             public bool HasOutput { get; }
+
             public Comment Comments { get; }
 
             public void ClearOutput()

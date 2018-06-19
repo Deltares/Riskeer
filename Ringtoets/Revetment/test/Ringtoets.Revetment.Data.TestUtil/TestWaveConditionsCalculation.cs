@@ -48,13 +48,15 @@ namespace Ringtoets.Revetment.Data.TestUtil
 
         public T InputParameters { get; }
 
-        public bool HasOutput
+        public bool ShouldCalculate
         {
             get
             {
-                return false;
+                return !HasOutput;
             }
         }
+
+        public bool HasOutput { get; }
 
         public void ClearOutput() {}
 

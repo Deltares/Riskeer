@@ -42,6 +42,7 @@ namespace Ringtoets.Revetment.Data.TestUtil.Test
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.AreSame(input, calculation.InputParameters);
+            Assert.IsTrue(calculation.ShouldCalculate);
             Assert.IsFalse(calculation.HasOutput);
         }
     }
