@@ -51,9 +51,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsOutput Output { get; set; }
 
-        public Comment Comments { get; private set; }
-
         public string Name { get; set; }
+
+        public bool ShouldCalculate
+        {
+            get
+            {
+                return !HasOutput;
+            }
+        }
 
         public bool HasOutput
         {
@@ -62,6 +68,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 return Output != null;
             }
         }
+
+        public Comment Comments { get; private set; }
 
         /// <summary>
         /// Returns a string that represents the current object.

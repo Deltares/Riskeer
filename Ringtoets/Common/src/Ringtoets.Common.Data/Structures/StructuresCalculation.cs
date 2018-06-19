@@ -54,7 +54,13 @@ namespace Ringtoets.Common.Data.Structures
 
         public string Name { get; set; }
 
-        public Comment Comments { get; private set; }
+        public bool ShouldCalculate
+        {
+            get
+            {
+                return !HasOutput;
+            }
+        }
 
         public bool HasOutput
         {
@@ -63,6 +69,8 @@ namespace Ringtoets.Common.Data.Structures
                 return Output != null;
             }
         }
+
+        public Comment Comments { get; private set; }
 
         public override string ToString()
         {
