@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.Calculation;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -31,6 +32,23 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public abstract class CalculatableActivity : Activity
     {
+        private readonly ICalculatable calculatable;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="CalculatableActivity"/>.
+        /// </summary>
+        /// <param name="calculatable">The calculation to perform.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculatable"/> is <c>null</c>.</exception>
+        protected CalculatableActivity(ICalculatable calculatable)
+        {
+            if (calculatable == null)
+            {
+                throw new ArgumentNullException(nameof(calculatable));
+            }
+
+            this.calculatable = calculatable;
+        }
+
         protected override void OnRun()
         {
             if (!Validate())

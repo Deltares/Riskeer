@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -29,20 +30,31 @@ namespace Ringtoets.Common.Service.Test
     public class CalculatableActivityTest
     {
         [Test]
-        public void Constructor_ReturnsNewInstance()
+        public void Constructor_ValidParameter_ExpectedValues()
         {
             // Call
-            var activity = new TestCalculatableActivity();
+            var activity = new TestCalculatableActivity(new TestCalculatable());
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
         }
 
         [Test]
+        public void Constructor_CalculatableNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new TestCalculatableActivity(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculatable", exception.ParamName);
+        }
+
+        [Test]
         public void Run_NotValid_StateFailedCalculatedFalse()
         {
             // Setup
-            var activity = new TestCalculatableActivity();
+            var activity = new TestCalculatableActivity(new TestCalculatable());
 
             // Call
             activity.Run();
@@ -56,7 +68,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_IsValid_StateExecutedCalculatedTrue()
         {
             // Setup
-            var activity = new TestCalculatableActivity
+            var activity = new TestCalculatableActivity(new TestCalculatable())
             {
                 IsValid = true
             };
@@ -73,7 +85,7 @@ namespace Ringtoets.Common.Service.Test
         public void UpdateProgressText_Always_SetsProgressTextWithFormat()
         {
             // Setup
-            var activity = new TestCalculatableActivity();
+            var activity = new TestCalculatableActivity(new TestCalculatable());
             const string currentStepName = "Some step name.";
             int totalStep = new Random(21).Next();
             int currentStep = new Random(21).Next();
@@ -84,31 +96,44 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             Assert.AreEqual($"Stap {currentStep} van {totalStep} | {currentStepName}", activity.ProgressText);
         }
-    }
 
-    public class TestCalculatableActivity : CalculatableActivity
-    {
-        public bool Calculated { get; private set; }
-
-        public bool IsValid { private get; set; }
-
-        public void PublicUpdateProgressText(string currentStepName, int currentStep, int totalStep)
+        private class TestCalculatable : ICalculatable
         {
-            UpdateProgressText(currentStepName, currentStep, totalStep);
+            public bool ShouldCalculate
+            {
+                get
+                {
+                    return true;
+                }
+            }
         }
 
-        protected override void OnCancel() {}
-
-        protected override void OnFinish() {}
-
-        protected override void PerformCalculation()
+        private class TestCalculatableActivity : CalculatableActivity
         {
-            Calculated = true;
-        }
+            public TestCalculatableActivity(ICalculatable calculatable) : base(calculatable) {}
 
-        protected override bool Validate()
-        {
-            return IsValid;
+            public bool Calculated { get; private set; }
+
+            public bool IsValid { private get; set; }
+
+            public void PublicUpdateProgressText(string currentStepName, int currentStep, int totalStep)
+            {
+                UpdateProgressText(currentStepName, currentStep, totalStep);
+            }
+
+            protected override void OnCancel() {}
+
+            protected override void OnFinish() {}
+
+            protected override void PerformCalculation()
+            {
+                Calculated = true;
+            }
+
+            protected override bool Validate()
+            {
+                return IsValid;
+            }
         }
     }
 }
