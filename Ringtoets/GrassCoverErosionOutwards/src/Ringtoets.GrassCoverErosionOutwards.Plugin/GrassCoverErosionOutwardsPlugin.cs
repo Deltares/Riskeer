@@ -33,6 +33,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms;
@@ -765,18 +766,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateGrassCoverErosionOutwardsWaveConditionsCalculations(dialog.SelectedItems, nodeData.WrappedData.Children);
+                    GenerateGrassCoverErosionOutwardsWaveConditionsCalculations(dialog.SelectedItems,
+                                                                                nodeData.WrappedData.Children,
+                                                                                nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
         private static void GenerateGrassCoverErosionOutwardsWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                                        List<ICalculationBase> calculationCollection)
+                                                                                        List<ICalculationBase> calculationCollection,
+                                                                                        NormType normType)
         {
             GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
-                calculationCollection);
+                calculationCollection,
+                normType);
         }
 
         private static void AddWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
@@ -787,7 +792,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                   RingtoetsCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
-            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, 
+            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters,
                                                       nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
             nodeData.WrappedData.Children.Add(calculation);
             nodeData.WrappedData.NotifyObservers();

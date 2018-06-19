@@ -22,10 +22,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
 {
@@ -36,10 +40,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         public void AddCalculationsFromLocations_LocationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var random = new Random(21);
             var calculations = new List<ICalculationBase>();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(null, calculations);
+            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(null,
+                                                                                                                            calculations,
+                                                                                                                            random.NextEnumValue<NormType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -50,10 +57,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         public void AddCalculationsFromLocations_CalculationsIsNull_ThrowsArgumentNullException()
         {
             // Setup
+            var random = new Random(21);
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, null);
+            TestDelegate test = () => GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations,
+                                                                                                                            null,
+                                                                                                                            random.NextEnumValue<NormType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -64,18 +74,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
         public void AddCalculationsFromLocations_EmptyCollections_ReturnsEmptyList()
         {
             // Setup
+            var random = new Random(21);
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
             var calculationBases = new List<ICalculationBase>();
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, calculationBases);
+            GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, calculationBases, random.NextEnumValue<NormType>());
 
             // Assert
             CollectionAssert.IsEmpty(calculationBases);
         }
 
         [Test]
-        public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations()
+        [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
+        public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculations(
+            NormType normType,
+            FailureMechanismCategoryType expectedFailureMechanismCategoryType)
         {
             // Setup
             const string name = "name";
@@ -87,21 +102,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             var calculationBases = new List<ICalculationBase>();
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, calculationBases);
+            GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, calculationBases, normType);
 
             // Assert
             Assert.AreEqual(2, calculationBases.Count);
             var firstCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.First();
             Assert.AreEqual(name, firstCalculation.Name);
-            Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
+            FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedFailureMechanismCategoryType, firstCalculationInput.CategoryType);
 
             var secondCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", secondCalculation.Name);
-            Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
+            FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedFailureMechanismCategoryType, secondCalculationInput.CategoryType);
         }
 
         [Test]
-        public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations()
+        [TestCase(NormType.LowerLimit, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm)]
+        [TestCase(NormType.Signaling, FailureMechanismCategoryType.MechanismSpecificSignalingNorm)]
+        public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculations(
+            NormType normType,
+            FailureMechanismCategoryType expectedFailureMechanismCategoryType)
         {
             // Setup
             const string name = "name";
@@ -119,17 +142,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test
             };
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, calculationBases);
+            GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(locations, calculationBases, normType);
 
             // Assert
             Assert.AreEqual(3, calculationBases.Count);
             var firstCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual($"{name} (1)", firstCalculation.Name);
-            Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
+            FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+            Assert.AreEqual(locations[0], firstCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedFailureMechanismCategoryType, firstCalculationInput.CategoryType);
 
             var secondCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual($"{name} (2)", secondCalculation.Name);
-            Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
+            FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+            Assert.AreSame(locations[1], secondCalculationInput.HydraulicBoundaryLocation);
+            Assert.AreEqual(expectedFailureMechanismCategoryType, secondCalculationInput.CategoryType);
         }
     }
 }

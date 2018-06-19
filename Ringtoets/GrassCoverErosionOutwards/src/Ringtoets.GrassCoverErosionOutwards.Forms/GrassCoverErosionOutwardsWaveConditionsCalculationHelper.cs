@@ -21,11 +21,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms
 {
@@ -36,36 +39,58 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
     {
         /// <summary>
         /// Adds a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> based on the <paramref name="locations"/> 
-        /// in the <paramref name="calculations"/>.
+        /// in the <paramref name="calculations"/> and sets their initial category type input based on the <paramref name="normType"/>.
         /// </summary>
         /// <param name="locations">Locations to base the calculation upon.</param>
         /// <param name="calculations">The list to update.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <param name="normType">The <see cref="NormType"/> to set the category type input for.</param>
+        /// <exception cref="ArgumentNullException">Throw when any <paramref name="locations"/>
+        /// or <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// but unsupported.</exception>
         public static void AddCalculationsFromLocations(IEnumerable<HydraulicBoundaryLocation> locations,
-                                                        List<ICalculationBase> calculations)
+                                                        List<ICalculationBase> calculations,
+                                                        NormType normType)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
-            foreach (ICalculationBase calculation in locations.Select(location => CreateGrassCoverErosionOutwardsWaveConditionsCalculation(location, calculations)))
+
+            foreach (ICalculationBase calculation in locations.Select(location => CreateGrassCoverErosionOutwardsWaveConditionsCalculation(location,
+                                                                                                                                           calculations,
+                                                                                                                                           normType)))
             {
                 calculations.Add(calculation);
             }
         }
 
+        /// <summary>
+        /// Creates a calculation and sets the <paramref name="hydraulicBoundaryLocation"/>
+        /// and the category type on its input.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to set.</param>
+        /// <param name="calculations">The list of calculations to base the calculation name from.</param>
+        /// <param name="normType">The <see cref="NormType"/> to base the category type input on.</param>
+        /// <returns>An <see cref="ICalculationBase"/> representing a grass cover erosion outwards calculation.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// but unsupported.</exception>
         private static ICalculationBase CreateGrassCoverErosionOutwardsWaveConditionsCalculation(
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            IEnumerable<ICalculationBase> calculations)
+            IEnumerable<ICalculationBase> calculations,
+            NormType normType)
         {
             string nameBase = hydraulicBoundaryLocation.Name;
             string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = name,
                 InputParameters =
@@ -73,6 +98,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
+            WaveConditionsInputHelper.SetCategoryType(calculation.InputParameters, normType);
+            return calculation;
         }
     }
 }

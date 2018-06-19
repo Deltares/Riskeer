@@ -1813,6 +1813,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void GivenDialogGenerateCalculationButtonClicked_WhenCalculationSelectedAndDialogClosed_ThenUpdateCalculationGroup()
         {
             // Given
+            var random = new Random(21);
+            var normType = random.NextEnumValue<NormType>();
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var existingGroup = new CalculationGroup();
@@ -1828,7 +1831,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
                 var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var assessmentSection = new AssessmentSectionStub();
+                var assessmentSection = new AssessmentSectionStub
+                {
+                    FailureMechanismContribution =
+                    {
+                        NormativeNorm = normType
+                    }
+                };
 
                 GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(
                     failureMechanism, assessmentSection, new[]
@@ -1877,12 +1886,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(existingcalculation, group.Children[1]);
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
+
+                FailureMechanismCategoryType expectedFailureMechanismCategoryType = GetCategoryTypeFromNormType(normType);
                 var firstCalculation = group.Children[2] as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
-                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculation.InputParameters.HydraulicBoundaryLocation);
+                FailureMechanismCategoryWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
+                Assert.AreSame(hydraulicBoundaryLocation1, firstCalculationInput.HydraulicBoundaryLocation);
+                Assert.AreEqual(expectedFailureMechanismCategoryType, firstCalculationInput.CategoryType);
+
                 var secondCalculation = group.Children[3] as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 Assert.IsNotNull(secondCalculation);
-                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculation.InputParameters.HydraulicBoundaryLocation);
+                FailureMechanismCategoryWaveConditionsInput secondCalculationInput = secondCalculation.InputParameters;
+                Assert.AreSame(hydraulicBoundaryLocation2, secondCalculationInput.HydraulicBoundaryLocation);
+                Assert.AreEqual(expectedFailureMechanismCategoryType, secondCalculationInput.CategoryType);
             }
         }
 
