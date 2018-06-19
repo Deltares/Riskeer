@@ -44,7 +44,6 @@ namespace Ringtoets.MacroStabilityInwards.Data.Test
 
             Assert.IsInstanceOf<MacroStabilityInwardsInput>(calculation.InputParameters);
 
-            Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
         }

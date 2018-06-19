@@ -48,7 +48,6 @@ namespace Ringtoets.Piping.Data.Test
 
             Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
 
-            Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
         }

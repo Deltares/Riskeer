@@ -45,7 +45,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             Assert.AreEqual(RingtoetsCommonDataResources.Calculation_DefaultName, calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
-            Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
@@ -100,6 +99,38 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.IsTrue(hasOutput);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputNull_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = null
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsTrue(shouldCalculate);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputSet_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsFalse(shouldCalculate);
         }
 
         [Test]
