@@ -48,6 +48,7 @@
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
