@@ -38,12 +38,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
     public static class GrassCoverErosionOutwardsWaveConditionsCalculationHelper
     {
         /// <summary>
-        /// Adds a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> based on the <paramref name="locations"/> 
-        /// in the <paramref name="calculations"/> and sets their initial category type input based on the <paramref name="normType"/>.
+        /// Adds a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> in the <paramref name="calculations"/>
+        /// based on the <paramref name="locations"/> and the <paramref name="normType"/>.
         /// </summary>
         /// <param name="locations">Locations to base the calculation upon.</param>
         /// <param name="calculations">The list to update.</param>
-        /// <param name="normType">The <see cref="NormType"/> to set the category type input for.</param>
+        /// <param name="normType">The <see cref="NormType"/> to base the calculation on.</param>
         /// <exception cref="ArgumentNullException">Throw when any <paramref name="locations"/>
         /// or <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
