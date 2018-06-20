@@ -117,12 +117,12 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [TestCaseSource(nameof(GetNormativeAssessementLevelConfigurationPerNormType))]
+        [TestCaseSource(nameof(GetNormativeHydraulicBoundaryLocationCalculationPerNormType))]
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             NormType normType,
-            RoundedDouble expectedNormativeAssessmentLevel)
+            HydraulicBoundaryLocationCalculation calculation)
         {
             // Setup
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
@@ -131,6 +131,7 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
 
             // Assert
+            RoundedDouble expectedNormativeAssessmentLevel = calculation.Output.Result;
             Assert.AreEqual(expectedNormativeAssessmentLevel, normativeAssessmentLevel);
         }
 
@@ -312,6 +313,86 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
         }
 
         [Test]
+        public void GetNormativeHydraulicBoundaryLocationCalculation_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => AssessmentSectionExtensions.GetNormativeHydraulicBoundaryLocationCalculation(null, new TestHydraulicBoundaryLocation());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetNormativeHydraulicBoundaryLocationCalculation_AssessmentSectionWithInvalidNormType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const int invalidValue = 9999;
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            assessmentSection.FailureMechanismContribution.NormativeNorm = (NormType)invalidValue;
+
+            // Call
+            TestDelegate test = () => assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Assert
+            string expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
+            string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage).ParamName;
+            Assert.AreEqual("normType", parameterName);
+        }
+
+        [Test]
+        public void GetNormativeHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocationNull_ReturnsNull()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = random.NextEnumValue<NormType>();
+
+            // Call
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(null);
+
+            // Assert
+            Assert.IsNull(hydraulicBoundaryLocationCalculation);
+        }
+
+        [Test]
+        public void GetNormativeHydraulicBoundaryLocationCalculation_NoCorrespondingCalculation_ReturnsNull()
+        {
+            // Setup
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = random.NextEnumValue<NormType>();
+
+            // Call
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation =
+                assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Assert
+            Assert.IsNull(hydraulicBoundaryLocationCalculation);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetNormativeHydraulicBoundaryLocationCalculationPerNormType))]
+        public void GetNormativeHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocation_ReturnsCorrespondingCalculation(
+            IAssessmentSection assessmentSection,
+            HydraulicBoundaryLocation hydraulicBoundaryLocation,
+            NormType normType,
+            HydraulicBoundaryLocationCalculation calculation)
+        {
+            // Setup
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+
+            // Call
+            HydraulicBoundaryLocationCalculation normativeAssessmentLevel = 
+                assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.AreSame(calculation, normativeAssessmentLevel);
+        }
+
+        [Test]
         public void GetNorm_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -354,31 +435,6 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             Assert.AreEqual(expectedNorm, norm);
         }
 
-        private static IEnumerable GetNormativeAssessementLevelConfigurationPerNormType()
-        {
-            var assessmentSection = new AssessmentSectionStub();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                NormType.Signaling,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result
-            ).SetName("SignalingNorm");
-
-            yield return new TestCaseData(
-                assessmentSection,
-                hydraulicBoundaryLocation,
-                NormType.LowerLimit,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result
-            ).SetName("LowerLimitNorm");
-        }
-
         private static IEnumerable GetNormConfigurationPerAssessmentSectionCategoryType()
         {
             const double signalingNorm = 0.002;
@@ -415,6 +471,70 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
                 assessmentSection,
                 AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
                 lowerLimitNorm * 30
+            ).SetName("FactorizedLowerLimitNorm");
+        }
+
+        private static IEnumerable<TestCaseData> GetNormativeHydraulicBoundaryLocationCalculationPerNormType()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                NormType.Signaling,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0)
+            ).SetName("SignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                NormType.LowerLimit,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0)
+            ).SetName("LowerLimitNorm");
+        }
+
+        private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType()
+        {
+            var assessmentSection = new AssessmentSectionStub();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            }, true);
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.FactorizedSignalingNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(0)
+            ).SetName("FactorizedSignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.SignalingNorm,
+                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0)
+            ).SetName("SignalingNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.LowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0)
+            ).SetName("LowerLimitNorm");
+
+            yield return new TestCaseData(
+                assessmentSection,
+                hydraulicBoundaryLocation,
+                AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(0)
             ).SetName("FactorizedLowerLimitNorm");
         }
     }

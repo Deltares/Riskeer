@@ -89,6 +89,58 @@ namespace Ringtoets.Common.Data.AssessmentSection
         }
 
         /// <summary>
+        /// Gets the normative <see cref="HydraulicBoundaryLocationCalculation"/> for a <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to get the <see cref="HydraulicBoundaryLocationCalculation"/> from.</param>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to get the normative
+        /// <see cref="HydraulicBoundaryLocationCalculation"/> for.</param>
+        /// <returns>The normative <see cref="HydraulicBoundaryLocationCalculation"/> or <c>null</c> when:
+        /// <list type="bullet">
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation.</item>
+        /// </list>
+        /// </returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSection"/>
+        /// contains an invalid value of <see cref="NormType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSection"/>
+        /// contains a valid value of <see cref="NormType"/>, but unsupported.</exception>
+        public static HydraulicBoundaryLocationCalculation GetNormativeHydraulicBoundaryLocationCalculation(this IAssessmentSection assessmentSection,
+                                                                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            NormType normType = assessmentSection.FailureMechanismContribution.NormativeNorm;
+
+            if (!Enum.IsDefined(typeof(NormType), normType))
+            {
+                throw new InvalidEnumArgumentException(nameof(normType),
+                                                       (int)normType,
+                                                       typeof(NormType));
+            }
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
+            switch (normType)
+            {
+                case NormType.Signaling:
+                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
+                    break;
+                case NormType.LowerLimit:
+                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation, calculations);
+        }
+
+        /// <summary>
         /// Gets the assessment level for a <see cref="HydraulicBoundaryLocation"/> based on <see cref="AssessmentSectionCategoryType"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to get the assessment level from.</param>
