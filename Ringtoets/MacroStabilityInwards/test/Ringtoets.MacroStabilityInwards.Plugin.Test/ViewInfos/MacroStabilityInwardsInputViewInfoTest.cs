@@ -530,6 +530,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -559,6 +560,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -591,6 +593,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -623,6 +626,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(section => section.FailureMechanismContribution).Return(null);
             assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
