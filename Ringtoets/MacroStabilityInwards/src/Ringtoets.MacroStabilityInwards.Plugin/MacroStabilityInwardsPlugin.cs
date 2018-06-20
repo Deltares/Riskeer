@@ -250,7 +250,8 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseInputViewForData,
-                CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation,
+                CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation, 
+                                                                               context.AssessmentSection,
                                                                                () => context.AssessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(context.WrappedData.HydraulicBoundaryLocation))
             };
 
