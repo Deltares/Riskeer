@@ -54,7 +54,7 @@ namespace Ringtoets.Revetment.Data
                 case WaveConditionsInputStepSize.Two:
                     return 2.0;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(WaveConditionsInputStepSize)}.{stepSize} is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

@@ -293,7 +293,7 @@ namespace Core.Common.Util.Drawing
                 case PixelFormat.Format1bppIndexed:
                     return 1;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(PixelFormat)}.{pixelFormat} is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

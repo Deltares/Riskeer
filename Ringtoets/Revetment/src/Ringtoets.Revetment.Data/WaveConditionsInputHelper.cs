@@ -80,7 +80,7 @@ namespace Ringtoets.Revetment.Data
                     waveConditionsInput.CategoryType = AssessmentSectionCategoryType.SignalingNorm;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(NormType)}.{normType} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -118,7 +118,7 @@ namespace Ringtoets.Revetment.Data
                     waveConditionsInput.CategoryType = FailureMechanismCategoryType.MechanismSpecificSignalingNorm;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(NormType)}.{normType} is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

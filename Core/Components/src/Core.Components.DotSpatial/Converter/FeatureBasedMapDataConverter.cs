@@ -284,7 +284,7 @@ namespace Core.Components.DotSpatial.Converter
                 case ValueCriterionOperator.UnequalValue:
                     return $"NOT [{attributeIndex}] = '{criterion.Value}'";
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(ValueCriterionOperator)}.{valueOperator} is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

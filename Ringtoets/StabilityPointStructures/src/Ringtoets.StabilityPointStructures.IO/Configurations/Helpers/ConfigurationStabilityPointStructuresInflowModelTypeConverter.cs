@@ -110,7 +110,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert:
                     return StabilityPointStructureInflowModelType.FloodedCulvert;
                 default:
-                    throw new NotSupportedException($"Value '{type}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -129,7 +129,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert:
                     return StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure;
                 default:
-                    throw new NotSupportedException($"Value '{type}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -148,7 +148,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure:
                     return ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert;
                 default:
-                    throw new NotSupportedException($"Value '{text}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -167,7 +167,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case StabilityPointStructureInflowModelType.FloodedCulvert:
                     return ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert;
                 default:
-                    throw new NotSupportedException($"Value '{inflowModelType}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

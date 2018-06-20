@@ -136,7 +136,7 @@ namespace Core.Components.BruTile.Configurations
                 case WellKnownTileSource.OpenStreetMap:
                     return KnownTileSource.OpenStreetMap;
                 default:
-                    throw new NotSupportedException($"Unknown value '{wellKnownTileSource}' for '{nameof(wellKnownTileSource)}'");
+                    throw new NotSupportedException();
             }
         }
 

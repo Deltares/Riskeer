@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                     validationRules = GetFloodedCulvertValidationRules(input);
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(StabilityPointStructureInflowModelType)}.{inflowModelType} is not supported.");
+                    throw new NotSupportedException();
             }
 
             return validationRules;
@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 case LoadSchematizationType.Quadratic:
                     return GetFloodedCulvertQuadraticValidationRules(input);
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -122,7 +122,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                 case LoadSchematizationType.Quadratic:
                     return GetLowSillQuadraticValidationRules(input);
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 

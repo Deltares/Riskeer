@@ -70,7 +70,7 @@ namespace Core.Components.OxyPlot.Converter
                     lineStyle = LineStyle.DashDotDot;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(ChartLineDashStyle)}.{dashStyle} is not supported.");
+                    throw new NotSupportedException();
             }
             return lineStyle;
         }
@@ -118,7 +118,7 @@ namespace Core.Components.OxyPlot.Converter
                     markerType = MarkerType.Plus;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(ChartPointSymbol)}.{symbol} is not supported.");
+                    throw new NotSupportedException();
             }
             return markerType;
         }

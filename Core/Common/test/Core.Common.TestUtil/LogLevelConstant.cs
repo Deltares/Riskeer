@@ -71,7 +71,7 @@ namespace Core.Common.TestUtil
                 case LogLevelConstant.Debug:
                     return Level.Debug;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(LogLevelConstant)}.{level} is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

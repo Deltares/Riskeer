@@ -65,7 +65,7 @@ namespace Ringtoets.ClosingStructures.Service
                     input = CreateFloodedCulvertCalculationInput(structureInput, generalInput);
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(ClosingStructureInflowModelType)}.{closingStructureInflowModelType} is not supported.");
+                    throw new NotSupportedException();
             }
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);

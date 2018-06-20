@@ -1771,7 +1771,7 @@ namespace Ringtoets.Integration.Plugin
                 case TreeFolderCategory.Output:
                     return RingtoetsCommonFormsResources.OutputFolderIcon;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(TreeFolderCategory)}.{category} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 

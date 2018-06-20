@@ -222,7 +222,7 @@ namespace Application.Ringtoets.Storage.Read
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(PipingCharacteristicPointType)}.{type} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -285,7 +285,7 @@ namespace Application.Ringtoets.Storage.Read
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(MacroStabilityInwardsCharacteristicPointType)}.{type} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 

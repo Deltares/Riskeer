@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                     input = CreateFloodedCulvertInput(structureInput, generalInput);
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(StabilityPointStructureInflowModelType)}.{inflowModelType} is not supported.");
+                    throw new NotSupportedException();
             }
 
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(input, hydraulicBoundaryDatabaseFilePath, usePreprocessor);
@@ -106,7 +106,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                         structureInput,
                         generalInput);
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -143,7 +143,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                         structureInput,
                         generalInput);
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(LoadSchematizationType)}.{loadSchematizationType} is not supported.");
+                    throw new NotSupportedException();
             }
         }
 

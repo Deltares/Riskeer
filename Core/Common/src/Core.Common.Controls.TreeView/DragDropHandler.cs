@@ -369,7 +369,7 @@ namespace Core.Common.Controls.TreeView
                     xPos = bounds.Right;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(AnchorStyles)}.{anchor} is not supported.");
+                    throw new NotSupportedException();
             }
 
             switch (location)
@@ -384,7 +384,7 @@ namespace Core.Common.Controls.TreeView
                     yPos = bounds.Top + bounds.Height / 2;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(PlaceholderLocation)}.{location} is not supported.");
+                    throw new NotSupportedException();
             }
 
             return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeight), anchor);

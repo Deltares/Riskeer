@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 case RingtoetsWellKnownTileSource.EsriWorldShadedRelief:
                     return Resources.RingtoetsWellKnownTileSource_EsriWorldShadedRelief_DisplayName;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(RingtoetsWellKnownTileSource)}.{ringtoetsWellKnownTileSource} is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

@@ -110,7 +110,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case LoadSchematizationType.Quadratic:
                     return ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic;
                 default:
-                    throw new NotSupportedException($"Value '{loadSchematizationType}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -130,7 +130,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure:
                     return ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic;
                 default:
-                    throw new NotSupportedException($"Value '{text}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic:
                     return LoadSchematizationType.Quadratic;
                 default:
-                    throw new NotSupportedException($"Value '{type}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
 
@@ -168,7 +168,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic:
                     return StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure;
                 default:
-                    throw new NotSupportedException($"Value '{type}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

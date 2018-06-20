@@ -450,7 +450,7 @@ namespace Core.Common.Gui.Forms.ViewHost
                     layoutAnchorablePaneGroup = RightLayoutAnchorablePaneGroup;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(ToolViewLocation)}.{toolViewLocation} is not supported.");
+                    throw new NotSupportedException();
             }
 
             layoutAnchorablePaneGroup.Descendents()

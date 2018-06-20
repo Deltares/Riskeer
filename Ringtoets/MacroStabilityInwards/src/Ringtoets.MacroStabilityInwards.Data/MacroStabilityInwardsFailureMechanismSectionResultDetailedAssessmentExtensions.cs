@@ -197,7 +197,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
                     case CalculationScenarioStatus.Done:
                         continue;
                     default:
-                        throw new NotSupportedException($"The enum value {nameof(CalculationScenarioStatus)}.{calculationScenarioStatus} is not supported.");
+                        throw new NotSupportedException();
                 }
             }
 

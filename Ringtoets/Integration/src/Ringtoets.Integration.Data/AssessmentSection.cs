@@ -410,7 +410,7 @@ namespace Ringtoets.Integration.Data
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(AssessmentSectionComposition)}.{newComposition} is not supported.");
+                    throw new NotSupportedException();
             }
 
             Composition = newComposition;

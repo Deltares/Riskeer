@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Service
                     validationRules = GetFloodedCulvertValidationRules(input);
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(ClosingStructureInflowModelType)}.{inflowModelType} is not supported.");
+                    throw new NotSupportedException();
             }
 
             return validationRules;

@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service
                 case BreakWaterType.Dam:
                     return 3;
                 default:
-                    throw new NotSupportedException($"Value '{type}' is not supported.");
+                    throw new NotSupportedException();
             }
         }
     }

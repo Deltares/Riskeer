@@ -76,7 +76,7 @@ namespace Core.Components.DotSpatial.Converter
                     shape = PointShape.Pentagon;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(PointShape)}.{symbol} is not supported.");
+                    throw new NotSupportedException();
             }
             return shape;
         }
@@ -117,7 +117,7 @@ namespace Core.Components.DotSpatial.Converter
                     lineStyle = DashStyle.DashDotDot;
                     break;
                 default:
-                    throw new NotSupportedException($"The enum value {nameof(LineDashStyle)}.{dashStyle} is not supported.");
+                    throw new NotSupportedException();
             }
             return lineStyle;
         }
