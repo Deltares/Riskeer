@@ -89,6 +89,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), 
+                                                                         null,
+                                                                         GetHydraulicBoundaryLocationCalculation);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_GetHydraulicBoundaryLocationCalculationFuncNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -998,7 +1011,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithEmptyWaternets_WhenHydraulicBoundaryLocationCalculationNotifyObservers_ThenChartDataSet()
+        public void GivenViewWithEmptyWaternets_WhenHydraulicBoundaryLocationCalculationUpdated_ThenChartDataSet()
         {
             // Given
             var mocks = new MockRepository();
@@ -1040,6 +1053,47 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             }
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenViewWithEmptyWaternets_WhenFailureMechanismContribitionUpdated_ThenChartDataSet()
+        {
+            // Given
+            var assessmentSection = new AssessmentSectionStub();
+
+            MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    SurfaceLine = surfaceLine,
+                    StochasticSoilProfile = stochasticSoilProfile
+                }
+            };
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation();
+            using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
+                                                                 () => hydraulicBoundaryLocationCalculation))
+            {
+                // Precondition
+                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
+
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // When
+                    assessmentSection.FailureMechanismContribution.NotifyObservers();
+
+                    // Then
+                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                          (ChartDataCollection)chartData[waternetZonesDailyIndex]);
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                          (ChartDataCollection)chartData[waternetZonesExtremeIndex]);
+                }
+            }
         }
 
         [Test]

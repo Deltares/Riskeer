@@ -47,6 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
         private readonly Observer hydraulicLocationCalculationObserver;
+        private readonly Observer failureMechanismContribitionObserver;
 
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
@@ -73,7 +74,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
-        private MacroStabilityInwardsCalculationScenario data;
+        private readonly MacroStabilityInwardsCalculationScenario data;
 
         private IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> currentSoilProfile;
         private MacroStabilityInwardsSurfaceLine currentSurfaceLine;
@@ -96,6 +97,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             if (getHydraulicBoundaryLocationCalculationFunc == null)
@@ -121,6 +127,11 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             hydraulicLocationCalculationObserver = new Observer(UpdateViewData)
             {
                 Observable = getHydraulicBoundaryLocationCalculationFunc()
+            };
+
+            failureMechanismContribitionObserver = new Observer(UpdateViewData)
+            {
+                Observable = assessmentSection.FailureMechanismContribution
             };
 
             chartDataCollection = new ChartDataCollection(RingtoetsCommonFormsResources.Calculation_Input);
@@ -196,6 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
             hydraulicLocationCalculationObserver.Dispose();
+            failureMechanismContribitionObserver.Dispose();
 
             if (disposing)
             {
