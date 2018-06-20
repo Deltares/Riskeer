@@ -30,6 +30,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TestUtil;
@@ -70,34 +71,56 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputView(null,
+            TestDelegate test = () => new MacroStabilityInwardsInputView(null, 
+                                                                         assessmentSection,
                                                                          GetHydraulicBoundaryLocationCalculation);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_GetHydraulicBoundaryLocationCalculationFuncNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), null);
+            TestDelegate test = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
+                                                                         assessmentSection,
+                                                                         null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("getHydraulicBoundaryLocationCalculationFunc", paramName);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
@@ -117,42 +140,62 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.NotNull(tableControl);
                 Assert.AreEqual(DockStyle.Bottom, tableControl.Dock);
             }
+
+            mocks.ReplayAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithoutSurfaceLine_NoChartDataSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyChartData(view.Chart.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithoutStochasticSoilProfile_SoilLayerTableEmpty()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 CollectionAssert.IsEmpty(GetSoilLayerTable(view).Rows);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithEmptyWaternets_NoWaternetChartDataSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -167,17 +210,24 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
             }
+
+            mocks.ReplayAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithWaternets_WaternetChartDataSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -193,6 +243,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
@@ -202,12 +253,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
                                                                                       (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ScenarioWithValidTangentLineParameters_TangentLinesDataSet()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             var calculation = new MacroStabilityInwardsCalculationScenario
@@ -225,6 +282,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
@@ -250,6 +308,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     }
                 }, tangentLinesData.Lines);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -257,6 +317,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_ScenarioWithSurfaceLineAndStochasticSoilProfile_DataSetToCollectionOfFilledChartData(MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile)
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
 
             var calculation = new MacroStabilityInwardsCalculationScenario
@@ -269,18 +333,25 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Assert
                 MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, view.Chart.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateObserver_CalculationNameUpdated_ChartTitleUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             const string initialName = "Initial name";
             const string updatedName = "Updated name";
 
@@ -289,7 +360,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Name = initialName
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -303,6 +375,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Assert
                 Assert.AreEqual(updatedName, view.Chart.ChartTitle);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -310,6 +384,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -322,7 +397,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
@@ -352,6 +428,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -369,6 +446,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
@@ -420,9 +498,14 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             const int updatedWaternetZonesExtremeIndex = waternetZonesExtremeIndex - 1;
             const int updatedWaternetZonesDailyIndex = waternetZonesDailyIndex - 1;
 
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
@@ -522,15 +605,22 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Zones extreem", actualWaternetZonesExtremeData.Name);
                 Assert.AreEqual("Zones dagelijks", actualWaternetZonesDailyData.Name);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateObserver_CalculationInputGridSettingsUpdated_GridChartDataUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
@@ -554,12 +644,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, actualLeftGridData);
                 MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, actualRightGridData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void UpdateObserver_CalculationInputTangentLineSettingsUpdated_TangentLineChartDataUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -568,7 +664,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
@@ -603,6 +700,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     }
                 }, tangentLinesData.Lines);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -610,6 +709,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
@@ -630,7 +730,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable = GetSoilLayerTable(view);
@@ -661,6 +762,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void GivenViewWithGridPoints_WhenGridDeterminationTypeSetToAutomatic_ThenNoGridPoints()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario();
             MacroStabilityInwardsInput input = calculation.InputParameters;
             input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Manual;
@@ -668,6 +773,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             SetGridValues(input.RightGrid);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -690,6 +796,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 CollectionAssert.IsEmpty(updatedLeftGridData.Points);
                 CollectionAssert.IsEmpty(updatedRightGridData.Points);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -701,6 +809,10 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsTangentLineDeterminationType tangentLineDeterminationType)
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 InputParameters =
@@ -715,7 +827,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -744,12 +856,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Then
                 CollectionAssert.IsEmpty(tangentLinesData.Lines);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenMacroStabilityInputViewWithSoilProfileSeries_WhenSurfaceLineSetToNull_ThenCollectionOfEmptyChartDataSetForSoilProfiles()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -762,7 +880,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 ChartDataCollection chartData = view.Chart.Data;
@@ -785,12 +904,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                     true,
                                                                                     chartData.Collection.ElementAt(soilProfileIndex));
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithWaternets_WhenWaternetSetEmpty_ThenNoChartData()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -806,6 +931,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -823,12 +949,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Then
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithEmptyWaternets_WhenWaternetSet_ThenChartDataSet()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -842,6 +974,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -860,12 +993,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                           (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
                 }
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithEmptyWaternets_WhenHydraulicBoundaryLocationCalculationNotifyObservers_ThenChartDataSet()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -880,6 +1019,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation();
             using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  () => hydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -898,12 +1038,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                           (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
                 }
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithEmptyWaternets_WhenInputUpdatedAndHydraulicBoundaryLocationCalculationNull_ThenChartDataSet()
         {
             // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -916,7 +1062,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  () => null))
             {
                 // Precondition
@@ -935,12 +1082,18 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                                                                                           (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
                 }
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenViewWithWaternets_WhenObserversNotifiedAndWaternetSame_ThenChartDataNotUpdated()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             MacroStabilityInwardsSurfaceLine surfaceLine = GetSurfaceLineWithGeometry();
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
@@ -954,7 +1107,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var view = new MacroStabilityInwardsInputView(calculation,
+            using (var view = new MacroStabilityInwardsInputView(calculation, 
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -977,6 +1131,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 CollectionAssert.AreEqual(waternetExtremeChartData, ((ChartDataCollection) chartData[waternetZonesExtremeIndex]).Collection);
                 CollectionAssert.AreEqual(waternetDailyChartData, ((ChartDataCollection) chartData[waternetZonesDailyIndex]).Collection);
             }
+
+            mocks.VerifyAll();
         }
 
         private static IEnumerable<TestCaseData> StochasticSoilProfiles()

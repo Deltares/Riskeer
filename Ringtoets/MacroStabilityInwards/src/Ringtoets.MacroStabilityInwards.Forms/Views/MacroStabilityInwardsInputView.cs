@@ -28,6 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Factories;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -84,10 +85,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         /// Creates a new instance of <see cref="MacroStabilityInwardsInputView"/>.
         /// </summary>
         /// <param name="data">The calculation to show the input for.</param>
+        /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <param name="getHydraulicBoundaryLocationCalculationFunc">The <see cref="Func{TResult}"/> for
         /// obtaining the hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public MacroStabilityInwardsInputView(MacroStabilityInwardsCalculationScenario data,
+                                              IAssessmentSection assessmentSection,
                                               Func<HydraulicBoundaryLocationCalculation> getHydraulicBoundaryLocationCalculationFunc)
         {
             if (data == null)
