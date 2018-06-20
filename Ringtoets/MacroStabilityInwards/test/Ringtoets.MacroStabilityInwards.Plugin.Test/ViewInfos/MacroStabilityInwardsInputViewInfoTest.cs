@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
@@ -139,7 +140,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationScenarioContext);
@@ -168,7 +169,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                                  assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationScenarioContext);
@@ -198,7 +199,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -228,7 +229,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -260,7 +261,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -292,7 +293,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                                            assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, calculationGroupContext);
@@ -317,7 +318,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -342,7 +343,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -370,7 +371,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -398,7 +399,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -418,7 +419,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -437,7 +438,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new MacroStabilityInwardsFailureMechanism());
@@ -459,7 +460,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -481,7 +482,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new MacroStabilityInwardsFailureMechanism());
@@ -508,7 +509,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -536,7 +537,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -567,7 +568,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -598,7 +599,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
-                                                                 AssessmentSectionHelper.GetTestAssessmentLevel))
+                                                                 GetHydraulicBoundaryLocationCalculation))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -607,6 +608,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
                 Assert.IsFalse(closeForData);
                 mocks.VerifyAll();
             }
+        }
+
+        private static HydraulicBoundaryLocationCalculation GetHydraulicBoundaryLocationCalculation()
+        {
+            return new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
         }
     }
 }
