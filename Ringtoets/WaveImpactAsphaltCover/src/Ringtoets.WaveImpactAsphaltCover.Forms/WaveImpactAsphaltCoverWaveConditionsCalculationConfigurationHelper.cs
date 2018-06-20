@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
@@ -62,9 +61,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            calculations.AddRange(locations.Select(location => CreateWaveImpactAsphaltCoverWaveConditionsCalculation(location,
-                                                                                                                     calculations,
-                                                                                                                     normType)).ToArray());
+            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
+            {
+                calculations.Add(CreateWaveImpactAsphaltCoverWaveConditionsCalculation(hydraulicBoundaryLocation,
+                                                                                       calculations,
+                                                                                       normType));
+            }
         }
 
         /// <summary>

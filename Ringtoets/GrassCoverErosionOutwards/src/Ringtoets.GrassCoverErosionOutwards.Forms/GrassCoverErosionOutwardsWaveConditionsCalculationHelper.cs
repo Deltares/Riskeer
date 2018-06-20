@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
@@ -63,9 +62,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            calculations.AddRange(locations.Select(location => CreateGrassCoverErosionOutwardsWaveConditionsCalculation(location,
-                                                                                                                        calculations,
-                                                                                                                        normType)).ToArray());
+            foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in locations)
+            {
+                calculations.Add(CreateGrassCoverErosionOutwardsWaveConditionsCalculation(hydraulicBoundaryLocation,
+                                                                                          calculations,
+                                                                                          normType));
+            }
         }
 
         /// <summary>
