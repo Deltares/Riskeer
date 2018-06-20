@@ -77,7 +77,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsInputView(null, 
+            TestDelegate test = () => new MacroStabilityInwardsInputView(null,
                                                                          assessmentSection,
                                                                          GetHydraulicBoundaryLocationCalculation);
 
@@ -92,7 +92,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(), 
+            TestDelegate call = () => new MacroStabilityInwardsInputView(new MacroStabilityInwardsCalculationScenario(),
                                                                          null,
                                                                          GetHydraulicBoundaryLocationCalculation);
 
@@ -154,7 +154,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Bottom, tableControl.Dock);
             }
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -190,7 +190,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
             // Call
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -230,7 +230,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
             }
 
-            mocks.ReplayAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -346,7 +346,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -373,7 +373,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 Name = initialName
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -410,7 +410,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -632,7 +632,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var calculation = new MacroStabilityInwardsCalculationScenario();
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -677,7 +677,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -743,7 +743,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -840,7 +840,8 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, assessmentSection,
+            using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                 assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
                 // Precondition
@@ -893,7 +894,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {
@@ -1089,9 +1090,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                     // Then
                     ChartData[] chartData = view.Chart.Data.Collection.ToArray();
                     MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                                                                                          (ChartDataCollection)chartData[waternetZonesDailyIndex]);
+                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
                     MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
-                                                                                          (ChartDataCollection)chartData[waternetZonesExtremeIndex]);
+                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
                 }
             }
         }
@@ -1116,7 +1117,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  () => null))
             {
@@ -1161,7 +1162,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var view = new MacroStabilityInwardsInputView(calculation, 
+            using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                  assessmentSection,
                                                                  GetHydraulicBoundaryLocationCalculation))
             {

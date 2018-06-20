@@ -464,6 +464,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
+                mocks.VerifyAll();
             }
         }
 

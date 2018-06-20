@@ -47,7 +47,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
         private readonly Observer calculationObserver;
         private readonly Observer calculationInputObserver;
         private readonly Observer hydraulicLocationCalculationObserver;
-        private readonly Observer failureMechanismContribitionObserver;
+        private readonly Observer failureMechanismContributionObserver;
 
         private readonly ChartDataCollection chartDataCollection;
         private readonly ChartDataCollection soilProfileChartData;
@@ -129,7 +129,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
                 Observable = getHydraulicBoundaryLocationCalculationFunc()
             };
 
-            failureMechanismContribitionObserver = new Observer(UpdateViewData)
+            failureMechanismContributionObserver = new Observer(UpdateViewData)
             {
                 Observable = assessmentSection.FailureMechanismContribution
             };
@@ -207,7 +207,7 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Views
             calculationObserver.Dispose();
             calculationInputObserver.Dispose();
             hydraulicLocationCalculationObserver.Dispose();
-            failureMechanismContribitionObserver.Dispose();
+            failureMechanismContributionObserver.Dispose();
 
             if (disposing)
             {

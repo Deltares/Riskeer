@@ -386,11 +386,11 @@ namespace Ringtoets.Common.Data.Test.AssessmentSection
             assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
 
             // Call
-            HydraulicBoundaryLocationCalculation normativeAssessmentLevel = 
+            HydraulicBoundaryLocationCalculation normativeHydraulicBoundaryLocationCalculation = 
                 assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation);
 
             // Assert
-            Assert.AreSame(calculation, normativeAssessmentLevel);
+            Assert.AreSame(calculation, normativeHydraulicBoundaryLocationCalculation);
         }
 
         [Test]

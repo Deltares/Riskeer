@@ -62,29 +62,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            NormType normType = assessmentSection.FailureMechanismContribution.NormativeNorm;
-
-            if (!Enum.IsDefined(typeof(NormType), normType))
-            {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int) normType,
-                                                       typeof(NormType));
-            }
-
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
-
-            switch (normType)
-            {
-                case NormType.Signaling:
-                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
-                    break;
-                case NormType.LowerLimit:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = GetHydraulicBoundaryLocationCalculations(assessmentSection);
             return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation, calculations);
         }
 
@@ -115,28 +93,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            NormType normType = assessmentSection.FailureMechanismContribution.NormativeNorm;
-
-            if (!Enum.IsDefined(typeof(NormType), normType))
-            {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int)normType,
-                                                       typeof(NormType));
-            }
-
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
-            switch (normType)
-            {
-                case NormType.Signaling:
-                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
-                    break;
-                case NormType.LowerLimit:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
-                    break;
-                default:
-                    throw new NotSupportedException();
-            }
-
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = GetHydraulicBoundaryLocationCalculations(assessmentSection);
             return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation, calculations);
         }
 
@@ -252,6 +209,46 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 default:
                     throw new NotSupportedException();
             }
+        }
+
+        /// <summary>
+        /// Gets the relevant collection of <see cref="HydraulicBoundaryLocationCalculation"/> based on the <see cref="NormType"/> of the
+        /// assessment section.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to get the collections of
+        /// <see cref="HydraulicBoundaryLocationCalculation"/> from.</param>
+        /// <returns>A collection of <see cref="HydraulicBoundaryLocationCalculation"/> from the <see cref="IAssessmentSection"/>
+        /// based on the <see cref="NormType"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSection"/>
+        /// contains an invalid value of <see cref="NormType"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSection"/>
+        /// contains a valid value of <see cref="NormType"/>, but unsupported.</exception>
+        private static IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IAssessmentSection assessmentSection)
+        {
+            NormType normType = assessmentSection.FailureMechanismContribution.NormativeNorm;
+
+            if (!Enum.IsDefined(typeof(NormType), normType))
+            {
+                throw new InvalidEnumArgumentException(nameof(normType),
+                                                       (int) normType,
+                                                       typeof(NormType));
+            }
+
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
+
+            switch (normType)
+            {
+                case NormType.Signaling:
+                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
+                    break;
+                case NormType.LowerLimit:
+                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return calculations;
         }
 
         /// <summary>
