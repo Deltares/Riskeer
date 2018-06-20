@@ -33,7 +33,7 @@ using Ringtoets.StabilityStoneCover.Data;
 namespace Ringtoets.StabilityStoneCover.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="StabilityStoneCoverWaveConditionsCalculation"/>
+    /// Class that holds methods to help views when dealing with <see cref="StabilityStoneCoverWaveConditionsCalculation"/>
     /// </summary>
     public static class StabilityStoneCoverCalculationConfigurationHelper
     {
@@ -63,12 +63,9 @@ namespace Ringtoets.StabilityStoneCover.Forms
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            foreach (ICalculationBase calculation in locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location,
-                                                                                                                                     calculations,
-                                                                                                                                     normType)))
-            {
-                calculations.Add(calculation);
-            }
+            calculations.AddRange(locations.Select(location => CreateStabilityStoneCoverWaveConditionsCalculation(location,
+                                                                                                                  calculations,
+                                                                                                                  normType)).ToArray());
         }
 
         /// <summary>
@@ -88,11 +85,9 @@ namespace Ringtoets.StabilityStoneCover.Forms
             NormType normType)
         {
             string nameBase = hydraulicBoundaryLocation.Name;
-            string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
-
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
-                Name = name,
+                Name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name),
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation

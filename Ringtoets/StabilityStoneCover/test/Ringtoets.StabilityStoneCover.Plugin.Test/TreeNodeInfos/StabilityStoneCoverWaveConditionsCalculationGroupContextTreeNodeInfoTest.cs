@@ -1714,11 +1714,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
 
-            var assessmentSection = new AssessmentSectionStub();
             var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                        null,
                                                                                        failureMechanism,
-                                                                                       assessmentSection);
+                                                                                       new AssessmentSectionStub());
 
             using (var treeViewControl = new TreeViewControl())
             {

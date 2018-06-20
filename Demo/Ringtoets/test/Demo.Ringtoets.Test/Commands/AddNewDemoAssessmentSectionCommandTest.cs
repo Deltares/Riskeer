@@ -130,6 +130,22 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.IsTrue(calculations.All(c => c.Output.CalculationConvergence == CalculationConvergence.CalculatedConverged));
         }
 
+        #region WaveConditions
+
+        private static void AssertFailureMechanismCategoryWaveConditionsInput(FailureMechanismCategoryWaveConditionsInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+            Assert.AreEqual(FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, inputParameters.CategoryType);
+        }
+
+        private static void AssertAssessmentSectionCategoryWaveConditionsInput(AssessmentSectionCategoryWaveConditionsInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+            Assert.AreEqual(AssessmentSectionCategoryType.LowerLimitNorm, inputParameters.CategoryType);
+        }
+
+        #endregion
+
         #endregion
 
         #region FailureMechanisms
@@ -171,7 +187,7 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                                   .WaveConditionsCalculationGroup.GetCalculations()
                                                                                                   .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                                                                                   .First();
-            AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(calculation.InputParameters);
+            AssertFailureMechanismCategoryWaveConditionsInput(calculation.InputParameters);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculations(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IList<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
@@ -226,12 +242,6 @@ namespace Demo.Ringtoets.Test.Commands
             AssertHydraulicBoundaryCalculationResult(11.13, calculations, 15);
             AssertHydraulicBoundaryCalculationResult(9.24, calculations, 16);
             AssertHydraulicBoundaryCalculationResult(5.34, calculations, 17);
-        }
-
-        private static void AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(FailureMechanismCategoryWaveConditionsInput inputParameters)
-        {
-            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-            Assert.AreEqual(FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm, inputParameters.CategoryType);
         }
 
         #endregion
@@ -554,13 +564,7 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                             .WaveConditionsCalculationGroup.GetCalculations()
                                                                                             .OfType<StabilityStoneCoverWaveConditionsCalculation>()
                                                                                             .First();
-            AssertExpectedStabilityStoneCoverWaveConditionsInput(calculation.InputParameters);
-        }
-
-        private static void AssertExpectedStabilityStoneCoverWaveConditionsInput(AssessmentSectionCategoryWaveConditionsInput inputParameters)
-        {
-            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-            Assert.AreEqual(AssessmentSectionCategoryType.LowerLimitNorm, inputParameters.CategoryType);
+            AssertAssessmentSectionCategoryWaveConditionsInput(calculation.InputParameters);
         }
 
         #endregion
@@ -574,13 +578,7 @@ namespace Demo.Ringtoets.Test.Commands
                                                                                                .WaveConditionsCalculationGroup.GetCalculations()
                                                                                                .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                                                                .First();
-            AssertExpectedWaveImpactAsphaltCoverWaveConditionsInput(calculation.InputParameters);
-        }
-
-        private static void AssertExpectedWaveImpactAsphaltCoverWaveConditionsInput(AssessmentSectionCategoryWaveConditionsInput inputParameters)
-        {
-            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
-            Assert.AreEqual(AssessmentSectionCategoryType.LowerLimitNorm, inputParameters.CategoryType);
+            AssertAssessmentSectionCategoryWaveConditionsInput(calculation.InputParameters);
         }
 
         #endregion

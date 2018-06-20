@@ -33,7 +33,7 @@ using Ringtoets.Revetment.Data;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
+    /// Class that holds methods to help views when dealing with <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
     /// </summary>
     public static class GrassCoverErosionOutwardsWaveConditionsCalculationHelper
     {
@@ -63,12 +63,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            foreach (ICalculationBase calculation in locations.Select(location => CreateGrassCoverErosionOutwardsWaveConditionsCalculation(location,
-                                                                                                                                           calculations,
-                                                                                                                                           normType)))
-            {
-                calculations.Add(calculation);
-            }
+            calculations.AddRange(locations.Select(location => CreateGrassCoverErosionOutwardsWaveConditionsCalculation(location,
+                                                                                                                        calculations,
+                                                                                                                        normType)).ToArray());
         }
 
         /// <summary>
@@ -88,11 +85,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms
             NormType normType)
         {
             string nameBase = hydraulicBoundaryLocation.Name;
-            string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
-
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
-                Name = name,
+                Name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name),
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation

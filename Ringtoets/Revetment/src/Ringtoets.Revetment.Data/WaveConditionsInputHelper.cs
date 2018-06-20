@@ -50,7 +50,8 @@ namespace Ringtoets.Revetment.Data
         /// Sets the <see cref="AssessmentSectionCategoryType"/> of the <paramref name="waveConditionsInput"/>
         /// based on the <see cref="NormType"/>.
         /// </summary>
-        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/> to set.</param>
+        /// <param name="waveConditionsInput">The <see cref="AssessmentSectionCategoryWaveConditionsInput"/>
+        /// to set the category type for.</param>
         /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
@@ -88,7 +89,8 @@ namespace Ringtoets.Revetment.Data
         /// Sets the <see cref="FailureMechanismCategoryType"/> of the <paramref name="waveConditionsInput"/>
         /// based on the <see cref="NormType"/>.
         /// </summary>
-        /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/> to set.</param>
+        /// <param name="waveConditionsInput">The <see cref="FailureMechanismCategoryWaveConditionsInput"/>
+        /// to set the category type for.</param>
         /// <param name="normType">The <see cref="NormType"/> to set the <paramref name="waveConditionsInput"/> for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>

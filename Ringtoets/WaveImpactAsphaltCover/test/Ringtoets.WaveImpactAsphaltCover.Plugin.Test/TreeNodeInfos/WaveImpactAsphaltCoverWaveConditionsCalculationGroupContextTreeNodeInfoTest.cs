@@ -1722,12 +1722,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
-            var assessmentSection = new AssessmentSectionStub();
 
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
                                                                                           null,
                                                                                           failureMechanism,
-                                                                                          assessmentSection);
+                                                                                          new AssessmentSectionStub());
 
             using (var treeViewControl = new TreeViewControl())
             {
