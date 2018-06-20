@@ -252,7 +252,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         [TestCaseSource(
             typeof(GrassCoverErosionOutwardsAssessmentSectionHelper),
             nameof(GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType))]
-        public void GetHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
+        public void GetHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingHydraulicBoundaryLocationCalculation(
             IAssessmentSection assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
