@@ -136,6 +136,7 @@ namespace Demo.Ringtoets.Commands
                 IFailureMechanism[] failureMechanisms = demoAssessmentSection.GetFailureMechanisms().ToArray();
                 for (var i = 0; i < failureMechanisms.Length; i++)
                 {
+                    
                     if (i == 0)
                     {
                         var importer = new FailureMechanismSectionsImporter(failureMechanisms[i],
@@ -147,11 +148,8 @@ namespace Demo.Ringtoets.Commands
                     else
                     {
                         // Copy same FailureMechanismSection instances to other failure mechanisms
-                        foreach (FailureMechanismSection section in failureMechanisms[0].Sections)
-                        {
-                            FailureMechanismSection clonedSection = DeepCloneSection(section);
-                            failureMechanisms[i].AddSection(clonedSection);
-                        }
+                        FailureMechanismSection[] clonedSections = failureMechanisms[0].Sections.Select(DeepCloneSection).ToArray();
+                        failureMechanisms[i].AddSections(clonedSections);
                     }
                 }
             }
