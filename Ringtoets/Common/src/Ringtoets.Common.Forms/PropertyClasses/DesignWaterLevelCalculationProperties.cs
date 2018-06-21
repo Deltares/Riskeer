@@ -21,8 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
@@ -30,7 +28,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with <see cref="DesignWaterLevel"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with design water level for properties panel.
     /// </summary>
     public class DesignWaterLevelCalculationProperties : HydraulicBoundaryLocationCalculationProperties
     {
@@ -44,25 +42,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Result_Description))]
-        public override RoundedDouble DesignWaterLevel
+        public override RoundedDouble Result
         {
             get
             {
-                return base.DesignWaterLevel;
+                return base.Result;
             }
         }
 
-        [PropertyOrder(9)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_Convergence_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Convergence_Description))]
-        public string Convergence
+        public override CalculationConvergence Convergence
         {
             get
             {
-                CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-
-                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+                return base.Convergence;
             }
         }
     }

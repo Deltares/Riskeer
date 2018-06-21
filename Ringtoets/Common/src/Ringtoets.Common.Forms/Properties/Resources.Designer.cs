@@ -2258,6 +2258,26 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De categoriegrens voor deze berekening..
+        /// </summary>
+        public static string HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Descrip" +
+                        "tion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Categoriegrens.
+        /// </summary>
+        public static string HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_DisplayName {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Display" +
+                        "Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaardenlocatie.
         /// </summary>
         public static string HydraulicBoundaryLocationSelectionDialog_Location_Name {

@@ -57,13 +57,10 @@
     <Compile Include="PresentationObjects\WaveHeightCalculationContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionCompositionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightCalculationsPropertiesTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

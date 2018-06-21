@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -37,8 +36,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public class DesignWaterLevelCalculationsGroupProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
-        private readonly IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, string>> calculationCollections;
-
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsGroupProperties"/>.
         /// </summary>
@@ -49,11 +46,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
-            }
-
-            if (calculationCollections == null)
-            {
-                throw new ArgumentNullException(nameof(calculationCollections));
             }
 
             Data = locations;
@@ -69,12 +61,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return data.Select(location => new HydraulicBoundaryLocationProperties(location)).ToArray();
             }
-        }
-
-        private IEnumerable<Tuple<HydraulicBoundaryLocationCalculation, string>> GetHydraulicBoundaryLocationCalculationsForLocation(HydraulicBoundaryLocation location)
-        {
-            return calculationCollections.Select(collection => new Tuple<HydraulicBoundaryLocationCalculation, string>(
-                                                     collection.Item1.Single(c => ReferenceEquals(c.HydraulicBoundaryLocation, location)), collection.Item2));
         }
     }
 }

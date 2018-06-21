@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
@@ -31,26 +29,18 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel with information
+    /// about the <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
-    [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
+    public abstract class HydraulicBoundaryLocationCalculationProperties : HydraulicBoundaryLocationCalculationBaseProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationProperties"/>.
         /// </summary>
-        /// <param name="location">The location to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
-        /// is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation location)
-        {
-            if (location == null)
-            {
-                throw new ArgumentNullException(nameof(location));
-            }
-
-            Data = location;
-        }
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation) 
+            : base(hydraulicBoundaryLocationCalculation) {}
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
@@ -60,7 +50,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Id;
+                return data.HydraulicBoundaryLocation.Id;
             }
         }
 
@@ -72,7 +62,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Name;
+                return data.HydraulicBoundaryLocation.Name;
             }
         }
 
@@ -84,7 +74,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Location;
+                return data.HydraulicBoundaryLocation.Location;
             }
         }
 

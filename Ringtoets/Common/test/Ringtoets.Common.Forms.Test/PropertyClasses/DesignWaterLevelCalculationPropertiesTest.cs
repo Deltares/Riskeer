@@ -32,12 +32,12 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WaveHeightCalculationPropertiesTest
+    public class DesignWaterLevelCalculationPropertiesTest
     {
         private const int idPropertyIndex = 0;
         private const int namePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
-        private const int waveHeightPropertyIndex = 3;
+        private const int designWaterLevelPropertyIndex = 3;
         private const int targetProbabilityPropertyIndex = 4;
         private const int targetReliabilityPropertyIndex = 5;
         private const int calculatedProbabilityPropertyIndex = 6;
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new WaveHeightCalculationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new DesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationProperties>(properties);
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new WaveHeightCalculationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new DesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -101,11 +101,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Coördinaten van de hydraulische randvoorwaardenlocatie.",
                                                                             true);
 
-            PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+            PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
                                                                             resultCategory,
-                                                                            "Hs [m]",
-                                                                            "Berekende golfhoogte.",
+                                                                            "Waterstand [m+NAP]",
+                                                                            "Berekende waterstand.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             resultCategory,
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de golfhoogte berekening?",
+                                                                            "Is convergentie bereikt in de waterstand berekening?",
                                                                             true);
 
             PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
@@ -160,7 +160,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveHeightCalculationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new DesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -191,11 +191,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Coördinaten van de hydraulische randvoorwaardenlocatie.",
                                                                             true);
 
-            PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+            PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
                                                                             resultCategory,
-                                                                            "Hs [m]",
-                                                                            "Berekende golfhoogte.",
+                                                                            "Waterstand [m+NAP]",
+                                                                            "Berekende waterstand.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             resultCategory,
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de golfhoogte berekening?",
+                                                                            "Is convergentie bereikt in de waterstand berekening?",
                                                                             true);
 
             PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
@@ -273,10 +273,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random();
-            double waveHeight = random.NextDouble();
+            double designWaterLevel = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
 
-            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(waveHeight,
+            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(designWaterLevel,
                                                                                                             random.NextDouble(),
                                                                                                             random.NextDouble(),
                                                                                                             random.NextDouble(),
@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveHeightCalculationProperties(hydraulicBoundaryLocationCalculation);
+            var properties = new DesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.Result);

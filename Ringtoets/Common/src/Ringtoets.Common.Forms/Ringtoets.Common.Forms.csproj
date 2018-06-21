@@ -102,6 +102,7 @@
     <Compile Include="PropertyClasses\FailureMechanismSectionProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationBaseProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationOutputProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />

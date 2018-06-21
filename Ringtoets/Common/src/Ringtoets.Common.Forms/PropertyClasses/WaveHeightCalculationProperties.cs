@@ -20,19 +20,15 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with <see cref="WaveHeight"/> for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with wave height for properties panel.
     /// </summary>
     public class WaveHeightCalculationProperties : HydraulicBoundaryLocationCalculationProperties
     {
@@ -44,30 +40,22 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public WaveHeightCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocationCalculation) {}
 
-        [PropertyOrder(4)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveHeightCalculation_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveHeightCalculation_Result_Description))]
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public override RoundedDouble DesignWaterLevel
+        public override RoundedDouble Result
         {
             get
             {
-                return base.DesignWaterLevel;
+                return base.Result;
             }
         }
 
-        [PropertyOrder(9)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_Convergence_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaveHeightCalculation_Convergence_Description))]
-        public string Convergence
+        public override CalculationConvergence Convergence
         {
             get
             {
-                CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-
-                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+                return base.Convergence;
             }
         }
     }
