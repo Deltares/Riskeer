@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
@@ -28,17 +27,15 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with design water level for properties panel
+    /// ViewModel of a <see cref="HydraulicBoundaryLocationCalculation"/> with design water level results for properties panel
     /// showing only output.
     /// </summary>
     public class DesignWaterLevelCalculationOutputProperties : HydraulicBoundaryLocationCalculationOutputProperties
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationOutputProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary this calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
         public DesignWaterLevelCalculationOutputProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                                            string categoryBoundaryName)
             : base(hydraulicBoundaryLocationCalculation, categoryBoundaryName) {}

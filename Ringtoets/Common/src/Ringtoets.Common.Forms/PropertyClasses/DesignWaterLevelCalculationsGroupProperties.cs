@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with design water level results for properties panel.
+    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocation"/> with design water level calculations for properties panel.
     /// </summary>
     public class DesignWaterLevelCalculationsGroupProperties : HydraulicBoundaryLocationCalculationsGroupBaseProperties
     {

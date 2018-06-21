@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Base viewmodel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with calculations per category boundary for properties panel.
+    /// Base ViewModel of a collection of <see cref="HydraulicBoundaryLocation"/> with calculations per category boundary for properties panel.
     /// </summary>
     public abstract class HydraulicBoundaryLocationCalculationsGroupBaseProperties : ObjectProperties<IEnumerable<HydraulicBoundaryLocation>>
     {

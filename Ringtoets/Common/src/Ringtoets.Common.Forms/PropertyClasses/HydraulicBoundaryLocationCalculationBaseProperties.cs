@@ -37,7 +37,7 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Base viewmodel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
+    /// Base ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class HydraulicBoundaryLocationCalculationBaseProperties : ObjectProperties<HydraulicBoundaryLocationCalculation>

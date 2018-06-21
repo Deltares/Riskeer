@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -31,16 +30,15 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> with
+    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> with
     /// a wave height calculation result for properties panel.
     /// </summary>
     public class WaveHeightCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculations">The enumeration of hydraulic boundary location calculations to set as data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
         public WaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
             : base(hydraulicBoundaryLocationCalculations) {}
 

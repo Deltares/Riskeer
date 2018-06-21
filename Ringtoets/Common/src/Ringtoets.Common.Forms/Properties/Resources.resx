@@ -1444,7 +1444,7 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
     <value>Is convergentie bereikt in de golfhoogte berekening?</value>
   </data>
   <data name="WaveHeightCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Hs [m]</value>
+    <value>Golfhoogte [m]</value>
   </data>
   <data name="WaveHeightCalculation_Result_Description" xml:space="preserve">
     <value>Berekende golfhoogte.</value>

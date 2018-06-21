@@ -27,7 +27,7 @@ using Ringtoets.Common.Data.Hydraulics;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
+    /// ViewModel of a collection of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
     /// </summary>
     public abstract class HydraulicBoundaryLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<HydraulicBoundaryLocationCalculation>>, IDisposable
     {
@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculations">The enumeration of hydraulic boundary location calculations to set as data.</param>
+        /// <param name="hydraulicBoundaryLocationCalculations">The collection of hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
         {

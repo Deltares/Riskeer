@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
             var waveHeightColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[waveHeightColumnIndex];
-            Assert.AreEqual("Hs [m]", waveHeightColumn.HeaderText);
+            Assert.AreEqual("Golfhoogte [m]", waveHeightColumn.HeaderText);
 
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);

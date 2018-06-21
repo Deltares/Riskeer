@@ -4047,7 +4047,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hs [m].
+        ///   Looks up a localized string similar to Golfhoogte [m].
         /// </summary>
         public static string WaveHeightCalculation_Result_DisplayName {
             get {

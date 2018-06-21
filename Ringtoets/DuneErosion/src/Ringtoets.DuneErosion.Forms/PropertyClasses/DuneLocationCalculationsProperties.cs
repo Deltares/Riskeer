@@ -32,7 +32,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="DuneLocationCalculation"/> for the properties panel.
+    /// ViewModel of a collection of <see cref="DuneLocationCalculation"/> for the properties panel.
     /// </summary>
     public class DuneLocationCalculationsProperties : ObjectProperties<IObservableEnumerable<DuneLocationCalculation>>, IDisposable
     {

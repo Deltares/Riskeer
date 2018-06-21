@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
                                                                             resultCategory,
-                                                                            "Hs [m]",
+                                                                            "Golfhoogte [m]",
                                                                             "Berekende golfhoogte.",
                                                                             true);
 
