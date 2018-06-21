@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
-        private readonly List<FailureMechanismSection> sections;
+        private readonly FailureMechanismSectionCollection sections;
         private double contribution;
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Name = name;
             Code = failureMechanismCode;
             Group = group;
-            sections = new List<FailureMechanismSection>();
+            sections = new FailureMechanismSectionCollection();
             IsRelevant = true;
             InputComments = new Comment();
             OutputComments = new Comment();
@@ -110,23 +110,18 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public bool IsRelevant { get; set; }
 
-        public virtual void AddSection(FailureMechanismSection section)
+        public void AddSections(IEnumerable<FailureMechanismSection> failureMechanismSections)
         {
-            if (section == null)
-            {
-                throw new ArgumentNullException(nameof(section));
-            }
+            sections.AddRange(failureMechanismSections, string.Empty);
 
-            if (!sections.Any())
+            foreach (FailureMechanismSection failureMechanismSection in sections)
             {
-                sections.Add(section);
-            }
-            else
-            {
-                InsertSectionWhileMaintainingConnectivityOrder(section);
+                AddSectionResult(failureMechanismSection);
             }
         }
 
+        protected virtual void AddSectionResult(FailureMechanismSection section) {}
+     
         public virtual void ClearAllSections()
         {
             sections.Clear();
@@ -143,27 +138,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
             if (string.IsNullOrEmpty(failureMechanismCode))
             {
                 throw new ArgumentException(parameterIsRequired, nameof(failureMechanismCode));
-            }
-        }
-
-        /// <summary>
-        /// Inserts the section to <see cref="Sections"/> while maintaining connectivity
-        /// order (neighboring <see cref="FailureMechanismSection"/> have same end points).
-        /// </summary>
-        /// <param name="sectionToInsert">The new section.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="sectionToInsert"/> cannot
-        /// be connected to elements already defined in <see cref="Sections"/>.</exception>
-        private void InsertSectionWhileMaintainingConnectivityOrder(FailureMechanismSection sectionToInsert)
-        {
-            if (sections.Last().EndPoint.Equals(sectionToInsert.StartPoint))
-            {
-                sections.Add(sectionToInsert);
-            }
-            else
-            {
-                string message = string.Format(Resources.BaseFailureMechanism_AddSection_Section_0_must_connect_to_existing_sections,
-                                               sectionToInsert.Name);
-                throw new ArgumentException(message, nameof(sectionToInsert));
             }
         }
     }

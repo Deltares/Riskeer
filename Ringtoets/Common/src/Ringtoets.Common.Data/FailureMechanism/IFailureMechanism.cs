@@ -86,12 +86,13 @@ namespace Ringtoets.Common.Data.FailureMechanism
         IEnumerable<FailureMechanismSection> Sections { get; }
 
         /// <summary>
-        /// Adds a <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
+        /// Adds a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.
         /// </summary>
-        /// <param name="section">The new section.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="section"/> cannot
+        /// <param name="sections">The sections to add.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> cannot
         /// be connected to elements already defined in <see cref="Sections"/>.</exception>
-        void AddSection(FailureMechanismSection section);
+        void AddSections(IEnumerable<FailureMechanismSection> sections);
 
         /// <summary>
         /// Clears all sections from <see cref="Sections"/>.
