@@ -385,7 +385,27 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<DesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
             {
-                CreateInstance = context => new DesignWaterLevelCalculationsGroupProperties(context.WrappedData)
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<DesignWaterLevelCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
+            };
+            yield return new PropertyInfo<WaveHeightCalculationsGroupContext, WaveHeightCalculationsGroupProperties>
+            {
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        WaveHeightCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<WaveHeightCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
             };
         }
 

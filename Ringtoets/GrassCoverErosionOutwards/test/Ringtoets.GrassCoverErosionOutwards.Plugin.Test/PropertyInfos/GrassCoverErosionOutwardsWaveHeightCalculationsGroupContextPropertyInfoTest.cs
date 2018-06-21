@@ -26,26 +26,27 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
+namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class DesignWaterLevelCalculationsGroupContextPropertyInfoTest
+    public class GrassCoverErosionOutwardsWaveHeightCalculationsGroupContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 // Call
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DesignWaterLevelCalculationsGroupContext), info.DataType);
-                Assert.AreEqual(typeof(DesignWaterLevelCalculationsGroupProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext), info.DataType);
+                Assert.AreEqual(typeof(WaveHeightCalculationsGroupProperties), info.PropertyObjectType);
             }
         }
 
@@ -54,9 +55,11 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var context = new DesignWaterLevelCalculationsGroupContext(locations, new AssessmentSectionStub());
+            var context = new GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext(locations,
+                                                                                          new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                          new AssessmentSectionStub());
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 PropertyInfo info = GetInfo(plugin);
 
@@ -64,14 +67,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DesignWaterLevelCalculationsGroupProperties>(objectProperties);
+                Assert.IsInstanceOf<WaveHeightCalculationsGroupProperties>(objectProperties);
                 Assert.AreSame(locations, objectProperties.Data);
             }
         }
 
-        private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
+        private static PropertyInfo GetInfo(GrassCoverErosionOutwardsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelCalculationsGroupContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext));
         }
     }
 }

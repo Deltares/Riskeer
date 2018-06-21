@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class DesignWaterLevelCalculationsGroupContextPropertyInfoTest
+    public class WaveHeightCalculationsGroupContextPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -44,8 +44,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(DesignWaterLevelCalculationsGroupContext), info.DataType);
-                Assert.AreEqual(typeof(DesignWaterLevelCalculationsGroupProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(WaveHeightCalculationsGroupContext), info.DataType);
+                Assert.AreEqual(typeof(WaveHeightCalculationsGroupProperties), info.PropertyObjectType);
             }
         }
 
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var locations = new ObservableList<HydraulicBoundaryLocation>();
-            var context = new DesignWaterLevelCalculationsGroupContext(locations, new AssessmentSectionStub());
+            var context = new WaveHeightCalculationsGroupContext(locations, new AssessmentSectionStub());
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -64,14 +64,14 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DesignWaterLevelCalculationsGroupProperties>(objectProperties);
+                Assert.IsInstanceOf<WaveHeightCalculationsGroupProperties>(objectProperties);
                 Assert.AreSame(locations, objectProperties.Data);
             }
         }
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(DesignWaterLevelCalculationsGroupContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveHeightCalculationsGroupContext));
         }
     }
 }

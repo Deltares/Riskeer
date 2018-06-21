@@ -110,6 +110,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 CreateInstance = context => new WaveHeightCalculationProperties(context.WrappedData)
             };
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
+            {
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
+            };
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext, WaveHeightCalculationsGroupProperties>
+            {
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        WaveHeightCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
