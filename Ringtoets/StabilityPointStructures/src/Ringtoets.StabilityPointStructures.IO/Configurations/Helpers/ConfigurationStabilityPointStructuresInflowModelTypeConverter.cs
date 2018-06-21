@@ -148,7 +148,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelFloodedCulvertStructure:
                     return ConfigurationStabilityPointStructuresInflowModelType.FloodedCulvert;
                 default:
-                    throw new NotSupportedException();
+                    throw new NotSupportedException($"Value '{text}' is not supported.");
             }
         }
 

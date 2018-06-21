@@ -130,7 +130,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Configurations.Helpers
                 case StabilityPointStructuresConfigurationSchemaIdentifiers.LoadSchematizationQuadraticStructure:
                     return ConfigurationStabilityPointStructuresLoadSchematizationType.Quadratic;
                 default:
-                    throw new NotSupportedException();
+                    throw new NotSupportedException($"Value '{text}' is not supported.");
             }
         }
 
