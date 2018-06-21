@@ -27,9 +27,9 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class HydraulicBoundaryLocationPropertiesTest

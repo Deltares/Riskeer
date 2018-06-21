@@ -20,18 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> with <see cref="DesignWaterLevel"/> for properties panel.
@@ -46,22 +42,19 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         public DesignWaterLevelCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
             : base(hydraulicBoundaryLocationCalculation) {}
 
-        [PropertyOrder(4)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Result_Description))]
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble DesignWaterLevel
+        public override RoundedDouble DesignWaterLevel
         {
             get
             {
-                return data.Output?.Result ?? RoundedDouble.NaN;
+                return base.DesignWaterLevel;
             }
         }
 
         [PropertyOrder(9)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_Result))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.CalculationOutput_Convergence_DisplayName))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_Convergence_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Convergence_Description))]
         public string Convergence
         {

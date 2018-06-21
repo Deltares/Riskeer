@@ -20,58 +20,61 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
     public class DesignWaterLevelCalculationsGroupProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
     {
-        private readonly IAssessmentSection assessmentSection;
+        private readonly IEnumerable<Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, string>> calculationCollections;
 
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsGroupProperties"/>.
         /// </summary>
         /// <param name="locations">The locations to set as data.</param>
-        /// <param name="assessmentSection">The assessment section the data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationsGroupProperties(ObservableList<HydraulicBoundaryLocation> locations,
-                                                           IAssessmentSection assessmentSection)
+        public DesignWaterLevelCalculationsGroupProperties(ObservableList<HydraulicBoundaryLocation> locations)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
 
-            if (assessmentSection == null)
+            if (calculationCollections == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(calculationCollections));
             }
 
             Data = locations;
-            this.assessmentSection = assessmentSection;
         }
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
         public HydraulicBoundaryLocationProperties[] Locations
         {
             get
             {
                 return data.Select(location => new HydraulicBoundaryLocationProperties(location)).ToArray();
             }
+        }
+
+        private IEnumerable<Tuple<HydraulicBoundaryLocationCalculation, string>> GetHydraulicBoundaryLocationCalculationsForLocation(HydraulicBoundaryLocation location)
+        {
+            return calculationCollections.Select(collection => new Tuple<HydraulicBoundaryLocationCalculation, string>(
+                                                     collection.Item1.Single(c => ReferenceEquals(c.HydraulicBoundaryLocation, location)), collection.Item2));
         }
     }
 }

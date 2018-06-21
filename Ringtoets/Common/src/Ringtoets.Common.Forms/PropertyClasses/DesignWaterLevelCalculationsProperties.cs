@@ -27,34 +27,32 @@ using Core.Common.Gui.Converters;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> with a wave height
-    /// calculation result for properties panel of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> with
+    /// a design water level calculation result for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveHeightCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
+    public class DesignWaterLevelCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveHeightCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelCalculationsProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculations">The hydraulic boundary location calculations to set as data.</param>
+        /// <param name="hydraulicBoundaryLocationCalculations">The enumeration of hydraulic boundary location calculations to set as data.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculations"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsWaveHeightCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+        public DesignWaterLevelCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
             : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
-        public GrassCoverErosionOutwardsWaveHeightCalculationProperties[] Calculations
+        public DesignWaterLevelCalculationProperties[] Calculations
         {
             get
             {
-                return data.Select(calculation => new GrassCoverErosionOutwardsWaveHeightCalculationProperties(calculation)).ToArray();
+                return data.Select(calculation => new DesignWaterLevelCalculationProperties(calculation)).ToArray();
             }
         }
     }

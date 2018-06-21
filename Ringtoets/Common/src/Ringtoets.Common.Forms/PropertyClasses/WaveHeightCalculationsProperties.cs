@@ -26,10 +26,9 @@ using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PropertyClasses;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocationCalculation"/> with
@@ -46,9 +45,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
             : base(hydraulicBoundaryLocationCalculations) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Locations_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
         public WaveHeightCalculationProperties[] Calculations
         {
             get

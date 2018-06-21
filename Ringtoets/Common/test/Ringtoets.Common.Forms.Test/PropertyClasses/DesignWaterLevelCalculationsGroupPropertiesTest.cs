@@ -26,13 +26,11 @@ using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
-namespace Ringtoets.Integration.Forms.Test.PropertyClasses
+namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
     public class DesignWaterLevelCalculationsGroupPropertiesTest
@@ -40,43 +38,22 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_LocationsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate call = () => new DesignWaterLevelCalculationsGroupProperties(null, assessmentSection);
+            TestDelegate call = () => new DesignWaterLevelCalculationsGroupProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("locations", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DesignWaterLevelCalculationsGroupProperties(new ObservableList<HydraulicBoundaryLocation>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var locations = new ObservableList<HydraulicBoundaryLocation>();
 
             // Call
-            var properties = new DesignWaterLevelCalculationsGroupProperties(locations, assessmentSection);
+            var properties = new DesignWaterLevelCalculationsGroupProperties(locations);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ObservableList<HydraulicBoundaryLocation>>>(properties);
@@ -84,19 +61,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
 
             TestHelper.AssertTypeConverter<DesignWaterLevelCalculationsGroupProperties, ExpandableArrayConverter>(
                 nameof(DesignWaterLevelCalculationsGroupProperties.Locations));
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            var properties = new DesignWaterLevelCalculationsGroupProperties(new ObservableList<HydraulicBoundaryLocation>(), assessmentSection);
+            var properties = new DesignWaterLevelCalculationsGroupProperties(new ObservableList<HydraulicBoundaryLocation>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -108,24 +79,19 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
                                                                             "Locaties",
                                                                             "Locaties uit de hydraulische randvoorwaardendatabase.",
                                                                             true);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var location = new TestHydraulicBoundaryLocation();
 
             // Call
             var properties = new DesignWaterLevelCalculationsGroupProperties(new ObservableList<HydraulicBoundaryLocation>
             {
                 location
-            }, assessmentSection);
+            });
 
             // Assert
             Assert.AreEqual(1, properties.Locations.Length);

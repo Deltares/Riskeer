@@ -20,15 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.Common.Forms.Properties;
 
-namespace Ringtoets.Integration.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel.
@@ -36,10 +39,14 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
+        private readonly IEnumerable<Tuple<HydraulicBoundaryLocationCalculation, string>> calculations;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
         /// </summary>
         /// <param name="location">The location to set as data.</param>
+        /// <param name="calculations">The calculations belonging to the <paramref name="location"/>
+        /// to show properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
         /// is <c>null</c>.</exception>
         public HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation location)
@@ -53,9 +60,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(1)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Id_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Id_Description))]
         public long Id
         {
             get
@@ -65,9 +72,9 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Name_Description))]
         public string Name
         {
             get
@@ -77,14 +84,27 @@ namespace Ringtoets.Integration.Forms.PropertyClasses
         }
 
         [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
         public Point2D Location
         {
             get
             {
                 return data.Location;
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public DesignWaterLevelCalculationProperties[] Calculations
+        {
+            get
+            {
+                return calculations.Select(c => new DesignWaterLevelCalculationProperties(c.Item1)).ToArray();
             }
         }
 
