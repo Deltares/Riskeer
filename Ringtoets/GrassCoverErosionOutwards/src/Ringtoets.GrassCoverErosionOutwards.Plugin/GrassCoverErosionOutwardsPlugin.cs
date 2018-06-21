@@ -43,6 +43,7 @@ using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
@@ -79,13 +80,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext, DesignWaterLevelCalculationsProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext, GrassCoverErosionOutwardsWaveHeightCalculationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext, WaveHeightCalculationsProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new WaveHeightCalculationsProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();
@@ -100,14 +101,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties(context.WrappedData)
+                CreateInstance = context => new DesignWaterLevelCalculationProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationContext, GrassCoverErosionOutwardsWaveHeightCalculationProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationContext, WaveHeightCalculationProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationProperties(context.WrappedData)
+                CreateInstance = context => new WaveHeightCalculationProperties(context.WrappedData)
             };
         }
 

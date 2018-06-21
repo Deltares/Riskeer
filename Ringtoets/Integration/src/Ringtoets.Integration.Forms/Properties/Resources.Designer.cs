@@ -479,33 +479,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de toetspeil berekening?.
-        /// </summary>
-        public static string DesignWaterLevelCalculation_Convergence_Description {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculation_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekend toetspeil..
-        /// </summary>
-        public static string DesignWaterLevelCalculation_Result_Description {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculation_Result_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetspeil [m+NAP].
-        /// </summary>
-        public static string DesignWaterLevelCalculation_Result_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculation_Result_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetspeilen.
         /// </summary>
         public static string DesignWaterLevelCalculationsContext_DisplayName {
@@ -885,33 +858,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string SignalingNorm_DisplayName {
             get {
                 return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte berekening?.
-        /// </summary>
-        public static string WaveHeightCalculation_Convergence_Description {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculation_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende golfhoogte..
-        /// </summary>
-        public static string WaveHeightCalculation_Result_Description {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculation_Result_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs [m].
-        /// </summary>
-        public static string WaveHeightCalculation_Result_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculation_Result_DisplayName", resourceCulture);
             }
         }
         

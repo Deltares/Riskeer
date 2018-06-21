@@ -94,12 +94,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationBaseProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointValuesProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointProperties.cs" />
@@ -131,6 +136,8 @@
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactory.cs" />
     <Compile Include="PropertyClasses\TopLevelSubMechanismIllustrationPointProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationsProperties.cs" />
     <Compile Include="ScenarioSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

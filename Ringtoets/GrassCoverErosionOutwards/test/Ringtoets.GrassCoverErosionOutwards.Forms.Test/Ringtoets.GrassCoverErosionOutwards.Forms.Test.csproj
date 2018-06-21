@@ -41,12 +41,8 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelCalculationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelCalculationsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsOutputPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightCalculationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightCalculationsPropertiesTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />

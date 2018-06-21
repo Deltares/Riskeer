@@ -385,7 +385,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<DesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
             {
-                CreateInstance = context => new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, context.AssessmentSection)
+                CreateInstance = context => new DesignWaterLevelCalculationsGroupProperties(context.WrappedData)
             };
         }
 

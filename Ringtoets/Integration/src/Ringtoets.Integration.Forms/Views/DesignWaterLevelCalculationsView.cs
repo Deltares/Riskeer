@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Views
 {
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(nameof(HydraulicBoundaryLocationCalculationRow.Result),
-                                                 Resources.DesignWaterLevelCalculation_Result_DisplayName);
+                                                 RingtoetsCommonFormsResources.DesignWaterLevelCalculation_Result_DisplayName);
         }
     }
 }

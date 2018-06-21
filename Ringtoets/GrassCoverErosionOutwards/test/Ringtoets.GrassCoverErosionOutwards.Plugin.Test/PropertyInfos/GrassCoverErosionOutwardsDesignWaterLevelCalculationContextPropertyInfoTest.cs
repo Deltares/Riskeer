@@ -25,8 +25,8 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationContext), info.DataType);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DesignWaterLevelCalculationProperties), info.PropertyObjectType);
             }
         }
 
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties>(objectProperties);
+                Assert.IsInstanceOf<DesignWaterLevelCalculationProperties>(objectProperties);
                 Assert.AreSame(hydraulicBoundaryLocationCalculation, objectProperties.Data);
             }
         }

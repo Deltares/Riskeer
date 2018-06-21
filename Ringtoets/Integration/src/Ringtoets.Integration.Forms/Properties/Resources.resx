@@ -237,24 +237,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WaveHeightCalculationsContext_DisplayName" xml:space="preserve">
     <value>Golfhoogtes</value>
   </data>
-  <data name="DesignWaterLevelCalculation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de toetspeil berekening?</value>
-  </data>
-  <data name="WaveHeightCalculation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de golfhoogte berekening?</value>
-  </data>
-  <data name="DesignWaterLevelCalculation_Result_Description" xml:space="preserve">
-    <value>Berekend toetspeil.</value>
-  </data>
-  <data name="DesignWaterLevelCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Toetspeil [m+NAP]</value>
-  </data>
-  <data name="WaveHeightCalculation_Result_Description" xml:space="preserve">
-    <value>Berekende golfhoogte.</value>
-  </data>
-  <data name="WaveHeightCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Hs [m]</value>
-  </data>
   <data name="AssessmentSectionComposition_Composition_Description" xml:space="preserve">
     <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>
   </data>

@@ -26,6 +26,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
@@ -48,7 +49,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
                                                                              IObservablePropertyChangeHandler propertyChangeHandler)
             : base(context, getAssessmentLevelFunc, propertyChangeHandler) {}
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName))]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), nameof(RingtoetsCommonFormsResources.DesignWaterLevelCalculation_Result_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description))]
         public override RoundedDouble AssessmentLevel
         {
