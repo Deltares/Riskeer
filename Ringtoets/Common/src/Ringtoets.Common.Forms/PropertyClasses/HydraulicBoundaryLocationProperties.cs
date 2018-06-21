@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
+using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
@@ -36,20 +39,31 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class HydraulicBoundaryLocationProperties : ObjectProperties<HydraulicBoundaryLocation>
     {
+        private readonly IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationPerCategoryBoundary;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationProperties"/>.
         /// </summary>
         /// <param name="location">The location to set as data.</param>
+        /// <param name="calculationPerCategoryBoundary">The calculations belonging to the <paramref name="location"/>
+        /// for each category boundary.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/>
         /// is <c>null</c>.</exception>
-        public HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation location)
+        public HydraulicBoundaryLocationProperties(HydraulicBoundaryLocation location,
+                                                   IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationPerCategoryBoundary)
         {
             if (location == null)
             {
                 throw new ArgumentNullException(nameof(location));
             }
 
+            if (calculationPerCategoryBoundary == null)
+            {
+                throw new ArgumentNullException(nameof(calculationPerCategoryBoundary));
+            }
+
             Data = location;
+            this.calculationPerCategoryBoundary = calculationPerCategoryBoundary;
         }
 
         [PropertyOrder(1)]
@@ -85,6 +99,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             get
             {
                 return data.Location;
+            }
+        }
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocationProperties_CategoryBoundaries_Description))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public DesignWaterLevelCalculationOutputProperties[] CategoryBoundaries
+        {
+            get
+            {
+                return calculationPerCategoryBoundary.Select(calculation => new DesignWaterLevelCalculationOutputProperties(calculation.Item2,
+                                                                                                                            calculation.Item1)).ToArray();
             }
         }
 

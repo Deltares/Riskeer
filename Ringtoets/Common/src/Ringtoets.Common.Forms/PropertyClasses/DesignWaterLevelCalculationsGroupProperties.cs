@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
@@ -34,19 +34,31 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> for properties panel.
     /// </summary>
-    public class DesignWaterLevelCalculationsGroupProperties : ObjectProperties<ObservableList<HydraulicBoundaryLocation>>
+    public class DesignWaterLevelCalculationsGroupProperties : ObjectProperties<IEnumerable<HydraulicBoundaryLocation>>
     {
+        private readonly IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary;
+
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationsGroupProperties"/>.
         /// </summary>
         /// <param name="locations">The locations to set as data.</param>
+        /// <param name="calculationsPerCategoryBoundary">A collection of tuples containing the category boundary name and
+        /// its corresponding collection of <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationsGroupProperties(ObservableList<HydraulicBoundaryLocation> locations)
+        public DesignWaterLevelCalculationsGroupProperties(IEnumerable<HydraulicBoundaryLocation> locations,
+                                                           IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary)
         {
             if (locations == null)
             {
                 throw new ArgumentNullException(nameof(locations));
             }
+
+            if (calculationsPerCategoryBoundary == null)
+            {
+                throw new ArgumentNullException(nameof(calculationsPerCategoryBoundary));
+            }
+
+            this.calculationsPerCategoryBoundary = calculationsPerCategoryBoundary;
 
             Data = locations;
         }
@@ -59,8 +71,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Select(location => new HydraulicBoundaryLocationProperties(location)).ToArray();
+                return data.Select(location => new HydraulicBoundaryLocationProperties(location, GetHydraulicBoundaryLocationCalculationsForLocation(location))).ToArray();
             }
+        }
+
+        private IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> GetHydraulicBoundaryLocationCalculationsForLocation(HydraulicBoundaryLocation location)
+        {
+            return calculationsPerCategoryBoundary.Select(boundaryCalculations =>
+                                                              new Tuple<string, HydraulicBoundaryLocationCalculation>(
+                                                                  boundaryCalculations.Item1,
+                                                                  boundaryCalculations.Item2.Single(calculation => ReferenceEquals(calculation.HydraulicBoundaryLocation, location))));
         }
     }
 }

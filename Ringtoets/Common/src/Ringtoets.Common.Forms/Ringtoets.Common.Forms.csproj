@@ -94,6 +94,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationOutputProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsProperties.cs" />
