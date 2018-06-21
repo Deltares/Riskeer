@@ -31,28 +31,27 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with design water level results for properties panel.
+    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with wave height results for properties panel.
     /// </summary>
-    public class DesignWaterLevelCalculationsGroupProperties : HydraulicBoundaryLocationCalculationsGroupBaseProperties
+    public class WaveHeightCalculationsGroupProperties : HydraulicBoundaryLocationCalculationsGroupBaseProperties
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelCalculationsGroupProperties"/>.
+        /// Creates a new instance of <see cref="WaveHeightCalculationsGroupProperties"/>.
         /// </summary>
-        public DesignWaterLevelCalculationsGroupProperties(IEnumerable<HydraulicBoundaryLocation> locations,
-                                                           IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary) 
+        public WaveHeightCalculationsGroupProperties(IEnumerable<HydraulicBoundaryLocation> locations,
+                                                     IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary)
             : base(locations, calculationsPerCategoryBoundary) {}
 
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
-        public DesignWaterLevelHydraulicBoundaryLocationProperties[] Locations
+        public WaveHeightHydraulicBoundaryLocationProperties[] Locations
         {
             get
             {
-                return data.Select(location => new DesignWaterLevelHydraulicBoundaryLocationProperties(
-                                       location, GetHydraulicBoundaryLocationCalculationsForLocation(location))).ToArray();
+                return data.Select(location => new WaveHeightHydraulicBoundaryLocationProperties(location, GetHydraulicBoundaryLocationCalculationsForLocation(location))).ToArray();
             }
         }
     }

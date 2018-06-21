@@ -37,13 +37,13 @@ using Ringtoets.Common.Forms.TypeConverters;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
+    /// Base viewmodel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class HydraulicBoundaryLocationCalculationBaseProperties : ObjectProperties<HydraulicBoundaryLocationCalculation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationBaseProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>

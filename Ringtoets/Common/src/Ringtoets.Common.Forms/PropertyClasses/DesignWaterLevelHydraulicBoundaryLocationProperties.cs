@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
@@ -31,28 +32,29 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of an enumeration of <see cref="HydraulicBoundaryLocation"/> with design water level results for properties panel.
+    /// ViewModel of <see cref="HydraulicBoundaryLocation"/> for properties panel containing design water level calculations.
     /// </summary>
-    public class DesignWaterLevelCalculationsGroupProperties : HydraulicBoundaryLocationCalculationsGroupBaseProperties
+    public class DesignWaterLevelHydraulicBoundaryLocationProperties : HydraulicBoundaryLocationBaseProperties
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelCalculationsGroupProperties"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelHydraulicBoundaryLocationProperties"/>.
         /// </summary>
-        public DesignWaterLevelCalculationsGroupProperties(IEnumerable<HydraulicBoundaryLocation> locations,
-                                                           IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary) 
-            : base(locations, calculationsPerCategoryBoundary) {}
+        public DesignWaterLevelHydraulicBoundaryLocationProperties(HydraulicBoundaryLocation location,
+                                                                   IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationPerCategoryBoundary) 
+            : base(location, calculationPerCategoryBoundary) {}
 
-        [TypeConverter(typeof(ExpandableArrayConverter))]
+        [PropertyOrder(4)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Locations_Description))]
-        public DesignWaterLevelHydraulicBoundaryLocationProperties[] Locations
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocationProperties_CategoryBoundaries_Description))]
+        [TypeConverter(typeof(ExpandableArrayConverter))]
+        public DesignWaterLevelCalculationOutputProperties[] CategoryBoundaries
         {
             get
             {
-                return data.Select(location => new DesignWaterLevelHydraulicBoundaryLocationProperties(
-                                       location, GetHydraulicBoundaryLocationCalculationsForLocation(location))).ToArray();
+                return CalculationPerCategoryBoundary.Select(calculation => new DesignWaterLevelCalculationOutputProperties(calculation.Item2,
+                                                                                                                            calculation.Item1)).ToArray();
             }
         }
     }

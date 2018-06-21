@@ -94,6 +94,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsGroupBaseProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightHydraulicBoundaryLocationProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationBaseProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationsGroupProperties.cs" />
     <Compile Include="PropertyClasses\WaveHeightCalculationOutputProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationOutputProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
@@ -107,7 +111,7 @@
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationOutputProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsProperties.cs" />
-    <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelHydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointValuesProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointProperties.cs" />

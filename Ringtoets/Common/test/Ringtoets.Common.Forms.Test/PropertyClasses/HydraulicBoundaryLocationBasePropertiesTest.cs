@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -34,19 +34,18 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationPropertiesTest
+    public class HydraulicBoundaryLocationBasePropertiesTest
     {
         private const int idPropertyIndex = 0;
         private const int namePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
-        private const int categoryBoundariesPropertyIndex = 3;
 
         [Test]
         public void Constructor_LocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationProperties(null, 
-                                                                              Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
+            TestDelegate call = () => new TestHydraulicBoundaryLocationBaseProperties(null,
+                                                                                      Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -57,8 +56,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_CalculationPerCategoryBoundaryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HydraulicBoundaryLocationProperties(new TestHydraulicBoundaryLocation(), 
-                                                                              null);
+            TestDelegate call = () => new TestHydraulicBoundaryLocationBaseProperties(new TestHydraulicBoundaryLocation(),
+                                                                                      null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -72,15 +71,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var location = new TestHydraulicBoundaryLocation();
 
             // Call
-            var properties = new HydraulicBoundaryLocationProperties(location,
-                                                                     Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
+            var properties = new TestHydraulicBoundaryLocationBaseProperties(location,
+                                                                             Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HydraulicBoundaryLocation>>(properties);
             Assert.AreSame(location, properties.Data);
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, ExpandableObjectConverter>();
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationProperties, ExpandableArrayConverter>(
-                nameof(HydraulicBoundaryLocationProperties.CategoryBoundaries));
+            TestHelper.AssertTypeConverter<TestHydraulicBoundaryLocationBaseProperties, ExpandableObjectConverter>();
         }
 
         [Test]
@@ -90,12 +87,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var location = new TestHydraulicBoundaryLocation();
 
             // Call
-            var properties = new HydraulicBoundaryLocationProperties(location,
-                                                                     Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
+            var properties = new TestHydraulicBoundaryLocationBaseProperties(location,
+                                                                             Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -118,13 +115,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Coördinaten [m]",
                                                                             "Coördinaten van de hydraulische randvoorwaardenlocatie.",
-                                                                            true);
-
-            PropertyDescriptor categoryBoundariesProperty = dynamicProperties[categoryBoundariesPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryBoundariesProperty,
-                                                                            generalCategory,
-                                                                            "Categoriegrenzen",
-                                                                            "De berekeningen per categoriegrens voor deze locatie.",
                                                                             true);
         }
 
@@ -149,19 +139,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocation, 
-                                                                     calculations);
+            var properties = new TestHydraulicBoundaryLocationBaseProperties(hydraulicBoundaryLocation,
+                                                                             calculations);
 
             // Assert
             Assert.AreEqual(id, properties.Id);
             Assert.AreEqual(name, properties.Name);
             var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
-
-            DesignWaterLevelCalculationOutputProperties categoryBoundaryCalculation = properties.CategoryBoundaries.Single();
-            Assert.AreEqual("A", categoryBoundaryCalculation.CategoryBoundaryName);
-            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, categoryBoundaryCalculation.Result);
-            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.CalculationConvergence, categoryBoundaryCalculation.Convergence);
         }
 
         [Test]
@@ -175,12 +160,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
 
             // Call
-            var properties = new HydraulicBoundaryLocationProperties(hydraulicBoundaryLocation, 
-                                                                     Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
+            var properties = new TestHydraulicBoundaryLocationBaseProperties(hydraulicBoundaryLocation,
+                                                                             Enumerable.Empty<Tuple<string, HydraulicBoundaryLocationCalculation>>());
 
             // Assert
             string expectedString = $"{name} {new Point2D(x, y)}";
             Assert.AreEqual(expectedString, properties.ToString());
+        }
+
+        private class TestHydraulicBoundaryLocationBaseProperties : HydraulicBoundaryLocationBaseProperties
+        {
+            public TestHydraulicBoundaryLocationBaseProperties(HydraulicBoundaryLocation location, IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationPerCategoryBoundary)
+                : base(location, calculationPerCategoryBoundary) {}
         }
     }
 }
