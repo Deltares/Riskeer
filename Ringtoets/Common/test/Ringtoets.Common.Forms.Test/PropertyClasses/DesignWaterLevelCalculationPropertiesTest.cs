@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Gui.Converters;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -34,20 +33,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class DesignWaterLevelCalculationPropertiesTest
     {
-        private const int idPropertyIndex = 0;
-        private const int namePropertyIndex = 1;
-        private const int coordinatesPropertyIndex = 2;
         private const int designWaterLevelPropertyIndex = 3;
-        private const int targetProbabilityPropertyIndex = 4;
-        private const int targetReliabilityPropertyIndex = 5;
-        private const int calculatedProbabilityPropertyIndex = 6;
-        private const int calculatedReliabilityPropertyIndex = 7;
         private const int convergencePropertyIndex = 8;
-        private const int shouldCalculateIllustrationPointsIndex = 9;
-        private const int governingWindDirectionIndex = 10;
-        private const int alphaValuesIndex = 11;
-        private const int durationsIndex = 12;
-        private const int illustrationPointsIndex = 13;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -64,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Constructor_WithoutGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_WithValidData_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
@@ -76,30 +63,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(10, dynamicProperties.Count);
 
-            const string generalCategory = "Algemeen";
             const string resultCategory = "Resultaat";
-            const string illustrationPointsCategory = "Illustratiepunten";
-
-            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
-                                                                            generalCategory,
-                                                                            "ID",
-                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
-                                                                            true);
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
-                                                                            true);
-
-            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
-                                                                            generalCategory,
-                                                                            "Coördinaten [m]",
-                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
-                                                                            true);
 
             PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
@@ -108,163 +72,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                             "Berekende waterstand.",
                                                                             true);
 
-            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Doelkans [1/jaar]",
-                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
-                                                                            true);
-
-            PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
-                                                                            resultCategory,
-                                                                            "Betrouwbaarheidsindex doelkans [-]",
-                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
-                                                                            true);
-
-            PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Berekende kans [1/jaar]",
-                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
-                                                                            true);
-
-            PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
-                                                                            resultCategory,
-                                                                            "Betrouwbaarheidsindex berekende kans [-]",
-                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
-                                                                            true);
-
             PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             resultCategory,
                                                                             "Convergentie",
                                                                             "Is convergentie bereikt in de waterstand berekening?",
-                                                                            true);
-
-            PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculateIllustrationPointsProperty,
-                                                                            illustrationPointsCategory,
-                                                                            "Illustratiepunten inlezen",
-                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
-        }
-
-        [Test]
-        public void Constructor_WithGeneralIllustrationPointsResult_PropertiesHaveExpectedAttributesValues()
-        {
-            // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
-            };
-
-            // Call
-            var properties = new DesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
-
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(14, dynamicProperties.Count);
-
-            const string generalCategory = "Algemeen";
-            const string resultCategory = "Resultaat";
-            const string illustrationPointsCategory = "Illustratiepunten";
-
-            PropertyDescriptor idProperty = dynamicProperties[idPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(idProperty,
-                                                                            generalCategory,
-                                                                            "ID",
-                                                                            "ID van de hydraulische randvoorwaardenlocatie in de database.",
-                                                                            true);
-
-            PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
-                                                                            generalCategory,
-                                                                            "Naam",
-                                                                            "Naam van de hydraulische randvoorwaardenlocatie.",
-                                                                            true);
-
-            PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
-                                                                            generalCategory,
-                                                                            "Coördinaten [m]",
-                                                                            "Coördinaten van de hydraulische randvoorwaardenlocatie.",
-                                                                            true);
-
-            PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
-                                                                            resultCategory,
-                                                                            "Waterstand [m+NAP]",
-                                                                            "Berekende waterstand.",
-                                                                            true);
-
-            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Doelkans [1/jaar]",
-                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
-                                                                            true);
-
-            PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetReliabilityProperty,
-                                                                            resultCategory,
-                                                                            "Betrouwbaarheidsindex doelkans [-]",
-                                                                            "Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.",
-                                                                            true);
-
-            PropertyDescriptor calculatedProbabilityProperty = dynamicProperties[calculatedProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Berekende kans [1/jaar]",
-                                                                            "De berekende kans van voorkomen van het berekende resultaat.",
-                                                                            true);
-
-            PropertyDescriptor calculatedReliabilityProperty = dynamicProperties[calculatedReliabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculatedReliabilityProperty,
-                                                                            resultCategory,
-                                                                            "Betrouwbaarheidsindex berekende kans [-]",
-                                                                            "Betrouwbaarheidsindex van de berekende kans van voorkomen van het berekende resultaat.",
-                                                                            true);
-
-            PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
-                                                                            resultCategory,
-                                                                            "Convergentie",
-                                                                            "Is convergentie bereikt in de waterstand berekening?",
-                                                                            true);
-
-            PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(calculateIllustrationPointsProperty,
-                                                                            illustrationPointsCategory,
-                                                                            "Illustratiepunten inlezen",
-                                                                            "Neem de informatie over de illustratiepunten op in het berekeningsresultaat.");
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[governingWindDirectionIndex],
-                                                                            illustrationPointsCategory,
-                                                                            "Maatgevende windrichting",
-                                                                            "De windrichting waarvoor de berekende betrouwbaarheidsindex het laagst is.",
-                                                                            true);
-
-            PropertyDescriptor alphaValuesProperty = dynamicProperties[alphaValuesIndex];
-            Assert.NotNull(alphaValuesProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(alphaValuesProperty,
-                                                                            illustrationPointsCategory,
-                                                                            "Invloedscoëfficiënten [-]",
-                                                                            "Berekende invloedscoëfficiënten voor alle beschouwde stochasten.",
-                                                                            true);
-
-            PropertyDescriptor durationsProperty = dynamicProperties[durationsIndex];
-            Assert.NotNull(durationsProperty.Attributes[typeof(KeyValueElementAttribute)]);
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(durationsProperty,
-                                                                            illustrationPointsCategory,
-                                                                            "Tijdsduren [uur]",
-                                                                            "Tijdsduren waarop de stochasten betrekking hebben.",
-                                                                            true);
-
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[illustrationPointsIndex],
-                                                                            illustrationPointsCategory,
-                                                                            "Illustratiepunten",
-                                                                            "De lijst van illustratiepunten voor de berekening.",
                                                                             true);
         }
 
