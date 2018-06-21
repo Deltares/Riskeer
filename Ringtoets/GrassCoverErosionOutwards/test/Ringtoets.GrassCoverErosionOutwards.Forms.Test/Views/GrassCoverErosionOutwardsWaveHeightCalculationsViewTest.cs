@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
             var waveHeightColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[waveHeightColumnIndex];
-            Assert.AreEqual("Golfhoogte bij doorsnede-eis [m]", waveHeightColumn.HeaderText);
+            Assert.AreEqual("Hs [m]", waveHeightColumn.HeaderText);
 
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);

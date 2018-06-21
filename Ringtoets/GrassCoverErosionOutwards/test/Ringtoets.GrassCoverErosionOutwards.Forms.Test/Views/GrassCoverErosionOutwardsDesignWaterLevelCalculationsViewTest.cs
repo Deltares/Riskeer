@@ -162,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
             var designWaterLevelColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[designWaterLevelColumnIndex];
-            Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", designWaterLevelColumn.HeaderText);
+            Assert.AreEqual("Waterstand [m+NAP]", designWaterLevelColumn.HeaderText);
 
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);

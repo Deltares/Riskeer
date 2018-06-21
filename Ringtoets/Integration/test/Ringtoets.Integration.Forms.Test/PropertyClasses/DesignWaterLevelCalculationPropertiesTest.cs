@@ -106,8 +106,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
                                                                             resultCategory,
-                                                                            "Toetspeil [m+NAP]",
-                                                                            "Berekend toetspeil.",
+                                                                            "Waterstand [m+NAP]",
+                                                                            "Berekende waterstand.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
@@ -142,7 +142,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             resultCategory,
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de toetspeil berekening?",
+                                                                            "Is convergentie bereikt in de waterstand berekening?",
                                                                             true);
 
             PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
@@ -196,8 +196,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
                                                                             resultCategory,
-                                                                            "Toetspeil [m+NAP]",
-                                                                            "Berekend toetspeil.",
+                                                                            "Waterstand [m+NAP]",
+                                                                            "Berekende waterstand.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
@@ -232,7 +232,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             resultCategory,
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de toetspeil berekening?",
+                                                                            "Is convergentie bereikt in de waterstand berekening?",
                                                                             true);
 
             PropertyDescriptor calculateIllustrationPointsProperty = dynamicProperties[shouldCalculateIllustrationPointsIndex];
@@ -295,7 +295,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             var properties = new DesignWaterLevelCalculationProperties(hydraulicBoundaryLocationCalculation);
 
             // Assert
-            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.DesignWaterLevel);
+            Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.Result);
 
             string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
             Assert.AreEqual(convergenceValue, properties.Convergence);

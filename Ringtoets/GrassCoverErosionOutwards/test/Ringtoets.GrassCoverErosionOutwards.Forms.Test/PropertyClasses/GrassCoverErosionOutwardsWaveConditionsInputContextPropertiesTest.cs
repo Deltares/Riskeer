@@ -102,15 +102,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentLevelProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Waterstand bij doorsnede-eis [m+NAP]",
-                                                                            "Berekende waterstand bij doorsnede-eis op de geselecteerde locatie.",
+                                                                            "Waterstand [m+NAP]",
+                                                                            "Berekende waterstand op de geselecteerde locatie.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[3];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryDesignWaterLevelProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]",
-                                                                            "Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.",
+                                                                            "Bovengrens op basis van waterstand [m+NAP]",
+                                                                            "Bovengrens bepaald aan de hand van de waarde van de waterstand op de geselecteerde hydraulische locatie.",
                                                                             true);
         }
     }
