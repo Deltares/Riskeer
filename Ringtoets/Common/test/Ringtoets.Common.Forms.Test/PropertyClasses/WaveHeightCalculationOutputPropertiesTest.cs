@@ -31,9 +31,9 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DesignWaterLevelCalculationOutputPropertiesTest
+    public class WaveHeightCalculationOutputPropertiesTest
     {
-        private const int designWaterLevelPropertyIndex = 1;
+        private const int waveHeightPropertyIndex = 1;
         private const int convergencePropertyIndex = 6;
 
         [Test]
@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new DesignWaterLevelCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
+            var properties = new WaveHeightCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationOutputProperties>(properties);
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new DesignWaterLevelCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
+            var properties = new WaveHeightCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -65,18 +65,18 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             const string resultCategory = "Resultaat";
 
-            PropertyDescriptor designWaterLevelProperty = dynamicProperties[designWaterLevelPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(designWaterLevelProperty,
+            PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
                                                                             resultCategory,
-                                                                            "Waterstand [m+NAP]",
-                                                                            "Berekende waterstand.",
+                                                                            "Hs [m]",
+                                                                            "Berekende golfhoogte.",
                                                                             true);
 
             PropertyDescriptor convergenceProperty = dynamicProperties[convergencePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(convergenceProperty,
                                                                             resultCategory,
                                                                             "Convergentie",
-                                                                            "Is convergentie bereikt in de waterstand berekening?",
+                                                                            "Is convergentie bereikt in de golfhoogte berekening?",
                                                                             true);
         }
 
@@ -85,10 +85,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random();
-            double designWaterLevel = random.NextDouble();
+            double waveHeight = random.NextDouble();
             var convergence = random.NextEnumValue<CalculationConvergence>();
             const string categoryBoundaryName = "A";
-            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(designWaterLevel,
+            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(waveHeight,
                                                                                                             random.NextDouble(),
                                                                                                             random.NextDouble(),
                                                                                                             random.NextDouble(),
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DesignWaterLevelCalculationOutputProperties(hydraulicBoundaryLocationCalculation, categoryBoundaryName);
+            var properties = new WaveHeightCalculationOutputProperties(hydraulicBoundaryLocationCalculation, categoryBoundaryName);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.Result);
