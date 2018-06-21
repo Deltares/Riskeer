@@ -93,9 +93,9 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
 
-        public override void AddSection(FailureMechanismSection section)
+        protected override void AddSectionResult(FailureMechanismSection section)
         {
-            base.AddSection(section);
+            base.AddSectionResult(section);
             sectionResults.Add(new HeightStructuresFailureMechanismSectionResult(section));
         }
 

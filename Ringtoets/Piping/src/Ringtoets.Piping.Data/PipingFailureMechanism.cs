@@ -93,9 +93,9 @@ namespace Ringtoets.Piping.Data
             }
         }
 
-        public override void AddSection(FailureMechanismSection section)
+        protected override void AddSectionResult(FailureMechanismSection section)
         {
-            base.AddSection(section);
+            base.AddSectionResult(section);
             sectionResults.Add(new PipingFailureMechanismSectionResult(section));
         }
 
