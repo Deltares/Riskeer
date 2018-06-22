@@ -105,7 +105,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryBoundaryNameProperty,
                                                                             generalCategory,
                                                                             "Categoriegrens",
-                                                                            "De categoriegrens voor deze berekening.",
+                                                                            "De categoriegrens behorende bij het resultaat.",
                                                                             true);
 
             PropertyDescriptor resultProperty = dynamicProperties[resultPropertyIndex];
@@ -181,7 +181,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(categoryBoundaryNameProperty,
                                                                             generalCategory,
                                                                             "Categoriegrens",
-                                                                            "De categoriegrens voor deze berekening.",
+                                                                            "De categoriegrens behorende bij het resultaat.",
                                                                             true);
 
             PropertyDescriptor resultProperty = dynamicProperties[resultPropertyIndex];

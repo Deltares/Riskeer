@@ -1453,7 +1453,7 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
     <value>Categoriegrens</value>
   </data>
   <data name="HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description" xml:space="preserve">
-    <value>De categoriegrens voor deze berekening.</value>
+    <value>De categoriegrens behorende bij het resultaat.</value>
   </data>
   <data name="HydraulicBoundaryLocationProperties_CategoryBoundaries_Description" xml:space="preserve">
     <value>De berekeningen per categoriegrens voor deze locatie.</value>

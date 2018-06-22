@@ -2258,7 +2258,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrens voor deze berekening..
+        ///   Looks up a localized string similar to De categoriegrens behorende bij het resultaat..
         /// </summary>
         public static string HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description {
             get {
