@@ -215,27 +215,6 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void Run_OutputSet_ValidationAndCalculationNotPerformedAndStateSkipped()
-        {
-            // Setup
-            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation())
-            {
-                Output = new TestDuneLocationCalculationOutput()
-            };
-
-            var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
-                                                               validFilePath,
-                                                               validPreprocessorDirectory,
-                                                               0.5);
-
-            // Call
-            activity.Run();
-
-            // Assert
-            Assert.AreEqual(ActivityState.Skipped, activity.State);
-        }
-
-        [Test]
         public void Run_ValidCalculationAndRun_SetsOutput()
         {
             // Setup

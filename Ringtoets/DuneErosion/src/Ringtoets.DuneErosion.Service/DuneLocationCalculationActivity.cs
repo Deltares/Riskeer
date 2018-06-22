@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Service;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
@@ -69,12 +68,6 @@ namespace Ringtoets.DuneErosion.Service
 
         protected override bool Validate()
         {
-            if (AlreadyCalculated)
-            {
-                State = ActivityState.Skipped;
-                return true;
-            }
-
             return calculationService.Validate(hydraulicBoundaryDatabaseFilePath,
                                                preprocessorDirectory,
                                                norm);
@@ -82,13 +75,10 @@ namespace Ringtoets.DuneErosion.Service
 
         protected override void PerformCalculation()
         {
-            if (State != ActivityState.Skipped)
-            {
-                calculationService.Calculate(duneLocationCalculation,
-                                             norm,
-                                             hydraulicBoundaryDatabaseFilePath,
-                                             preprocessorDirectory);
-            }
+            calculationService.Calculate(duneLocationCalculation,
+                                         norm,
+                                         hydraulicBoundaryDatabaseFilePath,
+                                         preprocessorDirectory);
         }
 
         protected override void OnCancel()
@@ -99,14 +89,6 @@ namespace Ringtoets.DuneErosion.Service
         protected override void OnFinish()
         {
             duneLocationCalculation.NotifyObservers();
-        }
-
-        private bool AlreadyCalculated
-        {
-            get
-            {
-                return duneLocationCalculation.Output != null;
-            }
         }
     }
 }
