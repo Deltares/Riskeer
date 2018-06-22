@@ -447,14 +447,9 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(32, msgs.Length);
                             AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 0, "A+->A");
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 7, "A->B");
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 14, "B->C");
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 21, "C->D");
-
-                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie A+->A) is gelukt.", msgs.ElementAt(28));
-                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie A->B) is gelukt.", msgs.ElementAt(29));
-                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie B->C) is gelukt.", msgs.ElementAt(30));
-                            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie C->D) is gelukt.", msgs.ElementAt(31));
+                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 8, "A->B");
+                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 16, "B->C");
+                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 24, "C->D");
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Single().Output);
@@ -527,6 +522,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual($"Golfhoogte berekening voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is niet geconvergeerd.", messages.ElementAt(startIndex + 4));
             StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages.ElementAt(startIndex + 5));
             CalculationServiceTestHelper.AssertCalculationEndMessage(messages.ElementAt(startIndex + 6));
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is gelukt.", messages.ElementAt(startIndex + 7));
         }
 
         private static void AssertHydraRingCalculationInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,

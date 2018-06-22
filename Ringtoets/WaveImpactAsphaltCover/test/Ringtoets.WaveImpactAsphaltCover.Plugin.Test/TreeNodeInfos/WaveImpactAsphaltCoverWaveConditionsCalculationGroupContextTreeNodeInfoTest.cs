@@ -1190,10 +1190,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messages[13]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[14]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[17]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[27]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[28]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[14]);
+
+                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[15]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[18]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[28]);
                         Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[29]);
                     });
                     Assert.AreEqual(3, calculationA.Output.Items.Count());

@@ -1480,13 +1480,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
                         StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", messageList[4]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[5]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", messageList[6]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[7]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[8]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[9]);
-                        StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", messageList[10]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[11]);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[12]);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", messageList[6]);
+                        
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", messageList[7]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(messageList[8]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(messageList[9]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[10]);
+                        StringAssert.StartsWith("De overloop en overslag berekening is uitgevoerd op de tijdelijke locatie", messageList[11]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[12]);
                         Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", messageList[13]);
                     });
                 }

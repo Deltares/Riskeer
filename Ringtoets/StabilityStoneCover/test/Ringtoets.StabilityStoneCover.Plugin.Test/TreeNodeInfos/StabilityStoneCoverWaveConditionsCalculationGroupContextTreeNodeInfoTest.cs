@@ -1167,10 +1167,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gestart.", messages[0]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gestart.", messages[27]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[30]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[53]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[54]);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[27]);
+
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gestart.", messages[28]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[31]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[54]);
                         Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gelukt.", messages[55]);
                     });
                     Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
