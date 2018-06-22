@@ -343,9 +343,9 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Finish_SuccessfullySavedNewProject_UpdateProjectAndProjectOwnerWithMessage()
+        public void GivenActivity_WhenSuccessfullySavedNewProject_ThenUpdateProjectAndProjectOwnerWithMessage()
         {
-            // Setup
+            // Given
             const string fileName = "A";
             string filePath = $@"C:\\folder\{fileName}.rtd";
 
@@ -365,10 +365,13 @@ namespace Core.Common.Gui.Test
             // Precondition
             Assert.AreEqual(ActivityState.Executed, activity.State);
 
-            // Call
-            Action call = () => activity.Finish();
+            // When
+            Action call = () => {
+                activity.LogState();
+                activity.Finish();
+            };
 
-            // Assert
+            // Then
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Opslaan van project is gelukt.",
                                                                            LogLevelConstant.Info);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
@@ -378,9 +381,9 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Finish_SuccessfullySavedExistingProject_DoNotUpdateProjectAndProjectOwnerWithMessage()
+        public void GivenActivity_WhenSuccessfullySavedExistingProject_ThenDoNotUpdateProjectAndProjectOwnerWithMessage()
         {
-            // Setup
+            // Given
             const string fileName = "A";
             string filePath = $@"C:\\folder\{fileName}.rtd";
 
@@ -396,8 +399,12 @@ namespace Core.Common.Gui.Test
             // Precondition
             Assert.AreEqual(ActivityState.Executed, activity.State);
 
-            // Call
-            Action call = () => activity.Finish();
+            // When
+            Action call = () =>
+            {
+                activity.LogState();
+                activity.Finish();
+            };
 
             // Assert
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Opslaan van bestaand project is gelukt.",
@@ -482,6 +489,7 @@ namespace Core.Common.Gui.Test
             Action call = () =>
             {
                 activity.Run(); // Cancel called mid-progress
+                activity.LogState();
                 activity.Finish();
             };
 
@@ -537,6 +545,7 @@ namespace Core.Common.Gui.Test
             Action call = () =>
             {
                 activity.Run(); // Cancel called mid-progress but beyond 'point of no return'
+                activity.LogState();
                 activity.Finish();
             };
 
