@@ -29,12 +29,12 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Service.IllustrationPoints;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Exceptions;
 using HydraRingGeneralResult = Ringtoets.HydraRing.Calculation.Data.Output.IllustrationPoints.GeneralResult;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Common.Service
 {
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.Service
                     log.Error(messageProvider.GetCalculationFailedWithErrorReportMessage(hydraulicBoundaryLocation.Name, lastErrorFileContent));
                 }
 
-                log.InfoFormat(RingtoetsCommonServiceResources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                log.InfoFormat(Resources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
                 CalculationServiceHelper.LogCalculationEnd();
 
                 if (errorOccurred)
@@ -188,7 +188,7 @@ namespace Ringtoets.Common.Service
             }
             catch (ArgumentException e)
             {
-                log.Warn(string.Format(RingtoetsCommonServiceResources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
+                log.Warn(string.Format(Resources.CalculationService_Error_in_reading_illustrationPoints_for_CalculationName_0_with_ErrorMessage_1,
                                        hydraulicBoundaryLocation.Name,
                                        e.Message));
             }
@@ -219,7 +219,7 @@ namespace Ringtoets.Common.Service
             }
             catch (IllustrationPointConversionException e)
             {
-                log.Warn(RingtoetsCommonServiceResources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
+                log.Warn(Resources.SetGeneralResult_Converting_IllustrationPointResult_Failed, e);
             }
 
             return null;

@@ -43,6 +43,8 @@ namespace Ringtoets.DuneErosion.Service.Test
     [TestFixture]
     public class DuneLocationCalculationActivityTest
     {
+        private const double validNorm = 0.005;
+
         private MockRepository mockRepository;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -241,7 +243,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
                                                                validFilePath,
                                                                validPreprocessorDirectory,
-                                                               0.005);
+                                                               validNorm);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
