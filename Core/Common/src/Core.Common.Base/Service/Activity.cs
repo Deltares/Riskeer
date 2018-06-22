@@ -113,32 +113,7 @@ namespace Core.Common.Base.Service
         /// </summary>
         public void Finish()
         {
-            if (State == ActivityState.None)
-            {
-                return;
-            }
-
-            ChangeState(OnFinish, State == ActivityState.Executed ? ActivityState.Finished : State); // If relevant, preserve the previous state
-
-            if (State == ActivityState.Finished)
-            {
-                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_succeeded, Description);
-            }
-
-            if (State == ActivityState.Canceled)
-            {
-                log.WarnFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_canceled, Description);
-            }
-
-            if (State == ActivityState.Failed)
-            {
-                log.ErrorFormat(Resources.Activity_Finish_ActivityDescription_0_has_failed, Description);
-            }
-
-            if (State == ActivityState.Skipped)
-            {
-                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_skipped, Description);
-            }
+            OnFinish();
         }
 
         /// <summary>
@@ -192,6 +167,34 @@ namespace Core.Common.Base.Service
             }
 
             State = stateAfter;
+        }
+
+        public void LogState()
+        {
+            if (State == ActivityState.None)
+            {
+                return;
+            }
+
+            if (State == ActivityState.Executed)
+            {
+                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_succeeded, Description);
+            }
+
+            if (State == ActivityState.Canceled)
+            {
+                log.WarnFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_canceled, Description);
+            }
+
+            if (State == ActivityState.Failed)
+            {
+                log.ErrorFormat(Resources.Activity_Finish_ActivityDescription_0_has_failed, Description);
+            }
+
+            if (State == ActivityState.Skipped)
+            {
+                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_skipped, Description);
+            }
         }
     }
 }

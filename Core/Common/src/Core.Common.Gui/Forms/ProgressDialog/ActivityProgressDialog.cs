@@ -162,6 +162,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                 runningActivity.ProgressChanged += ActivityOnProgressChanged;
 
                 runningActivity.Run();
+                runningActivity.LogState();
             }
             finally
             {
