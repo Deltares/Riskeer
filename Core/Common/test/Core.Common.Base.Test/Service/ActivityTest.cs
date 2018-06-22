@@ -113,46 +113,32 @@ namespace Core.Common.Base.Test.Service
         }
 
         [Test]
-        public void Finish_ActivityWithExecutedStateAndSuccessfulFinish_MessageIsSendToLogAndStateIsChangedToFinished()
-        {
-            // Setup
-            var activity = new SimpleActivity(false, false, false, ActivityState.Executed);
-
-            // Call / Assert
-            TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
-            {
-                "Uitvoeren van berekening is gelukt."
-            });
-
-            Assert.AreEqual(ActivityState.Finished, activity.State);
-        }
-
-        [Test]
         [TestCase(ActivityState.Failed, "Uitvoeren van berekening is mislukt.")]
         [TestCase(ActivityState.Canceled, "Uitvoeren van berekening is geannuleerd.")]
         [TestCase(ActivityState.Skipped, "Uitvoeren van berekening is overgeslagen.")]
-        public void Finish_ActivityWithSpecificStateAndSuccessfulFinish_MessageIsSendToLogAndStateIsPreserved(ActivityState state, string message)
+        [TestCase(ActivityState.Executed, "Uitvoeren van berekening is gelukt.")]
+        public void LogState_ActivityWithSpecificState_MessageIsSendToLog(ActivityState state, string message)
         {
             // Setup
             var activity = new SimpleActivity(false, false, false, state);
 
             // Call / Assert
-            TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
+            TestHelper.AssertLogMessagesAreGenerated(() => activity.LogState(), new[]
             {
                 message
             });
-
-            Assert.AreEqual(state, activity.State);
         }
 
         [Test]
-        public void Finish_ActivityWithNoneStateAndSuccessfulFinish_NoMessageIsSendToLogAndStateIsPreserved()
+        public void Finish_ActivityWithNoneStateAndSuccessfulFinish_StateIsPreserved()
         {
             // Setup
             var activity = new SimpleActivity(false, false, false);
 
-            // Call / Assert
-            TestHelper.AssertLogMessagesCount(() => activity.Finish(), 0);
+            // Call
+            activity.Finish();
+
+            // Assert
             Assert.AreEqual(ActivityState.None, activity.State);
         }
 
@@ -160,28 +146,28 @@ namespace Core.Common.Base.Test.Service
         [TestCase(ActivityState.Executed)]
         [TestCase(ActivityState.Canceled)]
         [TestCase(ActivityState.Skipped)]
-        public void Finish_ActivityWithSpecificStateAndFailingFinish_MessageIsSendToLogAndStateIsChangedToFailed(ActivityState state)
+        public void Finish_ActivityWithSpecificStateAndFailingFinish_StateIsChangedToFailed(ActivityState state)
         {
             // Setup
             var activity = new SimpleActivity(false, false, true, state);
 
-            // Call / Assert
-            TestHelper.AssertLogMessagesAreGenerated(() => activity.Finish(), new[]
-            {
-                "Uitvoeren van berekening is mislukt."
-            });
+            // Call
+            activity.Finish();
 
+            // Assert
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
 
         [Test]
-        public void Finish_ActivityWithNoneStateAndFailingFinish_NoMessageIsSendToLogAndStateIsPreserved()
+        public void Finish_ActivityWithNoneStateAndFailingFinish_StateIsPreserved()
         {
             // Setup
             var activity = new SimpleActivity(false, false, true);
 
-            // Call / Assert
-            TestHelper.AssertLogMessagesCount(() => activity.Finish(), 0);
+            // Call
+            activity.Finish();
+
+            // Assert
             Assert.AreEqual(ActivityState.None, activity.State);
         }
 
