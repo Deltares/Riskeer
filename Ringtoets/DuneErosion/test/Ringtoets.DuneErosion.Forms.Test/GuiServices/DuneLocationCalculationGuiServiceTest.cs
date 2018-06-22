@@ -40,16 +40,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
     [TestFixture]
     public class DuneLocationCalculationGuiServiceTest
     {
-        private MockRepository mockRepository;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
         private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
-
-        [SetUp]
-        public void Setup()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Constructor_ViewParentNull_ThrowArgumentNullException()
@@ -105,6 +98,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             };
 
             int nrOfCalculators = duneLocationCalculations.Length;
+
+            var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(new TestDunesBoundaryConditionsCalculator())
@@ -157,12 +152,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
-
             const string databasePath = "Does not exist";
+
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
@@ -180,19 +172,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                     StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
                 });
             }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_InvalidNorm_LogsError()
         {
             // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            mockRepository.ReplayAll();
-
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
@@ -203,17 +189,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                          1.0);
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(1, msgs.Length);
-                    Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", msgs.First());
-                });
+                TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
             }
-
-            mockRepository.VerifyAll();
         }
-
 
         [Test]
         public void Calculate_ValidPathOneCalculationInTheList_LogsMessages()
@@ -221,8 +199,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             // Setup
             const string duneLocationName = "name";
 
+            var mockRepository = new MockRepository();
             var viewParent = mockRepository.Stub<IWin32Window>();
-
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDunesBoundaryConditionsCalculator());
             mockRepository.ReplayAll();
