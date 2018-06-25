@@ -658,7 +658,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void GivenExecutedOpenProjectActivity_WhenFinishingOpenProjectActivity_ThenProjectOwnerAndNewProjectUpdatedWithLogMessage()
+        public void GivenSuccessfullyExecutedOpenProjectActivity_WhenFinishingOpenProjectActivity_ThenProjectOwnerAndNewProjectUpdatedWithLogMessage()
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
