@@ -55,7 +55,12 @@ namespace Ringtoets.Common.Service
             if (targetBeta < -1)
             {
                 handleLogMessageAction(Resources.TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_big);
+                return false;
+            }
 
+            if (targetBeta > 40)
+            {
+                handleLogMessageAction(Resources.TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_small);
                 return false;
             }
 

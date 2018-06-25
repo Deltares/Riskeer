@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -327,6 +327,16 @@ namespace Ringtoets.Common.Service.Properties {
             get {
                 return ResourceManager.GetString("TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probab" +
                         "ility_too_big", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doelkans is te klein om een berekening uit te kunnen voeren..
+        /// </summary>
+        public static string TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_small {
+            get {
+                return ResourceManager.GetString("TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probab" +
+                        "ility_too_small", resourceCulture);
             }
         }
         

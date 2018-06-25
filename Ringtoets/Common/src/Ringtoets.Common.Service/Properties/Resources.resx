@@ -221,4 +221,7 @@
   <data name="TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_big" xml:space="preserve">
     <value>Doelkans is te groot om een berekening uit te kunnen voeren.</value>
   </data>
+  <data name="TargetProbabilityCalculationServiceHelper_ValidateTargetProbability_Target_probability_too_small" xml:space="preserve">
+    <value>Doelkans is te klein om een berekening uit te kunnen voeren.</value>
+  </data>
 </root>
