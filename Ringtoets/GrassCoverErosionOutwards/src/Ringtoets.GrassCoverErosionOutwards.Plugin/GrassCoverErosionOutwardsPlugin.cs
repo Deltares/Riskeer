@@ -604,7 +604,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.FailureMechanism,
                                                         nodeData.GetNormFunc(),
                                                         designWaterLevelItem);
 
@@ -647,7 +646,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.FailureMechanism,
                                                         nodeData.GetNormFunc(),
                                                         waveHeightItem);
 
@@ -851,16 +849,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -970,7 +963,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
@@ -1047,7 +1040,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, designWaterLevelItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(designWaterLevelItem)
@@ -1128,7 +1121,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(waveHeightItem)
@@ -1178,10 +1171,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         #endregion
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
-                                                                        IFailureMechanism failureMechanism,
                                                                         StrictContextMenuItem menuItem)
         {
-            string validationText = ValidateAllDataAvailableAndGetErrorMessage(assessmentSection, failureMechanism);
+            string validationText = ValidateAllDataAvailableAndGetErrorMessage(assessmentSection);
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;
@@ -1190,11 +1182,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
-                                                                        IFailureMechanism failureMechanism,
                                                                         double norm,
                                                                         StrictContextMenuItem menuItem)
         {
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, failureMechanism, menuItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, menuItem);
             if (!menuItem.Enabled)
             {
                 return;
