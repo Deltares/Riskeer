@@ -144,7 +144,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
                 var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
                                                                   new DuneErosionFailureMechanism(),
                                                                   assessmentSection,
@@ -220,56 +220,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validFilePath,
-                    Version = "1.0"
-                });
-
-                var failureMechanism = new DuneErosionFailureMechanism();
-
-                var builder = new CustomItemsOnlyContextMenuBuilder();
-                var context = new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                                  failureMechanism,
-                                                                  assessmentSection,
-                                                                  () => 0.01,
-                                                                  "A");
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(builder);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                failureMechanism.SetDuneLocations(new[]
-                {
-                    new TestDuneLocation()
-                });
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
                 }
             }
         }

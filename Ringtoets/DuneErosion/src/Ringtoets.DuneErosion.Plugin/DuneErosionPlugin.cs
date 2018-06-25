@@ -361,14 +361,8 @@ namespace Ringtoets.DuneErosion.Plugin
         #region DuneLocationCalculationsContext TreeNodeInfo
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
-                                                                         double failureMechanismContribution,
                                                                          double norm)
         {
-            if (failureMechanismContribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             string errorMessage = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
 
             if (string.IsNullOrEmpty(errorMessage))
@@ -399,7 +393,6 @@ namespace Ringtoets.DuneErosion.Plugin
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
-                                                                               context.FailureMechanism.Contribution,
                                                                                context.GetNormFunc());
 
             if (!string.IsNullOrEmpty(validationText))
