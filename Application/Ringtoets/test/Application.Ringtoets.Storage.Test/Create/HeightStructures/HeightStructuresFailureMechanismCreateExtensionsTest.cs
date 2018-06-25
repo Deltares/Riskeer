@@ -160,7 +160,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

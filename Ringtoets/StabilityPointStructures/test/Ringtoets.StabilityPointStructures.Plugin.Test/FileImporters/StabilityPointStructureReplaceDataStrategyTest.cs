@@ -354,7 +354,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 location
             }));

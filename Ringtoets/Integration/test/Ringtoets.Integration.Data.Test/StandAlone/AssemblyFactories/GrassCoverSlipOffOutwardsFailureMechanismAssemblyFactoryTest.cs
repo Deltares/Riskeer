@@ -545,7 +545,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -567,7 +567,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             GrassCoverSlipOffOutwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssemblyCategoryGroup = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -629,7 +629,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

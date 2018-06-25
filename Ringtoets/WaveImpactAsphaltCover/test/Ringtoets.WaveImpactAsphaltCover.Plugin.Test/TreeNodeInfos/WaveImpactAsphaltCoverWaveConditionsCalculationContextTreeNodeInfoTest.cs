@@ -544,7 +544,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -601,7 +601,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -659,7 +659,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -986,7 +986,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -1361,7 +1361,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -1419,7 +1419,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -1480,7 +1480,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)

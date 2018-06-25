@@ -102,7 +102,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 locationStructureA,
                 new Point2D(1, 1)
@@ -110,7 +110,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             StabilityPointStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(1, 1),
                 locationStructureB
@@ -427,8 +427,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 profile
             }, "path");
 
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            failureMechanism.AddSectionResult(section1);
+            failureMechanism.AddSectionResult(section2);
             StabilityPointStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
                                                                                             .First(sr => ReferenceEquals(sr.Section, section1));
             StabilityPointStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults

@@ -1042,7 +1042,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -1074,7 +1074,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             PipingFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssemblyProbability = true;
             sectionResult.ManualAssemblyProbability = new Random(39).NextDouble();
@@ -1165,7 +1165,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);

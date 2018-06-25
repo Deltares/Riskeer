@@ -1692,7 +1692,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             parentGroup.Children.Add(group);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             group.Children.Add(calculation);

@@ -122,7 +122,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Setup
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
 
             // Call
             using (var form = new Form())

@@ -172,8 +172,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
             var registry = new PersistenceRegistry();
 
             // Call

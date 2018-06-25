@@ -140,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityLengthwise
         {
             // Setup
             var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

@@ -67,7 +67,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSection(section);
+            failureMechanism.AddSectionResult(section);
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
@@ -81,11 +81,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(2, 1)
             }));

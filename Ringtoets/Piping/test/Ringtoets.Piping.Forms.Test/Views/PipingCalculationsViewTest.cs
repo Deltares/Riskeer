@@ -240,9 +240,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            pipingFailureMechanism.AddSection(failureMechanismSection1);
-            pipingFailureMechanism.AddSection(failureMechanismSection2);
-            pipingFailureMechanism.AddSection(failureMechanismSection3);
+            pipingFailureMechanism.AddSectionResult(failureMechanismSection1);
+            pipingFailureMechanism.AddSectionResult(failureMechanismSection2);
+            pipingFailureMechanism.AddSectionResult(failureMechanismSection3);
 
             using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
             {
@@ -610,9 +610,9 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(0, listBox.Items.Count);
 
-                pipingFailureMechanismWithSections.AddSection(failureMechanismSection1);
-                pipingFailureMechanismWithSections.AddSection(failureMechanismSection2);
-                pipingFailureMechanismWithSections.AddSection(failureMechanismSection3);
+                pipingFailureMechanismWithSections.AddSectionResult(failureMechanismSection1);
+                pipingFailureMechanismWithSections.AddSectionResult(failureMechanismSection2);
+                pipingFailureMechanismWithSections.AddSectionResult(failureMechanismSection3);
 
                 // When
                 pipingFailureMechanismWithSections.NotifyObservers();
@@ -1385,13 +1385,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine2
             }, "path");
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
@@ -1439,13 +1439,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
@@ -1528,13 +1528,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 })
             }, arbirtraryFilePath);
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
@@ -1629,13 +1629,13 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 surfaceLine2
             }, arbitraryFilePath);
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            pipingFailureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)

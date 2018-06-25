@@ -1146,7 +1146,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(elementToBeRemoved);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
             result.Calculation = elementToBeRemoved;

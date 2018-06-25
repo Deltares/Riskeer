@@ -151,7 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

@@ -34,10 +34,18 @@ namespace Ringtoets.Common.Data.FailureMechanism
         private readonly List<FailureMechanismSection> sections = new List<FailureMechanismSection>();
 
         /// <summary>
+        /// Gets the last known file path from which the <see cref="FailureMechanismSection"/> were imported.
+        /// </summary>
+        /// <returns>The path where the elements originate
+        /// from, or <c>null</c> if the collection is cleared.</returns>
+        public string SourcePath { get; private set; }
+
+        /// <summary>
         /// Clears the imported items in the collection and the <see cref="SourcePath"/>.
         /// </summary>
         public void Clear()
         {
+            SourcePath = null;
             sections.Clear();
         }
 
@@ -92,12 +100,15 @@ namespace Ringtoets.Common.Data.FailureMechanism
             SourcePath = filePath;
         }
 
-        /// <summary>
-        /// Gets the last known file path from which the <see cref="FailureMechanismSection"/> were imported.
-        /// </summary>
-        /// <returns>The path where the elements originate
-        /// from, or <c>null</c> if the collection is cleared.</returns>
-        public string SourcePath { get; private set; }
+        public IEnumerator<FailureMechanismSection> GetEnumerator()
+        {
+            return sections.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         /// <summary>
         /// Inserts the section to the collection while maintaining connectivity
@@ -118,16 +129,6 @@ namespace Ringtoets.Common.Data.FailureMechanism
                                                sectionToInsert.Name);
                 throw new ArgumentException(message, nameof(sectionToInsert));
             }
-        }
-
-        public IEnumerator<FailureMechanismSection> GetEnumerator()
-        {
-            return sections.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

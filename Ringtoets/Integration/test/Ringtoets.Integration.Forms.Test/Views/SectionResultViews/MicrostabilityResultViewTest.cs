@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Setup
             var failureMechanism = new MicrostabilityFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
 
             // Call
             using (var form = new Form())

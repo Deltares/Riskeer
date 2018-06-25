@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

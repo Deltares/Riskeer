@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1"));
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);

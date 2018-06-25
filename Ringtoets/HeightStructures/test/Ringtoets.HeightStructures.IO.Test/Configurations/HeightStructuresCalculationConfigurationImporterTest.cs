@@ -572,7 +572,7 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            failureMechanism.AddSection(
+            failureMechanism.AddSectionResult(
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 0),

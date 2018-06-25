@@ -1305,7 +1305,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(elementToBeRemoved);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
             result.Calculation = elementToBeRemoved;

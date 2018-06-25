@@ -1129,13 +1129,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
                 {
                     new Point2D(0.0, 0.0),
                     new Point2D(5.0, 0.0)
                 }));
 
-                failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
                 {
                     new Point2D(5.0, 0.0),
                     new Point2D(10.0, 0.0)
@@ -1238,13 +1238,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
                 {
                     new Point2D(0.0, 0.0),
                     new Point2D(5.0, 0.0)
                 }));
 
-                failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+                failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
                 {
                     new Point2D(5.0, 0.0),
                     new Point2D(10.0, 0.0)

@@ -140,7 +140,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
         {
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

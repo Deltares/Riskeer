@@ -118,7 +118,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 calculationWithStructureToRemoveAndOutput
             });
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 locationStructureToRemove,
                 new Point2D(1, 1)
@@ -126,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(1, 1),
                 locationStructureToKeep
@@ -226,7 +226,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 locationStructureA,
                 new Point2D(1, 1)
@@ -234,7 +234,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
             sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(1, 1),
                 locationStructureB
@@ -606,8 +606,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 profile
             }, "path");
 
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            failureMechanism.AddSectionResult(section1);
+            failureMechanism.AddSectionResult(section2);
             ClosingStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
                                                                                      .First(sr => ReferenceEquals(sr.Section, section1));
             ClosingStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults

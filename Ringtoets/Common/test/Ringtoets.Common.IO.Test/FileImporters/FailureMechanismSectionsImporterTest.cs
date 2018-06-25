@@ -128,7 +128,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("A", importReferenceLine.Points));
+            failureMechanism.AddSectionResult(new FailureMechanismSection("A", importReferenceLine.Points));
             var importer = new FailureMechanismSectionsImporter(failureMechanism, importReferenceLine, sectionsFilePath);
 
             // Call

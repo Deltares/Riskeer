@@ -169,7 +169,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

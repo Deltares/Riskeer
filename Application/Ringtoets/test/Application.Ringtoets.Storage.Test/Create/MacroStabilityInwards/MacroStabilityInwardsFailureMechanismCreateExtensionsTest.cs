@@ -240,7 +240,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var testFailureMechanismSection = new TestFailureMechanismSection();
-            failureMechanism.AddSection(testFailureMechanismSection);
+            failureMechanism.AddSectionResult(testFailureMechanismSection);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

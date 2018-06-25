@@ -149,7 +149,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         {
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSectionResult(new TestFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

@@ -179,7 +179,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
+            failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                 AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsDataGridViewControl);
 
                 // When
-                failureMechanism.AddSection(CreateFailureMechanismSection("a", 1.0, 1.0, 2.0, 2.0));
+                failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 1.0, 1.0, 2.0, 2.0));
                 failureMechanism.NotifyObservers();
 
                 // Then
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
+            failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
@@ -240,7 +240,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
+            failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 

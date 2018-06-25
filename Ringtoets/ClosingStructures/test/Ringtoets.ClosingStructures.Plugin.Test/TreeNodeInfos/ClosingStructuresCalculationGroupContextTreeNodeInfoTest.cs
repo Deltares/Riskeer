@@ -1597,7 +1597,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.TreeNodeInfos
 
             parentGroup.Children.Add(group);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             group.Children.Add(calculation);

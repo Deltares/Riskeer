@@ -1457,7 +1457,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
             var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
 
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
             {
                 new Point2D(-10.0, -10.0),
                 new Point2D(10.0, 10.0)

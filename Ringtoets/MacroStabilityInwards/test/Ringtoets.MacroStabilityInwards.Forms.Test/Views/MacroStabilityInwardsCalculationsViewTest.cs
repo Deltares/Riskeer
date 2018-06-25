@@ -234,9 +234,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            failureMechanism.AddSection(failureMechanismSection1);
-            failureMechanism.AddSection(failureMechanismSection2);
-            failureMechanism.AddSection(failureMechanismSection3);
+            failureMechanism.AddSectionResult(failureMechanismSection1);
+            failureMechanism.AddSectionResult(failureMechanismSection2);
+            failureMechanism.AddSectionResult(failureMechanismSection3);
 
             using (MacroStabilityInwardsCalculationsView macroStabilityInwardsCalculationsView = ShowMacroStabilityInwardsCalculationsView())
             {
@@ -522,9 +522,9 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 // Precondition
                 Assert.AreEqual(0, listBox.Items.Count);
 
-                failureMechanismWithSections.AddSection(failureMechanismSection1);
-                failureMechanismWithSections.AddSection(failureMechanismSection2);
-                failureMechanismWithSections.AddSection(failureMechanismSection3);
+                failureMechanismWithSections.AddSectionResult(failureMechanismSection1);
+                failureMechanismWithSections.AddSectionResult(failureMechanismSection2);
+                failureMechanismWithSections.AddSectionResult(failureMechanismSection3);
 
                 // When
                 failureMechanismWithSections.NotifyObservers();
@@ -1207,13 +1207,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine2
             }, "path");
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
@@ -1261,13 +1261,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
@@ -1346,13 +1346,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 })
             }, arbirtraryFilePath);
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)
@@ -1427,13 +1427,13 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 surfaceLine2
             }, arbitraryFilePath);
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(5.0, 0.0)
             }));
 
-            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
             {
                 new Point2D(5.0, 0.0),
                 new Point2D(10.0, 0.0)

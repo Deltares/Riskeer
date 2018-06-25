@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call
-            TestDelegate call = () => failureMechanism.AddSection(null);
+            TestDelegate call = () => failureMechanism.AddSectionResult(null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(call);
@@ -161,7 +161,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            failureMechanism.AddSection(section);
+            failureMechanism.AddSectionResult(section);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -191,8 +191,8 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            failureMechanism.AddSectionResult(section1);
+            failureMechanism.AddSectionResult(section2);
 
             // Assert
             CollectionAssert.AreEqual(new[]
@@ -222,10 +222,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 new Point2D(matchingX, matchingY)
             });
 
-            failureMechanism.AddSection(section1);
+            failureMechanism.AddSectionResult(section1);
 
             // Call
-            TestDelegate call = () => failureMechanism.AddSection(section2);
+            TestDelegate call = () => failureMechanism.AddSectionResult(section2);
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
@@ -249,10 +249,10 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 new Point2D(7, 8)
             });
 
-            failureMechanism.AddSection(section1);
+            failureMechanism.AddSectionResult(section1);
 
             // Call
-            TestDelegate call = () => failureMechanism.AddSection(section2);
+            TestDelegate call = () => failureMechanism.AddSectionResult(section2);
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
@@ -270,7 +270,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             });
 
             var failureMechanism = new SimpleFailureMechanismBase();
-            failureMechanism.AddSection(section);
+            failureMechanism.AddSectionResult(section);
 
             // Call
             failureMechanism.ClearAllSections();

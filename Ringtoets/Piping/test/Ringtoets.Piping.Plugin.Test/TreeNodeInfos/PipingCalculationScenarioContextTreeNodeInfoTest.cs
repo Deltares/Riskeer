@@ -868,7 +868,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new PipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
                 }));
@@ -986,7 +986,7 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 }, true);
 
                 PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                pipingFailureMechanism.AddSection(new FailureMechanismSection("A", new[]
+                pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
                 {
                     new Point2D(0, 0)
                 }));

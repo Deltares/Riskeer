@@ -527,8 +527,8 @@ namespace Ringtoets.MacroStabilityInwards.Data.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            failureMechanism.AddSectionResult(section1);
+            failureMechanism.AddSectionResult(section2);
         }
 
         /// <summary>

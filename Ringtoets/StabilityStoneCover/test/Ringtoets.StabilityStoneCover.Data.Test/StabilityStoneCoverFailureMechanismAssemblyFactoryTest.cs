@@ -562,7 +562,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -584,7 +584,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             StabilityStoneCoverFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssemblyCategoryGroup = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -646,7 +646,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

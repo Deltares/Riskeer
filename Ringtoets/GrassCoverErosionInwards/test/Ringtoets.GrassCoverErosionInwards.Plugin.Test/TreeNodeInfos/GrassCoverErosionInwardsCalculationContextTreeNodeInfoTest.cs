@@ -1015,7 +1015,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var group = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0.0, 0.0),
                 new Point2D(1.0, 1.0)
@@ -1084,7 +1084,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(elementToBeRemoved);
 
-            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("section", new[]
             {
                 new Point2D(0, 0)
             }));

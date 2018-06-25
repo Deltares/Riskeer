@@ -581,7 +581,7 @@ namespace Ringtoets.GrassCoverErosionInwards.IO.Test.Configurations
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            failureMechanism.AddSection(new FailureMechanismSection("name", new[]
+            failureMechanism.AddSectionResult(new FailureMechanismSection("name", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(10, 10)
