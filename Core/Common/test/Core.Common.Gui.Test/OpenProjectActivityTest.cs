@@ -658,7 +658,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void GivenActivity_WhenActivityExecutedSuccessfully_ThenProjectOwnerAndNewProjectUpdatedWithLogMessage()
+        public void GivenExecutedOpenProjectActivity_WhenFinishingOpenProjectActivity_ThenProjectOwnerAndNewProjectUpdatedWithLogMessage()
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
@@ -710,7 +710,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void GivenOpenProjectActivity_WhenActivityFailedDueToNoProject_ThenProjectOwnerHasNewEmptyProjectWithLogMessage()
+        public void GivenOpenProjectActivityAndFailedDueToNoProject_WhenFinishingOpenProjectActivity_ThenProjectOwnerHasNewEmptyProjectWithLogMessage()
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
@@ -762,19 +762,16 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenActivity_WhenActivityFailedDueToException_ThenProjectOwnerHasNewEmptyProjectWithLogMessage(bool trueForStorageExceptionFalseForArgumentException)
+        [TestCaseSource(nameof(ExceptionCases))]
+        public void GivenOpenProjectActivityFailedDueToException_WhenFinishingOpenProjectActivity_ThenProjectOwnerHasNewEmptyProjectWithLogMessage(Exception exceptionToThrow)
         {
             // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
 
-            Exception exception = trueForStorageExceptionFalseForArgumentException ? (Exception) new StorageException() : new ArgumentException();
-
             var mocks = new MockRepository();
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(someFilePath))
-                          .Throw(exception);
+                          .Throw(exceptionToThrow);
 
             var project = mocks.Stub<IProject>();
 
@@ -1227,6 +1224,12 @@ namespace Core.Common.Gui.Test
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             mocks.VerifyAll();
+        }
+
+        private static IEnumerable<TestCaseData> ExceptionCases()
+        {
+            yield return new TestCaseData(new StorageException());
+            yield return new TestCaseData(new ArgumentException());
         }
     }
 }

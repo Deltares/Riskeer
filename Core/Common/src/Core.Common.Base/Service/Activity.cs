@@ -122,6 +122,32 @@ namespace Core.Common.Base.Service
         }
 
         /// <summary>
+        /// Logs the current state of the <see cref="Activity"/>.
+        /// </summary>
+        public void LogState()
+        {
+            if (State == ActivityState.Executed)
+            {
+                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_succeeded, Description);
+            }
+
+            if (State == ActivityState.Canceled)
+            {
+                log.WarnFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_canceled, Description);
+            }
+
+            if (State == ActivityState.Failed)
+            {
+                log.ErrorFormat(Resources.Activity_Finish_ActivityDescription_0_has_failed, Description);
+            }
+
+            if (State == ActivityState.Skipped)
+            {
+                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_skipped, Description);
+            }
+        }
+
+        /// <summary>
         /// This template method provides the actual run logic (it is called within <see cref="Run"/>).
         /// </summary>
         /// <remarks>
@@ -172,32 +198,6 @@ namespace Core.Common.Base.Service
             }
 
             State = stateAfter;
-        }
-
-        /// <summary>
-        /// This method will log the current state of the <see cref="Activity"/>.
-        /// </summary>
-        public void LogState()
-        {
-            if (State == ActivityState.Executed)
-            {
-                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_succeeded, Description);
-            }
-
-            if (State == ActivityState.Canceled)
-            {
-                log.WarnFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_canceled, Description);
-            }
-
-            if (State == ActivityState.Failed)
-            {
-                log.ErrorFormat(Resources.Activity_Finish_ActivityDescription_0_has_failed, Description);
-            }
-
-            if (State == ActivityState.Skipped)
-            {
-                log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_been_skipped, Description);
-            }
         }
     }
 }

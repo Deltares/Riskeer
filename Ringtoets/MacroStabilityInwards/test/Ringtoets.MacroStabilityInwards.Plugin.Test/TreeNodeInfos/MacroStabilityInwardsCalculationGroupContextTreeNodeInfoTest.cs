@@ -876,13 +876,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                validCalculation.Name = "A";
-                MacroStabilityInwardsCalculationScenario invalidCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
-                invalidCalculation.Name = "B";
+                MacroStabilityInwardsCalculationScenario calculationA = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                calculationA.Name = "A";
+                MacroStabilityInwardsCalculationScenario calculationB = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                calculationB.Name = "B";
 
                 var childGroup = new CalculationGroup();
-                childGroup.Children.Add(validCalculation);
+                childGroup.Children.Add(calculationA);
 
                 var emptyChildGroup = new CalculationGroup();
 
@@ -891,7 +891,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 group.Children.Add(childGroup);
                 group.Children.Add(emptyChildGroup);
-                group.Children.Add(invalidCalculation);
+                group.Children.Add(calculationB);
 
                 var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
@@ -916,6 +916,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     DialogBoxHandler = (name, wnd) =>
@@ -924,11 +925,29 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     };
 
                     // Call
-                    contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+                    Action call = () => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(call, messages =>
+                    {
+                        string[] msgs = messages.ToArray();
+                        Assert.AreEqual(12, msgs.Length);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
+
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[6]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[10]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[11]);
+                    });
                 }
             }
-
-            // Assert
         }
 
         [Test]
@@ -1124,7 +1143,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     new Point3D(5.0, -5.0, 0.0)
                 });
 
-                var surfaceLines = new[]
+                MacroStabilityInwardsSurfaceLine[] surfaceLines =
                 {
                     surfaceLine1,
                     surfaceLine2
@@ -1233,7 +1252,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     new Point3D(5.0, -5.0, 0.0)
                 });
 
-                var surfaceLines = new[]
+                MacroStabilityInwardsSurfaceLine[] surfaceLines =
                 {
                     surfaceLine1,
                     surfaceLine2

@@ -149,6 +149,7 @@ namespace Core.Common.Gui.Test
                 storeProject.Expect(sp => sp.StageProject(project));
                 storeProject.Expect(sp => sp.SaveProjectAs(filePath));
             }
+
             mocks.ReplayAll();
 
             var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
@@ -275,6 +276,7 @@ namespace Core.Common.Gui.Test
                 storeProject.Expect(sp => sp.StageProject(project));
                 storeProject.Expect(sp => sp.SaveProjectAs(filePath));
             }
+
             mocks.ReplayAll();
 
             var progressMessages = new List<string>();
@@ -293,7 +295,7 @@ namespace Core.Common.Gui.Test
 
             // Assert
             int totalSteps = saveExistingProject ? 2 : 3;
-            var expectedProgressMessages = new[]
+            string[] expectedProgressMessages =
             {
                 $"Stap 1 van {totalSteps} | Voorbereidingen opslaan",
                 $"Stap 2 van {totalSteps} | Project opslaan"
@@ -334,7 +336,7 @@ namespace Core.Common.Gui.Test
 
             // Assert
             int totalSteps = saveExistingProject ? 1 : 2;
-            var expectedProgressMessages = new[]
+            string[] expectedProgressMessages =
             {
                 $"Stap 1 van {totalSteps} | Project opslaan"
             };
@@ -343,7 +345,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void GivenActivity_WhenSuccessfullySavedNewProject_ThenUpdateProjectAndProjectOwnerWithMessage()
+        public void GivenSaveProjectActivityAndSuccessfullySavedNewProject_WhenFinishingSaveProjectActivity_ThenUpdateProjectAndProjectOwnerWithMessage()
         {
             // Given
             const string fileName = "A";
@@ -366,7 +368,8 @@ namespace Core.Common.Gui.Test
             Assert.AreEqual(ActivityState.Executed, activity.State);
 
             // When
-            Action call = () => {
+            Action call = () =>
+            {
                 activity.LogState();
                 activity.Finish();
             };
@@ -381,7 +384,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void GivenActivity_WhenSuccessfullySavedExistingProject_ThenDoNotUpdateProjectAndProjectOwnerWithMessage()
+        public void GivenSaveProjectActivityAndSuccessfullySavedExistingProject_WhenFinishingSaveProjectActivity_ThenDoNotUpdateProjectAndProjectOwnerWithMessage()
         {
             // Given
             const string fileName = "A";
@@ -453,7 +456,7 @@ namespace Core.Common.Gui.Test
 
             // Assert
             int totalSteps = hasStagedProject ? 2 : 3;
-            var expectedProgressMessages = new[]
+            string[] expectedProgressMessages =
             {
                 $"Stap {totalSteps} van {totalSteps} | Initialiseren van opgeslagen project"
             };
@@ -480,6 +483,7 @@ namespace Core.Common.Gui.Test
                 storeProject.Expect(sp => sp.SaveProjectAs(filePath))
                             .Repeat.Never();
             }
+
             mocks.ReplayAll();
 
             var activity = new SaveProjectActivity(project, filePath, saveExistingProject, storeProject, projectOwner);
