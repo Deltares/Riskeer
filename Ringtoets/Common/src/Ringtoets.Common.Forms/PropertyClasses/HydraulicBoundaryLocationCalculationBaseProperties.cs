@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationBaseProperties"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
+        /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation to create the properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
         protected HydraulicBoundaryLocationCalculationBaseProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
         {
@@ -229,12 +229,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         private GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            if (data.HasOutput && data.Output.HasGeneralResult)
-            {
-                return data.Output.GeneralResult;
-            }
-
-            return null;
+            return data?.Output?.GeneralResult;
         }
     }
 }

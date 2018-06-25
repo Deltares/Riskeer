@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             DesignWaterLevelHydraulicBoundaryLocationProperties locationProperties = properties.Locations.Single();
             Assert.AreSame(location, locationProperties.Data);
-            Assert.AreEqual(1, locationProperties.CategoryBoundaries.Length);
+            Assert.AreEqual("A", locationProperties.CategoryBoundaries.Single().CategoryBoundaryName);
         }
     }
 }

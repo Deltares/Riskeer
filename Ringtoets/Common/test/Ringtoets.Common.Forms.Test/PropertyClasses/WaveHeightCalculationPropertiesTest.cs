@@ -25,7 +25,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -84,21 +83,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetProperties_Always_ReturnsExpectedValues()
         {
             // Setup
-            var random = new Random();
-            double waveHeight = random.NextDouble();
+            var random = new Random(39);
             var convergence = random.NextEnumValue<CalculationConvergence>();
-
-            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(waveHeight,
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            convergence,
-                                                                                                            new TestGeneralResultSubMechanismIllustrationPoint());
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
             {
-                Output = hydraulicBoundaryLocationCalculationOutput
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), convergence)
             };
 
             // Call

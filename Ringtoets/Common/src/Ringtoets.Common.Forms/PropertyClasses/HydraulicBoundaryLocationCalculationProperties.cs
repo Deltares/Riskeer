@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
 using Ringtoets.Common.Data.Hydraulics;
@@ -29,37 +30,57 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel with information
-    /// about the calculation output.
+    /// about the <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationCalculationOutputProperties : HydraulicBoundaryLocationCalculationBaseProperties
+    public abstract class HydraulicBoundaryLocationCalculationProperties : HydraulicBoundaryLocationCalculationBaseProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationOutputProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
-        /// <param name="categoryBoundaryName">The name of the category boundary the calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationOutputProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                                       string categoryBoundaryName)
-            : base(hydraulicBoundaryLocationCalculation)
-        {
-            if (categoryBoundaryName == null)
-            {
-                throw new ArgumentNullException(nameof(categoryBoundaryName));
-            }
-
-            CategoryBoundaryName = categoryBoundaryName;
-        }
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationCalculationProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation) 
+            : base(hydraulicBoundaryLocationCalculation) {}
 
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description))]
-        public string CategoryBoundaryName { get; }
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Id_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Id_Description))]
+        public long Id
+        {
+            get
+            {
+                return data.HydraulicBoundaryLocation.Id;
+            }
+        }
+
+        [PropertyOrder(2)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Name_Description))]
+        public string Name
+        {
+            get
+            {
+                return data.HydraulicBoundaryLocation.Name;
+            }
+        }
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Coordinates_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryDatabase_Location_Coordinates_Description))]
+        public Point2D Location
+        {
+            get
+            {
+                return data.HydraulicBoundaryLocation.Location;
+            }
+        }
 
         public override string ToString()
         {
-            return CategoryBoundaryName;
+            return $"{Name} {Location}";
         }
     }
 }

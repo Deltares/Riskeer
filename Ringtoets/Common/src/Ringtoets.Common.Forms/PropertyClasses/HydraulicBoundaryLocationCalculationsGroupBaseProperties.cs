@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsGroupBaseProperties"/>.
         /// </summary>
-        /// <param name="locations">The locations to set as data.</param>
+        /// <param name="locations">The collection of hydraulic boundary locations to create properties for.</param>
         /// <param name="calculationsPerCategoryBoundary">A collection of tuples containing the category boundary name and
         /// its corresponding collection of <see cref="HydraulicBoundaryLocationCalculation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
