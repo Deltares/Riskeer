@@ -77,7 +77,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var location = new TestHydraulicBoundaryLocation();
-            var calculation = new HydraulicBoundaryLocationCalculation(location);
+            var calculationA = new HydraulicBoundaryLocationCalculation(location);
+            var calculationB = new HydraulicBoundaryLocationCalculation(location);
             var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(
                 new[]
                 {
@@ -87,12 +88,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 {
                     new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("A", new[]
                     {
-                        calculation,
+                        calculationA,
                         new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
                     }),
                     new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("B", new[]
                     {
-                        calculation
+                        calculationB
                     })
                 });
 
@@ -103,11 +104,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(2, calculationsForLocation.Count());
             Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryA = calculationsForLocation.First();
             Assert.AreEqual("A", calculationBoundaryA.Item1);
-            Assert.AreSame(calculation, calculationBoundaryA.Item2);
+            Assert.AreSame(calculationA, calculationBoundaryA.Item2);
 
             Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryB = calculationsForLocation.ElementAt(1);
             Assert.AreEqual("B", calculationBoundaryB.Item1);
-            Assert.AreSame(calculation, calculationBoundaryB.Item2);
+            Assert.AreSame(calculationB, calculationBoundaryB.Item2);
         }
 
         private class TestHydraulicBoundaryLocationCalculationGroupProperties : HydraulicBoundaryLocationCalculationsGroupBaseProperties

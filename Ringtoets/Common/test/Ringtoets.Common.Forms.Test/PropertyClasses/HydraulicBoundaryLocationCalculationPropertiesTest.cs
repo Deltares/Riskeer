@@ -278,11 +278,12 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const double x = 567.0;
             const double y = 890.0;
             const string name = "<some name>";
+            double result = random.NextDouble();
             var calculationConvergence = random.NextEnumValue<CalculationConvergence>();
 
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(id, name, x, y))
             {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), calculationConvergence)
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(result, calculationConvergence)
             };
 
             // Call
@@ -293,6 +294,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(name, properties.Name);
             var coordinates = new Point2D(x, y);
             Assert.AreEqual(coordinates, properties.Location);
+            Assert.AreEqual(result, properties.Result, properties.Result.GetAccuracy());
             Assert.AreEqual(calculationConvergence, properties.Convergence);
         }
 

@@ -229,7 +229,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         private GeneralResult<TopLevelSubMechanismIllustrationPoint> GetGeneralResult()
         {
-            return data?.Output?.GeneralResult;
+            return data.Output?.GeneralResult;
         }
     }
 }

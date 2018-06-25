@@ -60,6 +60,19 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             Data = locations;
         }
 
+        /// <summary>
+        /// Gets a collection of <see cref="Tuple{T1, T2}"/> with the category boundary name and
+        /// calculations that belong to <paramref name="location"/>.
+        /// </summary>
+        /// <param name="location">The <see cref="HydraulicBoundaryLocation"/> the calculations belong to.</param>
+        /// <returns>A collection of <see cref="Tuple{T1, T2}"/> with the category boundary name and
+        /// calculations that belong to <paramref name="location"/>.</returns>
+        /// <exception cref="InvalidOperationException">Thrown when:
+        /// <list type="bullet">
+        /// <item>No calculation matching the <paramref name="location"/> is found, or</item>
+        /// <item>Multiple calculations matching the <paramref name="location"/> are found.</item>
+        /// </list>
+        /// </exception>
         protected IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> GetHydraulicBoundaryLocationCalculationsForLocation(HydraulicBoundaryLocation location)
         {
             return calculationsPerCategoryBoundary.Select(
