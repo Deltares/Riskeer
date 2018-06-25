@@ -32,7 +32,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationCalculationOutputPropertiesTest
+    public class HydraulicBoundaryLocationCalculationCategoryBoundaryPropertiesTest
     {
         private const int categoryBoundaryNamePropertyIndex = 0;
         private const int resultPropertyIndex = 1;
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationOutputProperties(null, "A");
+            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(null, "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationOutputProperties(
+            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                 null);
 
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
+            var properties = new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(hydraulicBoundaryLocationCalculation, "A");
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationBaseProperties>(properties);
@@ -91,7 +91,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
+            var properties = new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(hydraulicBoundaryLocationCalculation, "A");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
+            var properties = new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(hydraulicBoundaryLocationCalculation, "A");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -278,11 +278,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                                             null);
 
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationOutputProperties(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-                                                                                          {
-                                                                                              Output = hydraulicBoundaryLocationCalculationOutput
-                                                                                          },
-                                                                                          categoryBoundaryName);
+            var properties = new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                                                                                                    {
+                                                                                                        Output = hydraulicBoundaryLocationCalculationOutput
+                                                                                                    },
+                                                                                                    categoryBoundaryName);
 
             // Assert
             Assert.AreEqual(categoryBoundaryName, properties.CategoryBoundaryName);
@@ -296,7 +296,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string categoryBoundaryName = "C";
 
             // Call
-            HydraulicBoundaryLocationCalculationOutputProperties properties = new TestHydraulicBoundaryLocationCalculationOutputProperties(
+            HydraulicBoundaryLocationCalculationCategoryBoundaryProperties properties = new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(
                 new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
                 categoryBoundaryName);
 
@@ -304,10 +304,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(categoryBoundaryName, properties.ToString());
         }
 
-        private class TestHydraulicBoundaryLocationCalculationOutputProperties : HydraulicBoundaryLocationCalculationOutputProperties
+        private class TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties : HydraulicBoundaryLocationCalculationCategoryBoundaryProperties
         {
-            public TestHydraulicBoundaryLocationCalculationOutputProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                                            string categoryBoundaryName)
+            public TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                                      string categoryBoundaryName)
                 : base(hydraulicBoundaryLocationCalculation, categoryBoundaryName) {}
         }
     }

@@ -49,12 +49,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocationProperties_CategoryBoundaries_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        public WaveHeightCalculationOutputProperties[] CategoryBoundaries
+        public WaveHeightCalculationCategoryBoundaryProperties[] CategoryBoundaries
         {
             get
             {
-                return CalculationPerCategoryBoundary.Select(calculation => new WaveHeightCalculationOutputProperties(calculation.Item2,
-                                                                                                                      calculation.Item1)).ToArray();
+                return CalculationPerCategoryBoundary.Select(calculation => new WaveHeightCalculationCategoryBoundaryProperties(calculation.Item2,
+                                                                                                                                calculation.Item1)).ToArray();
             }
         }
     }

@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DesignWaterLevelHydraulicBoundaryLocationProperties"/>.
         /// </summary>
         public DesignWaterLevelHydraulicBoundaryLocationProperties(HydraulicBoundaryLocation location,
-                                                                   IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationPerCategoryBoundary) 
+                                                                   IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationPerCategoryBoundary)
             : base(location, calculationPerCategoryBoundary) {}
 
         [PropertyOrder(4)]
@@ -49,12 +49,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyCategories_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocationProperties_CategoryBoundaries_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        public DesignWaterLevelCalculationOutputProperties[] CategoryBoundaries
+        public DesignWaterLevelCalculationCategoryBoundaryProperties[] CategoryBoundaries
         {
             get
             {
-                return CalculationPerCategoryBoundary.Select(calculation => new DesignWaterLevelCalculationOutputProperties(calculation.Item2,
-                                                                                                                            calculation.Item1)).ToArray();
+                return CalculationPerCategoryBoundary.Select(calculation => new DesignWaterLevelCalculationCategoryBoundaryProperties(calculation.Item2,
+                                                                                                                                      calculation.Item1)).ToArray();
             }
         }
     }

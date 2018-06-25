@@ -31,16 +31,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// ViewModel of <see cref="HydraulicBoundaryLocationCalculation"/> for properties panel with information
     /// about the category boundary type.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationCalculationOutputProperties : HydraulicBoundaryLocationCalculationBaseProperties
+    public abstract class HydraulicBoundaryLocationCalculationCategoryBoundaryProperties : HydraulicBoundaryLocationCalculationBaseProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationOutputProperties"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationCategoryBoundaryProperties"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationCalculation">The hydraulic boundary location calculation.</param>
         /// <param name="categoryBoundaryName">The name of the category boundary the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected HydraulicBoundaryLocationCalculationOutputProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                                       string categoryBoundaryName)
+        protected HydraulicBoundaryLocationCalculationCategoryBoundaryProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                                 string categoryBoundaryName)
             : base(hydraulicBoundaryLocationCalculation)
         {
             if (categoryBoundaryName == null)

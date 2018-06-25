@@ -28,16 +28,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of a <see cref="HydraulicBoundaryLocationCalculation"/> with wave height results for properties panel
-    /// showing only output.
+    /// with information about the category boundary type.
     /// </summary>
-    public class WaveHeightCalculationOutputProperties : HydraulicBoundaryLocationCalculationOutputProperties
+    public class WaveHeightCalculationCategoryBoundaryProperties : HydraulicBoundaryLocationCalculationCategoryBoundaryProperties
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightCalculationOutputProperties"/>.
+        /// Creates a new instance of <see cref="WaveHeightCalculationCategoryBoundaryProperties"/>.
         /// </summary>
-        public WaveHeightCalculationOutputProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                     string categoryBoundaryName)
+        public WaveHeightCalculationCategoryBoundaryProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                               string categoryBoundaryName)
             : base(hydraulicBoundaryLocationCalculation, categoryBoundaryName) {}
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.WaveHeightCalculation_Result_DisplayName))]

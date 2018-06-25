@@ -31,7 +31,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DesignWaterLevelCalculationOutputPropertiesTest
+    public class DesignWaterLevelCalculationCategoryBoundaryPropertiesTest
     {
         private const int designWaterLevelPropertyIndex = 1;
         private const int convergencePropertyIndex = 6;
@@ -43,10 +43,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new DesignWaterLevelCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
+            var properties = new DesignWaterLevelCalculationCategoryBoundaryProperties(hydraulicBoundaryLocationCalculation, "A");
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationOutputProperties>(properties);
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationCategoryBoundaryProperties>(properties);
             Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Data);
         }
 
@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var properties = new DesignWaterLevelCalculationOutputProperties(hydraulicBoundaryLocationCalculation, "A");
+            var properties = new DesignWaterLevelCalculationCategoryBoundaryProperties(hydraulicBoundaryLocationCalculation, "A");
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new DesignWaterLevelCalculationOutputProperties(hydraulicBoundaryLocationCalculation, categoryBoundaryName);
+            var properties = new DesignWaterLevelCalculationCategoryBoundaryProperties(hydraulicBoundaryLocationCalculation, categoryBoundaryName);
 
             // Assert
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, properties.Result);

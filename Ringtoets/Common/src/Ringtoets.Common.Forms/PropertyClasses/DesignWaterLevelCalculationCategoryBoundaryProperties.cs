@@ -28,16 +28,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
     /// ViewModel of a <see cref="HydraulicBoundaryLocationCalculation"/> with design water level results for properties panel
-    /// showing only output.
+    /// with information about the category boundary type.
     /// </summary>
-    public class DesignWaterLevelCalculationOutputProperties : HydraulicBoundaryLocationCalculationOutputProperties
+    public class DesignWaterLevelCalculationCategoryBoundaryProperties : HydraulicBoundaryLocationCalculationCategoryBoundaryProperties
     {
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelCalculationOutputProperties"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelCalculationCategoryBoundaryProperties"/>.
         /// </summary>
-        public DesignWaterLevelCalculationOutputProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
-                                                           string categoryBoundaryName)
+        public DesignWaterLevelCalculationCategoryBoundaryProperties(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
+                                                                     string categoryBoundaryName)
             : base(hydraulicBoundaryLocationCalculation, categoryBoundaryName) {}
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DesignWaterLevelCalculation_Result_DisplayName))]

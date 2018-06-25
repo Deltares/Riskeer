@@ -100,8 +100,8 @@
     <Compile Include="PropertyClasses\WaveHeightHydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelHydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\WaveHeightCalculationsGroupPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightCalculationOutputPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationCategoryBoundaryPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationCategoryBoundaryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsPropertiesTest.cs" />
@@ -110,7 +110,7 @@
     <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationBasePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationOutputPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationCategoryBoundaryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationBasePropertiesTest.cs" />

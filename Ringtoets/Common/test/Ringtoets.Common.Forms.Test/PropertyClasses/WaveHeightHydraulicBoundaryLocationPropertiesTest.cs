@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                                                calculations);
 
             // Assert
-            WaveHeightCalculationOutputProperties categoryBoundaryCalculation = properties.CategoryBoundaries.Single();
+            WaveHeightCalculationCategoryBoundaryProperties categoryBoundaryCalculation = properties.CategoryBoundaries.Single();
             Assert.AreEqual("A", categoryBoundaryCalculation.CategoryBoundaryName);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, categoryBoundaryCalculation.Result);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.CalculationConvergence, categoryBoundaryCalculation.Convergence);

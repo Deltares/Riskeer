@@ -98,8 +98,8 @@
     <Compile Include="PropertyClasses\WaveHeightHydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationBaseProperties.cs" />
     <Compile Include="PropertyClasses\WaveHeightCalculationsGroupProperties.cs" />
-    <Compile Include="PropertyClasses\WaveHeightCalculationOutputProperties.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationOutputProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationCategoryBoundaryProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationCategoryBoundaryProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelCalculationsProperties.cs" />
@@ -109,7 +109,7 @@
     <Compile Include="PropertyClasses\FailureMechanismSectionsProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationBaseProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationProperties.cs" />
-    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationOutputProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationCategoryBoundaryProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsProperties.cs" />
     <Compile Include="PropertyClasses\DesignWaterLevelHydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
