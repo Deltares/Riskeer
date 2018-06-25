@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -71,11 +72,54 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreSame(locations, properties.Data);
         }
 
+        [Test]
+        public void GetHydraulicBoundaryLocationCalculationsForLocation_Always_ReturnsExpectedData()
+        {
+            // Setup
+            var location = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation(location);
+            var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(
+                new[]
+                {
+                    location
+                },
+                new[]
+                {
+                    new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("A", new[]
+                    {
+                        calculation,
+                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
+                    }),
+                    new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("B", new[]
+                    {
+                        calculation
+                    })
+                });
+
+            // Call
+            IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationsForLocation = properties.PublicGetHydraulicBoundaryLocationCalculationsForLocation(location);
+
+            // Assert
+            Assert.AreEqual(2, calculationsForLocation.Count());
+            Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryA = calculationsForLocation.First();
+            Assert.AreEqual("A", calculationBoundaryA.Item1);
+            Assert.AreSame(calculation, calculationBoundaryA.Item2);
+
+            Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryB = calculationsForLocation.ElementAt(1);
+            Assert.AreEqual("B", calculationBoundaryB.Item1);
+            Assert.AreSame(calculation, calculationBoundaryB.Item2);
+        }
+
         private class TestHydraulicBoundaryLocationCalculationGroupProperties : HydraulicBoundaryLocationCalculationsGroupBaseProperties
         {
             public TestHydraulicBoundaryLocationCalculationGroupProperties(IEnumerable<HydraulicBoundaryLocation> locations,
                                                                            IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary)
                 : base(locations, calculationsPerCategoryBoundary) {}
+
+            public IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> PublicGetHydraulicBoundaryLocationCalculationsForLocation(HydraulicBoundaryLocation location)
+            {
+                return GetHydraulicBoundaryLocationCalculationsForLocation(location);
+            }
         }
     }
 }

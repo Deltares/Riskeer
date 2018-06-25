@@ -51,17 +51,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         private const int illustrationPointsIndex = 13;
 
         [Test]
-        public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationProperties(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocationCalculation", paramName);
-        }
-
-        [Test]
         public void Constructor_ExpectedProperties()
         {
             // Setup
@@ -72,6 +61,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationBaseProperties>(properties);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, properties.Data);
         }
 
         [Test]
@@ -290,18 +280,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string name = "<some name>";
             var calculationConvergence = random.NextEnumValue<CalculationConvergence>();
 
-            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            calculationConvergence,
-                                                                                                            null);
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(id, name, x, y))
             {
-                Output = hydraulicBoundaryLocationCalculationOutput
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), calculationConvergence)
             };
 
             // Call

@@ -62,10 +62,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         protected IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> GetHydraulicBoundaryLocationCalculationsForLocation(HydraulicBoundaryLocation location)
         {
-            return calculationsPerCategoryBoundary.Select(boundaryCalculations =>
-                                                              new Tuple<string, HydraulicBoundaryLocationCalculation>(
-                                                                  boundaryCalculations.Item1,
-                                                                  boundaryCalculations.Item2.Single(calculation => ReferenceEquals(calculation.HydraulicBoundaryLocation, location))));
+            return calculationsPerCategoryBoundary.Select(
+                boundaryCalculations =>
+                    new Tuple<string, HydraulicBoundaryLocationCalculation>(
+                        boundaryCalculations.Item1,
+                        boundaryCalculations.Item2.Single(calculation => ReferenceEquals(calculation.HydraulicBoundaryLocation, location)))).ToArray();
         }
     }
 }

@@ -128,14 +128,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string name = "<some name>";
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, name, x, y);
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput()
-            };
 
             var calculations = new[]
             {
-                new Tuple<string, HydraulicBoundaryLocationCalculation>("A", hydraulicBoundaryLocationCalculation)
+                new Tuple<string, HydraulicBoundaryLocationCalculation>("A", new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation))
             };
 
             // Call

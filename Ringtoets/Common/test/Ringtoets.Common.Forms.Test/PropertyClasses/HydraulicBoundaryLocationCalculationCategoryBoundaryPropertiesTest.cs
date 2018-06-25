@@ -269,13 +269,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             const string categoryBoundaryName = "A-Z";
             var calculationConvergence = random.NextEnumValue<CalculationConvergence>();
 
-            var hydraulicBoundaryLocationCalculationOutput = new HydraulicBoundaryLocationCalculationOutput(random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            calculationConvergence,
-                                                                                                            null);
+            var hydraulicBoundaryLocationCalculationOutput = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble(), calculationConvergence);
 
             // Call
             var properties = new TestHydraulicBoundaryLocationCalculationCategoryBoundaryProperties(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
@@ -287,10 +281,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(categoryBoundaryName, properties.CategoryBoundaryName);
             Assert.AreEqual(calculationConvergence, properties.Convergence);
+            Assert.AreEqual(hydraulicBoundaryLocationCalculationOutput.Result, properties.Result);
         }
 
         [Test]
-        public void ToString_Always_ReturnsNameAndLocation()
+        public void ToString_Always_ReturnsCategoryBoundaryName()
         {
             // Setup
             const string categoryBoundaryName = "C";

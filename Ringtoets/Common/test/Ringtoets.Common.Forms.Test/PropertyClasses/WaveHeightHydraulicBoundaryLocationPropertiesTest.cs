@@ -87,9 +87,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 Output = new TestHydraulicBoundaryLocationCalculationOutput()
             };
 
+            const string categoryBoundaryName = "A";
             var calculations = new[]
             {
-                new Tuple<string, HydraulicBoundaryLocationCalculation>("A", hydraulicBoundaryLocationCalculation)
+                new Tuple<string, HydraulicBoundaryLocationCalculation>(categoryBoundaryName, hydraulicBoundaryLocationCalculation)
             };
 
             // Call
@@ -98,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             WaveHeightCalculationCategoryBoundaryProperties categoryBoundaryCalculation = properties.CategoryBoundaries.Single();
-            Assert.AreEqual("A", categoryBoundaryCalculation.CategoryBoundaryName);
+            Assert.AreEqual(categoryBoundaryName, categoryBoundaryCalculation.CategoryBoundaryName);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, categoryBoundaryCalculation.Result);
             Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.CalculationConvergence, categoryBoundaryCalculation.Convergence);
         }

@@ -74,10 +74,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.5)
-            };
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
             var properties = new WaveHeightCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>

@@ -76,25 +76,27 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
+            const string categoryBoundaryName = "A";
             var location = new TestHydraulicBoundaryLocation();
 
             // Call
-            var properties = new DesignWaterLevelCalculationsGroupProperties(new[]
-                                                                             {
-                                                                                 location
-                                                                             },
-                                                                             new[]
-                                                                             {
-                                                                                 new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("A", new[]
-                                                                                 {
-                                                                                     new HydraulicBoundaryLocationCalculation(location)
-                                                                                 })
-                                                                             });
+            var properties = new DesignWaterLevelCalculationsGroupProperties(
+                new[]
+                {
+                    location
+                },
+                new[]
+                {
+                    new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(categoryBoundaryName, new[]
+                    {
+                        new HydraulicBoundaryLocationCalculation(location)
+                    })
+                });
 
             // Assert
             DesignWaterLevelHydraulicBoundaryLocationProperties locationProperties = properties.Locations.Single();
             Assert.AreSame(location, locationProperties.Data);
-            Assert.AreEqual("A", locationProperties.CategoryBoundaries.Single().CategoryBoundaryName);
+            Assert.AreEqual(categoryBoundaryName, locationProperties.CategoryBoundaries.Single().CategoryBoundaryName);
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class DesignWaterLevelCalculationsPropertiesTest
     {
-        private const int requiredLocationsPropertyIndex = 0;
+        private const int locationsPropertyIndex = 0;
 
         [Test]
         public void Constructor_WithHydraulicBoundaryLocationCalculations_ExpectedValues()
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(1, dynamicProperties.Count);
 
-            PropertyDescriptor locationsProperty = dynamicProperties[requiredLocationsPropertyIndex];
+            PropertyDescriptor locationsProperty = dynamicProperties[locationsPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
                                                                             "Algemeen",
                                                                             "Locaties",
@@ -74,10 +74,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void GetProperties_WithData_ReturnExpectedValues()
         {
             // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation())
-            {
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(1.5)
-            };
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
             var properties = new DesignWaterLevelCalculationsProperties(new ObservableList<HydraulicBoundaryLocationCalculation>
