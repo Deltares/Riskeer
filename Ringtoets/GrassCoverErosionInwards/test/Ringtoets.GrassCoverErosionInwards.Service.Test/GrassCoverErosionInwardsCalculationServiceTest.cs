@@ -430,7 +430,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("HBN berekening kan niet worden uitgevoerd. " +
+                StringAssert.StartsWith("De HBN berekening kan niet worden uitgevoerd. " +
                                         "Doelkans is te klein om een berekening uit te kunnen voeren.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
@@ -473,7 +473,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Overslagdebiet berekening kan niet worden uitgevoerd. " +
+                StringAssert.StartsWith("De overslagdebiet berekening kan niet worden uitgevoerd. " +
                                         "Doelkans is te klein om een berekening uit te kunnen voeren.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });

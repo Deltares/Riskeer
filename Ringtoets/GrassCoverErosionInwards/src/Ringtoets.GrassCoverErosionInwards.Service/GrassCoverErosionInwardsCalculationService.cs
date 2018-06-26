@@ -831,7 +831,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                          failureMechanism.Contribution),
                     lm => CalculationServiceHelper.LogMessagesAsWarning(new[]
                     {
-                        "HBN berekening kan niet worden uitgevoerd. " + lm
+                        string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reason_1_,
+                                      Resources.GrassCoverErosionInwardsCalculationService_DikeHeight, lm)
                     }));
             }
 
@@ -844,7 +845,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                               failureMechanism.Contribution),
                     lm => CalculationServiceHelper.LogMessagesAsWarning(new[]
                     {
-                        "Overslagdebiet berekening kan niet worden uitgevoerd. " + lm
+                        string.Format(Resources.GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reason_1_,
+                                      Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate, lm)
                     }));
             }
         }
