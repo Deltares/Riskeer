@@ -86,7 +86,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 return false;
             }
 
-            string[] messages = ValidateInput(calculation.InputParameters, failureMechanism, assessmentSection).ToArray();
+            string[] messages = ValidateInput(calculation.InputParameters).ToArray();
             CalculationServiceHelper.LogMessagesAsError(messages);
 
             ValidateNorms(calculation.InputParameters, failureMechanism, assessmentSection);
@@ -792,9 +792,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private static IEnumerable<string> ValidateInput(GrassCoverErosionInwardsInput inputParameters,
-                                                         GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                         IAssessmentSection assessmentSection)
+        private static IEnumerable<string> ValidateInput(GrassCoverErosionInwardsInput inputParameters)
         {
             var validationResults = new List<string>();
 
