@@ -329,13 +329,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region Validation and Calculation
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -411,7 +406,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
@@ -467,7 +462,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
         }
 
         private static void ValidateAll(StabilityPointStructuresFailureMechanismContext context)
@@ -705,7 +700,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void ValidateAll(StabilityPointStructuresCalculationGroupContext context)
@@ -778,7 +773,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context)
