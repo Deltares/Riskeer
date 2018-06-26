@@ -119,7 +119,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            const string locationName = "testLocation";
+            const string locationName = "locationName";
             const string activityDescription = "activityDescription";
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -153,7 +153,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
-            const string locationName = "testLocation";
+            const string locationName = "locationName";
             const string activityDescription = "activityDescription";
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidNorm_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
-            const string locationName = "testLocation";
+            const string locationName = "locationName";
             const string activityDescription = "activityDescription";
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -444,7 +444,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_ErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            const string locationName = "locationName 1";
+            const string locationName = "locationName";
 
             var calculator = new TestWaveHeightCalculator
             {
