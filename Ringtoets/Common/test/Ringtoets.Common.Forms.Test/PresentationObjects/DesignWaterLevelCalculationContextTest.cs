@@ -23,12 +23,11 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class WaveHeightCalculationContextTest
+    public class DesignWaterLevelCalculationContextTest
     {
         [Test]
         public void Constructor_ValidParameters_ExpectedValues()
@@ -37,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Call
-            var context = new WaveHeightCalculationContext(hydraulicBoundaryLocationCalculation);
+            var context = new DesignWaterLevelCalculationContext(hydraulicBoundaryLocationCalculation);
 
             // Assert
             Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationContext>(context);

@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
@@ -177,17 +178,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext,
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
-                GrassCoverErosionOutwardsDesignWaterLevelCalculationsView>
+                DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(context.WrappedData,
-                                                                                                          context.FailureMechanism,
-                                                                                                          context.AssessmentSection,
-                                                                                                          context.GetNormFunc,
-                                                                                                          context.CategoryBoundaryName),
+                CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
+                                                                                 context.AssessmentSection,
+                                                                                 context.GetNormFunc,
+                                                                                 context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
@@ -195,17 +195,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsWaveHeightCalculationsContext,
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
-                GrassCoverErosionOutwardsWaveHeightCalculationsView>
+                WaveHeightCalculationsView>
             {
                 GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsView(context.WrappedData,
-                                                                                                    context.FailureMechanism,
-                                                                                                    context.AssessmentSection,
-                                                                                                    context.GetNormFunc,
-                                                                                                    context.CategoryBoundaryName),
+                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
+                                                                           context.AssessmentSection,
+                                                                           context.GetNormFunc,
+                                                                           context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };

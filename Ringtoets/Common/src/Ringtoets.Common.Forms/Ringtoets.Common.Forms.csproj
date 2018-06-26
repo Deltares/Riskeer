@@ -61,6 +61,7 @@
     <Compile Include="IScenarioRow.cs" />
     <Compile Include="Observers\FailureMechanismResultObserver.cs" />
     <Compile Include="Observers\CalculatableFailureMechanismResultObserver.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelCalculationContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsGroupContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismAssemblyCategoriesContext.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="PresentationObjects\SelectedTopLevelSubMechanismIllustrationPoint.cs" />
     <Compile Include="PresentationObjects\StructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\StructuresOutputContext.cs" />
+    <Compile Include="PresentationObjects\WaveHeightCalculationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationsContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationsGroupContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -172,6 +174,12 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\DesignWaterLevelCalculationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DesignWaterLevelCalculationsView.Designer.cs">
+      <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FailureMechanismSectionProbabilityAssessmentRow.cs" />
     <Compile Include="Views\FailureMechanismSectionRow.cs" />
     <Compile Include="Views\FailureMechanismSectionsView.cs">
@@ -263,6 +271,12 @@
     <Compile Include="Views\FailureMechanismSectionsProbabilityAssessmentView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\WaveHeightCalculationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WaveHeightCalculationsView.Designer.cs">
+      <DependentUpon>WaveHeightCalculationsView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\AssemblyResultControl.resx">
@@ -278,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DesignWaterLevelCalculationsView.resx">
+      <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismSectionsView.resx">
       <DependentUpon>FailureMechanismSectionsView.cs</DependentUpon>
@@ -315,6 +332,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RingtoetsMapControl.resx">
       <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WaveHeightCalculationsView.resx">
+      <DependentUpon>WaveHeightCalculationsView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

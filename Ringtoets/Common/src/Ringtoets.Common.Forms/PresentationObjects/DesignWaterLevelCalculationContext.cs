@@ -19,29 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
+using System;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
-    [TestFixture]
-    public class DesignWaterLevelCalculationContextTest
+    /// <summary>
+    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
+    /// with a design water level calculation result.
+    /// </summary>
+    public class DesignWaterLevelCalculationContext : HydraulicBoundaryLocationCalculationContext
     {
-        [Test]
-        public void Constructor_ValidParameters_ExpectedValues()
-        {
-            // Setup
-            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
-
-            // Call
-            var context = new DesignWaterLevelCalculationContext(hydraulicBoundaryLocationCalculation);
-
-            // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationContext>(context);
-            Assert.AreSame(hydraulicBoundaryLocationCalculation, context.WrappedData);
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="DesignWaterLevelCalculationContext"/>.
+        /// </summary>
+        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
+        /// <see cref="DesignWaterLevelCalculationContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public DesignWaterLevelCalculationContext(HydraulicBoundaryLocationCalculation wrappedData)
+            : base(wrappedData) {}
     }
 }

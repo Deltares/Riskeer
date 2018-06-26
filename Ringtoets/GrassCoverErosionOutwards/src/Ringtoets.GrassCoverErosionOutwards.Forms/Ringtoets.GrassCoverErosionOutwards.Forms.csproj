@@ -44,17 +44,11 @@
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismView.Designer.cs">
       <DependentUpon>GrassCoverErosionOutwardsFailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\GrassCoverErosionOutwardsDesignWaterLevelCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsWaveConditionsInputViewStyle.cs" />
-    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Factories\GrassCoverErosionOutwardsMapDataFeaturesFactory.cs" />
   </ItemGroup>
   <ItemGroup>

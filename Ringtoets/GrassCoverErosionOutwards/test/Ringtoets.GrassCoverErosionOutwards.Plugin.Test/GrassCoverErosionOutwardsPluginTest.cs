@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
@@ -80,13 +81,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext),
                     typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelCalculationsView));
+                    typeof(DesignWaterLevelCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext),
                     typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>),
-                    typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView));
+                    typeof(WaveHeightCalculationsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

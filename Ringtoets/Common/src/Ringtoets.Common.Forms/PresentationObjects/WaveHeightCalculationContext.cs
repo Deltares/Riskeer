@@ -21,23 +21,22 @@
 
 using System;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
-    /// with a design water level calculation result.
+    /// with a wave height calculation result.
     /// </summary>
-    public class DesignWaterLevelCalculationContext : HydraulicBoundaryLocationCalculationContext
+    public class WaveHeightCalculationContext : HydraulicBoundaryLocationCalculationContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelCalculationContext"/>.
+        /// Creates a new instance of <see cref="WaveHeightCalculationContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
-        /// <see cref="DesignWaterLevelCalculationContext"/> belongs to.</param>
+        /// <see cref="WaveHeightCalculationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public DesignWaterLevelCalculationContext(HydraulicBoundaryLocationCalculation wrappedData)
+        public WaveHeightCalculationContext(HydraulicBoundaryLocationCalculation wrappedData)
             : base(wrappedData) {}
     }
 }

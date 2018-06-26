@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
-    partial class WaveHeightCalculationsView
+    partial class DesignWaterLevelCalculationsView
     {
         #region Component Designer generated code
 
@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WaveHeightCalculationsView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DesignWaterLevelCalculationsView));
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -42,11 +42,11 @@ namespace Ringtoets.Integration.Forms.Views
             // 
             resources.ApplyResources(this.ButtonGroupBox, "ButtonGroupBox");
             // 
-            // WaveHeightCalculationsView
+            // DesignWaterLevelCalculationsView
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "WaveHeightCalculationsView";
+            this.Name = "DesignWaterLevelCalculationsView";
             this.ResumeLayout(false);
 
         }

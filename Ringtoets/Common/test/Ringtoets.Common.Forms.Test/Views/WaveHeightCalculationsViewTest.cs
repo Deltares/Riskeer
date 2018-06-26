@@ -27,8 +27,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -38,24 +36,22 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewTest
+    public class WaveHeightCalculationsViewTest
     {
         private const int calculateColumnIndex = 0;
         private const int includeIllustrationPointsColumnIndex = 1;
         private const int locationNameColumnIndex = 2;
         private const int locationIdColumnIndex = 3;
         private const int locationColumnIndex = 4;
-        private const int designWaterLevelColumnIndex = 5;
+        private const int waveHeightColumnIndex = 5;
 
         private Form testForm;
         private MockRepository mockRepository;
@@ -75,45 +71,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
-            // Call
-            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                            new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                            assessmentSection,
-                                                                                            () => 0.01,
-                                                                                            "A"))
-            {
-                // Assert
-                Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
-                Assert.IsNull(view.Data);
-            }
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                                    null,
-                                                                                                    assessmentSection,
-                                                                                                    () => 0.01,
-                                                                                                    "A");
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_GetNormFuncNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -121,15 +78,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                                    new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                                    assessmentSection,
-                                                                                                    null,
-                                                                                                    "A");
+            TestDelegate test = () => new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                     assessmentSection,
+                                                                     null,
+                                                                     "A");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("getNormFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            mockRepository.ReplayAll();
+
+            // Call
+            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                             assessmentSection,
+                                                             () => 0.01,
+                                                             "A"))
+            {
+                // Assert
+                Assert.IsInstanceOf<HydraulicBoundaryCalculationsView>(view);
+                Assert.IsNull(view.Data);
+            }
         }
 
         [Test]
@@ -140,7 +115,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             mockRepository.ReplayAll();
 
             // Call
-            ShowDesignWaterLevelCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(), assessmentSection, 0.01, "A", testForm);
+            ShowWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                           assessmentSection,
+                                           0.01,
+                                           "A",
+                                           testForm);
 
             // Assert
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
@@ -161,22 +140,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locationColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[locationColumnIndex];
             Assert.AreEqual("Coördinaten [m]", locationColumn.HeaderText);
 
-            var designWaterLevelColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[designWaterLevelColumnIndex];
-            Assert.AreEqual("Waterstand [m+NAP]", designWaterLevelColumn.HeaderText);
+            var waveHeightColumn = (DataGridViewTextBoxColumn) calculationsDataGridView.Columns[waveHeightColumnIndex];
+            Assert.AreEqual("Golfhoogte [m]", waveHeightColumn.HeaderText);
 
             var button = (Button) testForm.Controls.Find("CalculateForSelectedButton", true).First();
             Assert.IsFalse(button.Enabled);
         }
 
         [Test]
-        public void DesignWaterLevelCalculationsView_AssessmentSectionWithData_DataGridViewCorrectlyInitialized()
+        public void Constructor_WithCalculations_DataGridViewCorrectlyInitialized()
         {
-            // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
             // Call
-            ShowFullyConfiguredDesignWaterLevelCalculationsView(assessmentSection, testForm);
+            ShowFullyConfiguredWaveHeightCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), testForm);
 
             // Assert
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
@@ -190,7 +165,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("1", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("1", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(1, 1).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("-", cells[designWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[waveHeightColumnIndex].FormattedValue);
 
             cells = rows[1].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -199,7 +174,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("2", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("2", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(2, 2).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[designWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
 
             cells = rows[2].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -208,7 +183,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("3", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("3", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(3, 3).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual("-", cells[designWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[waveHeightColumnIndex].FormattedValue);
 
             cells = rows[3].Cells;
             Assert.AreEqual(6, cells.Count);
@@ -217,41 +192,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("4", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("4", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(4, 4).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[designWaterLevelColumnIndex].FormattedValue);
+            Assert.AreEqual(1.01.ToString(CultureInfo.CurrentCulture), cells[waveHeightColumnIndex].FormattedValue);
         }
 
         [Test]
-        public void DesignWaterLevelCalculationsView_HydraulicBoundaryLocationsUpdated_DataGridViewCorrectlyUpdated()
+        public void WaveHeightCalculationsView_CalculationsUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
+            ObservableList<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
+            ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
-            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "A", testForm);
-
-            // Precondition
-            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
-            object dataGridViewSource = calculationsDataGridView.DataSource;
-            DataGridViewRowCollection rows = calculationsDataGridView.Rows;
-            rows[0].Cells[calculateColumnIndex].Value = true;
-            Assert.AreEqual(4, rows.Count);
-
-            const double designWaterLevel = 10.23;
-
-            calculations.Clear();
-            calculations.Add(new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0))
+            const double waveHeight = 10.23;
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new HydraulicBoundaryLocation(10, "10", 10.0, 10.0))
             {
                 InputParameters =
                 {
                     ShouldIllustrationPointsBeCalculated = true
                 },
-                Output = new TestHydraulicBoundaryLocationCalculationOutput(designWaterLevel)
-            });
+                Output = new TestHydraulicBoundaryLocationCalculationOutput(waveHeight)
+            };
+
+            // Precondition
+            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
+            DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
+            Assert.AreEqual(4, rows.Count);
+
+            hydraulicBoundaryLocationCalculations.Clear();
+            hydraulicBoundaryLocationCalculations.Add(hydraulicBoundaryLocationCalculation);
 
             // Call
-            calculations.NotifyObservers();
+            hydraulicBoundaryLocationCalculations.NotifyObservers();
 
             // Assert
             Assert.AreEqual(1, rows.Count);
@@ -262,21 +233,42 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
-            Assert.AreEqual(designWaterLevel, cells[designWaterLevelColumnIndex].Value);
-            Assert.AreNotSame(dataGridViewSource, calculationsDataGridView.DataSource);
-            Assert.IsFalse((bool) rows[0].Cells[calculateColumnIndex].Value);
+            Assert.AreEqual(waveHeight, cells[waveHeightColumnIndex].Value);
         }
 
         [Test]
-        public void DesignWaterLevelCalculationsView_HydraulicBoundaryLocationUpdated_IllustrationPointsControlCorrectlyUpdated()
+        public void WaveHeightCalculationsView_CalculationUpdated_DataGridViewCorrectlyUpdated()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
+            ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
 
-            ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "A", testForm);
+            // Precondition
+            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
+            DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(6, cells.Count);
+            Assert.AreEqual(false, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+
+            HydraulicBoundaryLocationCalculation calculation = hydraulicBoundaryLocationCalculations.First();
+
+            // Call
+            calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+            calculation.NotifyObservers();
+
+            // Assert
+            Assert.AreEqual(true, cells[includeIllustrationPointsColumnIndex].FormattedValue);
+        }
+
+        [Test]
+        public void WaveHeightCalculationsView_CalculationUpdated_IllustrationPointsControlCorrectlyUpdated()
+        {
+            // Setup
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+
+            ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
+
             IllustrationPointsControl illustrationPointsControl = GetIllustrationPointsControl();
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
 
@@ -295,8 +287,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var output = new TestHydraulicBoundaryLocationCalculationOutput(generalResult);
 
             // Call
-            calculations[2].Output = output;
-            calculations[2].NotifyObservers();
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculations.ElementAt(2);
+            hydraulicBoundaryLocationCalculation.Output = output;
+            hydraulicBoundaryLocationCalculation.NotifyObservers();
 
             // Assert
             IEnumerable<IllustrationPointControlItem> expectedControlItems = CreateControlItems(generalResult);
@@ -304,55 +297,40 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateDesignWaterLevelsSelectionNotChanged()
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeights()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
+
+            WaveHeightCalculationsView view = ShowFullyConfiguredWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations, testForm);
+
+            DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
+            DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
+            rows[0].Cells[calculateColumnIndex].Value = true;
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray(); });
-
             mockRepository.ReplayAll();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
-
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations, assessmentSection, 0.01, "A", testForm);
-            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
-            object dataGridViewSource = calculationsDataGridView.DataSource;
-            DataGridViewRowCollection rows = calculationsDataGridView.Rows;
-            rows[0].Cells[calculateColumnIndex].Value = true;
-
             view.CalculationGuiService = guiService;
-            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+            var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
-            buttonTester.Click();
+            button.Click();
 
             // Assert
             Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(calculations.First(), performedCalculations.First());
-            Assert.AreSame(dataGridViewSource, calculationsDataGridView.DataSource);
-            Assert.IsTrue((bool) rows[0].Cells[calculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[1].Cells[calculateColumnIndex].Value);
-            Assert.IsFalse((bool) rows[2].Cells[calculateColumnIndex].Value);
+            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
         }
 
         [Test]
         public void CalculateForSelectedButton_OneSelectedButCalculationGuiServiceNotSet_DoesNotThrowException()
         {
             // Setup
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
-            ShowFullyConfiguredDesignWaterLevelCalculationsView(assessmentSection, testForm);
+            ShowFullyConfiguredWaveHeightCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), testForm);
 
             DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
             DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
@@ -368,41 +346,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(false, "Er zijn geen berekeningen geselecteerd.")]
-        [TestCase(true, "")]
-        public void GivenDesignWaterLevelCalculationsView_WhenSpecificCombinationOfRowSelectionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                                              string expectedErrorMessage)
-        {
-            // Given
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            mockRepository.ReplayAll();
-
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelCalculationsView(assessmentSection, testForm);
-
-            // When
-            if (rowSelected)
-            {
-                DataGridViewControl calculationsDataGridViewControl = GetCalculationsDataGridViewControl();
-                DataGridViewRowCollection rows = calculationsDataGridViewControl.Rows;
-                rows[0].Cells[calculateColumnIndex].Value = true;
-            }
-
-            // Then
-            var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-            Assert.AreEqual(rowSelected, button.Enabled);
-            var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
-            Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CalculateDesignWaterLevelsCalledAsExpected()
+        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CalculateWaveHeightsCalledAsExpected()
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
             const string categoryBoundaryName = "A";
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = databaseFilePath
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -416,7 +372,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
@@ -428,15 +384,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = databaseFilePath;
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
+            WaveHeightCalculationsView view = ShowWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations,
+                                                                             assessmentSection,
+                                                                             norm,
+                                                                             categoryBoundaryName,
+                                                                             testForm);
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations,
-                                                                                                                  assessmentSection,
-                                                                                                                  norm,
-                                                                                                                  categoryBoundaryName,
-                                                                                                                  testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -448,26 +403,34 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(calculations.First(), performedCalculations.First());
+            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
         }
 
         [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_CalculateDesignWaterLevelsCalledAsExpected()
+        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_CalculateWaveHeightsCalledAsExpected()
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
-            string preprocessorDirectory = TestHelper.GetScratchPadPath();
+            const string preprocessorDirectory = "PreprocessorDirectory";
             const double norm = 0.01;
             const string categoryBoundaryName = "A";
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = databaseFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = preprocessorDirectory
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -481,7 +444,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
@@ -493,19 +456,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            hydraulicBoundaryDatabase.FilePath = databaseFilePath;
-            hydraulicBoundaryDatabase.CanUsePreprocessor = true;
-            hydraulicBoundaryDatabase.UsePreprocessor = true;
-            hydraulicBoundaryDatabase.PreprocessorDirectory = preprocessorDirectory;
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
+            WaveHeightCalculationsView view = ShowWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations,
+                                                                             assessmentSection,
+                                                                             norm,
+                                                                             categoryBoundaryName,
+                                                                             testForm);
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations,
-                                                                                                                  assessmentSection,
-                                                                                                                  norm,
-                                                                                                                  categoryBoundaryName,
-                                                                                                                  testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -517,25 +475,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(calculations.First(), performedCalculations.First());
+            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
         }
 
         [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_CalculateDesignWaterLevelsCalledAsExpected()
+        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_CalculateWaveHeightsCalledAsExpected()
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
             const double norm = 0.01;
             const string categoryBoundaryName = "A";
 
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = databaseFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = false,
+                PreprocessorDirectory = "InvalidPreprocessorDirectory"
+            };
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
             assessmentSection.Stub(a => a.Id).Return(string.Empty);
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -549,7 +515,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
             ICalculationMessageProvider messageProviderValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
                     hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
@@ -561,19 +527,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             mockRepository.ReplayAll();
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            hydraulicBoundaryDatabase.FilePath = databaseFilePath;
-            hydraulicBoundaryDatabase.CanUsePreprocessor = true;
-            hydraulicBoundaryDatabase.UsePreprocessor = false;
-            hydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
+            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
 
-            ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetTestHydraulicBoundaryLocationCalculations();
+            WaveHeightCalculationsView view = ShowWaveHeightCalculationsView(hydraulicBoundaryLocationCalculations,
+                                                                             assessmentSection,
+                                                                             norm,
+                                                                             categoryBoundaryName,
+                                                                             testForm);
 
-            GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(calculations,
-                                                                                                                  assessmentSection,
-                                                                                                                  norm,
-                                                                                                                  categoryBoundaryName,
-                                                                                                                  testForm);
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection rows = calculationsDataGridView.Rows;
             rows[0].Cells[calculateColumnIndex].Value = true;
@@ -585,14 +546,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Waterstand berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
+            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
+            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
                             messageProviderValue.GetActivityDescription("Location name"));
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
-            Assert.AreEqual("", preprocessorDirectoryValue);
+            Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(calculations.First(), performedCalculations.First());
+            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
         }
 
         private DataGridView GetCalculationsDataGridView()
@@ -625,17 +586,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                 });
         }
 
-        private static GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowDesignWaterLevelCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
-                                                                                                                      IAssessmentSection assessmentSection,
-                                                                                                                      double norm,
-                                                                                                                      string categoryName,
-                                                                                                                      Form form)
+        private static WaveHeightCalculationsView ShowWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                 IAssessmentSection assessmentSection,
+                                                                                 double norm,
+                                                                                 string categoryBoundaryName,
+                                                                                 Form form)
         {
-            var view = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(calculations,
-                                                                                     new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                     assessmentSection,
-                                                                                     () => norm,
-                                                                                     categoryName);
+            var view = new WaveHeightCalculationsView(calculations,
+                                                      assessmentSection,
+                                                      () => norm,
+                                                      categoryBoundaryName);
 
             form.Controls.Add(view);
             form.Show();
@@ -643,10 +603,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             return view;
         }
 
-        private static GrassCoverErosionOutwardsDesignWaterLevelCalculationsView ShowFullyConfiguredDesignWaterLevelCalculationsView(IAssessmentSection assessmentSection,
-                                                                                                                                     Form form)
+        private static WaveHeightCalculationsView ShowFullyConfiguredWaveHeightCalculationsView(IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                                                                                Form form)
         {
-            return ShowDesignWaterLevelCalculationsView(GetTestHydraulicBoundaryLocationCalculations(), assessmentSection, 0.01, "A", form);
+            var assessmentSection = new AssessmentSectionStub();
+
+            return ShowWaveHeightCalculationsView(calculations, assessmentSection, 0.01, "A", form);
         }
 
         private static ObservableList<HydraulicBoundaryLocationCalculation> GetTestHydraulicBoundaryLocationCalculations()
@@ -689,7 +651,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [TestFixture]
-        private class ViewSynchronizationTest : CalculationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
+        public class ViewSynchronizationTest : CalculationsViewSynchronizationTester<HydraulicBoundaryLocationCalculation>
         {
             private ObservableList<HydraulicBoundaryLocationCalculation> calculations;
 
@@ -697,7 +659,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             {
                 get
                 {
-                    return designWaterLevelColumnIndex;
+                    return waveHeightColumnIndex;
                 }
             }
 
@@ -710,12 +672,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             protected override object GetCalculationSelection(CalculationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
             {
-                return new GrassCoverErosionOutwardsDesignWaterLevelCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
+                return new WaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
             }
 
             protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
-                return ShowDesignWaterLevelCalculationsView(calculations, new AssessmentSectionStub(), 0.01, "A", form);
+                return ShowFullyConfiguredWaveHeightCalculationsView(calculations, form);
             }
 
             protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)

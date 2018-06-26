@@ -19,25 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HydraulicBoundaryLocationCalculation"/>
-    /// with a wave height calculation result.
-    /// </summary>
-    public class WaveHeightCalculationContext : HydraulicBoundaryLocationCalculationContext
+    [TestFixture]
+    public class WaveHeightCalculationContextTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightCalculationContext"/>.
-        /// </summary>
-        /// <param name="wrappedData">The <see cref="HydraulicBoundaryLocationCalculation"/> which the
-        /// <see cref="WaveHeightCalculationContext"/> belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public WaveHeightCalculationContext(HydraulicBoundaryLocationCalculation wrappedData)
-            : base(wrappedData) {}
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            var hydraulicBoundaryLocationCalculation = new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
+
+            // Call
+            var context = new WaveHeightCalculationContext(hydraulicBoundaryLocationCalculation);
+
+            // Assert
+            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationContext>(context);
+            Assert.AreSame(hydraulicBoundaryLocationCalculation, context.WrappedData);
+        }
     }
 }

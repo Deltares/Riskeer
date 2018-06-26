@@ -25,12 +25,11 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Views;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.Integration.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
     /// View for presenting and performing wave height calculations.

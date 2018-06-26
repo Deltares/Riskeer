@@ -32,9 +32,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
@@ -52,10 +52,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 ViewInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView));
+                Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(WaveHeightCalculationsView));
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext), info.DataType);
                 Assert.AreEqual(typeof(IObservableEnumerable<HydraulicBoundaryLocationCalculation>), info.ViewDataType);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView), info.ViewType);
+                Assert.AreEqual(typeof(WaveHeightCalculationsView), info.ViewType);
             }
         }
 
@@ -110,11 +110,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 plugin.Activate();
 
                 // Call
-                var view = (GrassCoverErosionOutwardsWaveHeightCalculationsView) info.CreateInstance(context);
+                var view = (WaveHeightCalculationsView) info.CreateInstance(context);
 
                 // Assert
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
-                Assert.AreSame(grassCoverErosionOutwardsFailureMechanism, view.FailureMechanism);
             }
 
             mockRepository.VerifyAll();
@@ -184,11 +183,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 plugin.Gui = gui;
                 plugin.Activate();
 
-                using (var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                          failureMechanism,
-                                                                                          assessmentSection,
-                                                                                          () => 0.01,
-                                                                                          "A"))
+                using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                 assessmentSection,
+                                                                 () => 0.01,
+                                                                 "A"))
                 {
                     info.AfterCreate(view, data);
 
@@ -216,11 +214,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                      failureMechanism,
-                                                                                      assessmentSection,
-                                                                                      () => 0.01,
-                                                                                      "A"))
+            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                             assessmentSection,
+                                                             () => 0.01,
+                                                             "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -256,11 +253,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                      failureMechanism,
-                                                                                      assessmentSectionA,
-                                                                                      () => 0.01,
-                                                                                      "A"))
+            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                             assessmentSectionA,
+                                                             () => 0.01,
+                                                             "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -293,11 +289,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 assessmentSection);
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                      assessmentSection,
-                                                                                      () => 0.01,
-                                                                                      "A"))
+            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                             assessmentSection,
+                                                             () => 0.01,
+                                                             "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -335,11 +330,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new GrassCoverErosionOutwardsFailureMechanism(),
                 assessmentSectionB);
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                      assessmentSectionA,
-                                                                                      () => 0.01,
-                                                                                      "A"))
+            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                             assessmentSectionA,
+                                                             () => 0.01,
+                                                             "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -368,11 +362,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             mocks.ReplayAll();
 
-            using (var view = new GrassCoverErosionOutwardsWaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
-                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                      assessmentSection,
-                                                                                      () => 0.01,
-                                                                                      "A"))
+            using (var view = new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                             assessmentSection,
+                                                             () => 0.01,
+                                                             "A"))
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ViewInfo info = GetInfo(plugin);
@@ -389,7 +382,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
         private static ViewInfo GetInfo(PluginBase plugin)
         {
-            return plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(GrassCoverErosionOutwardsWaveHeightCalculationsView));
+            return plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(WaveHeightCalculationsView));
         }
     }
 }
