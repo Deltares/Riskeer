@@ -221,50 +221,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAndValidateDisabledAndTooltipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var calculation = new MacroStabilityInwardsCalculationScenario();
-                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new MacroStabilityInwardsCalculationScenarioContext(calculation,
-                                                                                   new CalculationGroup(),
-                                                                                   Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                   Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                   failureMechanism,
-                                                                                   assessmentSection);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  contextMenuCalculateIndex,
-                                                                  "Be&rekenen",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAndValidateEnabled()
         {
             // Setup

@@ -588,16 +588,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                     .ToList());
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IFailureMechanism failureMechanism)
-        {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            return null;
-        }
-
         #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
 
         private ContextMenuStrip MacroStabilityInwardsSurfaceLinesContextContextMenuStrip(MacroStabilityInwardsSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -646,12 +636,10 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               macroStabilityInwardsFailureMechanismContext,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              ValidateAll)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               macroStabilityInwardsFailureMechanismContext,
-                              CalculateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              CalculateAll)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(macroStabilityInwardsFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -683,11 +671,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(MacroStabilityInwardsFailureMechanismContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.WrappedData);
         }
 
         private static IEnumerable<MacroStabilityInwardsCalculation> GetAllMacroStabilityInwardsCalculations(MacroStabilityInwardsFailureMechanism failureMechanism)
@@ -759,13 +742,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               nodeData,
-                              Validate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              Validate)
                           .AddPerformCalculationItem(
                               calculation,
                               nodeData,
-                              PerformCalculation,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              PerformCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -812,11 +793,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         private static void Validate(MacroStabilityInwardsCalculationScenarioContext context)
         {
             MacroStabilityInwardsCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(MacroStabilityInwardsCalculationScenarioContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
         private void PerformCalculation(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsCalculationScenarioContext context)
@@ -908,13 +884,11 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
             builder.AddValidateAllCalculationsInGroupItem(
                        nodeData,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAll)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        nodeData,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAll)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -966,11 +940,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 Enabled = surfaceLineAvailable
             };
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(MacroStabilityInwardsCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
         private void ShowSurfaceLineSelectionDialog(MacroStabilityInwardsCalculationGroupContext nodeData)
