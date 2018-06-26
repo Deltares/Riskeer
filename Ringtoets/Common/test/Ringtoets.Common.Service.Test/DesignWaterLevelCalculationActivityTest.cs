@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             const string locationName = "locationName";
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
+        public void Constructor_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new DesignWaterLevelCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),

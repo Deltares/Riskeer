@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -60,20 +61,44 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var duneLocation = new TestDuneLocation();
+            const string locationName = "locationName";
+            const string activityDescription = "GetActivityDescription";
+
+            var duneLocation = new TestDuneLocation(locationName);
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
+
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
+            mockRepository.ReplayAll();
 
             // Call
             var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
                                                                validFilePath,
                                                                validPreprocessorDirectory,
-                                                               1.0 / 30000);
+                                                               1.0 / 30000,
+                                                               calculationMessageProvider);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
-            Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}'", activity.Description);
+            Assert.AreSame(activityDescription, activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation()),
+                                                                          validFilePath,
+                                                                          validPreprocessorDirectory,
+                                                                          1.0 / 30000,
+                                                                          null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("messageProvider", exception.ParamName);
         }
 
         [Test]
