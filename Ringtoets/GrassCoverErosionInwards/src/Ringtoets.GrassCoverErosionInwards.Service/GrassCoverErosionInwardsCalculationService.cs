@@ -69,17 +69,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> for which to validate the values.</param>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>true</c> if <paramref name="calculation"/> has no validation errors; <c>false</c> otherwise.</returns>
-        public static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
+        public static bool Validate(GrassCoverErosionInwardsCalculation calculation,
+                                    GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                    IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBegin();
 
-            string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            string[] hydraulicBoundaryDatabaseMessages = ValidateHydraulicBoundaryDatabase(assessmentSection).ToArray();
+            CalculationServiceHelper.LogMessagesAsError(hydraulicBoundaryDatabaseMessages);
+            if (hydraulicBoundaryDatabaseMessages.Any())
+            {
+                CalculationServiceHelper.LogValidationEnd();
+                return false;
+            }
+
+            string[] messages = ValidateInput(calculation.InputParameters, failureMechanism, assessmentSection).ToArray();
             CalculationServiceHelper.LogMessagesAsError(messages);
 
+            ValidateNorms(calculation.InputParameters, failureMechanism, assessmentSection);
             CalculationServiceHelper.LogValidationEnd();
-
             return !messages.Any();
         }
 
@@ -313,12 +324,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                          Resources.GrassCoverErosionInwardsCalculationService_DikeHeight),
                            2, numberOfCalculators);
 
-            double norm = calculation.InputParameters.DikeHeightCalculationType == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
-                              ? assessmentSection.FailureMechanismContribution.Norm
-                              : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                                  assessmentSection.FailureMechanismContribution.Norm,
-                                  failureMechanismContribution,
-                                  generalInput.N);
+            double norm = GetNormForDikeHeight(calculation.InputParameters, assessmentSection, generalInput, failureMechanismContribution);
+
+            var normValid = true;
+            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, lm => normValid = false);
+            if (!normValid)
+            {
+                return null;
+            }
 
             DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
                                                                                           generalInput,
@@ -370,12 +383,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                          Resources.GrassCoverErosionInwardsCalculationService_OvertoppingRate),
                            numberOfCalculators, numberOfCalculators);
 
-            double norm = calculation.InputParameters.OvertoppingRateCalculationType == OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
-                              ? assessmentSection.FailureMechanismContribution.Norm
-                              : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
-                                  assessmentSection.FailureMechanismContribution.Norm,
-                                  failureMechanismContribution,
-                                  generalInput.N);
+            double norm = GetNormForOvertoppingRate(calculation.InputParameters, assessmentSection, generalInput, failureMechanismContribution);
+
+            var normValid = true;
+            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, lm => normValid = false);
+            if (!normValid)
+            {
+                return null;
+            }
 
             OvertoppingRateCalculationInput overtoppingRateCalculationInput = CreateOvertoppingRateInput(calculation, norm,
                                                                                                          generalInput,
@@ -760,28 +775,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                                                                       roughnessPoint.Roughness)).ToArray();
         }
 
-        private static string[] ValidateInput(GrassCoverErosionInwardsInput inputParameters, IAssessmentSection assessmentSection)
+        private static IEnumerable<string> ValidateHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
-            var validationResults = new List<string>();
-
             string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
             string databaseFilePathValidationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                    preprocessorDirectory);
             if (!string.IsNullOrEmpty(databaseFilePathValidationProblem))
             {
-                validationResults.Add(databaseFilePathValidationProblem);
+                yield return databaseFilePathValidationProblem;
             }
 
             string preprocessorDirectoryValidationProblem = HydraulicBoundaryDatabaseHelper.ValidatePreprocessorDirectory(preprocessorDirectory);
             if (!string.IsNullOrEmpty(preprocessorDirectoryValidationProblem))
             {
-                validationResults.Add(preprocessorDirectoryValidationProblem);
+                yield return preprocessorDirectoryValidationProblem;
             }
+        }
 
-            if (validationResults.Any())
-            {
-                return validationResults.ToArray();
-            }
+        private static IEnumerable<string> ValidateInput(GrassCoverErosionInwardsInput inputParameters,
+                                                         GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                         IAssessmentSection assessmentSection)
+        {
+            var validationResults = new List<string>();
 
             if (inputParameters.HydraulicBoundaryLocation == null)
             {
@@ -800,7 +815,64 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             validationResults.AddRange(new UseBreakWaterRule(inputParameters).Validate());
 
-            return validationResults.ToArray();
+            return validationResults;
+        }
+
+        private static void ValidateNorms(GrassCoverErosionInwardsInput inputParameters,
+                                          GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                          IAssessmentSection assessmentSection)
+        {
+            if (inputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
+            {
+                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
+                    GetNormForDikeHeight(inputParameters,
+                                         assessmentSection,
+                                         failureMechanism.GeneralInput,
+                                         failureMechanism.Contribution),
+                    lm => CalculationServiceHelper.LogMessagesAsWarning(new[]
+                    {
+                        "HBN berekening kan niet worden uitgevoerd. " + lm
+                    }));
+            }
+
+            if (inputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
+            {
+                TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
+                    GetNormForOvertoppingRate(inputParameters,
+                                              assessmentSection,
+                                              failureMechanism.GeneralInput,
+                                              failureMechanism.Contribution),
+                    lm => CalculationServiceHelper.LogMessagesAsWarning(new[]
+                    {
+                        "Overslagdebiet berekening kan niet worden uitgevoerd. " + lm
+                    }));
+            }
+        }
+
+        private static double GetNormForDikeHeight(GrassCoverErosionInwardsInput input,
+                                                   IAssessmentSection assessmentSection,
+                                                   GeneralGrassCoverErosionInwardsInput generalInput,
+                                                   double failureMechanismContribution)
+        {
+            return input.DikeHeightCalculationType == DikeHeightCalculationType.CalculateByAssessmentSectionNorm
+                       ? assessmentSection.FailureMechanismContribution.Norm
+                       : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                           assessmentSection.FailureMechanismContribution.Norm,
+                           failureMechanismContribution,
+                           generalInput.N);
+        }
+
+        private static double GetNormForOvertoppingRate(GrassCoverErosionInwardsInput input,
+                                                        IAssessmentSection assessmentSection,
+                                                        GeneralGrassCoverErosionInwardsInput generalInput,
+                                                        double failureMechanismContribution)
+        {
+            return input.OvertoppingRateCalculationType == OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm
+                       ? assessmentSection.FailureMechanismContribution.Norm
+                       : RingtoetsCommonDataCalculationService.ProfileSpecificRequiredProbability(
+                           assessmentSection.FailureMechanismContribution.Norm,
+                           failureMechanismContribution,
+                           generalInput.N);
         }
 
         private static GeneralResult<TopLevelFaultTreeIllustrationPoint> ConvertIllustrationPointsResult(HydraRingGeneralResult result, string errorMessage)

@@ -494,11 +494,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations,
+                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                        IAssessmentSection assessmentSection)
         {
             foreach (GrassCoverErosionInwardsCalculation calculation in grassCoverErosionInwardsCalculations)
             {
-                GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+                GrassCoverErosionInwardsCalculationService.Validate(calculation, failureMechanism, assessmentSection);
             }
         }
 
@@ -618,7 +620,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void ValidateAll(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.WrappedData, context.Parent);
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -847,7 +849,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void ValidateAll(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), context.AssessmentSection);
+            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(),
+                        context.FailureMechanism,
+                        context.AssessmentSection);
         }
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
@@ -918,7 +922,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static void Validate(GrassCoverErosionInwardsCalculationContext context)
         {
-            GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.AssessmentSection);
+            GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.FailureMechanism, context.AssessmentSection);
         }
 
         private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
