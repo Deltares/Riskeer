@@ -261,13 +261,8 @@ namespace Ringtoets.ClosingStructures.Plugin
                 }, filePath));
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -462,7 +457,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
         }
 
         private void CalculateAll(ClosingStructuresFailureMechanismContext context)
@@ -674,7 +669,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
@@ -777,7 +772,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext context, object parentData)
