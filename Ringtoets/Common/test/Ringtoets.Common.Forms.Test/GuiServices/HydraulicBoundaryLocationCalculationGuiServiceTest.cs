@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
+        public void CalculateDesignWaterLevels_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Setup
             using (var viewParent = new Form())

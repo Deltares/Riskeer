@@ -27,6 +27,7 @@ using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -64,17 +65,25 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// that should be used for performing the calculations.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
+        /// <param name="messageProvider">The provider of the messages to use during calculations.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
+        /// <paramref name="messageProvider"/> is <c>null</c>.</exception>
         public void Calculate(IEnumerable<DuneLocationCalculation> calculations,
                               string hydraulicBoundaryDatabaseFilePath,
                               string preprocessorDirectory,
-                              double norm)
+                              double norm,
+                              ICalculationMessageProvider messageProvider)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
+            }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
@@ -97,7 +106,8 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                 calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
                                                                                        hydraulicBoundaryDatabaseFilePath,
                                                                                        preprocessorDirectory,
-                                                                                       norm)).ToArray());
+                                                                                       norm,
+                                                                                       messageProvider)).ToArray());
         }
     }
 }
