@@ -25,7 +25,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DuneLocationCalculationActivityIntegrationTest.cs" />
-    <Compile Include="DuneLocationCalculationsViewIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -168,15 +168,5 @@ namespace Ringtoets.DuneErosion.Forms.Views
                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                              getNormFunc());
         }
-
-        protected override string ValidateCalculatableObjects()
-        {
-            if (FailureMechanism != null && FailureMechanism.Contribution <= 0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            return base.ValidateCalculatableObjects();
-        }
     }
 }

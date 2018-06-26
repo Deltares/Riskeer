@@ -195,7 +195,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     "Rekenwaarde d50 [m]"
                 };
                 DataGridViewTestHelper.AssertExpectedHeaders(expectedHeaderNames, dataGridView);
-                var expectedColumnTypes = new[]
+                Type[] expectedColumnTypes =
                 {
                     typeof(DataGridViewCheckBoxColumn),
                     typeof(DataGridViewTextBoxColumn),
@@ -424,10 +424,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             mocks.ReplayAll();
 
             IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
+
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations, failureMechanism, assessmentSection))
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
@@ -497,13 +495,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(false, true, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, false, message)")]
-        [TestCase(true, true, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
-        [TestCase(false, false, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
-        [TestCase(true, false, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
-        public void GivenDuneLocationCalculationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                                                                         bool contributionZero,
-                                                                                                                                                                         string expectedErrorMessage)
+        [TestCase(false, "Er zijn geen berekeningen geselecteerd.")]
+        [TestCase(true, "")]
+        public void GivenDuneLocationCalculationsView_WhenSpecificCombinationOfRowSelectionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected, string expectedErrorMessage)
         {
             // Given
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -519,15 +513,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     rows[0].Cells[calculateColumnIndex].Value = true;
                 }
 
-                if (contributionZero)
-                {
-                    view.FailureMechanism.Contribution = 0;
-                    view.FailureMechanism.NotifyObservers();
-                }
-
                 // Then
                 var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-                Assert.AreEqual(rowSelected && !contributionZero, button.Enabled);
+                Assert.AreEqual(rowSelected, button.Enabled);
                 var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
                 Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
             }
@@ -555,10 +543,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
                                                                failureMechanism,
@@ -616,10 +601,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
                                                                failureMechanism,
@@ -679,10 +661,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                              .Return(dunesBoundaryConditionsCalculator);
             mocks.ReplayAll();
 
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
                                                                failureMechanism,
@@ -716,10 +695,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
         private DuneLocationCalculationsView ShowFullyConfiguredDuneLocationCalculationsView(IAssessmentSection assessmentSection)
         {
-            var failureMechanism = new DuneErosionFailureMechanism
-            {
-                Contribution = 10
-            };
+            var failureMechanism = new DuneErosionFailureMechanism();
 
             DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(GenerateDuneLocationCalculations(), failureMechanism, assessmentSection);
             return view;

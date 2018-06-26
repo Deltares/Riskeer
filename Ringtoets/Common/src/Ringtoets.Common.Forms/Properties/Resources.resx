@@ -937,9 +937,6 @@ handmatig</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="Contribution_of_failure_mechanism_zero" xml:space="preserve">
-    <value>De bijdrage van dit toetsspoor is nul.</value>
-  </data>
   <data name="ObservablePropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parameter_and_clear_calculation_output" xml:space="preserve">
     <value>Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden.
 

@@ -29,7 +29,6 @@ using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
@@ -118,13 +117,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                                                              calculations,
                                                              getNormFunc(),
                                                              messageProvider);
-        }
-
-        protected override string ValidateCalculatableObjects()
-        {
-            return FailureMechanism != null && FailureMechanism.Contribution <= 0
-                       ? RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero
-                       : base.ValidateCalculatableObjects();
         }
     }
 }

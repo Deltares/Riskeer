@@ -368,24 +368,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(false, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, false, message)")]
-        [TestCase(true, false, "De bijdrage van dit toetsspoor is nul.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, false, message)")]
-        [TestCase(false, true, "Er zijn geen berekeningen geselecteerd.", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(false, true, message)")]
-        [TestCase(true, true, "", TestName = "CalculateButton_RowSelectionContributionSet_SyncedAccordingly(true, true, message)")]
-        public void GivenDesignWaterLevelCalculationsView_WhenSpecificCombinationOfRowSelectionAndFailureMechanismContributionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
-                                                                                                                                                                             bool contributionNotZero,
-                                                                                                                                                                             string expectedErrorMessage)
+        [TestCase(false, "Er zijn geen berekeningen geselecteerd.")]
+        [TestCase(true, "")]
+        public void GivenDesignWaterLevelCalculationsView_WhenSpecificCombinationOfRowSelectionSet_ThenButtonAndErrorMessageSyncedAccordingly(bool rowSelected,
+                                                                                                                                              string expectedErrorMessage)
         {
             // Given
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
             mockRepository.ReplayAll();
 
             GrassCoverErosionOutwardsDesignWaterLevelCalculationsView view = ShowFullyConfiguredDesignWaterLevelCalculationsView(assessmentSection, testForm);
-            if (!contributionNotZero)
-            {
-                view.FailureMechanism.Contribution = 0;
-                view.FailureMechanism.NotifyObservers();
-            }
 
             // When
             if (rowSelected)
@@ -397,7 +389,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Then
             var button = (Button) view.Controls.Find("CalculateForSelectedButton", true)[0];
-            Assert.AreEqual(rowSelected && contributionNotZero, button.Enabled);
+            Assert.AreEqual(rowSelected, button.Enabled);
             var errorProvider = TypeUtils.GetField<ErrorProvider>(view, "CalculateForSelectedButtonErrorProvider");
             Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(button));
         }
@@ -639,13 +631,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                                                                                                                       string categoryName,
                                                                                                                       Form form)
         {
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 10
-            };
-
             var view = new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(calculations,
-                                                                                     failureMechanism,
+                                                                                     new GrassCoverErosionOutwardsFailureMechanism(),
                                                                                      assessmentSection,
                                                                                      () => norm,
                                                                                      categoryName);
