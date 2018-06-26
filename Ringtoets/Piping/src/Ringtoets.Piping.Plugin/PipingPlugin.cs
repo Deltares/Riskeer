@@ -575,16 +575,6 @@ namespace Ringtoets.Piping.Plugin
                     .ToList());
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IFailureMechanism failureMechanism)
-        {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            return null;
-        }
-
         #region PipingSurfaceLinesContext TreeNodeInfo
 
         private ContextMenuStrip PipingSurfaceLinesContextContextMenuStrip(PipingSurfaceLinesContext nodeData, object parentData, TreeViewControl treeViewControl)
@@ -638,12 +628,10 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               pipingFailureMechanismContext,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              ValidateAll)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               pipingFailureMechanismContext,
-                              CalculateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              CalculateAll)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -675,11 +663,6 @@ namespace Ringtoets.Piping.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingFailureMechanismContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.WrappedData);
         }
 
         private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
@@ -754,13 +737,11 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               nodeData,
-                              Validate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              Validate)
                           .AddPerformCalculationItem(
                               calculation,
                               nodeData,
-                              PerformCalculation,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              PerformCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -818,11 +799,6 @@ namespace Ringtoets.Piping.Plugin
         private static void Validate(PipingCalculationScenarioContext context)
         {
             PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
         private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
@@ -975,13 +951,11 @@ namespace Ringtoets.Piping.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        nodeData,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAll)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        nodeData,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAll)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -1033,11 +1007,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 Enabled = surfaceLineAvailable
             };
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
         private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)

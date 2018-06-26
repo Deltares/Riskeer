@@ -570,63 +570,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
-                var group = new CalculationGroup
-                {
-                    Children =
-                    {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
-                    }
-                };
-
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 null,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, pipingFailureMechanism, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
-                                                                  "Alles be&rekenen",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
-                                                                  "Alles &valideren",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
