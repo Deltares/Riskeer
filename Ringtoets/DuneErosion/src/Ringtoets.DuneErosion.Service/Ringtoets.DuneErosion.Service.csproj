@@ -16,6 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DuneLocationCalculationActivity.cs" />
+    <Compile Include="DuneLocationCalculationMessageProvider.cs" />
     <Compile Include="DuneLocationCalculationService.cs" />
     <Compile Include="DuneErosionDataSynchronizationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

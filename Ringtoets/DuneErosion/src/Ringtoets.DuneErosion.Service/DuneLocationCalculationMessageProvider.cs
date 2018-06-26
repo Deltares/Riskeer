@@ -20,23 +20,24 @@
 // All rights reserved.
 
 using System;
-using Ringtoets.Common.Service.Properties;
+using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.DuneErosion.Service.Properties;
 
-namespace Ringtoets.Common.Service.MessageProviders
+namespace Ringtoets.DuneErosion.Service
 {
     /// <summary>
-    /// This class provides messages used during a wave height calculation.
+    /// This class provides messages used during a dune location calculation.
     /// </summary>
-    public class WaveHeightCalculationMessageProvider : ICalculationMessageProvider
+    public class DuneLocationCalculationMessageProvider : ICalculationMessageProvider
     {
         private readonly string categoryBoundaryName;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightCalculationMessageProvider"/>.
+        /// Creates a new instance of <see cref="DuneLocationCalculationMessageProvider"/>.
         /// </summary>
         /// <param name="categoryBoundaryName">The category boundary name.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public WaveHeightCalculationMessageProvider(string categoryBoundaryName)
+        public DuneLocationCalculationMessageProvider(string categoryBoundaryName)
         {
             if (string.IsNullOrEmpty(categoryBoundaryName))
             {
@@ -48,31 +49,26 @@ namespace Ringtoets.Common.Service.MessageProviders
 
         public string GetActivityDescription(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_HydraulicBoundaryLocation_0_Category_1_,
-                                 calculationSubject,
-                                 categoryBoundaryName);
+            return string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
+                                 calculationSubject);
         }
 
         public string GetCalculationFailedMessage(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_no_error_report,
-                                 calculationSubject,
-                                 categoryBoundaryName);
+            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_error_report,
+                                 calculationSubject);
         }
 
         public string GetCalculatedNotConvergedMessage(string calculationSubject)
         {
-            return string.Format(Resources.WaveHeightCalculationActivity_WaveHeightCalculation_for_HydraulicBoundaryLocation_0_Category_1_not_converged,
-                                 calculationSubject,
-                                 categoryBoundaryName);
+            return string.Format(Resources.DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_not_converged,
+                                 calculationSubject);
         }
 
         public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
         {
-            return string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_WaveHeightCalculation_0_Category_1_click_details_for_last_error_report_2,
-                                 calculationSubject,
-                                 categoryBoundaryName,
-                                 errorReport);
+            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1,
+                                 calculationSubject, errorReport);
         }
     }
 }
