@@ -175,6 +175,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             bool usePreprocessor = !string.IsNullOrEmpty(effectivePreprocessorDirectory);
 
             int numberOfCalculators = CreateCalculators(calculation,
+                                                        assessmentSection,
+                                                        generalInput,
+                                                        failureMechanismContribution,
                                                         Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath),
                                                         effectivePreprocessorDirectory);
 
@@ -233,19 +236,36 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory, string preprocessorDirectory)
+        private int CreateCalculators(GrassCoverErosionInwardsCalculation calculation,
+                                      IAssessmentSection assessmentSection,
+                                      GeneralGrassCoverErosionInwardsInput generalInput,
+                                      double failureMechanismContribution,
+                                      string hlcdDirectory,
+                                      string preprocessorDirectory)
         {
             var numberOfCalculators = 1;
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, preprocessorDirectory);
 
-            if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation)
+            bool dikeHeightNormValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
+                GetNormForDikeHeight(calculation.InputParameters,
+                                     assessmentSection,
+                                     generalInput,
+                                     failureMechanismContribution), lm => {});
+
+            if (calculation.InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation && dikeHeightNormValid)
             {
                 dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, preprocessorDirectory);
                 numberOfCalculators++;
             }
 
-            if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation)
+            bool overtoppingRateNormValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(
+                GetNormForOvertoppingRate(calculation.InputParameters,
+                                          assessmentSection,
+                                          generalInput,
+                                          failureMechanismContribution), lm => {});
+
+            if (calculation.InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation && overtoppingRateNormValid)
             {
                 overtoppingRateCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingRateCalculator(hlcdDirectory, preprocessorDirectory);
                 numberOfCalculators++;
@@ -326,13 +346,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             double norm = GetNormForDikeHeight(calculation.InputParameters, assessmentSection, generalInput, failureMechanismContribution);
 
-            var normValid = true;
-            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, lm => normValid = false);
-            if (!normValid)
-            {
-                return null;
-            }
-
             DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, norm,
                                                                                           generalInput,
                                                                                           hydraulicBoundaryDatabaseFilePath,
@@ -384,13 +397,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                            numberOfCalculators, numberOfCalculators);
 
             double norm = GetNormForOvertoppingRate(calculation.InputParameters, assessmentSection, generalInput, failureMechanismContribution);
-
-            var normValid = true;
-            TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(norm, lm => normValid = false);
-            if (!normValid)
-            {
-                return null;
-            }
 
             OvertoppingRateCalculationInput overtoppingRateCalculationInput = CreateOvertoppingRateInput(calculation, norm,
                                                                                                          generalInput,
