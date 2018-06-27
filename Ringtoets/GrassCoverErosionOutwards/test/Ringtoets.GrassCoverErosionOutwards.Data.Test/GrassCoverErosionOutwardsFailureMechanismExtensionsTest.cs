@@ -266,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                 categoryType);
 
             // Assert
-            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
+            Assert.AreSame(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
         }
 
         [Test]

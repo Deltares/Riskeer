@@ -62,8 +62,10 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculations = GetHydraulicBoundaryLocationCalculations(assessmentSection);
-            return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation, calculations);
+            HydraulicBoundaryLocationCalculation calculation = GetNormativeHydraulicBoundaryLocationCalculation(assessmentSection,
+                                                                                                                hydraulicBoundaryLocation);
+
+            return GetAssessmentLevelFromCalculation(calculation);
         }
 
         /// <summary>
@@ -76,7 +78,6 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
         /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation.</item>
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
@@ -125,8 +126,11 @@ namespace Ringtoets.Common.Data.AssessmentSection
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation,
-                                                      GetHydraulicBoundaryLocationCalculations(assessmentSection, categoryType));
+            HydraulicBoundaryLocationCalculation calculation = GetHydraulicBoundaryLocationCalculation(assessmentSection,
+                                                                                                       hydraulicBoundaryLocation,
+                                                                                                       categoryType);
+
+            return GetAssessmentLevelFromCalculation(calculation);
         }
 
         /// <summary>
@@ -139,7 +143,6 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
         /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation.</item>
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
@@ -301,10 +304,9 @@ namespace Ringtoets.Common.Data.AssessmentSection
             return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
         }
 
-        private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                        IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
+        private static RoundedDouble GetAssessmentLevelFromCalculation(HydraulicBoundaryLocationCalculation calculation)
         {
-            return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation, calculations)?.Output?.Result ?? RoundedDouble.NaN;
+            return calculation?.Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil
     public static class GrassCoverErosionOutwardsAssessmentSectionHelper
     {
         /// <summary>
-        /// Gets a collection of <see cref="TestCaseData"/> containing an hydraulic boundary location calculation
+        /// Gets a collection of <see cref="TestCaseData"/> containing a hydraulic boundary location calculation
         /// configuration for all types of <see cref="FailureMechanismCategoryType"/>.
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/>, in which each item contains:
