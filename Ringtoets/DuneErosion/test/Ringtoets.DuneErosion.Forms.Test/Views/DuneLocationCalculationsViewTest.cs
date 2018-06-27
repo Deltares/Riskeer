@@ -162,8 +162,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                                                        null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+            const string expectedMessage = "'categoryBoundaryName' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
@@ -181,8 +181,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                                                        string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("categoryBoundaryName", exception.ParamName);
+            const string expectedMessage = "'categoryBoundaryName' must have a value.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]
