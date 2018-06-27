@@ -228,11 +228,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var calculations = new ObservableList<DuneLocationCalculation>();
 
+            const string categoryBoundaryName = "A";
+
             var data = new DuneLocationCalculationsContext(calculations,
                                                            failureMechanism,
                                                            assessmentSection,
                                                            getNormFunc,
-                                                           "A");
+                                                           categoryBoundaryName);
 
             plugin.Gui = gui;
             plugin.Activate();
@@ -240,7 +242,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(calculations,
                                                                failureMechanism,
                                                                assessmentSection,
-                                                               getNormFunc))
+                                                               getNormFunc,
+                                                               categoryBoundaryName))
             {
                 // Call
                 info.AfterCreate(view, data);
@@ -271,7 +274,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                failureMechanism,
                                                                assessmentSection,
-                                                               () => 0.01))
+                                                               () => 0.01,
+                                                               "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -305,7 +309,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSectionA,
-                                                               () => 0.01))
+                                                               () => 0.01,
+                                                               "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSectionB);
@@ -340,7 +345,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                failureMechanism,
                                                                assessmentSection,
-                                                               () => 0.01))
+                                                               () => 0.01,
+                                                               "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
@@ -378,7 +384,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSectionA,
-                                                               () => 0.01))
+                                                               () => 0.01,
+                                                               "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, duneErosionFailureMechanismContext);
@@ -407,7 +414,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSection,
-                                                               () => 0.01))
+                                                               () => 0.01,
+                                                               "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
@@ -430,7 +438,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.ViewInfos
             using (var view = new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
                                                                new DuneErosionFailureMechanism(),
                                                                assessmentSection,
-                                                               () => 0.01))
+                                                               () => 0.01,
+                                                               "A"))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, null);
