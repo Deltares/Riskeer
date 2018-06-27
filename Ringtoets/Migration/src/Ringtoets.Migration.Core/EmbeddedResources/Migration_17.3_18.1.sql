@@ -637,7 +637,27 @@ SELECT
 FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 INSERT INTO SubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointEntity;
 INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointStochastEntity;
-INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
+INSERT INTO SurfaceLineEntity(
+	[SurfaceLineEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[ReferenceLineIntersectionX],
+	[ReferenceLineIntersectionY],
+	[PointsXml],
+	[Order])
+SELECT 
+	[SurfaceLineEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[ReferenceLineIntersectionX],
+	[ReferenceLineIntersectionY],
+	REPLACE(
+		REPLACE(PointsXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''), 
+		'Point3DXmlSerializer.SerializablePoint3D'
+		'SerializablePoint3D'
+	),
+	[Order],
+FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity (
 	[TechnicalInnovationSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
