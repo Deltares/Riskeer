@@ -26,6 +26,7 @@ using Core.Common.Util;
 using log4net;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -54,8 +55,10 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic 
         /// boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> or
+        /// <paramref name="messageProvider"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
@@ -75,11 +78,17 @@ namespace Ringtoets.DuneErosion.Service
         public void Calculate(DuneLocationCalculation duneLocationCalculation,
                               double norm,
                               string hydraulicBoundaryDatabaseFilePath,
-                              string preprocessorDirectory)
+                              string preprocessorDirectory,
+                              ICalculationMessageProvider messageProvider)
         {
             if (duneLocationCalculation == null)
             {
                 throw new ArgumentNullException(nameof(duneLocationCalculation));
+            }
+
+            if (messageProvider == null)
+            {
+                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);

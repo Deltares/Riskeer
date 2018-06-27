@@ -87,7 +87,8 @@ namespace Ringtoets.DuneErosion.Service
             calculationService.Calculate(duneLocationCalculation,
                                          norm,
                                          hydraulicBoundaryDatabaseFilePath,
-                                         preprocessorDirectory);
+                                         preprocessorDirectory,
+                                         messageProvider);
         }
 
         protected override void OnCancel()
