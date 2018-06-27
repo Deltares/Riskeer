@@ -46,6 +46,7 @@ using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
+using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -148,7 +149,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
                                                                              context.FailureMechanism,
                                                                              context.AssessmentSection,
-                                                                             context.GetNormFunc),
+                                                                             context.GetNormFunc,
+                                                                             context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
@@ -389,7 +391,8 @@ namespace Ringtoets.DuneErosion.Plugin
                     duneLocationCalculationGuiService.Calculate(context.WrappedData,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                 context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                context.GetNormFunc());
+                                                                context.GetNormFunc(),
+                                                                new DuneLocationCalculationMessageProvider(context.CategoryBoundaryName));
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
