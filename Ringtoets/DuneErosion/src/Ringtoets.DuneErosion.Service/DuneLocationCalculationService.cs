@@ -112,7 +112,10 @@ namespace Ringtoets.DuneErosion.Service
 
                 if (string.IsNullOrEmpty(calculator.LastErrorFileContent))
                 {
-                    duneLocationCalculation.Output = CreateDuneLocationCalculationOutput(duneLocationName, calculationInput.Beta, norm);
+                    duneLocationCalculation.Output = CreateDuneLocationCalculationOutput(duneLocationName,
+                                                                                         calculationInput.Beta,
+                                                                                         norm,
+                                                                                         messageProvider);
                 }
             }
             catch (HydraRingCalculationException)
@@ -121,10 +124,8 @@ namespace Ringtoets.DuneErosion.Service
                 {
                     string lastErrorContent = calculator.LastErrorFileContent;
                     log.Error(string.IsNullOrEmpty(lastErrorContent)
-                                  ? string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_error_report,
-                                                  duneLocationName)
-                                  : string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1,
-                                                  duneLocationName, lastErrorContent));
+                                  ? messageProvider.GetCalculationFailedMessage(duneLocationName)
+                                  : messageProvider.GetCalculationFailedWithErrorReportMessage(duneLocationName, lastErrorContent));
 
                     exceptionThrown = true;
                     throw;
@@ -136,8 +137,7 @@ namespace Ringtoets.DuneErosion.Service
                 bool hasErrorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (hasErrorOccurred)
                 {
-                    log.ErrorFormat(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1,
-                                    duneLocationName, lastErrorFileContent);
+                    messageProvider.GetCalculationFailedWithErrorReportMessage(duneLocationName, lastErrorFileContent);
                 }
 
                 log.InfoFormat(Resources.DuneLocationCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
@@ -166,10 +166,14 @@ namespace Ringtoets.DuneErosion.Service
         /// <param name="duneLocationName">The name of the location.</param>
         /// <param name="targetReliability">The target reliability for the calculation.</param>
         /// <param name="targetProbability">The target probability for the calculation.</param>
+        /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <returns>A <see cref="DuneLocationCalculationOutput"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="targetProbability"/> 
         /// or the calculated probability falls outside the [0.0, 1.0] range and is not <see cref="double.NaN"/>.</exception>
-        private DuneLocationCalculationOutput CreateDuneLocationCalculationOutput(string duneLocationName, double targetReliability, double targetProbability)
+        private DuneLocationCalculationOutput CreateDuneLocationCalculationOutput(string duneLocationName,
+                                                                                  double targetReliability,
+                                                                                  double targetProbability,
+                                                                                  ICalculationMessageProvider messageProvider)
         {
             double reliability = calculator.ReliabilityIndex;
             double probability = StatisticsConverter.ReliabilityToProbability(reliability);
@@ -178,7 +182,7 @@ namespace Ringtoets.DuneErosion.Service
 
             if (converged != CalculationConvergence.CalculatedConverged)
             {
-                log.WarnFormat(Resources.DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_not_converged, duneLocationName);
+                log.WarnFormat(messageProvider.GetCalculatedNotConvergedMessage(duneLocationName));
             }
 
             return new DuneLocationCalculationOutput(converged,
