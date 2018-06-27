@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.Properties;
+using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.Views
@@ -42,6 +43,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
         private readonly Func<double> getNormFunc;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
+        private readonly DuneLocationCalculationMessageProvider messageProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsView"/>.
@@ -77,6 +79,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
             }
 
             InitializeComponent();
+
+            messageProvider = new DuneLocationCalculationMessageProvider("categoryBoundaryName");
 
             this.calculations = calculations;
             this.getNormFunc = getNormFunc;
@@ -166,7 +170,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
             CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
                                              AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                              AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                             getNormFunc());
+                                             getNormFunc(),
+                                             messageProvider);
         }
     }
 }
