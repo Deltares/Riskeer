@@ -52,11 +52,14 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                             DuneErosionFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection,
-                                            Func<double> getNormFunc)
+                                            Func<double> getNormFunc,
+                                            string categoryBoundaryName)
         {
             if (calculations == null)
             {
@@ -80,7 +83,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
 
             InitializeComponent();
 
-            messageProvider = new DuneLocationCalculationMessageProvider("categoryBoundaryName");
+            messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
 
             this.calculations = calculations;
             this.getNormFunc = getNormFunc;
