@@ -26,6 +26,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.Storage.Core.Create.IllustrationPoints;
+using Ringtoets.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.IllustrationPoints
 {
