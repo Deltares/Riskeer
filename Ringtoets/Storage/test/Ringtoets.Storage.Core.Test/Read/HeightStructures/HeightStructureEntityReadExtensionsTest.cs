@@ -23,6 +23,9 @@ using System;
 using NUnit.Framework;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read;
+using Ringtoets.Storage.Core.Read.HeightStructures;
 
 namespace Ringtoets.Storage.Core.Test.Read.HeightStructures
 {
