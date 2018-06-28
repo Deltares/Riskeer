@@ -20,12 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.Create;
+using Ringtoets.Storage.Core.Create.StabilityStoneCover;
+using Ringtoets.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.StabilityStoneCover
 {
