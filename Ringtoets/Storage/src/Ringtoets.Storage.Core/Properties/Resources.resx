@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Error_during_connection" xml:space="preserve">
+    <value>Er is een fout opgetreden in de verbinding met het Ringtoets bestand.</value>
+  </data>
+  <data name="Error_saving_database" xml:space="preserve">
+    <value>Een fout is opgetreden tijdens het opslaan van het Ringtoets bestand.</value>
+  </data>
+  <data name="Error_writing_structure_to_database" xml:space="preserve">
+    <value>Een fout is opgetreden met schrijven naar het nieuwe Ringtoets bestand.</value>
+  </data>
+  <data name="Ringtoets_project_file_filter" xml:space="preserve">
+    <value>Ringtoetsproject (*.rtd)|*.rtd</value>
+  </data>
+  <data name="StorageSqLite_LoadProject_Invalid_Ringtoets_database_file" xml:space="preserve">
+    <value>Het bestand is geen geldig Ringtoets bestand.</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_CreateNewTemporaryFile_Cannot_create_temporary_FilePath_0_Try_change_save_location" xml:space="preserve">
+    <value>Kan geen tijdelijk bestand maken van het originele bestand ({0}).</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_RestoreOriginalFile_Cannot_revert_to_original_FilePath_0_Try_reverting_manually" xml:space="preserve">
+    <value>Kan het originele bestand ({0}) niet herstellen. Het tijdelijke bestand dient handmatig hersteld te worden.</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_DeleteTemporaryFile_Cannot_remove_temporary_FilePath_0_Try_removing_manually" xml:space="preserve">
+    <value>Kan het tijdelijke bestand ({0}) niet opruimen. Het tijdelijke bestand dient handmatig verwijderd te worden.</value>
+  </data>
+  <data name="SafeOverwriteFileHelper_RemoveAlreadyExistingTemporaryFile_Already_existing_temporary_file_at_FilePath_0_could_not_be_removed" xml:space="preserve">
+    <value>Er bestaat al een tijdelijk bestand ({0}) dat niet verwijderd kan worden. Dit bestand dient handmatig verwijderd te worden.</value>
+  </data>
+  <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_is_invalid" xml:space="preserve">
+    <value>Ringtoets bestand versie '{0}' is niet valide. De versie van het Ringtoets projectbestand dient '16.4' of hoger te zijn.</value>
+  </data>
+  <data name="StorageSqLite_ValidateDatabaseVersion_DatabaseVersion_0_higher_then_current_DatabaseVersion_1_" xml:space="preserve">
+    <value>Ringtoets bestand versie '{0}' is hoger dan de huidig ondersteunde versie ('{1}'). Update Ringtoets naar een nieuwere versie.</value>
+  </data>
+  <data name="StorageSqLite_ValidateDatabaseVersion_Database_must_have_one_VersionEntity_row" xml:space="preserve">
+    <value>Database moet één rij in de VersionEntity tabel hebben.</value>
+  </data>
+  <data name="StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint" xml:space="preserve">
+    <value>Het project bevat te veel unieke objecten om een digitale vingerafdruk van te genereren.</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DatabaseStructure" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\..\..\..\build\databasestructure.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="FingerprintHelper_Critical_error_message" xml:space="preserve">
+    <value>Een kritieke fout voorkomt dat een vingerafdruk van de projectdata gemaakt kan worden.</value>
+  </data>
+</root>
