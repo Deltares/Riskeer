@@ -30,7 +30,7 @@ namespace Ringtoets.Piping.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a piping calculation.
     /// </summary>
-    public class PipingCalculationActivity : CalculatableActivity
+    internal class PipingCalculationActivity : CalculatableActivity
     {
         private readonly PipingCalculation calculation;
         private readonly RoundedDouble normativeAssessmentLevel;
