@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone.Input;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.MacroStabilityOutwards
+namespace Ringtoets.Storage.Core.Read.MacroStabilityOutwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityOutwardsProbabilityAssessmentInput"/> 

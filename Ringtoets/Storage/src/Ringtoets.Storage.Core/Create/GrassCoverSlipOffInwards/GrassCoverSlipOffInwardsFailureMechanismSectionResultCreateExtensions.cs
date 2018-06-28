@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverSlipOffInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverSlipOffInwardsFailureMechanismSectionResult"/> related to creating a 

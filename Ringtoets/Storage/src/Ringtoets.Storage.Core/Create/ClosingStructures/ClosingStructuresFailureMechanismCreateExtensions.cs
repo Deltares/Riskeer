@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.ClosingStructures
+namespace Ringtoets.Storage.Core.Create.ClosingStructures
 {
     /// <summary>
     /// Extension methods for <see cref="ClosingStructuresFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

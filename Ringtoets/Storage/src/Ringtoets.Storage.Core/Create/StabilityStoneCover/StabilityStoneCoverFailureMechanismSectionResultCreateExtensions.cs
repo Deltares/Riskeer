@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
+namespace Ringtoets.Storage.Core.Create.StabilityStoneCover
 {
     /// <summary>
     /// Extension methods for <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> related to creating a 

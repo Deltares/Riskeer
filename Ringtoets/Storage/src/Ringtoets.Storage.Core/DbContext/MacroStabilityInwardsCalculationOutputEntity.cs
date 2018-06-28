@@ -28,7 +28,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     public class MacroStabilityInwardsCalculationOutputEntity
     {

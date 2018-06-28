@@ -26,7 +26,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Xml;
 
-namespace Application.Ringtoets.Storage.Serializers
+namespace Ringtoets.Storage.Core.Serializers
 {
     /// <summary>
     /// Converter class that converts between a collection of <see cref="TSerializedData"/> and 

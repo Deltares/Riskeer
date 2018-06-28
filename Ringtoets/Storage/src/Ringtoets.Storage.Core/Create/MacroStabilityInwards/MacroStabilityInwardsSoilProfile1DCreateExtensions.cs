@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsSoilProfile1D"/> related to creating 

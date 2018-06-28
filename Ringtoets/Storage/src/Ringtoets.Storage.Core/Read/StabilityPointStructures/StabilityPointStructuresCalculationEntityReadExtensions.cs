@@ -21,13 +21,13 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.IllustrationPoints;
 
-namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Read.StabilityPointStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="StructuresCalculation{T}"/>

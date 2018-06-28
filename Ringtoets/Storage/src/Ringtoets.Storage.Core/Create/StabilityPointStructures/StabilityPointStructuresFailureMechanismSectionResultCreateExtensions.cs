@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Create.StabilityPointStructures
 {
     /// <summary>
     /// Extension methods for <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> related to creating a 

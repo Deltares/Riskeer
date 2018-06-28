@@ -21,13 +21,13 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionInwardsCalculation"/>

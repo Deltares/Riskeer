@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Piping.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.Piping
+namespace Ringtoets.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingCalculationScenario"/> related to creating

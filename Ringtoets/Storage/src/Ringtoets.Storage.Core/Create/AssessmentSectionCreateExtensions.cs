@@ -20,32 +20,32 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.ClosingStructures;
-using Application.Ringtoets.Storage.Create.DuneErosion;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
-using Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards;
-using Application.Ringtoets.Storage.Create.GrassCoverSlipOffOutwards;
-using Application.Ringtoets.Storage.Create.HeightStructures;
-using Application.Ringtoets.Storage.Create.MacroStabilityOutwards;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.Create.Microstability;
-using Application.Ringtoets.Storage.Create.Piping;
-using Application.Ringtoets.Storage.Create.PipingStructure;
-using Application.Ringtoets.Storage.Create.StabilityPointStructures;
-using Application.Ringtoets.Storage.Create.StabilityStoneCover;
-using Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise;
-using Application.Ringtoets.Storage.Create.TechnicalInnovation;
-using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
-using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
+using Ringtoets.Storage.Core.Create.ClosingStructures;
+using Ringtoets.Storage.Core.Create.DuneErosion;
+using Ringtoets.Storage.Core.Create.GrassCoverErosionInwards;
+using Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards;
+using Ringtoets.Storage.Core.Create.GrassCoverSlipOffInwards;
+using Ringtoets.Storage.Core.Create.GrassCoverSlipOffOutwards;
+using Ringtoets.Storage.Core.Create.HeightStructures;
+using Ringtoets.Storage.Core.Create.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Create.MacroStabilityOutwards;
+using Ringtoets.Storage.Core.Create.Microstability;
+using Ringtoets.Storage.Core.Create.Piping;
+using Ringtoets.Storage.Core.Create.PipingStructure;
+using Ringtoets.Storage.Core.Create.StabilityPointStructures;
+using Ringtoets.Storage.Core.Create.StabilityStoneCover;
+using Ringtoets.Storage.Core.Create.StrengthStabilityLengthwise;
+using Ringtoets.Storage.Core.Create.TechnicalInnovation;
+using Ringtoets.Storage.Core.Create.WaterPressureAsphaltCover;
+using Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Application.Ringtoets.Storage.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="AssessmentSection"/> related to creating an <see cref="AssessmentSectionEntity"/>.

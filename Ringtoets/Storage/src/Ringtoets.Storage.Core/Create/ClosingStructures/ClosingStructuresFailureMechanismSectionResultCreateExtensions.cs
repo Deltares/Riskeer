@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.ClosingStructures
+namespace Ringtoets.Storage.Core.Create.ClosingStructures
 {
     /// <summary>
     /// Extension methods for <see cref="ClosingStructuresFailureMechanismSectionResult"/> related to creating a 

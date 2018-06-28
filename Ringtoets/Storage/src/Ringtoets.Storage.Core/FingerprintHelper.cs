@@ -26,11 +26,11 @@ using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Xml;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Exceptions;
+using Ringtoets.Storage.Core.Properties;
 
-namespace Application.Ringtoets.Storage
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// This class is capable of generating a hashcode for serializable object instance

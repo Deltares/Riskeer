@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Read.GrassCoverErosionOutwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>

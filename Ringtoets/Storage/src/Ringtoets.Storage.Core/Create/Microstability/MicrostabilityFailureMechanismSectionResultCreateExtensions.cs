@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.Microstability
+namespace Ringtoets.Storage.Core.Create.Microstability
 {
     /// <summary>
     /// Extension methods for <see cref="MicrostabilityFailureMechanismSectionResult"/> related to creating a 

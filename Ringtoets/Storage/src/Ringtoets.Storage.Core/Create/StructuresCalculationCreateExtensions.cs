@@ -20,15 +20,15 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="StructuresCalculation{T}"/> related

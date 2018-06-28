@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="MacroStabilityInwardsSoilProfile2D"/> 

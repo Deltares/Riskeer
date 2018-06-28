@@ -21,19 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.ClosingStructures;
-using Application.Ringtoets.Storage.Read.DuneErosion;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
-using Application.Ringtoets.Storage.Read.HeightStructures;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
-using Application.Ringtoets.Storage.Read.MacroStabilityOutwards;
-using Application.Ringtoets.Storage.Read.Piping;
-using Application.Ringtoets.Storage.Read.PipingStructure;
-using Application.Ringtoets.Storage.Read.StabilityPointStructures;
-using Application.Ringtoets.Storage.Read.StabilityStoneCover;
-using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
@@ -50,9 +37,22 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.ClosingStructures;
+using Ringtoets.Storage.Core.Read.DuneErosion;
+using Ringtoets.Storage.Core.Read.GrassCoverErosionInwards;
+using Ringtoets.Storage.Core.Read.GrassCoverErosionOutwards;
+using Ringtoets.Storage.Core.Read.HeightStructures;
+using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Read.MacroStabilityOutwards;
+using Ringtoets.Storage.Core.Read.Piping;
+using Ringtoets.Storage.Core.Read.PipingStructure;
+using Ringtoets.Storage.Core.Read.StabilityPointStructures;
+using Ringtoets.Storage.Core.Read.StabilityStoneCover;
+using Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingFailureMechanism"/> based on the

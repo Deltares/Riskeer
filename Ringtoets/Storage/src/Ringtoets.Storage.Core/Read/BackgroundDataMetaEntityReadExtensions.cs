@@ -21,9 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// Extensions methods for read operations based on the <see cref="BackgroundDataMetaEntity"/>.

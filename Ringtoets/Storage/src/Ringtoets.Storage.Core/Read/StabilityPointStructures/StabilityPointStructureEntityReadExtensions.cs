@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Read.StabilityPointStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="StabilityPointStructure"/>

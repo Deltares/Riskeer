@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.HeightStructures
+namespace Ringtoets.Storage.Core.Read.HeightStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="HeightStructuresFailureMechanismSectionResult"/> 

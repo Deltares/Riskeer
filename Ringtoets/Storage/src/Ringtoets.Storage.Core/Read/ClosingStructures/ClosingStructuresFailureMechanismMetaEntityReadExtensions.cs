@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.ClosingStructures
+namespace Ringtoets.Storage.Core.Read.ClosingStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GeneralClosingStructuresInput"/>

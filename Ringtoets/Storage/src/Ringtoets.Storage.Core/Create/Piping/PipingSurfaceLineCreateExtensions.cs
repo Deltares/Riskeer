@@ -21,13 +21,13 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Core.Common.Util.Extensions;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Application.Ringtoets.Storage.Create.Piping
+namespace Ringtoets.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extensions methods for <see cref="PipingSurfaceLine"/> related to creating

@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.DuneErosion
+namespace Ringtoets.Storage.Core.Read.DuneErosion
 {
     /// <summary>
     /// Extension methods for <see cref="DuneLocationCalculationOutputEntity"/> related to creating 

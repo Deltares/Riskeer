@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.HeightStructures
+namespace Ringtoets.Storage.Core.Create.HeightStructures
 {
     /// <summary>
     /// Extension methods for <see cref="HeightStructure"/> related to creating

@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.DuneErosion
+namespace Ringtoets.Storage.Core.Create.DuneErosion
 {
     /// <summary>
     /// Extension methods for <see cref="DuneErosionFailureMechanismSectionResult"/> related to creating a 

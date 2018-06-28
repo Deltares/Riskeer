@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// Extensions methods for <see cref="BackgroundData"/> related to 

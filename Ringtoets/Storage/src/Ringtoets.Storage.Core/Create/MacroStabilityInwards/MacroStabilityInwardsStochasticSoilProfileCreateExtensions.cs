@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsStochasticSoilProfile"/> related to 

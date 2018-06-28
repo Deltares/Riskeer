@@ -20,13 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.Create.Piping;
-using Application.Ringtoets.Storage.Create.StabilityStoneCover;
-using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -38,9 +31,16 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.Create.GrassCoverErosionInwards;
+using Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards;
+using Ringtoets.Storage.Core.Create.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Create.Piping;
+using Ringtoets.Storage.Core.Create.StabilityStoneCover;
+using Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover;
+using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="CalculationGroup"/> related to creating a <see cref="CalculationGroupEntity"/>.

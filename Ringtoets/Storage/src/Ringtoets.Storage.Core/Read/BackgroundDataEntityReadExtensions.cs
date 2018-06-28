@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// Extension methods for read operations for <see cref="BackgroundData"/>

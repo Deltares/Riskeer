@@ -22,13 +22,13 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
-using Application.Ringtoets.Storage.Properties;
 using Core.Common.Base.Storage;
 using Core.Common.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
+using Ringtoets.Storage.Core.Properties;
 
-namespace Application.Ringtoets.Storage
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// This class interacts with an empty or new SQLite database file.

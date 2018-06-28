@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Read.GrassCoverErosionOutwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> based on the

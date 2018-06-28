@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.IllustrationPoints;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.IllustrationPoints
+namespace Ringtoets.Storage.Core.Read.IllustrationPoints
 {
     /// <summary>
     /// Extension methods for <see cref="GeneralResultFaultTreeIllustrationPointEntity"/>

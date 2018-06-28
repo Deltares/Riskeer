@@ -21,15 +21,15 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for an <see cref="AssessmentSection"/> based on the

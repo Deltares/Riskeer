@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -36,8 +35,9 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// Class that can be used to keep track of data model objects which were initialized during a read operation

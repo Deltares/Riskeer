@@ -21,11 +21,11 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.IllustrationPoints;
 
-namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionInwardsOutput"/>

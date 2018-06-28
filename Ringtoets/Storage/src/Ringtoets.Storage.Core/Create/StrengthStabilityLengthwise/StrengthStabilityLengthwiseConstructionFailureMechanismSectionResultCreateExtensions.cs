@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise
+namespace Ringtoets.Storage.Core.Create.StrengthStabilityLengthwise
 {
     /// <summary>
     /// Extension methods for <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/> related to creating a 

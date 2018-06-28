@@ -21,11 +21,11 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.Piping
+namespace Ringtoets.Storage.Core.Read.Piping
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingCalculationScenario"/>

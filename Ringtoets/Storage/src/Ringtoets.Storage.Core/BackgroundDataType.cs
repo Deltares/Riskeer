@@ -21,7 +21,7 @@
 
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Application.Ringtoets.Storage
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// Enumeration that defines the possible types of a <see cref="BackgroundData"/>.

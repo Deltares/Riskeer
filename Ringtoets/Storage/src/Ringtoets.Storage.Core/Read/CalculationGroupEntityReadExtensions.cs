@@ -21,20 +21,20 @@
 
 using System;
 using System.Collections;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.ClosingStructures;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
-using Application.Ringtoets.Storage.Read.HeightStructures;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
-using Application.Ringtoets.Storage.Read.Piping;
-using Application.Ringtoets.Storage.Read.StabilityPointStructures;
-using Application.Ringtoets.Storage.Read.StabilityStoneCover;
-using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.ClosingStructures;
+using Ringtoets.Storage.Core.Read.GrassCoverErosionInwards;
+using Ringtoets.Storage.Core.Read.GrassCoverErosionOutwards;
+using Ringtoets.Storage.Core.Read.HeightStructures;
+using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Read.Piping;
+using Ringtoets.Storage.Core.Read.StabilityPointStructures;
+using Ringtoets.Storage.Core.Read.StabilityStoneCover;
+using Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="CalculationGroup"/> based on the

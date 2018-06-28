@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Application.Ringtoets.Storage.Serializers
+namespace Ringtoets.Storage.Core.Serializers
 {
     /// <summary>
     /// Converter class that converts between a collection of <see cref="RoughnessPoint"/>

@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsSoilLayer1D"/> related to creating 

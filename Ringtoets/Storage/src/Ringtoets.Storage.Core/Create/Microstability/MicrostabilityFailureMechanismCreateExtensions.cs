@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.Microstability
+namespace Ringtoets.Storage.Core.Create.Microstability
 {
     /// <summary>
     /// Extension methods for <see cref="MicrostabilityFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

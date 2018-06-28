@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Application.Ringtoets.Storage.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="FailureMechanismSection"/> related to creating a <see cref="FailureMechanismSectionEntity"/>.

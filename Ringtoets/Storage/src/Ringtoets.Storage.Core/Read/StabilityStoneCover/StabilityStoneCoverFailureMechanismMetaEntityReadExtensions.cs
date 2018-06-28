@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
+namespace Ringtoets.Storage.Core.Read.StabilityStoneCover
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GeneralStabilityStoneCoverWaveConditionsInput"/>

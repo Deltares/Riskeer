@@ -22,15 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Read.GrassCoverErosionOutwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>

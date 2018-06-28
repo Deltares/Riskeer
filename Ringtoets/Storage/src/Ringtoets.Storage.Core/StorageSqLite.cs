@@ -25,11 +25,6 @@ using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
-using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Util;
@@ -37,9 +32,14 @@ using Core.Common.Util.Builders;
 using log4net;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
+using Ringtoets.Storage.Core.Create;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Exceptions;
+using Ringtoets.Storage.Core.Properties;
+using Ringtoets.Storage.Core.Read;
 using UtilResources = Core.Common.Util.Properties.Resources;
 
-namespace Application.Ringtoets.Storage
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// This class interacts with an SQLite database file using the Entity Framework.

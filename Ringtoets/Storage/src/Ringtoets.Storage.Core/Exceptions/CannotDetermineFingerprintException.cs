@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Application.Ringtoets.Storage.Exceptions
+namespace Ringtoets.Storage.Core.Exceptions
 {
     /// <summary>
     /// The exception that is thrown when <see cref="FingerprintHelper"/> is unable to

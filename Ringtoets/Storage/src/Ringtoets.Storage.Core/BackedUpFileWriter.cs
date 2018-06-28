@@ -21,11 +21,11 @@
 
 using System;
 using System.IO;
-using Application.Ringtoets.Storage.Exceptions;
-using Application.Ringtoets.Storage.Properties;
 using Core.Common.Util;
+using Ringtoets.Storage.Core.Exceptions;
+using Ringtoets.Storage.Core.Properties;
 
-namespace Application.Ringtoets.Storage
+namespace Ringtoets.Storage.Core
 {
     /// <summary>
     /// Class for providing a safe way of writing files by creating a temporary backup file of targeted files.

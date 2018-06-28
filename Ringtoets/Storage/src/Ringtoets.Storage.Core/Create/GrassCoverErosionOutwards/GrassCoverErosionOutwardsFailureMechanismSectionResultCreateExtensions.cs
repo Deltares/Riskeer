@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> related to creating a 

@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.Piping
+namespace Ringtoets.Storage.Core.Create.Piping
 {
     /// <summary>
     /// Extension methods for <see cref="PipingFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

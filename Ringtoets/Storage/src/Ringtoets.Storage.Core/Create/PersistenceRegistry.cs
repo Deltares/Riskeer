@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -37,8 +36,9 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create
+namespace Ringtoets.Storage.Core.Create
 {
     /// <summary>
     /// This class can be used to keep track of create and update operations on a database.

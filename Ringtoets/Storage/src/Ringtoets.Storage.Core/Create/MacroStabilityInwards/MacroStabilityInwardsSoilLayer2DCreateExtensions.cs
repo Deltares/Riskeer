@@ -21,12 +21,12 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Util.Extensions;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Application.Ringtoets.Storage.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
 {
     /// <summary>
     /// Extension methods for <see cref="MacroStabilityInwardsSoilLayer2D"/> related to creating 

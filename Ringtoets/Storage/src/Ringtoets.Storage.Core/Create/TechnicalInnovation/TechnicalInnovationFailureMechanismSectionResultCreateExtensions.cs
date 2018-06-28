@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
+namespace Ringtoets.Storage.Core.Create.TechnicalInnovation
 {
     /// <summary>
     /// Extension methods for <see cref="TechnicalInnovationFailureMechanismSectionResult"/> related to creating a 

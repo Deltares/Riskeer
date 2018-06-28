@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Serializers;
 
-namespace Application.Ringtoets.Storage.Read.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for an <see cref="MacroStabilityInwardsOutput"/>

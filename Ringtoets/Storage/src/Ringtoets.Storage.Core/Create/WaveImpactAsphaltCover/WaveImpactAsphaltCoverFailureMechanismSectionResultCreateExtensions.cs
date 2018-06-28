@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
+namespace Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover
 {
     /// <summary>
     /// Extension methods for <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> related to creating a 

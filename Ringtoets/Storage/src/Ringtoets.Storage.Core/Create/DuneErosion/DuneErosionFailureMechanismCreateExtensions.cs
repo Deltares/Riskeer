@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.DuneErosion.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.DuneErosion
+namespace Ringtoets.Storage.Core.Create.DuneErosion
 {
     /// <summary>
     /// Extension methods for <see cref="DuneErosionFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

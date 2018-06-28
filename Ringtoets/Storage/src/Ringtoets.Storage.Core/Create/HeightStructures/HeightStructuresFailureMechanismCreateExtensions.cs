@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.HeightStructures
+namespace Ringtoets.Storage.Core.Create.HeightStructures
 {
     /// <summary>
     /// Extension methods for <see cref="HeightStructuresFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

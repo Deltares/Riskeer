@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Create.StabilityPointStructures
 {
     /// <summary>
     /// Extension methods for <see cref="StabilityPointStructuresFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

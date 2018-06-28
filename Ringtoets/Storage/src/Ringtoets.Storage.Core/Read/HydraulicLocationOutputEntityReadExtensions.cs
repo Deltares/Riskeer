@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.IllustrationPoints;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Ringtoets.Storage.Core.Read
 {
     /// <summary>
     /// Extension methods for <see cref="HydraulicLocationOutputEntity"/> related to creating 

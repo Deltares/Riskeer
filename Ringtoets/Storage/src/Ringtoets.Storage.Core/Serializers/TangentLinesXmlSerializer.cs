@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 
-namespace Application.Ringtoets.Storage.Serializers
+namespace Ringtoets.Storage.Core.Serializers
 {
     /// <summary>
     /// Converter class that converts between tangent lines and an XML representation of that data.

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 
-namespace Application.Ringtoets.Storage.Serializers
+namespace Ringtoets.Storage.Core.Serializers
 {
     /// <summary>
     /// Converter class that converts between a collection of <see cref="Point3D"/> and an

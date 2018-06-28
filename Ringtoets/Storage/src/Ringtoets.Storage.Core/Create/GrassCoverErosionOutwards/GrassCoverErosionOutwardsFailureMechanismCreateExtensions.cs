@@ -21,12 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Util.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverErosionOutwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

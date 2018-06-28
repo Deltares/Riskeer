@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
+namespace Ringtoets.Storage.Core.Create.TechnicalInnovation
 {
     /// <summary>
     /// Extension methods for <see cref="TechnicalInnovationFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

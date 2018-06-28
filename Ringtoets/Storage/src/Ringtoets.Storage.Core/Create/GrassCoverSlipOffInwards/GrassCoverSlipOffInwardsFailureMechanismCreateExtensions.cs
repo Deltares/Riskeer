@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverSlipOffInwards
 {
     /// <summary>
     /// Extension methods for <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

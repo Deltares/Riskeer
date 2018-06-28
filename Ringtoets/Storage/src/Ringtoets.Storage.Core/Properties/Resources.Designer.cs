@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Application.Ringtoets.Storage.Properties {
+namespace Ringtoets.Storage.Core.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Application.Ringtoets.Storage.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Storage.Core.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

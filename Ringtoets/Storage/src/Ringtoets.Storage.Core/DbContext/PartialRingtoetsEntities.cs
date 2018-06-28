@@ -21,7 +21,7 @@
 
 using System.Data.Entity;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     /// <summary>
     /// Partial implementation of <see cref="RingtoetsEntities"/> that support a connection string 

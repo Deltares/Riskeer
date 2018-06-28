@@ -21,11 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise
+namespace Ringtoets.Storage.Core.Create.StrengthStabilityLengthwise
 {
     /// <summary>
     /// Extension methods for <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.

@@ -31,7 +31,7 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
-namespace Application.Ringtoets.Storage.DbContext
+namespace Ringtoets.Storage.Core.DbContext
 {
     public partial class RingtoetsEntities : System.Data.Entity.DbContext
     {

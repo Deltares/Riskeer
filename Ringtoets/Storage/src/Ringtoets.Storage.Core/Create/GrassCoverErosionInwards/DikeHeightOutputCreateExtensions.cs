@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.IllustrationPoints;
-using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.Storage.Core.Create.IllustrationPoints;
+using Ringtoets.Storage.Core.DbContext;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
 {
     /// <summary>
     /// Extension methods for <see cref="DikeHeightOutput"/> related to creating a
