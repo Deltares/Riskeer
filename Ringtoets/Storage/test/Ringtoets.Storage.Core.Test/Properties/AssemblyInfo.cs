@@ -21,5 +21,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("Application.Ringtoets.Storage.Test")]
-[assembly: AssemblyProduct("Application.Ringtoets.Storage.Test")]
+[assembly: AssemblyTitle("Ringtoets.Storage.Core.Test")]
+[assembly: AssemblyProduct("Ringtoets.Storage.Core.Test")]
