@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{594C5C6D-5833-4E1C-9F30-13A202628EEF}</ProjectGuid>
-    <RootNamespace>Application.Ringtoets.Storage.Test</RootNamespace>
-    <AssemblyName>Application.Ringtoets.Storage.Test</AssemblyName>
+    <RootNamespace>Ringtoets.Storage.Core.Test</RootNamespace>
+    <AssemblyName>Ringtoets.Storage.Core.Test</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
