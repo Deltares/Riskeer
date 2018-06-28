@@ -109,18 +109,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         private bool ShouldCalculateDikeHeight()
         {
-            return HasOutput
-                   && InputParameters.DikeHeightCalculationType != DikeHeightCalculationType.NoCalculation
-                   && (Output.DikeHeightOutput == null
-                       || Output.DikeHeightOutput.HasGeneralResult != InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated);
+            return Output.DikeHeightOutput != null && Output.DikeHeightOutput.HasGeneralResult != InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated;
         }
 
         private bool ShouldCalculateOvertoppingRate()
         {
-            return HasOutput
-                   && InputParameters.OvertoppingRateCalculationType != OvertoppingRateCalculationType.NoCalculation
-                   && (Output.OvertoppingRateOutput == null
-                       || Output.OvertoppingRateOutput.HasGeneralResult != InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+            return Output.OvertoppingRateOutput != null && Output.OvertoppingRateOutput.HasGeneralResult != InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated;
         }
     }
 }
