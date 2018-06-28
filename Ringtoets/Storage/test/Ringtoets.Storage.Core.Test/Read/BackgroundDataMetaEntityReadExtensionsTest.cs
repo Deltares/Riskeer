@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read;
 
 namespace Ringtoets.Storage.Core.Test.Read
 {
