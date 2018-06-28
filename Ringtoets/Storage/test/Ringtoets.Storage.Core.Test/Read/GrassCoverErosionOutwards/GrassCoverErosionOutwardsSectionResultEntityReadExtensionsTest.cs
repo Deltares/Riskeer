@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,7 +27,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest

@@ -20,16 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 {
     [TestFixture]
     public class DikeProfileCreateExtensionsTest

@@ -21,8 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -36,7 +34,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class CalculationGroupEntityReadExtensionsTest

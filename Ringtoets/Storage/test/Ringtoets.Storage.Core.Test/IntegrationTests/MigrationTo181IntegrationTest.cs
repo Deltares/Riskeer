@@ -29,7 +29,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Application.Ringtoets.Storage.Test.IntegrationTests
+namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {
     public class MigrationTo181IntegrationTest
     {

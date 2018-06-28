@@ -21,14 +21,12 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class ProjectEntityReadExtensionsTest

@@ -34,7 +34,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.Test.IntegrationTests
+namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {
     [TestFixture]
     public class StorageMigrationIntegrationTest

@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismMetaEntityReadExtensionsTest

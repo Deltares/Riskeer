@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.ClosingStructures;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -30,7 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
+namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultCreateExtensionsTest

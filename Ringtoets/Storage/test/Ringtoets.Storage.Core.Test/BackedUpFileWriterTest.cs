@@ -22,11 +22,10 @@
 using System;
 using System.IO;
 using System.Security.AccessControl;
-using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test
+namespace Ringtoets.Storage.Core.Test
 {
     [TestFixture]
     public class BackedUpFileWriterTest

@@ -20,16 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.DuneErosion;
-using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.DuneErosion.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
+namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
 {
     [TestFixture]
     public class DuneLocationCalculationOutputCreateExtensionsTest

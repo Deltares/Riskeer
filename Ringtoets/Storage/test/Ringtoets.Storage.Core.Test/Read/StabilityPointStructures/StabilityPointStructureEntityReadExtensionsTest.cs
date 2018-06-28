@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using NUnit.Framework;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Test.Read.StabilityPointStructures
 {
     [TestFixture]
     public class StabilityPointStructureEntityReadExtensionsTest

@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create
+namespace Ringtoets.Storage.Core.Test.Create
 {
     [TestFixture]
     public class RingtoetsProjectCreateExtensionsTest

@@ -25,7 +25,7 @@ using System.Drawing;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test
+namespace Ringtoets.Storage.Core.Test
 {
     [TestFixture]
     public class ColorConversionExtensionsTest

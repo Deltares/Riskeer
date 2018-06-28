@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -33,7 +29,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
 {
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationEntityReadExtensionsTest

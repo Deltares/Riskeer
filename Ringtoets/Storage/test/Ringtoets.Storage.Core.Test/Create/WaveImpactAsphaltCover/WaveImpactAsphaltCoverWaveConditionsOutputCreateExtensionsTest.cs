@@ -19,15 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
+namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest

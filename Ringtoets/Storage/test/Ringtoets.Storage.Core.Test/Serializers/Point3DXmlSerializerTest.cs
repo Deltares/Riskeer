@@ -19,11 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.Serializers
+namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
     public class Point3DXmlSerializerTest

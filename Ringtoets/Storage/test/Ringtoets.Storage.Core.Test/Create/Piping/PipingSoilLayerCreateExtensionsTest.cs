@@ -21,8 +21,6 @@
 
 using System;
 using System.Drawing;
-using Application.Ringtoets.Storage.Create.Piping;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -30,7 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Create.Piping
+namespace Ringtoets.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
     public class PipingSoilLayerCreateExtensionsTest

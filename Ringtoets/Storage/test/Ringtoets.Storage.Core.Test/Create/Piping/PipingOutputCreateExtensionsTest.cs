@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.Piping;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.Piping
+namespace Ringtoets.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
     public class PipingOutputCreateExtensionsTest

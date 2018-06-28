@@ -21,16 +21,12 @@
 
 using System;
 using System.Collections;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
 {
     [TestFixture]
     public class DikeProfileEntityReadExtensionsTest

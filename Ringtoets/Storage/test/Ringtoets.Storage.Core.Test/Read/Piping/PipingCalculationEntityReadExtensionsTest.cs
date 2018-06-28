@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.Piping;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -35,7 +31,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read.Piping
+namespace Ringtoets.Storage.Core.Test.Read.Piping
 {
     [TestFixture]
     public class PipingCalculationEntityReadExtensionsTest

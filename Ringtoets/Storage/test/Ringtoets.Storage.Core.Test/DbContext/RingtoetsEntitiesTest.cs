@@ -21,10 +21,9 @@
 
 using System.Data.Entity.Infrastructure;
 using System.Globalization;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.DbContext
+namespace Ringtoets.Storage.Core.Test.DbContext
 {
     [TestFixture]
     public class RingtoetsEntitiesTest

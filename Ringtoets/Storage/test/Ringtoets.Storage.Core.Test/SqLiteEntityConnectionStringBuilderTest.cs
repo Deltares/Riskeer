@@ -22,7 +22,7 @@
 using System;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test
+namespace Ringtoets.Storage.Core.Test
 {
     [TestFixture]
     public class SqLiteEntityConnectionStringBuilderTest

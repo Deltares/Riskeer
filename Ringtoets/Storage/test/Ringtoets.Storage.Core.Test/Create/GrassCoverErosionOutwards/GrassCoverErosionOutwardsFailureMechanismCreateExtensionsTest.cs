@@ -22,9 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -33,7 +30,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismCreateExtensionsTest

@@ -21,9 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.Piping;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -34,7 +31,7 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Create.Piping
+namespace Ringtoets.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
     public class PipingFailureMechanismCreateExtensionsTest

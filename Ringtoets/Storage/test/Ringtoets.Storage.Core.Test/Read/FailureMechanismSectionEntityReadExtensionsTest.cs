@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class FailureMechanismSectionEntityReadExtensionsTest

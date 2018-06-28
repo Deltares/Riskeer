@@ -21,15 +21,13 @@
 
 using System;
 using System.Drawing;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayerOneDEntityReadExtensionsTest

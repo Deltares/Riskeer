@@ -22,15 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class HydraulicLocationOutputEntityReadExtensionsTest

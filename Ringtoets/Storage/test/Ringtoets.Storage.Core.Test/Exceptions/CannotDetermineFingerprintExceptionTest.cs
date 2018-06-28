@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.Exceptions
+namespace Ringtoets.Storage.Core.Test.Exceptions
 {
     [TestFixture]
     public class CannotDetermineFingerprintExceptionTest :

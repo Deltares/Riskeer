@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone;
 
-namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
+namespace Ringtoets.Storage.Core.Test.Create.WaterPressureAsphaltCover
 {
     [TestFixture]
     public class WaterPressureAsphaltCoverFailureMechanismCreateExtensionsTest

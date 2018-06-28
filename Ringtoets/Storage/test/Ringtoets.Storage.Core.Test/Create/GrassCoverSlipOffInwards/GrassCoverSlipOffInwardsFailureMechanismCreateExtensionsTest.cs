@@ -20,15 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.GrassCoverSlipOffInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverSlipOffInwards
+namespace Ringtoets.Storage.Core.Test.Create.GrassCoverSlipOffInwards
 {
     [TestFixture]
     public class GrassCoverSlipOffInwardsFailureMechanismCreateExtensionsTest

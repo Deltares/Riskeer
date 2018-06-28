@@ -21,13 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Serializers
+namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
     public class MacroStabilityInwardsSliceXmlSerializerTest

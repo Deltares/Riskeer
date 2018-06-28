@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Application.Ringtoets.Storage.Test.Create
+namespace Ringtoets.Storage.Core.Test.Create
 {
     [TestFixture]
     public class FailureMechanismSectionCreateExtensionsTest

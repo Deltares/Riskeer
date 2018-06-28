@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,7 +29,7 @@ using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class StructureCalculationEntityReadExtensionsTest

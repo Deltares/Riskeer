@@ -21,11 +21,7 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.HeightStructures;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
-using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -33,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
+namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismCreateExtensionsTest

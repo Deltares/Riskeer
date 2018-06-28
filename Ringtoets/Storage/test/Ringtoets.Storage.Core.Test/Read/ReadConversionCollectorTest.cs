@@ -22,8 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -50,7 +48,7 @@ using Ringtoets.Piping.Primitives.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class ReadConversionCollectorTest

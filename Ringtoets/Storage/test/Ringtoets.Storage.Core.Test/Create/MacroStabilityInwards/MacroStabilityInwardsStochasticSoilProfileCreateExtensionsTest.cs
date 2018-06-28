@@ -21,16 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilProfileCreateExtensionsTest

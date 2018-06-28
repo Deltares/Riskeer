@@ -22,9 +22,6 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayerTwoDEntityReadExtensionsTest

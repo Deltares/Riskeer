@@ -27,7 +27,7 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.IntegrationTests
+namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {
     [TestFixture]
     public class MigrationIntegrationTest

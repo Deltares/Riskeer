@@ -22,14 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.DuneErosion;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
+namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
 {
     [TestFixture]
     public class DuneLocationCalculationCollectionCreateExtensionsTest

@@ -21,9 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Geometry;
@@ -31,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.Piping.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class StochasticSoilModelEntityReadExtensionsTest

@@ -21,8 +21,6 @@
 
 using System;
 using System.Drawing;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilLayer1DCreateExtensionsTest

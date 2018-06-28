@@ -23,10 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using Application.Ringtoets.Storage.Serializers;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.Serializers
+namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
     public class DataCollectionSerializerTest

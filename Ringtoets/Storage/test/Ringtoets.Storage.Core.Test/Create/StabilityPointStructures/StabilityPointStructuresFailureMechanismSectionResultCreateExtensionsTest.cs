@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.StabilityPointStructures;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -30,7 +27,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultCreateExtensionsTest

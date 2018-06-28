@@ -20,15 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsPreconsolidationStressEntityReadExtensionsTest

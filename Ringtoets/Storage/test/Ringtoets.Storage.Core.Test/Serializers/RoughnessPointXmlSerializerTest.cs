@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System.Collections;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 
-namespace Application.Ringtoets.Storage.Test.Serializers
+namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
     public class RoughnessPointXmlSerializerTest

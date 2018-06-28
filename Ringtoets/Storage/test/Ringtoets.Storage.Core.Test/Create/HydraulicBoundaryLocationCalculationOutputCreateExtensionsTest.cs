@@ -21,8 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -30,7 +28,7 @@ using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Application.Ringtoets.Storage.Test.Create
+namespace Ringtoets.Storage.Core.Test.Create
 {
     [TestFixture]
     public class HydraulicBoundaryLocationCalculationOutputCreateExtensionsTest

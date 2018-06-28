@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.ClosingStructures;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
+namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismMetaEntityReadExtensionsTest

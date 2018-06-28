@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,7 +27,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
+namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultCreateExtensionsTest

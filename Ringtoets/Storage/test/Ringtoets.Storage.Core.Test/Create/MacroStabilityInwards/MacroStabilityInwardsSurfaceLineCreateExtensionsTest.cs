@@ -20,17 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSurfaceLineCreateExtensionsTest

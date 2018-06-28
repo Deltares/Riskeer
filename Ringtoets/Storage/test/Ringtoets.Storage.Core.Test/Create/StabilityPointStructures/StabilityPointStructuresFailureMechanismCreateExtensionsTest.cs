@@ -21,9 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.StabilityPointStructures;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -34,7 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismCreateExtensionsTest

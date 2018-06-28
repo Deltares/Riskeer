@@ -21,8 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -50,7 +48,7 @@ using Ringtoets.Piping.Primitives.TestUtil;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create
+namespace Ringtoets.Storage.Core.Test.Create
 {
     [TestFixture]
     public class PersistenceRegistryTest

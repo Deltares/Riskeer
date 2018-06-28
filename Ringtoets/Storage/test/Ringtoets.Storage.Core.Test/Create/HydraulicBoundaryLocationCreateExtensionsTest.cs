@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Application.Ringtoets.Storage.Test.Create
+namespace Ringtoets.Storage.Core.Test.Create
 {
     [TestFixture]
     public class HydraulicBoundaryLocationCreateExtensionsTest

@@ -22,9 +22,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
@@ -34,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsSoilProfile2DCreateExtensionsTest

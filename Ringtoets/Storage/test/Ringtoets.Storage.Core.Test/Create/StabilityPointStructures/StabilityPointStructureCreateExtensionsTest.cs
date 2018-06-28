@@ -20,16 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.StabilityPointStructures;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
+namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
 {
     [TestFixture]
     public class StabilityPointStructureCreateExtensionsTest

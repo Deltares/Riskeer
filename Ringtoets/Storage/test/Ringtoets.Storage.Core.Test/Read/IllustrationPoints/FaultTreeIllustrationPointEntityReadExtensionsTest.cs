@@ -22,14 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.IllustrationPoints;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read.IllustrationPoints
+namespace Ringtoets.Storage.Core.Test.Read.IllustrationPoints
 {
     [TestFixture]
     public class FaultTreeIllustrationPointEntityReadExtensionsTest

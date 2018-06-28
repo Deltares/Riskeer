@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.MacroStabilityInwards;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -35,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Read.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationEntityReadExtensionsTest

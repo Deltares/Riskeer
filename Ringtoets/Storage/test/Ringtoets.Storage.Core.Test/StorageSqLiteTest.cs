@@ -32,7 +32,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.Test
+namespace Ringtoets.Storage.Core.Test
 {
     [TestFixture]
     public class StorageSqLiteTest

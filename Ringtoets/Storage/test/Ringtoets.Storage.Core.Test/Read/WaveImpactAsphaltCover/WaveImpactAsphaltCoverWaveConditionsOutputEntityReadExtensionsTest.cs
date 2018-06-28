@@ -20,14 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
+namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensionsTest

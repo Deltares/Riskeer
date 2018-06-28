@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.StabilityStoneCover;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,7 +27,7 @@ using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
+namespace Ringtoets.Storage.Core.Test.Create.StabilityStoneCover
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest

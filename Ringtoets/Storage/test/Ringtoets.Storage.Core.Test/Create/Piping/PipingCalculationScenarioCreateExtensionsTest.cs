@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.Piping;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -36,7 +32,7 @@ using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.Piping
+namespace Ringtoets.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
     public class PipingCalculationScenarioCreateExtensionsTest

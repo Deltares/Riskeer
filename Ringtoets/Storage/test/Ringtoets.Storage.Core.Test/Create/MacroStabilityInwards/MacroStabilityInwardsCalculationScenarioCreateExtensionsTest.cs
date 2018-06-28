@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
@@ -35,7 +31,7 @@ using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsCalculationScenarioCreateExtensionsTest

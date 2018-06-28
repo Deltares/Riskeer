@@ -21,14 +21,11 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.Piping;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Piping.Primitives;
 
-namespace Application.Ringtoets.Storage.Test.Read.Piping
+namespace Ringtoets.Storage.Core.Test.Read.Piping
 {
     [TestFixture]
     public class PipingSoilProfileEntityReadExtensionsTest

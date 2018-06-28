@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test.Serializers
+namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
     public class TangentLinesXmlSerializerTest

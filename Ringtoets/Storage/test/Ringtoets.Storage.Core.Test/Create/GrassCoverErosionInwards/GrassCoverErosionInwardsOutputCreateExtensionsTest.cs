@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -32,7 +29,7 @@ using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 {
     [TestFixture]
     public class GrassCoverErosionInwardsOutputCreateExtensionsTest

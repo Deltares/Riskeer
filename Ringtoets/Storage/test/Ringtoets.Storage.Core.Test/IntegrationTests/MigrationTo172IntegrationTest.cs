@@ -30,7 +30,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Contribution;
 
-namespace Application.Ringtoets.Storage.Test.IntegrationTests
+namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {
     public class MigrationTo172IntegrationTest
     {

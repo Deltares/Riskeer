@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Storage;
@@ -64,7 +62,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.IntegrationTests
+namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {
     [TestFixture]
     public class StorageSqLiteIntegrationTest

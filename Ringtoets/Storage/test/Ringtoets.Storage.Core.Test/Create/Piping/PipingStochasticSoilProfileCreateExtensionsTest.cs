@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.Piping;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Primitives.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.Piping
+namespace Ringtoets.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
     public class PipingStochasticSoilProfileCreateExtensionsTest

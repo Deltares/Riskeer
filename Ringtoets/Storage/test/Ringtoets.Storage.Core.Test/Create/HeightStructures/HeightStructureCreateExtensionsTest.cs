@@ -20,16 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.HeightStructures;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
+namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
 {
     [TestFixture]
     public class HeightStructureCreateExtensionsTest

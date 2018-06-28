@@ -20,19 +20,18 @@
 // All rights reserved.
 
 using System.IO;
-using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test
+namespace Ringtoets.Storage.Core.Test
 {
     [TestFixture]
     [Explicit("Creates a new Ringtoets.rtd file in the root of the Application.Ringtoets.Storage")]
     public class RingtoetsDatabaseCreatorTest
     {
         /// <summary>
-        /// Creates a new Ringtoets.rtd file in the root of the <see cref="Storage"/>, 
+        /// Creates a new Ringtoets.rtd file in the root of the <see cref="Application.Ringtoets.Storage"/>, 
         /// which is used to auto-generate the database code.
         /// </summary>
         [Test]

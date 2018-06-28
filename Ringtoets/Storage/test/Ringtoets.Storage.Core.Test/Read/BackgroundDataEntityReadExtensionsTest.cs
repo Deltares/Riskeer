@@ -21,13 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class BackgroundDataEntityReadExtensionsTest

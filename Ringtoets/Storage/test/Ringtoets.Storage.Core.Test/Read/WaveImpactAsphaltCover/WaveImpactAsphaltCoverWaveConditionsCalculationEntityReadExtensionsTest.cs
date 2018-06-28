@@ -21,10 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -37,7 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
+namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensionsTest

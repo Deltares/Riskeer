@@ -21,14 +21,11 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.DuneErosion;
 using NUnit.Framework;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.Test.Read.DuneErosion
+namespace Ringtoets.Storage.Core.Test.Read.DuneErosion
 {
     [TestFixture]
     public class DuneLocationCalculationCollectionEntityReadExtensionsTest

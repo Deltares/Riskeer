@@ -20,16 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
+namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 {
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismSectionResultCreateExtensionsTest

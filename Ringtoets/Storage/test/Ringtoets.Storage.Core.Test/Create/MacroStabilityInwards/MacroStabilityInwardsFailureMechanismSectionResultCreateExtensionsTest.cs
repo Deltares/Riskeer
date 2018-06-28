@@ -20,15 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultCreateExtensionsTest

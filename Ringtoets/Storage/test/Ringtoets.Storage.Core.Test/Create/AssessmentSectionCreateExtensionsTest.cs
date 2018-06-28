@@ -22,9 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -34,7 +31,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create
+namespace Ringtoets.Storage.Core.Test.Create
 {
     [TestFixture]
     public class AssessmentSectionCreateExtensionsTest

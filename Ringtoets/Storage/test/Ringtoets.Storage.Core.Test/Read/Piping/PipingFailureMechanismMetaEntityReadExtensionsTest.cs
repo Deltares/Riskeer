@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.Piping;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.Piping
+namespace Ringtoets.Storage.Core.Test.Read.Piping
 {
     [TestFixture]
     public class PipingFailureMechanismMetaEntityReadExtensionsTest

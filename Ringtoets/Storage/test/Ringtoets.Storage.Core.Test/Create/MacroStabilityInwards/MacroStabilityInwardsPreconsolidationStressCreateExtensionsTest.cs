@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.MacroStabilityInwards;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -30,7 +28,7 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 
-namespace Application.Ringtoets.Storage.Test.Create.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsPreconsolidationStressCreateExtensionsTest

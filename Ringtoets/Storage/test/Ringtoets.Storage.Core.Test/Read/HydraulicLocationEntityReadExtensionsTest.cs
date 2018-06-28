@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class HydraulicLocationEntityReadExtensionsTest

@@ -20,10 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.HeightStructures;
-using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -33,7 +29,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
+namespace Ringtoets.Storage.Core.Test.Read.HeightStructures
 {
     [TestFixture]
     public class HeightStructuresCalculationEntityReadExtensionsTest

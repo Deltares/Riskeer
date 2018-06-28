@@ -21,9 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
@@ -53,7 +50,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Ringtoets.Storage.Core.Test.Read
 {
     [TestFixture]
     public class FailureMechanismEntityReadExtensionsTest

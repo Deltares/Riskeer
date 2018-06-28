@@ -21,10 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
-using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -37,7 +33,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
+namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensionsTest
