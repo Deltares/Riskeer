@@ -29,6 +29,9 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Storage.Core.Create;
+using Ringtoets.Storage.Core.Create.ClosingStructures;
+using Ringtoets.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
 {

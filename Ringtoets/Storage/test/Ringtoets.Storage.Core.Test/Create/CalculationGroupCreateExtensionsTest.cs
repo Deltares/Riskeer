@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -32,6 +33,8 @@ using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.Storage.Core.Create;
+using Ringtoets.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.Test.Create
 {
