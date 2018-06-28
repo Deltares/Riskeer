@@ -22,6 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Service;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -71,7 +73,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivity_WithValidCalculation_ReturnsPipingCalculationActivityWithCorrectAssessmentLevelSet()
+        public void CreateCalculationActivity_WithValidCalculation_ReturnsPipingCalculationActivityWithParametersSet()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -81,29 +83,19 @@ namespace Ringtoets.Piping.Service.Test
                 hydraulicBoundaryLocation
             });
 
+            var random = new Random(39);
+
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single();
-            hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new Random(39).NextDouble());
+            hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+
+            PipingCalculationScenario calculation = CreateCalculation(hydraulicBoundaryLocation);
 
             // Call
-            CalculatableActivity activity = PipingCalculationActivityFactory.CreateCalculationActivity(
-                PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation),
-                assessmentSection);
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateCalculationActivity(calculation, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<PipingCalculationActivity>(activity);
-
-            AssertPipingCalculationActivityAssessmentLevel(activity, hydraulicBoundaryLocationCalculation);
-        }
-
-        private static void AssertPipingCalculationActivityAssessmentLevel(CalculatableActivity activity, HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
-        {
-            using (new PipingSubCalculatorFactoryConfig())
-            {
-                activity.Run();
-
-                var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-                Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, testFactory.LastCreatedSellmeijerCalculator.HRiver);
-            }
+            AssertPipingCalculationActivity(activity, calculation, hydraulicBoundaryLocationCalculation);
         }
 
         [Test]
@@ -135,7 +127,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivities_WithValidCalculations_ReturnsPipingCalculationActivitiesWithCorrectAssessmentLevelsSet()
+        public void CreateCalculationActivities_WithValidCalculations_ReturnsPipingCalculationActivitiesWithParametersSet()
         {
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
@@ -156,12 +148,15 @@ namespace Ringtoets.Piping.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
+            PipingCalculationScenario calculation1 = CreateCalculation(hydraulicBoundaryLocation1);
+            PipingCalculationScenario calculation2 = CreateCalculation(hydraulicBoundaryLocation2);
+
             var calculations = new CalculationGroup
             {
                 Children =
                 {
-                    PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation1),
-                    PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation2)
+                    calculation1,
+                    calculation2
                 }
             };
 
@@ -171,9 +166,28 @@ namespace Ringtoets.Piping.Service.Test
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(PipingCalculationActivity));
+            AssertPipingCalculationActivity(activities.First(), calculation1, hydraulicBoundaryLocationCalculation1);
+            AssertPipingCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryLocationCalculation2);
+        }
 
-            AssertPipingCalculationActivityAssessmentLevel(activities.First(), hydraulicBoundaryLocationCalculation1);
-            AssertPipingCalculationActivityAssessmentLevel(activities.ElementAt(1), hydraulicBoundaryLocationCalculation2);
+        private static PipingCalculationScenario CreateCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            calculation.InputParameters.ExitPointL = new Random(39).NextRoundedDouble(0.5, 1.0);
+            return calculation;
+        }
+
+        private static void AssertPipingCalculationActivity(Activity activity,
+                                                            PipingCalculationScenario calculation,
+                                                            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation)
+        {
+            using (new PipingSubCalculatorFactoryConfig())
+            {
+                activity.Run();
+                var testFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
+                Assert.AreEqual(calculation.InputParameters.ExitPointL, testFactory.LastCreatedEffectiveThicknessCalculator.ExitPointXCoordinate);
+                Assert.AreEqual(hydraulicBoundaryLocationCalculation.Output.Result, testFactory.LastCreatedSellmeijerCalculator.HRiver);
+            }
         }
     }
 }
