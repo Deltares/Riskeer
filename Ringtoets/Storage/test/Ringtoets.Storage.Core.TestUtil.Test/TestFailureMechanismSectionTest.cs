@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Ringtoets.Storage.Core.TestUtil.Test
 {
     [TestFixture]
     public class TestFailureMechanismSectionTest

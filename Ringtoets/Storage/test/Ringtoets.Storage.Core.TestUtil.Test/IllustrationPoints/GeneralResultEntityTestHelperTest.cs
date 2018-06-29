@@ -22,13 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test.IllustrationPoints
+namespace Ringtoets.Storage.Core.TestUtil.Test.IllustrationPoints
 {
     [TestFixture]
     public class GeneralResultEntityTestHelperTest

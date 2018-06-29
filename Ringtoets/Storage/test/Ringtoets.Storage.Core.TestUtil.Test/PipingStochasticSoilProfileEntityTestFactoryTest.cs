@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Ringtoets.Storage.Core.TestUtil.Test
 {
     [TestFixture]
     public class PipingStochasticSoilProfileEntityTestFactoryTest

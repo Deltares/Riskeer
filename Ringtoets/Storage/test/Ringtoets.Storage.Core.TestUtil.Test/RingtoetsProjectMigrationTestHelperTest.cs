@@ -29,7 +29,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Ringtoets.Storage.Core.TestUtil.Test
 {
     [TestFixture]
     public class RingtoetsProjectMigrationTestHelperTest

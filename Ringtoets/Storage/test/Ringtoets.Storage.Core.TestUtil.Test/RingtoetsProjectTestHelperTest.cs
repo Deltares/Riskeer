@@ -46,7 +46,7 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Ringtoets.Storage.Core.TestUtil.Test
 {
     [TestFixture]
     public class RingtoetsProjectTestHelperTest

@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.TestUtil.Test.MacroStabilityInwards
 {
     [TestFixture]
     public class MacroStabilityInwardsStochasticSoilProfileEntityTestFactoryTest

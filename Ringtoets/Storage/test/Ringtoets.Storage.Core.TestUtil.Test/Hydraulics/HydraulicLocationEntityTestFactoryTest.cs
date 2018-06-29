@@ -19,11 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test.Hydraulics
+namespace Ringtoets.Storage.Core.TestUtil.Test.Hydraulics
 {
     [TestFixture]
     public class HydraulicLocationEntityTestFactoryTest

@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
 
-namespace Application.Ringtoets.Storage.TestUtil.Test
+namespace Ringtoets.Storage.Core.TestUtil.Test
 {
     [TestFixture]
     public class SqLiteDatabaseHelperTest
