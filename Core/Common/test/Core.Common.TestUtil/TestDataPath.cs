@@ -36,17 +36,6 @@ namespace Core.Common.TestUtil
             };
         }
 
-        public static class Application
-        {
-            public static class Ringtoets
-            {
-                public static class Migration
-                {
-                    public static readonly TestDataPath Core = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Migration.Core.Test");
-                }
-            }
-        }
-
         public static class Core
         {
             public static class Common
@@ -130,6 +119,11 @@ namespace Core.Common.TestUtil
             public static class Storage
             {
                 public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Storage", "test", "Ringtoets.Storage.Core.Test");
+            }
+
+            public static class Migration
+            {
+                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Migration", "test", "Ringtoets.Migration.Core.Test");
             }
         }
     }

@@ -86,7 +86,7 @@ namespace Ringtoets.Migration.Core.TestUtil.Test
             string[] versions = RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
 
             // Call
-            List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+            List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                                                                               $"MigrationTestProject{v}.rtd")).GetVersion()).ToList();
 
             // Assert

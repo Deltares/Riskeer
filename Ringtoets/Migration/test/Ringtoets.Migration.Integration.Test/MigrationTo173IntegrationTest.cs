@@ -35,7 +35,7 @@ namespace Ringtoets.Migration.Integration.Test
         public void Given172Project_WhenUpgradedTo173_ThenProjectAsExpected()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                "MigrationTestProject172.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 

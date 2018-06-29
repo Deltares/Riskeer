@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Migration.Console.Test
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, string fileVersion, bool isSupported)
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core, file);
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core, file);
             var console = new RingtoetsMigrationConsole();
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 

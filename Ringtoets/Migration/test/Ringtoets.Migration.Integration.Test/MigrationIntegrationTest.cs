@@ -33,7 +33,7 @@ namespace Ringtoets.Migration.Integration.Test
     public class MigrationIntegrationTest
     {
         private const string latestVersion = "18.1";
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core);
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core);
 
         [Test]
         [TestCaseSource(nameof(GetFileNamesWithSpecialCharacters))]
@@ -79,7 +79,7 @@ namespace Ringtoets.Migration.Integration.Test
         public void GivenEmpty164Project_WhenNoChangesMadeAndMigratingToLatestVersion_ThenLogDatabaseContainsMessagesSayingNoChangesMade()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                "Empty valid Release 16.4.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 

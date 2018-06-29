@@ -40,7 +40,7 @@ namespace Ringtoets.Migration.Integration.Test
         public void Given171Project_WhenUpgradedTo172_ThenProjectAsExpected()
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                                "MigrationTestProject171.rtd");
             var fromVersionedFile = new RingtoetsVersionedFile(sourceFilePath);
 
@@ -128,7 +128,7 @@ namespace Ringtoets.Migration.Integration.Test
             using (new FileDisposeHelper(sourceFilePath))
             using (new FileDisposeHelper(targetFilePath))
             {
-                File.Copy(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                File.Copy(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                      "Empty valid Release 17.1.rtd"),
                           sourceFilePath, true
                 );
@@ -213,7 +213,7 @@ namespace Ringtoets.Migration.Integration.Test
             using (new FileDisposeHelper(sourceFilePath))
             using (new FileDisposeHelper(targetFilePath))
             {
-                File.Copy(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
+                File.Copy(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core,
                                                      "Empty valid Release 17.1.rtd"),
                           sourceFilePath, true
                 );

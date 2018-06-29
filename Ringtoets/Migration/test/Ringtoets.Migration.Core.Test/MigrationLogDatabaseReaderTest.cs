@@ -33,7 +33,7 @@ namespace Ringtoets.Migration.Core.Test
     [TestFixture]
     public class MigrationLogDatabaseReaderTest
     {
-        private static readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration.Core;
+        private static readonly TestDataPath testPath = TestDataPath.Ringtoets.Migration.Core;
 
         [Test]
         public void Constructor_ValidFilePath_ExpectedValues()

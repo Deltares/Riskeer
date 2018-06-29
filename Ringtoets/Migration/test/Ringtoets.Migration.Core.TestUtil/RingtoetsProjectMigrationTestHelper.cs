@@ -31,7 +31,7 @@ namespace Ringtoets.Migration.Core.TestUtil
     /// </summary>
     public static class RingtoetsProjectMigrationTestHelper
     {
-        private static readonly TestDataPath testDataPath = TestDataPath.Application.Ringtoets.Migration.Core;
+        private static readonly TestDataPath testDataPath = TestDataPath.Ringtoets.Migration.Core;
 
         /// <summary>
         /// Retrieves the file path of a Ringtoets project with the latest database version
