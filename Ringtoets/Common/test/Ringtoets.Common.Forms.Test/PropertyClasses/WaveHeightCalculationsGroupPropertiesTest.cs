@@ -42,34 +42,36 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            var properties = new WaveHeightCalculationsGroupProperties(locations,
-                                                                       Enumerable.Empty<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>>());
+            using (var properties = new WaveHeightCalculationsGroupProperties(locations,
+                                                                              Enumerable.Empty<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>>()))
+            {
+                // Assert
+                Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsGroupBaseProperties>(properties);
+                Assert.AreSame(locations, properties.Data);
 
-            // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationCalculationsGroupBaseProperties>(properties);
-            Assert.AreSame(locations, properties.Data);
-
-            TestHelper.AssertTypeConverter<WaveHeightCalculationsGroupProperties, ExpandableArrayConverter>(
-                nameof(WaveHeightCalculationsGroupProperties.Locations));
+                TestHelper.AssertTypeConverter<WaveHeightCalculationsGroupProperties, ExpandableArrayConverter>(
+                    nameof(WaveHeightCalculationsGroupProperties.Locations));
+            }
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new WaveHeightCalculationsGroupProperties(Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                       Enumerable.Empty<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>>());
+            using (var properties = new WaveHeightCalculationsGroupProperties(Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                              Enumerable.Empty<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>>()))
+            {
+                // Assert
+                PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+                Assert.AreEqual(1, dynamicProperties.Count);
 
-            // Assert
-            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(1, dynamicProperties.Count);
-
-            PropertyDescriptor locationsProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
-                                                                            "Algemeen",
-                                                                            "Locaties",
-                                                                            "Locaties uit de hydraulische randvoorwaardendatabase.",
-                                                                            true);
+                PropertyDescriptor locationsProperty = dynamicProperties[0];
+                PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationsProperty,
+                                                                                "Algemeen",
+                                                                                "Locaties",
+                                                                                "Locaties uit de hydraulische randvoorwaardendatabase.",
+                                                                                true);
+            }
         }
 
         [Test]
@@ -80,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var location = new TestHydraulicBoundaryLocation();
 
             // Call
-            var properties = new WaveHeightCalculationsGroupProperties(
+            using (var properties = new WaveHeightCalculationsGroupProperties(
                 new[]
                 {
                     location
@@ -91,12 +93,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     {
                         new HydraulicBoundaryLocationCalculation(location)
                     })
-                });
-
-            // Assert
-            WaveHeightHydraulicBoundaryLocationProperties locationProperties = properties.Locations.Single();
-            Assert.AreSame(location, locationProperties.Data);
-            Assert.AreEqual(categoryBoundaryName, locationProperties.CategoryBoundaries.Single().CategoryBoundaryName);
+                }))
+            {
+                // Assert
+                WaveHeightHydraulicBoundaryLocationProperties locationProperties = properties.Locations.Single();
+                Assert.AreSame(location, locationProperties.Data);
+                Assert.AreEqual(categoryBoundaryName, locationProperties.CategoryBoundaries.Single().CategoryBoundaryName);
+            }
         }
     }
 }

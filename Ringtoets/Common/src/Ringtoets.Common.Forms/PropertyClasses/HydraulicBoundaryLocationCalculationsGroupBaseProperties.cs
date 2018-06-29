@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.Hydraulics;
 
@@ -30,9 +31,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// Base ViewModel of a collection of <see cref="HydraulicBoundaryLocation"/> with calculations per category boundary for properties panel.
     /// </summary>
-    public abstract class HydraulicBoundaryLocationCalculationsGroupBaseProperties : ObjectProperties<IEnumerable<HydraulicBoundaryLocation>>
+    public abstract class HydraulicBoundaryLocationCalculationsGroupBaseProperties : ObjectProperties<IEnumerable<HydraulicBoundaryLocation>>, IDisposable
     {
         private readonly IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary;
+
+        private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
+            HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationCalculationsGroupBaseProperties"/>.
@@ -57,7 +61,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
             this.calculationsPerCategoryBoundary = calculationsPerCategoryBoundary;
 
+            var calculations = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            calculations.AddRange(calculationsPerCategoryBoundary.SelectMany(categoryBoundary => categoryBoundary.Item2.Select(c => c)));
+            hydraulicBoundaryLocationCalculationsObserver = new RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
+                HydraulicBoundaryLocationCalculation>(OnRefreshRequired, calc => calc)
+            {
+                Observable = calculations
+            };
+
             Data = locations;
+        }
+
+        public void Dispose()
+        {
+            hydraulicBoundaryLocationCalculationsObserver.Dispose();
         }
 
         /// <summary>
