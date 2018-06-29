@@ -22,13 +22,12 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Data.SQLite;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Migration.Core.Test
+namespace Ringtoets.Migration.Core.Test
 {
     [TestFixture]
     public class MigrationLogDatabaseReaderTest

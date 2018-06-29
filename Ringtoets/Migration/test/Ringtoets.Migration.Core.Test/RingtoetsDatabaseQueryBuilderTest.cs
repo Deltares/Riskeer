@@ -21,7 +21,7 @@
 
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Migration.Core.Test
+namespace Ringtoets.Migration.Core.Test
 {
     [TestFixture]
     public class RingtoetsDatabaseQueryBuilderTest

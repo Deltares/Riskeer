@@ -28,7 +28,7 @@ using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
 
-namespace Application.Ringtoets.Migration.Core.Test
+namespace Ringtoets.Migration.Core.Test
 {
     [TestFixture]
     public class RingtoetsUpgradeScriptTest

@@ -22,13 +22,12 @@
 using System;
 using System.Data.SQLite;
 using System.IO;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using Migration.Core.Storage;
 using Migration.Scripts.Data.Exceptions;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Migration.Core.Test
+namespace Ringtoets.Migration.Core.Test
 {
     [TestFixture]
     public class RingtoetsSqLiteDatabaseFileMigratorTest
