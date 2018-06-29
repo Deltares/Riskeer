@@ -25,10 +25,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Contribution;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {

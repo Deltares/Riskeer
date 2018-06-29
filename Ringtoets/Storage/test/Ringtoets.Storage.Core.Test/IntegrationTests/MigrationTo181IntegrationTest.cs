@@ -23,11 +23,11 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {

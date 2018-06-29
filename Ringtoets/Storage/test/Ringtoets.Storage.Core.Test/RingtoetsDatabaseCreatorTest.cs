@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.IO;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Storage.Core.Properties;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test
 {

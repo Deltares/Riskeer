@@ -22,11 +22,11 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test
 {

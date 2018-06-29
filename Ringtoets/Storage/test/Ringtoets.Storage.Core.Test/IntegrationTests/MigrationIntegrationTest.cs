@@ -23,9 +23,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {

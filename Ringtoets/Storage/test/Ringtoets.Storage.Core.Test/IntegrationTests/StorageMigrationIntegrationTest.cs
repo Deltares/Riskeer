@@ -24,7 +24,6 @@ using System.IO;
 using System.Threading;
 using Application.Ringtoets.Migration;
 using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
@@ -33,6 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.IntegrationTests
 {

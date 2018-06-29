@@ -23,7 +23,6 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
@@ -31,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test
 {
