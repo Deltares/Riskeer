@@ -76,6 +76,7 @@ namespace Ringtoets.Migration.Core
             {
                 throw new ArgumentException(@"Parameter must be a valid database script.", nameof(query));
             }
+
             using (var command = new SQLiteCommand(connection)
             {
                 CommandText = query
@@ -103,6 +104,7 @@ namespace Ringtoets.Migration.Core
                 connection?.Dispose();
                 connection = null;
             }
+
             disposed = true;
         }
     }

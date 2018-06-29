@@ -43,11 +43,13 @@ namespace Ringtoets.Migration.Core
                 throw new ArgumentException($@"Parameter '{nameof(fromVersion)}' must contain a value",
                                             nameof(fromVersion));
             }
+
             if (string.IsNullOrEmpty(toVersion))
             {
                 throw new ArgumentException($@"Parameter '{nameof(toVersion)}' must contain a value",
                                             nameof(toVersion));
             }
+
             if (string.IsNullOrEmpty(message))
             {
                 throw new ArgumentException($@"Parameter '{nameof(message)}' must contain a value",

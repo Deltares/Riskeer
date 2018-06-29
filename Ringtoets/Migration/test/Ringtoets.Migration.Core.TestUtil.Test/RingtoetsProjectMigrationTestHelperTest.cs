@@ -84,7 +84,7 @@ namespace Ringtoets.Migration.Core.TestUtil.Test
         {
             // Setup
             string[] versions = RingtoetsProjectMigrationTestHelper.GetAllOutdatedSupportedProjectFileVersions().ToArray();
-            
+
             // Call
             List<string> returnedProjectVersions = versions.Select(v => new RingtoetsVersionedFile(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core,
                                                                                                                               $"MigrationTestProject{v}.rtd")).GetVersion()).ToList();
@@ -149,7 +149,7 @@ namespace Ringtoets.Migration.Core.TestUtil.Test
 
         private static void AssertFilePath(string filePath)
         {
-            Assert.IsTrue((bool) IOUtils.IsValidFilePath(filePath));
+            Assert.IsTrue(IOUtils.IsValidFilePath(filePath));
             Assert.IsTrue(File.Exists(filePath));
         }
     }

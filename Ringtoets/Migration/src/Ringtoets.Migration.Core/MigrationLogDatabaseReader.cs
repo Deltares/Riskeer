@@ -109,6 +109,7 @@ namespace Ringtoets.Migration.Core
             {
                 return null;
             }
+
             return (string) valueObject;
         }
     }

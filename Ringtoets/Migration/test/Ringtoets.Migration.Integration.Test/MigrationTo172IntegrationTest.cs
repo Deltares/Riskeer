@@ -284,7 +284,7 @@ namespace Ringtoets.Migration.Integration.Test
                    $"WHERE [Id] = \"{trajectId}\" " +
                    $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({lowerLimitReturnPeriod} - 0.1) AND ({lowerLimitReturnPeriod} + 0.1) " +
                    $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({signalingReturnPeriod} - 0.1) AND ({signalingReturnPeriod} + 0.1) " +
-                   $"AND [NormativeNormType] = {Convert.ToByte((object) normType)}";
+                   $"AND [NormativeNormType] = {Convert.ToByte(normType)}";
         }
 
         private static string GetNormTypeString(NormType normType)
@@ -299,7 +299,7 @@ namespace Ringtoets.Migration.Integration.Test
             Array normTypes = Enum.GetValues(typeof(NormType));
 
             IEnumerable<AssessmentSectionReturnPeriod> uniqueTrajectPeriods = GetAllTrajectTestCaseData()
-                                                                              .GroupBy(t => Tuple.Create<int, int>(t.SignalingReturnPeriod, t.LowerLimitPeriod))
+                                                                              .GroupBy(t => Tuple.Create(t.SignalingReturnPeriod, t.LowerLimitPeriod))
                                                                               .Select(t => t.First());
             foreach (AssessmentSectionReturnPeriod data in uniqueTrajectPeriods)
             {

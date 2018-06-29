@@ -53,6 +53,7 @@ namespace Ringtoets.Migration.Core
             {
                 throw new ArgumentException(@"Query must have a value.", nameof(query));
             }
+
             createQuery = query;
         }
 
@@ -65,6 +66,7 @@ namespace Ringtoets.Migration.Core
                     databaseFile.OpenDatabaseConnection();
                     databaseFile.ExecuteQuery(createQuery);
                 }
+
                 return new RingtoetsVersionedFile(location);
             }
             catch (SQLiteException exception)

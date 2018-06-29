@@ -125,6 +125,7 @@ namespace Ringtoets.Migration
             {
                 GenerateMigrationCancelledLogMessage(originalFilePath);
             }
+
             return migrationLocation;
         }
 
@@ -134,6 +135,7 @@ namespace Ringtoets.Migration
             {
                 throw new ArgumentNullException(nameof(sourceFilePath));
             }
+
             if (targetFilePath == null)
             {
                 throw new ArgumentNullException(nameof(targetFilePath));
@@ -209,6 +211,7 @@ namespace Ringtoets.Migration
                           exception);
                 return false;
             }
+
             return true;
         }
 
