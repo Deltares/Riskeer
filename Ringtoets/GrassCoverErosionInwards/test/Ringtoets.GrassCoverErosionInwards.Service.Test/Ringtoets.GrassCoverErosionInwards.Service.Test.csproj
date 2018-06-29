@@ -25,6 +25,7 @@
   <ItemGroup>
     <Compile Include="GrassCoverErosionInwardsCalculationActivityTest.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculationServiceTest.cs" />
+    <Compile Include="GrassCoverErosionInwardsCalculationActivityFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

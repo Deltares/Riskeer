@@ -694,7 +694,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_GeneralinputNull_ThrowArgumentNullException()
+        public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
