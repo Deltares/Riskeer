@@ -1981,6 +1981,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Migration.Core.Te
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Migration.Core.TestUtil.Test", "Ringtoets\Migration\test\Ringtoets.Migration.Core.TestUtil.Test\Ringtoets.Migration.Core.TestUtil.Test.csproj", "{F7E70C59-3747-4871-B741-BE3619B77C92}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CreateInstaller|Any CPU = CreateInstaller|Any CPU
@@ -6938,26 +6943,36 @@ Global
 		{ABF98CE1-D311-4835-844A-1D4ED0E6C73D}.ReleaseForCodeCoverage|Any CPU.ActiveCfg = ReleaseForCodeCoverage|x86
 		{ABF98CE1-D311-4835-844A-1D4ED0E6C73D}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{ABF98CE1-D311-4835-844A-1D4ED0E6C73D}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstaller|Any CPU.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstaller|Any CPU.Build.0 = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstaller|x86.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstaller|x86.Build.0 = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstallerWithDemoProject|Any CPU.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstallerWithDemoProject|Any CPU.Build.0 = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstallerWithDemoProject|x86.Build.0 = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Debug|x86.Build.0 = Debug|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Release|x86.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.Release|x86.Build.0 = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.ReleaseForCodeCoverage|Any CPU.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.ReleaseForCodeCoverage|Any CPU.Build.0 = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.ReleaseForCodeCoverage|x86.ActiveCfg = Release|Any CPU
-		{C98D99C5-2ADD-4693-916C-71BF78750412}.ReleaseForCodeCoverage|x86.Build.0 = Release|Any CPU
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstaller|Any CPU.ActiveCfg = CreateInstaller|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstallerWithDemoProject|Any CPU.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.Debug|x86.ActiveCfg = Debug|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.Debug|x86.Build.0 = Debug|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.Release|Any CPU.ActiveCfg = Release|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.Release|x86.ActiveCfg = Release|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.Release|x86.Build.0 = Release|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.ReleaseForCodeCoverage|Any CPU.ActiveCfg = ReleaseForCodeCoverage|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{C98D99C5-2ADD-4693-916C-71BF78750412}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.CreateInstaller|Any CPU.ActiveCfg = CreateInstaller|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.CreateInstallerWithDemoProject|Any CPU.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.Debug|x86.ActiveCfg = Debug|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.Debug|x86.Build.0 = Debug|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.Release|Any CPU.ActiveCfg = Release|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.Release|x86.ActiveCfg = Release|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.Release|x86.Build.0 = Release|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.ReleaseForCodeCoverage|Any CPU.ActiveCfg = ReleaseForCodeCoverage|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
+		{F7E70C59-3747-4871-B741-BE3619B77C92}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -7383,6 +7398,7 @@ Global
 		{408F6A6B-7BF7-4F59-A5D4-893A777921D3} = {9BD55D5D-0C33-491D-995F-88FD763AB4C5}
 		{ABF98CE1-D311-4835-844A-1D4ED0E6C73D} = {9BD55D5D-0C33-491D-995F-88FD763AB4C5}
 		{C98D99C5-2ADD-4693-916C-71BF78750412} = {9BD55D5D-0C33-491D-995F-88FD763AB4C5}
+		{F7E70C59-3747-4871-B741-BE3619B77C92} = {9BD55D5D-0C33-491D-995F-88FD763AB4C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}
