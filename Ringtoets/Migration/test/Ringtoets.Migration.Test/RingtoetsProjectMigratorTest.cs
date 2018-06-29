@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
@@ -35,7 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
 
-namespace Application.Ringtoets.Migration.Test
+namespace Ringtoets.Migration.Test
 {
     [TestFixture]
     public class RingtoetsProjectMigratorTest
