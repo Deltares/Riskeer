@@ -23,6 +23,8 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover

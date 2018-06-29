@@ -25,6 +25,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
