@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenMultipleCalculationsUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenCalculationsFromMultipleCategoryBoundariesUpdated_RefreshRequiredEventRaised()
         {
             // Given
             var location = new TestHydraulicBoundaryLocation();

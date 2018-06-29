@@ -104,11 +104,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Then
             Assert.AreEqual(0, refreshRequiredRaised);
         }
-    }
 
-    class TestHydraulicBoundaryLocationCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
-    {
-        public TestHydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
-            : base(hydraulicBoundaryLocationCalculations) {}
+        private class TestHydraulicBoundaryLocationCalculationsProperties : HydraulicBoundaryLocationCalculationsProperties
+        {
+            public TestHydraulicBoundaryLocationCalculationsProperties(IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations)
+                : base(hydraulicBoundaryLocationCalculations) {}
+        }
     }
 }
