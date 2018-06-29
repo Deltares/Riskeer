@@ -172,7 +172,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivitiesForFailureMechanism_CalculationGroupNull_ThrowsArgumentNullException()
+        public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
