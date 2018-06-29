@@ -79,7 +79,7 @@ namespace Ringtoets.Storage.Core.Test.Create
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var failureMechanismEntity = new FailureMechanismEntity();
 
             // Call

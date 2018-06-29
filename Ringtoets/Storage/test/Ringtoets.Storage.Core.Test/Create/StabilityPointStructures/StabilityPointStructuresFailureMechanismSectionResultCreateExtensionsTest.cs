@@ -23,12 +23,12 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.StabilityPointStructures;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
 {
@@ -50,7 +50,7 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
         public void Create_PersistencyRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -72,7 +72,7 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
             bool useManualAssemblyProbability = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,
@@ -100,7 +100,7 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 TailorMadeAssessmentProbability = double.NaN,
                 ManualAssemblyProbability = double.NaN
@@ -119,7 +119,7 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
         {
             // Setup
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = calculation
             };

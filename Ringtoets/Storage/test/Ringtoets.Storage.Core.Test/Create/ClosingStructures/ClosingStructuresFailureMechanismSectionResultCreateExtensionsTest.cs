@@ -24,11 +24,11 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.ClosingStructures;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
 {
@@ -50,7 +50,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
         public void Create_PersistencyRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -72,7 +72,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
             bool useManualAssemblyProbability = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,
@@ -99,7 +99,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 TailorMadeAssessmentProbability = double.NaN,
                 ManualAssemblyProbability = double.NaN
@@ -118,7 +118,7 @@ namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
         {
             // Setup
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = calculation
             };

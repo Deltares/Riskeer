@@ -23,11 +23,11 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Storage.Core.Create.TechnicalInnovation;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.TechnicalInnovation
 {
@@ -55,7 +55,7 @@ namespace Ringtoets.Storage.Core.Test.Create.TechnicalInnovation
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
-            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 TailorMadeAssessmentResult = tailorMadeAssessmentResult,

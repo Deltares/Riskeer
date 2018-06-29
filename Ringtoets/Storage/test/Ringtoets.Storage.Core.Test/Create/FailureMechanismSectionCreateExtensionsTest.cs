@@ -23,10 +23,10 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Serializers;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create
 {
@@ -37,7 +37,7 @@ namespace Ringtoets.Storage.Core.Test.Create
         public void Create_WithoutCollector_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanismSection = new TestFailureMechanismSection();
+            var failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
             TestDelegate test = () => failureMechanismSection.Create(null);

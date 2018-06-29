@@ -22,11 +22,11 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.WaterPressureAsphaltCover;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.WaterPressureAsphaltCover
 {
@@ -140,7 +140,7 @@ namespace Ringtoets.Storage.Core.Test.Create.WaterPressureAsphaltCover
         {
             // Setup
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            failureMechanism.AddSection(new TestFailureMechanismSection());
+            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

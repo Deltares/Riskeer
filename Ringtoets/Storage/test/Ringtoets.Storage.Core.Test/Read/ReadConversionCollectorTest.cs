@@ -304,7 +304,7 @@ namespace Ringtoets.Storage.Core.Test.Read
 
             protected override FailureMechanismSection CreateDataModel()
             {
-                return new TestFailureMechanismSection();
+                return FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             }
         }
 

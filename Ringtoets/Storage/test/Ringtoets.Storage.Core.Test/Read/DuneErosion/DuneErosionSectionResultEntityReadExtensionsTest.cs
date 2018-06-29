@@ -23,11 +23,11 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read.DuneErosion;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Read.DuneErosion
 {
@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Read.DuneErosion
         {
             // Call
             TestDelegate call = () => ((DuneErosionSectionResultEntity) null).Read(
-                new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection()));
+                new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -88,7 +88,7 @@ namespace Ringtoets.Storage.Core.Test.Read.DuneErosion
                 UseManualAssemblyCategoryGroup = Convert.ToByte(useManualAssemblyCategoryGroup),
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
-            var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new DuneErosionFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

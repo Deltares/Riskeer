@@ -23,12 +23,12 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.HeightStructures;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
 {
@@ -50,7 +50,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
         public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -72,7 +72,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
             bool useManualAssemblyProbability = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
                 DetailedAssessmentResult = detailedAssessmentResult,
@@ -99,7 +99,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
         public void Create_SectionResultWithNaNValues_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 TailorMadeAssessmentProbability = double.NaN,
                 ManualAssemblyProbability = double.NaN
@@ -118,7 +118,7 @@ namespace Ringtoets.Storage.Core.Test.Create.HeightStructures
         {
             // Setup
             var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 Calculation = calculation
             };

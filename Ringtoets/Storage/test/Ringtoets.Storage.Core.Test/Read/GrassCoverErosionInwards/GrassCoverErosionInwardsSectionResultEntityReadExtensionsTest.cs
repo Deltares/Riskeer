@@ -22,12 +22,12 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Read.GrassCoverErosionInwards;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
 {
@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
         {
             // Call
             TestDelegate call = () => ((GrassCoverErosionInwardsSectionResultEntity) null).Read(
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection()),
+                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ReadConversionCollector());
 
             // Assert
@@ -68,7 +68,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection()), null);
+            TestDelegate call = () => entity.Read(new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -90,7 +90,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
@@ -101,7 +101,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
                 UseManualAssemblyProbability = Convert.ToByte(useManualAssemblyProbability),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -123,13 +123,13 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             var entity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -150,7 +150,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
             var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();
 
             var collector = new ReadConversionCollector();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             collector.Read(calculationEntity, calculation);
 
             var entity = new GrassCoverErosionInwardsSectionResultEntity
@@ -158,7 +158,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
                 GrassCoverErosionInwardsCalculationEntity = calculationEntity
             };
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);

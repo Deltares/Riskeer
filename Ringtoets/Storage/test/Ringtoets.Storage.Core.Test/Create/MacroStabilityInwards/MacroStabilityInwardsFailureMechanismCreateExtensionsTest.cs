@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
@@ -32,7 +33,6 @@ using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.MacroStabilityInwards;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 {
@@ -239,7 +239,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var testFailureMechanismSection = new TestFailureMechanismSection();
+            var testFailureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             failureMechanism.AddSection(testFailureMechanismSection);
 
             // Call

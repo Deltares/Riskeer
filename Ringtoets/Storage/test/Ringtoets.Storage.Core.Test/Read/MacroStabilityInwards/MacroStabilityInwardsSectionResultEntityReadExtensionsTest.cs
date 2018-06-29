@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {
@@ -37,7 +37,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             TestDelegate test = () => ((MacroStabilityInwardsSectionResultEntity) null).Read(sectionResult);
@@ -82,7 +82,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
                 UseManualAssemblyProbability = Convert.ToByte(useManualAssemblyProbability),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -101,7 +101,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
         {
             // Setup
             var entity = new MacroStabilityInwardsSectionResultEntity();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

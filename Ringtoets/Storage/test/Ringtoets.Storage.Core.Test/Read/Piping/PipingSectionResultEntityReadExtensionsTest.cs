@@ -22,11 +22,11 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Piping.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read.Piping;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Read.Piping
 {
@@ -38,7 +38,7 @@ namespace Ringtoets.Storage.Core.Test.Read.Piping
         {
             // Call
             TestDelegate call = () => ((PipingSectionResultEntity) null).Read(
-                new PipingFailureMechanismSectionResult(new TestFailureMechanismSection()));
+                new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,7 +81,7 @@ namespace Ringtoets.Storage.Core.Test.Read.Piping
                 ManualAssemblyProbability = manualAssemblyProbability
             };
 
-            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -100,7 +100,7 @@ namespace Ringtoets.Storage.Core.Test.Read.Piping
         {
             // Setup
             var entity = new PipingSectionResultEntity();
-            var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

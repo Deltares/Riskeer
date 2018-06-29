@@ -23,10 +23,10 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover;
-using Ringtoets.Storage.Core.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
         {
             // Call
             TestDelegate call = () => ((WaveImpactAsphaltCoverSectionResultEntity) null).Read(
-                new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
+                new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -89,7 +89,7 @@ namespace Ringtoets.Storage.Core.Test.Read.WaveImpactAsphaltCover
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
 
-            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

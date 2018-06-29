@@ -23,11 +23,11 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read.StabilityStoneCover;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
 {
@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
         {
             // Call
             TestDelegate call = () => ((StabilityStoneCoverSectionResultEntity) null).Read(
-                new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection()));
+                new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -89,7 +89,7 @@ namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
                 ManualAssemblyCategoryGroup = Convert.ToByte(manualAssemblyCategoryGroup)
             };
 
-            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

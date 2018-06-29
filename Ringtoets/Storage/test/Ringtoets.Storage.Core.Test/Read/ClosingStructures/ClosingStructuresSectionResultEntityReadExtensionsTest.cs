@@ -24,11 +24,11 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Read.ClosingStructures;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
 {
@@ -40,7 +40,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
         {
             // Call
             TestDelegate call = () => ((ClosingStructuresSectionResultEntity) null).Read(
-                new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection()),
+                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ReadConversionCollector());
 
             // Assert
@@ -70,7 +70,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
 
             // Call
             TestDelegate call = () => entity.Read(new ClosingStructuresFailureMechanismSectionResult(
-                                                      new TestFailureMechanismSection()), null);
+                                                      FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -92,7 +92,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var entity = new ClosingStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
@@ -103,7 +103,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
                 UseManualAssemblyProbability = Convert.ToByte(useManualAssemblyProbability),
                 ManualAssemblyProbability = manualAssemblyProbability
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -125,12 +125,12 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var entity = new ClosingStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
@@ -156,7 +156,7 @@ namespace Ringtoets.Storage.Core.Test.Read.ClosingStructures
             {
                 ClosingStructuresCalculationEntity = calculationEntity
             };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult, collector);
