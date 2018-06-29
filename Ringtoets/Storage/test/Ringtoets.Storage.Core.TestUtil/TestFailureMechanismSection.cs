@@ -22,7 +22,7 @@
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Ringtoets.Storage.Core.TestUtil
 {
     public class TestFailureMechanismSection : FailureMechanismSection
     {

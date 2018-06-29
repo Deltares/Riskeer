@@ -25,7 +25,7 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Ringtoets.Storage.Core.TestUtil
 {
     /// <summary>
     /// Database reader for a migrated database.

@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Storage.DbContext;
-
-namespace Application.Ringtoets.Storage.TestUtil.Hydraulics
+namespace Ringtoets.Storage.Core.TestUtil.Hydraulics
 {
     /// <summary>
     /// Factory for creating <see cref="HydraulicLocationEntity"/>

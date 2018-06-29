@@ -63,7 +63,7 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Ringtoets.Storage.Core.TestUtil
 {
     /// <summary>
     /// This class can be used to create <see cref="RingtoetsProject"/> instances which have their properties set and can be used in tests.

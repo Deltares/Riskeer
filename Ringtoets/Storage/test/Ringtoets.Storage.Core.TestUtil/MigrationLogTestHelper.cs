@@ -22,7 +22,7 @@
 using Application.Ringtoets.Migration.Core;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Ringtoets.Storage.Core.TestUtil
 {
     /// <summary>
     /// Helper class for asserting content of migration log messages.

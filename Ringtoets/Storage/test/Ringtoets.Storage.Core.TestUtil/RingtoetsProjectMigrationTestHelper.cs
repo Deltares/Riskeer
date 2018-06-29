@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Core.Common.TestUtil;
 using Ringtoets.Common.Util;
 
-namespace Application.Ringtoets.Storage.TestUtil
+namespace Ringtoets.Storage.Core.TestUtil
 {
     /// <summary>
     /// Class which provides file paths of the Ringtoets project files that can 

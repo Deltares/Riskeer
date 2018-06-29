@@ -20,14 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Primitives;
 
-namespace Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards
+namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
 {
     /// <summary>
     /// Class to assert the properties of macro stability inwards calculation entities.

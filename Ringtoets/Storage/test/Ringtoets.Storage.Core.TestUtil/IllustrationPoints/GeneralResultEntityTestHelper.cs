@@ -21,12 +21,11 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.IllustrationPoints;
 using Ringtoets.Common.Data.TestUtil;
 
-namespace Application.Ringtoets.Storage.TestUtil.IllustrationPoints
+namespace Ringtoets.Storage.Core.TestUtil.IllustrationPoints
 {
     /// <summary>
     /// Class to assert the properties of general result entities.
