@@ -1960,7 +1960,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Storage.Core.Test
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Storage.TestUtil", "Ringtoets\Storage\test\Ringtoets.Storage.Core.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj", "{03DBE353-99F7-47D6-B826-60D694FFB9AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Storage.Core.TestUtil", "Ringtoets\Storage\test\Ringtoets.Storage.Core.TestUtil\Ringtoets.Storage.Core.TestUtil.csproj", "{03DBE353-99F7-47D6-B826-60D694FFB9AC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
