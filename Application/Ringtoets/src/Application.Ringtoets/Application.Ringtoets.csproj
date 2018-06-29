@@ -204,11 +204,6 @@
       <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj">
-      <Project>{ac4f7f48-f674-4e32-ab35-9c726605f684}</Project>
-      <Name>Application.Ringtoets.Migration</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
