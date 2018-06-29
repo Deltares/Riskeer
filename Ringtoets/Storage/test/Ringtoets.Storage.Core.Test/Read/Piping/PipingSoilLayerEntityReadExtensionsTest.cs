@@ -25,6 +25,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.Piping;
 
 namespace Ringtoets.Storage.Core.Test.Read.Piping
 {

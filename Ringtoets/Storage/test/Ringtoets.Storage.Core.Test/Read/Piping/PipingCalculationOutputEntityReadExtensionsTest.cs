@@ -22,6 +22,8 @@
 using System;
 using NUnit.Framework;
 using Ringtoets.Piping.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.Piping;
 
 namespace Ringtoets.Storage.Core.Test.Read.Piping
 {
