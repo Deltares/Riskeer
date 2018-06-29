@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -36,6 +35,7 @@ using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Read.GrassCoverErosionOutwards;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil.Hydraulics;
 
 namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionOutwards
 {

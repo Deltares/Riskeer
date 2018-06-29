@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
+using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {

@@ -22,7 +22,6 @@
 using System;
 using System.Drawing;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
@@ -31,6 +30,7 @@ using Ringtoets.MacroStabilityInwards.Primitives.TestUtil;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Serializers;
 using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
+using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {

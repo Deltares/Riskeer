@@ -21,9 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil;
-using Application.Ringtoets.Storage.TestUtil.Hydraulics;
-using Application.Ringtoets.Storage.TestUtil.MacroStabilityInwards;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -51,6 +48,9 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil;
+using Ringtoets.Storage.Core.TestUtil.Hydraulics;
+using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Storage.Core.Test.Read

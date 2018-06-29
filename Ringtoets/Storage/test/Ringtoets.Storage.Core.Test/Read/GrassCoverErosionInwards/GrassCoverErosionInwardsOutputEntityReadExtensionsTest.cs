@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using NUnit.Framework;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read.GrassCoverErosionInwards;
+using Ringtoets.Storage.Core.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
 {

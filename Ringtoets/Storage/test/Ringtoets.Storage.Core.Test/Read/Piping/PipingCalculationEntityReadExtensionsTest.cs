@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -34,6 +33,7 @@ using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Read.Piping;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil.Hydraulics;
 
 namespace Ringtoets.Storage.Core.Test.Read.Piping
 {
