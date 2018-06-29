@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -32,6 +31,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.ClosingStructures;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.ClosingStructures
 {

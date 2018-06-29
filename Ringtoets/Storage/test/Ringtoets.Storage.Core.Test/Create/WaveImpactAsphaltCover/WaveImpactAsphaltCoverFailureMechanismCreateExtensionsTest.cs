@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -29,6 +28,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Storage.Core.Test.Create.WaveImpactAsphaltCover

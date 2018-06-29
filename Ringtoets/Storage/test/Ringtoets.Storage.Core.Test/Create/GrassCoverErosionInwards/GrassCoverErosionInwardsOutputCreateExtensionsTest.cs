@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil.IllustrationPoints;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
@@ -31,6 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Data.TestUtil;
 using Ringtoets.Storage.Core.Create.GrassCoverErosionInwards;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil.IllustrationPoints;
 
 namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
 {

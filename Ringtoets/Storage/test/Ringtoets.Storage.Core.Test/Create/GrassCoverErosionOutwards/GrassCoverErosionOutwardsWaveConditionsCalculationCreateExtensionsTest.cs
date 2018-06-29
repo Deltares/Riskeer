@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.TestUtil.Hydraulics;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -33,6 +32,7 @@ using Ringtoets.Revetment.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil.Hydraulics;
 
 namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionOutwards
 {

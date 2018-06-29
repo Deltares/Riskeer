@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create
 {

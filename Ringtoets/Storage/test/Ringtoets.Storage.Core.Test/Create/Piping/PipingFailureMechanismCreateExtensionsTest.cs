@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -33,6 +32,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.Piping;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.Piping
 {

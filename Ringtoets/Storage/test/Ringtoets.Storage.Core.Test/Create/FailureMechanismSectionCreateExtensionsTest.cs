@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create
 {

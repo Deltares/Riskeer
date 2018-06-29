@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -33,6 +32,7 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.StabilityPointStructures;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
 {
