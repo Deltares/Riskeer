@@ -40,8 +40,6 @@ namespace Core.Common.TestUtil
         {
             public static class Ringtoets
             {
-                public static readonly TestDataPath Storage = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Storage.Test");
-
                 public static class Migration
                 {
                     public static readonly TestDataPath Core = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Migration.Core.Test");
@@ -127,6 +125,11 @@ namespace Core.Common.TestUtil
             public static class StabilityPointStructures
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "StabilityPointStructures", "test", "Ringtoets.StabilityPointStructures.IO.Test");
+            }
+
+            public static class Storage
+            {
+                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Storage", "test", "Ringtoets.Storage.Core.Test");
             }
         }
     }

@@ -206,7 +206,7 @@ namespace Core.Common.TestUtil.Test
         {
             string path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core);
             Assert.IsTrue(Directory.Exists(path));
-            path = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage);
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Storage.Core);
             Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Core.Common.Util);

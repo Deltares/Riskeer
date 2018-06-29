@@ -37,7 +37,7 @@ namespace Ringtoets.Storage.Core.Test
     [TestFixture]
     public class StorageSqLiteTest
     {
-        private readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
+        private readonly string testPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Storage.Core, "DatabaseFiles");
         private readonly string workingDirectory = TestHelper.GetScratchPadPath(nameof(StorageSqLiteTest));
         private DirectoryDisposeHelper directoryDisposeHelper;
 
