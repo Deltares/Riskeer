@@ -26,6 +26,7 @@ using System.Data;
 using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
+using Ringtoets.Migration.Core.Properties;
 
 namespace Ringtoets.Migration.Core
 {

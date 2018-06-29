@@ -27,6 +27,7 @@ using System.Text.RegularExpressions;
 using Migration.Core.Storage;
 using Migration.Scripts.Data;
 using Ringtoets.Common.Util;
+using Ringtoets.Migration.Core.Properties;
 
 namespace Ringtoets.Migration.Core
 {

@@ -24,6 +24,7 @@ using System.Data.SQLite;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using Ringtoets.Common.Util;
+using Ringtoets.Migration.Core.Properties;
 
 namespace Ringtoets.Migration.Core
 {

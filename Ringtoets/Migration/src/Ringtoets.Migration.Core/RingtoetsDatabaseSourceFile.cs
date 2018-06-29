@@ -24,6 +24,7 @@ using System.Data;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
 using Core.Common.IO.Readers;
+using Ringtoets.Migration.Core.Properties;
 
 namespace Ringtoets.Migration.Core
 {
