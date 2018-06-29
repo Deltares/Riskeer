@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Storage.Core.DbContext;
+
 namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
 {
     /// <summary>

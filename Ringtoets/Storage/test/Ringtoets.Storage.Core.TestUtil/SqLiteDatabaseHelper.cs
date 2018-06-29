@@ -25,6 +25,7 @@ using Core.Common.IO;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
+using Ringtoets.Storage.Core.Properties;
 
 namespace Ringtoets.Storage.Core.TestUtil
 {
