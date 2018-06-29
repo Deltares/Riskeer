@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Application.Ringtoets.Migration.Core;
 using NUnit.Framework;
 
-namespace Ringtoets.Storage.Core.TestUtil
+namespace Ringtoets.Migration.Core.TestUtil
 {
     /// <summary>
     /// Helper class for asserting content of migration log messages.

@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System.Data;
-using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using NUnit.Framework;
 
-namespace Ringtoets.Storage.Core.TestUtil
+namespace Ringtoets.Migration.Core.TestUtil
 {
     /// <summary>
     /// Database reader for a migrated database.
@@ -49,7 +48,7 @@ namespace Ringtoets.Storage.Core.TestUtil
         /// Asserts that the <paramref name="queryString"/> results in one field with the value <c>true</c>.
         /// </summary>
         /// <param name="queryString">The query to execute.</param>
-        /// <exception cref="SQLiteException">The execution of <paramref name="queryString"/> 
+        /// <exception cref="System.Data.SQLite.SQLiteException">The execution of <paramref name="queryString"/> 
         /// failed.</exception>
         public void AssertReturnedDataIsValid(string queryString)
         {
