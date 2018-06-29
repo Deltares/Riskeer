@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Storage.Core.DbContext;
 
 namespace Ringtoets.Storage.Core.TestUtil.Test
 {
