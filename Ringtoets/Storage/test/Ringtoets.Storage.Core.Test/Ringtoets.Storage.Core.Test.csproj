@@ -406,10 +406,6 @@
       <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
       <Name>Application.Ringtoets.Migration</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Application\Ringtoets\test\Application.Ringtoets.Storage.TestUtil\Application.Ringtoets.Storage.TestUtil.csproj">
-      <Project>{03DBE353-99F7-47D6-B826-60D694FFB9AC}</Project>
-      <Name>Application.Ringtoets.Storage.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
       <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
       <Name>Ringtoets.Storage.Core</Name>
