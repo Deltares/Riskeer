@@ -28,10 +28,8 @@
     <Compile Include="IllustrationPoints\GeneralResultEntityTestHelperTest.cs" />
     <Compile Include="MacroStabilityInwards\MacroStabilityInwardsSoilLayerTwoDEntityTestFactoryTest.cs" />
     <Compile Include="MacroStabilityInwards\MacroStabilityInwardsStochasticSoilProfileEntityTestFactoryTest.cs" />
-    <Compile Include="MigratedDatabaseReaderTest.cs" />
     <Compile Include="PipingStochasticSoilProfileEntityTestFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RingtoetsProjectMigrationTestHelperTest.cs" />
     <Compile Include="RingtoetsProjectTestHelperTest.cs" />
     <Compile Include="SqLiteDatabaseHelperTest.cs" />
     <Compile Include="TestFailureMechanismSectionTest.cs" />

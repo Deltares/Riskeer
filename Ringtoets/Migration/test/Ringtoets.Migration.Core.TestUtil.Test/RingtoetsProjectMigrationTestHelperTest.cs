@@ -22,14 +22,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Application.Ringtoets.Migration.Core;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
+using Ringtoets.Storage.Core;
 
-namespace Ringtoets.Storage.Core.TestUtil.Test
+namespace Ringtoets.Migration.Core.TestUtil.Test
 {
     [TestFixture]
     public class RingtoetsProjectMigrationTestHelperTest
@@ -149,7 +149,7 @@ namespace Ringtoets.Storage.Core.TestUtil.Test
 
         private static void AssertFilePath(string filePath)
         {
-            Assert.IsTrue(IOUtils.IsValidFilePath(filePath));
+            Assert.IsTrue((bool) IOUtils.IsValidFilePath(filePath));
             Assert.IsTrue(File.Exists(filePath));
         }
     }

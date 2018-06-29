@@ -24,7 +24,7 @@ using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Ringtoets.Storage.Core.TestUtil.Test
+namespace Ringtoets.Migration.Core.TestUtil.Test
 {
     [TestFixture]
     public class MigratedDatabaseReaderTest
