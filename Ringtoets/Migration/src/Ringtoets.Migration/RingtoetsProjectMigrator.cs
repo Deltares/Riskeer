@@ -24,8 +24,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Migration.Properties;
 using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Util;
@@ -35,7 +33,7 @@ using Migration.Scripts.Data.Exceptions;
 using Ringtoets.Common.Util;
 using MigrationCoreStorageResources = Migration.Core.Storage.Properties.Resources;
 
-namespace Application.Ringtoets.Migration
+namespace Ringtoets.Migration
 {
     /// <summary>
     /// A GUI implementation to migrate a Ringtoets database file to a newer version.
