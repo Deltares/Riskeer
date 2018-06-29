@@ -26,6 +26,8 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.MacroStabilityOutwards;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityOutwards
 {

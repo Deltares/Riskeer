@@ -30,6 +30,10 @@ using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Ringtoets.MacroStabilityInwards.Primitives;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read;
+using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 {
