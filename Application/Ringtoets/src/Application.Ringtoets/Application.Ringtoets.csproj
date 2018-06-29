@@ -154,6 +154,11 @@
       <Name>Ringtoets.MacroStabilityInwards.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Ringtoets.Migration\Ringtoets.Migration.csproj">
+      <Project>{ac4f7f48-f674-4e32-ab35-9c726605f684}</Project>
+      <Name>Ringtoets.Migration</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Plugin\Ringtoets.StabilityPointStructures.Plugin.csproj">
       <Project>{E3DF5559-97D9-4038-BBE6-2E3DFB4F4C68}</Project>
       <Name>Ringtoets.StabilityPointStructures.Plugin</Name>
