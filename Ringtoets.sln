@@ -1966,7 +1966,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{28106126-6FA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9BD55D5D-0C33-491D-995F-88FD763AB4C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Core", "Ringtoets\Migration\src\Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj", "{FAC55B92-E259-43D6-B9A1-5BDA6C834359}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Migration.Core", "Ringtoets\Migration\src\Ringtoets.Migration.Core\Ringtoets.Migration.Core.csproj", "{FAC55B92-E259-43D6-B9A1-5BDA6C834359}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection

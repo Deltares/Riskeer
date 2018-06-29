@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectGuid>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</ProjectGuid>
-    <RootNamespace>Application.Ringtoets.Migration.Core</RootNamespace>
-    <AssemblyName>Application.Ringtoets.Migration.Core</AssemblyName>
+    <RootNamespace>Ringtoets.Migration.Core</RootNamespace>
+    <AssemblyName>Ringtoets.Migration.Core</AssemblyName>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
