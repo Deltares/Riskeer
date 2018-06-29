@@ -23,6 +23,7 @@ using System.Collections;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {

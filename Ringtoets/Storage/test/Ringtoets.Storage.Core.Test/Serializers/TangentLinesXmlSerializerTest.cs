@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {

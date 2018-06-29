@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using NUnit.Framework;
+using Ringtoets.Storage.Core.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
