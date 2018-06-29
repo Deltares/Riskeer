@@ -20,12 +20,11 @@
 // All rights reserved.
 
 using System.Collections.ObjectModel;
-using Application.Ringtoets.Migration.Core;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Storage.Core.TestUtil;
+using Ringtoets.Migration.Core;
 
-namespace Ringtoets.Storage.Core.Test.IntegrationTests
+namespace Ringtoets.Migration.Integration.Test
 {
     public class MigrationTo173IntegrationTest
     {

@@ -22,12 +22,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using Application.Ringtoets.Migration.Core;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Storage.Core.TestUtil;
+using Ringtoets.Migration.Core;
 
-namespace Ringtoets.Storage.Core.Test.IntegrationTests
+namespace Ringtoets.Migration.Integration.Test
 {
     [TestFixture]
     public class MigrationIntegrationTest

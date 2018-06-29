@@ -84,12 +84,6 @@
     <Compile Include="DbContext\RingtoetsEntitiesTest.cs" />
     <Compile Include="Exceptions\CannotDetermineFingerprintExceptionTest.cs" />
     <Compile Include="Create\HydraulicBoundaryLocationCalculationCreateExtensionsTest.cs" />
-    <Compile Include="IntegrationTests\MigrationIntegrationTest.cs" />
-    <Compile Include="IntegrationTests\MigrationTo181IntegrationTest.cs" />
-    <Compile Include="IntegrationTests\MigrationTo173IntegrationTest.cs" />
-    <Compile Include="IntegrationTests\MigrationTo172IntegrationTest.cs" />
-    <Compile Include="IntegrationTests\MigrationTo171IntegrationTest.cs" />
-    <Compile Include="IntegrationTests\StorageMigrationIntegrationTest.cs" />
     <Compile Include="Read\BackgroundDataMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensionsTest.cs" />

@@ -14,6 +14,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MigrationIntegrationTest.cs" />
+    <Compile Include="MigrationTo171IntegrationTest.cs" />
+    <Compile Include="MigrationTo172IntegrationTest.cs" />
+    <Compile Include="MigrationTo173IntegrationTest.cs" />
+    <Compile Include="MigrationTo181IntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -21,5 +26,31 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
+      <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
+      <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
+      <Project>{efd7e662-5b69-4b71-a448-565b64e9c033}</Project>
+      <Name>Migration.Core.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
+      <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
+      <Name>Migration.Scripts.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
+      <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Migration.Core\Ringtoets.Migration.Core.csproj">
+      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
+      <Name>Ringtoets.Migration.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

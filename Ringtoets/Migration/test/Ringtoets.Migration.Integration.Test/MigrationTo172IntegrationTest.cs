@@ -24,13 +24,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using Application.Ringtoets.Migration.Core;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Storage.Core.TestUtil;
+using Ringtoets.Migration.Core;
 
-namespace Ringtoets.Storage.Core.Test.IntegrationTests
+namespace Ringtoets.Migration.Integration.Test
 {
     public class MigrationTo172IntegrationTest
     {
@@ -284,7 +283,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                    $"WHERE [Id] = \"{trajectId}\" " +
                    $"AND CAST(1.0 / [LowerLimitNorm] AS FLOAT) BETWEEN ({lowerLimitReturnPeriod} - 0.1) AND ({lowerLimitReturnPeriod} + 0.1) " +
                    $"AND CAST(1.0 / [SignalingNorm] AS FLOAT) BETWEEN ({signalingReturnPeriod} - 0.1) AND ({signalingReturnPeriod} + 0.1) " +
-                   $"AND [NormativeNormType] = {Convert.ToByte(normType)}";
+                   $"AND [NormativeNormType] = {Convert.ToByte((object) normType)}";
         }
 
         private static string GetNormTypeString(NormType normType)
@@ -299,7 +298,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             Array normTypes = Enum.GetValues(typeof(NormType));
 
             IEnumerable<AssessmentSectionReturnPeriod> uniqueTrajectPeriods = GetAllTrajectTestCaseData()
-                                                                              .GroupBy(t => Tuple.Create(t.SignalingReturnPeriod, t.LowerLimitPeriod))
+                                                                              .GroupBy(t => Tuple.Create<int, int>(t.SignalingReturnPeriod, t.LowerLimitPeriod))
                                                                               .Select(t => t.First());
             foreach (AssessmentSectionReturnPeriod data in uniqueTrajectPeriods)
             {

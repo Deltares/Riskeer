@@ -7,16 +7,34 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets_Test.targets" />
   <ItemGroup>
+    <Reference Include="Fluent, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Fluent.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Windows.Shell, Version=3.5.41019.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\Microsoft.Windows.Shell.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\NUnit.3.8.1\lib\net40\nunit.framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Fluent.Ribbon.3.4.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourcesTest.cs" />
+    <Compile Include="StorageMigrationIntegrationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -30,9 +48,45 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
+      <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
+      <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj">
+      <Project>{30E4C2AE-719E-4D70-9FA9-668A9767FBFA}</Project>
+      <Name>Core.Common.Gui</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
+      <Project>{efd7e662-5b69-4b71-a448-565b64e9c033}</Project>
+      <Name>Migration.Core.Storage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
+      <Project>{d08db9e2-6861-44c8-a725-71a70274cc77}</Project>
+      <Name>Migration.Scripts.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Common\src\Ringtoets.Common.Util\Ringtoets.Common.Util.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Util</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Integration\src\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Ringtoets.Migration.Core\Ringtoets.Migration.Core.csproj">
+      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
+      <Name>Ringtoets.Migration.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Ringtoets.Migration\Ringtoets.Migration.csproj">
+      <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
+      <Name>Ringtoets.Migration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Storage\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
+      <Project>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</Project>
+      <Name>Ringtoets.Storage.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

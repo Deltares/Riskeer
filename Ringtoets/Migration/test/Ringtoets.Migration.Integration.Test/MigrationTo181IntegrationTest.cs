@@ -22,14 +22,13 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using Application.Ringtoets.Migration.Core;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Storage.Core.TestUtil;
+using Ringtoets.Migration.Core;
 
-namespace Ringtoets.Storage.Core.Test.IntegrationTests
+namespace Ringtoets.Migration.Integration.Test
 {
     public class MigrationTo181IntegrationTest
     {
@@ -2326,10 +2325,10 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="FailureMechanismCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="Ringtoets.Common.Data.FailureMechanism.FailureMechanismCategoryType"/>.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="FailureMechanismCategoryType"/>.</returns>
+            /// <returns>Returns the converted <see cref="Ringtoets.Common.Data.FailureMechanism.FailureMechanismCategoryType"/>.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
@@ -2353,10 +2352,10 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
             }
 
             /// <summary>
-            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="AssessmentSectionCategoryType"/>.
+            /// Converts the <see cref="NormativeNormType"/> to the corresponding category type from <see cref="Ringtoets.Common.Data.AssessmentSection.AssessmentSectionCategoryType"/>.
             /// </summary>
             /// <param name="normType">The norm type to convert.</param>
-            /// <returns>Returns the converted <see cref="AssessmentSectionCategoryType"/>.</returns>
+            /// <returns>Returns the converted <see cref="Ringtoets.Common.Data.AssessmentSection.AssessmentSectionCategoryType"/>.</returns>
             /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> 
             /// is an invalid value of <see cref="NormativeNormType"/>.</exception>
             /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,

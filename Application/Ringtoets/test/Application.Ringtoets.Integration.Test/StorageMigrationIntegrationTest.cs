@@ -22,8 +22,6 @@
 using System;
 using System.IO;
 using System.Threading;
-using Application.Ringtoets.Migration;
-using Application.Ringtoets.Migration.Core;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Settings;
@@ -32,9 +30,11 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
-using Ringtoets.Storage.Core.TestUtil;
+using Ringtoets.Migration;
+using Ringtoets.Migration.Core;
+using Ringtoets.Storage.Core;
 
-namespace Ringtoets.Storage.Core.Test.IntegrationTests
+namespace Application.Ringtoets.Integration.Test
 {
     [TestFixture]
     public class StorageMigrationIntegrationTest
@@ -139,7 +139,7 @@ namespace Ringtoets.Storage.Core.Test.IntegrationTests
                 // Then
                 Assert.IsNull(gui.ProjectFilePath);
                 Assert.AreEqual("Project", gui.Project.Name);
-                Assert.IsEmpty(gui.Project.Description);
+                Assert.IsEmpty((string) gui.Project.Description);
             }
 
             mocks.VerifyAll();
