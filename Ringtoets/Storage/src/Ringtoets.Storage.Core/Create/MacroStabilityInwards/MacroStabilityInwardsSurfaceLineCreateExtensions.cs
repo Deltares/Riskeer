@@ -51,6 +51,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));

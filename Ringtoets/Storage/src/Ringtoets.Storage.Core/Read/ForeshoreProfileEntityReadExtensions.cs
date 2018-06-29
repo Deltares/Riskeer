@@ -79,6 +79,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 return null;
             }
+
             return new BreakWater((BreakWaterType) breakWaterType.Value, breakWaterHeight.ToNullAsNaN());
         }
     }

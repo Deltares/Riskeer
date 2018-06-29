@@ -59,6 +59,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -105,6 +106,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -179,7 +181,6 @@ namespace Ringtoets.Storage.Core.Read
 
             characteristicPoints.ForEachElementDo(cp => SetCharacteristicPoint(surfaceLine, cp.Key, cp.Value));
         }
-
 
         /// <summary>
         /// Sets the characteristic point and its coordinate to the <paramref name="surfaceLine"/>.

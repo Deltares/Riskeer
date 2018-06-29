@@ -60,6 +60,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (generalPipingInput == null)
             {
                 throw new ArgumentNullException(nameof(generalPipingInput));
@@ -77,6 +78,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput));
                 }
+
                 var childCalculationEntity = childEntity as PipingCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -116,6 +118,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsMacroStabilityInwardsCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as MacroStabilityInwardsCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -155,6 +158,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as GrassCoverErosionInwardsCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -194,6 +198,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -233,6 +238,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsHeightStructuresCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as HeightStructuresCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -272,6 +278,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsClosingStructuresCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as ClosingStructuresCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -311,6 +318,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as StabilityPointStructuresCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -350,6 +358,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as StabilityStoneCoverWaveConditionsCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -389,6 +398,7 @@ namespace Ringtoets.Storage.Core.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector));
                 }
+
                 var childCalculationEntity = childEntity as WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
                 if (childCalculationEntity != null)
                 {
@@ -406,42 +416,52 @@ namespace Ringtoets.Storage.Core.Read
             {
                 sortedList.Add(groupEntity.Order, groupEntity);
             }
+
             foreach (PipingCalculationEntity calculationEntity in entity.PipingCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (GrassCoverErosionInwardsCalculationEntity calculationEntity in entity.GrassCoverErosionInwardsCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculationEntity calculationEntity in entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (HeightStructuresCalculationEntity calculationEntity in entity.HeightStructuresCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (ClosingStructuresCalculationEntity calculationEntity in entity.ClosingStructuresCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (StabilityPointStructuresCalculationEntity calculationEntity in entity.StabilityPointStructuresCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (StabilityStoneCoverWaveConditionsCalculationEntity calculationEntity in entity.StabilityStoneCoverWaveConditionsCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculationEntity calculationEntity in entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             foreach (MacroStabilityInwardsCalculationEntity calculationEntity in entity.MacroStabilityInwardsCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
+
             return sortedList.Values;
         }
     }

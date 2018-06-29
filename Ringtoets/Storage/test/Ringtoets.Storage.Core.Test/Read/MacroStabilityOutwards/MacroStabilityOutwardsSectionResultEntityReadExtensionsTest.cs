@@ -74,7 +74,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityOutwards
             double tailorMadeAssessmentProbability = random.NextDouble();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            
+
             var entity = new MacroStabilityOutwardsSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),

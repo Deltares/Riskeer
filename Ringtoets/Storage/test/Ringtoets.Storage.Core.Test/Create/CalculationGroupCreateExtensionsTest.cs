@@ -32,9 +32,9 @@ using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Storage.Core.Test.Create
 {

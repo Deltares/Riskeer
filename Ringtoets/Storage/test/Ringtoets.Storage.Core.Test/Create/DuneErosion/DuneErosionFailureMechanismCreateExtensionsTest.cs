@@ -206,7 +206,7 @@ namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
         }
 
         private static void AssertDuneLocationCalculationCollectionEntities(DuneErosionFailureMechanism failureMechanism,
-                                                                            PersistenceRegistry registry, 
+                                                                            PersistenceRegistry registry,
                                                                             DuneErosionFailureMechanismMetaEntity metaEntity)
         {
             AssertDuneLocationCalculationCollectionEntity(failureMechanism.CalculationsForFactorizedLowerLimitNorm,
@@ -248,7 +248,7 @@ namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
         }
 
         private static void AssertDuneLocationCalculationCollectionEntity(IEnumerable<DuneLocationCalculation> expectedCalculations,
-                                                                          PersistenceRegistry registry, 
+                                                                          PersistenceRegistry registry,
                                                                           DuneLocationCalculationCollectionEntity actualCollectionEntity)
         {
             Assert.IsNotNull(actualCollectionEntity);

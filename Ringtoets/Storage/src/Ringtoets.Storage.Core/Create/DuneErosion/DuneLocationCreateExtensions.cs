@@ -50,6 +50,7 @@ namespace Ringtoets.Storage.Core.Create.DuneErosion
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(location))
             {
                 return registry.Get(location);

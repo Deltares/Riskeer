@@ -241,6 +241,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
                 {
                     return 0;
                 }
+
                 return 1;
             }
         }

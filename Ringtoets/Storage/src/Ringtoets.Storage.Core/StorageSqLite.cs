@@ -73,6 +73,7 @@ namespace Ringtoets.Storage.Core
             {
                 throw new ArgumentNullException(nameof(project));
             }
+
             var registry = new PersistenceRegistry();
 
             stagedProject = new StagedProject(ringtoetsProject, ringtoetsProject.Create(registry));
@@ -153,6 +154,7 @@ namespace Ringtoets.Storage.Core
             {
                 throw new InvalidOperationException("Call 'StageProject(IProject)' first before calling this method.");
             }
+
             if (string.IsNullOrWhiteSpace(filePath))
             {
                 return true;
@@ -174,6 +176,7 @@ namespace Ringtoets.Storage.Core
                 {
                     throw new StorageException(Resources.StorageSqLite_HasStagedProjectChanges_Project_contains_too_many_objects_to_generate_fingerprint, e);
                 }
+
                 throw new StorageException(e.Message, e);
             }
         }
@@ -208,8 +211,10 @@ namespace Ringtoets.Storage.Core
                     {
                         throw CreateStorageWriterException(databaseFilePath, Resources.Error_during_connection, exception);
                     }
+
                     throw;
                 }
+
                 stagedProject.Model.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
             }
         }
@@ -316,6 +321,7 @@ namespace Ringtoets.Storage.Core
                     throw new StorageValidationException(message, exception);
                 }
             }
+
             return connectionString;
         }
 

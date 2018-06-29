@@ -43,6 +43,7 @@ namespace Ringtoets.Storage.Core
             {
                 return null;
             }
+
             return value;
         }
     }

@@ -69,7 +69,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards
             return entity;
         }
 
-        private static void SetInputParameters(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, 
+        private static void SetInputParameters(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
                                                FailureMechanismCategoryWaveConditionsInput calculationInput,
                                                PersistenceRegistry registry)
         {
@@ -78,6 +78,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards
             {
                 entity.HydraulicLocationEntity = registry.Get(hydraulicBoundaryLocation);
             }
+
             if (calculationInput.ForeshoreProfile != null)
             {
                 entity.ForeshoreProfileEntity = calculationInput.ForeshoreProfile.Create(registry, 0);
@@ -96,7 +97,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionOutwards
             entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
         }
 
-        private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, 
+        private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
                                               GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
             if (calculation.HasOutput)

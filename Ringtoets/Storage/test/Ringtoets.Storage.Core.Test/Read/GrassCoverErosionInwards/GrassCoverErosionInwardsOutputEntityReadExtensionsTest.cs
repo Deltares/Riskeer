@@ -50,7 +50,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
             {
                 WaveHeight = 1.1,
                 IsOvertoppingDominant = Convert.ToByte(false),
-                Reliability = 0.2,
+                Reliability = 0.2
             };
 
             // Call

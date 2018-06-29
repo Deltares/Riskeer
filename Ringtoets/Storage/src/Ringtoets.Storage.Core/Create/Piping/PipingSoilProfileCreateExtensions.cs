@@ -51,6 +51,7 @@ namespace Ringtoets.Storage.Core.Create.Piping
             {
                 return registry.Get(profile);
             }
+
             var entity = new PipingSoilProfileEntity
             {
                 Name = profile.Name.DeepClone(),

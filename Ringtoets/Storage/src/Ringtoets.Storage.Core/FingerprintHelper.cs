@@ -81,6 +81,7 @@ namespace Ringtoets.Storage.Core
             {
                 return false;
             }
+
             // Note: Do not turn this into a linq query, as that is less performance optimal!
             for (var i = 0; i < array1.Length; i++)
             {
@@ -89,6 +90,7 @@ namespace Ringtoets.Storage.Core
                     return false;
                 }
             }
+
             return true;
         }
 

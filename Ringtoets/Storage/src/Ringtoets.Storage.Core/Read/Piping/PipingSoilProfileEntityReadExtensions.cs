@@ -47,6 +47,7 @@ namespace Ringtoets.Storage.Core.Read.Piping
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -56,6 +57,7 @@ namespace Ringtoets.Storage.Core.Read.Piping
             {
                 return collector.Get(entity);
             }
+
             IEnumerable<PipingSoilLayer> layers = entity.PipingSoilLayerEntities.OrderBy(sl => sl.Order)
                                                         .Select(sl => sl.Read())
                                                         .ToArray();

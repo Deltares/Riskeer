@@ -47,6 +47,7 @@ namespace Ringtoets.Storage.Core.Read.ClosingStructures
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.Contains(entity))
             {
                 return collector.Get(entity);

@@ -56,6 +56,7 @@ namespace Ringtoets.Storage.Core.TestUtil.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(generalResult));
             }
+
             if (generalResultEntity == null)
             {
                 throw new ArgumentNullException(nameof(generalResultEntity));

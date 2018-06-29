@@ -84,6 +84,7 @@ namespace Ringtoets.Storage.Core.Read.IllustrationPoints
             {
                 sortedList.Add(childEntity.Order, childEntity);
             }
+
             foreach (SubMechanismIllustrationPointEntity childEntity in entity.SubMechanismIllustrationPointEntities
                                                                               .OrderBy(ip => ip.Order))
             {

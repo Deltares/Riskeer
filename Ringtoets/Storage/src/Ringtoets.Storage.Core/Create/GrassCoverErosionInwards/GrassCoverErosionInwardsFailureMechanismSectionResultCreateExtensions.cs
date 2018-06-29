@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsSectionResultEntity Create(this GrassCoverErosionInwardsFailureMechanismSectionResult result, 
+        internal static GrassCoverErosionInwardsSectionResultEntity Create(this GrassCoverErosionInwardsFailureMechanismSectionResult result,
                                                                            PersistenceRegistry registry)
         {
             if (result == null)
@@ -51,6 +51,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             var sectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),

@@ -46,6 +46,7 @@ namespace Ringtoets.Storage.Core.Read.Piping
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return new PipingOutput(new PipingOutput.ConstructionProperties
             {
                 UpliftZValue = entity.UpliftZValue.ToNullAsNaN(),

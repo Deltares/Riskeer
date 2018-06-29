@@ -70,7 +70,7 @@ namespace Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover
         }
 
         private static void SetInputParameters(WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity,
-                                               AssessmentSectionCategoryWaveConditionsInput calculationInput, 
+                                               AssessmentSectionCategoryWaveConditionsInput calculationInput,
                                                PersistenceRegistry registry)
         {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = calculationInput.HydraulicBoundaryLocation;
@@ -78,6 +78,7 @@ namespace Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover
             {
                 entity.HydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry, 0);
             }
+
             if (calculationInput.ForeshoreProfile != null)
             {
                 entity.ForeshoreProfileEntity = calculationInput.ForeshoreProfile.Create(registry, 0);
@@ -96,7 +97,7 @@ namespace Ringtoets.Storage.Core.Create.WaveImpactAsphaltCover
             entity.CategoryType = Convert.ToByte(calculationInput.CategoryType);
         }
 
-        private static void AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, 
+        private static void AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
                                                                                    WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)
         {
             if (calculation.HasOutput)

@@ -61,14 +61,14 @@ namespace Ringtoets.Storage.Core.Read.DuneErosion
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            Dictionary<DuneLocation, DuneLocationCalculation> calculationsLookup = 
+            Dictionary<DuneLocation, DuneLocationCalculation> calculationsLookup =
                 calculations.ToDictionary(calc => calc.DuneLocation, calc => calc);
 
             foreach (DuneLocationCalculationEntity calculationEntity in entity.DuneLocationCalculationEntities)
             {
                 DuneLocation duneLocation = collector.Get(calculationEntity.DuneLocationEntity);
                 DuneLocationCalculation calculation = calculationsLookup[duneLocation];
-                
+
                 calculationEntity.Read(calculation);
             }
         }

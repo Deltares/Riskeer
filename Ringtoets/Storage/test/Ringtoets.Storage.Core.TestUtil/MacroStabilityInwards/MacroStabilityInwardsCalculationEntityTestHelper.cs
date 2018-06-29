@@ -59,6 +59,7 @@ namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
             {
                 throw new ArgumentNullException(nameof(scenario));
             }
+
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));

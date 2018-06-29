@@ -83,7 +83,7 @@ namespace Ringtoets.Storage.Core.Create
             AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
             AddHydraulicLocationCalculationEntities(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
-            
+
             entity.BackgroundDataEntities.Add(section.BackgroundData.Create());
 
             entity.FailureMechanismEntities.Add(section.Piping.Create(registry));

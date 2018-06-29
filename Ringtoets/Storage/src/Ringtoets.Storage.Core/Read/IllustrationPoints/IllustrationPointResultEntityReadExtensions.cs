@@ -45,6 +45,7 @@ namespace Ringtoets.Storage.Core.Read.IllustrationPoints
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return new IllustrationPointResult(entity.Description,
                                                entity.Value);
         }

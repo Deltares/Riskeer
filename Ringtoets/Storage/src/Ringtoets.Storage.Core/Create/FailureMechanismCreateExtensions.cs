@@ -78,6 +78,7 @@ namespace Ringtoets.Storage.Core.Create
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));

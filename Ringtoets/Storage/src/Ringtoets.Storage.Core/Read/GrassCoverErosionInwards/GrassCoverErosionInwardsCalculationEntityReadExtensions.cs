@@ -50,6 +50,7 @@ namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.Contains(entity))
             {
                 return collector.Get(entity);

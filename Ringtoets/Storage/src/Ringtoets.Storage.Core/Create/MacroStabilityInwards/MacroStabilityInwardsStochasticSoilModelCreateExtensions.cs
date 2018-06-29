@@ -50,6 +50,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(model))
             {
                 return registry.Get(model);

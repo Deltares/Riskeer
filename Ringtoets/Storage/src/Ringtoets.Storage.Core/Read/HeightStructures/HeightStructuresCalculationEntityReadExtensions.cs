@@ -51,6 +51,7 @@ namespace Ringtoets.Storage.Core.Read.HeightStructures
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.Contains(entity))
             {
                 return collector.Get(entity);

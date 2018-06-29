@@ -309,6 +309,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
             {
                 geometryPoints[i] = new Point3D(random.NextDouble(), random.NextDouble(), random.NextDouble());
             }
+
             surfaceLine.SetGeometry(geometryPoints);
 
             surfaceLine.SetDitchPolderSideAt(geometryPoints[1]);

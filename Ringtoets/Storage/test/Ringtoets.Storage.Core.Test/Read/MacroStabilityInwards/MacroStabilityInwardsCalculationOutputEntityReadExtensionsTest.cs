@@ -27,8 +27,8 @@ using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.Serializers;
 using Ringtoets.Storage.Core.Read.MacroStabilityInwards;
+using Ringtoets.Storage.Core.Serializers;
 using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards

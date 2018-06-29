@@ -79,6 +79,7 @@ namespace Ringtoets.Storage.Core
                 Revert();
                 throw;
             }
+
             Finish();
         }
 
@@ -150,6 +151,7 @@ namespace Ringtoets.Storage.Core
                             temporaryFilePath);
                         throw new IOException(message, e);
                     }
+
                     throw;
                 }
             }
@@ -174,6 +176,7 @@ namespace Ringtoets.Storage.Core
                         targetFilePath);
                     throw new IOException(message, e);
                 }
+
                 throw;
             }
         }
@@ -203,6 +206,7 @@ namespace Ringtoets.Storage.Core
                         targetFilePath);
                     throw new IOException(message, e);
                 }
+
                 throw;
             }
         }
@@ -226,6 +230,7 @@ namespace Ringtoets.Storage.Core
                         temporaryFilePath);
                     throw new CannotDeleteBackupFileException(message, e);
                 }
+
                 throw;
             }
         }

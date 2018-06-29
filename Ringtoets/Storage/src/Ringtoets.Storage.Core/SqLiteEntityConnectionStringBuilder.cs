@@ -42,6 +42,7 @@ namespace Ringtoets.Storage.Core
             {
                 throw new ArgumentNullException(nameof(filePath), @"Cannot create a connection string without the path to the file to connect to.");
             }
+
             return new EntityConnectionStringBuilder
             {
                 Metadata = string.Format(@"res://*/{0}.csdl|res://*/{0}.ssdl|res://*/{0}.msl", "DbContext.RingtoetsEntities"),

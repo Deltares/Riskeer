@@ -49,6 +49,7 @@ namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.Contains(entity))
             {
                 return collector.Get(entity);
@@ -83,6 +84,7 @@ namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
             {
                 return null;
             }
+
             return new BreakWater((BreakWaterType) entity.BreakWaterType, entity.BreakWaterHeight.Value);
         }
     }

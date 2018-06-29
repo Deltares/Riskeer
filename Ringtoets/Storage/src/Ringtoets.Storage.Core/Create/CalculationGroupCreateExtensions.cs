@@ -83,46 +83,55 @@ namespace Ringtoets.Storage.Core.Create
                 {
                     entity.CalculationGroupEntity1.Add(childGroup.Create(registry, i));
                 }
+
                 var childPipingCalculation = calculationBase as PipingCalculationScenario;
                 if (childPipingCalculation != null)
                 {
                     entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
                 }
+
                 var childMacroStabilityInwardsCalculation = calculationBase as MacroStabilityInwardsCalculationScenario;
                 if (childMacroStabilityInwardsCalculation != null)
                 {
                     entity.MacroStabilityInwardsCalculationEntities.Add(childMacroStabilityInwardsCalculation.Create(registry, i));
                 }
+
                 var childGrassCoverErosionInwardsCalculation = calculationBase as GrassCoverErosionInwardsCalculation;
                 if (childGrassCoverErosionInwardsCalculation != null)
                 {
                     entity.GrassCoverErosionInwardsCalculationEntities.Add(childGrassCoverErosionInwardsCalculation.Create(registry, i));
                 }
+
                 var childGrassCoverErosionOutwardsCalculation = calculationBase as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 if (childGrassCoverErosionOutwardsCalculation != null)
                 {
                     entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Add(childGrassCoverErosionOutwardsCalculation.Create(registry, i));
                 }
+
                 var childHeightStructuresCalculation = calculationBase as StructuresCalculation<HeightStructuresInput>;
                 if (childHeightStructuresCalculation != null)
                 {
                     entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.CreateForHeightStructures(registry, i));
                 }
+
                 var childClosingStructuresCalculation = calculationBase as StructuresCalculation<ClosingStructuresInput>;
                 if (childClosingStructuresCalculation != null)
                 {
                     entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.CreateForClosingStructures(registry, i));
                 }
+
                 var childStabilityPointStructuresCalculation = calculationBase as StructuresCalculation<StabilityPointStructuresInput>;
                 if (childStabilityPointStructuresCalculation != null)
                 {
                     entity.StabilityPointStructuresCalculationEntities.Add(childStabilityPointStructuresCalculation.CreateForStabilityPointStructures(registry, i));
                 }
+
                 var stabilityStoneCoverWaveConditionsCalculation = calculationBase as StabilityStoneCoverWaveConditionsCalculation;
                 if (stabilityStoneCoverWaveConditionsCalculation != null)
                 {
                     entity.StabilityStoneCoverWaveConditionsCalculationEntities.Add(stabilityStoneCoverWaveConditionsCalculation.Create(registry, i));
                 }
+
                 var waveImpactAsphaltCoverWaveConditionsCalculation = calculationBase as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 if (waveImpactAsphaltCoverWaveConditionsCalculation != null)
                 {

@@ -76,6 +76,7 @@ namespace Ringtoets.Storage.Core.Create.StabilityStoneCover
             {
                 entity.HydraulicLocationEntity = calculationInput.HydraulicBoundaryLocation.Create(registry, 0);
             }
+
             if (calculationInput.ForeshoreProfile != null)
             {
                 entity.ForeshoreProfileEntity = calculationInput.ForeshoreProfile.Create(registry, 0);
@@ -103,6 +104,7 @@ namespace Ringtoets.Storage.Core.Create.StabilityStoneCover
                 {
                     entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++));
                 }
+
                 foreach (WaveConditionsOutput output in calculation.Output.ColumnsOutput)
                 {
                     entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++));

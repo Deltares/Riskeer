@@ -38,7 +38,7 @@ namespace Ringtoets.Storage.Core.Test.Create.DuneErosion
         public void Create_DuneLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((DuneLocation)null).Create(new PersistenceRegistry(), 0);
+            TestDelegate call = () => ((DuneLocation) null).Create(new PersistenceRegistry(), 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

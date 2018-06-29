@@ -46,6 +46,7 @@ namespace Ringtoets.Storage.Core.Create.ClosingStructures
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(structure))
             {
                 return registry.Get(structure);

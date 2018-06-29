@@ -47,6 +47,7 @@ namespace Ringtoets.Storage.Core.Create.StabilityPointStructures
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(structure))
             {
                 return registry.Get(structure);

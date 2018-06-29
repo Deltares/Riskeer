@@ -45,6 +45,7 @@ namespace Ringtoets.Storage.Core.Create
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = section.Name.DeepClone(),

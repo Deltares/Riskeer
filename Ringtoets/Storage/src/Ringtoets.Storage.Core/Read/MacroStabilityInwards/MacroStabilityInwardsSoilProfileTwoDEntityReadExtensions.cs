@@ -51,6 +51,7 @@ namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -60,6 +61,7 @@ namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
             {
                 return collector.Get(entity);
             }
+
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = entity.MacroStabilityInwardsSoilLayerTwoDEntities
                                                                          .OrderBy(sl => sl.Order)
                                                                          .Select(sl => sl.Read())

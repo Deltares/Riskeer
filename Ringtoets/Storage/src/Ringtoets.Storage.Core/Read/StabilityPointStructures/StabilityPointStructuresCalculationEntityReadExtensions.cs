@@ -51,6 +51,7 @@ namespace Ringtoets.Storage.Core.Read.StabilityPointStructures
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             if (collector.Contains(entity))
             {
                 return collector.Get(entity);

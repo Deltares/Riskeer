@@ -51,6 +51,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
             {
                 throw new ArgumentNullException(nameof(stochasticSoilProfile));
             }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));

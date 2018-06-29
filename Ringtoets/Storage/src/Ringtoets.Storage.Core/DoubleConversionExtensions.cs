@@ -42,6 +42,7 @@ namespace Ringtoets.Storage.Core
             {
                 return null;
             }
+
             return value;
         }
 
@@ -58,6 +59,7 @@ namespace Ringtoets.Storage.Core
             {
                 return double.NaN;
             }
+
             return value.Value;
         }
     }

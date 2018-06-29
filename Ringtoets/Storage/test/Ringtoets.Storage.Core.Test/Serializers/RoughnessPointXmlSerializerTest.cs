@@ -76,6 +76,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
                 {
                     return 0;
                 }
+
                 return 1;
             }
         }

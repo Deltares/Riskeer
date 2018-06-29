@@ -77,6 +77,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
             {
                 entity.DikeProfileEntity = registry.Get(input.DikeProfile);
             }
+
             if (input.HydraulicBoundaryLocation != null)
             {
                 entity.HydraulicLocationEntity = registry.Get(input.HydraulicBoundaryLocation);

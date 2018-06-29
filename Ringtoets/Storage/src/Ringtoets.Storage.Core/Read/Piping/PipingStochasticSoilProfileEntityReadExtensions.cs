@@ -48,6 +48,7 @@ namespace Ringtoets.Storage.Core.Read.Piping
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));

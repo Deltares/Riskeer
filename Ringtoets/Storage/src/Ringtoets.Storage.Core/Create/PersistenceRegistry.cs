@@ -132,6 +132,7 @@ namespace Ringtoets.Storage.Core.Create
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -833,7 +834,7 @@ namespace Ringtoets.Storage.Core.Create
         /// has been registered for <paramref name="model"/>.</exception>
         /// <remarks>Use <see cref="Contains(HydraulicBoundaryLocation)"/> to find out
         /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal HydraulicLocationEntity Get(HydraulicBoundaryLocation model) 
+        internal HydraulicLocationEntity Get(HydraulicBoundaryLocation model)
         {
             return Get(hydraulicLocations, model);
         }

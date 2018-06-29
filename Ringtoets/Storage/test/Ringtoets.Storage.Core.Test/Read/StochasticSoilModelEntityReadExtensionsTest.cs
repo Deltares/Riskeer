@@ -21,8 +21,6 @@
 
 using System;
 using System.Linq;
-using Ringtoets.Storage.Core.TestUtil;
-using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data.SoilProfile;
@@ -30,6 +28,8 @@ using Ringtoets.Piping.Data.SoilProfile;
 using Ringtoets.Storage.Core.DbContext;
 using Ringtoets.Storage.Core.Read;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil;
+using Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards;
 
 namespace Ringtoets.Storage.Core.Test.Read
 {

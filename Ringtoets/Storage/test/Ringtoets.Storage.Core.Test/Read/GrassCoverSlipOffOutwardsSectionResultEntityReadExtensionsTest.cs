@@ -72,7 +72,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var tailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
             bool useManualAssemblyCategoryGroup = random.NextBoolean();
             var manualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            
+
             var entity = new GrassCoverSlipOffOutwardsSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(simpleAssessmentResult),

@@ -52,7 +52,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityOutwards
                 TailorMadeAssessmentResult = Convert.ToByte(result.TailorMadeAssessmentResult),
                 TailorMadeAssessmentProbability = result.TailorMadeAssessmentProbability.ToNaNAsNull(),
                 UseManualAssemblyCategoryGroup = Convert.ToByte(result.UseManualAssemblyCategoryGroup),
-                ManualAssemblyCategoryGroup =  Convert.ToByte(result.ManualAssemblyCategoryGroup)
+                ManualAssemblyCategoryGroup = Convert.ToByte(result.ManualAssemblyCategoryGroup)
             };
 
             return sectionResultEntity;

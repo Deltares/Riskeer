@@ -94,6 +94,7 @@ namespace Ringtoets.Storage.Core.TestUtil
             {
                 throw new ArgumentNullException(nameof(databaseSchemaQuery));
             }
+
             if (string.IsNullOrWhiteSpace(databaseFilePath))
             {
                 throw new ArgumentNullException(nameof(databaseFilePath));

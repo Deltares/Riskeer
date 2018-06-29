@@ -93,10 +93,12 @@ namespace Ringtoets.Storage.Core.Test.Create
                 {
                     throw new ArgumentNullException(nameof(registerToRegistry));
                 }
+
                 if (containsInRegistry == null)
                 {
                     throw new ArgumentNullException(nameof(containsInRegistry));
                 }
+
                 if (getFromRegistry == null)
                 {
                     throw new ArgumentNullException(nameof(getFromRegistry));

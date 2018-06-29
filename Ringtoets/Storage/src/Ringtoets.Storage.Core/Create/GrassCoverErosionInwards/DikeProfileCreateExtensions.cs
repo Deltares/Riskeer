@@ -46,6 +46,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException(nameof(registry));
             }
+
             if (registry.Contains(dikeProfile))
             {
                 return registry.Get(dikeProfile);

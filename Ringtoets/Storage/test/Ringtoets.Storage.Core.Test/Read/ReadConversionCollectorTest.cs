@@ -93,10 +93,12 @@ namespace Ringtoets.Storage.Core.Test.Read
                 {
                     throw new ArgumentNullException(nameof(registerToCollector));
                 }
+
                 if (containsInCollector == null)
                 {
                     throw new ArgumentNullException(nameof(containsInCollector));
                 }
+
                 if (getFromCollector == null)
                 {
                     throw new ArgumentNullException(nameof(getFromCollector));

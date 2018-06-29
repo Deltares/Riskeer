@@ -63,6 +63,7 @@ namespace Ringtoets.Storage.Core.Serializers
                 formatter.WriteObject(writer, ToSerializableData(elements));
                 writer.Flush();
             }
+
             using (var streamReader = new StreamReader(memoryStream))
             {
                 memoryStream.Seek(0, SeekOrigin.Begin);

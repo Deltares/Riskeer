@@ -45,6 +45,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(collector));
             }
+
             var project = new RingtoetsProject
             {
                 Description = entity.Description

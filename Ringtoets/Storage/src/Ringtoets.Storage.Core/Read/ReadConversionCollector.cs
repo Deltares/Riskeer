@@ -128,6 +128,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -148,6 +149,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return pipingStochasticSoilModels.ContainsKey(entity);
         }
 
@@ -168,6 +170,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return pipingStochasticSoilModels[entity];
@@ -191,6 +194,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -211,6 +215,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return macroStabilityInwardsStochasticSoilModels.ContainsKey(entity);
         }
 
@@ -232,6 +237,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return macroStabilityInwardsStochasticSoilModels[entity];
@@ -259,6 +265,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -279,6 +286,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return pipingStochasticSoilProfiles.ContainsKey(entity);
         }
 
@@ -300,6 +308,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return pipingStochasticSoilProfiles[entity];
@@ -327,6 +336,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -347,6 +357,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return pipingSoilProfiles.ContainsKey(entity);
         }
 
@@ -367,6 +378,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return pipingSoilProfiles[entity];
@@ -394,6 +406,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -414,6 +427,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return pipingSurfaceLines.ContainsKey(entity);
         }
 
@@ -435,6 +449,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return pipingSurfaceLines[entity];
@@ -458,6 +473,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -478,6 +494,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return macroStabilityInwardsSurfaceLines.ContainsKey(entity);
         }
 
@@ -499,6 +516,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return macroStabilityInwardsSurfaceLines[entity];
@@ -526,6 +544,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -546,6 +565,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return macroStabilityInwardsStochasticSoilProfiles.ContainsKey(entity);
         }
 
@@ -567,6 +587,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return macroStabilityInwardsStochasticSoilProfiles[entity];
@@ -594,6 +615,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -614,6 +636,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return macroStabilityInwardsSoil1DProfiles.ContainsKey(entity);
         }
 
@@ -635,6 +658,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return macroStabilityInwardsSoil1DProfiles[entity];
@@ -662,6 +686,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -682,6 +707,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return macroStabilityInwardsSoil2DProfiles.ContainsKey(entity);
         }
 
@@ -703,6 +729,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return macroStabilityInwardsSoil2DProfiles[entity];
@@ -730,6 +757,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -750,6 +778,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return hydraulicBoundaryLocations.ContainsKey(entity);
         }
 
@@ -771,6 +800,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return hydraulicBoundaryLocations[entity];
@@ -798,6 +828,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -818,6 +849,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return duneLocations.ContainsKey(entity);
         }
 
@@ -839,6 +871,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return duneLocations[entity];
@@ -866,6 +899,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -886,6 +920,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return failureMechanismSections.ContainsKey(entity);
         }
 
@@ -907,6 +942,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return failureMechanismSections[entity];
@@ -934,6 +970,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -954,6 +991,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return dikeProfiles.ContainsKey(entity);
         }
 
@@ -975,6 +1013,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return dikeProfiles[entity];
@@ -1002,6 +1041,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1022,6 +1062,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return foreshoreProfiles.ContainsKey(entity);
         }
 
@@ -1043,6 +1084,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return foreshoreProfiles[entity];
@@ -1073,6 +1115,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1093,6 +1136,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return grassCoverErosionInwardsCalculations.ContainsKey(entity);
         }
 
@@ -1114,6 +1158,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return grassCoverErosionInwardsCalculations[entity];
@@ -1141,6 +1186,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1161,6 +1207,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return heightStructures.ContainsKey(entity);
         }
 
@@ -1182,6 +1229,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return heightStructures[entity];
@@ -1212,6 +1260,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1232,6 +1281,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return heightStructuresCalculations.ContainsKey(entity);
         }
 
@@ -1253,6 +1303,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return heightStructuresCalculations[entity];
@@ -1280,6 +1331,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1300,6 +1352,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return closingStructures.ContainsKey(entity);
         }
 
@@ -1321,6 +1374,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return closingStructures[entity];
@@ -1351,6 +1405,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1371,6 +1426,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return closingStructuresCalculations.ContainsKey(entity);
         }
 
@@ -1392,6 +1448,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return closingStructuresCalculations[entity];
@@ -1419,6 +1476,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1439,6 +1497,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return stabilityPointStructures.ContainsKey(entity);
         }
 
@@ -1460,6 +1519,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return stabilityPointStructures[entity];
@@ -1490,6 +1550,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));
@@ -1510,6 +1571,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return stabilityPointStructuresCalculations.ContainsKey(entity);
         }
 
@@ -1531,6 +1593,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             try
             {
                 return stabilityPointStructuresCalculations[entity];

@@ -78,8 +78,8 @@ namespace Ringtoets.Storage.Core.Read
             string preferredFormat = null;
 
             bool isConfigured = Convert.ToBoolean(Convert.ToInt16(backgroundDataMetaEntities
-                                                                      .Single(entity => entity.Key.Equals(BackgroundDataIdentifiers.IsConfigured))
-                                                                      .Read().Value));
+                                                                  .Single(entity => entity.Key.Equals(BackgroundDataIdentifiers.IsConfigured))
+                                                                  .Read().Value));
 
             if (isConfigured)
             {
@@ -89,10 +89,12 @@ namespace Ringtoets.Storage.Core.Read
                     {
                         sourceCapabilitiesUrl = backgroundDataMetaEntity.Read().Value;
                     }
+
                     if (backgroundDataMetaEntity.Key.Equals(BackgroundDataIdentifiers.SelectedCapabilityIdentifier))
                     {
                         selectedCapabilityIdentifier = backgroundDataMetaEntity.Read().Value;
                     }
+
                     if (backgroundDataMetaEntity.Key.Equals(BackgroundDataIdentifiers.PreferredFormat))
                     {
                         preferredFormat = backgroundDataMetaEntity.Read().Value;

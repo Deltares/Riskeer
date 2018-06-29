@@ -50,6 +50,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));

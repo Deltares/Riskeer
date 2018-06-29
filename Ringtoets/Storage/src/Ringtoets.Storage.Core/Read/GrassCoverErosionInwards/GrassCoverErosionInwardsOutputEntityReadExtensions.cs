@@ -48,6 +48,7 @@ namespace Ringtoets.Storage.Core.Read.GrassCoverErosionInwards
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             return new GrassCoverErosionInwardsOutput(GetOvertoppingOutput(entity),
                                                       GetDikeHeightOutput(entity),
                                                       GetOvertoppingRateOutput(entity));

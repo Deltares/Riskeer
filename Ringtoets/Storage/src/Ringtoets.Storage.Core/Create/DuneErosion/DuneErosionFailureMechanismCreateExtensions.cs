@@ -70,7 +70,7 @@ namespace Ringtoets.Storage.Core.Create.DuneErosion
                 DuneLocationCalculationCollectionEntity3 = failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Create(registry),
                 DuneLocationCalculationCollectionEntity2 = failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Create(registry),
                 DuneLocationCalculationCollectionEntity1 = failureMechanism.CalculationsForLowerLimitNorm.Create(registry),
-                DuneLocationCalculationCollectionEntity = failureMechanism.CalculationsForFactorizedLowerLimitNorm.Create(registry),
+                DuneLocationCalculationCollectionEntity = failureMechanism.CalculationsForFactorizedLowerLimitNorm.Create(registry)
             };
 
             entity.DuneErosionFailureMechanismMetaEntities.Add(metaEntity);

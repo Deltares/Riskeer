@@ -44,6 +44,7 @@ namespace Ringtoets.Storage.Core.Create
             {
                 throw new ArgumentNullException(nameof(entityToUpdate));
             }
+
             if (registry == null)
             {
                 throw new ArgumentNullException(nameof(registry));
@@ -62,6 +63,7 @@ namespace Ringtoets.Storage.Core.Create
             {
                 entityToUpdate.ForeshoreProfileEntity = registry.Get(input.ForeshoreProfile);
             }
+
             entityToUpdate.UseForeshore = Convert.ToByte(input.UseForeshore);
 
             entityToUpdate.UseBreakWater = Convert.ToByte(input.UseBreakWater);
@@ -167,8 +169,8 @@ namespace Ringtoets.Storage.Core.Create
             if (calculation.HasOutput)
             {
                 entity.ClosingStructuresOutputEntities.Add(calculation
-                                                               .Output
-                                                               .Create<ClosingStructuresOutputEntity>());
+                                                           .Output
+                                                           .Create<ClosingStructuresOutputEntity>());
             }
         }
 
@@ -230,8 +232,8 @@ namespace Ringtoets.Storage.Core.Create
             if (calculation.HasOutput)
             {
                 entity.HeightStructuresOutputEntities.Add(calculation
-                                                              .Output
-                                                              .Create<HeightStructuresOutputEntity>());
+                                                          .Output
+                                                          .Create<HeightStructuresOutputEntity>());
             }
         }
 
@@ -345,8 +347,8 @@ namespace Ringtoets.Storage.Core.Create
             if (calculation.HasOutput)
             {
                 entity.StabilityPointStructuresOutputEntities.Add(calculation
-                                                                      .Output
-                                                                      .Create<StabilityPointStructuresOutputEntity>());
+                                                                  .Output
+                                                                  .Create<StabilityPointStructuresOutputEntity>());
             }
         }
 

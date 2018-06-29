@@ -55,6 +55,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
@@ -91,6 +92,7 @@ namespace Ringtoets.Storage.Core.Read
             {
                 throw new ArgumentNullException(nameof(entity));
             }
+
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));

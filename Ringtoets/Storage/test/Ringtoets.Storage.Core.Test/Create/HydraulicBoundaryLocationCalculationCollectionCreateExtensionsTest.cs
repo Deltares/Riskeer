@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Create
         public void Create_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => 
+            TestDelegate call = () =>
                 ((IEnumerable<HydraulicBoundaryLocationCalculation>) null).Create(new PersistenceRegistry());
 
             // Assert

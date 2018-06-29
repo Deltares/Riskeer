@@ -73,8 +73,8 @@ namespace Ringtoets.Storage.Core.Read.StabilityStoneCover
             return calculation;
         }
 
-        private static void ReadCalculationInputs(AssessmentSectionCategoryWaveConditionsInput inputParameters, 
-                                                  StabilityStoneCoverWaveConditionsCalculationEntity entity, 
+        private static void ReadCalculationInputs(AssessmentSectionCategoryWaveConditionsInput inputParameters,
+                                                  StabilityStoneCoverWaveConditionsCalculationEntity entity,
                                                   ReadConversionCollector collector)
         {
             inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);

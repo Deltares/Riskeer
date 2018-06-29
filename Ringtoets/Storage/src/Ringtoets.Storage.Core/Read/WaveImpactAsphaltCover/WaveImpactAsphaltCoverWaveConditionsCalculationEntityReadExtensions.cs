@@ -46,7 +46,7 @@ namespace Ringtoets.Storage.Core.Read.WaveImpactAsphaltCover
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static WaveImpactAsphaltCoverWaveConditionsCalculation Read(this WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity, 
+        internal static WaveImpactAsphaltCoverWaveConditionsCalculation Read(this WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity,
                                                                              ReadConversionCollector collector)
         {
             if (entity == null)
