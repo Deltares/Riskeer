@@ -24,6 +24,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.StabilityStoneCover;
 
 namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
 {

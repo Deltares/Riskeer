@@ -26,6 +26,8 @@ using NUnit.Framework;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.Common.Primitives;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.StabilityStoneCover;
 
 namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
 {

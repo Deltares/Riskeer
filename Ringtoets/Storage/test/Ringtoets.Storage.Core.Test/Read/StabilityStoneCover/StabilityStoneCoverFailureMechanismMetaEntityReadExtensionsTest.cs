@@ -24,6 +24,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.Storage.Core.DbContext;
+using Ringtoets.Storage.Core.Read.StabilityStoneCover;
 
 namespace Ringtoets.Storage.Core.Test.Read.StabilityStoneCover
 {
