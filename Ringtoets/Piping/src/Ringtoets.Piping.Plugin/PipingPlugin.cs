@@ -544,12 +544,14 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
         {
-            CalculateAll(failureMechanismContext.WrappedData.CalculationsGroup, failureMechanismContext.Parent);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
         }
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
-            CalculateAll(context.WrappedData, context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
         }
 
         private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
@@ -558,13 +560,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
-        }
-
-        private void CalculateAll(CalculationGroup calculationGroup,
-                                  IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(calculationGroup, assessmentSection));
         }
 
         #region PipingSurfaceLinesContext TreeNodeInfo
@@ -790,7 +785,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, 
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
         }
 

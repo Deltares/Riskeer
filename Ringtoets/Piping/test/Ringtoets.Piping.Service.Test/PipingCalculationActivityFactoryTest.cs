@@ -99,7 +99,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivities_CalculationGroupNull_ThrowsArgumentNullException()
+        public void CreateCalculationActivitiesForCalculationGroup_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -107,7 +107,7 @@ namespace Ringtoets.Piping.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
+            TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivities((CalculationGroup) null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -116,7 +116,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(), null);
@@ -127,7 +127,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivities_WithValidCalculations_ReturnsPipingCalculationActivitiesWithParametersSet()
+        public void CreateCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsPipingCalculationActivitiesWithParametersSet()
         {
             // Setup
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
@@ -163,6 +163,76 @@ namespace Ringtoets.Piping.Service.Test
             // Call
             IEnumerable<CalculatableActivity> activities = PipingCalculationActivityFactory.CreateCalculationActivities(
                 calculations, assessmentSection);
+
+            // Assert
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(PipingCalculationActivity));
+            AssertPipingCalculationActivity(activities.First(), calculation1, hydraulicBoundaryLocationCalculation1);
+            AssertPipingCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryLocationCalculation2);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_CalculationGroupNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivities((PipingFailureMechanism) null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivities(new PipingFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_WithValidCalculations_ReturnsPipingCalculationActivitiesWithParametersSet()
+        {
+            // Setup
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
+
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
+
+            var random = new Random(39);
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First();
+            hydraulicBoundaryLocationCalculation1.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
+            hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+
+            PipingCalculationScenario calculation1 = CreateCalculation(hydraulicBoundaryLocation1);
+            PipingCalculationScenario calculation2 = CreateCalculation(hydraulicBoundaryLocation2);
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                calculation1,
+                calculation2
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities = PipingCalculationActivityFactory.CreateCalculationActivities(
+                failureMechanism, assessmentSection);
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(PipingCalculationActivity));

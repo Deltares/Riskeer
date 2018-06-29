@@ -37,9 +37,34 @@ namespace Ringtoets.Piping.Service
     {
         /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
+        /// <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing the calculations to create
+        /// activities for.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(PipingFailureMechanism failureMechanism,
+                                                                                    IAssessmentSection assessmentSection)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, assessmentSection);
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
         /// <paramref name="calculationGroup"/>.
         /// </summary>
-        /// <param name="calculationGroup">The calculations to create</param>
+        /// <param name="calculationGroup">The calculations to create activities for.</param>
         /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
         /// belong to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
