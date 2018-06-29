@@ -30,7 +30,7 @@ using Ringtoets.MacroStabilityInwards.Data;
 namespace Ringtoets.MacroStabilityInwards.Service
 {
     /// <summary>
-    /// This class defines factory methodes used to create instances of <see cref="CalculatableActivity"/> for
+    /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for
     /// macro stability inwards calculations.
     /// </summary>
     public static class MacroStabilityInwardsCalculationActivityFactory
@@ -64,7 +64,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
         /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
         /// <paramref name="calculationGroup"/>.
         /// </summary>
-        /// <param name="calculationGroup">The calculations to create activities for.</param>
+        /// <param name="calculationGroup">The calculation group to create activities for.</param>
         /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
         /// belong to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>

@@ -30,7 +30,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
     /// <summary>
-    /// This class defines factory methodes used to create instances of <see cref="CalculatableActivity"/> for
+    /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for
     /// grass cover erosion inwards calculations.
     /// </summary>
     public static class GrassCoverErosionInwardsCalculationActivityFactory
@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
         /// <paramref name="calculationGroup"/>.
         /// </summary>
-        /// <param name="calculationGroup">The calculations to create activities for.</param>
+        /// <param name="calculationGroup">The calculation group to create activities for.</param>
         /// <param name="failureMechanism">The failure mechanism the calculations belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
         /// belong to.</param>
