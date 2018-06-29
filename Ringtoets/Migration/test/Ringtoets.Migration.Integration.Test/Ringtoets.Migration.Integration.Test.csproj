@@ -52,5 +52,9 @@
       <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
       <Name>Ringtoets.Migration.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Migration.Core.TestUtil\Ringtoets.Migration.Core.TestUtil.csproj">
+      <Project>{C98D99C5-2ADD-4693-916C-71BF78750412}</Project>
+      <Name>Ringtoets.Migration.Core.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

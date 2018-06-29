@@ -32,6 +32,7 @@ using Ringtoets.Common.Util;
 using Ringtoets.Integration.Data;
 using Ringtoets.Migration;
 using Ringtoets.Migration.Core;
+using Ringtoets.Migration.Core.TestUtil;
 using Ringtoets.Storage.Core;
 
 namespace Application.Ringtoets.Integration.Test

@@ -54,6 +54,10 @@
       <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
       <Name>Ringtoets.Migration.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\test\Ringtoets.Migration.Core.TestUtil\Ringtoets.Migration.Core.TestUtil.csproj">
+      <Project>{C98D99C5-2ADD-4693-916C-71BF78750412}</Project>
+      <Name>Ringtoets.Migration.Core.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Application.Ringtoets.Migration.Console\Application.Ringtoets.Migration.Console.csproj">
       <Project>{23C45BFD-0A07-400F-B216-DF0C74CC99A1}</Project>
       <Name>Application.Ringtoets.Migration.Console</Name>

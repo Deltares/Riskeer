@@ -69,6 +69,10 @@
       <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
       <Name>Ringtoets.Migration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Migration.Core.TestUtil\Ringtoets.Migration.Core.TestUtil.csproj">
+      <Project>{C98D99C5-2ADD-4693-916C-71BF78750412}</Project>
+      <Name>Ringtoets.Migration.Core.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.106.0\build\net40\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

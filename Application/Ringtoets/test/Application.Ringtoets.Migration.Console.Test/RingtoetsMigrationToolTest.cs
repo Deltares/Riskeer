@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using Migration.Console;
 using Migration.Console.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
 using Ringtoets.Migration.Core;
+using Ringtoets.Migration.Core.TestUtil;
 
 namespace Application.Ringtoets.Migration.Console.Test
 {
