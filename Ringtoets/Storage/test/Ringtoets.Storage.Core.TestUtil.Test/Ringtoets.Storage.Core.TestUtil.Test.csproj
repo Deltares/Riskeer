@@ -138,10 +138,6 @@
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj">
-      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
-      <Name>Application.Ringtoets.Migration.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
       <Project>{50963F12-448C-41BA-A62C-CDB0AB8D21E0}</Project>
       <Name>Ringtoets.Storage.Core</Name>

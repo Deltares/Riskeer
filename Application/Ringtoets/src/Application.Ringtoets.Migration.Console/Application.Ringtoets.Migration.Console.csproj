@@ -52,11 +52,6 @@
       <Name>Ringtoets.Common.Util</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Application.Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj">
-      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
-      <Name>Application.Ringtoets.Migration.Core</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

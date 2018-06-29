@@ -398,10 +398,6 @@
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Ringtoets.StabilityStoneCover.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj">
-      <Project>{fac55b92-e259-43d6-b9a1-5bda6c834359}</Project>
-      <Name>Application.Ringtoets.Migration.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Application\Ringtoets\src\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj">
       <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
       <Name>Application.Ringtoets.Migration</Name>

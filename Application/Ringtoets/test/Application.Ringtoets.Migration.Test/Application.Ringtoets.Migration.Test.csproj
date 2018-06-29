@@ -61,10 +61,6 @@
       <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
       <Name>Ringtoets.Common.Util</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Application.Ringtoets.Migration.Core\Application.Ringtoets.Migration.Core.csproj">
-      <Project>{FAC55B92-E259-43D6-B9A1-5BDA6C834359}</Project>
-      <Name>Application.Ringtoets.Migration.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj">
       <Project>{AC4F7F48-F674-4E32-AB35-9C726605F684}</Project>
       <Name>Application.Ringtoets.Migration</Name>
