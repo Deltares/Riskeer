@@ -207,6 +207,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionInwardsCalculationActivity));
+            Assert.AreEqual(2, activities.Count());
+
             AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1);
             AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2);
             mocks.VerifyAll();
@@ -268,6 +270,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionInwardsCalculationActivity));
+            Assert.AreEqual(2, activities.Count());
+
             AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1);
             AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2);
             mocks.VerifyAll();
@@ -305,6 +309,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
+
                 Assert.AreEqual(calculation.InputParameters.BreakWater.Height, testCalculator.ReceivedInputs.Single().BreakWater.Height);
             }
 

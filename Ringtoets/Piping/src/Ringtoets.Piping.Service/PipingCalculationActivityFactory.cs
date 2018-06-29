@@ -83,13 +83,13 @@ namespace Ringtoets.Piping.Service
             }
 
             return calculationGroup.GetCalculations()
-                                   .OfType<PipingCalculation>()
+                                   .Cast<PipingCalculation>()
                                    .Select(calc => CreateCalculationActivity(calc, assessmentSection))
                                    .ToArray();
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
+        /// Creates a <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create an activity for.</param>
         /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/>

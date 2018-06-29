@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
@@ -78,7 +79,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = NormType.LowerLimit
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -134,7 +141,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = NormType.LowerLimit
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
@@ -167,6 +180,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(MacroStabilityInwardsCalculationActivity));
+            Assert.AreEqual(2, activities.Count());
+
             AssertMacroStabilityInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryLocationCalculation1);
             AssertMacroStabilityInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryLocationCalculation2);
         }
@@ -206,7 +221,13 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation();
 
-            var assessmentSection = new AssessmentSectionStub();
+            var assessmentSection = new AssessmentSectionStub
+            {
+                FailureMechanismContribution =
+                {
+                    NormativeNorm = NormType.LowerLimit
+                }
+            };
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
@@ -237,6 +258,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
 
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(MacroStabilityInwardsCalculationActivity));
+            Assert.AreEqual(2, activities.Count());
+
             AssertMacroStabilityInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryLocationCalculation1);
             AssertMacroStabilityInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryLocationCalculation2);
         }
@@ -255,6 +278,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 activity.Run();
+
                 var testFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 UpliftVanCalculatorInput upliftVanCalculatorInput = testFactory.LastCreatedUpliftVanCalculator.Input;
 

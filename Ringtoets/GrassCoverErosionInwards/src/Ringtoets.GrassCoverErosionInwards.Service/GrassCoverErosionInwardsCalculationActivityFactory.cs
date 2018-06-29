@@ -90,13 +90,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             return calculationGroup.GetCalculations()
-                                   .OfType<GrassCoverErosionInwardsCalculation>()
+                                   .Cast<GrassCoverErosionInwardsCalculation>()
                                    .Select(calc => CreateCalculationActivity(calc, failureMechanism, assessmentSection))
                                    .ToArray();
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
+        /// Creates a <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create an activity for.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
