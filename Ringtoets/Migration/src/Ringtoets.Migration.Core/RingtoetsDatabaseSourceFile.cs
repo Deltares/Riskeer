@@ -21,12 +21,11 @@
 
 using System;
 using System.Data;
-using Application.Ringtoets.Migration.Core.Properties;
 using Core.Common.Base.IO;
 using Core.Common.Base.Storage;
 using Core.Common.IO.Readers;
 
-namespace Application.Ringtoets.Migration.Core
+namespace Ringtoets.Migration.Core
 {
     /// <summary>
     /// Class that provides methods for the migration database source file.

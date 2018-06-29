@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Application.Ringtoets.Migration.Core
+namespace Ringtoets.Migration.Core
 {
     /// <summary>
     /// Defines queries to execute on a Ringtoets database.

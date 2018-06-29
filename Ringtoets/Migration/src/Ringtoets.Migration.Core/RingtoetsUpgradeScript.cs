@@ -21,12 +21,11 @@
 
 using System;
 using System.Data.SQLite;
-using Application.Ringtoets.Migration.Core.Properties;
 using Migration.Scripts.Data;
 using Migration.Scripts.Data.Exceptions;
 using Ringtoets.Common.Util;
 
-namespace Application.Ringtoets.Migration.Core
+namespace Ringtoets.Migration.Core
 {
     /// <summary>
     /// Class that provides methods for the upgrading a <see cref="RingtoetsVersionedFile"/> for a specific version.

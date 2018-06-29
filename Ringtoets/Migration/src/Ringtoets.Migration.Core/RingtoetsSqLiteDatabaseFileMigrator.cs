@@ -24,12 +24,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Application.Ringtoets.Migration.Core.Properties;
 using Migration.Core.Storage;
 using Migration.Scripts.Data;
 using Ringtoets.Common.Util;
 
-namespace Application.Ringtoets.Migration.Core
+namespace Ringtoets.Migration.Core
 {
     /// <summary>
     /// Class that provides methods for migrating a <see cref="RingtoetsVersionedFile"/>.

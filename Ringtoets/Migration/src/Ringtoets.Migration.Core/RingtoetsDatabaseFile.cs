@@ -24,7 +24,7 @@ using System.Data.SQLite;
 using Core.Common.IO;
 using Core.Common.Util;
 
-namespace Application.Ringtoets.Migration.Core
+namespace Ringtoets.Migration.Core
 {
     /// <summary>
     /// Class that provides methods for the migration of a Ringtoets database target file.

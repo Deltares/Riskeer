@@ -24,11 +24,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SQLite;
-using Application.Ringtoets.Migration.Core.Properties;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 
-namespace Application.Ringtoets.Migration.Core
+namespace Ringtoets.Migration.Core
 {
     /// <summary>
     /// This class reads an SqLite database file and constructs <see cref="MigrationLogMessage"/> 
