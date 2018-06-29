@@ -1327,11 +1327,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.Console.TestUtil.
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Core.Test", "Application\Ringtoets\test\Application.Ringtoets.Migration.Core.Test\Application.Ringtoets.Migration.Core.Test.csproj", "{40CF9BC7-3CDE-4AC0-B31A-851694821772}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Ringtoets.Migration.Console", "Application\Ringtoets\src\Application.Ringtoets.Migration.Console\Application.Ringtoets.Migration.Console.csproj", "{23C45BFD-0A07-400F-B216-DF0C74CC99A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -4037,15 +4032,6 @@ Global
 		{420712BC-8C50-4033-9261-19C7D5641657}.Release|x86.Build.0 = Release|x86
 		{420712BC-8C50-4033-9261-19C7D5641657}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{420712BC-8C50-4033-9261-19C7D5641657}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.Debug|x86.ActiveCfg = Debug|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.Debug|x86.Build.0 = Debug|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.Release|x86.ActiveCfg = Release|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.Release|x86.Build.0 = Release|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{23C45BFD-0A07-400F-B216-DF0C74CC99A1}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
 		{23C45BFD-0A07-400F-B216-DF0C74CC99A1}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
 		{23C45BFD-0A07-400F-B216-DF0C74CC99A1}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
@@ -5477,7 +5463,6 @@ Global
 		{A60F35B7-7538-4516-94BB-09B19FE22FAA} = {FA7A737E-D2DB-4AD4-94CC-E3EFF242C485}
 		{679D3CE6-0820-49CF-9D56-D1CF7F1B853A} = {700644CA-9622-41CB-AEFB-7530B90FBF92}
 		{420712BC-8C50-4033-9261-19C7D5641657} = {700644CA-9622-41CB-AEFB-7530B90FBF92}
-		{40CF9BC7-3CDE-4AC0-B31A-851694821772} = {EE8D5A6C-4871-452A-A69B-F04E374D715E}
 		{23C45BFD-0A07-400F-B216-DF0C74CC99A1} = {39EB5D07-C076-484C-9621-B34C4E5BF64C}
 		{1D3C098B-1EED-488C-900D-B71155C2D6AB} = {EE8D5A6C-4871-452A-A69B-F04E374D715E}
 		{92CFD164-3E35-440A-85A7-A7F5A43B1B12} = {1154DEBF-0456-470C-971D-9B7882D4252A}
