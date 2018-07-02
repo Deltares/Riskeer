@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.MacroStabilityInwards.Data;
 
@@ -45,49 +46,9 @@ namespace Ringtoets.Storage.Core.Serializers
         }
 
         [Serializable]
+        [DataContract(Name = nameof(SerializableMacroStabilityInwardsSlice), Namespace = "")]
         internal class SerializableMacroStabilityInwardsSlice
         {
-            private readonly double topLeftPointX;
-            private readonly double topLeftPointY;
-            private readonly double topRightPointX;
-            private readonly double topRightPointY;
-
-            private readonly double bottomLeftPointX;
-            private readonly double bottomLeftPointY;
-            private readonly double bottomRightPointX;
-            private readonly double bottomRightPointY;
-
-            private readonly double cohesion;
-            private readonly double frictionAngle;
-            private readonly double criticalPressure;
-            private readonly double overConsolidationRatio;
-            private readonly double pop;
-            private readonly double degreeOfConsolidationPorePressureSoil;
-            private readonly double degreeOfConsolidationPorePressureLoad;
-            private readonly double dilatancy;
-            private readonly double externalLoad;
-            private readonly double hydrostaticPorePressure;
-            private readonly double leftForce;
-            private readonly double leftForceAngle;
-            private readonly double leftForceY;
-            private readonly double rightForce;
-            private readonly double rightForceAngle;
-            private readonly double rightForceY;
-            private readonly double loadStress;
-            private readonly double normalStress;
-            private readonly double porePressure;
-            private readonly double horizontalPorePressure;
-            private readonly double verticalPorePressure;
-            private readonly double piezometricPorePressure;
-            private readonly double effectiveStress;
-            private readonly double effectiveStressDaily;
-            private readonly double excessPorePressure;
-            private readonly double shearStress;
-            private readonly double soilStress;
-            private readonly double totalPorePressure;
-            private readonly double totalStress;
-            private readonly double weight;
-
             /// <summary>
             /// Creates a new instance of <see cref="SerializableMacroStabilityInwardsSlice"/>.
             /// </summary>
@@ -182,6 +143,132 @@ namespace Ringtoets.Storage.Core.Serializers
                         Weight = weight
                     });
             }
+
+            #region Top coordinates
+
+            [DataMember]
+            private readonly double topLeftPointX;
+
+            [DataMember]
+            private readonly double topLeftPointY;
+
+            [DataMember]
+            private readonly double topRightPointX;
+
+            [DataMember]
+            private readonly double topRightPointY;
+
+            #endregion
+
+            #region Bottom coordinates
+
+            [DataMember]
+            private readonly double bottomLeftPointX;
+
+            [DataMember]
+            private readonly double bottomLeftPointY;
+
+            [DataMember]
+            private readonly double bottomRightPointX;
+
+            [DataMember]
+            private readonly double bottomRightPointY;
+
+            #endregion
+
+            #region Data
+
+            [DataMember]
+            private readonly double cohesion;
+
+            [DataMember]
+            private readonly double frictionAngle;
+
+            [DataMember]
+            private readonly double criticalPressure;
+
+            [DataMember]
+            private readonly double overConsolidationRatio;
+
+            [DataMember]
+            private readonly double pop;
+
+            [DataMember]
+            private readonly double degreeOfConsolidationPorePressureSoil;
+
+            [DataMember]
+            private readonly double degreeOfConsolidationPorePressureLoad;
+
+            [DataMember]
+            private readonly double dilatancy;
+
+            [DataMember]
+            private readonly double externalLoad;
+
+            [DataMember]
+            private readonly double hydrostaticPorePressure;
+
+            [DataMember]
+            private readonly double leftForce;
+
+            [DataMember]
+            private readonly double leftForceAngle;
+
+            [DataMember]
+            private readonly double leftForceY;
+
+            [DataMember]
+            private readonly double rightForce;
+
+            [DataMember]
+            private readonly double rightForceAngle;
+
+            [DataMember]
+            private readonly double rightForceY;
+
+            [DataMember]
+            private readonly double loadStress;
+
+            [DataMember]
+            private readonly double normalStress;
+
+            [DataMember]
+            private readonly double porePressure;
+
+            [DataMember]
+            private readonly double horizontalPorePressure;
+
+            [DataMember]
+            private readonly double verticalPorePressure;
+
+            [DataMember]
+            private readonly double piezometricPorePressure;
+
+            [DataMember]
+            private readonly double effectiveStress;
+
+            [DataMember]
+            private readonly double effectiveStressDaily;
+
+            [DataMember]
+            private readonly double excessPorePressure;
+
+            [DataMember]
+            private readonly double shearStress;
+
+            [DataMember]
+            private readonly double soilStress;
+
+            [DataMember]
+            private readonly double totalPorePressure;
+
+            [DataMember]
+            private readonly double totalStress;
+
+            [DataMember]
+            private readonly double weight;
+
+            #endregion
         }
     }
 }

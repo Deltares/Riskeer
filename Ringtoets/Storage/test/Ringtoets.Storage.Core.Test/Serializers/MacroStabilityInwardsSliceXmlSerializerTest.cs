@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
@@ -41,6 +42,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<MacroStabilityInwardsSlice,
                 MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice>>(serializer);
+            SerializerTestHelper.AssertSerializedData<MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice>();
         }
 
         [Test]
