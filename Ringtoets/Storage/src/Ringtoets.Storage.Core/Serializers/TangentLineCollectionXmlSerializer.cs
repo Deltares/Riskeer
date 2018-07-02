@@ -30,7 +30,7 @@ namespace Ringtoets.Storage.Core.Serializers
     /// <summary>
     /// Converter class that converts between tangent lines and an XML representation of that data.
     /// </summary>
-    internal class TangentLinesXmlSerializer : DataCollectionSerializer<RoundedDouble, TangentLinesXmlSerializer.SerializableTangentLine>
+    internal class TangentLineCollectionXmlSerializer : DataCollectionSerializer<RoundedDouble, TangentLineCollectionXmlSerializer.SerializableTangentLine>
     {
         protected override SerializableTangentLine[] ToSerializableData(IEnumerable<RoundedDouble> elements)
         {

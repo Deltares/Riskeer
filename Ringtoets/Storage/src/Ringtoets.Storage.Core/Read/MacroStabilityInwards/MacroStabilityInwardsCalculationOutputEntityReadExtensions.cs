@@ -81,7 +81,7 @@ namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
                 NumberOfVerticalPoints = entity.SlipPlaneRightGridNrOfVerticalPoints
             };
 
-            RoundedDouble[] tangentLines = new TangentLinesXmlSerializer().FromXml(entity.SlipPlaneTangentLinesXml);
+            RoundedDouble[] tangentLines = new TangentLineCollectionXmlSerializer().FromXml(entity.SlipPlaneTangentLinesXml);
             return new MacroStabilityInwardsSlipPlaneUpliftVan(leftGrid, rightGrid, tangentLines);
         }
 

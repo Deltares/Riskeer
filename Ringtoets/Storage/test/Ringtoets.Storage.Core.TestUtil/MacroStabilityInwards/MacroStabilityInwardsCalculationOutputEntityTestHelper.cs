@@ -70,7 +70,7 @@ namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
         private static void AssertSlipPlaneProperties(MacroStabilityInwardsSlipPlaneUpliftVan slipPlane,
                                                       MacroStabilityInwardsCalculationOutputEntity entity)
         {
-            string expectedTangentLinesXml = new TangentLinesXmlSerializer().ToXml(slipPlane.TangentLines);
+            string expectedTangentLinesXml = new TangentLineCollectionXmlSerializer().ToXml(slipPlane.TangentLines);
             Assert.AreEqual(expectedTangentLinesXml, entity.SlipPlaneTangentLinesXml);
 
             MacroStabilityInwardsGrid leftGrid = slipPlane.LeftGrid;

@@ -242,7 +242,7 @@
     <Compile Include="IntegrationTests\StorageSqLiteIntegrationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BackedUpFileWriterTest.cs" />
-    <Compile Include="Serializers\TangentLinesXmlSerializerTest.cs" />
+    <Compile Include="Serializers\TangentLineCollectionXmlSerializerTest.cs" />
     <Compile Include="SqLiteEntityConnectionStringBuilderTest.cs" />
     <Compile Include="StorageSqliteCreatorTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />

@@ -243,7 +243,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
 
             var calculationOutputEntity = new MacroStabilityInwardsCalculationOutputEntity
             {
-                SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(tangentLines),
+                SlipPlaneTangentLinesXml = new TangentLineCollectionXmlSerializer().ToXml(tangentLines),
                 SlidingCurveSliceXML = new MacroStabilityInwardsSliceCollectionXmlSerializer().ToXml(slices),
                 SlipPlaneLeftGridNrOfHorizontalPoints = random.Next(1, 100),
                 SlipPlaneLeftGridNrOfVerticalPoints = random.Next(1, 100),

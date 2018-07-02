@@ -29,17 +29,17 @@ using Ringtoets.Storage.Core.TestUtil.Serializers;
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
-    public class TangentLinesXmlSerializerTest
+    public class TangentLineCollectionXmlSerializerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var serializer = new TangentLinesXmlSerializer();
+            var serializer = new TangentLineCollectionXmlSerializer();
 
             // Assert
-            Assert.IsInstanceOf<DataCollectionSerializer<RoundedDouble, TangentLinesXmlSerializer.SerializableTangentLine>>(serializer);
-            SerializerTestHelper.AssertSerializedData(typeof(TangentLinesXmlSerializer.SerializableTangentLine));
+            Assert.IsInstanceOf<DataCollectionSerializer<RoundedDouble, TangentLineCollectionXmlSerializer.SerializableTangentLine>>(serializer);
+            SerializerTestHelper.AssertSerializedData(typeof(TangentLineCollectionXmlSerializer.SerializableTangentLine));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
                 new RoundedDouble(2, double.NaN),
                 random.NextRoundedDouble()
             };
-            var serializer = new TangentLinesXmlSerializer();
+            var serializer = new TangentLineCollectionXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);

@@ -92,7 +92,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
         private static void SetSlipPlaneParametersToEntity(MacroStabilityInwardsCalculationOutputEntity entity,
                                                            MacroStabilityInwardsSlipPlaneUpliftVan slipPlane)
         {
-            entity.SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(slipPlane.TangentLines);
+            entity.SlipPlaneTangentLinesXml = new TangentLineCollectionXmlSerializer().ToXml(slipPlane.TangentLines);
 
             MacroStabilityInwardsGrid leftGrid = slipPlane.LeftGrid;
             entity.SlipPlaneLeftGridXLeft = leftGrid.XLeft.ToNaNAsNull();
