@@ -35,10 +35,9 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
     [TestFixture]
     public class DikeProfileEntityReadExtensionsTest
     {
-        private const string validRoughnessPointXml = "<ArrayOfRoughnessPointXmlSerializer.SerializableRoughnessPoint " +
-                                                      "xmlns=\"http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers\" " +
+        private const string validRoughnessPointXml = "<ArrayOfSerializableRoughnessPoint " +
                                                       "xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">" +
-                                                      "</ArrayOfRoughnessPointXmlSerializer.SerializableRoughnessPoint>";
+                                                      "</ArrayOfSerializableRoughnessPoint>";
 
         [Test]
         public void Read_ReadConversionCollectorNull_ThrowArgumentNullException()
