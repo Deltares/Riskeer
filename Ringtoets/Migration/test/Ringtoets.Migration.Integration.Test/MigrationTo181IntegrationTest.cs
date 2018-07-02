@@ -127,6 +127,7 @@ namespace Ringtoets.Migration.Integration.Test
 
                     MigratedSerializedDataTestHelper.AssertSerializedMacroStabilityInwardsOutput(reader);
                     MigratedSerializedDataTestHelper.AssertSerializedDikeProfile(reader);
+                    MigratedSerializedDataTestHelper.AssertSerializedSurfaceLine(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -979,10 +980,12 @@ namespace Ringtoets.Migration.Integration.Test
             /// </list></exception>
             public static void AssertSerializedMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
             {
+                const string outputEntity = "MacroStabilityInwardsCalculationOutputEntity";
+
                 string validateSlidingCurves =
                     "SELECT " +
                     "COUNT() = 0 " +
-                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
+                    $"FROM {outputEntity} " +
                     "WHERE LIKE('%MacroStabilityInwardsSliceXmlSerializer%', SlidingCurveSliceXML) " +
                     $"OR LIKE('%{oldNamespace}%', SlidingCurveSliceXML)";
 
@@ -991,7 +994,7 @@ namespace Ringtoets.Migration.Integration.Test
                 string validateTangentLines =
                     "SELECT " +
                     "COUNT() = 0 " +
-                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
+                    $"FROM {outputEntity} " +
                     "WHERE LIKE('%TangentLinesXmlSerializer%', SlipPlaneTangentLinesXml) " +
                     $"OR LIKE('%{oldNamespace}%', SlipPlaneTangentLinesXml)";
 
@@ -1017,6 +1020,27 @@ namespace Ringtoets.Migration.Integration.Test
                     $"OR LIKE('%{oldNamespace}%', DikeGeometryXml)";
 
                 reader.AssertReturnedDataIsValid(validateDikeGeometry);
+            }
+
+            /// <summary>
+            /// Asserts the migrated serialized data related to the surface lines.
+            /// </summary>
+            /// <param name="reader">The reader to read the migrated database.</param>
+            /// <exception cref="AssertionException">Thrown when:
+            /// <list type="bullet">
+            /// <item>The namespace is still present.</item>
+            /// <item>The class name of the serialized data is still present.</item>
+            /// </list></exception>
+            public static void AssertSerializedSurfaceLine(MigratedDatabaseReader reader)
+            {
+                string validateSurfaceLinePoints =
+                    "SELECT " +
+                    "COUNT() = 0 " +
+                    "FROM SurfaceLineEntity " +
+                    "WHERE LIKE('%Point3DXmlSerializer%', PointsXml) " +
+                    $"OR LIKE('%{oldNamespace}%', PointsXml)";
+
+                reader.AssertReturnedDataIsValid(validateSurfaceLinePoints);
             }
         }
 

@@ -771,7 +771,11 @@ SELECT
 	[Name],
 	[ReferenceLineIntersectionX],
 	[ReferenceLineIntersectionY],
-	[PointsXml],
+	REPLACE(
+		REPLACE(PointsXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''), 
+		'Point3DXmlSerializer.SerializablePoint3D',
+		'SerializablePoint3D'
+	),
 	[Order]
 FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity (
