@@ -63,7 +63,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
             {
                 Id = "id",
                 ForeshoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
-                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0])
+                DikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(new RoughnessPoint[0])
             };
 
             // Precondition
@@ -138,7 +138,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
                 BreakWaterHeight = null,
                 BreakWaterType = null,
                 ForeshoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
-                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(roughnessPoints),
+                DikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(roughnessPoints),
                 DikeHeight = 1.2,
                 X = 3.4,
                 Y = 5.6,
@@ -186,7 +186,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionInwards
                 BreakWaterHeight = height,
                 BreakWaterType = Convert.ToByte(type),
                 ForeshoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
-                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(roughnessPoints),
+                DikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(roughnessPoints),
                 DikeHeight = 4.5,
                 X = 93.0,
                 Y = 945.6,

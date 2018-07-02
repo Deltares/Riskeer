@@ -1237,7 +1237,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithDikeProfilesSet_ReturnsGrassCoverErosionInwardsFailureMechanismWithDikeProfilesAdded()
         {
             // Setup
-            string emptyDikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]);
+            string emptyDikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(new RoughnessPoint[0]);
             string emptyForeshoreBinaryXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
             const string sourcePath = "some/path/to/my/dikeprofiles";
             var entity = new FailureMechanismEntity

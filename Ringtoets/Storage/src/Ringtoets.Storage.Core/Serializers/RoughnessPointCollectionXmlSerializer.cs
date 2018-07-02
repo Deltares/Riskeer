@@ -32,7 +32,7 @@ namespace Ringtoets.Storage.Core.Serializers
     /// Converter class that converts between a collection of <see cref="RoughnessPoint"/>
     /// and an XML representation of that data.
     /// </summary>
-    internal class RoughnessPointXmlSerializer : DataCollectionSerializer<RoughnessPoint, RoughnessPointXmlSerializer.SerializableRoughnessPoint>
+    internal class RoughnessPointCollectionXmlSerializer : DataCollectionSerializer<RoughnessPoint, RoughnessPointCollectionXmlSerializer.SerializableRoughnessPoint>
     {
         protected override SerializableRoughnessPoint[] ToSerializableData(IEnumerable<RoughnessPoint> elements)
         {

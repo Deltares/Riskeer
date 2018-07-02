@@ -427,7 +427,7 @@
     <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\Point2DXmlSerializer.cs" />
     <Compile Include="Serializers\Point3DCollectionXmlSerializer.cs" />
-    <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />
+    <Compile Include="Serializers\RoughnessPointCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\DataCollectionSerializer.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />

@@ -29,17 +29,17 @@ using Ringtoets.Storage.Core.TestUtil.Serializers;
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
-    public class RoughnessPointXmlSerializerTest
+    public class RoughnessPointCollectionXmlSerializerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var serializer = new RoughnessPointXmlSerializer();
+            var serializer = new RoughnessPointCollectionXmlSerializer();
 
             // Assert
-            Assert.IsInstanceOf<DataCollectionSerializer<RoughnessPoint, RoughnessPointXmlSerializer.SerializableRoughnessPoint>>(serializer);
-            SerializerTestHelper.AssertSerializedData(typeof(RoughnessPointXmlSerializer.SerializableRoughnessPoint));
+            Assert.IsInstanceOf<DataCollectionSerializer<RoughnessPoint, RoughnessPointCollectionXmlSerializer.SerializableRoughnessPoint>>(serializer);
+            SerializerTestHelper.AssertSerializedData(typeof(RoughnessPointCollectionXmlSerializer.SerializableRoughnessPoint));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
                 new RoughnessPoint(new Point2D(7.7, 8.8), 0.8),
                 new RoughnessPoint(new Point2D(9.9, 10.10), 0.7)
             };
-            var converter = new RoughnessPointXmlSerializer();
+            var converter = new RoughnessPointCollectionXmlSerializer();
 
             // When
             string xml = converter.ToXml(original);
