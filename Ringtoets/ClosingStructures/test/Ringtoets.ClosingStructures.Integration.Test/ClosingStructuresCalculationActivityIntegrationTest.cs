@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -64,7 +65,9 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
 
             // Call
             Action call = () => activity.Run();
@@ -108,7 +111,10 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 }
             };
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -169,7 +175,9 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 }
             };
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -214,7 +222,9 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             calculation.Attach(observer);
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -271,7 +281,9 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             calculation.Attach(observer);
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -307,7 +319,10 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation();
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -342,7 +357,10 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation();
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -377,7 +395,10 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new TestClosingStructuresCalculation();
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call

@@ -266,17 +266,6 @@ namespace Ringtoets.ClosingStructures.Plugin
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
-        private void CalculateAll(ClosingStructuresFailureMechanism failureMechanism,
-                                  IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations,
-                                  IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             calculations.Select(calc => new ClosingStructuresCalculationActivity(calc,
-                                                                                                                  assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                                  failureMechanism,
-                                                                                                                  assessmentSection)).ToArray());
-        }
-
         #region ViewInfo
 
         #region ClosingStructuresFailureMechanismView ViewInfo
@@ -385,7 +374,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
@@ -462,7 +451,8 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private void CalculateAll(ClosingStructuresFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>(), context.Parent);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -674,7 +664,10 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
         {
-            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                                                     context.FailureMechanism,
+                                                                                                                     context.AssessmentSection));
         }
 
         private static void AddCalculation(ClosingStructuresCalculationGroupContext context)
@@ -759,10 +752,9 @@ namespace Ringtoets.ClosingStructures.Plugin
         private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new ClosingStructuresCalculationActivity(calculation,
-                                                                                      context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                      context.FailureMechanism,
-                                                                                      context.AssessmentSection));
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                   context.FailureMechanism,
+                                                                                                                   context.AssessmentSection));
         }
 
         private static void ValidateAll(ClosingStructuresCalculationContext context)

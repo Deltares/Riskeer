@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Ringtoets.ClosingStructures.Service")]
 [assembly: AssemblyProduct("Ringtoets.ClosingStructures.Service")]
+[assembly: InternalsVisibleTo("Ringtoets.ClosingStructures.Service.Test")]
