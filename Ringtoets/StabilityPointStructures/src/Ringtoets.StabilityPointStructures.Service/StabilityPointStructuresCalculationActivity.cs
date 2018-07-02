@@ -32,7 +32,7 @@ namespace Ringtoets.StabilityPointStructures.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a structures stability point calculation.
     /// </summary>
-    public class StabilityPointStructuresCalculationActivity : CalculatableActivity
+    internal class StabilityPointStructuresCalculationActivity : CalculatableActivity
     {
         private readonly StructuresCalculation<StabilityPointStructuresInput> calculation;
         private readonly StabilityPointStructuresCalculationService calculationService;
