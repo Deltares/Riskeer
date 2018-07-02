@@ -293,9 +293,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                               ICalculation<StabilityPointStructuresInput> calculation)
         {
             var mocks = new MockRepository();
-            var testCalculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
+            var testCalculator = new TestStructuresCalculator<StructuresStabilityPointCalculationInput>();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, ""))
+            calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, ""))
                              .Return(testCalculator);
             mocks.ReplayAll();
 
@@ -303,7 +303,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 activity.Run();
 
-                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion, testCalculator.ReceivedInputs.Single().Variables.ElementAt(11).Value);
+                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion, 
+                                testCalculator.ReceivedInputs.Single().Variables.Single(v => v.VariableId == 105).Value);
             }
 
             mocks.VerifyAll();

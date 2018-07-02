@@ -303,7 +303,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 activity.Run();
 
-                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion, testCalculator.ReceivedInputs.Single().Variables.ElementAt(11).Value);
+                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion, 
+                                testCalculator.ReceivedInputs.Single().Variables.Single(v => v.VariableId == 105).Value);
             }
 
             mocks.VerifyAll();
