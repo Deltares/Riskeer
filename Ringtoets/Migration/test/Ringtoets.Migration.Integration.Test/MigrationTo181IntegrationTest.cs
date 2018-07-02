@@ -124,6 +124,8 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertWaterPressureAsphaltCoverSectionResultEntity(reader, sourceFilePath);
 
                     AssertWaveConditionsCalculations(reader, sourceFilePath);
+
+                    MigratedSerializedDataTestHelper.AssertSerializedMacroStabilityInwardsOutput(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -765,6 +767,48 @@ namespace Ringtoets.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
+
+        #region Serializers
+
+        /// <summary>
+        /// Testhelper to assert the migrated values of serialized data.
+        /// </summary>
+        private static class MigratedSerializedDataTestHelper
+        {
+            private const string oldNamespace = "Application.Ringtoets.Storage.Serializers";
+
+            /// <summary>
+            /// Asserts the migrated serialized data related to macro stability inwards output.
+            /// </summary>
+            /// <param name="reader">The reader to read the migrated database.</param>
+            /// <exception cref="AssertionException">Thrown when:
+            /// <list type="bullet">
+            /// <item>The namespace is still present.</item>
+            /// <item>The class name of the serialized data is still present.</item>
+            /// </list></exception>
+            public static void AssertSerializedMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
+            {
+                string validateSlidingCurves =
+                    "SELECT " +
+                    "COUNT() = 0 " +
+                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
+                    "WHERE LIKE('%MacroStabilityInwardsSliceXmlSerializer%', SlidingCurveSliceXml) " +
+                    $"OR LIKE('%{oldNamespace}%', SlidingCurveSliceXml)";
+
+                reader.AssertReturnedDataIsValid(validateSlidingCurves);
+
+                string validateTangentLines =
+                    "SELECT " +
+                    "COUNT() = 0 " +
+                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
+                    "WHERE LIKE('%TangentLinesXmlSerializer%', SlipPlaneTangentLinesXml) " +
+                    $"OR LIKE('%{oldNamespace}%', SlipPlaneTangentLinesXml)";
+
+                reader.AssertReturnedDataIsValid(validateTangentLines);
+            }
+        }
+
+        #endregion
 
         #region Dune Locations
 

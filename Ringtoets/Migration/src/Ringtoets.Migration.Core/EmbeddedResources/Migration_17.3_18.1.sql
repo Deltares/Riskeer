@@ -278,7 +278,93 @@ SELECT
 FROM [SOURCEPROJECT].HydraulicLocationEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
-INSERT INTO MacroStabilityInwardsCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
+INSERT INTO MacroStabilityInwardsCalculationOutputEntity (
+	[MacroStabilityInwardsCalculationOutputEntityId],
+	[MacroStabilityInwardsCalculationEntityId],
+	[FactorOfStability],
+	[ZValue],
+	[ForbiddenZonesXEntryMin],
+	[ForbiddenZonesXEntryMax],
+	[SlidingCurveLeftSlidingCircleCenterX],
+	[SlidingCurveLeftSlidingCircleCenterY],
+	[SlidingCurveLeftSlidingCircleRadius],
+	[SlidingCurveLeftSlidingCircleIsActive],
+	[SlidingCurveLeftSlidingCircleNonIteratedForce],
+	[SlidingCurveLeftSlidingCircleIteratedForce],
+	[SlidingCurveLeftSlidingCircleDrivingMoment],
+	[SlidingCurveLeftSlidingCircleResistingMoment],
+	[SlidingCurveRightSlidingCircleCenterX],
+	[SlidingCurveRightSlidingCircleCenterY],
+	[SlidingCurveRightSlidingCircleRadius],
+	[SlidingCurveRightSlidingCircleIsActive],
+	[SlidingCurveRightSlidingCircleNonIteratedForce],
+	[SlidingCurveRightSlidingCircleIteratedForce],
+	[SlidingCurveRightSlidingCircleDrivingMoment],
+	[SlidingCurveRightSlidingCircleResistingMoment],
+	[SlidingCurveNonIteratedHorizontalForce],
+	[SlidingCurveIteratedHorizontalForce],
+	[SlidingCurveSliceXML],
+	[SlipPlaneLeftGridXLeft],
+	[SlipPlaneLeftGridXRight],
+	[SlipPlaneLeftGridNrOfHorizontalPoints],
+	[SlipPlaneLeftGridZTop],
+	[SlipPlaneLeftGridZBottom],
+	[SlipPlaneLeftGridNrOfVerticalPoints],
+	[SlipPlaneRightGridXLeft],
+	[SlipPlaneRightGridXRight],
+	[SlipPlaneRightGridNrOfHorizontalPoints],
+	[SlipPlaneRightGridZTop],
+	[SlipPlaneRightGridZBottom],
+	[SlipPlaneRightGridNrOfVerticalPoints],
+	[SlipPlaneTangentLinesXml])
+SELECT 
+	[MacroStabilityInwardsCalculationOutputEntityId],
+	[MacroStabilityInwardsCalculationEntityId],
+	[FactorOfStability],
+	[ZValue],
+	[ForbiddenZonesXEntryMin],
+	[ForbiddenZonesXEntryMax],
+	[SlidingCurveLeftSlidingCircleCenterX],
+	[SlidingCurveLeftSlidingCircleCenterY],
+	[SlidingCurveLeftSlidingCircleRadius],
+	[SlidingCurveLeftSlidingCircleIsActive],
+	[SlidingCurveLeftSlidingCircleNonIteratedForce],
+	[SlidingCurveLeftSlidingCircleIteratedForce],
+	[SlidingCurveLeftSlidingCircleDrivingMoment],
+	[SlidingCurveLeftSlidingCircleResistingMoment],
+	[SlidingCurveRightSlidingCircleCenterX],
+	[SlidingCurveRightSlidingCircleCenterY],
+	[SlidingCurveRightSlidingCircleRadius],
+	[SlidingCurveRightSlidingCircleIsActive],
+	[SlidingCurveRightSlidingCircleNonIteratedForce],
+	[SlidingCurveRightSlidingCircleIteratedForce],
+	[SlidingCurveRightSlidingCircleDrivingMoment],
+	[SlidingCurveRightSlidingCircleResistingMoment],
+	[SlidingCurveNonIteratedHorizontalForce],
+	[SlidingCurveIteratedHorizontalForce],
+	REPLACE(
+		REPLACE(SlidingCurveSliceXML, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''), 
+		'MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice',
+		'SerializableMacroStabilityInwardsSlice'
+	),
+	[SlipPlaneLeftGridXLeft],
+	[SlipPlaneLeftGridXRight],
+	[SlipPlaneLeftGridNrOfHorizontalPoints],
+	[SlipPlaneLeftGridZTop],
+	[SlipPlaneLeftGridZBottom],
+	[SlipPlaneLeftGridNrOfVerticalPoints],
+	[SlipPlaneRightGridXLeft],
+	[SlipPlaneRightGridXRight],
+	[SlipPlaneRightGridNrOfHorizontalPoints],
+	[SlipPlaneRightGridZTop],
+	[SlipPlaneRightGridZBottom],
+	[SlipPlaneRightGridNrOfVerticalPoints],
+	REPLACE(
+		REPLACE(SlipPlaneTangentLinesXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''), 
+		'TangentLinesXmlSerializer.SerializableTangentLine',
+		'SerializableTangentLine'
+	)
+FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
@@ -651,12 +737,8 @@ SELECT
 	[Name],
 	[ReferenceLineIntersectionX],
 	[ReferenceLineIntersectionY],
-	REPLACE(
-		REPLACE(PointsXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''), 
-		'Point3DXmlSerializer.SerializablePoint3D'
-		'SerializablePoint3D'
-	),
-	[Order],
+	[PointsXml],
+	[Order]
 FROM [SOURCEPROJECT].SurfaceLineEntity;
 INSERT INTO TechnicalInnovationSectionResultEntity (
 	[TechnicalInnovationSectionResultEntityId],
