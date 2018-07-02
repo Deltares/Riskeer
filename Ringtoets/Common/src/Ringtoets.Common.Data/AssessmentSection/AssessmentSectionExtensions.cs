@@ -77,7 +77,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <returns>The normative <see cref="HydraulicBoundaryLocationCalculation"/> or <c>null</c> when:
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>.</item>
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
@@ -142,7 +142,7 @@ namespace Ringtoets.Common.Data.AssessmentSection
         /// <returns>The <see cref="HydraulicBoundaryLocationCalculation"/>, or <c>null</c> when:
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>.</item>
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>

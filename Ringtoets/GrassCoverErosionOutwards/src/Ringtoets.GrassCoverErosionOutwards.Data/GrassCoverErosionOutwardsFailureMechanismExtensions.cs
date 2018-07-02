@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
         /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="failureMechanism"/>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>.</item>
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
