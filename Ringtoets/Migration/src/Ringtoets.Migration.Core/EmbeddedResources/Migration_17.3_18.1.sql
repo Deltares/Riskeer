@@ -55,7 +55,41 @@ SELECT
 	0,
 	NULL
 FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
-INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
+INSERT INTO DikeProfileEntity (
+	[DikeProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ForeshoreXml],
+	[DikeGeometryXml],
+	[DikeHeight],
+	[X],
+	[Y],
+	[X0],
+	[Order])
+SELECT
+	[DikeProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ForeshoreXml],
+	REPLACE(
+		REPLACE(DikeGeometryXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),
+		'RoughnessPointXmlSerializer.SerializableRoughnessPoint',
+		'SerializableRoughnessPoint'
+	),
+	[DikeHeight],
+	[X],
+	[Y],
+	[X0],
+	[Order]
+FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionSectionResultEntity (
 	[DuneErosionSectionResultEntityId],
 	[FailureMechanismSectionEntityId],

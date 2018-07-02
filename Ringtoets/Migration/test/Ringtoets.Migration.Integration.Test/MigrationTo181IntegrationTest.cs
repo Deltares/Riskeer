@@ -126,6 +126,7 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertWaveConditionsCalculations(reader, sourceFilePath);
 
                     MigratedSerializedDataTestHelper.AssertSerializedMacroStabilityInwardsOutput(reader);
+                    MigratedSerializedDataTestHelper.AssertSerializedDikeProfile(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -768,48 +769,6 @@ namespace Ringtoets.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateMetaEntity);
         }
 
-        #region Serializers
-
-        /// <summary>
-        /// Testhelper to assert the migrated values of serialized data.
-        /// </summary>
-        private static class MigratedSerializedDataTestHelper
-        {
-            private const string oldNamespace = "Application.Ringtoets.Storage.Serializers";
-
-            /// <summary>
-            /// Asserts the migrated serialized data related to macro stability inwards output.
-            /// </summary>
-            /// <param name="reader">The reader to read the migrated database.</param>
-            /// <exception cref="AssertionException">Thrown when:
-            /// <list type="bullet">
-            /// <item>The namespace is still present.</item>
-            /// <item>The class name of the serialized data is still present.</item>
-            /// </list></exception>
-            public static void AssertSerializedMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
-            {
-                string validateSlidingCurves =
-                    "SELECT " +
-                    "COUNT() = 0 " +
-                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
-                    "WHERE LIKE('%MacroStabilityInwardsSliceXmlSerializer%', SlidingCurveSliceXml) " +
-                    $"OR LIKE('%{oldNamespace}%', SlidingCurveSliceXml)";
-
-                reader.AssertReturnedDataIsValid(validateSlidingCurves);
-
-                string validateTangentLines =
-                    "SELECT " +
-                    "COUNT() = 0 " +
-                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
-                    "WHERE LIKE('%TangentLinesXmlSerializer%', SlipPlaneTangentLinesXml) " +
-                    $"OR LIKE('%{oldNamespace}%', SlipPlaneTangentLinesXml)";
-
-                reader.AssertReturnedDataIsValid(validateTangentLines);
-            }
-        }
-
-        #endregion
-
         #region Dune Locations
 
         /// <summary>
@@ -995,6 +954,69 @@ namespace Ringtoets.Migration.Integration.Test
                     default:
                         throw new NotSupportedException();
                 }
+            }
+        }
+
+        #endregion
+
+        #region Serializers
+
+        /// <summary>
+        /// Testhelper to assert the migrated values of serialized data.
+        /// </summary>
+        private static class MigratedSerializedDataTestHelper
+        {
+            private const string oldNamespace = "Application.Ringtoets.Storage.Serializers";
+
+            /// <summary>
+            /// Asserts the migrated serialized data related to macro stability inwards output.
+            /// </summary>
+            /// <param name="reader">The reader to read the migrated database.</param>
+            /// <exception cref="AssertionException">Thrown when:
+            /// <list type="bullet">
+            /// <item>The namespace is still present.</item>
+            /// <item>The class name of the serialized data is still present.</item>
+            /// </list></exception>
+            public static void AssertSerializedMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
+            {
+                string validateSlidingCurves =
+                    "SELECT " +
+                    "COUNT() = 0 " +
+                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
+                    "WHERE LIKE('%MacroStabilityInwardsSliceXmlSerializer%', SlidingCurveSliceXML) " +
+                    $"OR LIKE('%{oldNamespace}%', SlidingCurveSliceXML)";
+
+                reader.AssertReturnedDataIsValid(validateSlidingCurves);
+
+                string validateTangentLines =
+                    "SELECT " +
+                    "COUNT() = 0 " +
+                    "FROM MacroStabilityInwardsCalculationOutputEntity " +
+                    "WHERE LIKE('%TangentLinesXmlSerializer%', SlipPlaneTangentLinesXml) " +
+                    $"OR LIKE('%{oldNamespace}%', SlipPlaneTangentLinesXml)";
+
+                reader.AssertReturnedDataIsValid(validateTangentLines);
+            }
+
+            /// <summary>
+            /// Asserts the migrated serialized data related to dike profiles.
+            /// </summary>
+            /// <param name="reader">The reader to read the migrated database.</param>
+            /// <exception cref="AssertionException">Thrown when:
+            /// <list type="bullet">
+            /// <item>The namespace is still present.</item>
+            /// <item>The class name of the serialized data is still present.</item>
+            /// </list></exception>
+            public static void AssertSerializedDikeProfile(MigratedDatabaseReader reader)
+            {
+                string validateDikeGeometry =
+                    "SELECT " +
+                    "COUNT() = 0 " +
+                    "FROM DikeProfileEntity " +
+                    "WHERE LIKE('%RoughnessPointXmlSerializer%', DikeGeometryXml) " +
+                    $"OR LIKE('%{oldNamespace}%', DikeGeometryXml)";
+
+                reader.AssertReturnedDataIsValid(validateDikeGeometry);
             }
         }
 
