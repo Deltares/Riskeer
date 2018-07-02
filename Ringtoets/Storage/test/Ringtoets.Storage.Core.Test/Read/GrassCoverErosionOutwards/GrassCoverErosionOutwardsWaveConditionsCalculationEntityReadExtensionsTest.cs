@@ -165,7 +165,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionOutwards
             var foreshoreProfile = new TestForeshoreProfile();
             var foreshoreProfileEntity = new ForeshoreProfileEntity
             {
-                GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
             };
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
@@ -190,7 +190,7 @@ namespace Ringtoets.Storage.Core.Test.Read.GrassCoverErosionOutwards
             var foreshoreProfileEntity = new ForeshoreProfileEntity
             {
                 Id = id,
-                GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
+                GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
             };
 
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity

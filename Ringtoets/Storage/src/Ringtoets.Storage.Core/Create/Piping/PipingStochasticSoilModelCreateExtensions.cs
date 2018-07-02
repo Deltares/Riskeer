@@ -63,7 +63,7 @@ namespace Ringtoets.Storage.Core.Create.Piping
             var entity = new StochasticSoilModelEntity
             {
                 Name = model.Name.DeepClone(),
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(model.Geometry),
+                StochasticSoilModelSegmentPointXml = new Point2DCollectionXmlSerializer().ToXml(model.Geometry),
                 Order = order
             };
 

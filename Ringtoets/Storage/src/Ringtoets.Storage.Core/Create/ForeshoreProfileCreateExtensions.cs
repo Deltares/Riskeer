@@ -56,7 +56,7 @@ namespace Ringtoets.Storage.Core.Create
             {
                 Id = foreshoreProfile.Id.DeepClone(),
                 Name = foreshoreProfile.Name.DeepClone(),
-                GeometryXml = new Point2DXmlSerializer().ToXml(foreshoreProfile.Geometry),
+                GeometryXml = new Point2DCollectionXmlSerializer().ToXml(foreshoreProfile.Geometry),
                 X = foreshoreProfile.WorldReferencePoint.X,
                 Y = foreshoreProfile.WorldReferencePoint.Y,
                 X0 = foreshoreProfile.X0,

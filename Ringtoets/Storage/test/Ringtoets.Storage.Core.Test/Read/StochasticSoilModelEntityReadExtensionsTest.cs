@@ -96,7 +96,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
+                StochasticSoilModelSegmentPointXml = new Point2DCollectionXmlSerializer().ToXml(geometry),
                 PipingStochasticSoilProfileEntities =
                 {
                     new PipingStochasticSoilProfileEntity
@@ -155,7 +155,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
+                StochasticSoilModelSegmentPointXml = new Point2DCollectionXmlSerializer().ToXml(geometry),
                 PipingStochasticSoilProfileEntities =
                 {
                     PipingStochasticSoilProfileEntityTestFactory.CreateStochasticSoilProfileEntity()
@@ -232,7 +232,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new StochasticSoilModelEntity
             {
                 Name = "testName",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
+                StochasticSoilModelSegmentPointXml = new Point2DCollectionXmlSerializer().ToXml(geometry),
                 MacroStabilityInwardsStochasticSoilProfileEntities =
                 {
                     new MacroStabilityInwardsStochasticSoilProfileEntity
@@ -285,7 +285,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(21);
-            string segmentPointsXml = new Point2DXmlSerializer().ToXml(new[]
+            string segmentPointsXml = new Point2DCollectionXmlSerializer().ToXml(new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble())
             });

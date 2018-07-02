@@ -113,7 +113,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             {
                 new Point2D(0, 0)
             };
-            string dummyPointXml = new Point2DXmlSerializer().ToXml(dummyPoints);
+            string dummyPointXml = new Point2DCollectionXmlSerializer().ToXml(dummyPoints);
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = "section",
@@ -489,7 +489,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             {
                 new Point2D(random.NextDouble(), random.NextDouble())
             };
-            string segmentPointsXml = new Point2DXmlSerializer().ToXml(geometry);
+            string segmentPointsXml = new Point2DCollectionXmlSerializer().ToXml(geometry);
             const string sourcePath = "some/Path";
             var entity = new FailureMechanismEntity
             {
@@ -850,7 +850,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(21);
-            string segmentPointsXml = new Point2DXmlSerializer().ToXml(new[]
+            string segmentPointsXml = new Point2DCollectionXmlSerializer().ToXml(new[]
             {
                 new Point2D(random.NextDouble(), random.NextDouble())
             });
@@ -1238,7 +1238,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         {
             // Setup
             string emptyDikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(new RoughnessPoint[0]);
-            string emptyForeshoreBinaryXml = new Point2DXmlSerializer().ToXml(new Point2D[0]);
+            string emptyForeshoreBinaryXml = new Point2DCollectionXmlSerializer().ToXml(new Point2D[0]);
             const string sourcePath = "some/path/to/my/dikeprofiles";
             var entity = new FailureMechanismEntity
             {
@@ -1543,13 +1543,13 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -1844,13 +1844,13 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -2018,13 +2018,13 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -2145,13 +2145,13 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -2377,13 +2377,13 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },
@@ -2631,13 +2631,13 @@ namespace Ringtoets.Storage.Core.Test.Read
                     new ForeshoreProfileEntity
                     {
                         Id = "Child1",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 1
                     },
                     new ForeshoreProfileEntity
                     {
                         Id = "Child2",
-                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        GeometryXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     }
                 },

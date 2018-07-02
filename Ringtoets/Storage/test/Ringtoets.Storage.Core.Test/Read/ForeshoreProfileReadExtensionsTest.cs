@@ -54,7 +54,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new ForeshoreProfileEntity
             {
                 Id = "id",
-                GeometryXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
+                GeometryXml = new Point2DCollectionXmlSerializer().ToXml(new Point2D[0])
             };
 
             // Precondition
@@ -92,7 +92,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             // Setup
             const string name = "testName";
             const string id = "testId";
-            string pointXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>());
+            string pointXml = new Point2DCollectionXmlSerializer().ToXml(Enumerable.Empty<Point2D>());
             var entity = new ForeshoreProfileEntity
             {
                 Id = id,
@@ -133,7 +133,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             {
                 new Point2D(0, 0)
             };
-            string pointXml = new Point2DXmlSerializer().ToXml(points);
+            string pointXml = new Point2DCollectionXmlSerializer().ToXml(points);
             var entity = new ForeshoreProfileEntity
             {
                 Order = order,

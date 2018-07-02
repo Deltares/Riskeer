@@ -55,7 +55,7 @@ namespace Ringtoets.Storage.Core.Read
                 return collector.Get(entity);
             }
 
-            Point2D[] points = new Point2DXmlSerializer().FromXml(entity.GeometryXml);
+            Point2D[] points = new Point2DCollectionXmlSerializer().FromXml(entity.GeometryXml);
 
             var foreshoreProfile = new ForeshoreProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
                                                         points,

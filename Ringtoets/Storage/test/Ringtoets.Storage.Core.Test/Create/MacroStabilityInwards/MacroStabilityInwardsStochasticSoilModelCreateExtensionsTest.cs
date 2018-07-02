@@ -140,7 +140,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 
             // Assert
             Assert.IsNotNull(entity);
-            string expectedXml = new Point2DXmlSerializer().ToXml(stochasticSoilModel.Geometry);
+            string expectedXml = new Point2DCollectionXmlSerializer().ToXml(stochasticSoilModel.Geometry);
             Assert.AreEqual(expectedXml, entity.StochasticSoilModelSegmentPointXml);
         }
 

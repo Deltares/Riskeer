@@ -27,17 +27,17 @@ using Ringtoets.Storage.Core.TestUtil.Serializers;
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
-    public class Point2DXmlSerializerTest
+    public class Point2DCollectionXmlSerializerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var serializer = new Point2DXmlSerializer();
+            var serializer = new Point2DCollectionXmlSerializer();
 
             // Assert
-            Assert.IsInstanceOf<DataCollectionSerializer<Point2D, Point2DXmlSerializer.SerializablePoint2D>>(serializer);
-            SerializerTestHelper.AssertSerializedData(typeof(Point2DXmlSerializer.SerializablePoint2D));
+            Assert.IsInstanceOf<DataCollectionSerializer<Point2D, Point2DCollectionXmlSerializer.SerializablePoint2D>>(serializer);
+            SerializerTestHelper.AssertSerializedData(typeof(Point2DCollectionXmlSerializer.SerializablePoint2D));
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
                 new Point2D(7.7, 8.8),
                 new Point2D(9.9, 10.10)
             };
-            var serializer = new Point2DXmlSerializer();
+            var serializer = new Point2DCollectionXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);

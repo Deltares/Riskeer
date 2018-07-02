@@ -112,7 +112,7 @@ namespace Ringtoets.Storage.Core.Create
         {
             if (section.ReferenceLine != null)
             {
-                entity.ReferenceLinePointXml = new Point2DXmlSerializer().ToXml(section.ReferenceLine.Points);
+                entity.ReferenceLinePointXml = new Point2DCollectionXmlSerializer().ToXml(section.ReferenceLine.Points);
             }
         }
 

@@ -150,7 +150,7 @@ namespace Ringtoets.Storage.Core.Test.Read.HeightStructures
             {
                 new Point2D(0, 0)
             };
-            string pointXml = new Point2DXmlSerializer().ToXml(points);
+            string pointXml = new Point2DCollectionXmlSerializer().ToXml(points);
             var foreshoreEntity = new ForeshoreProfileEntity
             {
                 Id = "id",

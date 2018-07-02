@@ -141,7 +141,7 @@ namespace Ringtoets.Storage.Core.Read
         /// <exception cref="ArgumentException">Thrown when <paramref name="xml"/> is empty.</exception>
         private static IEnumerable<Point2D> ReadSegmentPoints(string xml)
         {
-            return new Point2DXmlSerializer().FromXml(xml);
+            return new Point2DCollectionXmlSerializer().FromXml(xml);
         }
     }
 }

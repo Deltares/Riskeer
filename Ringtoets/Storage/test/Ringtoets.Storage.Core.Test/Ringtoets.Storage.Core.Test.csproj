@@ -139,7 +139,7 @@
     <Compile Include="RoundedDoubleConversionExtensionsTest.cs" />
     <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
     <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializerTest.cs" />
-    <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\Point2DCollectionXmlSerializerTest.cs" />
     <Compile Include="Serializers\Point3DCollectionXmlSerializerTest.cs" />
     <Compile Include="Serializers\RoughnessPointCollectionXmlSerializerTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />

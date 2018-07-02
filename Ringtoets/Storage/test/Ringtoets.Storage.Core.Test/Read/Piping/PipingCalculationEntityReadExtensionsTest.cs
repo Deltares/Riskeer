@@ -292,7 +292,7 @@ namespace Ringtoets.Storage.Core.Test.Read.Piping
             var stochasticSoilModelEntity = new StochasticSoilModelEntity
             {
                 Name = "StochasticSoilModel",
-                StochasticSoilModelSegmentPointXml = new Point2DXmlSerializer().ToXml(geometry),
+                StochasticSoilModelSegmentPointXml = new Point2DCollectionXmlSerializer().ToXml(geometry),
                 PipingStochasticSoilProfileEntities =
                 {
                     stochasticSoilProfileEntity

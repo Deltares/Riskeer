@@ -425,7 +425,7 @@
     <Compile Include="Read\BackgroundDataEntityReadExtensions.cs" />
     <Compile Include="RoundedDoubleConversionExtensions.cs" />
     <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializer.cs" />
-    <Compile Include="Serializers\Point2DXmlSerializer.cs" />
+    <Compile Include="Serializers\Point2DCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\Point3DCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\RoughnessPointCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\DataCollectionSerializer.cs" />

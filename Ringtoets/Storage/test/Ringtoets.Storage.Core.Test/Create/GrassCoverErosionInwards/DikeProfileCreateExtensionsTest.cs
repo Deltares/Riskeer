@@ -85,7 +85,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(order, entity.Order);
             string convertedDikeGeometry = new RoughnessPointCollectionXmlSerializer().ToXml(dikeProfile.DikeGeometry);
             Assert.AreEqual(convertedDikeGeometry, entity.DikeGeometryXml);
-            string convertedForeshoreGeometry = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry);
+            string convertedForeshoreGeometry = new Point2DCollectionXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry);
             Assert.AreEqual(convertedForeshoreGeometry, entity.ForeshoreXml);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);
@@ -165,7 +165,7 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(order, entity.Order);
             string convertedDikeGeometry = new RoughnessPointCollectionXmlSerializer().ToXml(dikeProfile.DikeGeometry);
             Assert.AreEqual(convertedDikeGeometry, entity.DikeGeometryXml);
-            string convertedForeshoreGeometry = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry);
+            string convertedForeshoreGeometry = new Point2DCollectionXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry);
             Assert.AreEqual(convertedForeshoreGeometry, entity.ForeshoreXml);
             Assert.AreEqual(dikeProfile.Orientation.Value, entity.Orientation);
             Assert.AreEqual(dikeProfile.DikeHeight.Value, entity.DikeHeight);

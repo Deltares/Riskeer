@@ -66,7 +66,7 @@ namespace Ringtoets.Storage.Core.Test.Create
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(testName, entity.Name);
-            string expectedXml = new Point2DXmlSerializer().ToXml(geometryPoints);
+            string expectedXml = new Point2DCollectionXmlSerializer().ToXml(geometryPoints);
             Assert.AreEqual(expectedXml, entity.FailureMechanismSectionPointXml);
         }
 

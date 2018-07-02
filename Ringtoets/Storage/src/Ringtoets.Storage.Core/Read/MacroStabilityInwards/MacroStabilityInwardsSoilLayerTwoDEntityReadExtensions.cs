@@ -50,7 +50,7 @@ namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            var outerRing = new Ring(new Point2DXmlSerializer().FromXml(entity.OuterRingXml));
+            var outerRing = new Ring(new Point2DCollectionXmlSerializer().FromXml(entity.OuterRingXml));
 
             return new MacroStabilityInwardsSoilLayer2D(outerRing,
                                                         ReadData(entity),

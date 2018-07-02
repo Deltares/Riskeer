@@ -85,7 +85,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
                 Order = 1
             };
 
-            var point2DXmlSerializer = new Point2DXmlSerializer();
+            var point2DXmlSerializer = new Point2DCollectionXmlSerializer();
             var entity = new MacroStabilityInwardsSoilProfileTwoDEntity
             {
                 Name = nameof(MacroStabilityInwardsSoilProfileTwoDEntity),

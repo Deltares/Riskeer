@@ -58,7 +58,7 @@ namespace Ringtoets.Storage.Core.Create.GrassCoverErosionInwards
                 Y = dikeProfile.WorldReferencePoint.Y,
                 X0 = dikeProfile.X0,
                 DikeGeometryXml = new RoughnessPointCollectionXmlSerializer().ToXml(dikeProfile.DikeGeometry),
-                ForeshoreXml = new Point2DXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry),
+                ForeshoreXml = new Point2DCollectionXmlSerializer().ToXml(dikeProfile.ForeshoreGeometry),
                 Orientation = dikeProfile.Orientation,
                 DikeHeight = dikeProfile.DikeHeight,
                 Id = dikeProfile.Id.DeepClone(),

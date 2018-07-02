@@ -47,7 +47,7 @@ namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
 
             return new MacroStabilityInwardsSoilLayerTwoDEntity
             {
-                OuterRingXml = new Point2DXmlSerializer().ToXml(points)
+                OuterRingXml = new Point2DCollectionXmlSerializer().ToXml(points)
             };
         }
     }

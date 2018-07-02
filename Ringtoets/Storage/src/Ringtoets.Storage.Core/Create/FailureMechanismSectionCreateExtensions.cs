@@ -49,7 +49,7 @@ namespace Ringtoets.Storage.Core.Create
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = section.Name.DeepClone(),
-                FailureMechanismSectionPointXml = new Point2DXmlSerializer().ToXml(section.Points)
+                FailureMechanismSectionPointXml = new Point2DCollectionXmlSerializer().ToXml(section.Points)
             };
 
             registry.Register(failureMechanismSectionEntity, section);

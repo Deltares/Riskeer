@@ -93,7 +93,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsSoilLayerTwoDEntity
             {
                 MaterialName = nameof(MacroStabilityInwardsSoilLayerTwoDEntity),
-                OuterRingXml = new Point2DXmlSerializer().ToXml(RingTestFactory.CreateRandomRing().Points)
+                OuterRingXml = new Point2DCollectionXmlSerializer().ToXml(RingTestFactory.CreateRandomRing().Points)
             };
 
             // Call
@@ -175,7 +175,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
             Assert.AreEqual(entity.PopCoefficientOfVariation ?? double.NaN, data.Pop.CoefficientOfVariation,
                             data.Pop.GetAccuracy());
 
-            CollectionAssert.AreEqual(new Point2DXmlSerializer().FromXml(entity.OuterRingXml),
+            CollectionAssert.AreEqual(new Point2DCollectionXmlSerializer().FromXml(entity.OuterRingXml),
                                       layer.OuterRing.Points);
             CollectionAssert.IsEmpty(layer.NestedLayers);
         }
@@ -204,7 +204,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
                 StrengthIncreaseExponentCoefficientOfVariation = random.NextDouble(),
                 PopMean = random.NextDouble(),
                 PopCoefficientOfVariation = random.NextDouble(),
-                OuterRingXml = new Point2DXmlSerializer().ToXml(RingTestFactory.CreateRandomRing().Points)
+                OuterRingXml = new Point2DCollectionXmlSerializer().ToXml(RingTestFactory.CreateRandomRing().Points)
             };
             return entity;
         }

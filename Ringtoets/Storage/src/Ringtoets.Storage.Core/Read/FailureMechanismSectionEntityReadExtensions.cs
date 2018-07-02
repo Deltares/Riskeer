@@ -49,7 +49,7 @@ namespace Ringtoets.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            Point2D[] points = new Point2DXmlSerializer().FromXml(entity.FailureMechanismSectionPointXml);
+            Point2D[] points = new Point2DCollectionXmlSerializer().FromXml(entity.FailureMechanismSectionPointXml);
             var mechanismSection = new FailureMechanismSection(entity.Name, points);
 
             collector.Read(entity, mechanismSection);

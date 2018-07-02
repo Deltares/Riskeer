@@ -299,7 +299,7 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityInwards
 
         private static void AssertOuterRing(Ring outerRing, MacroStabilityInwardsSoilLayerTwoDEntity entity)
         {
-            string expectedOuterRingXml = new Point2DXmlSerializer().ToXml(outerRing.Points);
+            string expectedOuterRingXml = new Point2DCollectionXmlSerializer().ToXml(outerRing.Points);
             Assert.AreEqual(expectedOuterRingXml, entity.OuterRingXml);
         }
     }
