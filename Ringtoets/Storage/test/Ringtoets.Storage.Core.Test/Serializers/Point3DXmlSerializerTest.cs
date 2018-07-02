@@ -22,6 +22,7 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
@@ -36,6 +37,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
 
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<Point3D, Point3DXmlSerializer.SerializablePoint3D>>(serializer);
+            SerializerTestHelper.AssertSerializedData<Point3DXmlSerializer.SerializablePoint3D>();
         }
 
         [Test]
