@@ -19,6 +19,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hydraulics\HydraulicLocationEntityTestFactory.cs" />
@@ -30,6 +31,7 @@
     <Compile Include="PipingStochasticSoilProfileEntityTestFactory.cs" />
     <Compile Include="RingtoetsProjectTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializers\SerializerTestHelper.cs" />
     <Compile Include="SqLiteDatabaseHelper.cs" />
   </ItemGroup>
   <ItemGroup>
