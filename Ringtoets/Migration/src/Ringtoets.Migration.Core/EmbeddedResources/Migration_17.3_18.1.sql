@@ -78,7 +78,11 @@ SELECT
 	[Orientation],
 	[BreakWaterType],
 	[BreakWaterHeight],
-	[ForeshoreXml],
+	REPLACE( 
+		REPLACE(ForeshoreXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
+		'Point2DXmlSerializer.SerializablePoint2D', 
+		'SerializablePoint2D' 
+    ),
 	REPLACE(
 		REPLACE(DikeGeometryXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),
 		'RoughnessPointXmlSerializer.SerializableRoughnessPoint',
@@ -117,11 +121,55 @@ SELECT
 FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
-INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
+INSERT INTO FailureMechanismSectionEntity (
+	[FailureMechanismSectionEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[FailureMechanismSectionPointXml])
+SELECT 
+	[FailureMechanismSectionEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	REPLACE( 
+		REPLACE(FailureMechanismSectionPointXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
+		'Point2DXmlSerializer.SerializablePoint2D', 
+		'SerializablePoint2D' 
+    )
+FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
 INSERT INTO FaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
 INSERT INTO FaultTreeSubmechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeSubmechanismIllustrationPointEntity;
-INSERT INTO ForeshoreProfileEntity SELECT * FROM [SOURCEPROJECT].ForeshoreProfileEntity;
+INSERT INTO ForeshoreProfileEntity (
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[GeometryXml],
+	[X],
+	[Y],
+	[X0],
+	[Order])
+SELECT 
+	[ForeshoreProfileEntityId],
+	[FailureMechanismEntityId],
+	[Id],
+	[Name],
+	[Orientation],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	REPLACE( 
+		REPLACE(GeometryXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
+		'Point2DXmlSerializer.SerializablePoint2D', 
+		'SerializablePoint2D' 
+    ),
+	[X],
+	[Y],
+	[X0],
+	[Order]
+FROM [SOURCEPROJECT].ForeshoreProfileEntity;
 INSERT INTO GeneralResultFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointEntity;
 INSERT INTO GeneralResultFaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
@@ -432,7 +480,63 @@ SELECT
 	NULL
 FROM [SOURCEPROJECT].MacroStabilityInwardsSectionResultEntity;
 INSERT INTO MacroStabilityInwardsSoilLayerOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerOneDEntity;
-INSERT INTO MacroStabilityInwardsSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerTwoDEntity;
+INSERT INTO MacroStabilityInwardsSoilLayerTwoDEntity (
+	[MacroStabilityInwardsSoilLayerTwoDEntityId],
+	[ParentMacroStabilityInwardsSoilLayerTwoDEntityId],
+	[IsAquifer],
+	[Color],
+	[MaterialName],
+	[ShearStrengthModel],
+	[UsePop],
+	[AbovePhreaticLevelMean],
+	[AbovePhreaticLevelCoefficientOfVariation],
+	[AbovePhreaticLevelShift],
+	[BelowPhreaticLevelMean],
+	[BelowPhreaticLevelCoefficientOfVariation],
+	[BelowPhreaticLevelShift],
+	[CohesionMean],
+	[CohesionCoefficientOfVariation],
+	[FrictionAngleMean],
+	[FrictionAngleCoefficientOfVariation],
+	[ShearStrengthRatioMean],
+	[ShearStrengthRatioCoefficientOfVariation],
+	[StrengthIncreaseExponentMean],
+	[StrengthIncreaseExponentCoefficientOfVariation],
+	[PopMean],
+	[PopCoefficientOfVariation],
+	[OuterRingXml],
+	[Order])
+SELECT 
+	[MacroStabilityInwardsSoilLayerTwoDEntityId],
+	[ParentMacroStabilityInwardsSoilLayerTwoDEntityId],
+	[IsAquifer],
+	[Color],
+	[MaterialName],
+	[ShearStrengthModel],
+	[UsePop],
+	[AbovePhreaticLevelMean],
+	[AbovePhreaticLevelCoefficientOfVariation],
+	[AbovePhreaticLevelShift],
+	[BelowPhreaticLevelMean],
+	[BelowPhreaticLevelCoefficientOfVariation],
+	[BelowPhreaticLevelShift],
+	[CohesionMean],
+	[CohesionCoefficientOfVariation],
+	[FrictionAngleMean],
+	[FrictionAngleCoefficientOfVariation],
+	[ShearStrengthRatioMean],
+	[ShearStrengthRatioCoefficientOfVariation],
+	[StrengthIncreaseExponentMean],
+	[StrengthIncreaseExponentCoefficientOfVariation],
+	[PopMean],
+	[PopCoefficientOfVariation],
+	REPLACE( 
+		REPLACE(OuterRingXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
+		'Point2DXmlSerializer.SerializablePoint2D', 
+		'SerializablePoint2D' 
+    ),
+	[Order]
+FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileOneDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity;
@@ -734,7 +838,23 @@ JOIN [SOURCEPROJECT].FailureMechanismEntity USING(CalculationGroupEntityId)
 JOIN [SOURCEPROJECT].AssessmentSectionEntity USING(AssessmentSectionEntityId);
 INSERT INTO StabilityStoneCoverWaveConditionsOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
-INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
+INSERT INTO StochasticSoilModelEntity (
+	[StochasticSoilModelEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	[StochasticSoilModelSegmentPointXml],
+	[Order])
+SELECT 
+	[StochasticSoilModelEntityId],
+	[FailureMechanismEntityId],
+	[Name],
+	REPLACE( 
+		REPLACE(StochasticSoilModelSegmentPointXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
+		'Point2DXmlSerializer.SerializablePoint2D', 
+		'SerializablePoint2D' 
+    ),
+	[Order]
+FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity (
 	[StrengthStabilityLengthwiseConstructionSectionResultEntityId],
 	[FailureMechanismSectionEntityId],
@@ -1149,7 +1269,11 @@ SELECT
 	[HydraulicDatabaseVersion],
 	[HydraulicDatabaseLocation],
 	[Composition],
-	[ReferenceLinePointXml],
+	REPLACE( 
+		REPLACE(ReferenceLinePointXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
+		'Point2DXmlSerializer.SerializablePoint2D', 
+		'SerializablePoint2D' 
+    ), 
 	[Order]
 FROM [SOURCEPROJECT].AssessmentSectionEntity
 JOIN (

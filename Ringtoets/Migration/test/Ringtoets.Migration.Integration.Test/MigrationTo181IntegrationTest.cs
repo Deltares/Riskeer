@@ -126,8 +126,9 @@ namespace Ringtoets.Migration.Integration.Test
                     AssertWaveConditionsCalculations(reader, sourceFilePath);
 
                     MigratedSerializedDataTestHelper.AssertSerializedMacroStabilityInwardsOutput(reader);
-                    MigratedSerializedDataTestHelper.AssertSerializedDikeProfile(reader);
+                    MigratedSerializedDataTestHelper.AssertSerializedDikeProfileRoughnessPoints(reader);
                     MigratedSerializedDataTestHelper.AssertSerializedSurfaceLine(reader);
+                    MigratedSerializedDataTestHelper.AssertSerializedPoint2DCollection(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -637,7 +638,6 @@ namespace Ringtoets.Migration.Integration.Test
                 "AND NEW.HydraulicDatabaseVersion IS OLD.HydraulicDatabaseVersion " +
                 "AND NEW.HydraulicDatabaseLocation IS OLD.HydraulicDatabaseLocation " +
                 "AND NEW.Composition = OLD.Composition " +
-                "AND NEW.ReferenceLinePointXml IS OLD.ReferenceLinePointXml " +
                 "AND NEW.\"Order\" = OLD.\"Order\"; " +
                 "DETACH DATABASE SOURCEPROJECT;";
 
@@ -1010,7 +1010,7 @@ namespace Ringtoets.Migration.Integration.Test
             /// <item>The namespace is still present.</item>
             /// <item>The class name of the serialized data is still present.</item>
             /// </list></exception>
-            public static void AssertSerializedDikeProfile(MigratedDatabaseReader reader)
+            public static void AssertSerializedDikeProfileRoughnessPoints(MigratedDatabaseReader reader)
             {
                 string validateDikeGeometry =
                     "SELECT " +
@@ -1041,6 +1041,35 @@ namespace Ringtoets.Migration.Integration.Test
                     $"OR LIKE('%{oldNamespace}%', PointsXml)";
 
                 reader.AssertReturnedDataIsValid(validateSurfaceLinePoints);
+            }
+
+            /// <summary>
+            /// Asserts the migrated serialized data related to serialized 2D point collections.
+            /// </summary>
+            /// <param name="reader">The reader to read the migrated database.</param>
+            /// <exception cref="AssertionException">Thrown when:
+            /// <list type="bullet">
+            /// <item>The namespace is still present.</item>
+            /// <item>The class name of the serialized data is still present.</item>
+            /// </list></exception>
+            public static void AssertSerializedPoint2DCollection(MigratedDatabaseReader reader)
+            {
+                reader.AssertReturnedDataIsValid(GenerateSerializedPoint2DValidationQuery("AssessmentSectionEntity", "ReferenceLinePointXml"));
+                reader.AssertReturnedDataIsValid(GenerateSerializedPoint2DValidationQuery("FailureMechanismSectionEntity", "FailureMechanismSectionPointXml"));
+                reader.AssertReturnedDataIsValid(GenerateSerializedPoint2DValidationQuery("StochasticSoilModelEntity", "StochasticSoilModelSegmentPointXml"));
+                reader.AssertReturnedDataIsValid(GenerateSerializedPoint2DValidationQuery("DikeProfileEntity", "ForeshoreXml"));
+                reader.AssertReturnedDataIsValid(GenerateSerializedPoint2DValidationQuery("ForeshoreProfileEntity", "GeometryXml"));
+                reader.AssertReturnedDataIsValid(GenerateSerializedPoint2DValidationQuery("MacroStabilityInwardsSoilLayerTwoDEntity", "OuterRingXml"));
+            }
+
+            private static string GenerateSerializedPoint2DValidationQuery(string tableName,
+                                                                           string columnName)
+            {
+                return "SELECT " +
+                       "COUNT() = 0 " +
+                       $"FROM {tableName} " +
+                       $"WHERE LIKE('%Point2DXmlSerializer%', {columnName}) " +
+                       $"OR LIKE('%{oldNamespace}%', {columnName})";
             }
         }
 
