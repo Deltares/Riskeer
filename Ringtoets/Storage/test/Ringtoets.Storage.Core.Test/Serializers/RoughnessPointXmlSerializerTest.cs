@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
@@ -38,6 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
 
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<RoughnessPoint, RoughnessPointXmlSerializer.SerializableRoughnessPoint>>(serializer);
+            SerializerTestHelper.AssertSerializedData<RoughnessPointXmlSerializer.SerializableRoughnessPoint>();
         }
 
         [Test]

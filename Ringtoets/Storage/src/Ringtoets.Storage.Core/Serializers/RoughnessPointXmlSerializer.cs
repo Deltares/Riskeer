@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.DikeProfiles;
 
@@ -44,10 +45,16 @@ namespace Ringtoets.Storage.Core.Serializers
         }
 
         [Serializable]
+        [DataContract(Name = nameof(SerializableRoughnessPoint), Namespace = "")]
         internal class SerializableRoughnessPoint
         {
+            [DataMember]
             private readonly double x;
+
+            [DataMember]
             private readonly double y;
+
+            [DataMember]
             private readonly double roughness;
 
             public SerializableRoughnessPoint(RoughnessPoint point)
