@@ -173,7 +173,6 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var registry = new PersistenceRegistry();
 
             // Call
@@ -181,8 +180,8 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(2, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(2, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities).Count());
         }
 
         [Test]
