@@ -64,7 +64,7 @@ namespace Ringtoets.Storage.Core.Create.MacroStabilityInwards
         private static void SetSlidingCurveParametersToEntity(MacroStabilityInwardsCalculationOutputEntity entity,
                                                               MacroStabilityInwardsSlidingCurve slidingCurve)
         {
-            entity.SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(slidingCurve.Slices);
+            entity.SlidingCurveSliceXML = new MacroStabilityInwardsSliceCollectionXmlSerializer().ToXml(slidingCurve.Slices);
             entity.SlidingCurveNonIteratedHorizontalForce = slidingCurve.NonIteratedHorizontalForce.ToNaNAsNull();
             entity.SlidingCurveIteratedHorizontalForce = slidingCurve.IteratedHorizontalForce.ToNaNAsNull();
 

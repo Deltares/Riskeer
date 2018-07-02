@@ -424,7 +424,7 @@
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensions.cs" />
     <Compile Include="Read\BackgroundDataEntityReadExtensions.cs" />
     <Compile Include="RoundedDoubleConversionExtensions.cs" />
-    <Compile Include="Serializers\MacroStabilityInwardsSliceXmlSerializer.cs" />
+    <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\Point2DXmlSerializer.cs" />
     <Compile Include="Serializers\Point3DXmlSerializer.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />

@@ -32,8 +32,8 @@ namespace Ringtoets.Storage.Core.Serializers
     /// Converter class that converts between a collection of <see cref="MacroStabilityInwardsSlice"/> 
     /// and an XML representation of that data.
     /// </summary>
-    internal class MacroStabilityInwardsSliceXmlSerializer : DataCollectionSerializer<MacroStabilityInwardsSlice,
-        MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice>
+    internal class MacroStabilityInwardsSliceCollectionXmlSerializer : DataCollectionSerializer<MacroStabilityInwardsSlice,
+        MacroStabilityInwardsSliceCollectionXmlSerializer.SerializableMacroStabilityInwardsSlice>
     {
         protected override SerializableMacroStabilityInwardsSlice[] ToSerializableData(IEnumerable<MacroStabilityInwardsSlice> elements)
         {

@@ -105,7 +105,7 @@ namespace Ringtoets.Storage.Core.Read.MacroStabilityInwards
                                                                      entity.SlidingCurveRightSlidingCircleDrivingMoment.ToNullAsNaN(),
                                                                      entity.SlidingCurveRightSlidingCircleResistingMoment.ToNullAsNaN());
 
-            MacroStabilityInwardsSlice[] slices = new MacroStabilityInwardsSliceXmlSerializer().FromXml(entity.SlidingCurveSliceXML);
+            MacroStabilityInwardsSlice[] slices = new MacroStabilityInwardsSliceCollectionXmlSerializer().FromXml(entity.SlidingCurveSliceXML);
             return new MacroStabilityInwardsSlidingCurve(leftCircle,
                                                          rightCircle,
                                                          slices,

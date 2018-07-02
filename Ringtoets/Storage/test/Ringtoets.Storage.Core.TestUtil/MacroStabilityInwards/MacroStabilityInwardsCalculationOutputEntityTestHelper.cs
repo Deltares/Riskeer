@@ -93,7 +93,7 @@ namespace Ringtoets.Storage.Core.TestUtil.MacroStabilityInwards
         private static void AssertSlidingCurveProperties(MacroStabilityInwardsSlidingCurve slidingCurve,
                                                          MacroStabilityInwardsCalculationOutputEntity entity)
         {
-            string expectedSlicesXml = new MacroStabilityInwardsSliceXmlSerializer().ToXml(slidingCurve.Slices);
+            string expectedSlicesXml = new MacroStabilityInwardsSliceCollectionXmlSerializer().ToXml(slidingCurve.Slices);
             Assert.AreEqual(expectedSlicesXml, entity.SlidingCurveSliceXML);
 
             AssertAreEqual(slidingCurve.IteratedHorizontalForce, entity.SlidingCurveIteratedHorizontalForce);

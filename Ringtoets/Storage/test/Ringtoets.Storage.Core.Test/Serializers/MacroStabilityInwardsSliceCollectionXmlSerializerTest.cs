@@ -31,18 +31,18 @@ using Ringtoets.Storage.Core.TestUtil.Serializers;
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
     [TestFixture]
-    public class MacroStabilityInwardsSliceXmlSerializerTest
+    public class MacroStabilityInwardsSliceCollectionXmlSerializerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var serializer = new MacroStabilityInwardsSliceXmlSerializer();
+            var serializer = new MacroStabilityInwardsSliceCollectionXmlSerializer();
 
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<MacroStabilityInwardsSlice,
-                MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice>>(serializer);
-            SerializerTestHelper.AssertSerializedData(typeof(MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice));
+                MacroStabilityInwardsSliceCollectionXmlSerializer.SerializableMacroStabilityInwardsSlice>>(serializer);
+            SerializerTestHelper.AssertSerializedData(typeof(MacroStabilityInwardsSliceCollectionXmlSerializer.SerializableMacroStabilityInwardsSlice));
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
                         Weight = random.NextDouble()
                     })
             };
-            var serializer = new MacroStabilityInwardsSliceXmlSerializer();
+            var serializer = new MacroStabilityInwardsSliceCollectionXmlSerializer();
 
             // When
             string xml = serializer.ToXml(original);

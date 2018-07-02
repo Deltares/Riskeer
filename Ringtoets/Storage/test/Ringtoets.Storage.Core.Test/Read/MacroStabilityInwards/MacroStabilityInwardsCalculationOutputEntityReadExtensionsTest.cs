@@ -67,7 +67,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
                 ZValue = random.NextDouble(),
                 ForbiddenZonesXEntryMin = random.NextDouble(),
                 ForbiddenZonesXEntryMax = random.NextDouble(),
-                SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(slices),
+                SlidingCurveSliceXML = new MacroStabilityInwardsSliceCollectionXmlSerializer().ToXml(slices),
                 SlidingCurveNonIteratedHorizontalForce = random.NextDouble(),
                 SlidingCurveIteratedHorizontalForce = random.NextDouble(),
                 SlidingCurveLeftSlidingCircleCenterX = random.NextDouble(),
@@ -156,7 +156,7 @@ namespace Ringtoets.Storage.Core.Test.Read.MacroStabilityInwards
             var random = new Random(31);
             return new MacroStabilityInwardsCalculationOutputEntity
             {
-                SlidingCurveSliceXML = new MacroStabilityInwardsSliceXmlSerializer().ToXml(new MacroStabilityInwardsSlice[0]),
+                SlidingCurveSliceXML = new MacroStabilityInwardsSliceCollectionXmlSerializer().ToXml(new MacroStabilityInwardsSlice[0]),
                 SlipPlaneTangentLinesXml = new TangentLinesXmlSerializer().ToXml(new RoundedDouble[0]),
                 SlipPlaneLeftGridNrOfHorizontalPoints = random.Next(1, 100),
                 SlipPlaneLeftGridNrOfVerticalPoints = random.Next(1, 100),
