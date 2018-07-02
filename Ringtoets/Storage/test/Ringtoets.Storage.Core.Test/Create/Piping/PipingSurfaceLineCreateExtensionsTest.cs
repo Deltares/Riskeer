@@ -87,7 +87,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
 
             Assert.IsNull(entity.FailureMechanismEntity);
             IEnumerable<Point3D> points = new Point3D[0];
-            string expectedXml = new Point3DXmlSerializer().ToXml(points);
+            string expectedXml = new Point3DCollectionXmlSerializer().ToXml(points);
             Assert.AreEqual(expectedXml, entity.PointsXml);
         }
 
@@ -132,7 +132,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
             Assert.AreEqual(order, entity.Order);
 
-            string expectedXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points);
+            string expectedXml = new Point3DCollectionXmlSerializer().ToXml(surfaceLine.Points);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.IsNull(entity.FailureMechanismEntity);
@@ -181,7 +181,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
+            string expectedXml = new Point3DCollectionXmlSerializer().ToXml(geometry);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(6, entity.PipingCharacteristicPointEntities.Count);
@@ -256,7 +256,7 @@ namespace Ringtoets.Storage.Core.Test.Create.Piping
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.X, entity.ReferenceLineIntersectionX);
             Assert.AreEqual(surfaceLine.ReferenceLineIntersectionWorldPoint.Y, entity.ReferenceLineIntersectionY);
 
-            string expectedXml = new Point3DXmlSerializer().ToXml(geometry);
+            string expectedXml = new Point3DCollectionXmlSerializer().ToXml(geometry);
             Assert.AreEqual(expectedXml, entity.PointsXml);
 
             Assert.AreEqual(6, entity.PipingCharacteristicPointEntities.Count);

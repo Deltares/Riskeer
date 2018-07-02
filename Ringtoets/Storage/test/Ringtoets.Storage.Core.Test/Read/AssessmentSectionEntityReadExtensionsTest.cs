@@ -568,7 +568,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
             const string surfaceLineSourcePath = "some/path";
             var failureMechanismEntity = new FailureMechanismEntity
             {
@@ -799,7 +799,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
-            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
             const string surfaceLineSourcePath = "some/path";
             var failureMechanismEntity = new FailureMechanismEntity
             {

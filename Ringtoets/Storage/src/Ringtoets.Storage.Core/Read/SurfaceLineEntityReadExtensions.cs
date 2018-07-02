@@ -298,7 +298,7 @@ namespace Ringtoets.Storage.Core.Read
         /// <exception cref="ArgumentException">Thrown when <paramref name="xml"/> is empty.</exception>
         private static IEnumerable<Point3D> ReadGeometryPoints(string xml)
         {
-            return new Point3DXmlSerializer().FromXml(xml);
+            return new Point3DCollectionXmlSerializer().FromXml(xml);
         }
     }
 }

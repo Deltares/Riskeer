@@ -165,7 +165,7 @@ namespace Ringtoets.Storage.Core.Test.Read.Piping
             var surfaceLineEntity = new SurfaceLineEntity
             {
                 Name = "surface line",
-                PointsXml = new Point3DXmlSerializer().ToXml(points)
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points)
             };
 
             var entity = new PipingCalculationEntity

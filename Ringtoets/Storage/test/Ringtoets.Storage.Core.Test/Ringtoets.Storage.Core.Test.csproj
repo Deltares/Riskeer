@@ -140,7 +140,7 @@
     <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
     <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializerTest.cs" />
     <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
-    <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
+    <Compile Include="Serializers\Point3DCollectionXmlSerializerTest.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializerTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismCreateExtensionsTest.cs" />

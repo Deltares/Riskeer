@@ -426,7 +426,7 @@
     <Compile Include="RoundedDoubleConversionExtensions.cs" />
     <Compile Include="Serializers\MacroStabilityInwardsSliceCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\Point2DXmlSerializer.cs" />
-    <Compile Include="Serializers\Point3DXmlSerializer.cs" />
+    <Compile Include="Serializers\Point3DCollectionXmlSerializer.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />
     <Compile Include="Serializers\DataCollectionSerializer.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />

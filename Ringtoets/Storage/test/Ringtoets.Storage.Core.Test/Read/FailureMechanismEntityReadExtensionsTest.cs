@@ -573,7 +573,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsPipingFailureMechanism_WithSurfaceLines_SetsPipingFailureMechanismSurfaceLines()
         {
             // Setup
-            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
             const string sourcePath = "some/path";
             var entity = new FailureMechanismEntity
             {
@@ -938,7 +938,7 @@ namespace Ringtoets.Storage.Core.Test.Read
         public void ReadAsMacroStabilityInwardsFailureMechanism_WithSurfaceLines_MacroStabilityInwardsFailureMechanismWithSurfaceLinesSet()
         {
             // Setup
-            string emptyPointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0]);
+            string emptyPointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0]);
             const string sourcePath = "some/path";
             var entity = new FailureMechanismEntity
             {

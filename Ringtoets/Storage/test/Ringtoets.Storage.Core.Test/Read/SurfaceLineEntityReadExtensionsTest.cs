@@ -93,7 +93,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "nice name!",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0])
             };
 
             // Call
@@ -133,7 +133,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = nameof(SurfaceLineEntity),
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points)
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points)
             };
 
             // Call
@@ -177,7 +177,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "Better name.",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points),
                 PipingCharacteristicPointEntities =
                 {
                     CreatePipingCharacteristicPointEntity(points[1], PipingCharacteristicPointType.BottomDitchDikeSide),
@@ -225,7 +225,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "Better name.",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points),
                 PipingCharacteristicPointEntities =
                 {
                     CreatePipingCharacteristicPointEntity(points[0], PipingCharacteristicPointType.BottomDitchDikeSide),
@@ -266,7 +266,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new SurfaceLineEntity
             {
                 Name = "name",
-                PointsXml = new Point3DXmlSerializer().ToXml(new[]
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(new[]
                 {
                     point3D
                 }),
@@ -315,7 +315,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "Better name.",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points),
                 PipingCharacteristicPointEntities =
                 {
                     CreatePipingCharacteristicPointEntity(points[0], (PipingCharacteristicPointType) invalidCharacteristicPointType)
@@ -340,7 +340,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new SurfaceLineEntity
             {
                 Name = "surface line",
-                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0])
             };
 
             // Call
@@ -408,7 +408,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "nice name!",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0])
             };
 
             // Call
@@ -454,7 +454,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = nameof(SurfaceLineEntity),
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points)
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points)
             };
 
             // Call
@@ -495,7 +495,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "Better name.",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points),
                 MacroStabilityInwardsCharacteristicPointEntities =
                 {
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
@@ -555,7 +555,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "Better name.",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points),
                 MacroStabilityInwardsCharacteristicPointEntities =
                 {
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], MacroStabilityInwardsCharacteristicPointType.SurfaceLevelOutside),
@@ -608,7 +608,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new SurfaceLineEntity
             {
                 Name = "name",
-                PointsXml = new Point3DXmlSerializer().ToXml(new[]
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(new[]
                 {
                     point3D
                 }),
@@ -669,7 +669,7 @@ namespace Ringtoets.Storage.Core.Test.Read
                 Name = "Better name.",
                 ReferenceLineIntersectionX = random.NextDouble(),
                 ReferenceLineIntersectionY = random.NextDouble(),
-                PointsXml = new Point3DXmlSerializer().ToXml(points),
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(points),
                 MacroStabilityInwardsCharacteristicPointEntities =
                 {
                     CreateMacroStabilityInwardsCharacteristicPointEntity(points[0], (MacroStabilityInwardsCharacteristicPointType) invalidCharacteristicPointType)
@@ -694,7 +694,7 @@ namespace Ringtoets.Storage.Core.Test.Read
             var entity = new SurfaceLineEntity
             {
                 Name = "surface line",
-                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
+                PointsXml = new Point3DCollectionXmlSerializer().ToXml(new Point3D[0])
             };
 
             // Call
