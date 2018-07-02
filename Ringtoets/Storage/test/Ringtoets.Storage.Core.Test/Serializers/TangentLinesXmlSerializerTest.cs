@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
 
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<RoundedDouble, TangentLinesXmlSerializer.SerializableTangentLine>>(serializer);
-            SerializerTestHelper.AssertSerializedData<TangentLinesXmlSerializer.SerializableTangentLine>();
+            SerializerTestHelper.AssertSerializedData(typeof(TangentLinesXmlSerializer.SerializableTangentLine));
         }
 
         [Test]

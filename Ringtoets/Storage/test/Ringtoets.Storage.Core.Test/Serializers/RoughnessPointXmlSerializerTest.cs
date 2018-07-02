@@ -39,7 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
 
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<RoughnessPoint, RoughnessPointXmlSerializer.SerializableRoughnessPoint>>(serializer);
-            SerializerTestHelper.AssertSerializedData<RoughnessPointXmlSerializer.SerializableRoughnessPoint>();
+            SerializerTestHelper.AssertSerializedData(typeof(RoughnessPointXmlSerializer.SerializableRoughnessPoint));
         }
 
         [Test]

@@ -37,7 +37,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
 
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<Point2D, Point2DXmlSerializer.SerializablePoint2D>>(serializer);
-            SerializerTestHelper.AssertSerializedData<Point2DXmlSerializer.SerializablePoint2D>();
+            SerializerTestHelper.AssertSerializedData(typeof(Point2DXmlSerializer.SerializablePoint2D));
         }
 
         [Test]

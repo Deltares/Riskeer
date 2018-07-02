@@ -42,7 +42,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<MacroStabilityInwardsSlice,
                 MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice>>(serializer);
-            SerializerTestHelper.AssertSerializedData<MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice>();
+            SerializerTestHelper.AssertSerializedData(typeof(MacroStabilityInwardsSliceXmlSerializer.SerializableMacroStabilityInwardsSlice));
         }
 
         [Test]
