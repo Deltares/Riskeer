@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Core.Common.Base.Data;
 
 namespace Ringtoets.Storage.Core.Serializers
@@ -42,8 +43,10 @@ namespace Ringtoets.Storage.Core.Serializers
         }
 
         [Serializable]
+        [DataContract(Name = nameof(SerializableTangentLine), Namespace = "")]
         internal class SerializableTangentLine
         {
+            [DataMember]
             private readonly double tangentLine;
 
             /// <summary>

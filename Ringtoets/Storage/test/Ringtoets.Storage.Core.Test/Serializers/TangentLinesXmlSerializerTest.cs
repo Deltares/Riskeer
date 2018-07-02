@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Storage.Core.Serializers;
+using Ringtoets.Storage.Core.TestUtil.Serializers;
 
 namespace Ringtoets.Storage.Core.Test.Serializers
 {
@@ -38,6 +39,7 @@ namespace Ringtoets.Storage.Core.Test.Serializers
 
             // Assert
             Assert.IsInstanceOf<DataCollectionSerializer<RoundedDouble, TangentLinesXmlSerializer.SerializableTangentLine>>(serializer);
+            SerializerTestHelper.AssertSerializedData<TangentLinesXmlSerializer.SerializableTangentLine>();
         }
 
         [Test]
