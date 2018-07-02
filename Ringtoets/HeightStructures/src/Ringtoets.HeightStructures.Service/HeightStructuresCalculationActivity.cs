@@ -32,7 +32,7 @@ namespace Ringtoets.HeightStructures.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a height structures calculation.
     /// </summary>
-    public class HeightStructuresCalculationActivity : CalculatableActivity
+    internal class HeightStructuresCalculationActivity : CalculatableActivity
     {
         private readonly StructuresCalculation<HeightStructuresInput> calculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;
