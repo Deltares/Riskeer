@@ -367,18 +367,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                calculations.Select(calc =>
-                                        new GrassCoverErosionInwardsCalculationActivity(
-                                            calc,
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            failureMechanism,
-                                            assessmentSection)).ToArray());
-        }
-
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
@@ -625,7 +613,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -856,7 +846,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                               context.FailureMechanism,
+                                                                                               context.AssessmentSection));
         }
 
         #endregion
@@ -927,10 +921,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, new GrassCoverErosionInwardsCalculationActivity(calculation,
-                                                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                             context.FailureMechanism,
-                                                                                                             context.AssessmentSection));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                          context.FailureMechanism,
+                                                                                                                          context.AssessmentSection));
         }
 
         private static void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext context, object parentData)

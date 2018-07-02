@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -64,7 +65,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var failureMechanism = new HeightStructuresFailureMechanism();
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
-            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
 
             // Call
             Action call = () => activity.Run();
@@ -108,7 +111,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -168,8 +174,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
-
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -213,8 +220,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             calculation.Attach(observer);
 
-            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
-
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -269,8 +277,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             calculation.Attach(observer);
 
-            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
-
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -315,7 +324,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -360,7 +372,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -405,7 +420,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call

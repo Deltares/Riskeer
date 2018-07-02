@@ -94,13 +94,13 @@ namespace Ringtoets.Common.Data.TestUtil
         }
 
         /// <summary>
-        /// Gets a collection of <see cref="TestCaseData"/> containing an hydraulic boundary location calculation
+        /// Gets a collection of <see cref="TestCaseData"/> containing a hydraulic boundary location calculation
         /// configuration for all types of <see cref="AssessmentSectionCategoryType"/>.
         /// </summary>
         /// <returns>A collection of <see cref="TestCaseData"/>, in which each item contains:
         /// <list type="bullet">
         /// <item>the configured assessment section;</item>
-        /// <item>the hydraulic boundary location for which the assessment level output has been set;</item>
+        /// <item>the hydraulic boundary location for which the hydraulic boundary location calculation output has been set;</item>
         /// <item>the category type at stake;</item>
         /// <item>the expected hydraulic boundary location calculation given the combination
         /// of the before-mentioned assessment section, hydraulic boundary location and category type.</item>

@@ -23,6 +23,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PipingCalculationActivityFactoryTest.cs" />
     <Compile Include="PipingCalculationActivityTest.cs" />
     <Compile Include="PipingCalculationServiceTest.cs" />
     <Compile Include="PipingDataSynchronizationServiceTest.cs" />

@@ -544,16 +544,14 @@ namespace Ringtoets.Piping.Plugin
 
         private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
         {
-            IEnumerable<PipingCalculation> calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
-
-            CalculateAll(calculations, failureMechanismContext.Parent);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
         }
 
         private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
         {
-            PipingCalculation[] calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
-
-            CalculateAll(calculations, context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
         }
 
         private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
@@ -562,17 +560,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
-        }
-
-        private void CalculateAll(IEnumerable<PipingCalculation> calculations,
-                                  IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                calculations
-                    .Select(pc => new PipingCalculationActivity(pc,
-                                                                GetNormativeAssessmentLevel(assessmentSection, pc)))
-                    .ToList());
         }
 
         #region PipingSurfaceLinesContext TreeNodeInfo
@@ -663,11 +650,6 @@ namespace Ringtoets.Piping.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
-        }
-
-        private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
-        {
-            return failureMechanism.Calculations.OfType<PipingCalculation>();
         }
 
         private static object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext context)
@@ -804,8 +786,7 @@ namespace Ringtoets.Piping.Plugin
         private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new PipingCalculationActivity(calculation,
-                                                                           GetNormativeAssessmentLevel(context.AssessmentSection, calculation)));
+                                             PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
         }
 
         private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)

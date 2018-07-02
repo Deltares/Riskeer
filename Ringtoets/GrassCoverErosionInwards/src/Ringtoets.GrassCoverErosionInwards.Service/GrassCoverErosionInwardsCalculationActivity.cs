@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a grass cover erosion inwards calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationActivity : CalculatableActivity
+    internal class GrassCoverErosionInwardsCalculationActivity : CalculatableActivity
     {
         private readonly GrassCoverErosionInwardsCalculation calculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PipingCalculationActivity.cs" />
+    <Compile Include="PipingCalculationActivityFactory.cs" />
     <Compile Include="PipingCalculationService.cs" />
     <Compile Include="PipingDataSynchronizationService.cs" />
     <Compile Include="PipingInputService.cs" />

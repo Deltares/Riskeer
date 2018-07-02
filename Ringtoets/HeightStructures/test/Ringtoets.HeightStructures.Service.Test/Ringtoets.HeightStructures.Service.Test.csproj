@@ -18,6 +18,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HeightStructuresCalculationActivityFactoryTest.cs" />
     <Compile Include="HeightStructuresCalculationActivityTest.cs" />
     <Compile Include="HeightStructuresCalculationMessageProviderTest.cs" />
     <Compile Include="HeightStructuresCalculationServiceTest.cs" />

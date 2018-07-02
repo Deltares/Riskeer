@@ -342,19 +342,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
         }
 
-        private void CalculateAll(StabilityPointStructuresFailureMechanism failureMechanism,
-                                  IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations,
-                                  IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             calculations.Select(calc => new StabilityPointStructuresCalculationActivity(
-                                                                     calc,
-                                                                     assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                     failureMechanism,
-                                                                     assessmentSection))
-                                                         .ToArray());
-        }
-
         #endregion
 
         #region TreeNodeInfo
@@ -473,7 +460,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private void CalculateAll(StabilityPointStructuresFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(), context.Parent);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -711,7 +699,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context)
         {
-            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(), context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                                            context.FailureMechanism,
+                                                                                                                            context.AssessmentSection));
         }
 
         #endregion
@@ -779,10 +770,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new StabilityPointStructuresCalculationActivity(calculation,
-                                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                             context.FailureMechanism,
-                                                                                             context.AssessmentSection));
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                          context.FailureMechanism,
+                                                                                                                          context.AssessmentSection));
         }
 
         private static void Validate(StabilityPointStructuresCalculationContext context)

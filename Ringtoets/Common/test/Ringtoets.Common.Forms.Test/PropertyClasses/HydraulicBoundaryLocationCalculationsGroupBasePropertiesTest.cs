@@ -64,12 +64,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(locations,
-                                                                                         Enumerable.Empty<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>>());
-
-            // Assert
-            Assert.IsInstanceOf<ObjectProperties<IEnumerable<HydraulicBoundaryLocation>>>(properties);
-            Assert.AreSame(locations, properties.Data);
+            using (var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(
+                locations,
+                Enumerable.Empty<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>>()))
+            {
+                // Assert
+                Assert.IsInstanceOf<ObjectProperties<IEnumerable<HydraulicBoundaryLocation>>>(properties);
+                Assert.IsInstanceOf<IDisposable>(properties);
+                Assert.AreSame(locations, properties.Data);
+            }
         }
 
         [Test]
@@ -79,7 +82,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var location = new TestHydraulicBoundaryLocation();
             var calculationA = new HydraulicBoundaryLocationCalculation(location);
             var calculationB = new HydraulicBoundaryLocationCalculation(location);
-            var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(
+
+            using (var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(
                 new[]
                 {
                     location
@@ -95,20 +99,87 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     {
                         calculationB
                     })
+                }))
+            {
+                // Call
+                IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationsForLocation = properties.PublicGetHydraulicBoundaryLocationCalculationsForLocation(location);
+
+                // Assert
+                Assert.AreEqual(2, calculationsForLocation.Count());
+                Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryA = calculationsForLocation.First();
+                Assert.AreEqual("A", calculationBoundaryA.Item1);
+                Assert.AreSame(calculationA, calculationBoundaryA.Item2);
+
+                Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryB = calculationsForLocation.ElementAt(1);
+                Assert.AreEqual("B", calculationBoundaryB.Item1);
+                Assert.AreSame(calculationB, calculationBoundaryB.Item2);
+            }
+        }
+
+        [Test]
+        public void GivenPropertyControlWithData_WhenCalculationsFromMultipleCategoryBoundariesUpdated_RefreshRequiredEventRaised()
+        {
+            // Given
+            var location = new TestHydraulicBoundaryLocation();
+            var calculationA = new HydraulicBoundaryLocationCalculation(location);
+            var calculationB = new HydraulicBoundaryLocationCalculation(location);
+            using (var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(
+                new[]
+                {
+                    location
+                },
+                new[]
+                {
+                    new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("A", new[]
+                    {
+                        calculationA
+                    }),
+                    new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("B", new[]
+                    {
+                        calculationB
+                    })
+                }))
+            {
+                var refreshRequiredRaised = 0;
+                properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
+
+                // When
+                calculationA.NotifyObservers();
+                calculationB.NotifyObservers();
+
+                // Then
+                Assert.AreEqual(2, refreshRequiredRaised);
+            }
+        }
+
+        [Test]
+        public void GivenDisposedPropertyControlWithData_WhenSingleCalculationUpdated_RefreshRequiredEventNotRaised()
+        {
+            // Given
+            var location = new TestHydraulicBoundaryLocation();
+            var calculation = new HydraulicBoundaryLocationCalculation(location);
+            var properties = new TestHydraulicBoundaryLocationCalculationGroupProperties(
+                new[]
+                {
+                    location
+                },
+                new[]
+                {
+                    new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>("A", new[]
+                    {
+                        calculation
+                    })
                 });
+            var refreshRequiredRaised = 0;
+            properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;
 
-            // Call
-            IEnumerable<Tuple<string, HydraulicBoundaryLocationCalculation>> calculationsForLocation = properties.PublicGetHydraulicBoundaryLocationCalculationsForLocation(location);
+            properties.Dispose();
 
-            // Assert
-            Assert.AreEqual(2, calculationsForLocation.Count());
-            Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryA = calculationsForLocation.First();
-            Assert.AreEqual("A", calculationBoundaryA.Item1);
-            Assert.AreSame(calculationA, calculationBoundaryA.Item2);
+            // When
+            calculation.NotifyObservers();
 
-            Tuple<string, HydraulicBoundaryLocationCalculation> calculationBoundaryB = calculationsForLocation.ElementAt(1);
-            Assert.AreEqual("B", calculationBoundaryB.Item1);
-            Assert.AreSame(calculationB, calculationBoundaryB.Item2);
+            // Then
+            Assert.AreEqual(0, refreshRequiredRaised);
         }
 
         private class TestHydraulicBoundaryLocationCalculationGroupProperties : HydraulicBoundaryLocationCalculationsGroupBaseProperties

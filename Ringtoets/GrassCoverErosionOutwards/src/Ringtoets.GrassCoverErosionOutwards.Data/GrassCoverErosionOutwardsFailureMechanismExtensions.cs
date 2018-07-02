@@ -72,10 +72,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return GetAssessmentLevelFromCalculations(hydraulicBoundaryLocation,
-                                                      GetHydraulicBoundaryLocationCalculations(failureMechanism,
-                                                                                               assessmentSection,
-                                                                                               categoryType));
+            HydraulicBoundaryLocationCalculation calculation = GetHydraulicBoundaryLocationCalculation(failureMechanism,
+                                                                                                       assessmentSection,
+                                                                                                       hydraulicBoundaryLocation,
+                                                                                                       categoryType);
+
+            return calculation?.Output?.Result ?? RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -88,8 +90,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <returns>The <see cref="HydraulicBoundaryLocationCalculation"/>, or <c>null</c> when:
         /// <list type="bullet">
         /// <item><paramref name="hydraulicBoundaryLocation"/> is <c>null</c>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>;</item>
-        /// <item><paramref name="hydraulicBoundaryLocation"/> contains no corresponding calculation output.</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="failureMechanism"/>;</item>
+        /// <item><paramref name="hydraulicBoundaryLocation"/> is not part of <paramref name="assessmentSection"/>.</item>
         /// </list>
         /// </returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
@@ -200,12 +202,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
                                                                                                                     IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
             return calculations.FirstOrDefault(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-        }
-
-        private static RoundedDouble GetAssessmentLevelFromCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                        IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
-        {
-            return GetHydraulicBoundaryLocationCalculationFromCalculations(hydraulicBoundaryLocation, calculations)?.Output?.Result ?? RoundedDouble.NaN;
         }
     }
 }

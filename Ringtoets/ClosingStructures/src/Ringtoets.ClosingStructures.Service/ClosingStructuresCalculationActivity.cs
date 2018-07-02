@@ -32,7 +32,7 @@ namespace Ringtoets.ClosingStructures.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a structures closure calculation.
     /// </summary>
-    public class ClosingStructuresCalculationActivity : CalculatableActivity
+    internal class ClosingStructuresCalculationActivity : CalculatableActivity
     {
         private readonly StructuresCalculation<ClosingStructuresInput> calculation;
         private readonly ClosingStructuresCalculationService calculationService;

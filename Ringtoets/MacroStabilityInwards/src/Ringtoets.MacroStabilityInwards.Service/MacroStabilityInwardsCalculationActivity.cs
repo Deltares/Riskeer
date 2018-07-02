@@ -30,7 +30,7 @@ namespace Ringtoets.MacroStabilityInwards.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a macro stability inwards calculation.
     /// </summary>
-    public class MacroStabilityInwardsCalculationActivity : CalculatableActivity
+    internal class MacroStabilityInwardsCalculationActivity : CalculatableActivity
     {
         private readonly RoundedDouble normativeAssessmentLevel;
         private readonly MacroStabilityInwardsCalculation calculation;

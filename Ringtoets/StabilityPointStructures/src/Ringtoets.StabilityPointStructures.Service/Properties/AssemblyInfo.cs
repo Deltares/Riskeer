@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Ringtoets.StabilityPointStructures.Service")]
 [assembly: AssemblyProduct("Ringtoets.StabilityPointStructures.Service")]
+[assembly: InternalsVisibleTo("Ringtoets.StabilityPointStructures.Service.Test")]

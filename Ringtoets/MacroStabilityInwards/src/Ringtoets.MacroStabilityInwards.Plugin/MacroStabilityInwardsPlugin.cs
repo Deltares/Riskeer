@@ -250,7 +250,7 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                 GetViewName = (view, context) => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 CloseForData = CloseInputViewForData,
-                CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation, 
+                CreateInstance = context => new MacroStabilityInwardsInputView(context.MacroStabilityInwardsCalculation,
                                                                                context.AssessmentSection,
                                                                                () => context.AssessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(context.WrappedData.HydraulicBoundaryLocation))
             };
@@ -557,17 +557,18 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         #endregion
 
-        private void CalculateAll(MacroStabilityInwardsFailureMechanismContext failureMechanismContext)
+        private void CalculateAll(MacroStabilityInwardsFailureMechanismContext context)
         {
-            IEnumerable<MacroStabilityInwardsCalculation> calculations = GetAllMacroStabilityInwardsCalculations(failureMechanismContext.WrappedData);
-
-            CalculateAll(calculations, failureMechanismContext.Parent);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         private void CalculateAll(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
         {
-            MacroStabilityInwardsCalculation[] calculations = group.GetCalculations().OfType<MacroStabilityInwardsCalculation>().ToArray();
-            CalculateAll(calculations, context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
         }
 
         private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
@@ -576,16 +577,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
             {
                 MacroStabilityInwardsCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
-        }
-
-        private void CalculateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                calculations
-                    .Select(pc => new MacroStabilityInwardsCalculationActivity(pc,
-                                                                               GetNormativeAssessmentLevel(assessmentSection, pc)))
-                    .ToList());
         }
 
         #region MacroStabilityInwardsSurfaceLinesContext TreeNodeInfo
@@ -671,11 +662,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
-        }
-
-        private static IEnumerable<MacroStabilityInwardsCalculation> GetAllMacroStabilityInwardsCalculations(MacroStabilityInwardsFailureMechanism failureMechanism)
-        {
-            return failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculation>();
         }
 
         private static object[] FailureMechanismEnabledChildNodeObjects(MacroStabilityInwardsFailureMechanismContext macroStabilityInwardsFailureMechanismContext)
@@ -797,8 +783,9 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         private void PerformCalculation(MacroStabilityInwardsCalculation calculation, MacroStabilityInwardsCalculationScenarioContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new MacroStabilityInwardsCalculationActivity(calculation, GetNormativeAssessmentLevel(context.AssessmentSection, calculation)));
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
         }
 
         #endregion
