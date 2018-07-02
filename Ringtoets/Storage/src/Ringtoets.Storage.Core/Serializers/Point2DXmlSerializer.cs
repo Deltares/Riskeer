@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Storage.Core.Serializers
@@ -43,9 +44,13 @@ namespace Ringtoets.Storage.Core.Serializers
         }
 
         [Serializable]
+        [DataContract(Name = nameof(SerializablePoint2D), Namespace = "")]
         internal class SerializablePoint2D
         {
+            [DataMember]
             private readonly double x;
+
+            [DataMember]
             private readonly double y;
 
             public SerializablePoint2D(Point2D point2D)
