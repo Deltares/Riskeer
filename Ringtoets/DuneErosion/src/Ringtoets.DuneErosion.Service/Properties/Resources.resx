@@ -122,7 +122,7 @@
   </data>
   <data name="DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{0}' (Categorie {1}). Bekijk het foutrapport door op details te klikken.
-{1}</value>
+{2}</value>
   </data>
   <data name="DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_no_error_report" xml:space="preserve">
     <value>Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{0}' (Categorie {1}). Er is geen foutrapport beschikbaar.</value>

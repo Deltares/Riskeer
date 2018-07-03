@@ -113,7 +113,7 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening &apos;{0}&apos; (Categorie {1}). Bekijk het foutrapport door op details te klikken.
-        ///{1}.
+        ///{2}.
         /// </summary>
         internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1 {
             get {
