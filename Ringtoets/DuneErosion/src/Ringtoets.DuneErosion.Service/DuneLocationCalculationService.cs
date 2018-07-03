@@ -137,7 +137,7 @@ namespace Ringtoets.DuneErosion.Service
                 bool hasErrorOccurred = CalculationServiceHelper.HasErrorOccurred(canceled, exceptionThrown, lastErrorFileContent);
                 if (hasErrorOccurred)
                 {
-                    messageProvider.GetCalculationFailedWithErrorReportMessage(duneLocationName, lastErrorFileContent);
+                    log.Error(messageProvider.GetCalculationFailedWithErrorReportMessage(duneLocationName, lastErrorFileContent));
                 }
 
                 log.InfoFormat(Resources.DuneLocationCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
