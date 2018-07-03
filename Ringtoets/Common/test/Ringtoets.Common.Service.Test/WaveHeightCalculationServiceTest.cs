@@ -201,7 +201,8 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const double norm = 1.0 / 30;
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
+            const string failedConvergenceMessage = "failedConvergenceMessage";
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -214,7 +215,6 @@ namespace Ringtoets.Common.Service.Test
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            const string failedConvergenceMessage = "Did not converge";
             calculationMessageProvider.Expect(mp => mp.GetCalculatedNotConvergedMessage(locationName)).Return(failedConvergenceMessage);
             mockRepository.ReplayAll();
 
@@ -322,7 +322,7 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLog()
         {
             // Setup
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -381,7 +381,7 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidWaveHeightCalculationThrowsException_ThrowsHydraRingFileParserException()
         {
             // Setup
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
 
             var expectedException = new HydraRingFileParserException();
 
@@ -555,7 +555,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
             const string calculationFailedMessage = "calculationFailedMessage";
 
             var calculator = new TestWaveHeightCalculator

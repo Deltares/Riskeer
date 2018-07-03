@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Constructor_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
+        public void Constructor_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new WaveHeightCalculationActivity(new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation()),
@@ -325,6 +325,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
+            const string failureMessage = "failureMessage";
 
             var calculator = new TestWaveHeightCalculator
             {
@@ -332,7 +333,6 @@ namespace Ringtoets.Common.Service.Test
                 LastErrorFileContent = lastErrorFileContent
             };
 
-            const string failureMessage = "Failed calculation";
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
             var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();

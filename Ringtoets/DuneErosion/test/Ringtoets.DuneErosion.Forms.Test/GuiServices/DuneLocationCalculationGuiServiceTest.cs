@@ -192,7 +192,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             const string duneLocationName = "name";
-            const string calculationName = "calculationName";
+            const string description = "description";
             const string calculatedNotConvergedMessage = "calculatedNotConvergedMessage";
 
             var mockRepository = new MockRepository();
@@ -200,7 +200,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDunesBoundaryConditionsCalculator());
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(duneLocationName)).Return(string.Empty);
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(duneLocationName)).Return(description);
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(duneLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
@@ -223,14 +223,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"{description} is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
                     StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
+                    Assert.AreEqual($"{description} is gelukt.", msgs[7]);
                 });
             }
 

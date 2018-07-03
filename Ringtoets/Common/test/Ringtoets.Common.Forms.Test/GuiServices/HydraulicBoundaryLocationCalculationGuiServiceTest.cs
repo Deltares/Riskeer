@@ -213,14 +213,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string calculationName = "calculationName";
+            const string description = "description";
             const string calculatedNotConvergedMessage = "calculatedNotConvergedMessage";
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDesignWaterLevelCalculator());
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(description);
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
@@ -249,14 +249,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"{description} is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
+                    Assert.AreEqual($"{description} is gelukt.", msgs[7]);
                 });
             }
 
@@ -292,7 +292,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_CalculationServiceMessageProviderNull_ThrowsArgumentNullException()
+        public void CalculateWaveHeights_MessageProviderNull_ThrowsArgumentNullException()
         {
             // Setup
             using (var viewParent = new Form())
@@ -406,14 +406,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         {
             // Setup
             const string hydraulicLocationName = "name";
-            const string calculationName = "calculationName";
+            const string description = "description";
             const string calculatedNotConvergedMessage = "calculatedNotConvergedMessage";
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestWaveHeightCalculator());
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(string.Empty);
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(hydraulicLocationName)).Return(description);
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(hydraulicLocationName)).Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
@@ -442,14 +442,14 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"{description} is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
+                    Assert.AreEqual($"{description} is gelukt.", msgs[7]);
                 });
             }
 
