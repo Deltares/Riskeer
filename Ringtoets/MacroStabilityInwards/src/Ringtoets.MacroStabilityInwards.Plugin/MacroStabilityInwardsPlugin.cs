@@ -557,20 +557,6 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
 
         #endregion
 
-        private void CalculateAll(MacroStabilityInwardsFailureMechanismContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
-        }
-
-        private void CalculateAll(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
-        }
-
         private static void ValidateAll(IEnumerable<MacroStabilityInwardsCalculation> calculations, IAssessmentSection assessmentSection)
         {
             foreach (MacroStabilityInwardsCalculation calculation in calculations)
@@ -644,6 +630,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
         private void RemoveAllViewsForItem(MacroStabilityInwardsFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        private void CalculateAll(MacroStabilityInwardsFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         private static void ValidateAll(MacroStabilityInwardsFailureMechanismContext context)
@@ -894,6 +887,13 @@ namespace Ringtoets.MacroStabilityInwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void CalculateAll(CalculationGroup group, MacroStabilityInwardsCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
         }
 
         private static void ValidateAll(MacroStabilityInwardsCalculationGroupContext context)

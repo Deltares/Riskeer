@@ -542,18 +542,6 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
-        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
-        }
-
-        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
-        }
-
         private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
         {
             foreach (PipingCalculation calculation in pipingCalculations)
@@ -637,6 +625,12 @@ namespace Ringtoets.Piping.Plugin
         private static void ValidateAll(PipingFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
+        }
+
+        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
@@ -955,6 +949,12 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
         }
 
         private static void ValidateAll(PipingCalculationGroupContext context)

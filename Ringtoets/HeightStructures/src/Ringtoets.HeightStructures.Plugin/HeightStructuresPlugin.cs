@@ -776,7 +776,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                HeightStructuresCalculationActivityFactory.CreateCalculationActivity(context.WrappedData, context.FailureMechanism, context.AssessmentSection));
+                HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, context.FailureMechanism, context.AssessmentSection));
         }
 
         private static void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)

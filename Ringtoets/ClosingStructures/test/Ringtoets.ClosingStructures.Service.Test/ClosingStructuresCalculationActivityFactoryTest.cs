@@ -110,10 +110,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                        mocks,
                                                                                                        validFilePath);
-
             mocks.ReplayAll();
 
-            StructuresCalculation<ClosingStructuresInput> calculation = CreateCalculation();
+            StructuresCalculation<ClosingStructuresInput> calculation = CreateValidCalculation();
 
             // Call
             CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -189,8 +188,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                                                        validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateCalculation();
-            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateCalculation();
+            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation();
+            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation();
 
             var calculations = new CalculationGroup
             {
@@ -252,11 +251,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                        mocks,
                                                                                                        validFilePath);
-
             mocks.ReplayAll();
 
-            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateCalculation();
-            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateCalculation();
+            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation();
+            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation();
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -277,7 +275,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<ClosingStructuresInput> CreateCalculation()
+        private static StructuresCalculation<ClosingStructuresInput> CreateValidCalculation()
         {
             return new TestClosingStructuresCalculation
             {
@@ -303,8 +301,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             {
                 activity.Run();
 
-                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion, 
-                                testCalculator.ReceivedInputs.Single().Variables.Single(v => v.VariableId == 105).Value);
+                StructuresClosureCalculationInput actualInput = testCalculator.ReceivedInputs.Single();
+                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                                actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
 
             mocks.VerifyAll();

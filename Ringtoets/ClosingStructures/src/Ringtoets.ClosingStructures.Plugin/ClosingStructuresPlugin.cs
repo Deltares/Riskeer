@@ -665,7 +665,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         private void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(group,
                                                                                                                      context.FailureMechanism,
                                                                                                                      context.AssessmentSection));
         }

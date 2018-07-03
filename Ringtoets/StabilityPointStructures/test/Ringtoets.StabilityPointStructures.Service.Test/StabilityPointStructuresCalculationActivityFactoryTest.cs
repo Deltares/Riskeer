@@ -110,7 +110,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                        mocks,
                                                                                                        validFilePath);
-
             mocks.ReplayAll();
 
             StructuresCalculation<StabilityPointStructuresInput> calculation = CreateCalculation();
@@ -252,7 +251,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                        mocks,
                                                                                                        validFilePath);
-
             mocks.ReplayAll();
 
             StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateCalculation();
@@ -303,8 +301,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             {
                 activity.Run();
 
-                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion, 
-                                testCalculator.ReceivedInputs.Single().Variables.Single(v => v.VariableId == 105).Value);
+                StructuresStabilityPointCalculationInput actualInput = testCalculator.ReceivedInputs.Single();
+                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                                actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
 
             mocks.VerifyAll();

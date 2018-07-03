@@ -110,10 +110,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                        mocks,
                                                                                                        validFilePath);
-
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation = CreateCalculation();
+            StructuresCalculation<HeightStructuresInput> calculation = CreateValidCalculation();
 
             // Call
             CalculatableActivity activity = HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -189,8 +188,8 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                                                        validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation1 = CreateCalculation();
-            StructuresCalculation<HeightStructuresInput> calculation2 = CreateCalculation();
+            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();
+            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation();
 
             var calculations = new CalculationGroup
             {
@@ -252,11 +251,10 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                        mocks,
                                                                                                        validFilePath);
-
             mocks.ReplayAll();
 
-            StructuresCalculation<HeightStructuresInput> calculation1 = CreateCalculation();
-            StructuresCalculation<HeightStructuresInput> calculation2 = CreateCalculation();
+            StructuresCalculation<HeightStructuresInput> calculation1 = CreateValidCalculation();
+            StructuresCalculation<HeightStructuresInput> calculation2 = CreateValidCalculation();
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -277,7 +275,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<HeightStructuresInput> CreateCalculation()
+        private static StructuresCalculation<HeightStructuresInput> CreateValidCalculation()
         {
             return new TestHeightStructuresCalculation
             {
@@ -303,8 +301,9 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 activity.Run();
 
-                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion, 
-                                testCalculator.ReceivedInputs.Single().Variables.Single(v => v.VariableId == 105).Value);
+                StructuresOvertoppingCalculationInput actualInput = testCalculator.ReceivedInputs.Single();
+                Assert.AreEqual(calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                                actualInput.Variables.Single(v => v.VariableId == 105).Value);
             }
 
             mocks.VerifyAll();
