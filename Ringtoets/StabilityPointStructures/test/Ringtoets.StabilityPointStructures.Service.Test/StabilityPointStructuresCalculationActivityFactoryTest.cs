@@ -112,7 +112,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                        validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation = CreateCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation = CreateValidCalculation();
 
             // Call
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -188,8 +188,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                        validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateCalculation();
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation();
 
             var calculations = new CalculationGroup
             {
@@ -253,8 +253,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                        validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateCalculation();
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = CreateValidCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = CreateValidCalculation();
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -275,7 +275,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
+        private static StructuresCalculation<StabilityPointStructuresInput> CreateValidCalculation()
         {
             return new TestStabilityPointStructuresCalculation
             {

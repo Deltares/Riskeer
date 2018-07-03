@@ -112,7 +112,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = CreateCalculation();
+            GrassCoverErosionInwardsCalculation calculation = CreateValidCalculation();
 
             // Call
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -189,8 +189,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation1 = CreateCalculation();
-            GrassCoverErosionInwardsCalculation calculation2 = CreateCalculation();
+            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation();
+            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation();
 
             var calculations = new CalculationGroup
             {
@@ -255,8 +255,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation1 = CreateCalculation();
-            GrassCoverErosionInwardsCalculation calculation2 = CreateCalculation();
+            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation();
+            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation();
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -277,7 +277,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             mocks.VerifyAll();
         }
 
-        private static GrassCoverErosionInwardsCalculation CreateCalculation()
+        private static GrassCoverErosionInwardsCalculation CreateValidCalculation()
         {
             return new GrassCoverErosionInwardsCalculation
             {

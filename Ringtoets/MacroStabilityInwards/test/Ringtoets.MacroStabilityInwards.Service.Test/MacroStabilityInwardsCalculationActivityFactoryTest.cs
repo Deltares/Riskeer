@@ -96,7 +96,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single();
             hydraulicBoundaryLocationCalculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            MacroStabilityInwardsCalculationScenario calculation = CreateCalculation(hydraulicBoundaryLocation);
+            MacroStabilityInwardsCalculationScenario calculation = CreateValidCalculation(hydraulicBoundaryLocation);
 
             // Call
             CalculatableActivity activity = MacroStabilityInwardsCalculationActivityFactory.CreateCalculationActivity(calculation, assessmentSection);
@@ -162,8 +162,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation(hydraulicBoundaryLocation1);
-            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation(hydraulicBoundaryLocation2);
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateValidCalculation(hydraulicBoundaryLocation2);
 
             var calculations = new CalculationGroup
             {
@@ -242,8 +242,8 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(1);
             hydraulicBoundaryLocationCalculation2.Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
-            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation(hydraulicBoundaryLocation1);
-            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation(hydraulicBoundaryLocation2);
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateValidCalculation(hydraulicBoundaryLocation1);
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateValidCalculation(hydraulicBoundaryLocation2);
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
@@ -264,7 +264,7 @@ namespace Ringtoets.MacroStabilityInwards.Service.Test
             AssertMacroStabilityInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryLocationCalculation2);
         }
 
-        private static MacroStabilityInwardsCalculationScenario CreateCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static MacroStabilityInwardsCalculationScenario CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
             calculation.InputParameters.LeakageLengthInwardsPhreaticLine3 = new Random(39).NextRoundedDouble();
