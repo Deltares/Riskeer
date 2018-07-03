@@ -92,12 +92,12 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekenen voor locatie &apos;{0}&apos; (Categorie {1}).
         /// </summary>
-        internal static string DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_ {
+        internal static string DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_Category_1 {
             get {
                 return ResourceManager.GetString("DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneL" +
-                        "ocation_with_name_0_", resourceCulture);
+                        "ocation_with_name_0_Category_1", resourceCulture);
             }
         }
         
@@ -112,33 +112,33 @@ namespace Ringtoets.DuneErosion.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is mislukt. Bekijk het foutrapport door op details te klikken.
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening &apos;{0}&apos; (Categorie {1}). Bekijk het foutrapport door op details te klikken.
         ///{1}.
         /// </summary>
-        internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1 {
+        internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1 {
             get {
-                return ResourceManager.GetString("DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click" +
-                        "_details_for_last_error_report_1", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Categ" +
+                        "ory_1_click_details_for_last_error_report_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is mislukt. Er is geen foutrapport beschikbaar..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening &apos;{0}&apos; (Categorie {1}). Er is geen foutrapport beschikbaar..
         /// </summary>
-        internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_error_report {
+        internal static string DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_no_error_report {
             get {
-                return ResourceManager.GetString("DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_er" +
-                        "ror_report", resourceCulture);
+                return ResourceManager.GetString("DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Categ" +
+                        "ory_1_no_error_report", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden berekening voor locatie &apos;{0}&apos; (Categorie {1}) is niet geconvergeerd..
         /// </summary>
-        internal static string DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_not_converged {
+        internal static string DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_Category_1_not_converged {
             get {
                 return ResourceManager.GetString("DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_fo" +
-                        "r_DuneLocation_0_not_converged", resourceCulture);
+                        "r_DuneLocation_0_Category_1_not_converged", resourceCulture);
             }
         }
     }

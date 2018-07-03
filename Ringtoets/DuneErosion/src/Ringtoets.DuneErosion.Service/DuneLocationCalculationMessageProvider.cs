@@ -49,26 +49,31 @@ namespace Ringtoets.DuneErosion.Service
 
         public string GetActivityDescription(string calculationSubject)
         {
-            return string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
-                                 calculationSubject);
+            return string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_Category_1,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculationFailedMessage(string calculationSubject)
         {
-            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_error_report,
-                                 calculationSubject);
+            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_no_error_report,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculatedNotConvergedMessage(string calculationSubject)
         {
-            return string.Format(Resources.DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_not_converged,
-                                 calculationSubject);
+            return string.Format(Resources.DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_Category_1_not_converged,
+                                 calculationSubject,
+                                 categoryBoundaryName);
         }
 
         public string GetCalculationFailedWithErrorReportMessage(string calculationSubject, string errorReport)
         {
-            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1,
-                                 calculationSubject, errorReport);
+            return string.Format(Resources.DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1,
+                                 calculationSubject,
+                                 categoryBoundaryName,
+                                 errorReport);
         }
     }
 }

@@ -120,20 +120,20 @@
   <data name="DuneLocationCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
     <value>Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie '{0}'. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
-  <data name="DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_click_details_for_last_error_report_1" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden berekening voor locatie '{0}' is mislukt. Bekijk het foutrapport door op details te klikken.
+  <data name="DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_click_details_for_last_error_report_1" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{0}' (Categorie {1}). Bekijk het foutrapport door op details te klikken.
 {1}</value>
   </data>
-  <data name="DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_no_error_report" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden berekening voor locatie '{0}' is mislukt. Er is geen foutrapport beschikbaar.</value>
+  <data name="DuneLocationCalculationService_Calculate_Error_in_DuneLocationCalculation_0_Category_1_no_error_report" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{0}' (Categorie {1}). Er is geen foutrapport beschikbaar.</value>
   </data>
-  <data name="DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_not_converged" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden berekening voor locatie '{0}' is niet geconvergeerd.</value>
+  <data name="DuneLocationCalculationService_CreateDuneLocationCalculationOutput_Calculation_for_DuneLocation_0_Category_1_not_converged" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden berekening voor locatie '{0}' (Categorie {1}) is niet geconvergeerd.</value>
   </data>
   <data name="DuneErosionDataSynchronizationService_SetDuneLocations_Location_0_is_dune_location_but_name_is_not_according_format" xml:space="preserve">
     <value>Locatie '{0}' moet voldoen aan het formaat 'Naam_Vaknummer_Metrering'. Deze locatie is niet toegevoegd aan de hydraulische randvoorwaarden voor toetsspoor duinen.</value>
   </data>
-  <data name="DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden berekenen voor locatie '{0}'</value>
+  <data name="DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_Category_1" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden berekenen voor locatie '{0}' (Categorie {1})</value>
   </data>
 </root>
