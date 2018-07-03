@@ -327,7 +327,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const string locationName = "locationName";
-            const string failureMessage = "Failed calculation";
+            const string failureMessage = "failureMessage";
 
             var calculator = new TestDesignWaterLevelCalculator
             {
