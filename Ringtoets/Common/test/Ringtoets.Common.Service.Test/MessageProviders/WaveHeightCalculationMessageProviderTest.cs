@@ -71,11 +71,11 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
             var provider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
 
             // Call
-            string activityDescription = provider.GetActivityDescription(name);
+            string description = provider.GetActivityDescription(name);
 
             // Assert
-            string expectedName = $"Golfhoogte berekenen voor locatie '{name}' (Categorie {categoryBoundaryName})";
-            Assert.AreEqual(expectedName, activityDescription);
+            string expectedDescription = $"Golfhoogte berekenen voor locatie '{name}' (Categorie {categoryBoundaryName})";
+            Assert.AreEqual(expectedDescription, description);
         }
 
         [Test]
