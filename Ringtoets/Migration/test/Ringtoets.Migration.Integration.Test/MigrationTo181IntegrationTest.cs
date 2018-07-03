@@ -963,7 +963,7 @@ namespace Ringtoets.Migration.Integration.Test
         #region Serializers
 
         /// <summary>
-        /// Testhelper to assert the migrated values of serialized data.
+        /// Test helper to assert the migrated values of serialized data.
         /// </summary>
         private static class MigratedSerializedDataTestHelper
         {

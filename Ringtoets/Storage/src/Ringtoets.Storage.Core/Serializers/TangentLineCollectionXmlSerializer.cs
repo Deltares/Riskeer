@@ -28,7 +28,7 @@ using Core.Common.Base.Data;
 namespace Ringtoets.Storage.Core.Serializers
 {
     /// <summary>
-    /// Converter class that converts between tangent lines and an XML representation of that data.
+    /// Converter class that converts between collections of tangent lines and an XML representation of that data.
     /// </summary>
     internal class TangentLineCollectionXmlSerializer : DataCollectionSerializer<RoundedDouble, TangentLineCollectionXmlSerializer.SerializableTangentLine>
     {

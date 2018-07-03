@@ -82,7 +82,7 @@ SELECT
 		REPLACE(ForeshoreXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
 		'Point2DXmlSerializer.SerializablePoint2D', 
 		'SerializablePoint2D' 
-    ),
+	),
 	REPLACE(
 		REPLACE(DikeGeometryXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),
 		'RoughnessPointXmlSerializer.SerializableRoughnessPoint',
@@ -134,7 +134,7 @@ SELECT
 		REPLACE(FailureMechanismSectionPointXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
 		'Point2DXmlSerializer.SerializablePoint2D', 
 		'SerializablePoint2D' 
-    )
+	)
 FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
 INSERT INTO FaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
@@ -164,7 +164,7 @@ SELECT
 		REPLACE(GeometryXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
 		'Point2DXmlSerializer.SerializablePoint2D', 
 		'SerializablePoint2D' 
-    ),
+	),
 	[X],
 	[Y],
 	[X0],
@@ -534,7 +534,7 @@ SELECT
 		REPLACE(OuterRingXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
 		'Point2DXmlSerializer.SerializablePoint2D', 
 		'SerializablePoint2D' 
-    ),
+	),
 	[Order]
 FROM [SOURCEPROJECT].MacroStabilityInwardsSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileOneDEntity;
@@ -852,7 +852,7 @@ SELECT
 		REPLACE(StochasticSoilModelSegmentPointXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
 		'Point2DXmlSerializer.SerializablePoint2D', 
 		'SerializablePoint2D' 
-    ),
+	),
 	[Order]
 FROM [SOURCEPROJECT].StochasticSoilModelEntity;
 INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity (
@@ -1175,17 +1175,17 @@ JOIN (
 -- for every Hydraulic Boundary Location) and the AssessmentSection (which is necessary because multiple assessment 
 -- sections can contain the same Hydraulic Boundary Locations)
 CREATE TEMP TABLE TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable (
-    'GrassCoverErosionOutwardsHydraulicLocationEntityId' INTEGER NOT NULL UNIQUE,
-    'HydraulicLocationEntityId' INTEGER NOT NULL UNIQUE
+	'GrassCoverErosionOutwardsHydraulicLocationEntityId' INTEGER NOT NULL UNIQUE,
+	'HydraulicLocationEntityId' INTEGER NOT NULL UNIQUE
 );
 
 INSERT INTO TempGrassCoverErosionOutwardsHydraulicBoundaryLocationLookupTable (
-    [GrassCoverErosionOutwardsHydraulicLocationEntityId],
-    [HydraulicLocationEntityId]
+	[GrassCoverErosionOutwardsHydraulicLocationEntityId],
+	[HydraulicLocationEntityId]
 )
 SELECT 
-    GrassCoverErosionOutwardsHydraulicLocationEntityId,
-    HydraulicLocationEntityId
+	GrassCoverErosionOutwardsHydraulicLocationEntityId,
+	HydraulicLocationEntityId
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsHydraulicLocationEntity gceohl
 JOIN [SOURCEPROJECT].FailureMechanismEntity fm USING(FailureMechanismEntityId)
 JOIN [SOURCEPROJECT].HydraulicLocationEntity hl ON (hl.LocationId = gceohl.LocationId AND hl.AssessmentSectionEntityId = fm.AssessmentSectionEntityId);
@@ -1273,7 +1273,7 @@ SELECT
 		REPLACE(ReferenceLinePointXml, ' xmlns="http://schemas.datacontract.org/2004/07/Application.Ringtoets.Storage.Serializers"', ''),  
 		'Point2DXmlSerializer.SerializablePoint2D', 
 		'SerializablePoint2D' 
-    ), 
+	), 
 	[Order]
 FROM [SOURCEPROJECT].AssessmentSectionEntity
 JOIN (
