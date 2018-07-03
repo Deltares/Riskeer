@@ -379,7 +379,9 @@ namespace Ringtoets.DuneErosion.Service.Test
             calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
             mockRepository.ReplayAll();
 
-            var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
+            var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation(locationName));
+
+            var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                0.5,
@@ -396,7 +398,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                     Assert.AreEqual(7, msgs.Length);
                     StringAssert.StartsWith(calculationNotConvergedMessage, msgs[4]);
                 });
-                Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, new DuneLocationCalculation(new TestDuneLocation(locationName)).Output.CalculationConvergence);
+                Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocationCalculation.Output.CalculationConvergence);
             }
 
             mockRepository.VerifyAll();

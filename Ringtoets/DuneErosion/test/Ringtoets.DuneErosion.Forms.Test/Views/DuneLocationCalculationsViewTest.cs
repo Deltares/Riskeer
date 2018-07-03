@@ -507,14 +507,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                                                      // Assert
                                                      Assert.AreEqual(8, messageList.Count);
-                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' is gestart.", messageList[0]);
+                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' (Categorie A) is gestart.", messageList[0]);
                                                      CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
                                                      CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
                                                      CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
-                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie '1' is niet geconvergeerd.", messageList[4]);
+                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie '1' (Categorie A) is niet geconvergeerd.", messageList[4]);
                                                      StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
                                                      CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
-                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' is gelukt.", messageList[7]);
+                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' (Categorie A) is gelukt.", messageList[7]);
                                                  });
 
                     Assert.AreSame(originalDataSource, dataGridView.DataSource);
