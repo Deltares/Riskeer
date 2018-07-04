@@ -88,6 +88,26 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_CategoryBoundaryNameInvalid_ThrowsArgumentException(string categoryBoundaryName)
+        {
+            // Setup
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => new WaveHeightCalculationsView(new ObservableList<HydraulicBoundaryLocationCalculation>(),
+                                                                     assessmentSection,
+                                                                     () => 0.01,
+                                                                     categoryBoundaryName);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup

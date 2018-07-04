@@ -59,6 +59,11 @@ namespace Ringtoets.Common.Forms.Views
                 throw new ArgumentNullException(nameof(getNormFunc));
             }
 
+            if (string.IsNullOrEmpty(categoryBoundaryName))
+            {
+                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+            }
+
             InitializeComponent();
 
             this.categoryBoundaryName = categoryBoundaryName;
