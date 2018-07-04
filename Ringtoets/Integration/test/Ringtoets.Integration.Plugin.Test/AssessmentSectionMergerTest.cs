@@ -19,10 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
     [TestFixture]
-    public class AssessmentSectionMergerTest {}
+    public class AssessmentSectionMergerTest
+    {
+        [Test]
+        public void Constructor_InquiryHandlerNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new AssessmentSectionMerger(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("inquiryHandler", exception.ParamName);
+        }
+    }
 }

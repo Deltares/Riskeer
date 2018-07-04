@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Gui;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Plugin
@@ -28,6 +30,24 @@ namespace Ringtoets.Integration.Plugin
     /// </summary>
     public class AssessmentSectionMerger
     {
+        private readonly IInquiryHelper inquiryHandler;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
+        /// </summary>
+        /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inquiryHandler"/>
+        /// is <c>null</c>.</exception>
+        public AssessmentSectionMerger(IInquiryHelper inquiryHandler)
+        {
+            if (inquiryHandler == null)
+            {
+                throw new ArgumentNullException(nameof(inquiryHandler));
+            }
+
+            this.inquiryHandler = inquiryHandler;
+        }
+
         public void StartMerge()
         {
             
