@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 
 namespace Ringtoets.Common.Forms.Helpers
 {

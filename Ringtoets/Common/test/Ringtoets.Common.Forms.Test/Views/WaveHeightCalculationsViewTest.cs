@@ -39,7 +39,6 @@ using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TestUtil;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Common.Service.MessageProviders;
 
 namespace Ringtoets.Common.Forms.Test.Views
 {
@@ -371,7 +370,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var preprocessorDirectoryValue = "";
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
-            ICalculationMessageProvider messageProviderValue = null;
+            string categoryBoundaryNameValue = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
@@ -379,7 +378,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    categoryBoundaryNameValue = (string) invocation.Arguments[4];
                 });
 
             mockRepository.ReplayAll();
@@ -403,9 +402,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
-                            messageProviderValue.GetActivityDescription("Location name"));
+            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual("", preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
@@ -443,7 +440,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var preprocessorDirectoryValue = "";
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
-            ICalculationMessageProvider messageProviderValue = null;
+            string categoryBoundaryNameValue = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
@@ -451,7 +448,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    categoryBoundaryNameValue = (string) invocation.Arguments[4];
                 });
 
             mockRepository.ReplayAll();
@@ -475,9 +472,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
-                            messageProviderValue.GetActivityDescription("Location name"));
+            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
@@ -514,7 +509,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var preprocessorDirectoryValue = "";
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
-            ICalculationMessageProvider messageProviderValue = null;
+            string categoryBoundaryNameValue = null;
             guiService.Expect(ch => ch.CalculateWaveHeights(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
@@ -522,7 +517,7 @@ namespace Ringtoets.Common.Forms.Test.Views
                     preprocessorDirectoryValue = invocation.Arguments[1].ToString();
                     performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray();
                     normValue = (double) invocation.Arguments[3];
-                    messageProviderValue = (ICalculationMessageProvider) invocation.Arguments[4];
+                    categoryBoundaryNameValue = (string) invocation.Arguments[4];
                 });
 
             mockRepository.ReplayAll();
@@ -546,9 +541,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             button.Click();
 
             // Assert
-            Assert.IsInstanceOf<WaveHeightCalculationMessageProvider>(messageProviderValue);
-            Assert.AreEqual($"Golfhoogte berekenen voor locatie 'Location name' (Categorie {categoryBoundaryName})",
-                            messageProviderValue.GetActivityDescription("Location name"));
+            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
             Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
             Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
             Assert.AreEqual(norm, normValue);
