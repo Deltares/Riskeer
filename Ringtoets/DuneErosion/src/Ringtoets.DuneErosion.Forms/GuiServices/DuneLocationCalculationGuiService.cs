@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
@@ -29,7 +28,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -65,13 +63,14 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
-        /// <param name="messageProvider">The provider of the messages to use during calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>,
-        /// <paramref name="assessmentSection"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public void Calculate(IEnumerable<DuneLocationCalculation> calculations,
                               IAssessmentSection assessmentSection,
                               double norm,
-                              ICalculationMessageProvider messageProvider)
+                              string categoryBoundaryName)
         {
             if (calculations == null)
             {
@@ -81,11 +80,6 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
@@ -106,13 +100,11 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                 return;
             }
 
-            ActivityProgressDialogRunner.Run(
-                viewParent,
-                calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
-                                                                                       hydraulicBoundaryDatabaseFilePath,
-                                                                                       preprocessorDirectory,
-                                                                                       norm,
-                                                                                       messageProvider)).ToArray());
+            ActivityProgressDialogRunner.Run(viewParent,
+                                             DuneLocationCalculationActivityFactory.CreateCalculationActivities(calculations,
+                                                                                                                assessmentSection,
+                                                                                                                norm,
+                                                                                                                categoryBoundaryName));
         }
     }
 }
