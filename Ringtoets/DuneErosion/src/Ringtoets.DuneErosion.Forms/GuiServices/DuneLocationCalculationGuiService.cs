@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
@@ -88,7 +89,7 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
             }
 
             string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
-            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory;
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    preprocessorDirectory);

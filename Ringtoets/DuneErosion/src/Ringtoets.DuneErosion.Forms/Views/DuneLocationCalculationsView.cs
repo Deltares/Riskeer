@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.Properties;
@@ -171,8 +170,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected override void CalculateForSelectedRows()
         {
             CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
-                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                             AssessmentSection,
                                              getNormFunc(),
                                              messageProvider);
         }

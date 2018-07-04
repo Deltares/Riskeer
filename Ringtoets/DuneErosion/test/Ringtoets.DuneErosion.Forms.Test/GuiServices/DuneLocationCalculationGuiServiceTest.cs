@@ -139,14 +139,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = "Does not exist"
+            };
+
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
-                             .Return(new HydraulicBoundaryDatabase
-                             {
-                                 FilePath = "Does not exist",
-                                 PreprocessorDirectory = validPreprocessorDirectory
-                             });
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -176,14 +178,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_InvalidNorm_LogsError()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
-                             .Return(new HydraulicBoundaryDatabase
-                             {
-                                 FilePath = validFilePath,
-                                 PreprocessorDirectory = validPreprocessorDirectory
-                             });
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -208,14 +212,16 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_ValidPathEmptyList_NoLog()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
-                             .Return(new HydraulicBoundaryDatabase
-                             {
-                                 FilePath = validFilePath,
-                                 PreprocessorDirectory = validPreprocessorDirectory
-                             });
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -240,6 +246,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_ValidPathOneCalculationInTheList_LogsMessages()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = validPreprocessorDirectory
+            };
+
             const string duneLocationName = "name";
             const string description = "description";
             const string calculatedNotConvergedMessage = "calculatedNotConvergedMessage";
@@ -251,11 +265,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                              .Return(new TestDunesBoundaryConditionsCalculator());
             var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
-                             .Return(new HydraulicBoundaryDatabase
-                             {
-                                 FilePath = validFilePath,
-                                 PreprocessorDirectory = validPreprocessorDirectory
-                             });
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Expect(calc => calc.GetActivityDescription(duneLocationName))
                                       .Return(description);
