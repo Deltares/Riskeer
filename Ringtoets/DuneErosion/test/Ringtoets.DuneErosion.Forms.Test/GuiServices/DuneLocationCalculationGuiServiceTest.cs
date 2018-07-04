@@ -28,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -62,7 +61,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -73,7 +71,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 TestDelegate test = () => guiService.Calculate(null,
                                                                assessmentSection,
                                                                1.0 / 30000,
-                                                               calculationMessageProvider);
+                                                               "A");
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
@@ -87,10 +85,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
             using (var viewParent = new Form())
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
@@ -99,40 +93,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
                                                                null,
                                                                1.0 / 30000,
-                                                               calculationMessageProvider);
+                                                               "A");
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("assessmentSection", exception.ParamName);
             }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_MessageProviderNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                               assessmentSection,
-                                                               1.0 / 30000,
-                                                               null);
-
-                // Assert
-                var exception = Assert.Throws<ArgumentNullException>(test);
-                Assert.AreEqual("messageProvider", exception.ParamName);
-            }
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -149,7 +115,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -160,7 +125,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
                                                          assessmentSection,
                                                          1.0 / 30000,
-                                                         calculationMessageProvider);
+                                                         "A");
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -188,7 +153,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -199,7 +163,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
                                                          assessmentSection,
                                                          1.0,
-                                                         calculationMessageProvider);
+                                                         "A");
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
@@ -222,7 +186,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -233,7 +196,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
                                                          assessmentSection,
                                                          0.01,
-                                                         calculationMessageProvider);
+                                                         "A");
 
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
@@ -254,9 +217,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 PreprocessorDirectory = validPreprocessorDirectory
             };
 
-            const string duneLocationName = "name";
-            const string description = "description";
-            const string calculatedNotConvergedMessage = "calculatedNotConvergedMessage";
+            const string categoryBoundaryName = "A";
+            const string duneLocationName = "duneLocationName";
 
             var mockRepository = new MockRepository();
             var viewParent = mockRepository.Stub<IWin32Window>();
@@ -267,11 +229,6 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(duneLocationName))
-                                      .Return(description);
-            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(duneLocationName))
-                                      .Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -285,21 +242,21 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                          },
                                                          assessmentSection,
                                                          1.0 / 30000,
-                                                         calculationMessageProvider);
+                                                         categoryBoundaryName);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    Assert.AreEqual($"{description} is gestart.", msgs[0]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual(calculatedNotConvergedMessage, msgs[4]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    Assert.AreEqual($"{description} is gelukt.", msgs[7]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is gelukt.", msgs[7]);
                 });
             }
 

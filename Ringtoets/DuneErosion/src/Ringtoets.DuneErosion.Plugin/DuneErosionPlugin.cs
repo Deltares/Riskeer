@@ -45,7 +45,6 @@ using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
-using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -390,7 +389,7 @@ namespace Ringtoets.DuneErosion.Plugin
                     duneLocationCalculationGuiService.Calculate(context.WrappedData,
                                                                 context.AssessmentSection,
                                                                 context.GetNormFunc(),
-                                                                new DuneLocationCalculationMessageProvider(context.CategoryBoundaryName));
+                                                                context.CategoryBoundaryName);
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
