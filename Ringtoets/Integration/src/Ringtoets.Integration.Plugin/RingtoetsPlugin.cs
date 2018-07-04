@@ -78,6 +78,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -275,7 +276,7 @@ namespace Ringtoets.Integration.Plugin
 
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-            assessmentSectionMerger = new AssessmentSectionMerger(new DialogBasedInquiryHelper(Gui.MainWindow));
+            assessmentSectionMerger = new AssessmentSectionMerger(new InquiryMergeHelper());
 
             ribbonCommandHandler = new RingtoetsRibbon
             {

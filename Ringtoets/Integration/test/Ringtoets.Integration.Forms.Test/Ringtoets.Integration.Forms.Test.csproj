@@ -38,6 +38,7 @@
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyControlTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControlTest.cs" />
+    <Compile Include="InquiryMergeHelperTest.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
