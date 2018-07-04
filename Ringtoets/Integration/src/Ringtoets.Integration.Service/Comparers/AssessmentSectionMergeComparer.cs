@@ -5,32 +5,33 @@ using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Service.Comparers
 {
     /// <summary>
-    /// Class which compares <see cref="IAssessmentSection"/> to
+    /// Class which compares <see cref="AssessmentSection"/> to
     /// determine whether they are equal and can be used to merged.
     /// </summary>
     public class AssessmentSectionMergeComparer : IAssessmentSectionMergeComparer
     {
-        public bool Compare(IAssessmentSection referenceAssessmentSection, IAssessmentSection assessmentSectionToCompare)
+        public bool Compare(AssessmentSection assessmentSection, AssessmentSection otherAssessmentSection)
         {
-            if (referenceAssessmentSection == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(referenceAssessmentSection));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (assessmentSectionToCompare == null)
+            if (otherAssessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSectionToCompare));
+                throw new ArgumentNullException(nameof(otherAssessmentSection));
             }
 
-            return referenceAssessmentSection.Id == assessmentSectionToCompare.Id
-                   && referenceAssessmentSection.Composition == assessmentSectionToCompare.Composition
-                   && AreReferenceLinesEquivalent(referenceAssessmentSection.ReferenceLine, assessmentSectionToCompare.ReferenceLine)
-                   && AreHydraulicBoundaryDatabasesEquivalent(referenceAssessmentSection.HydraulicBoundaryDatabase, assessmentSectionToCompare.HydraulicBoundaryDatabase)
-                   && AreFailureMechanismContributionsEquivalent(referenceAssessmentSection.FailureMechanismContribution, assessmentSectionToCompare.FailureMechanismContribution);
+            return assessmentSection.Id == otherAssessmentSection.Id
+                   && assessmentSection.Composition == otherAssessmentSection.Composition
+                   && AreReferenceLinesEquivalent(assessmentSection.ReferenceLine, otherAssessmentSection.ReferenceLine)
+                   && AreHydraulicBoundaryDatabasesEquivalent(assessmentSection.HydraulicBoundaryDatabase, otherAssessmentSection.HydraulicBoundaryDatabase)
+                   && AreFailureMechanismContributionsEquivalent(assessmentSection.FailureMechanismContribution, otherAssessmentSection.FailureMechanismContribution);
         }
 
         private static bool AreReferenceLinesEquivalent(ReferenceLine referenceLine, ReferenceLine otherReferenceLine)
