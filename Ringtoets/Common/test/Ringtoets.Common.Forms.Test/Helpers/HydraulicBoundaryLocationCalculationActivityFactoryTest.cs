@@ -50,39 +50,17 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         [Test]
         public void CreateWaveHeightCalculationActivities_CalculationsNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var messageProvider = mocks.Stub<ICalculationMessageProvider>();
-            mocks.ReplayAll();
-
             // Call
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 string.Empty,
                 string.Empty,
                 null,
                 new Random(12).NextDouble(),
-                messageProvider);
+                "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("calculations", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CreateWaveHeightCalculationActivities_MessageProviderNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                string.Empty,
-                string.Empty,
-                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                new Random(12).NextDouble(),
-                null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("messageProvider", paramName);
         }
 
         [Test]
@@ -90,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
         {
             // Setup
             const string locationName = "locationName";
-            const string activityDescription = "activityDescription";
+            const string categoryBoundaryName = "A";
             const double norm = 1.0 / 30;
 
             var calculator = new TestWaveHeightCalculator
@@ -101,12 +79,6 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-
-            var calculationMessageProvider = mocks.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-
-            var messageProvider = mocks.Stub<ICalculationMessageProvider>();
-            messageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
 
             mocks.ReplayAll();
 
@@ -121,7 +93,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                 },
                 norm,
-                messageProvider);
+                categoryBoundaryName);
 
             // Assert
             WaveHeightCalculationActivity activity = activities.Single();
@@ -133,7 +105,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"{activityDescription} is gestart.", messages[0]);
+                    Assert.AreEqual($"Golfhoogte berekenen voor locatie 'locationName' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
