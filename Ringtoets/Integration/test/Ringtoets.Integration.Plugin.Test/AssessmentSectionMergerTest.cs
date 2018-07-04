@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Gui;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -36,6 +39,42 @@ namespace Ringtoets.Integration.Plugin.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("inquiryHandler", exception.ParamName);
+        }
+
+        [Test]
+        public void StartMerge_FilePathNull_AbortAndShowCancelMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(null);
+            mocks.ReplayAll();
+
+            var merger = new AssessmentSectionMerger(inquiryHelper);
+
+            // Call
+            Action call = () => merger.StartMerge();
+
+            // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Info), 1);
+        }
+
+        [Test]
+        public void StartMerge_FilePathNotNull_Continue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            mocks.ReplayAll();
+
+            var merger = new AssessmentSectionMerger(inquiryHelper);
+
+            // Call
+            Action call = () => merger.StartMerge();
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
         }
     }
 }

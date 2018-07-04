@@ -21,7 +21,10 @@
 
 using System;
 using Core.Common.Gui;
+using log4net;
 using Ringtoets.Integration.Data;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
+using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -30,6 +33,8 @@ namespace Ringtoets.Integration.Plugin
     /// </summary>
     public class AssessmentSectionMerger
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMerger));
+
         private readonly IInquiryHelper inquiryHandler;
 
         /// <summary>
@@ -50,7 +55,21 @@ namespace Ringtoets.Integration.Plugin
 
         public void StartMerge()
         {
-            
+            SelectProject();
+        }
+
+        private void SelectProject()
+        {
+            string filePath = inquiryHandler.GetSourceFileLocation(RingtoetsStorageResources.Ringtoets_project_file_filter);
+            if (filePath == null)
+            {
+                CancelMergeAndLog();
+            }
+        }
+
+        private static void CancelMergeAndLog()
+        {
+            log.Info(CoreCommonGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
         }
     }
 }
