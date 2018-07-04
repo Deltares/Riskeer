@@ -15,7 +15,7 @@ namespace Ringtoets.Integration.Service.Comparers
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to compare against.</param>
         /// <param name="otherAssessmentSection">The <see cref="AssessmentSection"/> to compare.</param>
-        /// <returns><c>true</c> when <paramref name="otherAssessmentSection"/> is equal to
+        /// <returns><c>true</c> when <paramref name="assessmentSection"/> is equal to
         /// <paramref name="otherAssessmentSection"/> and suitable to merge, <c>false</c> if otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         bool Compare(AssessmentSection assessmentSection, AssessmentSection otherAssessmentSection);
