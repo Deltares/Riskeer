@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.MessageProviders;
@@ -61,18 +62,13 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// Performs all <paramref name="calculations"/>.
         /// </summary>
         /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file 
-        /// that should be used for performing the calculations.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="messageProvider">The provider of the messages to use during calculations.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
-        /// <paramref name="messageProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>,
+        /// <paramref name="assessmentSection"/> or <paramref name="messageProvider"/> is <c>null</c>.</exception>
         public void Calculate(IEnumerable<DuneLocationCalculation> calculations,
-                              string hydraulicBoundaryDatabaseFilePath,
-                              string preprocessorDirectory,
+                              IAssessmentSection assessmentSection,
                               double norm,
                               ICalculationMessageProvider messageProvider)
         {
@@ -81,10 +77,18 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                 throw new ArgumentNullException(nameof(calculations));
             }
 
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (messageProvider == null)
             {
                 throw new ArgumentNullException(nameof(messageProvider));
             }
+
+            string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory;
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    preprocessorDirectory);
