@@ -81,6 +81,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
+using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses;

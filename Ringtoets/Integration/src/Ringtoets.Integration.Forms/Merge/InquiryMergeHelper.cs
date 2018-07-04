@@ -21,7 +21,7 @@
 
 using Core.Common.Gui;
 
-namespace Ringtoets.Integration.Forms
+namespace Ringtoets.Integration.Forms.Merge
 {
     /// <summary>
     /// Temporary inquiry helper for merging.

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Gui;
 using NUnit.Framework;
+using Ringtoets.Integration.Forms.Merge;
 
 namespace Ringtoets.Integration.Forms.Test
 {

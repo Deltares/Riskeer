@@ -33,8 +33,8 @@
     <Compile Include="Controls\AssessmentSectionAssemblyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="IMergeDataProvider.cs" />
-    <Compile Include="InquiryMergeHelper.cs" />
+    <Compile Include="Merge\IMergeDataProvider.cs" />
+    <Compile Include="Merge\InquiryMergeHelper.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
