@@ -18,10 +18,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundMapDataSelectionDialog.cs">
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BackgroundMapDataSelectionDialog.Designer.cs">
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.Designer.cs">
       <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
@@ -61,10 +61,10 @@
     </Compile>
     <Compile Include="PropertyClasses\AssessmentSectionProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabaseProperties.cs" />
-    <Compile Include="ReferenceLineMetaSelectionDialog.cs">
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceLineMetaSelectionDialog.Designer.cs">
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialog.Designer.cs">
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="RingtoetsSettingsHelper.cs" />
@@ -280,7 +280,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BackgroundMapDataSelectionDialog.resx">
+    <EmbeddedResource Include="Dialogs\BackgroundMapDataSelectionDialog.resx">
       <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -288,7 +288,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceLineMetaSelectionDialog.resx">
+    <EmbeddedResource Include="Dialogs\ReferenceLineMetaSelectionDialog.resx">
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

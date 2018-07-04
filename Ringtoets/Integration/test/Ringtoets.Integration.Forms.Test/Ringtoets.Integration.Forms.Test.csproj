@@ -33,7 +33,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyControlTest.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
-    <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />

@@ -37,6 +37,7 @@ using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.Exceptions;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Dialogs;
 using Ringtoets.Integration.Forms.Properties;
 using IntegrationResources = Ringtoets.Integration.Data.Properties.Resources;
 using BaseResources = Core.Common.Base.Properties.Resources;
