@@ -87,16 +87,11 @@ namespace Ringtoets.Common.Forms.GuiServices
                                          string preprocessorDirectory,
                                          IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                          double norm,
-                                         ICalculationMessageProvider messageProvider)
+                                         string categoryBoundaryName)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
-            }
-
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
@@ -106,7 +101,7 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                                                                                     preprocessorDirectory,
                                                                                                                     calculations,
                                                                                                                     norm,
-                                                                                                                    messageProvider));
+                                                                                                                    categoryBoundaryName));
         }
 
         private void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,

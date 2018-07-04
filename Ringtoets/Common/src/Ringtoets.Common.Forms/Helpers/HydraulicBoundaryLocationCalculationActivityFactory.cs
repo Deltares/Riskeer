@@ -42,32 +42,32 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
-        /// <param name="messageProvider">The message provider for the activities.</param>
+        /// <param name="categoryBoundaryName">The category boundary name for the calculations.</param>
         /// <returns>A collection of <see cref="WaveHeightCalculationActivity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>
-        /// or <paramref name="messageProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<WaveHeightCalculationActivity> CreateWaveHeightCalculationActivities(
             string hydraulicBoundaryDatabaseFilePath,
             string preprocessorDirectory,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             double norm,
-            ICalculationMessageProvider messageProvider)
+            string categoryBoundaryName)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            if (messageProvider == null)
+            if (categoryBoundaryName == null)
             {
-                throw new ArgumentNullException(nameof(messageProvider));
+                throw new ArgumentNullException(nameof(categoryBoundaryName));
             }
 
             return calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
                                                                                         hydraulicBoundaryDatabaseFilePath,
                                                                                         preprocessorDirectory,
                                                                                         norm,
-                                                                                        messageProvider)).ToArray();
+                                                                                        categoryBoundaryName)).ToArray();
         }
 
         /// <summary>

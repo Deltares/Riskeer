@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Service.MessageProviders;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.Views
@@ -37,7 +36,7 @@ namespace Ringtoets.Common.Forms.Views
     public partial class WaveHeightCalculationsView : HydraulicBoundaryCalculationsView
     {
         private readonly Func<double> getNormFunc;
-        private readonly WaveHeightCalculationMessageProvider messageProvider;
+        private readonly string categoryBoundaryName;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationsView"/>.
@@ -62,8 +61,7 @@ namespace Ringtoets.Common.Forms.Views
 
             InitializeComponent();
 
-            messageProvider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
-
+            this.categoryBoundaryName = categoryBoundaryName;
             this.getNormFunc = getNormFunc;
         }
 
@@ -85,7 +83,7 @@ namespace Ringtoets.Common.Forms.Views
                                                        AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                        calculations,
                                                        getNormFunc(),
-                                                       messageProvider);
+                                                       categoryBoundaryName);
         }
 
         protected override void InitializeDataGridView()

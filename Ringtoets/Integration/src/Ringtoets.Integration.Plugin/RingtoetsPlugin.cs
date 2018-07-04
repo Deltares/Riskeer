@@ -1875,7 +1875,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                         assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                         nodeData.WrappedData,
                                                                                         nodeData.GetNormFunc(),
-                                                                                        new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
+                                                                                        nodeData.CategoryBoundaryName);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
@@ -2125,7 +2125,7 @@ namespace Ringtoets.Integration.Plugin
                                             assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                             context.WrappedData,
                                             context.GetNormFunc(),
-                                            new WaveHeightCalculationMessageProvider(context.CategoryBoundaryName)))
+                                            context.CategoryBoundaryName))
                             .ToArray();
 
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);

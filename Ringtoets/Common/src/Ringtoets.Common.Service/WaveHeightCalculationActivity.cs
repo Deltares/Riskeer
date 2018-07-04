@@ -44,27 +44,22 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file that should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
+        /// <param name="categoryBoundaryName">The category boundary name of the calculation.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/> equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> or
-        /// <paramref name="messageProvider"/>is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationCalculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public WaveHeightCalculationActivity(HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation,
                                              string hydraulicBoundaryDatabaseFilePath,
                                              string preprocessorDirectory,
                                              double norm,
-                                             ICalculationMessageProvider messageProvider)
+                                             string categoryBoundaryName)
             : base(hydraulicBoundaryLocationCalculation)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
             this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
-            this.messageProvider = messageProvider;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
+            messageProvider = new WaveHeightCalculationMessageProvider(categoryBoundaryName);
 
             Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation.Name);
 
