@@ -79,32 +79,27 @@ namespace Ringtoets.Common.Forms.Helpers
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
-        /// <param name="messageProvider">The message provider for the activities.</param>
+        /// <param name="categoryBoundaryName">The category boundary name to use for the activities.</param>
         /// <returns>A collection of <see cref="DesignWaterLevelCalculationActivity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/>
-        /// or <paramref name="messageProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<DesignWaterLevelCalculationActivity> CreateDesignWaterLevelCalculationActivities(
             string hydraulicBoundaryDatabaseFilePath,
             string preprocessorDirectory,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             double norm,
-            ICalculationMessageProvider messageProvider)
+            string categoryBoundaryName)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
             return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
                                                                                               hydraulicBoundaryDatabaseFilePath,
                                                                                               preprocessorDirectory,
                                                                                               norm,
-                                                                                              messageProvider)).ToArray();
+                                                                                              categoryBoundaryName)).ToArray();
         }
     }
 }

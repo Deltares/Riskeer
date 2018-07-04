@@ -30,7 +30,6 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 
 namespace Ringtoets.Common.Forms.GuiServices
 {
@@ -61,16 +60,11 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                string preprocessorDirectory,
                                                IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                double norm,
-                                               ICalculationMessageProvider messageProvider)
+                                               string categoryBoundaryName)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
-            }
-
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
             }
 
             RunActivities(hydraulicBoundaryDatabaseFilePath,
@@ -80,7 +74,7 @@ namespace Ringtoets.Common.Forms.GuiServices
                                                                                                                           preprocessorDirectory,
                                                                                                                           calculations,
                                                                                                                           norm,
-                                                                                                                          messageProvider));
+                                                                                                                          categoryBoundaryName));
         }
 
         public void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,

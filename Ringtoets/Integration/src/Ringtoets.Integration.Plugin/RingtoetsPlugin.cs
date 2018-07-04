@@ -64,7 +64,6 @@ using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Util.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -1841,7 +1840,7 @@ namespace Ringtoets.Integration.Plugin
                                                                                               assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                               nodeData.WrappedData,
                                                                                               nodeData.GetNormFunc(),
-                                                                                              new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
+                                                                                              nodeData.CategoryBoundaryName);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
@@ -2086,7 +2085,7 @@ namespace Ringtoets.Integration.Plugin
                                             assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                             context.WrappedData,
                                             context.GetNormFunc(),
-                                            new DesignWaterLevelCalculationMessageProvider(context.CategoryBoundaryName)))
+                                            context.CategoryBoundaryName))
                             .ToArray();
 
                     ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
