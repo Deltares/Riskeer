@@ -1024,7 +1024,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    IEnumerable<DesignWaterLevelCalculationActivity> activities =
+                    IEnumerable<CalculatableActivity> activities =
                         DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
@@ -1105,7 +1105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    IEnumerable<WaveHeightCalculationActivity> activities =
+                    IEnumerable<CalculatableActivity> activities =
                         WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(

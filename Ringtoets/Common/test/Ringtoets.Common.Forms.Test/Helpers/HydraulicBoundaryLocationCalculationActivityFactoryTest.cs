@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             // Call
-            IEnumerable<WaveHeightCalculationActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+            IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 validFilePath,
                 validPreprocessorDirectory,
                 new[]
@@ -95,7 +95,9 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 categoryBoundaryName);
 
             // Assert
-            WaveHeightCalculationActivity activity = activities.Single();
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
+
+            CalculatableActivity activity = activities.Single();
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = () => activity.Run();
@@ -158,7 +160,7 @@ namespace Ringtoets.Common.Forms.Test.Helpers
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
 
             // Call
-            IEnumerable<DesignWaterLevelCalculationActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+            IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 validFilePath,
                 validPreprocessorDirectory,
                 new[]
@@ -169,7 +171,9 @@ namespace Ringtoets.Common.Forms.Test.Helpers
                 categoryBoundaryName);
 
             // Assert
-            DesignWaterLevelCalculationActivity activity = activities.Single();
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
+
+            CalculatableActivity activity = activities.Single();
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = () => activity.Run();

@@ -28,13 +28,14 @@ using Ringtoets.Common.Service;
 namespace Ringtoets.Common.Forms.Helpers
 {
     /// <summary>
-    /// Factory for creating hydraulic boundary location calculation activities.
+    /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for
+    /// hydraulic boundary location calculations.
     /// </summary>
     public static class HydraulicBoundaryLocationCalculationActivityFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="WaveHeightCalculationActivity"/> based on the
-        /// given parameters.
+        /// Creates a collection of <see cref="CalculatableActivity"/> for wave height calculations
+        /// based on the given parameters.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
@@ -42,10 +43,10 @@ namespace Ringtoets.Common.Forms.Helpers
         /// the activities for.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name for the calculations.</param>
-        /// <returns>A collection of <see cref="WaveHeightCalculationActivity"/>.</returns>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public static IEnumerable<WaveHeightCalculationActivity> CreateWaveHeightCalculationActivities(
+        public static IEnumerable<CalculatableActivity> CreateWaveHeightCalculationActivities(
             string hydraulicBoundaryDatabaseFilePath,
             string preprocessorDirectory,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
@@ -70,8 +71,8 @@ namespace Ringtoets.Common.Forms.Helpers
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="DesignWaterLevelCalculationActivity"/> based on the
-        /// given parameters.
+        /// Creates a collection of <see cref="CalculatableActivity"/> for design water level calculations
+        /// based on the given parameters.
         /// </summary>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
@@ -79,10 +80,10 @@ namespace Ringtoets.Common.Forms.Helpers
         /// the activities for.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name to use for the activities.</param>
-        /// <returns>A collection of <see cref="DesignWaterLevelCalculationActivity"/>.</returns>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        public static IEnumerable<DesignWaterLevelCalculationActivity> CreateDesignWaterLevelCalculationActivities(
+        public static IEnumerable<CalculatableActivity> CreateDesignWaterLevelCalculationActivities(
             string hydraulicBoundaryDatabaseFilePath,
             string preprocessorDirectory,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,

@@ -2089,7 +2089,7 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
 
-                    IEnumerable<DesignWaterLevelCalculationActivity> activities =
+                    IEnumerable<CalculatableActivity> activities =
                         DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<DesignWaterLevelCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
@@ -2128,7 +2128,7 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
 
-                    IEnumerable<WaveHeightCalculationActivity> activities =
+                    IEnumerable<CalculatableActivity> activities =
                         WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<WaveHeightCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
