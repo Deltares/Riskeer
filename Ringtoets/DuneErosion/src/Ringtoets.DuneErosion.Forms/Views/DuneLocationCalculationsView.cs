@@ -27,7 +27,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.Properties;
-using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Forms.Views
@@ -41,8 +40,8 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer duneLocationCalculationsObserver;
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
         private readonly Func<double> getNormFunc;
+        private readonly string categoryBoundaryName;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
-        private readonly DuneLocationCalculationMessageProvider messageProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocationCalculationsView"/>.
@@ -80,12 +79,16 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 throw new ArgumentNullException(nameof(getNormFunc));
             }
 
-            InitializeComponent();
+            if (string.IsNullOrEmpty(categoryBoundaryName))
+            {
+                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+            }
 
-            messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
+            InitializeComponent();
 
             this.calculations = calculations;
             this.getNormFunc = getNormFunc;
+            this.categoryBoundaryName = categoryBoundaryName;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
@@ -172,7 +175,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
             CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
                                              AssessmentSection,
                                              getNormFunc(),
-                                             messageProvider);
+                                             categoryBoundaryName);
         }
     }
 }
