@@ -26,5 +26,11 @@ namespace Ringtoets.Integration.Plugin
     /// <summary>
     /// Class responsible for merging <see cref="AssessmentSection"/>.
     /// </summary>
-    public class AssessmentSectionMerger {}
+    public class AssessmentSectionMerger
+    {
+        public void StartMerge()
+        {
+            
+        }
+    }
 }

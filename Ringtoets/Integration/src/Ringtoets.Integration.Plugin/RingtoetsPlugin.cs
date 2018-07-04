@@ -240,6 +240,7 @@ namespace Ringtoets.Integration.Plugin
 
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
+        private AssessmentSectionMerger assessmentSectionMerger;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -274,6 +275,7 @@ namespace Ringtoets.Integration.Plugin
 
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
+            assessmentSectionMerger = new AssessmentSectionMerger();
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
@@ -1459,8 +1461,16 @@ namespace Ringtoets.Integration.Plugin
 
         private ContextMenuStrip AssessmentSectionContextMenuStrip(IAssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            var importItem = new StrictContextMenuItem(
+                GuiResources.Import,
+                GuiResources.Import_ToolTip,
+                GuiResources.ImportIcon,
+                (sender, args) => assessmentSectionMerger.StartMerge());
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
+                      .AddSeparator()
+                      .AddCustomItem(importItem)
                       .AddSeparator()
                       .AddRenameItem()
                       .AddSeparator()
