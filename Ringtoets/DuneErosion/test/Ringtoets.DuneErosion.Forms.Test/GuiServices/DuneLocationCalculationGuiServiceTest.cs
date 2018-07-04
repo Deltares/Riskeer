@@ -26,6 +26,8 @@ using System.Windows.Forms;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
@@ -59,6 +61,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -68,8 +71,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(null,
-                                                               validFilePath,
-                                                               validPreprocessorDirectory,
+                                                               assessmentSection,
                                                                1.0 / 30000,
                                                                calculationMessageProvider);
 
@@ -82,17 +84,46 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_MessageProviderNull_ThrowArgumentNullException()
+        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
+            mockRepository.ReplayAll();
+
             using (var viewParent = new Form())
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                               validFilePath,
-                                                               validPreprocessorDirectory,
+                                                               null,
+                                                               1.0 / 30000,
+                                                               calculationMessageProvider);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("assessmentSection", exception.ParamName);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_MessageProviderNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            using (var viewParent = new Form())
+            {
+                var guiService = new DuneLocationCalculationGuiService(viewParent);
+
+                // Call
+                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
+                                                               assessmentSection,
                                                                1.0 / 30000,
                                                                null);
 
@@ -100,6 +131,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                 var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("messageProvider", exception.ParamName);
             }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -107,10 +140,15 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+                             .Return(new HydraulicBoundaryDatabase
+                             {
+                                 FilePath = "Does not exist",
+                                 PreprocessorDirectory = validPreprocessorDirectory
+                             });
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
-
-            const string databasePath = "Does not exist";
 
             using (var viewParent = new Form())
             {
@@ -118,8 +156,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         databasePath,
-                                                         validPreprocessorDirectory,
+                                                         assessmentSection,
                                                          1.0 / 30000,
                                                          calculationMessageProvider);
 
@@ -140,6 +177,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+                             .Return(new HydraulicBoundaryDatabase
+                             {
+                                 FilePath = validFilePath,
+                                 PreprocessorDirectory = validPreprocessorDirectory
+                             });
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -149,8 +193,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         validFilePath,
-                                                         validPreprocessorDirectory,
+                                                         assessmentSection,
                                                          1.0,
                                                          calculationMessageProvider);
 
@@ -166,6 +209,13 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+                             .Return(new HydraulicBoundaryDatabase
+                             {
+                                 FilePath = validFilePath,
+                                 PreprocessorDirectory = validPreprocessorDirectory
+                             });
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
@@ -175,8 +225,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
 
                 // Call
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         validFilePath,
-                                                         validPreprocessorDirectory,
+                                                         assessmentSection,
                                                          0.01,
                                                          calculationMessageProvider);
 
@@ -198,10 +247,20 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             var mockRepository = new MockRepository();
             var viewParent = mockRepository.Stub<IWin32Window>();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDunesBoundaryConditionsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
+                             .Return(new TestDunesBoundaryConditionsCalculator());
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+                             .Return(new HydraulicBoundaryDatabase
+                             {
+                                 FilePath = validFilePath,
+                                 PreprocessorDirectory = validPreprocessorDirectory
+                             });
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(duneLocationName)).Return(description);
-            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(duneLocationName)).Return(calculatedNotConvergedMessage);
+            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(duneLocationName))
+                                      .Return(description);
+            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(duneLocationName))
+                                      .Return(calculatedNotConvergedMessage);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -213,8 +272,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                          {
                                                              new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
                                                          },
-                                                         validFilePath,
-                                                         validPreprocessorDirectory,
+                                                         assessmentSection,
                                                          1.0 / 30000,
                                                          calculationMessageProvider);
 
