@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Service.Test.Comparers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Compare_AssessmentSectionsWithReferenceLineAreEqual_ReturnsTrue(bool hasReferenceLine)
+        public void Compare_AssessmentSectionsHasReferenceLineAreEquivalent_ReturnsTrue(bool hasReferenceLine)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -76,8 +76,8 @@ namespace Ringtoets.Integration.Service.Test.Comparers
         }
 
         [Test]
-        [TestCaseSource(nameof(GetUnequalTestCases))]
-        public void Compare_AssessmentSectionsUnequalFailureMechanismContributions_ReturnsFalse(AssessmentSection otherAssessmentSection)
+        [TestCaseSource(nameof(GetUnequivalentAssessmentSectionTestCases))]
+        public void Compare_AssessmentSectionsNotEquivalent_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Service.Test.Comparers
             };
         }
 
-        private static IEnumerable<TestCaseData> GetUnequalTestCases()
+        private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionTestCases()
         {
             AssessmentSection referenceAssessmentSection = CreateAssessmentSection();
             yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.DikeAndDune,
