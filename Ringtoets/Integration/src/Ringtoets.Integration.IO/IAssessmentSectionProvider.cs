@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.IO
@@ -26,5 +27,13 @@ namespace Ringtoets.Integration.IO
     /// <summary>
     /// Interface for reading and providing <see cref="AssessmentSection"/> instances.
     /// </summary>
-    public interface IAssessmentSectionProvider {}
+    public interface IAssessmentSectionProvider
+    {
+        /// <summary>
+        /// Gets the assessment sections from the given <paramref name="filePath"/>.
+        /// </summary>
+        /// <param name="filePath">The file path to read the assessment sections from.</param>
+        /// <returns>A collection of <see cref="AssessmentSection"/>.</returns>
+        IEnumerable<AssessmentSection> GetAssessmentSections(string filePath);
+    }
 }

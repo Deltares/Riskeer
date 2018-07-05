@@ -13,11 +13,19 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\AssessmentSectionProviderStub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AssessmentSectionProviderStub.Designer.cs">
+      <DependentUpon>AssessmentSectionProviderStub.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +285,11 @@
     <ProjectReference Include="..\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
+      <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
+      <Name>Ringtoets.Integration.IO</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

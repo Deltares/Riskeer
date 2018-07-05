@@ -33,6 +33,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dialogs\AssessmentSectionProviderStubTest.cs" />
     <Compile Include="Dialogs\BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
@@ -255,6 +256,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Forms\Ringtoets.Integration.Forms.csproj">
       <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
       <Name>Ringtoets.Integration.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
+      <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
+      <Name>Ringtoets.Integration.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
