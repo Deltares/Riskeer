@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test
         }
 
         [Test]
-        public void GetSourceFileLocationWithFileFilter_Always_ReturnNull()
+        public void GetSourceFileLocationWithFileFilter_Always_ReturnEmptyString()
         {
             // Setup
             var helper = new InquiryMergeHelper();
@@ -62,7 +62,7 @@ namespace Ringtoets.Integration.Forms.Test
             string fileLocation = helper.GetSourceFileLocation(null);
 
             // Assert
-            Assert.IsNull(fileLocation);
+            Assert.IsEmpty(fileLocation);
         }
 
         [Test]

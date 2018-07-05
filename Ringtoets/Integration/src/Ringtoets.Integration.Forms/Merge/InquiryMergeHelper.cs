@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Forms.Merge
 
         public string GetSourceFileLocation(string fileFilter)
         {
-            return null;
+            return "";
         }
 
         public string GetTargetFileLocation()
