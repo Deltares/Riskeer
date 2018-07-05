@@ -23,6 +23,8 @@ using System;
 using Core.Common.Gui;
 using log4net;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Integration.IO;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
 
@@ -36,14 +38,17 @@ namespace Ringtoets.Integration.Plugin
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMerger));
 
         private readonly IInquiryHelper inquiryHandler;
+        private readonly IAssessmentSectionProvider assessmentSectionProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
         /// </summary>
         /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
+        /// <param name="assessmentSectionProvider">The provider for getting the assessment sections
+        /// to merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="inquiryHandler"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionMerger(IInquiryHelper inquiryHandler)
+        public AssessmentSectionMerger(IInquiryHelper inquiryHandler, IAssessmentSectionProvider assessmentSectionProvider)
         {
             if (inquiryHandler == null)
             {
@@ -51,6 +56,7 @@ namespace Ringtoets.Integration.Plugin
             }
 
             this.inquiryHandler = inquiryHandler;
+            this.assessmentSectionProvider = assessmentSectionProvider;
         }
 
         public void StartMerge()
@@ -64,7 +70,10 @@ namespace Ringtoets.Integration.Plugin
             if (filePath == null)
             {
                 CancelMergeAndLog();
+                return;
             }
+
+            assessmentSectionProvider.GetAssessmentSections(filePath);
         }
 
         private static void CancelMergeAndLog()

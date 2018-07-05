@@ -24,6 +24,7 @@ using Core.Common.Gui;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Integration.IO;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -33,12 +34,18 @@ namespace Ringtoets.Integration.Plugin.Test
         [Test]
         public void Constructor_InquiryHandlerNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            mocks.ReplayAll();
+            
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(null);
+            TestDelegate call = () => new AssessmentSectionMerger(null, assessmentSectionProvider);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("inquiryHandler", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -48,15 +55,17 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(null);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper);
+            var merger = new AssessmentSectionMerger(inquiryHelper, assessmentSectionProvider);
 
             // Call
             Action call = () => merger.StartMerge();
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Info), 1);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -66,15 +75,18 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments().Return(null);
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper);
+            var merger = new AssessmentSectionMerger(inquiryHelper, assessmentSectionProvider);
 
             // Call
             Action call = () => merger.StartMerge();
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
+            mocks.VerifyAll();
         }
     }
 }
