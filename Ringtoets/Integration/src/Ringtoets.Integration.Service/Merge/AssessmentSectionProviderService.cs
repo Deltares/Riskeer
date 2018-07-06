@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Common.Base.Storage;
 using log4net;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Service.Exceptions;
 
 namespace Ringtoets.Integration.Service.Merge
 {
@@ -31,14 +32,17 @@ namespace Ringtoets.Integration.Service.Merge
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
         {
-            RingtoetsProject openedProject = null;
+            RingtoetsProject openedProject;
             try
             {
-                openedProject = (RingtoetsProject)storage.LoadProject(filePath);
+                openedProject = (RingtoetsProject) storage.LoadProject(filePath);
             }
             catch (StorageException e)
             {
-                log.Error(e.Message, e.InnerException);
+                string exceptionMessage = e.Message;
+                log.Error(exceptionMessage, e.InnerException);
+
+                throw new AssessmentSectionProviderException(exceptionMessage, e);
             }
 
             return openedProject?.AssessmentSections;

@@ -5,6 +5,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Service.Exceptions;
 using Ringtoets.Integration.Service.Merge;
 
 namespace Ringtoets.Integration.Service.Test.Merge
@@ -82,25 +83,41 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void GetAssessmentSections_LoadingProjectFailed_LogsErrorAndThrowsStorageException()
+        public void GetAssessmentSections_LoadingProjectThrowsException_ThrowsAssessmentSectionProviderExceptionAndLogsError()
         {
             // Setup
             const string filePath = "Some path";
-            const string exceptionMessage = "Storage exception";
+            const string exceptionMessage = "StorageException";
+
+            var storageException = new StorageException(exceptionMessage);
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(filePath)).Throw(new StorageException(exceptionMessage));
+            storeProject.Expect(sp => sp.LoadProject(filePath)).Throw(storageException);
             mocks.ReplayAll();
 
             var provider = new AssessmentSectionProviderService(storeProject);
 
+            AssessmentSectionProviderException exception = null;
+
             // Call
-            Action call = () => provider.GetAssessmentSections(filePath);
+            Action call = () =>
+            {
+                try
+                {
+                    provider.GetAssessmentSections(filePath);
+                }
+                catch (AssessmentSectionProviderException e)
+                {
+                    exception = e;
+                }
+            };
 
             // Assert
             var expectedLogMessage = new Tuple<string, LogLevelConstant>(exceptionMessage, LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedLogMessage);
+            Assert.AreEqual(storageException, exception.InnerException);
+            Assert.AreEqual(storageException.Message, exception.Message);
             mocks.VerifyAll();
         }
     }
