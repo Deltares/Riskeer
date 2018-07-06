@@ -41,7 +41,6 @@
     <Compile Include="Controls\AssessmentSectionAssemblyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Merge\IAssessmentSectionProvider.cs" />
     <Compile Include="Merge\IMergeDataProvider.cs" />
     <Compile Include="Merge\InquiryMergeHelper.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />

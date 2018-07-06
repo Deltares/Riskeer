@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Ringtoets.Integration.Data;
 
-namespace Ringtoets.Integration.Forms.Merge
+namespace Ringtoets.Integration.Service.Merge
 {
     /// <summary>
     /// Interface for reading and providing <see cref="AssessmentSection"/> instances.

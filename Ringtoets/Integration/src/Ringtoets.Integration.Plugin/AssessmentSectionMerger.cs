@@ -24,6 +24,7 @@ using Core.Common.Gui;
 using log4net;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Merge;
+using Ringtoets.Integration.Service.Merge;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
 
