@@ -24,7 +24,7 @@ using Core.Common.Controls.Dialogs;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Integration.Forms.Dialogs;
-using Ringtoets.Integration.Forms.Merge;
+using Ringtoets.Integration.Service.Merge;
 
 namespace Ringtoets.Integration.Forms.Test.Dialogs
 {

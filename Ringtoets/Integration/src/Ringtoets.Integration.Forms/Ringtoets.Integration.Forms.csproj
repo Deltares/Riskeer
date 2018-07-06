@@ -292,6 +292,10 @@
       <Name>Ringtoets.Integration.IO</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
+      <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
+      <Name>Ringtoets.Integration.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Dialogs\BackgroundMapDataSelectionDialog.resx">
