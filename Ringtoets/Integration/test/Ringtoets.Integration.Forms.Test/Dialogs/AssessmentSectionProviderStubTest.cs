@@ -19,18 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Dialogs;
 using Ringtoets.Integration.Service.Merge;
 
 namespace Ringtoets.Integration.Forms.Test.Dialogs
 {
     [TestFixture]
-    public class AssessmentSectionProviderStubTest
+    public class AssessmentSectionProviderStubTest : NUnitFormTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -54,6 +56,15 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
         public void GetAssessmentSections_Always_ShowsDialog()
         {
             // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("cancelButton", name);
+                    button.Click();
+                }
+            };
+
             using (var dialogParent = new Form())
             using (var provider = new AssessmentSectionProviderStub(dialogParent))
             {
@@ -78,6 +89,34 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
 
                 Assert.AreEqual(1, provider.MinimumSize.Width);
                 Assert.AreEqual(1, provider.MinimumSize.Height);
+            }
+        }
+
+        [Test]
+        public void GivenDialog_WhenCancelPressed_ThenReturnNull()
+        {
+            // Setup
+            Button cancelButton = null;
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("cancelButton", name);
+                    cancelButton = (Button) button.TheObject;
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            {
+                // Call
+                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
+
+                // Assert
+                Assert.IsNull(assessmentSections);
+                Assert.AreEqual(provider.CancelButton, cancelButton);
             }
         }
     }

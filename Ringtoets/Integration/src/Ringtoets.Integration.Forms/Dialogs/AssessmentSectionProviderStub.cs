@@ -47,9 +47,12 @@ namespace Ringtoets.Integration.Forms.Dialogs
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
         {
-            Show();
+            if (ShowDialog() == DialogResult.Cancel)
+            {
+                return null;
+            }
 
-            return null;
+            return new List<AssessmentSection>();
         }
 
         protected override Button GetCancelButton()
