@@ -13,7 +13,7 @@ namespace Ringtoets.Integration.Data.Test.Merge
             var owner = new AssessmentSectionsOwner();
 
             // Assert
-            Assert.IsNull(owner.AssessmentSection);
+            Assert.IsNull(owner.AssessmentSections);
         }
     }
 }

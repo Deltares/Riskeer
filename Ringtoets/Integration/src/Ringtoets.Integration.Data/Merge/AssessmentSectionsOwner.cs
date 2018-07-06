@@ -10,6 +10,6 @@ namespace Ringtoets.Integration.Data.Merge
         /// <summary>
         /// Gets or sets the collection of <see cref="AssessmentSection"/>.
         /// </summary>
-        public IEnumerable<AssessmentSection> AssessmentSection { get; set; }
+        public IEnumerable<AssessmentSection> AssessmentSections { get; set; }
     }
 }
