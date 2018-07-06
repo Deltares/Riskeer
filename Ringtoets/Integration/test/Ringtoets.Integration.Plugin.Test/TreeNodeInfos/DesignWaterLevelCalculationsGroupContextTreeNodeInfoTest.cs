@@ -34,7 +34,6 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -45,7 +44,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -290,101 +288,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void CalculateDesignWaterLevelsFromContextMenu_AllRequiredInputSet_SendsRightInputToCalculationService()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
-                }
-            };
-
-            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
-            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation1,
-                hydraulicBoundaryLocation2
-            });
-
-            var context = new DesignWaterLevelCalculationsGroupContext(new ObservableList<HydraulicBoundaryLocation>(),
-                                                                       assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var gui = mockRepository.Stub<IGui>();
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
-                gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
-
-                var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
-                var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
-                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(designWaterLevelCalculator).Repeat.Times(8);
-                mockRepository.ReplayAll();
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    // Expect an activity dialog which is automatically closed
-                };
-
-                using (var plugin = new RingtoetsPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-                    plugin.Activate();
-
-                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-                    {
-                        // Call
-                        contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
-
-                        // Assert
-                        double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
-                        double factorizedSignalingNorm = signalingNorm / 30;
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
-                                                        factorizedSignalingNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(0));
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
-                                                        factorizedSignalingNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(1));
-
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
-                                                        signalingNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(2));
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
-                                                        signalingNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(3));
-
-                        double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
-                                                        lowerLimitNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(4));
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
-                                                        lowerLimitNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(5));
-
-                        double factorizedLowerLimitNorm = lowerLimitNorm * 30;
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation1,
-                                                        factorizedLowerLimitNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(6));
-                        AssertHydraRingCalculationInput(hydraulicBoundaryLocation2,
-                                                        factorizedLowerLimitNorm,
-                                                        designWaterLevelCalculator.ReceivedInputs.ElementAt(7));
-                    }
-                }
-            }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenHydraulicBoundaryLocationThatSucceeds_CalculatingDesignWaterLevelFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
@@ -522,14 +425,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages.ElementAt(startIndex + 5));
             CalculationServiceTestHelper.AssertCalculationEndMessage(messages.ElementAt(startIndex + 6));
             Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is gelukt.", messages.ElementAt(startIndex + 7));
-        }
-
-        private static void AssertHydraRingCalculationInput(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                            double norm,
-                                                            HydraRingCalculationInput actualCalculationInput)
-        {
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
-            Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculationOutput(IDesignWaterLevelCalculator designWaterLevelCalculator,

@@ -2086,17 +2086,9 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
 
-                    IEnumerable<CalculatableActivity> activities =
-                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<DesignWaterLevelCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                            assessmentSection,
-                                            context.WrappedData,
-                                            context.GetNormFunc(),
-                                            context.CategoryBoundaryName))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow, 
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
@@ -2124,17 +2116,9 @@ namespace Ringtoets.Integration.Plugin
                         return;
                     }
 
-                    IEnumerable<CalculatableActivity> activities =
-                        WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<WaveHeightCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                            assessmentSection,
-                                            context.WrappedData,
-                                            context.GetNormFunc(),
-                                            context.CategoryBoundaryName))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow, 
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
