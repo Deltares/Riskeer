@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.IO;
+using Ringtoets.Integration.Forms.Merge;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Dialogs

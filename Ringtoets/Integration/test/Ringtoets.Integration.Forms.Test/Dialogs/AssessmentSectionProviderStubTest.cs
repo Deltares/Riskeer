@@ -19,13 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Integration.Forms.Dialogs;
-using Ringtoets.Integration.IO;
+using Ringtoets.Integration.Forms.Merge;
 
 namespace Ringtoets.Integration.Forms.Test.Dialogs
 {

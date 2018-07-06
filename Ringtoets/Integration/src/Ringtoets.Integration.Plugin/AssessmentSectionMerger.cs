@@ -23,8 +23,7 @@ using System;
 using Core.Common.Gui;
 using log4net;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.PropertyClasses;
-using Ringtoets.Integration.IO;
+using Ringtoets.Integration.Forms.Merge;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
 

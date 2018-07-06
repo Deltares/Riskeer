@@ -24,7 +24,7 @@ using Core.Common.Gui;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.IO;
+using Ringtoets.Integration.Forms.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
