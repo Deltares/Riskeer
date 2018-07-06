@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> is <c>null</c>.</exception>
         public AssessmentSectionProviderStub(IWin32Window dialogParent)
-            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
+            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 1, 1)
         {
             InitializeComponent();
         }
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
 
         protected override Button GetCancelButton()
         {
-            return new Button();
+            return cancelButton;
         }
     }
 }

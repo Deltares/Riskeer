@@ -21,6 +21,7 @@
 
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Integration.Forms.Dialogs;
@@ -60,8 +61,23 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
                 provider.GetAssessmentSections(null);
 
                 // Assert
-                Assert.AreEqual(500, provider.MinimumSize.Width);
-                Assert.AreEqual(350, provider.MinimumSize.Height);
+                var invalidProjectButtonSelect = (Button)new ButtonTester("invalidProjectButton", provider).TheObject;
+                Assert.AreEqual("Selecteer fout project", invalidProjectButtonSelect.Text);
+                Assert.IsTrue(invalidProjectButtonSelect.Enabled);
+
+                var noMatchButtonSelect = (Button)new ButtonTester("noMatchButton", provider).TheObject;
+                Assert.AreEqual("Selecteer project zonder overeenkomende trajecten", noMatchButtonSelect.Text);
+                Assert.IsTrue(noMatchButtonSelect.Enabled);
+
+                var matchButtonSelect = (Button)new ButtonTester("matchButton", provider).TheObject;
+                Assert.AreEqual("Selecteer project met overeenkomend traject", matchButtonSelect.Text);
+                Assert.IsTrue(matchButtonSelect.Enabled);
+
+                var buttonCancel = (Button)new ButtonTester("cancelButton", provider).TheObject;
+                Assert.AreEqual("Annuleren", buttonCancel.Text);
+
+                Assert.AreEqual(1, provider.MinimumSize.Width);
+                Assert.AreEqual(1, provider.MinimumSize.Height);
             }
         }
     }
