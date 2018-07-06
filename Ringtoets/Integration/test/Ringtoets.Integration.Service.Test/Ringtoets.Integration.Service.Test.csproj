@@ -21,6 +21,7 @@
   <ItemGroup>
     <Compile Include="Comparers\AssessmentSectionMergeComparerTest.cs" />
     <Compile Include="Exceptions\AssessmentSectionProviderExceptionTest.cs" />
+    <Compile Include="Merge\AssessmentSectionProviderActivityTest.cs" />
     <Compile Include="Merge\AssessmentSectionProviderServiceTest.cs" />
     <Compile Include="RingtoetsDataSynchronizationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
