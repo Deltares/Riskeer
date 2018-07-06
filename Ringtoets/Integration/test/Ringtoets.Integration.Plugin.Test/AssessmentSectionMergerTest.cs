@@ -24,7 +24,7 @@ using Core.Common.Gui;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Forms.Merge;
+using Ringtoets.Integration.Service.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -38,7 +38,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             mocks.ReplayAll();
-            
+
             // Call
             TestDelegate call = () => new AssessmentSectionMerger(null, assessmentSectionProvider);
 
