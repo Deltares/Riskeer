@@ -1931,9 +1931,30 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
                 RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData.AssessmentSection));
 
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    if (hydraulicBoundaryLocationCalculationGuiService == null)
+                    {
+                        return;
+                    }
+
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(nodeData.AssessmentSection));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
+                                                        calculateAllItem);
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(connectionItem)
                       .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
@@ -2087,7 +2108,7 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     ActivityProgressDialogRunner.Run(
-                        Gui.MainWindow, 
+                        Gui.MainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection));
                 });
 
@@ -2117,7 +2138,7 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     ActivityProgressDialogRunner.Run(
-                        Gui.MainWindow, 
+                        Gui.MainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection));
                 });
 

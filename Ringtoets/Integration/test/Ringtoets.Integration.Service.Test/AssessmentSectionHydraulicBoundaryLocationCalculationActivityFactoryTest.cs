@@ -43,6 +43,74 @@ namespace Ringtoets.Integration.Service.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
+        public void CreateHydraulicBoundaryLocationCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateHydraulicBoundaryLocationCalculationActivities_WithValidData_ExpectedInputSetToActivities()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+                }
+            };
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities =
+                AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(assessmentSection);
+
+            // Assert
+            Assert.AreEqual(8, activities.Count());
+
+            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            double factorizedSignalingNorm = signalingNorm / 30;
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            double factorizedLowerLimitNorm = lowerLimitNorm * 30;
+            
+            AssertDesignWaterLevelCalculationActivity(activities.First(),
+                                                      hydraulicBoundaryLocation,
+                                                      factorizedSignalingNorm);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
+                                                      hydraulicBoundaryLocation,
+                                                      signalingNorm);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
+                                                      hydraulicBoundaryLocation,
+                                                      lowerLimitNorm);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
+                                                      hydraulicBoundaryLocation,
+                                                      factorizedLowerLimitNorm);
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(4),
+                                                      hydraulicBoundaryLocation,
+                                                      factorizedSignalingNorm);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(5),
+                                                      hydraulicBoundaryLocation,
+                                                      signalingNorm);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(6),
+                                                      hydraulicBoundaryLocation,
+                                                      lowerLimitNorm);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(7),
+                                                      hydraulicBoundaryLocation,
+                                                      factorizedLowerLimitNorm);
+        }
+
+        [Test]
         public void CreateDesignWaterLevelCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
@@ -78,6 +146,8 @@ namespace Ringtoets.Integration.Service.Test
                 AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection);
 
             // Assert
+            Assert.AreEqual(8, activities.Count());
+
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
             double factorizedSignalingNorm = signalingNorm / 30;
             AssertDesignWaterLevelCalculationActivity(activities.First(),
@@ -147,6 +217,8 @@ namespace Ringtoets.Integration.Service.Test
                 AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection);
 
             // Assert
+            Assert.AreEqual(8, activities.Count());
+
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
             double factorizedSignalingNorm = signalingNorm / 30;
             AssertWaveHeightCalculationActivity(activities.First(),

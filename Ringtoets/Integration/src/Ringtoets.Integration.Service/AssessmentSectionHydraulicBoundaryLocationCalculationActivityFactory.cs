@@ -34,6 +34,26 @@ namespace Ringtoets.Integration.Service
     public static class AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory
     {
         /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> for all hydraulic boundary location calculations
+        /// in the given <see cref="IAssessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to create the activities for.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateHydraulicBoundaryLocationCalculationActivities(IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var activities = new List<CalculatableActivity>();
+            activities.AddRange(CreateDesignWaterLevelCalculationActivities(assessmentSection));
+            activities.AddRange(CreateWaveHeightCalculationActivities(assessmentSection));
+            return activities;
+        }
+
+        /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> for wave height calculations
         /// based on the given <see cref="IAssessmentSection"/>.
         /// </summary>
