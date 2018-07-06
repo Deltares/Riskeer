@@ -37,24 +37,46 @@ namespace Ringtoets.Integration.Service.Test.Merge
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionProvider>(provider);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAssessmentSections_Always_SendsFilePathToLoadsProject()
+        {
+            // Setup
+            const string filePath = "Some path";
+
+            var mocks = new MockRepository();
+            var storeProject = mocks.StrictMock<IStoreProject>();
+            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(new RingtoetsProject());
+            mocks.ReplayAll();
+
+            var provider = new AssessmentSectionProviderService(storeProject);
+
+            // Call
+            provider.GetAssessmentSections(filePath);
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GetAssessmentSections_LoadingProjectSuccesful_ReturnsRingtoetsProject()
         {
             // Setup
-            const string filePath = "Some path";
             var project = new RingtoetsProject();
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(project);
+            storeProject.Expect(sp => sp.LoadProject(null))
+                        .IgnoreArguments()
+                        .Return(project);
             mocks.ReplayAll();
 
             var provider = new AssessmentSectionProviderService(storeProject);
 
             // Call
-            IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(filePath);
+            IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(string.Empty);
 
             // Assert
             Assert.AreSame(project.AssessmentSections, assessmentSections);
@@ -62,23 +84,23 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void GetAssessmentSections_LoadedProjectNull_ReturnsNull()
+        public void GetAssessmentSections_LoadedProjectNull_ThrowsAssessmentSectionProviderException()
         {
             // Setup
-            const string filePath = "Some path";
-
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(filePath)).Return(null);
+            storeProject.Expect(sp => sp.LoadProject(null))
+                        .IgnoreArguments()
+                        .Return(null);
             mocks.ReplayAll();
 
             var provider = new AssessmentSectionProviderService(storeProject);
 
             // Call
-            IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(filePath);
+            TestDelegate call = () => provider.GetAssessmentSections(string.Empty);
 
             // Assert
-            Assert.IsNull(assessmentSections);
+            Assert.Throws<AssessmentSectionProviderException>(call);
             mocks.VerifyAll();
         }
 
@@ -86,14 +108,14 @@ namespace Ringtoets.Integration.Service.Test.Merge
         public void GetAssessmentSections_LoadingProjectThrowsException_ThrowsAssessmentSectionProviderExceptionAndLogsError()
         {
             // Setup
-            const string filePath = "Some path";
             const string exceptionMessage = "StorageException";
-
             var storageException = new StorageException(exceptionMessage);
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
-            storeProject.Expect(sp => sp.LoadProject(filePath)).Throw(storageException);
+            storeProject.Expect(sp => sp.LoadProject(null))
+                        .IgnoreArguments()
+                        .Throw(storageException);
             mocks.ReplayAll();
 
             var provider = new AssessmentSectionProviderService(storeProject);
@@ -105,7 +127,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             {
                 try
                 {
-                    provider.GetAssessmentSections(filePath);
+                    provider.GetAssessmentSections(string.Empty);
                 }
                 catch (AssessmentSectionProviderException e)
                 {

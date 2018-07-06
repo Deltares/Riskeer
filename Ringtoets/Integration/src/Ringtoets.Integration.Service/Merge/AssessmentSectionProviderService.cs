@@ -45,7 +45,12 @@ namespace Ringtoets.Integration.Service.Merge
                 throw new AssessmentSectionProviderException(exceptionMessage, e);
             }
 
-            return openedProject?.AssessmentSections;
+            if (openedProject == null)
+            {
+                throw new AssessmentSectionProviderException();
+            }
+
+            return openedProject.AssessmentSections;
         }
     }
 }
