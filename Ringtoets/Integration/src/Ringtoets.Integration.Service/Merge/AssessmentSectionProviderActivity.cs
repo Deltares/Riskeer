@@ -1,13 +1,16 @@
 ﻿using Core.Common.Base.Service;
+using Ringtoets.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Service.Merge
 {
     public class AssessmentSectionProviderActivity : Activity
     {
+        private readonly AssessmentSectionsOwner owner;
         private readonly IAssessmentSectionProvider assessmentSectionProvider;
 
-        public AssessmentSectionProviderActivity(IAssessmentSectionProvider assessmentSectionProvider)
+        public AssessmentSectionProviderActivity(AssessmentSectionsOwner owner, IAssessmentSectionProvider assessmentSectionProvider)
         {
+            this.owner = owner;
             this.assessmentSectionProvider = assessmentSectionProvider;
         }
 

@@ -1,6 +1,7 @@
 ﻿using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Service.Merge;
 
 namespace Ringtoets.Integration.Service.Test.Merge
@@ -16,8 +17,10 @@ namespace Ringtoets.Integration.Service.Test.Merge
             var provider = mocks.Stub<IAssessmentSectionProvider>();
             mocks.ReplayAll();
 
+            var owner = new AssessmentSectionsOwner();
+
             // Call
-            var activity = new AssessmentSectionProviderActivity(provider);
+            var activity = new AssessmentSectionProviderActivity(owner, provider);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
