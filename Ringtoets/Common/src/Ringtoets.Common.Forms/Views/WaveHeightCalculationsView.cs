@@ -84,8 +84,7 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                       AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+            CalculationGuiService.CalculateWaveHeights(AssessmentSection,
                                                        calculations,
                                                        getNormFunc(),
                                                        categoryBoundaryName);

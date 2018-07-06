@@ -25,8 +25,8 @@ using System.Windows.Forms;
 using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
@@ -56,43 +56,49 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public void CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
-                                               string preprocessorDirectory,
+        public void CalculateDesignWaterLevels(IAssessmentSection assessmentSection,
                                                IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                                double norm,
                                                string categoryBoundaryName)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(hydraulicBoundaryDatabaseFilePath,
-                          preprocessorDirectory,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                          preprocessorDirectory,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection,
                                                                                                                           calculations,
                                                                                                                           norm,
                                                                                                                           categoryBoundaryName));
         }
 
-        public void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
-                                         string preprocessorDirectory,
+        public void CalculateWaveHeights(IAssessmentSection assessmentSection,
                                          IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                          double norm,
                                          string categoryBoundaryName)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            RunActivities(hydraulicBoundaryDatabaseFilePath,
-                          preprocessorDirectory,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                    preprocessorDirectory,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection,
                                                                                                                     calculations,
                                                                                                                     norm,
                                                                                                                     categoryBoundaryName));

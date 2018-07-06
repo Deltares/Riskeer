@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.GuiServices;
@@ -70,7 +71,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_CalculationsNull_ThrowsArgumentNullException()
+        public void CalculateDesignWaterLevels_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             using (var viewParent = new Form())
@@ -78,30 +79,59 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                                validPreprocessorDirectory,
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels(null,
+                                                                                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                                0.01,
+                                                                                "A");
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("assessmentSection", paramName);
+            }
+        }
+
+        [Test]
+        public void CalculateDesignWaterLevels_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var viewParent = new Form())
+            {
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+                // Call
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels(assessmentSection,
                                                                                 null,
                                                                                 0.01,
                                                                                 "A");
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "calculations";
-                Assert.AreEqual(expectedParamName, paramName);
+                Assert.AreEqual("calculations", paramName);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateDesignWaterLevels_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
+
             using (var viewParent = new Form())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels("Does not exist",
-                                                                          validPreprocessorDirectory,
+                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
                                                                           Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                           0.01,
                                                                           "A");
@@ -114,19 +144,26 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
                 });
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateDesignWaterLevels_InvalidNorm_LogsError()
         {
             // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+
             using (var viewParent = new Form())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                          validPreprocessorDirectory,
+                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
                                                                           Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                           1.0,
                                                                           "A");
@@ -134,12 +171,20 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateDesignWaterLevels_ValidPathEmptyList_NoLog()
         {
             // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed
@@ -150,8 +195,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                          validPreprocessorDirectory,
+                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
                                                                           Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                           0.01,
                                                                           "A");
@@ -159,6 +203,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -169,9 +215,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string categoryBoundaryName = "A";
 
             var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDesignWaterLevelCalculator());
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, "")).Return(new TestDesignWaterLevelCalculator());
             mockRepository.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -184,8 +234,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(validFilePath,
-                                                                          validPreprocessorDirectory,
+                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
                                                                           new[]
                                                                           {
                                                                               new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
@@ -198,14 +247,15 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-                    Assert.AreEqual($"{GetDesignWaterLevelCalculationActivityDescription(hydraulicLocationName, categoryBoundaryName)} is gestart.", msgs[0]);
+                    string activityDescription = GetDesignWaterLevelCalculationActivityDescription(hydraulicLocationName, categoryBoundaryName);
+                    Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
                     Assert.AreEqual($"Waterstand berekening voor locatie 'name' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    Assert.AreEqual($"{GetDesignWaterLevelCalculationActivityDescription(hydraulicLocationName, categoryBoundaryName)} is gelukt.", msgs[7]);
+                    Assert.AreEqual($"{activityDescription} is gelukt.", msgs[7]);
                 });
             }
 
@@ -213,7 +263,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_CalculationsNull_ThrowsArgumentNullException()
+        public void CalculateWaveHeights_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             using (var viewParent = new Form())
@@ -221,30 +271,59 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(validFilePath,
-                                                                          validPreprocessorDirectory,
+                TestDelegate test = () => guiService.CalculateWaveHeights(null,
+                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                          0.01,
+                                                                          "A");
+
+                // Assert
+                string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+                Assert.AreEqual("assessmentSection", paramName);
+            }
+        }
+
+        [Test]
+        public void CalculateWaveHeights_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var viewParent = new Form())
+            {
+                var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
+
+                // Call
+                TestDelegate test = () => guiService.CalculateWaveHeights(assessmentSection,
                                                                           null,
                                                                           0.01,
                                                                           "A");
 
                 // Assert
                 string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-                const string expectedParamName = "calculations";
-                Assert.AreEqual(expectedParamName, paramName);
+                Assert.AreEqual("calculations", paramName);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateWaveHeights_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = "Does not exist";
+
             using (var viewParent = new Form())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights("Does not exist",
-                                                                    validPreprocessorDirectory,
+                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
                                                                     Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                     0.01,
                                                                     "A");
@@ -257,19 +336,26 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                     StringAssert.StartsWith("Berekeningen konden niet worden gestart. ", msgs.First());
                 });
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateWaveHeights_InvalidNorm_LogsError()
         {
             // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+
             using (var viewParent = new Form())
             {
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(validFilePath,
-                                                                    validPreprocessorDirectory,
+                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
                                                                     Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                     1.0,
                                                                     "A");
@@ -277,12 +363,20 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CalculateWaveHeights_ValidPathEmptyList_NoLog()
         {
             // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            mocks.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+
             DialogBoxHandler = (name, wnd) =>
             {
                 // Expect an activity dialog which is automatically closed
@@ -293,8 +387,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(validFilePath,
-                                                                    validPreprocessorDirectory,
+                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
                                                                     Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                                                                     0.01,
                                                                     "A");
@@ -302,6 +395,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 // Assert
                 TestHelper.AssertLogMessagesCount(call, 0);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -312,9 +407,13 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
             const string categoryBoundaryName = "A";
 
             var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
+
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestWaveHeightCalculator());
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, "")).Return(new TestWaveHeightCalculator());
             mockRepository.ReplayAll();
+
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -327,8 +426,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(validFilePath,
-                                                                    validPreprocessorDirectory,
+                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
                                                                     new[]
                                                                     {
                                                                         new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))

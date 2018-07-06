@@ -1847,8 +1847,7 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                              assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection,
                                                                                               nodeData.WrappedData,
                                                                                               nodeData.GetNormFunc(),
                                                                                               nodeData.CategoryBoundaryName);
@@ -1881,8 +1880,7 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection,
                                                                                         nodeData.WrappedData,
                                                                                         nodeData.GetNormFunc(),
                                                                                         nodeData.CategoryBoundaryName);

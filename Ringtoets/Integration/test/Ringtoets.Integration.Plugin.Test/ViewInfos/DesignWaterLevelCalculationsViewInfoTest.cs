@@ -213,11 +213,11 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             double actualNormValue = double.NaN;
             IEnumerable<HydraulicBoundaryLocationCalculation> performedCalculations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
-                    performedCalculations = (IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2];
-                    actualNormValue = (double) invocation.Arguments[3];
+                    performedCalculations = (IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[1];
+                    actualNormValue = (double) invocation.Arguments[2];
                 });
 
             mockRepository.ReplayAll();

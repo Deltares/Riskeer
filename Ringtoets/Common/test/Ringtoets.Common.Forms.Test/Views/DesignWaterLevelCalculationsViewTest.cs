@@ -330,8 +330,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray(); });
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[1]).ToArray(); });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
@@ -365,7 +365,7 @@ namespace Ringtoets.Common.Forms.Test.Views
         }
 
         [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CalculateDesignWaterLevelsCalledAsExpected()
+        public void CalculateForSelectedButton_Always_CalculateDesignWaterLevelsCalledAsExpected()
         {
             // Setup
             const string databaseFilePath = "DatabaseFilePath";
@@ -386,19 +386,17 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
 
-            var hydraulicBoundaryDatabaseFilePathValue = "";
-            var preprocessorDirectoryValue = "";
+            IAssessmentSection assessmentSectionValue = null;
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             double normValue = double.NaN;
             string categoryBoundaryNameValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
+            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
-                    hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
-                    preprocessorDirectoryValue = invocation.Arguments[1].ToString();
-                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    categoryBoundaryNameValue = (string) invocation.Arguments[4];
+                    assessmentSectionValue = (IAssessmentSection) invocation.Arguments[0];
+                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[1]).ToArray();
+                    normValue = (double) invocation.Arguments[2];
+                    categoryBoundaryNameValue = (string) invocation.Arguments[3];
                 });
 
             mockRepository.ReplayAll();
@@ -423,147 +421,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
-            Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
-            Assert.AreEqual("", preprocessorDirectoryValue);
-            Assert.AreEqual(norm, normValue);
-            Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_CalculateDesignWaterLevelsCalledAsExpected()
-        {
-            // Setup
-            const string databaseFilePath = "DatabaseFilePath";
-            const string preprocessorDirectory = "PreprocessorDirectory";
-            const double norm = 0.01;
-            const string categoryBoundaryName = "A";
-
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = databaseFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = true,
-                PreprocessorDirectory = preprocessorDirectory
-            };
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-
-            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
-
-            var hydraulicBoundaryDatabaseFilePathValue = "";
-            var preprocessorDirectoryValue = "";
-            HydraulicBoundaryLocationCalculation[] performedCalculations = null;
-            double normValue = double.NaN;
-            string categoryBoundaryNameValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation =>
-                {
-                    hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
-                    preprocessorDirectoryValue = invocation.Arguments[1].ToString();
-                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    categoryBoundaryNameValue = (string) invocation.Arguments[4];
-                });
-
-            mockRepository.ReplayAll();
-
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
-
-            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
-                                                                                         assessmentSection,
-                                                                                         norm,
-                                                                                         categoryBoundaryName,
-                                                                                         testForm);
-
-            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
-            DataGridViewRowCollection rows = calculationsDataGridView.Rows;
-            rows[0].Cells[calculateColumnIndex].Value = true;
-
-            view.CalculationGuiService = guiService;
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            // Call
-            button.Click();
-
-            // Assert
-            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
-            Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
-            Assert.AreEqual(preprocessorDirectory, preprocessorDirectoryValue);
-            Assert.AreEqual(norm, normValue);
-            Assert.AreEqual(1, performedCalculations.Length);
-            Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());
-        }
-
-        [Test]
-        public void CalculateForSelectedButton_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_CalculateDesignWaterLevelsCalledAsExpected()
-        {
-            // Setup
-            const string databaseFilePath = "DatabaseFilePath";
-            const double norm = 0.01;
-            const string categoryBoundaryName = "A";
-
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = databaseFilePath,
-                CanUsePreprocessor = true,
-                UsePreprocessor = false,
-                PreprocessorDirectory = "InvalidPreprocessorDirectory"
-            };
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-            assessmentSection.Stub(a => a.Id).Return(string.Empty);
-            assessmentSection.Stub(a => a.FailureMechanismContribution)
-                             .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-
-            var guiService = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
-
-            var hydraulicBoundaryDatabaseFilePathValue = "";
-            var preprocessorDirectoryValue = "";
-            HydraulicBoundaryLocationCalculation[] performedCalculations = null;
-            double normValue = double.NaN;
-            string categoryBoundaryNameValue = null;
-            guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation =>
-                {
-                    hydraulicBoundaryDatabaseFilePathValue = invocation.Arguments[0].ToString();
-                    preprocessorDirectoryValue = invocation.Arguments[1].ToString();
-                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[2]).ToArray();
-                    normValue = (double) invocation.Arguments[3];
-                    categoryBoundaryNameValue = (string) invocation.Arguments[4];
-                });
-
-            mockRepository.ReplayAll();
-
-            IObservableEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculations = GetTestHydraulicBoundaryLocationCalculations();
-
-            DesignWaterLevelCalculationsView view = ShowDesignWaterLevelCalculationsView(hydraulicBoundaryLocationCalculations,
-                                                                                         assessmentSection,
-                                                                                         norm,
-                                                                                         categoryBoundaryName,
-                                                                                         testForm);
-
-            DataGridView calculationsDataGridView = GetCalculationsDataGridView();
-            DataGridViewRowCollection rows = calculationsDataGridView.Rows;
-            rows[0].Cells[calculateColumnIndex].Value = true;
-
-            view.CalculationGuiService = guiService;
-            var button = new ButtonTester("CalculateForSelectedButton", testForm);
-
-            // Call
-            button.Click();
-
-            // Assert
-            Assert.AreEqual(categoryBoundaryName, categoryBoundaryNameValue);
-            Assert.AreEqual(databaseFilePath, hydraulicBoundaryDatabaseFilePathValue);
-            Assert.AreEqual(string.Empty, preprocessorDirectoryValue);
+            Assert.AreSame(assessmentSection, assessmentSectionValue);
             Assert.AreEqual(norm, normValue);
             Assert.AreEqual(1, performedCalculations.Length);
             Assert.AreSame(hydraulicBoundaryLocationCalculations.First(), performedCalculations.First());

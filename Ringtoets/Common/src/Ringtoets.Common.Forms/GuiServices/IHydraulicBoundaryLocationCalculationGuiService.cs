@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Forms.GuiServices
@@ -33,17 +34,14 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <summary>
         /// Performs the provided design water level calculations.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The calculations to perform.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name of the calculations.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        void CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
-                                        string preprocessorDirectory,
+        void CalculateDesignWaterLevels(IAssessmentSection assessmentSection,
                                         IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                         double norm,
                                         string categoryBoundaryName);
@@ -51,17 +49,14 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <summary>
         /// Performs the provided wave height calculations.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The calculations to perform.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name of the calculations.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
-                                  string preprocessorDirectory,
+        void CalculateWaveHeights(IAssessmentSection assessmentSection,
                                   IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
                                   double norm,
                                   string categoryBoundaryName);

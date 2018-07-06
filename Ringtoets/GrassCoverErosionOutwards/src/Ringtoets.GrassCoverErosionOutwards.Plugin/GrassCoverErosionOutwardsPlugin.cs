@@ -594,8 +594,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                        assessmentSection,
                         nodeData.WrappedData,
                         nodeData.GetNormFunc(),
                         nodeData.CategoryBoundaryName);
@@ -636,8 +635,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                        assessmentSection,
                         nodeData.WrappedData,
                         nodeData.GetNormFunc(),
                         nodeData.CategoryBoundaryName);
