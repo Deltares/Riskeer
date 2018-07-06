@@ -2092,8 +2092,7 @@ namespace Ringtoets.Integration.Plugin
                         DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<DesignWaterLevelCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                            assessmentSection,
                                             context.WrappedData,
                                             context.GetNormFunc(),
                                             context.CategoryBoundaryName))
@@ -2131,8 +2130,7 @@ namespace Ringtoets.Integration.Plugin
                         WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<WaveHeightCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                            assessmentSection,
                                             context.WrappedData,
                                             context.GetNormFunc(),
                                             context.CategoryBoundaryName))

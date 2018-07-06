@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 
 namespace Ringtoets.Common.Service
@@ -36,8 +37,7 @@ namespace Ringtoets.Common.Service
         /// Creates a collection of <see cref="CalculatableActivity"/> for wave height calculations
         /// based on the given parameters.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
@@ -46,25 +46,24 @@ namespace Ringtoets.Common.Service
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<CalculatableActivity> CreateWaveHeightCalculationActivities(
-            string hydraulicBoundaryDatabaseFilePath,
-            string preprocessorDirectory,
+            IAssessmentSection assessmentSection,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             double norm,
             string categoryBoundaryName)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            if (categoryBoundaryName == null)
-            {
-                throw new ArgumentNullException(nameof(categoryBoundaryName));
-            }
-
             return calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
-                                                                                        hydraulicBoundaryDatabaseFilePath,
-                                                                                        preprocessorDirectory,
+                                                                                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                         norm,
                                                                                         categoryBoundaryName)).ToArray();
         }
@@ -73,8 +72,7 @@ namespace Ringtoets.Common.Service
         /// Creates a collection of <see cref="CalculatableActivity"/> for design water level calculations
         /// based on the given parameters.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The path of the hydraulic boundary database file.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
@@ -83,20 +81,24 @@ namespace Ringtoets.Common.Service
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<CalculatableActivity> CreateDesignWaterLevelCalculationActivities(
-            string hydraulicBoundaryDatabaseFilePath,
-            string preprocessorDirectory,
+            IAssessmentSection assessmentSection,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
             double norm,
             string categoryBoundaryName)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
             return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
-                                                                                              hydraulicBoundaryDatabaseFilePath,
-                                                                                              preprocessorDirectory,
+                                                                                              assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                              assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                               norm,
                                                                                               categoryBoundaryName)).ToArray();
         }

@@ -1028,8 +1028,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                            assessmentSection,
                                             context.WrappedData,
                                             context.GetNormFunc(),
                                             context.CategoryBoundaryName))
@@ -1109,8 +1108,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
                             .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
                             .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                            assessmentSection,
                                             context.WrappedData,
                                             context.GetNormFunc(),
                                             context.CategoryBoundaryName))
