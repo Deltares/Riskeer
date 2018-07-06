@@ -34,8 +34,6 @@ namespace Ringtoets.Integration.Forms.Dialogs
     /// </summary>
     public partial class AssessmentSectionProviderStub : DialogBase, IAssessmentSectionProvider
     {
-        private readonly IWin32Window dialogParent;
-
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionProviderStub"/>.
         /// </summary>
@@ -44,14 +42,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
         public AssessmentSectionProviderStub(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
-            if (dialogParent == null)
-            {
-                throw new ArgumentNullException(nameof(dialogParent));
-            }
-
             InitializeComponent();
-            this.dialogParent = dialogParent;
-
         }
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)

@@ -33,17 +33,6 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
     public class AssessmentSectionProviderStubTest
     {
         [Test]
-        public void Constructor_DialogParentNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new AssessmentSectionProviderStub(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("dialogParent", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
