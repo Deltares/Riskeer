@@ -81,6 +81,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
             // invalidProjectButton
             // 
             this.invalidProjectButton.AutoSize = true;
+            this.invalidProjectButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.invalidProjectButton.Location = new System.Drawing.Point(130, 3);
             this.invalidProjectButton.Name = "invalidProjectButton";
             this.invalidProjectButton.Size = new System.Drawing.Size(135, 23);
@@ -91,22 +92,26 @@ namespace Ringtoets.Integration.Forms.Dialogs
             // noMatchButton
             // 
             this.noMatchButton.AutoSize = true;
+            this.noMatchButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.noMatchButton.Location = new System.Drawing.Point(3, 32);
             this.noMatchButton.Name = "noMatchButton";
             this.noMatchButton.Size = new System.Drawing.Size(262, 23);
             this.noMatchButton.TabIndex = 2;
             this.noMatchButton.Text = "Selecteer project zonder overeenkomende trajecten";
             this.noMatchButton.UseVisualStyleBackColor = true;
+            this.noMatchButton.Click += new System.EventHandler(this.noMatchButton_Click);
             // 
             // matchButton
             // 
             this.matchButton.AutoSize = true;
+            this.matchButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.matchButton.Location = new System.Drawing.Point(3, 61);
             this.matchButton.Name = "matchButton";
             this.matchButton.Size = new System.Drawing.Size(262, 23);
             this.matchButton.TabIndex = 3;
             this.matchButton.Text = "Selecteer project met overeenkomend traject";
             this.matchButton.UseVisualStyleBackColor = true;
+            this.matchButton.Click += new System.EventHandler(this.matchButton_Click);
             // 
             // AssessmentSectionProviderStub
             // 
@@ -119,6 +124,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
             this.flowLayoutPanel.ResumeLayout(false);
             this.flowLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion

@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Service.Merge;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -34,6 +36,8 @@ namespace Ringtoets.Integration.Forms.Dialogs
     /// </summary>
     public partial class AssessmentSectionProviderStub : DialogBase, IAssessmentSectionProvider
     {
+        private IEnumerable<AssessmentSection> assessmentSectionsToReturn;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionProviderStub"/>.
         /// </summary>
@@ -47,17 +51,28 @@ namespace Ringtoets.Integration.Forms.Dialogs
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
         {
-            if (ShowDialog() == DialogResult.Cancel)
-            {
-                return null;
-            }
-
-            return new List<AssessmentSection>();
+            return ShowDialog() == DialogResult.OK
+                       ? assessmentSectionsToReturn
+                       : null;
         }
 
         protected override Button GetCancelButton()
         {
             return cancelButton;
+        }
+
+        private void noMatchButton_Click(object sender, EventArgs e)
+        {
+            assessmentSectionsToReturn = Enumerable.Empty<AssessmentSection>();
+        }
+
+        private void matchButton_Click(object sender, EventArgs e)
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSectionsToReturn = new[]
+            {
+                assessmentSection
+            };
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
@@ -56,46 +57,6 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
         public void GetAssessmentSections_Always_ShowsDialog()
         {
             // Setup
-            DialogBoxHandler = (name, wnd) =>
-            {
-                using (new FormTester(name))
-                {
-                    var button = new ButtonTester("cancelButton", name);
-                    button.Click();
-                }
-            };
-
-            using (var dialogParent = new Form())
-            using (var provider = new AssessmentSectionProviderStub(dialogParent))
-            {
-                // Call
-                provider.GetAssessmentSections(null);
-
-                // Assert
-                var invalidProjectButtonSelect = (Button)new ButtonTester("invalidProjectButton", provider).TheObject;
-                Assert.AreEqual("Selecteer fout project", invalidProjectButtonSelect.Text);
-                Assert.IsTrue(invalidProjectButtonSelect.Enabled);
-
-                var noMatchButtonSelect = (Button)new ButtonTester("noMatchButton", provider).TheObject;
-                Assert.AreEqual("Selecteer project zonder overeenkomende trajecten", noMatchButtonSelect.Text);
-                Assert.IsTrue(noMatchButtonSelect.Enabled);
-
-                var matchButtonSelect = (Button)new ButtonTester("matchButton", provider).TheObject;
-                Assert.AreEqual("Selecteer project met overeenkomend traject", matchButtonSelect.Text);
-                Assert.IsTrue(matchButtonSelect.Enabled);
-
-                var buttonCancel = (Button)new ButtonTester("cancelButton", provider).TheObject;
-                Assert.AreEqual("Annuleren", buttonCancel.Text);
-
-                Assert.AreEqual(1, provider.MinimumSize.Width);
-                Assert.AreEqual(1, provider.MinimumSize.Height);
-            }
-        }
-
-        [Test]
-        public void GivenDialog_WhenCancelPressed_ThenReturnNull()
-        {
-            // Setup
             Button cancelButton = null;
 
             DialogBoxHandler = (name, wnd) =>
@@ -112,11 +73,122 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
             using (var provider = new AssessmentSectionProviderStub(dialogParent))
             {
                 // Call
+                provider.GetAssessmentSections(null);
+
+                // Assert
+                var invalidProjectButtonSelect = (Button) new ButtonTester("invalidProjectButton", provider).TheObject;
+                Assert.AreEqual("Selecteer fout project", invalidProjectButtonSelect.Text);
+                Assert.IsTrue(invalidProjectButtonSelect.Enabled);
+
+                var noMatchButtonSelect = (Button) new ButtonTester("noMatchButton", provider).TheObject;
+                Assert.AreEqual("Selecteer project zonder overeenkomende trajecten", noMatchButtonSelect.Text);
+                Assert.IsTrue(noMatchButtonSelect.Enabled);
+
+                var matchButtonSelect = (Button) new ButtonTester("matchButton", provider).TheObject;
+                Assert.AreEqual("Selecteer project met overeenkomend traject", matchButtonSelect.Text);
+                Assert.IsTrue(matchButtonSelect.Enabled);
+
+                Assert.AreEqual("Annuleren", cancelButton.Text);
+                Assert.AreEqual(cancelButton, provider.CancelButton);
+
+                Assert.AreEqual(1, provider.MinimumSize.Width);
+                Assert.AreEqual(1, provider.MinimumSize.Height);
+            }
+        }
+
+        [Test]
+        public void GivenDialog_WhenCancelPressed_ThenReturnNull()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("cancelButton", name);
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            {
+                // Call
                 IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
 
                 // Assert
                 Assert.IsNull(assessmentSections);
-                Assert.AreEqual(provider.CancelButton, cancelButton);
+            }
+        }
+
+        [Test]
+        public void GivenDialog_WhenInvalidProjectButtonPressed_ThenReturnNull()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("invalidProjectButton", name);
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            {
+                // Call
+                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
+
+                // Assert
+                Assert.IsNull(assessmentSections);
+            }
+        }
+
+        [Test]
+        public void GivenDialog_WhenNoMatchButtonPressed_ThenReturnEmptyCollection()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("noMatchButton", name);
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            {
+                // Call
+                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
+
+                // Assert
+                CollectionAssert.IsEmpty(assessmentSections);
+            }
+        }
+
+        [Test]
+        public void GivenDialog_WhenMatchButtonPressed_ThenReturnCollectionWithOneAssessmentSection()
+        {
+            // Setup
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("matchButton", name);
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            {
+                // Call
+                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
+
+                // Assert
+                Assert.AreEqual(1, assessmentSections.Count());
             }
         }
     }
