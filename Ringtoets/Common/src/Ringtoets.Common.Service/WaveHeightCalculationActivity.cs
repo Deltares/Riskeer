@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a water height calculation.
     /// </summary>
-    public class WaveHeightCalculationActivity : CalculatableActivity
+    internal class WaveHeightCalculationActivity : CalculatableActivity
     {
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;

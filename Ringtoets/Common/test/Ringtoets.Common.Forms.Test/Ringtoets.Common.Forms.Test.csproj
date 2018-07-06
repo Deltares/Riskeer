@@ -60,7 +60,6 @@
     <Compile Include="GuiServices\HydraulicBoundaryLocationCalculationGuiServiceTest.cs" />
     <Compile Include="Helpers\AssemblyCategoryGroupColorHelperTest.cs" />
     <Compile Include="Helpers\FailureMechanismSectionAssemblyCategoryGroupHelperTest.cs" />
-    <Compile Include="Helpers\HydraulicBoundaryLocationCalculationActivityFactoryTest.cs" />
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ObserverHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />

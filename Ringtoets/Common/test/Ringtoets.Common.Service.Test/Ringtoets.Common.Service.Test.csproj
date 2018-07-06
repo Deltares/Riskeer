@@ -35,6 +35,7 @@
     <Compile Include="DesignWaterLevelCalculationServiceTest.cs" />
     <Compile Include="HydraRingSettingsDatabaseHelperTest.cs" />
     <Compile Include="HydraulicBoundaryDatabaseConnectionValidatorTest.cs" />
+    <Compile Include="HydraulicBoundaryLocationCalculationActivityFactoryTest.cs" />
     <Compile Include="IllustrationPoints\IllustrationPointNodeConverterTest.cs" />
     <Compile Include="IllustrationPoints\CombinationTypeConverterTest.cs" />
     <Compile Include="IllustrationPoints\GeneralResultConverterTest.cs" />

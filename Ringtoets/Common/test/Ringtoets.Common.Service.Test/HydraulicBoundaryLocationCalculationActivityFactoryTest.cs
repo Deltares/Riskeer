@@ -30,14 +30,12 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
-using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
-namespace Ringtoets.Common.Forms.Test.Helpers
+namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
     public class HydraulicBoundaryLocationCalculationActivityFactoryTest

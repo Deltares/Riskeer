@@ -23,9 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Service;
 
-namespace Ringtoets.Common.Forms.Helpers
+namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for
