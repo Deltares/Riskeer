@@ -16,6 +16,7 @@
     <Compile Include="AssessmentSection.cs" />
     <Compile Include="Assembly\AssessmentSectionAssemblyFactory.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResult.cs" />
+    <Compile Include="Merge\AssessmentSectionsOwner.cs" />
     <Compile Include="RingtoetsProjectFactory.cs" />
     <Compile Include="RingtoetsProject.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.cs" />

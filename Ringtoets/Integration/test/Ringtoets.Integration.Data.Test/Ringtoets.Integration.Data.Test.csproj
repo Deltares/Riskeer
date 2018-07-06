@@ -23,6 +23,7 @@
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResultFactoryTest.cs" />
     <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="Assembly\CombinedFailureMechanismSectionAssemblyResultTest.cs" />
+    <Compile Include="Merge\AssessmentSectionsOwnerTest.cs" />
     <Compile Include="RingtoetsProjectFactoryTest.cs" />
     <Compile Include="RingtoetsProjectTest.cs" />
     <Compile Include="StandAlone\AssemblyFactories\GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryTest.cs" />
