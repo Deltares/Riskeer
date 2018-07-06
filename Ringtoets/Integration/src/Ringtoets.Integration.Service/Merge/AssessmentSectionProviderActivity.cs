@@ -7,26 +7,35 @@ namespace Ringtoets.Integration.Service.Merge
     {
         private readonly AssessmentSectionsOwner owner;
         private readonly IAssessmentSectionProvider assessmentSectionProvider;
+        private readonly string filePath;
 
-        public AssessmentSectionProviderActivity(AssessmentSectionsOwner owner, IAssessmentSectionProvider assessmentSectionProvider)
+        private bool canceled;
+
+        public AssessmentSectionProviderActivity(AssessmentSectionsOwner owner,
+                                                 IAssessmentSectionProvider assessmentSectionProvider,
+                                                 string filePath)
         {
             this.owner = owner;
             this.assessmentSectionProvider = assessmentSectionProvider;
+            this.filePath = filePath;
         }
 
         protected override void OnRun()
         {
-            throw new System.NotImplementedException();
+            owner.AssessmentSections = assessmentSectionProvider.GetAssessmentSections(filePath);
         }
 
         protected override void OnCancel()
         {
-            throw new System.NotImplementedException();
+            canceled = true;
         }
 
         protected override void OnFinish()
         {
-            throw new System.NotImplementedException();
+            if (canceled)
+            {
+                owner.AssessmentSections = null;
+            }
         }
     }
 }
