@@ -61,13 +61,11 @@ namespace Ringtoets.DuneErosion.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            var messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
-
             return calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
                                                                                           assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                           norm,
-                                                                                          messageProvider)).ToArray();
+                                                                                          categoryBoundaryName)).ToArray();
         }
     }
 }
