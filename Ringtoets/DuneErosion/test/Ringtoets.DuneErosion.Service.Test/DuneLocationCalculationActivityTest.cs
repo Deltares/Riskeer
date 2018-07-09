@@ -72,7 +72,7 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
-            Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName})", activity.Description);
+            Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName})", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
         }
@@ -100,7 +100,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -130,7 +130,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -159,7 +159,7 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
+                Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
@@ -202,7 +202,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
@@ -301,8 +301,8 @@ namespace Ringtoets.DuneErosion.Service.Test
 
                 // Assert
                 string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
-                                                    ? $"Er is een fout opgetreden tijdens de toetspeil berekening '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
-                                                    : $"Er is een fout opgetreden tijdens de toetspeil berekening '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                                                    ? $"Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
+                                                    : $"Er is een fout opgetreden tijdens de hydraulische randvoorwaarden berekening '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
 
                 TestHelper.AssertLogMessageIsGenerated(call, expectedFailureMessage, 7);
             }
@@ -343,7 +343,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    Assert.AreEqual($"Waterstand berekening voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocationCalculation.Output.CalculationConvergence);
             }

@@ -63,7 +63,7 @@ namespace Ringtoets.DuneErosion.Service
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
-            messageProvider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
 
             DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
             Description = messageProvider.GetActivityDescription(duneLocation.Name);
