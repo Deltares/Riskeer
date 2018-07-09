@@ -84,7 +84,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         public void Run_Always_SendsFilePathToGetsAssessmentSections()
         {
             // Setup
-            const string filePath = "Path to file";
+            const string filePath = "File\\Path";
 
             var mocks = new MockRepository();
             var provider = mocks.Stub<IAssessmentSectionProvider>();

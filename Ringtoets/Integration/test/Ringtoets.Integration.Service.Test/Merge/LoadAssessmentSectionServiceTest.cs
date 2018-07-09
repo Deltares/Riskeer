@@ -44,7 +44,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         public void GetAssessmentSections_Always_SendsFilePathToLoadsProject()
         {
             // Setup
-            const string filePath = "Some path";
+            const string filePath = "Some\\path";
 
             var mocks = new MockRepository();
             var storeProject = mocks.StrictMock<IStoreProject>();
