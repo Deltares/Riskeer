@@ -58,11 +58,6 @@ namespace Ringtoets.DuneErosion.Service
                                                string categoryBoundaryName)
             : base(duneLocationCalculation)
         {
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
             this.duneLocationCalculation = duneLocationCalculation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;

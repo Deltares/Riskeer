@@ -31,7 +31,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -61,41 +60,21 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
+            const string categoryBoundaryName = "A";
             const string locationName = "locationName";
-            const string activityDescription = "activityDescription";
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-            mockRepository.ReplayAll();
 
             // Call
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                1.0 / 30000,
-                                                               calculationMessageProvider);
+                                                               categoryBoundaryName);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
-            Assert.AreSame(activityDescription, activity.Description);
+            Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName})", activity.Description);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_MessageProviderNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation()),
-                                                                          validFilePath,
-                                                                          validPreprocessorDirectory,
-                                                                          1.0 / 30000,
-                                                                          null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("messageProvider", exception.ParamName);
         }
 
         [Test]
@@ -103,18 +82,15 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             string invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
-            const string locationName = "locationName";
-            const string activityDescription = "activityDescription";
 
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-            mockRepository.ReplayAll();
+            const string categoryBoundaryName = "A";
+            const string locationName = "locationName";
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                invalidFilePath,
                                                                validPreprocessorDirectory,
                                                                0.5,
-                                                               calculationMessageProvider);
+                                                               categoryBoundaryName);
 
             // Call
             Action call = () => activity.Run();
@@ -124,13 +100,12 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
+                Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -138,18 +113,14 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             const string invalidPreprocessorDirectory = "NonExistingPreprocessorDirectory";
+            const string categoryBoundaryName = "A";
             const string locationName = "locationName";
-            const string activityDescription = "activityDescription";
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-            mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                validFilePath,
                                                                invalidPreprocessorDirectory,
                                                                0.5,
-                                                               calculationMessageProvider);
+                                                               categoryBoundaryName);
 
             // Call
             Action call = () => activity.Run();
@@ -159,31 +130,26 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
+                Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("De bestandsmap waar de preprocessor bestanden opslaat is ongeldig. De bestandsmap bestaat niet.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Run_InvalidNorm_PerformValidationAndLogStartAndEndAndError()
         {
             // Setup
+            const string categoryBoundaryName = "A";
             const string locationName = "locationName";
-            const string activityDescription = "activityDescription";
-
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
-            mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                1.0,
-                                                               calculationMessageProvider);
+                                                               categoryBoundaryName);
 
             // Call
             Action call = () => activity.Run();
@@ -193,22 +159,21 @@ namespace Ringtoets.DuneErosion.Service.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
-                Assert.AreEqual($"{activityDescription} is gestart.", msgs[0]);
+                Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                 Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Run_ValidInput_PerformValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            const string locationName = "locationName";
-            const string activityDescription = "activityDescription";
             const double norm = 1.0 / 30;
+            const string categoryBoundaryName = "A";
+            const string locationName = "locationName";
 
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
@@ -217,8 +182,6 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(activityDescription);
             mockRepository.ReplayAll();
 
             var duneLocation = new TestDuneLocation(locationName);
@@ -227,7 +190,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                norm,
-                                                               calculationMessageProvider);
+                                                               categoryBoundaryName);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -239,7 +202,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"{activityDescription} is gestart.", messages[0]);
+                    Assert.AreEqual($"Waterstand berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
@@ -279,15 +242,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(duneLocationCalculation.DuneLocation.Name)).Return(string.Empty);
             mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(duneLocationCalculation,
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                validNorm,
-                                                               calculationMessageProvider);
+                                                               "A");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -307,15 +268,15 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditionsWithReportDetails), new object[]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
         {
             nameof(Run_InvalidCalculation_LogsError)
         })]
-        public void Run_InvalidCalculation_LogsError(bool endInFailure, string lastErrorFileContent, string detailedReport)
+        public void Run_InvalidCalculation_LogsError(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
+            const string categoryBoundaryName = "A";
             const string locationName = "locationName";
-            const string failureMessage = "failureMessage";
 
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
@@ -325,28 +286,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            if (string.IsNullOrEmpty(lastErrorFileContent))
-            {
-                calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(null))
-                                          .IgnoreArguments()
-                                          .Return(failureMessage);
-            }
-            else
-            {
-                calculationMessageProvider.Stub(calc => calc.GetCalculationFailedWithErrorReportMessage(null, null))
-                                          .IgnoreArguments()
-                                          .Return(failureMessage);
-            }
-
             mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                0.5,
-                                                               calculationMessageProvider);
+                                                               categoryBoundaryName);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -354,7 +300,11 @@ namespace Ringtoets.DuneErosion.Service.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, failureMessage, 7);
+                string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
+                                                    ? $"Er is een fout opgetreden tijdens de toetspeil berekening '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
+                                                    : $"Er is een fout opgetreden tijdens de toetspeil berekening '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+
+                TestHelper.AssertLogMessageIsGenerated(call, expectedFailureMessage, 7);
             }
 
             mockRepository.VerifyAll();
@@ -364,8 +314,8 @@ namespace Ringtoets.DuneErosion.Service.Test
         public void Run_CalculationResultingInNoConvergence_LogWarningNoConvergence()
         {
             // Setup
+            const string categoryBoundaryName = "A";
             const string locationName = "locationName";
-            const string calculationNotConvergedMessage = "calculatedNotConvergedMessage";
 
             var calculator = new TestDunesBoundaryConditionsCalculator
             {
@@ -374,9 +324,6 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Expect(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Expect(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
             mockRepository.ReplayAll();
 
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation(locationName));
@@ -385,7 +332,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                0.5,
-                                                               calculationMessageProvider);
+                                                               categoryBoundaryName);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -396,7 +343,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(7, msgs.Length);
-                    StringAssert.StartsWith(calculationNotConvergedMessage, msgs[4]);
+                    Assert.AreEqual($"Waterstand berekening voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, duneLocationCalculation.Output.CalculationConvergence);
             }
@@ -407,9 +354,9 @@ namespace Ringtoets.DuneErosion.Service.Test
         [Test]
         [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
         {
-            nameof(Run_ErrorInCalculation_PerformValidationAndCalculationAndError)
+            nameof(Run_ErrorInCalculation_ActivityStateSetToFailed)
         })]
-        public void Run_ErrorInCalculation_PerformValidationAndCalculationAndError(bool endInFailure, string lastErrorFileContent)
+        public void Run_ErrorInCalculation_ActivityStateSetToFailed(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
             const string locationName = "locationName";
@@ -422,25 +369,13 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
-            var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProvider.Stub(calc => calc.GetActivityDescription(locationName)).Return(string.Empty);
-            calculationMessageProvider.Stub(calc => calc.GetCalculationFailedMessage(locationName)).Return(string.Empty);
-            if (string.IsNullOrEmpty(lastErrorFileContent))
-            {
-                calculationMessageProvider.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(string.Empty);
-            }
-            else
-            {
-                calculationMessageProvider.Stub(calc => calc.GetCalculationFailedWithErrorReportMessage(locationName, lastErrorFileContent)).Return(string.Empty);
-            }
-
             mockRepository.ReplayAll();
 
             var activity = new DuneLocationCalculationActivity(new DuneLocationCalculation(new TestDuneLocation(locationName)),
                                                                validFilePath,
                                                                validPreprocessorDirectory,
                                                                0.5,
-                                                               calculationMessageProvider);
+                                                               "A");
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -464,7 +399,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Setup
             var duneLocationCalculation = new DuneLocationCalculation(new TestDuneLocation());
 
-            var calculationMessageProvider = mockRepository.Stub<ICalculationMessageProvider>();
             var calculationObserver = mockRepository.StrictMock<IObserver>();
             calculationObserver.Expect(o => o.UpdateObserver());
             duneLocationCalculation.Attach(calculationObserver);
@@ -474,7 +408,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                         validFilePath,
                                                                         validPreprocessorDirectory,
                                                                         1.0,
-                                                                        calculationMessageProvider,
+                                                                        "A",
                                                                         state);
 
             // Call
@@ -490,13 +424,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                             string hydraulicBoundaryDatabaseFilePath,
                                                             string preprocessorDirectory,
                                                             double norm,
-                                                            ICalculationMessageProvider messageProvider,
+                                                            string categoryBoundaryName,
                                                             ActivityState state)
                 : base(duneLocationCalculation,
                        hydraulicBoundaryDatabaseFilePath,
                        preprocessorDirectory,
                        norm,
-                       messageProvider)
+                       categoryBoundaryName)
             {
                 State = state;
             }
