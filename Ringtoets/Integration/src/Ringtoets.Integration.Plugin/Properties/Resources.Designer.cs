@@ -142,6 +142,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen trajecten gevonden die samengevoegd kunnen worden..
+        /// </summary>
+        public static string AssessmentSectionMerger_No_matching_AssessmentSections {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_No_matching_AssessmentSections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Selecteren....
         /// </summary>
         public static string BackgroundData_SelectMapData {

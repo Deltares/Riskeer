@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Gui;
 using log4net;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Forms.Merge;
+using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Merge;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
@@ -73,12 +75,28 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
-            assessmentSectionProvider.GetAssessmentSections(filePath);
+            IEnumerable<AssessmentSection> assessmentSections = assessmentSectionProvider.GetAssessmentSections(filePath);
+
+            if (assessmentSections == null)
+            {
+                return;
+            }
+
+            if (!assessmentSections.Any())
+            {
+                LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
+                return;
+            }
         }
 
         private static void CancelMergeAndLog()
         {
             log.Info(CoreCommonGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
+        }
+
+        private static void LogError(string message)
+        {
+            log.Error(message);
         }
     }
 }

@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Service.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -69,7 +71,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void StartMerge_FilePathNotNull_Continue()
+        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnNull_Abort()
         {
             // Setup
             var mocks = new MockRepository();
@@ -86,6 +88,27 @@ namespace Ringtoets.Integration.Plugin.Test
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnEmptyCollection_LogErrorAndAbort()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments().Return(Enumerable.Empty<AssessmentSection>());
+            mocks.ReplayAll();
+
+            var merger = new AssessmentSectionMerger(inquiryHelper, assessmentSectionProvider);
+
+            // Call
+            Action call = () => merger.StartMerge();
+
+            // Assert
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);
             mocks.VerifyAll();
         }
     }
