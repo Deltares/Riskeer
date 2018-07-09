@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Service
 {
@@ -66,6 +68,62 @@ namespace Ringtoets.DuneErosion.Service
                                                                                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                           norm,
                                                                                           categoryBoundaryName)).ToArray();
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to create activities for.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(DuneErosionFailureMechanism failureMechanism,
+                                                                                    IAssessmentSection assessmentSection)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            var activities = new List<CalculatableActivity>();
+
+            activities.AddRange(CreateCalculationActivities(
+                                    failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
+                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
+
+            activities.AddRange(CreateCalculationActivities(
+                                    failureMechanism.CalculationsForMechanismSpecificSignalingNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
+                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
+
+            activities.AddRange(CreateCalculationActivities(
+                                    failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
+                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
+
+            activities.AddRange(CreateCalculationActivities(
+                                    failureMechanism.CalculationsForLowerLimitNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
+                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
+
+            activities.AddRange(CreateCalculationActivities(
+                                    failureMechanism.CalculationsForFactorizedLowerLimitNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
+                                    RingtoetsCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
+
+            return activities;
         }
     }
 }
