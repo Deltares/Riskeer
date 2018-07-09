@@ -29,7 +29,7 @@ namespace Ringtoets.DuneErosion.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a dune location calculation.
     /// </summary>
-    public class DuneLocationCalculationActivity : CalculatableActivity
+    internal class DuneLocationCalculationActivity : CalculatableActivity
     {
         private readonly DuneLocationCalculation duneLocationCalculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;

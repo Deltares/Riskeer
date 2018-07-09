@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Ringtoets.DuneErosion.Service")]
 [assembly: AssemblyProduct("Ringtoets.DuneErosion.Service")]
+[assembly: InternalsVisibleTo("Ringtoets.DuneErosion.Service.Test")]
