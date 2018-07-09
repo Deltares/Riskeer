@@ -19,10 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data;
+
 namespace Ringtoets.Integration.Forms.Merge
 {
     /// <summary>
     /// Interface for providing the data to merge.
     /// </summary>
-    public interface IMergeDataProvider {}
+    public interface IMergeDataProvider
+    {
+        /// <summary>
+        /// Gets the selected <see cref="AssessmentSection"/>.
+        /// </summary>
+        AssessmentSection SelectedAssessmentSection { get; }
+
+        /// <summary>
+        /// Gets the collection of selected <see cref="IFailureMechanism"/>.
+        /// </summary>
+        IEnumerable<IFailureMechanism> SelectedFailureMechanisms { get; }
+
+        /// <summary>
+        /// Select the data to merge.
+        /// </summary>
+        /// <param name="assessmentSections">The collection of assessment sections to select from.</param>
+         void SelectData(IEnumerable<AssessmentSection> assessmentSections);
+    }
 }
