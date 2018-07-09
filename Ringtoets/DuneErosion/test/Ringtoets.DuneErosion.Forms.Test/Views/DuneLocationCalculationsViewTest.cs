@@ -148,7 +148,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_CategoryBoundaryNameInvalid_ThrowsArgumentException(string categoryBoundaryName)
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -159,26 +161,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                                                                        new DuneErosionFailureMechanism(),
                                                                        assessmentSection,
                                                                        () => 0.01,
-                                                                       null);
-
-            // Assert
-            const string expectedMessage = "'categoryBoundaryName' must have a value.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void Constructor_CategoryBoundaryNameEmpty_ThrowsArgumentException()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new DuneLocationCalculationsView(new ObservableList<DuneLocationCalculation>(),
-                                                                       new DuneErosionFailureMechanism(),
-                                                                       assessmentSection,
-                                                                       () => 0.01,
-                                                                       string.Empty);
+                                                                       categoryBoundaryName);
 
             // Assert
             const string expectedMessage = "'categoryBoundaryName' must have a value.";

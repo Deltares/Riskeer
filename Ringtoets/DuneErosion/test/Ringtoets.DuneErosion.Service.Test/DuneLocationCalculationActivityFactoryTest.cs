@@ -64,45 +64,5 @@ namespace Ringtoets.DuneErosion.Service.Test
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-
-        [Test]
-        public void CreateCalculationActivities_CategoryBoundaryNameNull_ThrowsArgumentException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => DuneLocationCalculationActivityFactory.CreateCalculationActivities(Enumerable.Empty<DuneLocationCalculation>(),
-                                                                                                         assessmentSection,
-                                                                                                         double.NaN,
-                                                                                                         null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void CreateCalculationActivities_CategoryBoundaryNameEmpty_ThrowsArgumentException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate test = () => DuneLocationCalculationActivityFactory.CreateCalculationActivities(Enumerable.Empty<DuneLocationCalculation>(),
-                                                                                                         assessmentSection,
-                                                                                                         double.NaN,
-                                                                                                         string.Empty);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
-            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
-            mockRepository.VerifyAll();
-        }
     }
 }

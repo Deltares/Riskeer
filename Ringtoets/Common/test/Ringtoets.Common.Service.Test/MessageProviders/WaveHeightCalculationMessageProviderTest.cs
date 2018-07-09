@@ -29,21 +29,12 @@ namespace Ringtoets.Common.Service.Test.MessageProviders
     public class WaveHeightCalculationMessageProviderTest
     {
         [Test]
-        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_CategoryBoundaryNameInvalid_ThrowsArgumentException(string categoryBoundaryName)
         {
             // Call
-            TestDelegate call = () => new WaveHeightCalculationMessageProvider(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
-        }
-
-        [Test]
-        public void Constructor_CategoryBoundaryNameEmpty_ThrowsArgumentException()
-        {
-            // Call
-            TestDelegate call = () => new WaveHeightCalculationMessageProvider("");
+            TestDelegate call = () => new WaveHeightCalculationMessageProvider(categoryBoundaryName);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
