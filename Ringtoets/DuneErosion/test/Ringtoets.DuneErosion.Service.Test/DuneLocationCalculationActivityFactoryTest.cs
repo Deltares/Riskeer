@@ -29,6 +29,7 @@ using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
@@ -173,6 +174,101 @@ namespace Ringtoets.DuneErosion.Service.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_WithValidData_ReturnsExpectedActivities()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath
+                }
+            };
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            var duneLocation1 = new TestDuneLocation("locationName 1");
+            var duneLocation2 = new TestDuneLocation("locationName 2");
+
+            failureMechanism.SetDuneLocations(new[]
+            {
+                duneLocation1,
+                duneLocation2
+            });
+
+            // Call
+            CalculatableActivity[] activities = DuneLocationCalculationActivityFactory.CreateCalculationActivities(failureMechanism, assessmentSection).ToArray();
+
+            // Assert
+            Assert.AreEqual(10, activities.Length);
+
+            double mechanismSpecificFactorizedSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm);
+            AssertDuneLocationCalculationActivity(activities.First(),
+                                                  duneLocation1,
+                                                  mechanismSpecificFactorizedSignalingNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(1),
+                                                  duneLocation2,
+                                                  mechanismSpecificFactorizedSignalingNorm);
+
+            double mechanismSpecificSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(2),
+                                                  duneLocation1,
+                                                  mechanismSpecificSignalingNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(3),
+                                                  duneLocation2,
+                                                  mechanismSpecificSignalingNorm);
+
+            double mechanismSpecificLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(4),
+                                                  duneLocation1,
+                                                  mechanismSpecificLowerLimitNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(5),
+                                                  duneLocation2,
+                                                  mechanismSpecificLowerLimitNorm);
+
+            double lowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(6),
+                                                  duneLocation1,
+                                                  lowerLimitNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(7),
+                                                  duneLocation2,
+                                                  lowerLimitNorm);
+
+            double factorizedLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(8),
+                                                  duneLocation1,
+                                                  factorizedLowerLimitNorm);
+            AssertDuneLocationCalculationActivity(activities.ElementAt(9),
+                                                  duneLocation2,
+                                                  factorizedLowerLimitNorm);
+        }
+
+        private static void AssertDuneLocationCalculationActivity(Activity activity,
+                                                                  DuneLocation duneLocation,
+                                                                  double norm)
+        {
+            var mocks = new MockRepository();
+            var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator();
+            var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty)).Return(dunesBoundaryConditionsCalculator);
+            mocks.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                activity.Run();
+
+                DunesBoundaryConditionsCalculationInput actualCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.Single();
+                Assert.AreEqual(duneLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
+            }
+
+            mocks.VerifyAll();
         }
 
         private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessor)
