@@ -48,7 +48,6 @@
       <DependentUpon>MergeDataProviderStub.cs</DependentUpon>
     </Compile>
     <Compile Include="Merge\IMergeDataProvider.cs" />
-    <Compile Include="Merge\InquiryMergeHelper.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
