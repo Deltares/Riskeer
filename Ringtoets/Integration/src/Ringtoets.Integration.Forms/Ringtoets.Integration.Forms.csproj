@@ -41,6 +41,12 @@
     <Compile Include="Controls\AssessmentSectionAssemblyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Dialogs\MergeDataProviderStub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\MergeDataProviderStub.Designer.cs">
+      <DependentUpon>MergeDataProviderStub.cs</DependentUpon>
+    </Compile>
     <Compile Include="Merge\IMergeDataProvider.cs" />
     <Compile Include="Merge\InquiryMergeHelper.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
@@ -303,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\BackgroundMapDataSelectionDialog.resx">
       <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\MergeDataProviderStub.resx">
+      <DependentUpon>MergeDataProviderStub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

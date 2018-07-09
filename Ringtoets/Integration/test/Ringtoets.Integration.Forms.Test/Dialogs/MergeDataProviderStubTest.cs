@@ -19,21 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Dialogs;
-using Ringtoets.Integration.Service.Merge;
+using Ringtoets.Integration.Forms.Merge;
 
 namespace Ringtoets.Integration.Forms.Test.Dialogs
 {
     [TestFixture]
-    public class AssessmentSectionProviderStubTest : NUnitFormTest
+    public class MergeDataProviderStubTest : NUnitFormTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -44,17 +41,17 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
             mocks.ReplayAll();
 
             // Call
-            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            using (var provider = new MergeDataProviderStub(dialogParent))
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(provider);
-                Assert.IsInstanceOf<IAssessmentSectionProvider>(provider);
+                Assert.IsInstanceOf<IMergeDataProvider>(provider);
                 mocks.VerifyAll();
             }
         }
 
         [Test]
-        public void GetAssessmentSections_Always_ShowsDialog()
+        public void SelectData_Always_ShowsDialog()
         {
             // Setup
             Button cancelButton = null;
@@ -70,32 +67,21 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
             };
 
             using (var dialogParent = new Form())
-            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            using (var provider = new MergeDataProviderStub(dialogParent))
             {
                 // Call
-                provider.GetAssessmentSections(null);
+                provider.SelectData(null);
 
                 // Assert
-                var label = (Label) new LabelTester("label", provider).TheObject;
-                Assert.AreEqual("filePath:", label.Text);
-
-                var filePathLabel = (Label) new LabelTester("filePathLabel", provider).TheObject;
-                Assert.AreEqual(string.Empty, filePathLabel.Text);
-
-                var invalidProjectButtonSelect = (Button) new ButtonTester("invalidProjectButton", provider).TheObject;
-                Assert.AreEqual("Selecteer fout project", invalidProjectButtonSelect.Text);
-                Assert.IsTrue(invalidProjectButtonSelect.Enabled);
-
-                var noMatchButtonSelect = (Button) new ButtonTester("noMatchButton", provider).TheObject;
-                Assert.AreEqual("Selecteer project zonder overeenkomende trajecten", noMatchButtonSelect.Text);
-                Assert.IsTrue(noMatchButtonSelect.Enabled);
-
-                var matchButtonSelect = (Button) new ButtonTester("matchButton", provider).TheObject;
-                Assert.AreEqual("Selecteer project met overeenkomend traject", matchButtonSelect.Text);
-                Assert.IsTrue(matchButtonSelect.Enabled);
+                var okButton = (Button)new ButtonTester("okButton", provider).TheObject;
+                Assert.AreEqual("Ok", okButton.Text);
+                Assert.IsTrue(okButton.Enabled);
 
                 Assert.AreEqual("Annuleren", cancelButton.Text);
                 Assert.AreEqual(cancelButton, provider.CancelButton);
+
+                Assert.AreEqual(1, provider.MinimumSize.Width);
+                Assert.AreEqual(1, provider.MinimumSize.Height);
 
                 Assert.AreEqual(1, provider.MinimumSize.Width);
                 Assert.AreEqual(1, provider.MinimumSize.Height);
@@ -103,7 +89,7 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
         }
 
         [Test]
-        public void GivenDialog_WhenCancelPressed_ThenReturnNull()
+        public void GivenDialog_WhenCancelPressed_ThenReturnFalse()
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -116,85 +102,69 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
             };
 
             using (var dialogParent = new Form())
-            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            using (var provider = new MergeDataProviderStub(dialogParent))
             {
                 // When
-                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
+                bool dataSelected= provider.SelectData(null);
 
                 // Then
-                Assert.IsNull(assessmentSections);
+                Assert.IsFalse(dataSelected);
             }
         }
 
         [Test]
-        public void GivenDialog_WhenInvalidProjectButtonPressed_ThenReturnNull()
+        public void GivenDialog_WhenOkPressed_ThenReturnTrue()
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
             {
                 using (new FormTester(name))
                 {
-                    var button = new ButtonTester("invalidProjectButton", name);
+                    var button = new ButtonTester("okButton", name);
                     button.Click();
                 }
             };
 
             using (var dialogParent = new Form())
-            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            using (var provider = new MergeDataProviderStub(dialogParent))
             {
                 // When
-                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
+                bool dataSelected = provider.SelectData(null);
 
                 // Then
-                Assert.IsNull(assessmentSections);
+                Assert.IsTrue(dataSelected);
             }
         }
 
         [Test]
-        public void GivenDialog_WhenNoMatchButtonPressed_ThenReturnEmptyCollection()
+        public void GivenDialog_WhenOkPressed_ThenSelectionPropertiesSet()
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
             {
                 using (new FormTester(name))
                 {
-                    var button = new ButtonTester("noMatchButton", name);
+                    var button = new ButtonTester("okButton", name);
                     button.Click();
                 }
             };
 
             using (var dialogParent = new Form())
-            using (var provider = new AssessmentSectionProviderStub(dialogParent))
+            using (var provider = new MergeDataProviderStub(dialogParent))
             {
+                // Precondition
+                Assert.IsNull(provider.SelectedAssessmentSection);
+                Assert.IsNull(provider.SelectedAssessmentSection);
+
                 // When
-                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
+                provider.SelectData(null);
 
                 // Then
-                CollectionAssert.IsEmpty(assessmentSections);
-            }
-        }
-
-        [Test]
-        public void GivenDialog_WhenMatchButtonPressed_ThenReturnCollectionWithOneAssessmentSection()
-        {
-            // Given
-            DialogBoxHandler = (name, wnd) =>
-            {
-                using (new FormTester(name))
+                Assert.IsNotNull(provider.SelectedAssessmentSection);
+                CollectionAssert.AreEqual(new[]
                 {
-                    var button = new ButtonTester("matchButton", name);
-                    button.Click();
-                }
-            };
-
-            using (var dialogParent = new Form())
-            using (var provider = new AssessmentSectionProviderStub(dialogParent))
-            {
-                // When
-                IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(null);
-
-                // Then
-                Assert.AreEqual(1, assessmentSections.Count());
+                    provider.SelectedAssessmentSection.Piping
+                }, provider.SelectedFailureMechanisms);
             }
         }
     }

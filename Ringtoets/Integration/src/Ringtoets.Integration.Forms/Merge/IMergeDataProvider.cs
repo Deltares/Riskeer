@@ -44,6 +44,7 @@ namespace Ringtoets.Integration.Forms.Merge
         /// Select the data to merge.
         /// </summary>
         /// <param name="assessmentSections">The collection of assessment sections to select from.</param>
-         void SelectData(IEnumerable<AssessmentSection> assessmentSections);
+        /// <returns>Indicator whether selection succeeded.</returns>
+         bool SelectData(IEnumerable<AssessmentSection> assessmentSections);
     }
 }
