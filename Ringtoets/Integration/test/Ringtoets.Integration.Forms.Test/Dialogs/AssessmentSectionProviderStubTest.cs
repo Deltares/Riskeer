@@ -76,6 +76,12 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
                 provider.GetAssessmentSections(null);
 
                 // Assert
+                var label = (Label) new LabelTester("label", provider).TheObject;
+                Assert.AreEqual("filePath:", label.Text);
+
+                var filePathLabel = (Label) new LabelTester("filePathLabel", provider).TheObject;
+                Assert.AreEqual(string.Empty, filePathLabel.Text);
+
                 var invalidProjectButtonSelect = (Button) new ButtonTester("invalidProjectButton", provider).TheObject;
                 Assert.AreEqual("Selecteer fout project", invalidProjectButtonSelect.Text);
                 Assert.IsTrue(invalidProjectButtonSelect.Enabled);

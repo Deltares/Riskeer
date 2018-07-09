@@ -51,6 +51,8 @@ namespace Ringtoets.Integration.Forms.Dialogs
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
         {
+            filePathLabel.Text = filePath;
+
             return ShowDialog() == DialogResult.OK
                        ? assessmentSectionsToReturn
                        : null;

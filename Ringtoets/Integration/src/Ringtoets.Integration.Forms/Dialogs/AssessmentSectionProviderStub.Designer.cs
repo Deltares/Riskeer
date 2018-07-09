@@ -50,28 +50,41 @@ namespace Ringtoets.Integration.Forms.Dialogs
         private void InitializeComponent()
         {
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.label = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.invalidProjectButton = new System.Windows.Forms.Button();
             this.noMatchButton = new System.Windows.Forms.Button();
             this.matchButton = new System.Windows.Forms.Button();
+            this.filePathLabel = new System.Windows.Forms.Label();
             this.flowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel
             // 
+            this.flowLayoutPanel.Controls.Add(this.label);
+            this.flowLayoutPanel.Controls.Add(this.filePathLabel);
             this.flowLayoutPanel.Controls.Add(this.cancelButton);
             this.flowLayoutPanel.Controls.Add(this.invalidProjectButton);
             this.flowLayoutPanel.Controls.Add(this.noMatchButton);
             this.flowLayoutPanel.Controls.Add(this.matchButton);
             this.flowLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(280, 100);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(280, 150);
             this.flowLayoutPanel.TabIndex = 0;
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Location = new System.Drawing.Point(3, 0);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(45, 13);
+            this.label.TabIndex = 4;
+            this.label.Text = "filePath:";
             // 
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(3, 3);
+            this.cancelButton.Location = new System.Drawing.Point(3, 26);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(121, 23);
             this.cancelButton.TabIndex = 0;
@@ -82,7 +95,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
             // 
             this.invalidProjectButton.AutoSize = true;
             this.invalidProjectButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.invalidProjectButton.Location = new System.Drawing.Point(130, 3);
+            this.invalidProjectButton.Location = new System.Drawing.Point(130, 26);
             this.invalidProjectButton.Name = "invalidProjectButton";
             this.invalidProjectButton.Size = new System.Drawing.Size(135, 23);
             this.invalidProjectButton.TabIndex = 1;
@@ -93,7 +106,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
             // 
             this.noMatchButton.AutoSize = true;
             this.noMatchButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.noMatchButton.Location = new System.Drawing.Point(3, 32);
+            this.noMatchButton.Location = new System.Drawing.Point(3, 55);
             this.noMatchButton.Name = "noMatchButton";
             this.noMatchButton.Size = new System.Drawing.Size(262, 23);
             this.noMatchButton.TabIndex = 2;
@@ -105,13 +118,20 @@ namespace Ringtoets.Integration.Forms.Dialogs
             // 
             this.matchButton.AutoSize = true;
             this.matchButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.matchButton.Location = new System.Drawing.Point(3, 61);
+            this.matchButton.Location = new System.Drawing.Point(3, 84);
             this.matchButton.Name = "matchButton";
             this.matchButton.Size = new System.Drawing.Size(262, 23);
             this.matchButton.TabIndex = 3;
             this.matchButton.Text = "Selecteer project met overeenkomend traject";
             this.matchButton.UseVisualStyleBackColor = true;
             this.matchButton.Click += new System.EventHandler(this.matchButton_Click);
+            // 
+            // filePathLabel
+            // 
+            this.filePathLabel.Location = new System.Drawing.Point(54, 0);
+            this.filePathLabel.Name = "filePathLabel";
+            this.filePathLabel.Size = new System.Drawing.Size(211, 23);
+            this.filePathLabel.TabIndex = 5;
             // 
             // AssessmentSectionProviderStub
             // 
@@ -134,5 +154,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
         private System.Windows.Forms.Button invalidProjectButton;
         private System.Windows.Forms.Button noMatchButton;
         private System.Windows.Forms.Button matchButton;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Label filePathLabel;
     }
 }
