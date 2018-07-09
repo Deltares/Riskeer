@@ -27,6 +27,7 @@ using log4net;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.Integration.Service.Comparers;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
 
@@ -41,7 +42,7 @@ namespace Ringtoets.Integration.Plugin
 
         private readonly IInquiryHelper inquiryHandler;
         private readonly Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction;
-        private readonly AssessmentSectionsOwner assessmentSectionsOwner;
+        private readonly IAssessmentSectionMergeComparer comparer;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
@@ -49,9 +50,10 @@ namespace Ringtoets.Integration.Plugin
         /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
         /// <param name="getAssessmentSectionsAction">The action for getting the assessment sections
         /// to merge.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="inquiryHandler"/>
-        /// is <c>null</c>.</exception>
-        public AssessmentSectionMerger(IInquiryHelper inquiryHandler, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction)
+        /// <param name="comparer">The comparer to compare the assessment sections with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public AssessmentSectionMerger(IInquiryHelper inquiryHandler, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction,
+                                       IAssessmentSectionMergeComparer comparer)
         {
             if (inquiryHandler == null)
             {
@@ -63,49 +65,61 @@ namespace Ringtoets.Integration.Plugin
                 throw new ArgumentNullException(nameof(getAssessmentSectionsAction));
             }
 
+            if (comparer == null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
             this.inquiryHandler = inquiryHandler;
             this.getAssessmentSectionsAction = getAssessmentSectionsAction;
-
-            assessmentSectionsOwner = new AssessmentSectionsOwner();
+            this.comparer = comparer;
         }
 
-        public void StartMerge()
+        /// <summary>
+        /// Performs the merge of <paramref name="assessmentSection"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to perform the merge on.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        public void StartMerge(AssessmentSection assessmentSection)
         {
-            SelectProject();
-        }
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
 
-        private void SelectProject()
-        {
-            string filePath = inquiryHandler.GetSourceFileLocation(RingtoetsStorageResources.Ringtoets_project_file_filter);
+            string filePath = SelectProject();
+
             if (filePath == null)
             {
                 CancelMergeAndLog();
                 return;
             }
 
-            if (!GetAssessmentSections(filePath))
-            {
-                return;
-            }
-        }
-
-        private bool GetAssessmentSections(string filePath)
-        {
-            getAssessmentSectionsAction(filePath, assessmentSectionsOwner);
-            IEnumerable<AssessmentSection> assessmentSections = assessmentSectionsOwner.AssessmentSections;
+            IEnumerable<AssessmentSection> assessmentSections = GetAssessmentSections(filePath);
 
             if (assessmentSections == null)
             {
-                return false;
+                return;
             }
 
             if (!assessmentSections.Any())
             {
                 LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
-                return false;
+                return;
             }
+        }
 
-            return true;
+        private string SelectProject()
+        {
+            return inquiryHandler.GetSourceFileLocation(RingtoetsStorageResources.Ringtoets_project_file_filter);
+        }
+
+        private IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
+        {
+            var assessmentSectionsOwner = new AssessmentSectionsOwner();
+            getAssessmentSectionsAction(filePath, assessmentSectionsOwner);
+            return assessmentSectionsOwner.AssessmentSections;
         }
 
         private static void CancelMergeAndLog()

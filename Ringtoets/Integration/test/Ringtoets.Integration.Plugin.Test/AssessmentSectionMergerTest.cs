@@ -25,7 +25,9 @@ using Core.Common.Gui;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Service.Comparers;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -35,12 +37,18 @@ namespace Ringtoets.Integration.Plugin.Test
         [Test]
         public void Constructor_InquiryHandlerNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(null, (path, owner) => {});
+            TestDelegate call = () => new AssessmentSectionMerger(null, (path, owner) => {}, comparer);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("inquiryHandler", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -49,14 +57,52 @@ namespace Ringtoets.Integration.Plugin.Test
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(inquiryHelper, null);
+            TestDelegate call = () => new AssessmentSectionMerger(inquiryHelper, null, comparer);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("getAssessmentSectionsAction", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ComparerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new AssessmentSectionMerger(inquiryHelper, (path, owner) => {}, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("comparer", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void StartMerge_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
+            mocks.ReplayAll();
+
+            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {}, comparer);
+
+            // Call
+            TestDelegate call = () => merger.StartMerge(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -67,12 +113,13 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(null);
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {});
+            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {}, comparer);
 
             // Call
-            Action call = () => merger.StartMerge();
+            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Info), 1);
@@ -86,12 +133,13 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {});
+            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {}, comparer);
 
             // Call
-            Action call = () => merger.StartMerge();
+            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             TestHelper.AssertLogMessagesCount(call, 0);
@@ -105,12 +153,14 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => { owner.AssessmentSections = Enumerable.Empty<AssessmentSection>(); });
+            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => { owner.AssessmentSections = Enumerable.Empty<AssessmentSection>(); },
+                                                     comparer);
 
             // Call
-            Action call = () => merger.StartMerge();
+            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);

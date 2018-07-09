@@ -92,6 +92,7 @@ using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
+using Ringtoets.Integration.Service.Comparers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -275,12 +276,13 @@ namespace Ringtoets.Integration.Plugin
 
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-            assessmentSectionMerger = new AssessmentSectionMerger(new DialogBasedInquiryHelper(Gui.MainWindow), 
+            assessmentSectionMerger = new AssessmentSectionMerger(new DialogBasedInquiryHelper(Gui.MainWindow),
                                                                   (filePath, assessmentSectionOwner) =>
                                                                   {
                                                                       var provider = new AssessmentSectionProviderStub(Gui.MainWindow);
                                                                       assessmentSectionOwner.AssessmentSections = provider.GetAssessmentSections(filePath);
-                                                                  });
+                                                                  },
+                                                                  new AssessmentSectionMergeComparer());
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
@@ -1470,7 +1472,7 @@ namespace Ringtoets.Integration.Plugin
                 GuiResources.Import,
                 GuiResources.Import_ToolTip,
                 GuiResources.ImportIcon,
-                (sender, args) => assessmentSectionMerger.StartMerge());
+                (sender, args) => assessmentSectionMerger.StartMerge((AssessmentSection) nodeData));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
