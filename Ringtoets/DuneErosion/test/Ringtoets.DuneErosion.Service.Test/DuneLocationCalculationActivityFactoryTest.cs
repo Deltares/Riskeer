@@ -32,7 +32,7 @@ namespace Ringtoets.DuneErosion.Service.Test
     public class DuneLocationCalculationActivityFactoryTest
     {
         [Test]
-        public void CreateCalculationActivities_CalculationsNull_ThrowsArgumentNullException()
+        public void CreateCalculationActivitiesForCalculations_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -52,13 +52,43 @@ namespace Ringtoets.DuneErosion.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateCalculationActivitiesForCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => DuneLocationCalculationActivityFactory.CreateCalculationActivities(Enumerable.Empty<DuneLocationCalculation>(),
                                                                                                          null,
                                                                                                          double.NaN,
                                                                                                          "A");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            // Call
+            TestDelegate test = () => DuneLocationCalculationActivityFactory.CreateCalculationActivities(null,
+                                                                                                         assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => DuneLocationCalculationActivityFactory.CreateCalculationActivities(new DuneErosionFailureMechanism(),
+                                                                                                         null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
