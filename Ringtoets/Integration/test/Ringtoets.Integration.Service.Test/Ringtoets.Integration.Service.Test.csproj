@@ -22,7 +22,7 @@
     <Compile Include="Comparers\AssessmentSectionMergeComparerTest.cs" />
     <Compile Include="Exceptions\AssessmentSectionProviderExceptionTest.cs" />
     <Compile Include="Merge\LoadAssessmentSectionsActivityTest.cs" />
-    <Compile Include="Merge\AssessmentSectionProviderServiceTest.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionServiceTest.cs" />
     <Compile Include="AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactoryTest.cs" />
     <Compile Include="RingtoetsDataSynchronizationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

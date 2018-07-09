@@ -10,17 +10,17 @@ namespace Ringtoets.Integration.Service.Merge
     /// <summary>
     /// Service which provides a <see cref="RingtoetsProject"/> from a file.
     /// </summary>
-    public class AssessmentSectionProviderService : IAssessmentSectionProvider
+    public class LoadAssessmentSectionService : IAssessmentSectionProvider
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionProviderService));
+        private readonly ILog log = LogManager.GetLogger(typeof(LoadAssessmentSectionService));
         private readonly IStoreProject storage;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionProviderService"/>
+        /// Creates a new instance of <see cref="LoadAssessmentSectionService"/>
         /// </summary>
         /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="projectStorage"/> is <c>null</c>.</exception>
-        public AssessmentSectionProviderService(IStoreProject projectStorage)
+        public LoadAssessmentSectionService(IStoreProject projectStorage)
         {
             if (projectStorage == null)
             {
