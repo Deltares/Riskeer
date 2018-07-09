@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Service.Comparers;
 
 namespace Ringtoets.Integration.Plugin.Test
@@ -127,9 +128,9 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GivenValidFilePath_WhenGetAssessmentSectionActionReturnNull_Abort()
+        public void GivenValidFilePath_WhenGetAssessmentSectionActionReturnNull_ThenAbort()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
@@ -138,32 +139,94 @@ namespace Ringtoets.Integration.Plugin.Test
 
             var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {}, comparer);
 
-            // Call
+            // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
-            // Assert
+            // Then
             TestHelper.AssertLogMessagesCount(call, 0);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnEmptyCollection_LogErrorAndAbort()
+        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnEmptyCollection_ThenLogErrorAndAbort()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => { owner.AssessmentSections = Enumerable.Empty<AssessmentSection>(); },
-                                                     comparer);
+            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
+            {
+                owner.AssessmentSections = Enumerable.Empty<AssessmentSection>();
+            };
 
-            // Call
+            var merger = new AssessmentSectionMerger(inquiryHelper, getAssessmentSectionsAction, comparer);
+
+            // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
-            // Assert
+            // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSection_WhenComparerReturnFalse_ThenLogErrorAndAbort()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
+            comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(false);
+            mocks.ReplayAll();
+
+            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
+            {
+                owner.AssessmentSections = new []
+                {
+                    new AssessmentSection(AssessmentSectionComposition.Dike)
+                };
+            };
+
+            var merger = new AssessmentSectionMerger(inquiryHelper, getAssessmentSectionsAction, comparer);
+
+            // When
+            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Then
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er zijn geen trajecten gevonden die samengevoegd kunnen worden.", LogLevelConstant.Error), 1);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSection_WhenComparerReturnTrue_ThenContinue()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
+            comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
+            mocks.ReplayAll();
+
+            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
+            {
+                owner.AssessmentSections = new []
+                {
+                    new AssessmentSection(AssessmentSectionComposition.Dike)
+                };
+            };
+
+            var merger = new AssessmentSectionMerger(inquiryHelper, getAssessmentSectionsAction, comparer);
+
+            // When
+            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+            // Then
+            TestHelper.AssertLogMessagesCount(call, 0);
             mocks.VerifyAll();
         }
     }

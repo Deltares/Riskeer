@@ -108,6 +108,14 @@ namespace Ringtoets.Integration.Plugin
                 LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
                 return;
             }
+
+            IEnumerable<AssessmentSection> matchingAssessmentSections = assessmentSections.Where(section => comparer.Compare(assessmentSection, section));
+
+            if (!matchingAssessmentSections.Any())
+            {
+                LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
+                return;
+            }
         }
 
         private string SelectProject()
