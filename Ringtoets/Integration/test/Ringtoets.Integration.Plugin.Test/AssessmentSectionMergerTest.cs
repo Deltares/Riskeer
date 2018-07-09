@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Service.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test
 {
@@ -36,17 +35,28 @@ namespace Ringtoets.Integration.Plugin.Test
         [Test]
         public void Constructor_InquiryHandlerNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(null, assessmentSectionProvider);
+            TestDelegate call = () => new AssessmentSectionMerger(null, (path, owner) => {});
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("inquiryHandler", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetAssessmentSectionsActionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate call = () => new AssessmentSectionMerger(inquiryHelper, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("getAssessmentSectionsAction", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -57,10 +67,9 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(null);
-            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper, assessmentSectionProvider);
+            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {});
 
             // Call
             Action call = () => merger.StartMerge();
@@ -71,17 +80,15 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnNull_Abort()
+        public void GivenValidFilePath_WhenGetAssessmentSectionActionReturnNull_Abort()
         {
             // Setup
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
-            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments().Return(null);
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper, assessmentSectionProvider);
+            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => {});
 
             // Call
             Action call = () => merger.StartMerge();
@@ -98,11 +105,9 @@ namespace Ringtoets.Integration.Plugin.Test
             var mocks = new MockRepository();
             var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
-            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments().Return(Enumerable.Empty<AssessmentSection>());
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(inquiryHelper, assessmentSectionProvider);
+            var merger = new AssessmentSectionMerger(inquiryHelper, (path, owner) => { owner.AssessmentSections = Enumerable.Empty<AssessmentSection>(); });
 
             // Call
             Action call = () => merger.StartMerge();

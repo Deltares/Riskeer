@@ -25,8 +25,8 @@ using System.Linq;
 using Core.Common.Gui;
 using log4net;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Plugin.Properties;
-using Ringtoets.Integration.Service.Merge;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
 
@@ -40,25 +40,33 @@ namespace Ringtoets.Integration.Plugin
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMerger));
 
         private readonly IInquiryHelper inquiryHandler;
-        private readonly IAssessmentSectionProvider assessmentSectionProvider;
+        private readonly Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction;
+        private readonly AssessmentSectionsOwner assessmentSectionsOwner;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
         /// </summary>
         /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
-        /// <param name="assessmentSectionProvider">The provider for getting the assessment sections
+        /// <param name="getAssessmentSectionsAction">The action for getting the assessment sections
         /// to merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="inquiryHandler"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionMerger(IInquiryHelper inquiryHandler, IAssessmentSectionProvider assessmentSectionProvider)
+        public AssessmentSectionMerger(IInquiryHelper inquiryHandler, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction)
         {
             if (inquiryHandler == null)
             {
                 throw new ArgumentNullException(nameof(inquiryHandler));
             }
 
+            if (getAssessmentSectionsAction == null)
+            {
+                throw new ArgumentNullException(nameof(getAssessmentSectionsAction));
+            }
+
             this.inquiryHandler = inquiryHandler;
-            this.assessmentSectionProvider = assessmentSectionProvider;
+            this.getAssessmentSectionsAction = getAssessmentSectionsAction;
+
+            assessmentSectionsOwner = new AssessmentSectionsOwner();
         }
 
         public void StartMerge()
@@ -75,18 +83,29 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
-            IEnumerable<AssessmentSection> assessmentSections = assessmentSectionProvider.GetAssessmentSections(filePath);
+            if (!GetAssessmentSections(filePath))
+            {
+                return;
+            }
+        }
+
+        private bool GetAssessmentSections(string filePath)
+        {
+            getAssessmentSectionsAction(filePath, assessmentSectionsOwner);
+            IEnumerable<AssessmentSection> assessmentSections = assessmentSectionsOwner.AssessmentSections;
 
             if (assessmentSections == null)
             {
-                return;
+                return false;
             }
 
             if (!assessmentSections.Any())
             {
                 LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
-                return;
+                return false;
             }
+
+            return true;
         }
 
         private static void CancelMergeAndLog()
