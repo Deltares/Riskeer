@@ -6,10 +6,9 @@ using Ringtoets.Integration.Data.Merge;
 namespace Ringtoets.Integration.Service.Merge
 {
     /// <summary>
-    /// Activity to retrieve a collection of <see cref="AssessmentSection"/>
-    /// from a file.
+    /// Activity to load a collection of <see cref="AssessmentSection"/> from a file.
     /// </summary>
-    public class AssessmentSectionProviderActivity : Activity
+    public class LoadAssessmentSectionsActivity : Activity
     {
         private readonly AssessmentSectionsOwner owner;
         private readonly IAssessmentSectionProvider assessmentSectionProvider;
@@ -18,7 +17,7 @@ namespace Ringtoets.Integration.Service.Merge
         private bool canceled;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionProviderActivity"/>.
+        /// Creates a new instance of <see cref="LoadAssessmentSectionsActivity"/>.
         /// </summary>
         /// <param name="owner">The owner to set the retrieved collection
         /// of <see cref="AssessmentSection"/> on.</param>
@@ -27,7 +26,7 @@ namespace Ringtoets.Integration.Service.Merge
         /// <param name="filePath">The file path to retrieve the collection of
         /// <see cref="AssessmentSection"/> from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
-        public AssessmentSectionProviderActivity(AssessmentSectionsOwner owner,
+        public LoadAssessmentSectionsActivity(AssessmentSectionsOwner owner,
                                                  IAssessmentSectionProvider assessmentSectionProvider,
                                                  string filePath)
         {

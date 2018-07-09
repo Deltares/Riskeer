@@ -12,7 +12,7 @@ using Ringtoets.Integration.Service.Merge;
 namespace Ringtoets.Integration.Service.Test.Merge
 {
     [TestFixture]
-    public class AssessmentSectionProviderActivityTest
+    public class LoadAssessmentSectionsActivityTest
     {
         [Test]
         public void Constructor_OwnerNull_ThrowsArgumentNullException()
@@ -23,7 +23,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionProviderActivity(null, provider, string.Empty);
+            TestDelegate call = () => new LoadAssessmentSectionsActivity(null, provider, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -35,7 +35,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         public void Constructor_ProviderNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionProviderActivity(new AssessmentSectionsOwner(), null, string.Empty);
+            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(), null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionProviderActivity(new AssessmentSectionsOwner(), 
+            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(), 
                                                                             provider, 
                                                                             null);
 
@@ -72,7 +72,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             var owner = new AssessmentSectionsOwner();
 
             // Call
-            var activity = new AssessmentSectionProviderActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -92,7 +92,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new AssessmentSectionProviderActivity(owner, provider, filePath);
+            var activity = new LoadAssessmentSectionsActivity(owner, provider, filePath);
 
             // Call
             activity.Run();
@@ -115,7 +115,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new AssessmentSectionProviderActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
 
             // Call
             activity.Run();
@@ -138,7 +138,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new AssessmentSectionProviderActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
 
             // Call
             activity.Run();
@@ -163,7 +163,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new AssessmentSectionProviderActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
 
             activity.Run();
             activity.Cancel();

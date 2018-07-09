@@ -19,7 +19,7 @@
     <Compile Include="Comparers\AssessmentSectionMergeComparer.cs" />
     <Compile Include="Comparers\IAssessmentSectionMergeComparer.cs" />
     <Compile Include="Exceptions\AssessmentSectionProviderException.cs" />
-    <Compile Include="Merge\AssessmentSectionProviderActivity.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionsActivity.cs" />
     <Compile Include="Merge\AssessmentSectionProviderService.cs" />
     <Compile Include="Merge\IAssessmentSectionProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
