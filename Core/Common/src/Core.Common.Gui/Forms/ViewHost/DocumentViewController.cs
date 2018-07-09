@@ -38,7 +38,7 @@ namespace Core.Common.Gui.Forms.ViewHost
         private readonly ViewInfo[] viewInfos;
         private readonly IWin32Window dialogParent;
 
-        private readonly IDictionary<object, IView> openedViewLookup = new Dictionary<object, IView>();
+        private readonly IDictionary<object, Tuple<IView, ViewInfo>> openedViewLookup = new Dictionary<object, Tuple<IView, ViewInfo>>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DocumentViewController"/> class.
@@ -143,21 +143,21 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void CreateViewFromViewInfo(object data, ViewInfo viewInfo)
         {
-            IView view;
+            Tuple<IView, ViewInfo> view;
             openedViewLookup.TryGetValue(data, out view);
 
             if (view != null)
             {
-                viewHost.BringToFront(view);
+                viewHost.BringToFront(view.Item1);
                 return;
             }
 
-            view = CreateViewForData(data, viewInfo);
+            view = new Tuple<IView, ViewInfo>(CreateViewForData(data, viewInfo), viewInfo);
 
             openedViewLookup.Add(data, view);
 
-            viewHost.AddDocumentView(view);
-            viewHost.SetImage(view, viewInfo.Image);
+            viewHost.AddDocumentView(view.Item1);
+            viewHost.SetImage(view.Item1, viewInfo.Image);
         }
 
         private static IView CreateViewForData(object data, ViewInfo viewInfo)
@@ -175,7 +175,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private bool ShouldRemoveViewForData(IView view, object data)
         {
-            ViewInfo viewInfo = viewInfos.FirstOrDefault(vi => vi.ViewType == view.GetType());
+            ViewInfo viewInfo = openedViewLookup.Single(openedView => ReferenceEquals(view, openedView.Value.Item1)).Value.Item2;
 
             if (viewInfo == null)
             {
@@ -190,7 +190,7 @@ namespace Core.Common.Gui.Forms.ViewHost
 
         private void ViewHostOnViewClosed(object sender, ViewChangeEventArgs viewChangeEventArgs)
         {
-            object data = openedViewLookup.Where(kv => ReferenceEquals(kv.Value, viewChangeEventArgs.View))
+            object data = openedViewLookup.Where(kv => ReferenceEquals(kv.Value.Item1, viewChangeEventArgs.View))
                                           .Select(kv => kv.Key)
                                           .FirstOrDefault();
 
