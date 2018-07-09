@@ -2,6 +2,7 @@
 using Core.Common.Base.Service;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
+using Ringtoets.Integration.Service.Properties;
 
 namespace Ringtoets.Integration.Service.Merge
 {
@@ -48,6 +49,8 @@ namespace Ringtoets.Integration.Service.Merge
             this.owner = owner;
             this.assessmentSectionProvider = assessmentSectionProvider;
             this.filePath = filePath;
+
+            Description = Resources.LoadAssessmentSectionsActivity_Description;
         }
 
         protected override void OnRun()

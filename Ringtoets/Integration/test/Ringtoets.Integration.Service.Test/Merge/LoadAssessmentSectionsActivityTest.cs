@@ -76,6 +76,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
+            Assert.AreEqual("Inlezen van project", activity.Description);
             Assert.AreEqual(ActivityState.None, activity.State);
             mocks.VerifyAll();
         }
