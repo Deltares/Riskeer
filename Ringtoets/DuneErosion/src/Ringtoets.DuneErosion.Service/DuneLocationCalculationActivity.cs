@@ -46,16 +46,16 @@ namespace Ringtoets.DuneErosion.Service
         /// should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> or
-        /// <paramref name="messageProvider"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public DuneLocationCalculationActivity(DuneLocationCalculation duneLocationCalculation,
                                                string hydraulicBoundaryDatabaseFilePath,
                                                string preprocessorDirectory,
                                                double norm,
-                                               ICalculationMessageProvider messageProvider)
+                                               string categoryBoundaryName)
             : base(duneLocationCalculation)
         {
             if (messageProvider == null)
@@ -67,7 +67,8 @@ namespace Ringtoets.DuneErosion.Service
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
-            this.messageProvider = messageProvider;
+
+            messageProvider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
 
             DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
             Description = messageProvider.GetActivityDescription(duneLocation.Name);
