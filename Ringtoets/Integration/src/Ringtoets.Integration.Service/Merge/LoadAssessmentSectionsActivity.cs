@@ -8,7 +8,7 @@ namespace Ringtoets.Integration.Service.Merge
     /// <summary>
     /// Activity to load a collection of <see cref="AssessmentSection"/> from a file.
     /// </summary>
-    public class LoadAssessmentSectionsActivity : Activity
+    internal class LoadAssessmentSectionsActivity : Activity
     {
         private readonly AssessmentSectionsOwner owner;
         private readonly IAssessmentSectionProvider assessmentSectionProvider;
@@ -27,8 +27,8 @@ namespace Ringtoets.Integration.Service.Merge
         /// <see cref="AssessmentSection"/> from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
         public LoadAssessmentSectionsActivity(AssessmentSectionsOwner owner,
-                                                 IAssessmentSectionProvider assessmentSectionProvider,
-                                                 string filePath)
+                                              IAssessmentSectionProvider assessmentSectionProvider,
+                                              string filePath)
         {
             if (owner == null)
             {
