@@ -131,7 +131,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void StartMerge_FilePathNull_AbortAndShowCancelMessage()
+        public void StartMerge_FilePathNull_LogCancelMessageAndAbort()
         {
             // Setup
             var mocks = new MockRepository();
@@ -229,7 +229,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GivenAssessmentSection_WhenComparerReturnTrue_ThenContinue()
+        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnFalse_ThenLogCancelMessageAndAbort()
         {
             // Given
             var mocks = new MockRepository();
@@ -238,6 +238,7 @@ namespace Ringtoets.Integration.Plugin.Test
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
+            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(false);
             mocks.ReplayAll();
 
             Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
@@ -254,7 +255,7 @@ namespace Ringtoets.Integration.Plugin.Test
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Then
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Info), 1);
             mocks.VerifyAll();
         }
     }

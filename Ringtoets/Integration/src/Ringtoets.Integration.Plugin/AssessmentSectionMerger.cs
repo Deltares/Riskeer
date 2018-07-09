@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin
 
             if (filePath == null)
             {
-                CancelMergeAndLog();
+                LogCancelMessage();
                 return;
             }
 
@@ -125,6 +125,12 @@ namespace Ringtoets.Integration.Plugin
                 LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
                 return;
             }
+
+            if (!mergeDataProvider.SelectData(matchingAssessmentSections))
+            {
+                LogCancelMessage();
+                return;
+            }
         }
 
         private string SelectProject()
@@ -139,7 +145,7 @@ namespace Ringtoets.Integration.Plugin
             return assessmentSectionsOwner.AssessmentSections;
         }
 
-        private static void CancelMergeAndLog()
+        private static void LogCancelMessage()
         {
             log.Info(CoreCommonGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
         }
