@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
 
@@ -64,7 +65,7 @@ namespace Ringtoets.DuneErosion.Service
 
             return calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
                                                                                           assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                          assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory,
+                                                                                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                                                                                           norm,
                                                                                           messageProvider)).ToArray();
         }
