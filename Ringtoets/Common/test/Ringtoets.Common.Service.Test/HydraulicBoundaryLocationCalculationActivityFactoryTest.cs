@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateWaveHeightCalculationActivities_WithValidDataAndUsePreProcessorStates_ReturnsExpectedActivity(bool usePreprocessor)
+        public void CreateWaveHeightCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
         {
             // Setup
             const string locationName = "locationName";
@@ -119,9 +119,9 @@ namespace Ringtoets.Common.Service.Test
                 categoryBoundaryName);
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
-
             CalculatableActivity activity = activities.Single();
+            Assert.IsInstanceOf<WaveHeightCalculationActivity>(activity);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = () => activity.Run();
@@ -186,7 +186,7 @@ namespace Ringtoets.Common.Service.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateDesignWaterLevelCalculationActivities_WithValidDataAndUsePreProcessorStates_ReturnsExpectedActivity(bool usePreprocessor)
+        public void CreateDesignWaterLevelCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
         {
             // Setup
             const string locationName = "locationName";
@@ -220,9 +220,9 @@ namespace Ringtoets.Common.Service.Test
                 categoryBoundaryName);
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
-
             CalculatableActivity activity = activities.Single();
+            Assert.IsInstanceOf<DesignWaterLevelCalculationActivity>(activity);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 Action call = () => activity.Run();
