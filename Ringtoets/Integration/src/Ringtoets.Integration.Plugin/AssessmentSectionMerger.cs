@@ -26,6 +26,7 @@ using Core.Common.Gui;
 using log4net;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
+using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Comparers;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -43,6 +44,7 @@ namespace Ringtoets.Integration.Plugin
         private readonly IInquiryHelper inquiryHandler;
         private readonly Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction;
         private readonly IAssessmentSectionMergeComparer comparer;
+        private readonly IMergeDataProvider mergeDataProvider;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
@@ -51,9 +53,10 @@ namespace Ringtoets.Integration.Plugin
         /// <param name="getAssessmentSectionsAction">The action for getting the assessment sections
         /// to merge.</param>
         /// <param name="comparer">The comparer to compare the assessment sections with.</param>
+        /// <param name="mergeDataProvider">The provider to get the data to merge from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AssessmentSectionMerger(IInquiryHelper inquiryHandler, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction,
-                                       IAssessmentSectionMergeComparer comparer)
+                                       IAssessmentSectionMergeComparer comparer, IMergeDataProvider mergeDataProvider)
         {
             if (inquiryHandler == null)
             {
@@ -70,9 +73,15 @@ namespace Ringtoets.Integration.Plugin
                 throw new ArgumentNullException(nameof(comparer));
             }
 
+            if (mergeDataProvider == null)
+            {
+                throw new ArgumentNullException(nameof(mergeDataProvider));
+            }
+
             this.inquiryHandler = inquiryHandler;
             this.getAssessmentSectionsAction = getAssessmentSectionsAction;
             this.comparer = comparer;
+            this.mergeDataProvider = mergeDataProvider;
         }
 
         /// <summary>

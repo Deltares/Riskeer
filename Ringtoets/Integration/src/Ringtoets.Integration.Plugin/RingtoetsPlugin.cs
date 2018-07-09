@@ -282,7 +282,8 @@ namespace Ringtoets.Integration.Plugin
                                                                       var provider = new AssessmentSectionProviderStub(Gui.MainWindow);
                                                                       assessmentSectionOwner.AssessmentSections = provider.GetAssessmentSections(filePath);
                                                                   },
-                                                                  new AssessmentSectionMergeComparer());
+                                                                  new AssessmentSectionMergeComparer(),
+                                                                  new MergeDataProviderStub(Gui.MainWindow));
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
