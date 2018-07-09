@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Plugin.Handlers
@@ -26,5 +28,16 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// <summary>
     /// Interface for handling the merge of the <see cref="AssessmentSection"/>.
     /// </summary>
-    internal interface IAssessmentSectionMergeHandler {}
+    internal interface IAssessmentSectionMergeHandler
+    {
+        /// <summary>
+        /// Performs the merges.
+        /// </summary>
+        /// <param name="originalAssessmentSection">The assessment section to merge to.</param>
+        /// <param name="assessmentSectionToMerge">The assessment section to merge from.</param>
+        /// <param name="failureMechanismToMerge">The failure mechanisms to merge.</param>
+        void PerformMerge(AssessmentSection originalAssessmentSection,
+                          AssessmentSection assessmentSectionToMerge,
+                          IEnumerable<IFailureMechanism> failureMechanismToMerge);
+    }
 }
