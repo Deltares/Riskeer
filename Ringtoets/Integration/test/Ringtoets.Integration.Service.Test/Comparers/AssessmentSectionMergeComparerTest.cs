@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Service.Test.Comparers
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Compare_AssessmentSectionsHasReferenceLineAreEquivalent_ReturnsTrue(bool hasReferenceLine)
+        public void Compare_AssessmentSectionsHaveEquivalentReferenceLines_ReturnsTrue(bool hasReferenceLine)
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -80,12 +80,10 @@ namespace Ringtoets.Integration.Service.Test.Comparers
         public void Compare_AssessmentSectionsNotEquivalent_ReturnsFalse(AssessmentSection otherAssessmentSection)
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
             var comparer = new AssessmentSectionMergeComparer();
 
             // Call
-            bool result = comparer.Compare(assessmentSection, otherAssessmentSection);
+            bool result = comparer.Compare(CreateAssessmentSection(), otherAssessmentSection);
 
             // Assert
             Assert.IsFalse(result);
@@ -107,12 +105,6 @@ namespace Ringtoets.Integration.Service.Test.Comparers
 
         private static IEnumerable<TestCaseData> GetUnequivalentAssessmentSectionTestCases()
         {
-            AssessmentSection referenceAssessmentSection = CreateAssessmentSection();
-            yield return new TestCaseData(new AssessmentSection(AssessmentSectionComposition.DikeAndDune,
-                                                                referenceAssessmentSection.FailureMechanismContribution.LowerLimitNorm,
-                                                                referenceAssessmentSection.FailureMechanismContribution.SignalingNorm))
-                .SetName("Composition");
-
             foreach (ChangePropertyData<AssessmentSection> changeSingleDataProperty in ChangeSingleDataProperties())
             {
                 AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -154,6 +146,8 @@ namespace Ringtoets.Integration.Service.Test.Comparers
                                                                                                                                ? NormType.Signaling
                                                                                                                                : NormType.LowerLimit,
                                                                    "NormType");
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
+                                                                   "Composition");
         }
     }
 }
