@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Dialogs;
 using Ringtoets.Integration.Forms.Merge;
 
@@ -73,18 +76,18 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
                 provider.SelectData(null);
 
                 // Assert
-                var okButton = (Button)new ButtonTester("okButton", provider).TheObject;
+                var label = (Label) new LabelTester("mergeInfoLabel", provider).TheObject;
+                Assert.AreEqual("De hydraulische belastingen uit het nieuwe project zal worden overgenomen.", label.Text);
+
+                var okButton = (Button) new ButtonTester("okButton", provider).TheObject;
                 Assert.AreEqual("Ok", okButton.Text);
                 Assert.IsTrue(okButton.Enabled);
 
                 Assert.AreEqual("Annuleren", cancelButton.Text);
                 Assert.AreEqual(cancelButton, provider.CancelButton);
 
-                Assert.AreEqual(1, provider.MinimumSize.Width);
-                Assert.AreEqual(1, provider.MinimumSize.Height);
-
-                Assert.AreEqual(1, provider.MinimumSize.Width);
-                Assert.AreEqual(1, provider.MinimumSize.Height);
+                Assert.AreEqual(160, provider.MinimumSize.Width);
+                Assert.AreEqual(160, provider.MinimumSize.Height);
             }
         }
 
@@ -105,7 +108,7 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
             using (var provider = new MergeDataProviderStub(dialogParent))
             {
                 // When
-                bool dataSelected= provider.SelectData(null);
+                bool dataSelected = provider.SelectData(null);
 
                 // Then
                 Assert.IsFalse(dataSelected);
@@ -137,7 +140,44 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
         }
 
         [Test]
-        public void GivenDialog_WhenOkPressed_ThenSelectionPropertiesSet()
+        public void GivenDialog_WhenAssessmentSectionsGivenAndOkPressed_ThenSelectionPropertiesSet()
+        {
+            // Given
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    var button = new ButtonTester("okButton", name);
+                    button.Click();
+                }
+            };
+
+            var assessmentSections = new[]
+            {
+                new AssessmentSection(AssessmentSectionComposition.Dike)
+            };
+
+            using (var dialogParent = new Form())
+            using (var provider = new MergeDataProviderStub(dialogParent))
+            {
+                // Precondition
+                Assert.IsNull(provider.SelectedAssessmentSection);
+                Assert.IsNull(provider.SelectedAssessmentSection);
+
+                // When
+                provider.SelectData(assessmentSections);
+
+                // Then
+                Assert.AreEqual(assessmentSections.First(), provider.SelectedAssessmentSection);
+                CollectionAssert.AreEqual(new[]
+                {
+                    provider.SelectedAssessmentSection.Piping
+                }, provider.SelectedFailureMechanisms);
+            }
+        }
+
+        [Test]
+        public void GivenDialog_WhenNullGivenAndOkPressed_ThenSelectionPropertiesSetToNull()
         {
             // Given
             DialogBoxHandler = (name, wnd) =>
@@ -160,11 +200,8 @@ namespace Ringtoets.Integration.Forms.Test.Dialogs
                 provider.SelectData(null);
 
                 // Then
-                Assert.IsNotNull(provider.SelectedAssessmentSection);
-                CollectionAssert.AreEqual(new[]
-                {
-                    provider.SelectedAssessmentSection.Piping
-                }, provider.SelectedFailureMechanisms);
+                Assert.IsNull(provider.SelectedAssessmentSection);
+                Assert.IsNull(provider.SelectedAssessmentSection);
             }
         }
     }

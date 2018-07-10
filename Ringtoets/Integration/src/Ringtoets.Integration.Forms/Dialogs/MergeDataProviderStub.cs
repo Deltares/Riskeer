@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Merge;
@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
         /// </summary>
         /// <param name="dialogParent"></param>
         public MergeDataProviderStub(IWin32Window dialogParent)
-            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 1, 1)
+            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 160, 160)
         {
             InitializeComponent();
         }
@@ -53,11 +53,13 @@ namespace Ringtoets.Integration.Forms.Dialogs
         {
             if (ShowDialog() == DialogResult.OK)
             {
-                SelectedAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                SelectedFailureMechanisms = new List<IFailureMechanism>
-                {
-                    SelectedAssessmentSection.Piping
-                };
+                SelectedAssessmentSection = assessmentSections?.First();
+                SelectedFailureMechanisms = assessmentSections != null
+                                                ? new List<IFailureMechanism>
+                                                {
+                                                    SelectedAssessmentSection.Piping
+                                                }
+                                                : null;
                 return true;
             }
 

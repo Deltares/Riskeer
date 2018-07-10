@@ -54,11 +54,13 @@ namespace Ringtoets.Integration.Forms.Dialogs
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.mergeInfoLabel = new System.Windows.Forms.Label();
             this.flowLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel
             // 
+            this.flowLayoutPanel.Controls.Add(this.mergeInfoLabel);
             this.flowLayoutPanel.Controls.Add(this.okButton);
             this.flowLayoutPanel.Controls.Add(this.cancelButton);
             this.flowLayoutPanel.Location = new System.Drawing.Point(3, 3);
@@ -68,8 +70,8 @@ namespace Ringtoets.Integration.Forms.Dialogs
             // 
             // okButton
             // 
-            this.okButton.DialogResult = DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(3, 3);
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okButton.Location = new System.Drawing.Point(3, 29);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(197, 23);
             this.okButton.TabIndex = 0;
@@ -78,13 +80,23 @@ namespace Ringtoets.Integration.Forms.Dialogs
             // 
             // cancelButton
             // 
-            this.cancelButton.DialogResult = DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(3, 32);
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(3, 58);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(197, 23);
             this.cancelButton.TabIndex = 1;
             this.cancelButton.Text = "Annuleren";
             this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // mergeInfoLabel
+            // 
+            this.mergeInfoLabel.AutoSize = true;
+            this.mergeInfoLabel.Location = new System.Drawing.Point(3, 0);
+            this.mergeInfoLabel.Name = "mergeInfoLabel";
+            this.mergeInfoLabel.Size = new System.Drawing.Size(164, 26);
+            this.mergeInfoLabel.TabIndex = 2;
+            this.mergeInfoLabel.Text = "De hydraulische belastingen uit het nieuwe project zal worden overgenomen.";
+            this.mergeInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MergeDataProviderStub
             // 
@@ -94,6 +106,7 @@ namespace Ringtoets.Integration.Forms.Dialogs
             this.Name = "MergeDataProviderStub";
             this.Size = new System.Drawing.Size(212, 111);
             this.flowLayoutPanel.ResumeLayout(false);
+            this.flowLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -103,5 +116,6 @@ namespace Ringtoets.Integration.Forms.Dialogs
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
+        private Label mergeInfoLabel;
     }
 }
