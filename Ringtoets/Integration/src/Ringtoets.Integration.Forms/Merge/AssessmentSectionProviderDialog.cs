@@ -10,8 +10,7 @@ namespace Ringtoets.Integration.Forms.Merge
 {
     public partial class AssessmentSectionProviderDialog : DialogBase, IMergeDataProvider
     {
-        public AssessmentSectionProviderDialog(IEnumerable<AssessmentSection> assessmentSections,
-                                               IWin32Window dialogParent)
+        public AssessmentSectionProviderDialog(IWin32Window dialogParent, IEnumerable<AssessmentSection> assessmentSections)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
             if (assessmentSections == null)
@@ -20,18 +19,29 @@ namespace Ringtoets.Integration.Forms.Merge
             }
 
             InitializeComponent();
-        }
-
-        protected override Button GetCancelButton()
-        {
-            throw new NotImplementedException();
+            InitializeDataGridView();
         }
 
         public AssessmentSection SelectedAssessmentSection { get; }
         public IEnumerable<IFailureMechanism> SelectedFailureMechanisms { get; }
+
         public bool SelectData(IEnumerable<AssessmentSection> assessmentSections)
         {
             throw new NotImplementedException();
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return cancelButton;
+        }
+
+        private void InitializeDataGridView()
+        {
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsSelected), "Selecteer");
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.Name), "Toetsspoor", true);
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant), "Is relevant", true);
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections), "Heeft vakindeling", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations), "Aantal berekeningen", true);
         }
     }
 }

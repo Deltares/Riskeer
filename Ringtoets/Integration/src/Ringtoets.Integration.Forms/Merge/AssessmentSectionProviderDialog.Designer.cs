@@ -1,4 +1,6 @@
-﻿namespace Ringtoets.Integration.Forms.Merge
+﻿using System.Windows.Forms;
+
+namespace Ringtoets.Integration.Forms.Merge
 {
     partial class AssessmentSectionProviderDialog
     {
@@ -28,12 +30,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.assessmentSectionSelectLabel = new System.Windows.Forms.Label();
+            this.assessmentSectionComboBox = new System.Windows.Forms.ComboBox();
+            this.failureMechanismsSelectLabel = new System.Windows.Forms.Label();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.flowLayoutPanelButtons = new System.Windows.Forms.FlowLayoutPanel();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.importButton = new System.Windows.Forms.Button();
+            this.tableLayoutPanel.SuspendLayout();
+            this.flowLayoutPanelButtons.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // tableLayoutPanel
+            // 
+            this.tableLayoutPanel.ColumnCount = 1;
+            this.tableLayoutPanel.RowCount = 5;
+            this.tableLayoutPanel.Dock = DockStyle.Fill;
+            this.tableLayoutPanel.Controls.Add(this.assessmentSectionSelectLabel, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.assessmentSectionComboBox, 0, 1);
+            this.tableLayoutPanel.Controls.Add(this.failureMechanismsSelectLabel, 0, 2);
+            this.tableLayoutPanel.Controls.Add(this.dataGridViewControl, 0, 3);
+            this.tableLayoutPanel.Controls.Add(this.flowLayoutPanelButtons, 0, 4);
+            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            // 
+            // assessmentSectionSelectLabel
+            // 
+            this.assessmentSectionSelectLabel.Text = "Selecteer traject:";
+            this.assessmentSectionSelectLabel.Name = "assessmentSectionSelectLabel";
+            // 
+            // assessmentSectionComboBox
+            // 
+            this.assessmentSectionComboBox.Name = "assessmentSectionComboBox";
+            this.assessmentSectionComboBox.TabIndex = 0;
+            // 
+            // dataGridViewControl
+            // 
+            this.dataGridViewControl.MultiSelect = true;
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            // 
+            // assessmentSectionSelectLabel
+            // 
+            this.failureMechanismsSelectLabel.Text = "Selecteer toetssporen:";
+            this.failureMechanismsSelectLabel.Name = "failureMechanismsSelectLabel";
+            // 
+            // flowLayoutPanelButtons
+            // 
+            this.flowLayoutPanelButtons.Controls.Add(this.cancelButton);
+            this.flowLayoutPanelButtons.Controls.Add(this.importButton);
+            this.flowLayoutPanelButtons.Name = "flowLayoutPanelButtons";
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Text = "Annuleren";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // importButton
+            // 
+            this.importButton.Name = "importButton";
+            this.importButton.Text = "Importeren";
+            this.importButton.UseVisualStyleBackColor = true;
+            // 
+            // AssessmentSectionProviderDialog
+            // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "AssessmentSectionProviderDialog";
+            this.Controls.Add(this.tableLayoutPanel);
+            this.Name = "AssessmentSectionProviderDialog";
+            this.Text = "Selecteer trajectinformatie";
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
+            this.flowLayoutPanelButtons.ResumeLayout(false);
+            this.flowLayoutPanelButtons.PerformLayout();
+            this.ResumeLayout(false);
         }
 
         #endregion
+
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.Label assessmentSectionSelectLabel;
+        private System.Windows.Forms.Label failureMechanismsSelectLabel;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelButtons;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button importButton;
+        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+        private System.Windows.Forms.ComboBox assessmentSectionComboBox;
     }
 }

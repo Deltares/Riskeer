@@ -319,6 +319,9 @@
     <EmbeddedResource Include="Dialogs\MergeDataProviderStub.resx">
       <DependentUpon>MergeDataProviderStub.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Merge\AssessmentSectionProviderDialog.resx">
+      <DependentUpon>AssessmentSectionProviderDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
