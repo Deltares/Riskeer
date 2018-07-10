@@ -20,6 +20,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Merge\AssessmentSectionProviderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Merge\AssessmentSectionProviderDialog.Designer.cs">
+      <DependentUpon>AssessmentSectionProviderDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AssessmentSectionProviderStub.cs">
       <SubType>Form</SubType>
     </Compile>
