@@ -53,6 +53,7 @@
     <Compile Include="Dialogs\MergeDataProviderStub.Designer.cs">
       <DependentUpon>MergeDataProviderStub.cs</DependentUpon>
     </Compile>
+    <Compile Include="Merge\FailureMechanismMergeDataRow.cs" />
     <Compile Include="Merge\IMergeDataProvider.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
