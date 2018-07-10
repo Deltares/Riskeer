@@ -28,6 +28,7 @@ using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -45,6 +46,7 @@ using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
+using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -306,11 +308,33 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #region DuneLocationCalculationsGroupContext TreeNodeInfo
 
-        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(
-            DuneLocationCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(DuneLocationCalculationsGroupContext nodeData,
+                                                                               object parentData,
+                                                                               TreeViewControl treeViewControl)
         {
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                                     DuneLocationCalculationActivityFactory.CreateCalculationActivities(nodeData.FailureMechanism,
+                                                                                                                        nodeData.AssessmentSection));
+                });
+
+            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(nodeData.AssessmentSection.HydraulicBoundaryDatabase);
+
+            if (!string.IsNullOrEmpty(validationText))
+            {
+                calculateAllItem.Enabled = false;
+                calculateAllItem.ToolTipText = validationText;
+            }
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
