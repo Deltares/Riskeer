@@ -277,6 +277,8 @@ namespace Ringtoets.DuneErosion.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddCustomItem(CreateCalculateAllItem(failureMechanismContext.WrappedData, failureMechanismContext.Parent))
+                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
@@ -312,29 +314,10 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {
-            var calculateAllItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.Calculate_All,
-                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip,
-                RingtoetsCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                                     DuneLocationCalculationActivityFactory.CreateCalculationActivities(nodeData.FailureMechanism,
-                                                                                                                        nodeData.AssessmentSection));
-                });
-
-            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(nodeData.AssessmentSection.HydraulicBoundaryDatabase);
-
-            if (!string.IsNullOrEmpty(validationText))
-            {
-                calculateAllItem.Enabled = false;
-                calculateAllItem.ToolTipText = validationText;
-            }
-
             return Gui.Get(nodeData, treeViewControl)
                       .AddExportItem()
                       .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
+                      .AddCustomItem(CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection))
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
@@ -437,6 +420,29 @@ namespace Ringtoets.DuneErosion.Plugin
         }
 
         #endregion
+
+        private StrictContextMenuItem CreateCalculateAllItem(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                                     DuneLocationCalculationActivityFactory.CreateCalculationActivities(failureMechanism, assessmentSection));
+                });
+
+            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+
+            if (!string.IsNullOrEmpty(validationText))
+            {
+                calculateAllItem.Enabled = false;
+                calculateAllItem.ToolTipText = validationText;
+            }
+
+            return calculateAllItem;
+        }
 
         #endregion
 
