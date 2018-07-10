@@ -10,14 +10,9 @@ namespace Ringtoets.Integration.Forms.Merge
 {
     public partial class AssessmentSectionProviderDialog : DialogBase, IMergeDataProvider
     {
-        public AssessmentSectionProviderDialog(IWin32Window dialogParent, IEnumerable<AssessmentSection> assessmentSections)
+        public AssessmentSectionProviderDialog(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
-            if (assessmentSections == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSections));
-            }
-
             InitializeComponent();
             InitializeDataGridView();
         }

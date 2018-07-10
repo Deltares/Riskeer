@@ -29,28 +29,11 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         public void Constructor_DialogParentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionProviderDialog(null, Enumerable.Empty<AssessmentSection>());
+            TestDelegate call = () => new AssessmentSectionProviderDialog(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("dialogParent", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var dialogParent = mocks.Stub<IWin32Window>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new AssessmentSectionProviderDialog(dialogParent, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSections", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -61,10 +44,8 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
-            IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
-
             // Call
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent, assessmentSections))
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
@@ -86,7 +67,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         {
             // Setup
             using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent, Enumerable.Empty<AssessmentSection>()))
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
             {
                 // Call
                 dialog.Show();
