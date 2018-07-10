@@ -27,6 +27,7 @@ using log4net;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
+using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Comparers;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -45,6 +46,7 @@ namespace Ringtoets.Integration.Plugin
         private readonly Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction;
         private readonly IAssessmentSectionMergeComparer comparer;
         private readonly IMergeDataProvider mergeDataProvider;
+        private readonly IAssessmentSectionMergeHandler mergeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
@@ -54,9 +56,10 @@ namespace Ringtoets.Integration.Plugin
         /// to merge.</param>
         /// <param name="comparer">The comparer to compare the assessment sections with.</param>
         /// <param name="mergeDataProvider">The provider to get the data to merge from.</param>
+        /// <param name="mergeHandler">The handler to perform the merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AssessmentSectionMerger(IInquiryHelper inquiryHandler, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction,
-                                       IAssessmentSectionMergeComparer comparer, IMergeDataProvider mergeDataProvider)
+                                       IAssessmentSectionMergeComparer comparer, IMergeDataProvider mergeDataProvider, IAssessmentSectionMergeHandler mergeHandler)
         {
             if (inquiryHandler == null)
             {
@@ -78,10 +81,16 @@ namespace Ringtoets.Integration.Plugin
                 throw new ArgumentNullException(nameof(mergeDataProvider));
             }
 
+            if (mergeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(mergeHandler));
+            }
+
             this.inquiryHandler = inquiryHandler;
             this.getAssessmentSectionsAction = getAssessmentSectionsAction;
             this.comparer = comparer;
             this.mergeDataProvider = mergeDataProvider;
+            this.mergeHandler = mergeHandler;
         }
 
         /// <summary>

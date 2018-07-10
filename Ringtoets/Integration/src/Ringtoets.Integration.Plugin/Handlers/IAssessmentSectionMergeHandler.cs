@@ -28,7 +28,7 @@ namespace Ringtoets.Integration.Plugin.Handlers
     /// <summary>
     /// Interface for handling the merge of the <see cref="AssessmentSection"/>.
     /// </summary>
-    internal interface IAssessmentSectionMergeHandler
+    public interface IAssessmentSectionMergeHandler
     {
         /// <summary>
         /// Performs the merges.
