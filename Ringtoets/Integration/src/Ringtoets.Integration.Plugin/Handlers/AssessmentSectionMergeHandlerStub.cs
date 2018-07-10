@@ -31,9 +31,6 @@ namespace Ringtoets.Integration.Plugin.Handlers
     public class AssessmentSectionMergeHandlerStub : IAssessmentSectionMergeHandler
     {
         public void PerformMerge(AssessmentSection originalAssessmentSection, AssessmentSection assessmentSectionToMerge,
-                                 IEnumerable<IFailureMechanism> failureMechanismToMerge)
-        {
-            throw new System.NotImplementedException();
-        }
+                                 IEnumerable<IFailureMechanism> failureMechanismToMerge) {}
     }
 }

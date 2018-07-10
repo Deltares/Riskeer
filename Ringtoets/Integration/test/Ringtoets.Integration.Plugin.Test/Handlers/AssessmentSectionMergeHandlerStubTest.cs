@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Ringtoets.Integration.Plugin.Handlers;
 
@@ -36,19 +35,6 @@ namespace Ringtoets.Integration.Plugin.Test.Handlers
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionMergeHandler>(handler);
-        }
-
-        [Test]
-        public void PerformMerge_Always_ThrowNotImplementedException()
-        {
-            // Setup
-            var handler = new AssessmentSectionMergeHandlerStub();
-
-            // Call
-            TestDelegate call = () => handler.PerformMerge(null, null, null);
-
-            // Assert
-            Assert.Throws<NotImplementedException>(call);
         }
     }
 }
