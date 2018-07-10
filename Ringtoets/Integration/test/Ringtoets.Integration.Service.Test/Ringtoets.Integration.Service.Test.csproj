@@ -63,6 +63,10 @@
       <Project>{4843d6e5-066f-4795-94f5-1d53932dd03c}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
+      <Project>{52093DA6-D545-476A-ADFD-12F56625E36B}</Project>
+      <Name>Ringtoets.Common.Service.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{D1068432-C172-4AA6-847B-D9DEB4C6DE26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>
