@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Service
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> for wave height calculations
+        /// Creates a collection of <see cref="CalculatableActivity"/> for design water level calculations
         /// based on the given <see cref="IAssessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create the activities for.</param>

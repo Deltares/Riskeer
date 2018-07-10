@@ -41,6 +41,8 @@ namespace Ringtoets.Integration.Service.Test
     public class AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+        private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
 
         [Test]
         public void CreateHydraulicBoundaryLocationCalculationActivities_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -57,13 +59,7 @@ namespace Ringtoets.Integration.Service.Test
         public void CreateHydraulicBoundaryLocationCalculationActivities_WithValidData_ExpectedInputSetToActivities()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
-                }
-            };
+            AssessmentSectionStub assessmentSection = CreateAssessmentSectionStub();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -82,7 +78,7 @@ namespace Ringtoets.Integration.Service.Test
             double factorizedSignalingNorm = signalingNorm / 30;
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             double factorizedLowerLimitNorm = lowerLimitNorm * 30;
-            
+
             AssertDesignWaterLevelCalculationActivity(activities.First(),
                                                       hydraulicBoundaryLocation,
                                                       factorizedSignalingNorm);
@@ -97,17 +93,17 @@ namespace Ringtoets.Integration.Service.Test
                                                       factorizedLowerLimitNorm);
 
             AssertWaveHeightCalculationActivity(activities.ElementAt(4),
-                                                      hydraulicBoundaryLocation,
-                                                      factorizedSignalingNorm);
+                                                hydraulicBoundaryLocation,
+                                                factorizedSignalingNorm);
             AssertWaveHeightCalculationActivity(activities.ElementAt(5),
-                                                      hydraulicBoundaryLocation,
-                                                      signalingNorm);
+                                                hydraulicBoundaryLocation,
+                                                signalingNorm);
             AssertWaveHeightCalculationActivity(activities.ElementAt(6),
-                                                      hydraulicBoundaryLocation,
-                                                      lowerLimitNorm);
+                                                hydraulicBoundaryLocation,
+                                                lowerLimitNorm);
             AssertWaveHeightCalculationActivity(activities.ElementAt(7),
-                                                      hydraulicBoundaryLocation,
-                                                      factorizedLowerLimitNorm);
+                                                hydraulicBoundaryLocation,
+                                                factorizedLowerLimitNorm);
         }
 
         [Test]
@@ -125,13 +121,7 @@ namespace Ringtoets.Integration.Service.Test
         public void CreateDesignWaterLevelCalculationActivities_WithValidData_ExpectedInputSetToActivities()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
-                }
-            };
+            AssessmentSectionStub assessmentSection = CreateAssessmentSectionStub();
 
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
@@ -196,13 +186,7 @@ namespace Ringtoets.Integration.Service.Test
         public void CreateWaveHeightCalculationActivities_WithValidData_ExpectedInputSetToActivities()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                HydraulicBoundaryDatabase =
-                {
-                    FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
-                }
-            };
+            AssessmentSectionStub assessmentSection = CreateAssessmentSectionStub();
 
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName 1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName 2");
@@ -252,6 +236,21 @@ namespace Ringtoets.Integration.Service.Test
                                                 factorizedLowerLimitNorm);
         }
 
+        private static AssessmentSectionStub CreateAssessmentSectionStub()
+        {
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath,
+                    CanUsePreprocessor = true,
+                    PreprocessorDirectory = validPreprocessorDirectory,
+                    UsePreprocessor = true
+                }
+            };
+            return assessmentSection;
+        }
+
         private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                       double norm)
@@ -259,7 +258,7 @@ namespace Ringtoets.Integration.Service.Test
             var mocks = new MockRepository();
             var designWaterLevelCalculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, string.Empty)).Return(designWaterLevelCalculator);
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(designWaterLevelCalculator);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -281,7 +280,7 @@ namespace Ringtoets.Integration.Service.Test
             var mocks = new MockRepository();
             var waveHeightCalculator = new TestWaveHeightCalculator();
             var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, string.Empty)).Return(waveHeightCalculator);
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, validPreprocessorDirectory)).Return(waveHeightCalculator);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

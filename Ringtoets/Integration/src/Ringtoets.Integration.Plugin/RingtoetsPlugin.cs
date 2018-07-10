@@ -1944,11 +1944,6 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(nodeData.AssessmentSection));
@@ -2109,11 +2104,6 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection));
@@ -2139,11 +2129,6 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection));

@@ -55,12 +55,13 @@ namespace Ringtoets.Common.Service
                                                    string categoryBoundaryName)
             : base(hydraulicBoundaryLocationCalculation)
         {
+            messageProvider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
+            
             this.hydraulicBoundaryLocationCalculation = hydraulicBoundaryLocationCalculation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
             
-            messageProvider = new DesignWaterLevelCalculationMessageProvider(categoryBoundaryName);
             calculationService = new DesignWaterLevelCalculationService();
 
             Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation.Name);

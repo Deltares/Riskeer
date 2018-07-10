@@ -87,63 +87,36 @@ namespace Ringtoets.Common.Service.Test
         public void CreateWaveHeightCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
         {
             // Setup
-            const string locationName = "locationName";
             const string categoryBoundaryName = "A";
             const double norm = 1.0 / 30;
 
-            var calculator = new TestWaveHeightCalculator
-            {
-                Converged = true
-            };
-
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
-
             mocks.ReplayAll();
 
             ConfigureAssessmentSection(assessmentSection, usePreprocessor);
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 assessmentSection,
                 new[]
                 {
-                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation1),
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
                 norm,
                 categoryBoundaryName);
 
             // Assert
-            CalculatableActivity activity = activities.Single();
-            Assert.IsInstanceOf<WaveHeightCalculationActivity>(activity);
+            Assert.AreEqual(2, activities.Count());
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
 
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                Action call = () => activity.Run();
+            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, usePreprocessor);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, usePreprocessor);
 
-                TestHelper.AssertLogMessages(call, m =>
-                {
-                    string[] messages = m.ToArray();
-                    Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"Golfhoogte berekenen voor locatie 'locationName' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
-                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
-                });
-                WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
-
-                Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
-            }
-
-            Assert.AreEqual(ActivityState.Executed, activity.State);
             mocks.VerifyAll();
         }
 
@@ -189,59 +162,113 @@ namespace Ringtoets.Common.Service.Test
         public void CreateDesignWaterLevelCalculationActivities_WithValidDataAndUsePreprocessorStates_ReturnsExpectedActivity(bool usePreprocessor)
         {
             // Setup
-            const string locationName = "locationName";
             const string categoryBoundaryName = "A";
             const double norm = 1.0 / 30;
 
-            var calculator = new TestDesignWaterLevelCalculator
-            {
-                Converged = true
-            };
-
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
             mocks.ReplayAll();
 
             ConfigureAssessmentSection(assessmentSection, usePreprocessor);
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(locationName);
+            var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
+            var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 assessmentSection,
                 new[]
                 {
-                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation1),
+                    new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
                 norm,
                 categoryBoundaryName);
 
             // Assert
-            CalculatableActivity activity = activities.Single();
-            Assert.IsInstanceOf<DesignWaterLevelCalculationActivity>(activity);
+            Assert.AreEqual(2, activities.Count());
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
+
+            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, usePreprocessor);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, usePreprocessor);
+
+            mocks.VerifyAll();
+        }
+
+        private void AssertWaveHeightCalculationActivity(Activity activity,
+                                                         HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                         string categoryBoundaryName,
+                                                         double norm,
+                                                         bool usePreprocessor)
+        {
+            var mocks = new MockRepository();
+            var calculator = new TestWaveHeightCalculator
+            {
+                Converged = true
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
+            mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                Action call = () => activity.Run();
+                Action call = activity.Run;
 
                 TestHelper.AssertLogMessages(call, m =>
                 {
                     string[] messages = m.ToArray();
                     Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"Waterstand berekenen voor locatie 'locationName' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
+                    Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
+                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
+                });
+                WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
+
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
+            }
+
+            Assert.AreEqual(ActivityState.Executed, activity.State);
+            mocks.VerifyAll();
+        }
+
+        private void AssertDesignWaterLevelCalculationActivity(Activity activity,
+                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                               string categoryBoundaryName,
+                                                               double norm,
+                                                               bool usePreprocessor)
+        {
+            var mocks = new MockRepository();
+            var calculator = new TestDesignWaterLevelCalculator
+            {
+                Converged = true
+            };
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
+            mocks.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                Action call = activity.Run;
+
+                TestHelper.AssertLogMessages(call, m =>
+                {
+                    string[] messages = m.ToArray();
+                    Assert.AreEqual(6, messages.Length);
+                    Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                     StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
                 });
-                AssessmentLevelCalculationInput assessmentLevelCalculationInput = calculator.ReceivedInputs.Single();
+                AssessmentLevelCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
 
-                Assert.AreEqual(hydraulicBoundaryLocation.Id, assessmentLevelCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), assessmentLevelCalculationInput.Beta);
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
             }
 
             Assert.AreEqual(ActivityState.Executed, activity.State);
