@@ -216,7 +216,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
-                    performedCalculations = (IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[1];
+                    performedCalculations = (IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0];
                     actualNormValue = (double) invocation.Arguments[2];
                 });
 

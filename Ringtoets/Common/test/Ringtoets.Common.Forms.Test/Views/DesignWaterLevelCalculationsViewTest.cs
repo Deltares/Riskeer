@@ -331,7 +331,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             HydraulicBoundaryLocationCalculation[] performedCalculations = null;
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
-                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[1]).ToArray(); });
+                invocation => { performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray(); });
             mockRepository.ReplayAll();
 
             view.CalculationGuiService = guiService;
@@ -393,8 +393,8 @@ namespace Ringtoets.Common.Forms.Test.Views
             guiService.Expect(ch => ch.CalculateDesignWaterLevels(null, null, int.MinValue, null)).IgnoreArguments().WhenCalled(
                 invocation =>
                 {
-                    assessmentSectionValue = (IAssessmentSection) invocation.Arguments[0];
-                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[1]).ToArray();
+                    performedCalculations = ((IEnumerable<HydraulicBoundaryLocationCalculation>) invocation.Arguments[0]).ToArray();
+                    assessmentSectionValue = (IAssessmentSection) invocation.Arguments[1];
                     normValue = (double) invocation.Arguments[2];
                     categoryBoundaryNameValue = (string) invocation.Arguments[3];
                 });
