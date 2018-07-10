@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
 using log4net;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
@@ -141,11 +142,16 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
-            if (mergeDataProvider.SelectedAssessmentSection == null || mergeDataProvider.SelectedFailureMechanisms == null)
+            AssessmentSection assessmentSectionToMerge = mergeDataProvider.SelectedAssessmentSection;
+            IEnumerable<IFailureMechanism> failureMechanismToMerge = mergeDataProvider.SelectedFailureMechanisms;
+
+            if (assessmentSectionToMerge == null || failureMechanismToMerge == null)
             {
                 LogError(Resources.AssessmentSectionMerger_No_AssessmentSection_selected);
                 return;
             }
+
+            mergeHandler.PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
         }
 
         private string SelectProject()
