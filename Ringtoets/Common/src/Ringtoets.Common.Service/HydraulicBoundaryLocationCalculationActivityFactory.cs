@@ -37,17 +37,17 @@ namespace Ringtoets.Common.Service
         /// Creates a collection of <see cref="CalculatableActivity"/> for wave height calculations
         /// based on the given parameters.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name for the calculations.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<CalculatableActivity> CreateWaveHeightCalculationActivities(
-            IAssessmentSection assessmentSection,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+            IAssessmentSection assessmentSection,
             double norm,
             string categoryBoundaryName)
         {
@@ -72,17 +72,17 @@ namespace Ringtoets.Common.Service
         /// Creates a collection of <see cref="CalculatableActivity"/> for design water level calculations
         /// based on the given parameters.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The collection of <see cref="HydraulicBoundaryLocationCalculation"/> to create
         /// the activities for.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name to use for the activities.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public static IEnumerable<CalculatableActivity> CreateDesignWaterLevelCalculationActivities(
-            IAssessmentSection assessmentSection,
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+            IAssessmentSection assessmentSection,
             double norm,
             string categoryBoundaryName)
         {

@@ -50,15 +50,14 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                assessmentSection,
                 null,
-                new Random(12).NextDouble(),
-                "A");
+                assessmentSection,
+                new Random(12).NextDouble(), "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -71,10 +70,9 @@ namespace Ringtoets.Common.Service.Test
         {
             // Call
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                null,
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                new Random(12).NextDouble(),
-                "A");
+                null,
+                new Random(12).NextDouble(), "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -101,14 +99,13 @@ namespace Ringtoets.Common.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                assessmentSection,
                 new[]
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation1),
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
-                norm,
-                categoryBoundaryName);
+                assessmentSection,
+                norm, categoryBoundaryName);
 
             // Assert
             Assert.AreEqual(2, activities.Count());
@@ -125,15 +122,14 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                assessmentSection,
                 null,
-                new Random(12).NextDouble(),
-                "A");
+                assessmentSection,
+                new Random(12).NextDouble(), "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -146,10 +142,9 @@ namespace Ringtoets.Common.Service.Test
         {
             // Call
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                null,
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
-                new Random(12).NextDouble(),
-                "A");
+                null,
+                new Random(12).NextDouble(), "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -176,14 +171,13 @@ namespace Ringtoets.Common.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                assessmentSection,
                 new[]
                 {
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation1),
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
-                norm,
-                categoryBoundaryName);
+                assessmentSection,
+                norm, categoryBoundaryName);
 
             // Assert
             Assert.AreEqual(2, activities.Count());

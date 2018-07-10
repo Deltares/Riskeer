@@ -74,9 +74,9 @@ namespace Ringtoets.Common.Forms.GuiServices
             RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection,
-                                                                                                                          calculations,
-                                                                                                                          norm,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(calculations,
+                                                                                                                          assessmentSection,
+                                                                                                                          norm, 
                                                                                                                           categoryBoundaryName));
         }
 
@@ -98,9 +98,9 @@ namespace Ringtoets.Common.Forms.GuiServices
             RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
                           assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection,
-                                                                                                                    calculations,
-                                                                                                                    norm,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(calculations,
+                                                                                                                    assessmentSection,
+                                                                                                                    norm, 
                                                                                                                     categoryBoundaryName));
         }
 
