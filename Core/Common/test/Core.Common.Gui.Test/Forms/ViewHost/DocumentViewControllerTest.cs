@@ -998,7 +998,69 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void CloseAllViewsFor_DataCorrespondsToOpenedViewWithViewInfoThatBindsToSameViews_RemoveCorrectView()
+        {
+            // Setup
+            var data = new A();
+            var viewData = new object();
+
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+            var documentViews = new List<IView>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
+            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); });
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
+            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); });
+
+            mocks.ReplayAll();
+
+            var viewClosed = false;
+            var viewInfos = new ViewInfo[]
+            {
+                new ViewInfo<B, object, TestView>
+                {
+                    CloseForData = (v, o) =>
+                    {
+                        Assert.Fail("Incorrect CloseForData called.");
+                        return true;
+                    }
+                },
+                new ViewInfo<A, object, TestView>
+                {
+                    CloseForData = (v, o) =>
+                    {
+                        if (o == viewData)
+                        {
+                            viewClosed = true;
+                            return true;
+                        }
+
+                        return false;
+                    }
+                }
+            };
+
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                documentViewController.OpenViewForData(data);
+
+                // Call
+                documentViewController.CloseAllViewsFor(viewData);
+            }
+
+            // Assert
+            Assert.IsTrue(viewClosed);
+            mocks.VerifyAll();
+        }
+
         private class A {}
+
+        private class B {}
 
         private class InheritedFromA : A {}
     }
