@@ -34,30 +34,30 @@ namespace Ringtoets.Common.Forms.GuiServices
         /// <summary>
         /// Performs the provided design water level calculations.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The calculations to perform.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name of the calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        void CalculateDesignWaterLevels(IAssessmentSection assessmentSection,
-                                        IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                        IAssessmentSection assessmentSection,
                                         double norm,
                                         string categoryBoundaryName);
 
         /// <summary>
         /// Performs the provided wave height calculations.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="calculations">The calculations to perform.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculations"/> belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
         /// <param name="categoryBoundaryName">The category boundary name of the calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
-        void CalculateWaveHeights(IAssessmentSection assessmentSection,
-                                  IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                  IAssessmentSection assessmentSection,
                                   double norm,
                                   string categoryBoundaryName);
     }

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -56,8 +55,8 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public void CalculateDesignWaterLevels(IAssessmentSection assessmentSection,
-                                               IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        public void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                               IAssessmentSection assessmentSection,
                                                double norm,
                                                string categoryBoundaryName)
         {
@@ -76,12 +75,12 @@ namespace Ringtoets.Common.Forms.GuiServices
                           norm,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(calculations,
                                                                                                                           assessmentSection,
-                                                                                                                          norm, 
+                                                                                                                          norm,
                                                                                                                           categoryBoundaryName));
         }
 
-        public void CalculateWaveHeights(IAssessmentSection assessmentSection,
-                                         IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                         IAssessmentSection assessmentSection,
                                          double norm,
                                          string categoryBoundaryName)
         {
@@ -100,15 +99,14 @@ namespace Ringtoets.Common.Forms.GuiServices
                           norm,
                           HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(calculations,
                                                                                                                     assessmentSection,
-                                                                                                                    norm, 
+                                                                                                                    norm,
                                                                                                                     categoryBoundaryName));
         }
 
-        private void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,
-                                              string preprocessorDirectory,
-                                              double norm,
-                                              IEnumerable<TActivity> activities)
-            where TActivity : Activity
+        private void RunActivities(string hydraulicBoundaryDatabaseFilePath,
+                                   string preprocessorDirectory,
+                                   double norm,
+                                   IEnumerable<CalculatableActivity> activities)
         {
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    preprocessorDirectory);

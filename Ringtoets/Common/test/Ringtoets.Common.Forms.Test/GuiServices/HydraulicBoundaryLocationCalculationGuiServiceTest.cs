@@ -78,8 +78,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(null,
-                                                                                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                                null,
                                                                                 0.01,
                                                                                 "A");
 
@@ -102,8 +102,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateDesignWaterLevels(assessmentSection,
-                                                                                null,
+                TestDelegate test = () => guiService.CalculateDesignWaterLevels(null,
+                                                                                assessmentSection,
                                                                                 0.01,
                                                                                 "A");
 
@@ -130,8 +130,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                Action call = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                          assessmentSection,
                                                                           0.01,
                                                                           "A");
 
@@ -162,8 +162,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                Action call = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                          assessmentSection,
                                                                           1.0,
                                                                           "A");
 
@@ -194,8 +194,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                Action call = () => guiService.CalculateDesignWaterLevels(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                          assessmentSection,
                                                                           0.01,
                                                                           "A");
 
@@ -233,11 +233,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateDesignWaterLevels(assessmentSection,
-                                                                          new[]
+                Action call = () => guiService.CalculateDesignWaterLevels(new[]
                                                                           {
                                                                               new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
                                                                           },
+                                                                          assessmentSection,
                                                                           0.01,
                                                                           categoryBoundaryName);
 
@@ -270,8 +270,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(null,
-                                                                          Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                TestDelegate test = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                          null,
                                                                           0.01,
                                                                           "A");
 
@@ -294,8 +294,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                TestDelegate test = () => guiService.CalculateWaveHeights(assessmentSection,
-                                                                          null,
+                TestDelegate test = () => guiService.CalculateWaveHeights(null,
+                                                                          assessmentSection,
                                                                           0.01,
                                                                           "A");
 
@@ -322,8 +322,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
-                                                                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                Action call = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                    assessmentSection,
                                                                     0.01,
                                                                     "A");
 
@@ -354,8 +354,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
-                                                                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                Action call = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                    assessmentSection,
                                                                     1.0,
                                                                     "A");
 
@@ -386,8 +386,8 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
-                                                                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                Action call = () => guiService.CalculateWaveHeights(Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
+                                                                    assessmentSection,
                                                                     0.01,
                                                                     "A");
 
@@ -425,11 +425,11 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 var guiService = new HydraulicBoundaryLocationCalculationGuiService(viewParent);
 
                 // Call
-                Action call = () => guiService.CalculateWaveHeights(assessmentSection,
-                                                                    new[]
+                Action call = () => guiService.CalculateWaveHeights(new[]
                                                                     {
                                                                         new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
                                                                     },
+                                                                    assessmentSection,
                                                                     0.01,
                                                                     categoryBoundaryName);
 

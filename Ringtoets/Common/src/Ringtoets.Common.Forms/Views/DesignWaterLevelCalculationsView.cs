@@ -84,8 +84,8 @@ namespace Ringtoets.Common.Forms.Views
 
         protected override void PerformSelectedCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> calculations)
         {
-            CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection,
-                                                             calculations,
+            CalculationGuiService.CalculateDesignWaterLevels(calculations,
+                                                             AssessmentSection,
                                                              getNormFunc(),
                                                              categoryBoundaryName);
         }

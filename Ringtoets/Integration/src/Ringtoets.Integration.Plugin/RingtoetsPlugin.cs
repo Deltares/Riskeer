@@ -79,7 +79,6 @@ using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
-using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -1854,8 +1853,8 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection,
-                                                                                              nodeData.WrappedData,
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(nodeData.WrappedData,
+                                                                                              assessmentSection,
                                                                                               nodeData.GetNormFunc(),
                                                                                               nodeData.CategoryBoundaryName);
                 });
@@ -1887,8 +1886,8 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection,
-                                                                                        nodeData.WrappedData,
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(nodeData.WrappedData,
+                                                                                        assessmentSection,
                                                                                         nodeData.GetNormFunc(),
                                                                                         nodeData.CategoryBoundaryName);
                 });
