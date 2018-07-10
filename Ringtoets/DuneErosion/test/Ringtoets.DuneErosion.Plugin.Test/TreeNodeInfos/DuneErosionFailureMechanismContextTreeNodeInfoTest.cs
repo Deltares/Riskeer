@@ -181,13 +181,16 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocksRepository);
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
-            using (mocksRepository.Ordered())
+            var orderMocksRepository = new MockRepository();
+            var menuBuilder = orderMocksRepository.StrictMock<IContextMenuBuilder>();
+            using (orderMocksRepository.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -197,6 +200,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
+
+            orderMocksRepository.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -211,7 +216,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
-            // Assert is done in TearDown
+            orderMocksRepository.VerifyAll();
         }
 
         [Test]
@@ -257,7 +262,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+                IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocksRepository);
                 var failureMechanism = new DuneErosionFailureMechanism();
                 var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -274,7 +279,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(8, menu.Items.Count);
+                    Assert.AreEqual(10, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   "I&s relevant",
@@ -325,7 +330,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocksRepository);
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommands = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();

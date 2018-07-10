@@ -157,9 +157,10 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mockRepository);
-            var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
 
-            using (mockRepository.Ordered())
+            var orderedMockRepository = new MockRepository();
+            var menuBuilder = orderedMockRepository.StrictMock<IContextMenuBuilder>();
+            using (orderedMockRepository.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -169,6 +170,8 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
+
+            orderedMockRepository.ReplayAll();
 
             var nodeData = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
                                                                     new DuneErosionFailureMechanism(),
@@ -192,6 +195,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             }
 
             // Assert
+            orderedMockRepository.VerifyAll();
             mockRepository.VerifyAll();
         }
 
