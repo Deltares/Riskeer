@@ -19,24 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data;
+using System;
+using NUnit.Framework;
+using Ringtoets.Integration.Plugin.Handlers;
 
-namespace Ringtoets.Integration.Plugin.Handlers
+namespace Ringtoets.Integration.Plugin.Test.Handlers
 {
-    /// <summary>
-    /// Interface for handling the merge of the <see cref="AssessmentSection"/>.
-    /// </summary>
-    internal interface IAssessmentSectionMergeHandler
+    [TestFixture]
+    public class AssessmentSectionMergeHandlerStubTest
     {
-        /// <summary>
-        /// Performs the merges.
-        /// </summary>
-        /// <param name="originalAssessmentSection">The assessment section to merge to.</param>
-        /// <param name="assessmentSectionToMerge">The assessment section to merge from.</param>
-        /// <param name="failureMechanismToMerge">The failure mechanisms to merge.</param>
-        void PerformMerge(AssessmentSection originalAssessmentSection, AssessmentSection assessmentSectionToMerge,
-                          IEnumerable<IFailureMechanism> failureMechanismToMerge);
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var handler = new AssessmentSectionMergeHandlerStub();
+
+            // Assert
+            Assert.IsInstanceOf<IAssessmentSectionMergeHandler>(handler);
+        }
+
+        [Test]
+        public void PerformMerge_Always_ThrowNotImplementedException()
+        {
+            // Setup
+            var handler = new AssessmentSectionMergeHandlerStub();
+
+            // Call
+            TestDelegate call = () => handler.PerformMerge(null, null, null);
+
+            // Assert
+            Assert.Throws<NotImplementedException>(call);
+        }
     }
 }
