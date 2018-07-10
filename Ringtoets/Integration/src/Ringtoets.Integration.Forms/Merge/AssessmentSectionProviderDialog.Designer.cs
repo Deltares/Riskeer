@@ -30,6 +30,7 @@ namespace Ringtoets.Integration.Forms.Merge
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionProviderDialog));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.assessmentSectionSelectLabel = new System.Windows.Forms.Label();
             this.assessmentSectionComboBox = new System.Windows.Forms.ComboBox();
@@ -44,9 +45,7 @@ namespace Ringtoets.Integration.Forms.Merge
             // 
             // tableLayoutPanel
             // 
-            this.tableLayoutPanel.ColumnCount = 1;
-            this.tableLayoutPanel.RowCount = 5;
-            this.tableLayoutPanel.Dock = DockStyle.Fill;
+            resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
             this.tableLayoutPanel.Controls.Add(this.assessmentSectionSelectLabel, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.assessmentSectionComboBox, 0, 1);
             this.tableLayoutPanel.Controls.Add(this.failureMechanismsSelectLabel, 0, 2);
@@ -56,53 +55,57 @@ namespace Ringtoets.Integration.Forms.Merge
             // 
             // assessmentSectionSelectLabel
             // 
-            this.assessmentSectionSelectLabel.Text = "Selecteer traject:";
+            resources.ApplyResources(this.assessmentSectionSelectLabel, "assessmentSectionSelectLabel");
             this.assessmentSectionSelectLabel.Name = "assessmentSectionSelectLabel";
             // 
             // assessmentSectionComboBox
             // 
+            resources.ApplyResources(this.assessmentSectionComboBox, "assessmentSectionComboBox");
+            this.assessmentSectionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.assessmentSectionComboBox.Name = "assessmentSectionComboBox";
-            this.assessmentSectionComboBox.TabIndex = 0;
+            // 
+            // failureMechanismsSelectLabel
+            // 
+            resources.ApplyResources(this.failureMechanismsSelectLabel, "failureMechanismsSelectLabel");
+            this.failureMechanismsSelectLabel.Name = "failureMechanismsSelectLabel";
             // 
             // dataGridViewControl
             // 
+            resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
             // 
-            // assessmentSectionSelectLabel
-            // 
-            this.failureMechanismsSelectLabel.Text = "Selecteer toetssporen:";
-            this.failureMechanismsSelectLabel.Name = "failureMechanismsSelectLabel";
-            // 
             // flowLayoutPanelButtons
             // 
+            resources.ApplyResources(this.flowLayoutPanelButtons, "flowLayoutPanelButtons");
             this.flowLayoutPanelButtons.Controls.Add(this.cancelButton);
             this.flowLayoutPanelButtons.Controls.Add(this.importButton);
             this.flowLayoutPanelButtons.Name = "flowLayoutPanelButtons";
             // 
             // cancelButton
             // 
+            resources.ApplyResources(this.cancelButton, "cancelButton");
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Text = "Annuleren";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
             // importButton
             // 
+            resources.ApplyResources(this.importButton, "importButton");
             this.importButton.Name = "importButton";
-            this.importButton.Text = "Importeren";
             this.importButton.UseVisualStyleBackColor = true;
             // 
             // AssessmentSectionProviderDialog
             // 
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "AssessmentSectionProviderDialog";
-            this.Text = "Selecteer trajectinformatie";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.flowLayoutPanelButtons.ResumeLayout(false);
-            this.flowLayoutPanelButtons.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion

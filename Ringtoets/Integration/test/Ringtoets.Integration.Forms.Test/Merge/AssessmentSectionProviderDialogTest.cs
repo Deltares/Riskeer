@@ -73,6 +73,8 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 dialog.Show();
 
                 // Assert
+                Assert.AreEqual(1, dialog.Controls.Count);
+
                 var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
                 Assert.AreEqual(1, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(5, tableLayoutPanel.RowCount);
@@ -82,6 +84,8 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
                 var assessmentSectionComboBox = (ComboBox) tableLayoutPanel.GetControlFromPosition(0, 1);
                 Assert.IsTrue(assessmentSectionComboBox.Enabled);
+                Assert.AreEqual(ComboBoxStyle.DropDownList, assessmentSectionComboBox.DropDownStyle);
+                CollectionAssert.IsEmpty(assessmentSectionComboBox.Items);
 
                 var failureMechanismSelectionLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 2);
                 Assert.AreEqual("Selecteer toetssporen:", failureMechanismSelectionLabel.Text);
@@ -90,6 +94,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
+                Assert.AreEqual(0, dataGridView.RowCount);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isSelectedIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[failureMechanismNameIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isRelevantIndex]);
