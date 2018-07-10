@@ -131,6 +131,12 @@ namespace Ringtoets.Integration.Plugin
                 LogCancelMessage();
                 return;
             }
+
+            if (mergeDataProvider.SelectedAssessmentSection == null || mergeDataProvider.SelectedFailureMechanisms == null)
+            {
+                LogError(Resources.AssessmentSectionMerger_No_AssessmentSection_selected);
+                return;
+            }
         }
 
         private string SelectProject()
