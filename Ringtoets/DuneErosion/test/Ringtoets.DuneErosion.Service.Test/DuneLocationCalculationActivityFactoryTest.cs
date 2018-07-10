@@ -98,10 +98,6 @@ namespace Ringtoets.DuneErosion.Service.Test
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
-            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : ""))
-                             .Return(calculator)
-                             .Repeat.Any();
             mocks.ReplayAll();
 
             ConfigureAssessmentSection(assessmentSection, usePreprocessor);
@@ -124,11 +120,8 @@ namespace Ringtoets.DuneErosion.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DuneLocationCalculationActivity));
             Assert.AreEqual(2, activities.Length);
 
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, duneLocation1.Id, norm, calculator);
-                AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, duneLocation2.Id, norm, calculator);
-            }
+            AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, duneLocation1.Id, norm, usePreprocessor, calculator);
+            AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, duneLocation2.Id, norm, usePreprocessor, calculator);
 
             mocks.VerifyAll();
         }
@@ -241,9 +234,22 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                   string locationName,
                                                                   long locationId,
                                                                   double norm,
+                                                                  bool usePreprocessor,
                                                                   TestDunesBoundaryConditionsCalculator calculator)
         {
-            Action call = () => activity.Run();
+            var mocks = new MockRepository();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : ""))
+                             .Return(calculator);
+            mocks.ReplayAll();
+
+            Action call = () =>
+            {
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                {
+                    activity.Run();
+                }
+            };
 
             TestHelper.AssertLogMessages(call, m =>
             {
@@ -256,12 +262,13 @@ namespace Ringtoets.DuneErosion.Service.Test
                 StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
                 CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
             });
-            DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();
 
+            DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();
             Assert.AreEqual(locationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
-
             Assert.AreEqual(ActivityState.Executed, activity.State);
+
+            mocks.VerifyAll();
         }
 
         private static void AssertDuneLocationCalculationActivity(Activity activity,
