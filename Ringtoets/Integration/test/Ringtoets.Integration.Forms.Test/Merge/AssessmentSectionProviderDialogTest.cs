@@ -136,6 +136,27 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
+        public void SelectData_AssessmentSectionsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            {
+                // Call
+                TestDelegate call = () => dialog.SelectData(null);
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(call);
+                Assert.AreEqual("assessmentSections", exception.ParamName);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void SelectData_WithEmptyAssessmentSections_SetsDataOnDialog()
         {
             // Setup
@@ -204,7 +225,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
                 var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                
+
                 // Precondition 
                 AssessmentSection defaultSelectedAssessmentSection = assessmentSections[0];
                 Assert.AreSame(defaultSelectedAssessmentSection, comboBox.SelectedItem);

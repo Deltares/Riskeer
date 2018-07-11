@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
@@ -45,6 +46,8 @@ namespace Ringtoets.Integration.Forms.Merge
         /// </summary>
         /// <param name="assessmentSections">The collection of assessment sections to select from.</param>
         /// <returns>Indicator whether selection succeeded.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSections"/>
+        /// is <c>null</c>.</exception>
          bool SelectData(IEnumerable<AssessmentSection> assessmentSections);
     }
 }

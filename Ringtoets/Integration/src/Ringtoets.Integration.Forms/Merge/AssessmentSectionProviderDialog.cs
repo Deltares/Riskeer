@@ -25,6 +25,11 @@ namespace Ringtoets.Integration.Forms.Merge
 
         public bool SelectData(IEnumerable<AssessmentSection> assessmentSections)
         {
+            if (assessmentSections == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSections));
+            }
+
             SetComboBoxData(assessmentSections);
             Show();
 
