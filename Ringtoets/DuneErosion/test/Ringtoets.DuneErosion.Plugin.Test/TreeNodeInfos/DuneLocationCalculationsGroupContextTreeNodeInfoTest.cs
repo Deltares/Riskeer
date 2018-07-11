@@ -349,6 +349,55 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_NoDuneLocationsPresent_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                }
+            };
+
+            var groupContext = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
+                                                                        failureMechanism,
+                                                                        assessmentSection);
+
+            var mocks = new MockRepository();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                    {
+                        // Assert
+                        ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
+
+                        Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
+                        StringAssert.Contains("Geen van de locaties is geschikt voor een hydraulische belastingen berekening.", contextMenuItem.ToolTipText);
+                        TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                        Assert.IsFalse(contextMenuItem.Enabled);
+                    }
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GivenDuneLocationCalculationsThatSucceed_WhenCalculatingDuneLocationCalculationsFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
