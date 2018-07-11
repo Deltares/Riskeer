@@ -37,19 +37,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     /// </summary>
     public static class GrassCoverErosionOutwardsCalculationActivityFactory
     {
-        #region Wave Conditions
-
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
-        /// <paramref name="failureMechanism"/>.
+        /// Creates a collection of <see cref="CalculatableActivity"/> for all hydraulic boundary location calculations
+        /// on grass cover erosion outwards level.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism containing the calculations to create
-        /// activities for.</param>
-        /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism to create the activities for.</param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                    IAssessmentSection assessmentSection)
+        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -61,8 +59,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection);
+            var activities = new List<CalculatableActivity>();
+            activities.AddRange(CreateDesignWaterLevelCalculationActivities(failureMechanism, assessmentSection));
+            activities.AddRange(CreateWaveHeightCalculationActivities(failureMechanism, assessmentSection));
+            activities.AddRange(CreateCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection));
+            return activities;
         }
+
+        #region Wave Conditions
 
         /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
@@ -136,34 +140,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         #endregion
 
         #region Hydraulic Boundary Location Calculations
-
-        /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> for all hydraulic boundary location calculations
-        /// on grass cover erosion outwards level.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism to create the activities for.</param>
-        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
-        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CalculatableActivity> CreateHydraulicBoundaryLocationCalculationActivities(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            var activities = new List<CalculatableActivity>();
-            activities.AddRange(CreateDesignWaterLevelCalculationActivities(failureMechanism, assessmentSection));
-            activities.AddRange(CreateWaveHeightCalculationActivities(failureMechanism, assessmentSection));
-            return activities;
-        }
 
         /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> for wave height calculations
