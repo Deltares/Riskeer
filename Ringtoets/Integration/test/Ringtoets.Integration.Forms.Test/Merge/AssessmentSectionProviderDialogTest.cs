@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
@@ -129,6 +130,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
                 var buttonCancel = (Button) new ButtonTester("cancelButton", dialog).TheObject;
                 Assert.AreEqual("Annuleren", buttonCancel.Text);
+                Assert.AreEqual(dialog.CancelButton, buttonCancel);
 
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
@@ -204,6 +206,29 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 AssertFailureMechanismRows(expectedDefaultSelectedAssessmentSection, rows);
+            }
+        }
+
+        [Test]
+        public void GivenValidDialog_WhenSelectDataCalledAndCancelPressed_ThenSelectedDataNullAndReturnsFalse()
+        {
+            // Given
+            using (var dialogParent = new Form())
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            {
+                // When
+                bool result = dialog.SelectData(new[]
+                {
+                    TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations()
+                });
+
+                var button = new ButtonTester("cancelButton", dialog);
+                button.Click();
+
+                // Then
+                Assert.IsFalse(result);
+                Assert.IsNull(dialog.SelectedAssessmentSection);
+                Assert.IsNull(dialog.SelectedFailureMechanisms);
             }
         }
 
