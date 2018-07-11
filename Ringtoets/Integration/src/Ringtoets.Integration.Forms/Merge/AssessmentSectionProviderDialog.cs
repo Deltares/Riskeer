@@ -43,6 +43,17 @@ namespace Ringtoets.Integration.Forms.Merge
             return cancelButton;
         }
 
+        private void InitializeDataGridView()
+        {
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsSelected), "Selecteer");
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.Name), "Toetsspoor", true);
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant), "Is relevant", true);
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections), "Heeft vakindeling", true);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations), "Aantal berekeningen", true);
+        }
+
+        #region Data Setters
+
         private void SetComboBoxData(IEnumerable<AssessmentSection> assessmentSections)
         {
             assessmentSectionComboBox.BeginUpdate();
@@ -85,14 +96,9 @@ namespace Ringtoets.Integration.Forms.Merge
             dataGridViewControl.SetDataSource(failureMechanismMergeDataRows);
         }
 
-        private void InitializeDataGridView()
-        {
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsSelected), "Selecteer");
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.Name), "Toetsspoor", true);
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant), "Is relevant", true);
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections), "Heeft vakindeling", true);
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations), "Aantal berekeningen", true);
-        }
+        #endregion
+
+        #region Event Handling
 
         private void AssessmentSectionComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
@@ -114,5 +120,7 @@ namespace Ringtoets.Integration.Forms.Merge
             isDataSelected = true;
             Close();
         }
+
+        #endregion
     }
 }
