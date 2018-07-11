@@ -405,6 +405,49 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var duneLocation = new TestDuneLocation("Test");
+            var failureMechanism = new DuneErosionFailureMechanism();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune);
+
+            failureMechanism.SetDuneLocations(new[]
+            {
+                duneLocation
+            });
+
+            var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
+
+            var mocks = new MockRepository();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
+
+                    Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
+                    StringAssert.Contains("Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", contextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                    Assert.IsFalse(contextMenuItem.Enabled);
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GivenDuneLocationCalculationsThatSucceed_WhenCalculatingDuneLocationCalculationsFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
