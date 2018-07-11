@@ -21,7 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -31,10 +33,110 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 {
     /// <summary>
     /// This class defines factory methods that can be used to create instances of <see cref="CalculatableActivity"/> for
-    /// hydraulic boundary location calculations on grass cover erosion outwards level.
+    /// calculations on grass cover erosion outwards level.
     /// </summary>
-    public static class GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory
+    public static class GrassCoverErosionOutwardsCalculationActivityFactory
     {
+        #region Wave Conditions
+
+        /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
+        /// <paramref name="failureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism containing the calculations to create
+        /// activities for.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="failureMechanism"/> belongs to.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                    IAssessmentSection assessmentSection)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return CreateCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection);
+        }
+
+        /// <summary>
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
+        /// <paramref name="calculationGroup"/>.
+        /// </summary>
+        /// <param name="calculationGroup">The calculation group to create activities for.</param>
+        /// <param name="failureMechanism">The failure mechanism the calculations belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the calculations in <paramref name="calculationGroup"/>
+        /// belong to.</param>
+        /// <returns>A collection of <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<CalculatableActivity> CreateCalculationActivities(CalculationGroup calculationGroup,
+                                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                    IAssessmentSection assessmentSection)
+        {
+            if (calculationGroup == null)
+            {
+                throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return calculationGroup.GetCalculations()
+                                   .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                   .Select(calc => CreateCalculationActivity(calc, failureMechanism, assessmentSection))
+                                   .ToArray();
+        }
+
+        /// <summary>
+        /// Creates a <see cref="CalculatableActivity"/> based on the given <paramref name="calculation"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create an activity for.</param>
+        /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the <paramref name="calculation"/>
+        /// belongs to.</param>
+        /// <returns>A <see cref="CalculatableActivity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static CalculatableActivity CreateCalculationActivity(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                                     GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection)
+        {
+            if (calculation == null)
+            {
+                throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            return new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
+                                                                                  assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
+        }
+
+        #endregion
+
+        #region Hydraulic Boundary Location Calculations
+
         /// <summary>
         /// Creates a collection of <see cref="CalculatableActivity"/> for all hydraulic boundary location calculations
         /// on grass cover erosion outwards level.
@@ -176,5 +278,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
             return activities;
         }
+
+        #endregion
     }
 }

@@ -23,12 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
@@ -36,16 +39,330 @@ using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactoryTest
+    public class GrassCoverErosionOutwardsCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
+
+        private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanism()
+        {
+            return new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 10
+            };
+        }
+
+        #region Wave Conditions
+
+        [Test]
+        public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(null,
+                                                                                                                    new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                                    assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivity_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                                                                                                                    null,
+                                                                                                                    assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCalculationActivity_WithValidCalculation_ReturnsGrassCoverErosionOutwardsWaveConditionsCalculationActivityWithParametersSet()
+        {
+            // Setup
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mocks,
+                                                                                                       validFilePath);
+
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
+
+            AddHydraulicBoundaryLocationToFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+
+            // Call
+            CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                          failureMechanism,
+                                                                                                                          assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculationActivity>(activity);
+            AssertGrassCoverErosionOutwardsCalculationActivity(activity, calculation);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForCalculationGroup_CalculationGroupNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(null,
+                                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                                      assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculationGroup", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForCalculationGroup_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+                                                                                                                      null,
+                                                                                                                      assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForCalculationGroup_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
+                                                                                                                      new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                                      null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsGrassCoverErosionOutwardsWaveConditionsCalculationActivitiesWithParametersSet()
+        {
+            // Setup
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mocks,
+                                                                                                       validFilePath);
+
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
+
+            AddHydraulicBoundaryLocationToFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+
+            var calculations = new CalculationGroup
+            {
+                Children =
+                {
+                    calculation1,
+                    calculation2
+                }
+            };
+
+            // Call
+            IEnumerable<CalculatableActivity> activities = GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(
+                calculations, failureMechanism, assessmentSection);
+
+            // Assert
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionOutwardsWaveConditionsCalculationActivity));
+            Assert.AreEqual(2, activities.Count());
+
+            AssertGrassCoverErosionOutwardsCalculationActivity(activities.First(), calculation1);
+            AssertGrassCoverErosionOutwardsCalculationActivity(activities.ElementAt(1), calculation2);
+            mocks.VerifyAll();
+        }
+
+        private static void AddHydraulicBoundaryLocationToFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                           TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(new GrassCoverErosionOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesForFailureMechanism_WithValidCalculations_ReturnsGrassCoverErosionOutwardsWaveConditionsCalculationActivitiesWithParametersSet()
+        {
+            // Setup
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                       mocks,
+                                                                                                       validFilePath);
+
+            mocks.ReplayAll();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
+
+            AddHydraulicBoundaryLocationToFailureMechanism(failureMechanism, hydraulicBoundaryLocation);
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.AddRange(new[]
+            {
+                calculation1,
+                calculation2
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities = GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(
+                failureMechanism, assessmentSection);
+
+            // Assert
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionOutwardsWaveConditionsCalculationActivity));
+            Assert.AreEqual(2, activities.Count());
+
+            AssertGrassCoverErosionOutwardsCalculationActivity(activities.First(), calculation1);
+            AssertGrassCoverErosionOutwardsCalculationActivity(activities.ElementAt(1), calculation2);
+            mocks.VerifyAll();
+        }
+
+        private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            return new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm,
+                    ForeshoreProfile = new TestForeshoreProfile(true)
+                    {
+                        BreakWater =
+                        {
+                            Height = new Random(39).NextRoundedDouble()
+                        }
+                    },
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    LowerBoundaryRevetment = (RoundedDouble) 1,
+                    UpperBoundaryRevetment = (RoundedDouble) 3,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3
+                }
+            };
+        }
+
+        private static void AssertGrassCoverErosionOutwardsCalculationActivity(Activity activity,
+                                                                               GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        {
+            var mocks = new MockRepository();
+            var testCalculator = new TestWaveConditionsCosineCalculator();
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
+                             .Return(testCalculator).Repeat.Times(3);
+            mocks.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                activity.Run();
+
+                Assert.AreEqual(3, testCalculator.ReceivedInputs.Count);
+                foreach (WaveConditionsCosineCalculationInput input in testCalculator.ReceivedInputs)
+                {
+                    Assert.AreEqual(calculation.InputParameters.BreakWater.Height, input.BreakWater.Height);
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region Hydraulic Boundary Location Calculations
 
         [Test]
         public void CreateHydraulicBoundaryLocationCalculationActivities_FailureMechanismNull_ThrowsArgumentNullException()
@@ -57,7 +374,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(
                     null,
                     assessmentSection);
 
@@ -72,7 +389,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(
                     new GrassCoverErosionOutwardsFailureMechanism(),
                     null);
 
@@ -101,7 +418,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(
                     failureMechanism,
                     assessmentSection);
 
@@ -180,7 +497,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                     null,
                     assessmentSection);
 
@@ -195,7 +512,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                     new GrassCoverErosionOutwardsFailureMechanism(),
                     null);
 
@@ -226,7 +543,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                     failureMechanism,
                     assessmentSection);
 
@@ -305,7 +622,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                     null,
                     assessmentSection);
 
@@ -320,7 +637,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Call
             TestDelegate test = () =>
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                     new GrassCoverErosionOutwardsFailureMechanism(),
                     null);
 
@@ -351,7 +668,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Call
             IEnumerable<CalculatableActivity> activities =
-                GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                     failureMechanism,
                     assessmentSection);
 
@@ -418,14 +735,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                 factorizedLowerLimitNorm,
                                                 "Vv->VIv",
                                                 usePreprocessor);
-        }
-
-        private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanism()
-        {
-            return new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 10
-            };
         }
 
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessor)
@@ -528,5 +837,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 failureMechanism.Contribution,
                 failureMechanism.GeneralInput.N);
         }
+
+        #endregion
     }
 }
