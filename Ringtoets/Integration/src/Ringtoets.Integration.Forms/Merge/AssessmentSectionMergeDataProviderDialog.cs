@@ -26,7 +26,7 @@ namespace Ringtoets.Integration.Forms.Merge
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         public AssessmentSectionMergeDataProviderDialog(IWin32Window dialogParent)
-            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
+            : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 720, 590)
         {
             InitializeComponent();
             InitializeTooltip();

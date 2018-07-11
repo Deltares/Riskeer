@@ -137,8 +137,8 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.AreEqual("Annuleren", buttonCancel.Text);
                 Assert.AreEqual(dialog.CancelButton, buttonCancel);
 
-                Assert.AreEqual(500, dialog.MinimumSize.Width);
-                Assert.AreEqual(350, dialog.MinimumSize.Height);
+                Assert.AreEqual(720, dialog.MinimumSize.Width);
+                Assert.AreEqual(590, dialog.MinimumSize.Height);
             }
         }
 
