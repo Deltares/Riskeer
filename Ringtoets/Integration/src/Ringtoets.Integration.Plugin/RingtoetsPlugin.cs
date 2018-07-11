@@ -79,6 +79,7 @@ using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Commands;
 using Ringtoets.Integration.Forms.Dialogs;
+using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -281,12 +282,12 @@ namespace Ringtoets.Integration.Plugin
                                                                   (filePath, assessmentSectionOwner) =>
                                                                   {
                                                                       ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                                                          LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(
-                                                                              assessmentSectionOwner, new LoadAssessmentSectionService(new StorageSqLite()), 
-                                                                              filePath));
+                                                                                                       LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(
+                                                                                                           assessmentSectionOwner, new LoadAssessmentSectionService(new StorageSqLite()),
+                                                                                                           filePath));
                                                                   },
                                                                   new AssessmentSectionMergeComparer(),
-                                                                  new MergeDataProviderStub(Gui.MainWindow),
+                                                                  new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
                                                                   new AssessmentSectionMergeHandlerStub());
 
             ribbonCommandHandler = new RingtoetsRibbon
