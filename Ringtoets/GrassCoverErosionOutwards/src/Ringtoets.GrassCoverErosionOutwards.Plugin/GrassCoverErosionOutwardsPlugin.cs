@@ -1017,21 +1017,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IEnumerable<CalculatableActivity> activities =
-                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                            context.WrappedData,
-                                            assessmentSection,
-                                            context.GetNormFunc(), context.CategoryBoundaryName))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                            nodeData.FailureMechanism, assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
@@ -1096,22 +1085,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IEnumerable<CalculatableActivity> activities =
-                        WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                            context.WrappedData,
-                                            assessmentSection,
-                                            context.GetNormFunc(),
-                                            context.CategoryBoundaryName))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        GrassCoverErosionOutwardsHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                            nodeData.FailureMechanism, assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
