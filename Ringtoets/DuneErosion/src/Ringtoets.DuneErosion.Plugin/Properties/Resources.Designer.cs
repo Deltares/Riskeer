@@ -91,6 +91,16 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen van de locaties is geschikt voor een hydraulische belastingen berekening..
+        /// </summary>
+        internal static string DuneErosionPlugin_DuneLocationCalculationsGroupContextMenuStrip_No_calculatable_locations_present {
+            get {
+                return ResourceManager.GetString("DuneErosionPlugin_DuneLocationCalculationsGroupContextMenuStrip_No_calculatable_l" +
+                        "ocations_present", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MorphAn randvoorwaarden.
         /// </summary>
         internal static string DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Description {

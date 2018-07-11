@@ -314,10 +314,18 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {
+            StrictContextMenuItem calculateAllItem = CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection);
+
+            if (calculateAllItem.Enabled && !nodeData.FailureMechanism.DuneLocations.Any())
+            {
+                calculateAllItem.Enabled = false;
+                calculateAllItem.ToolTipText = Resources.DuneErosionPlugin_DuneLocationCalculationsGroupContextMenuStrip_No_calculatable_locations_present;
+            }
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddExportItem()
                       .AddSeparator()
-                      .AddCustomItem(CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection))
+                      .AddCustomItem(calculateAllItem)
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
