@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
@@ -56,17 +57,26 @@ namespace Ringtoets.Integration.Forms.Merge
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsSelected), "Selecteer");
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.Name), "Toetsspoor", true);
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant), "Is relevant", true);
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections), "Heeft vakindeling", true);
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations), "Aantal berekeningen", true);
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsSelected),
+                                                  Resources.FailureMechanismMergeDataRow_IsSelected_DisplayName);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.Name),
+                                                 Resources.FailureMechanism_Name_DisplayName,
+                                                 true);
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant),
+                                                  Resources.FailureMechanismMergeDataRow_IsRelevant_DisplayName,
+                                                  true);
+            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections),
+                                                  Resources.FailureMechanismMergeDataRow_HasSections_DisplayName,
+                                                  true);
+            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations),
+                                                 Resources.FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName,
+                                                 true);
         }
 
         private void InitializeTooltip()
         {
             infoIcon.BackgroundImage = CoreCommonGuiResources.information;
-            toolTip.SetToolTip(infoIcon, "Hydraulische belastingen op trajectniveau worden altijd samengevoegd. Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.");
+            toolTip.SetToolTip(infoIcon, Resources.AssessmentSectionMergeDataProviderDialog_InfoToolTip);
         }
 
         #region Data Setters

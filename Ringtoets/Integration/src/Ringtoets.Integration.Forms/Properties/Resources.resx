@@ -339,7 +339,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text" xml:space="preserve">
     <value>Groepen 3 en 4</value>
   </data>
-  <data name="FailureMechanismContributionView_GridColumn_Assessment" xml:space="preserve">
+  <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Toetsspoor</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_Contribution" xml:space="preserve">
@@ -377,5 +377,20 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="FailureMechanismSectionAssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen per vak</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_HasSections_DisplayName" xml:space="preserve">
+    <value>Heeft vakindeling</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName" xml:space="preserve">
+    <value>Aantal berekeningen</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_IsSelected_DisplayName" xml:space="preserve">
+    <value>Selecteer</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_IsRelevant_DisplayName" xml:space="preserve">
+    <value>Is relevant</value>
+  </data>
+  <data name="AssessmentSectionMergeDataProviderDialog_InfoToolTip" xml:space="preserve">
+    <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd. Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
 </root>
