@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,9 +8,12 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Merge;
+using Ringtoets.Integration.TestUtil;
 
 namespace Ringtoets.Integration.Forms.Test.Merge
 {
@@ -63,7 +65,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        public void ShowDialog_Always_DefaultProperties()
+        public void Show_Always_DefaultProperties()
         {
             // Setup
             using (var dialogParent = new Form())
@@ -131,6 +133,89 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
             }
+        }
+
+        [Test]
+        public void SelectData_WithEmptyAssessmentSections_SetsDataOnDialog()
+        {
+            // Setup
+            using (var dialogParent = new Form())
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            {
+                // Call
+                dialog.SelectData(Enumerable.Empty<AssessmentSection>());
+
+                // Assert
+                var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
+                Assert.IsNull(comboBox.SelectedItem);
+                CollectionAssert.IsEmpty(comboBox.Items);
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(0, rows.Count);
+
+            }
+        }
+
+        [Test]
+        public void SelectData_WithAssessmentSections_SetsDataOnDialog()
+        {
+            // Setup
+            var random = new Random(21);
+            AssessmentSection[] assessmentSections =
+            {
+                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(),
+                new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+                {
+                    Name = "AssessmentSection 2"
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            {
+                // Call
+                dialog.SelectData(assessmentSections);
+
+                // Assert
+                AssessmentSection expectedDefaultSelectedAssessmentSection = assessmentSections[0];
+
+                var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
+                Assert.AreSame(expectedDefaultSelectedAssessmentSection, comboBox.SelectedItem);
+                CollectionAssert.AreEqual(assessmentSections, comboBox.Items);
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(expectedDefaultSelectedAssessmentSection.GetFailureMechanisms().Count(), rows.Count);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.Piping, rows[0].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverErosionInwards, rows[1].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.MacroStabilityInwards, rows[2].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.MacroStabilityOutwards, rows[3].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.Microstability, rows[4].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.StabilityStoneCover, rows[5].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.WaveImpactAsphaltCover, rows[6].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.WaterPressureAsphaltCover, rows[7].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverErosionOutwards, rows[8].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverSlipOffOutwards, rows[9].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverSlipOffInwards, rows[10].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.HeightStructures, rows[11].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.ClosingStructures, rows[12].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.PipingStructure, rows[13].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.StabilityPointStructures, rows[14].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.StrengthStabilityLengthwiseConstruction, rows[15].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.DuneErosion, rows[16].Cells);
+                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.TechnicalInnovation, rows[17].Cells);
+            }
+        }
+
+        private static void AssertDataGridViewRow(IFailureMechanism expectedFailureMechanism,
+                                                  DataGridViewCellCollection cells)
+        {
+            Assert.AreEqual(false, cells[isSelectedIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.Name, cells[failureMechanismNameIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.IsRelevant, cells[isRelevantIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.Sections.Any(), cells[hasSectionsIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.Calculations.Count(), cells[numberOfCalculationsIndex].Value);
         }
 
         private static Icon BitmapToIcon(Bitmap icon)
