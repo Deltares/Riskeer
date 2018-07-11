@@ -9,12 +9,21 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 
 namespace Ringtoets.Integration.Forms.Merge
 {
+    /// <summary>
+    /// A dialog which allows the user to make a selection of which <see cref="AssessmentSection"/>
+    /// and its <see cref="IFailureMechanism"/> to use for merging the data. The selections
+    /// can be obtained upon closing the dialog.
+    /// </summary>
     public partial class AssessmentSectionProviderDialog : DialogBase, IMergeDataProvider
     {
         private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
         private bool assessmentSectionComboBoxUpdating;
         private bool isDataSelected;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="AssessmentSectionProviderDialog"/>.
+        /// </summary>
+        /// <param name="dialogParent">The parent of the dialog.</param>
         public AssessmentSectionProviderDialog(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
