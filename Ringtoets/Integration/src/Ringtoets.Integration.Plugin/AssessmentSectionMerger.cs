@@ -151,7 +151,9 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
+            log.Info(Resources.AssessmentSectionMerger_StartMerge_Merging_projects_started);
             mergeHandler.PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
+            log.Info(Resources.AssessmentSectionMerger_StartMerge_Merging_projects_succeeded);
         }
 
         private string SelectProject()

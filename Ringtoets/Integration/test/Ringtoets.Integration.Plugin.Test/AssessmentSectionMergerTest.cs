@@ -356,7 +356,7 @@ namespace Ringtoets.Integration.Plugin.Test
         }
 
         [Test]
-        public void GivenMatchedAssessmentSection_WhenAllDataValid_ThenMergePerformed()
+        public void GivenMatchedAssessmentSection_WhenAllDataValid_ThenMergePerformedAndLogged()
         {
             // Given
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -393,7 +393,13 @@ namespace Ringtoets.Integration.Plugin.Test
             Action call = () => merger.StartMerge(originalAssessmentSection);
 
             // Then
-            TestHelper.AssertLogMessagesCount(call, 0);
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                Assert.AreEqual("Samenvoegen van projecten is gestart.", msgs[0]);
+                Assert.AreEqual("Samenvoegen van projecten is gelukt.", msgs[1]);
+            });
             mocks.VerifyAll();
         }
     }

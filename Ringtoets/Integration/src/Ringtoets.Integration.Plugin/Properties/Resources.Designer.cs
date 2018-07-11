@@ -160,6 +160,24 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Samenvoegen van projecten is gestart..
+        /// </summary>
+        public static string AssessmentSectionMerger_StartMerge_Merging_projects_started {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_StartMerge_Merging_projects_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samenvoegen van projecten is gelukt..
+        /// </summary>
+        public static string AssessmentSectionMerger_StartMerge_Merging_projects_succeeded {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_StartMerge_Merging projects_succeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Selecteren....
         /// </summary>
         public static string BackgroundData_SelectMapData {

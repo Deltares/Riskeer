@@ -191,4 +191,10 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSectionMerger_No_AssessmentSection_selected" xml:space="preserve">
     <value>Er is geen traject geselecteerd.</value>
   </data>
+  <data name="AssessmentSectionMerger_StartMerge_Merging_projects_started" xml:space="preserve">
+    <value>Samenvoegen van projecten is gestart.</value>
+  </data>
+  <data name="AssessmentSectionMerger_StartMerge_Merging projects_succeeded" xml:space="preserve">
+    <value>Samenvoegen van projecten is gelukt.</value>
+  </data>
 </root>
