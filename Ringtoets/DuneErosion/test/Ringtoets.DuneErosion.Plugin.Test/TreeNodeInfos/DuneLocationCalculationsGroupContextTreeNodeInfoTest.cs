@@ -19,28 +19,44 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DuneLocationCalculationsGroupContextTreeNodeInfoTest
+    public class DuneLocationCalculationsGroupContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuCalculateAllIndex = 2;
+
         private const double failureMechanismSpecificNormFactor = 2.15;
+
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -285,6 +301,91 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             }
         }
 
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenDuneLocationCalculationsThatSucceed_WhenCalculatingDuneLocationCalculationsFromContextMenu_ThenAllCalculationsScheduled()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                }
+            };
+
+            var failureMechanism = new DuneErosionFailureMechanism
+            {
+                Contribution = 5
+            };
+
+            var duneLocation = new TestDuneLocation("Test");
+            failureMechanism.SetDuneLocations(new[]
+            {
+                duneLocation
+            });
+
+            var groupContext = new DuneLocationCalculationsGroupContext(new ObservableList<DuneLocation>(),
+                                                                        failureMechanism,
+                                                                        assessmentSection);
+
+            var mocks = new MockRepository();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(groupContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
+                {
+                    Converged = false
+                };
+
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty)).Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);
+                mocks.ReplayAll();
+
+                using (var plugin = new DuneErosionPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+
+                    plugin.Gui = gui;
+                    plugin.Activate();
+
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        // Expect an activity dialog which is automatically closed
+                    };
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    {
+                        // When
+                        Action call = () => contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                        // Then
+                        TestHelper.AssertLogMessages(call, messages =>
+                        {
+                            string[] msgs = messages.ToArray();
+                            Assert.AreEqual(40, msgs.Length);
+
+                            AssertDuneLocationCalculationMessages(duneLocation, msgs, 0, "Iv->IIv");
+                            AssertDuneLocationCalculationMessages(duneLocation, msgs, 8, "IIv->IIIv");
+                            AssertDuneLocationCalculationMessages(duneLocation, msgs, 16, "IIIv->IVv");
+                            AssertDuneLocationCalculationMessages(duneLocation, msgs, 24, "IVv->Vv");
+                            AssertDuneLocationCalculationMessages(duneLocation, msgs, 32, "Vv->VIv");
+                        });
+                    }
+                }
+            }
+
+            mocks.VerifyAll();
+        }
+
         private static double GetExpectedNorm(DuneErosionFailureMechanism failureMechanism, double norm)
         {
             return failureMechanismSpecificNormFactor * norm * (failureMechanism.Contribution / 100) / failureMechanism.GeneralInput.N;
@@ -293,6 +394,21 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         private static TreeNodeInfo GetInfo(DuneErosionPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneLocationCalculationsGroupContext));
+        }
+
+        private static void AssertDuneLocationCalculationMessages(DuneLocation duneLocation,
+                                                                  string[] messages,
+                                                                  int startIndex,
+                                                                  string categoryName)
+        {
+            Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}' (Categorie {categoryName}) is gestart.", messages[startIndex]);
+            CalculationServiceTestHelper.AssertValidationStartMessage(messages[startIndex + 1]);
+            CalculationServiceTestHelper.AssertValidationEndMessage(messages[startIndex + 2]);
+            CalculationServiceTestHelper.AssertCalculationStartMessage(messages[startIndex + 3]);
+            Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' (Categorie {categoryName}) is niet geconvergeerd.", messages[startIndex + 4]);
+            StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messages[startIndex + 5]);
+            CalculationServiceTestHelper.AssertCalculationEndMessage(messages[startIndex + 6]);
+            Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}' (Categorie {categoryName}) is gelukt.", messages[startIndex + 7]);
         }
     }
 }
