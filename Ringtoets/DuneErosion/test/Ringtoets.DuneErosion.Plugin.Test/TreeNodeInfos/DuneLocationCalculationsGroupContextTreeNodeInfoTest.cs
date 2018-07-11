@@ -23,7 +23,6 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
@@ -33,7 +32,6 @@ using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
-using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -50,7 +48,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class DuneLocationCalculationsGroupContextTreeNodeInfoTest : NUnitFormTest
+    public class DuneLocationCalculationsGroupContextTreeNodeInfoTest
     {
         private const int contextMenuCalculateAllIndex = 2;
 
@@ -302,7 +300,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenDuneLocationCalculationsThatSucceed_WhenCalculatingDuneLocationCalculationsFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
@@ -355,11 +352,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                     plugin.Gui = gui;
                     plugin.Activate();
-
-                    DialogBoxHandler = (name, wnd) =>
-                    {
-                        // Expect an activity dialog which is automatically closed
-                    };
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(groupContext, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
