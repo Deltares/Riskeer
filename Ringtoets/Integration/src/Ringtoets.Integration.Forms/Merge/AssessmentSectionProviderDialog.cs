@@ -11,6 +11,8 @@ namespace Ringtoets.Integration.Forms.Merge
 {
     public partial class AssessmentSectionProviderDialog : DialogBase, IMergeDataProvider
     {
+        private bool assessmentSectionComboBoxUpdating;
+
         public AssessmentSectionProviderDialog(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
@@ -24,8 +26,6 @@ namespace Ringtoets.Integration.Forms.Merge
         public bool SelectData(IEnumerable<AssessmentSection> assessmentSections)
         {
             SetComboBoxData(assessmentSections);
-            SetDataGridViewData();
-
             Show();
 
             return false;
@@ -35,42 +35,42 @@ namespace Ringtoets.Integration.Forms.Merge
         {
             assessmentSectionComboBox.BeginUpdate();
 
+            assessmentSectionComboBoxUpdating = true;
             assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
             assessmentSectionComboBox.DisplayMember = nameof(AssessmentSection.Name);
+            assessmentSectionComboBox.SelectedItem = null;
+            assessmentSectionComboBoxUpdating = false;
+
             assessmentSectionComboBox.SelectedItem = assessmentSections.FirstOrDefault();
 
             assessmentSectionComboBox.EndUpdate();
         }
 
-        private void SetDataGridViewData()
+        private void SetDataGridViewData(AssessmentSection assessmentSection)
         {
-            var assessmentSection = (AssessmentSection) assessmentSectionComboBox.SelectedItem;
-            if (assessmentSection != null)
+            var rows = new[]
             {
-                var rows = new[]
-                {
-                    new FailureMechanismMergeDataRow(assessmentSection.Piping),
-                    new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
-                    new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
-                    new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityOutwards),
-                    new FailureMechanismMergeDataRow(assessmentSection.Microstability),
-                    new FailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
-                    new FailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
-                    new FailureMechanismMergeDataRow(assessmentSection.WaterPressureAsphaltCover),
-                    new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionOutwards),
-                    new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffOutwards),
-                    new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffInwards),
-                    new FailureMechanismMergeDataRow(assessmentSection.HeightStructures),
-                    new FailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
-                    new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
-                    new FailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
-                    new FailureMechanismMergeDataRow(assessmentSection.StrengthStabilityLengthwiseConstruction),
-                    new FailureMechanismMergeDataRow(assessmentSection.DuneErosion),
-                    new FailureMechanismMergeDataRow(assessmentSection.TechnicalInnovation)
-                };
+                new FailureMechanismMergeDataRow(assessmentSection.Piping),
+                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
+                new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
+                new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityOutwards),
+                new FailureMechanismMergeDataRow(assessmentSection.Microstability),
+                new FailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
+                new FailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
+                new FailureMechanismMergeDataRow(assessmentSection.WaterPressureAsphaltCover),
+                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionOutwards),
+                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffOutwards),
+                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffInwards),
+                new FailureMechanismMergeDataRow(assessmentSection.HeightStructures),
+                new FailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
+                new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
+                new FailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
+                new FailureMechanismMergeDataRow(assessmentSection.StrengthStabilityLengthwiseConstruction),
+                new FailureMechanismMergeDataRow(assessmentSection.DuneErosion),
+                new FailureMechanismMergeDataRow(assessmentSection.TechnicalInnovation)
+            };
 
-                dataGridViewControl.SetDataSource(rows);
-            }
+            dataGridViewControl.SetDataSource(rows);
         }
 
         protected override Button GetCancelButton()
@@ -85,6 +85,16 @@ namespace Ringtoets.Integration.Forms.Merge
             dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant), "Is relevant", true);
             dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections), "Heeft vakindeling", true);
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations), "Aantal berekeningen", true);
+        }
+
+        private void AssessmentSectionComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
+        {
+            if (assessmentSectionComboBoxUpdating || assessmentSectionComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            SetDataGridViewData((AssessmentSection) assessmentSectionComboBox.SelectedItem);
         }
     }
 }

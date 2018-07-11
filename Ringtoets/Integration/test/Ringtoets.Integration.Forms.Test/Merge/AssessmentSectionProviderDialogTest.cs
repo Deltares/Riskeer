@@ -153,7 +153,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(0, rows.Count);
-
             }
         }
 
@@ -166,9 +165,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             {
                 TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(),
                 new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-                {
-                    Name = "AssessmentSection 2"
-                }
             };
 
             using (var dialogParent = new Form())
@@ -186,26 +182,64 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(expectedDefaultSelectedAssessmentSection.GetFailureMechanisms().Count(), rows.Count);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.Piping, rows[0].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverErosionInwards, rows[1].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.MacroStabilityInwards, rows[2].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.MacroStabilityOutwards, rows[3].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.Microstability, rows[4].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.StabilityStoneCover, rows[5].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.WaveImpactAsphaltCover, rows[6].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.WaterPressureAsphaltCover, rows[7].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverErosionOutwards, rows[8].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverSlipOffOutwards, rows[9].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.GrassCoverSlipOffInwards, rows[10].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.HeightStructures, rows[11].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.ClosingStructures, rows[12].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.PipingStructure, rows[13].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.StabilityPointStructures, rows[14].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.StrengthStabilityLengthwiseConstruction, rows[15].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.DuneErosion, rows[16].Cells);
-                AssertDataGridViewRow(expectedDefaultSelectedAssessmentSection.TechnicalInnovation, rows[17].Cells);
+                AssertFailureMechanismRows(expectedDefaultSelectedAssessmentSection, rows);
             }
+        }
+
+        [Test]
+        public void GivenDialogWithAssessmentSection_WhenSelectingOtherAssessmentSection_ThenDataUpdated()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection[] assessmentSections =
+            {
+                TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations(),
+                new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            {
+                dialog.SelectData(assessmentSections);
+
+                var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                
+                // Precondition 
+                AssessmentSection defaultSelectedAssessmentSection = assessmentSections[0];
+                Assert.AreSame(defaultSelectedAssessmentSection, comboBox.SelectedItem);
+                AssertFailureMechanismRows(defaultSelectedAssessmentSection, dataGridView.Rows);
+
+                // When
+                AssessmentSection itemToBeSelected = assessmentSections[1];
+                comboBox.SelectedItem = itemToBeSelected;
+
+                // Then
+                AssertFailureMechanismRows(itemToBeSelected, dataGridView.Rows);
+            }
+        }
+
+        private static void AssertFailureMechanismRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)
+        {
+            Assert.AreEqual(expectedAssessmentSection.GetFailureMechanisms().Count(), rows.Count);
+            AssertDataGridViewRow(expectedAssessmentSection.Piping, rows[0].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverErosionInwards, rows[1].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.MacroStabilityInwards, rows[2].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.MacroStabilityOutwards, rows[3].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.Microstability, rows[4].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.StabilityStoneCover, rows[5].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.WaveImpactAsphaltCover, rows[6].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.WaterPressureAsphaltCover, rows[7].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverErosionOutwards, rows[8].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverSlipOffOutwards, rows[9].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.GrassCoverSlipOffInwards, rows[10].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.HeightStructures, rows[11].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.ClosingStructures, rows[12].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.PipingStructure, rows[13].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.StabilityPointStructures, rows[14].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.StrengthStabilityLengthwiseConstruction, rows[15].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.DuneErosion, rows[16].Cells);
+            AssertDataGridViewRow(expectedAssessmentSection.TechnicalInnovation, rows[17].Cells);
         }
 
         private static void AssertDataGridViewRow(IFailureMechanism expectedFailureMechanism,

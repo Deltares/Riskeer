@@ -63,6 +63,7 @@ namespace Ringtoets.Integration.Forms.Merge
             resources.ApplyResources(this.assessmentSectionComboBox, "assessmentSectionComboBox");
             this.assessmentSectionComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.assessmentSectionComboBox.Name = "assessmentSectionComboBox";
+            this.assessmentSectionComboBox.SelectedIndexChanged += new System.EventHandler(this.AssessmentSectionComboBox_OnSelectedIndexChanged);
             // 
             // failureMechanismsSelectLabel
             // 
