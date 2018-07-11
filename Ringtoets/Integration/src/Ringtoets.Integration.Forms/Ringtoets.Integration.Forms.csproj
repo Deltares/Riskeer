@@ -20,11 +20,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Merge\AssessmentSectionProviderDialog.cs">
+    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Merge\AssessmentSectionProviderDialog.Designer.cs">
-      <DependentUpon>AssessmentSectionProviderDialog.cs</DependentUpon>
+    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.Designer.cs">
+      <DependentUpon>AssessmentSectionMergeDataProviderDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\AssessmentSectionProviderStub.cs">
       <SubType>Form</SubType>
@@ -319,8 +319,8 @@
     <EmbeddedResource Include="Dialogs\MergeDataProviderStub.resx">
       <DependentUpon>MergeDataProviderStub.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Merge\AssessmentSectionProviderDialog.resx">
-      <DependentUpon>AssessmentSectionProviderDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Merge\AssessmentSectionMergeDataProviderDialog.resx">
+      <DependentUpon>AssessmentSectionMergeDataProviderDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

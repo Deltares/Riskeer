@@ -19,7 +19,7 @@ using Ringtoets.Integration.TestUtil;
 namespace Ringtoets.Integration.Forms.Test.Merge
 {
     [TestFixture]
-    public class AssessmentSectionProviderDialogTest : NUnitFormTest
+    public class AssessmentSectionMergeDataProviderDialogTest : NUnitFormTest
     {
         private const int isSelectedIndex = 0;
         private const int failureMechanismNameIndex = 1;
@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         public void Constructor_DialogParentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionProviderDialog(null);
+            TestDelegate call = () => new AssessmentSectionMergeDataProviderDialog(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
@@ -70,7 +70,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         {
             // Setup
             using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
                 dialog.Show();
@@ -145,7 +145,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             var dialogParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
                 TestDelegate call = () => dialog.SelectData(null);
@@ -168,7 +168,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             };
 
             using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
                 dialog.SelectData(Enumerable.Empty<AssessmentSection>());
@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             };
 
             using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
                 dialog.SelectData(assessmentSections);
@@ -233,7 +233,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             };
 
             using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
                 bool result = dialog.SelectData(new[]
@@ -261,7 +261,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             {
                 using (var formTester = new FormTester(formName))
                 {
-                    var dialog = (AssessmentSectionProviderDialog) formTester.TheObject;
+                    var dialog = (AssessmentSectionMergeDataProviderDialog) formTester.TheObject;
                     var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
                     comboBox.SelectedItem = selectedAssessmentSection;
 
@@ -277,7 +277,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             };
 
             using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
                 bool result = dialog.SelectData(new[]
@@ -317,7 +317,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             };
 
             using (var dialogParent = new Form())
-            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 dialog.SelectData(assessmentSections);
 

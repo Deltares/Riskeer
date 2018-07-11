@@ -14,17 +14,17 @@ namespace Ringtoets.Integration.Forms.Merge
     /// and its <see cref="IFailureMechanism"/> to use for merging the data. The selections
     /// can be obtained upon closing the dialog.
     /// </summary>
-    public partial class AssessmentSectionProviderDialog : DialogBase, IMergeDataProvider
+    public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IMergeDataProvider
     {
         private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
         private bool assessmentSectionComboBoxUpdating;
         private bool isDataSelected;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AssessmentSectionProviderDialog"/>.
+        /// Creates a new instance of the <see cref="AssessmentSectionMergeDataProviderDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        public AssessmentSectionProviderDialog(IWin32Window dialogParent)
+        public AssessmentSectionMergeDataProviderDialog(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
             InitializeComponent();

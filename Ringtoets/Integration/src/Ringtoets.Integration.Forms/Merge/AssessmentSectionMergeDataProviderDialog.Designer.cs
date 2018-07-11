@@ -2,7 +2,7 @@
 
 namespace Ringtoets.Integration.Forms.Merge
 {
-    partial class AssessmentSectionProviderDialog
+    partial class AssessmentSectionMergeDataProviderDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace Ringtoets.Integration.Forms.Merge
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionProviderDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionMergeDataProviderDialog));
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.assessmentSectionSelectLabel = new System.Windows.Forms.Label();
             this.assessmentSectionComboBox = new System.Windows.Forms.ComboBox();
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Merge
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "AssessmentSectionProviderDialog";
+            this.Name = "AssessmentSectionMergeDataProviderDialog";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.flowLayoutPanelButtons.ResumeLayout(false);
