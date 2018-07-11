@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
@@ -210,6 +211,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void SelectData_WithEmptyAssessmentSections_SetsDataOnDialog()
         {
             // Setup
@@ -236,6 +238,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void SelectData_WithAssessmentSections_SetsDataOnDialog()
         {
             // Setup
@@ -271,6 +274,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenValidDialog_WhenSelectDataCalledAndCancelPressed_ThenSelectedDataNullAndReturnsFalse()
         {
             // Given
@@ -300,6 +304,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenValidDialog_WhenSelectDataCalledAndDataSelectedAndImportPressed_ThenSelectedDataSetAndReturnsTrue()
         {
             // Given
@@ -352,6 +357,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
+        [Apartment(ApartmentState.STA)]
         public void GivenDialogWithAssessmentSection_WhenSelectingOtherAssessmentSection_ThenDataUpdated()
         {
             // Given
