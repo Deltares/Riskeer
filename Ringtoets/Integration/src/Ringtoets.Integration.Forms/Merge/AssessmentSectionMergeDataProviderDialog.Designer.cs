@@ -30,28 +30,46 @@ namespace Ringtoets.Integration.Forms.Merge
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionMergeDataProviderDialog));
-            this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.infoIcon = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanelForForm = new System.Windows.Forms.TableLayoutPanel();
             this.assessmentSectionSelectLabel = new System.Windows.Forms.Label();
             this.assessmentSectionComboBox = new System.Windows.Forms.ComboBox();
-            this.failureMechanismsSelectLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanelForLabel = new System.Windows.Forms.TableLayoutPanel();
+            this.failureMechanismSelectLabel = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.flowLayoutPanelButtons = new System.Windows.Forms.FlowLayoutPanel();
             this.cancelButton = new System.Windows.Forms.Button();
             this.importButton = new System.Windows.Forms.Button();
-            this.tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.infoIcon)).BeginInit();
+            this.tableLayoutPanelForForm.SuspendLayout();
+            this.tableLayoutPanelForLabel.SuspendLayout();
             this.flowLayoutPanelButtons.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel
+            // toolTip
             // 
-            resources.ApplyResources(this.tableLayoutPanel, "tableLayoutPanel");
-            this.tableLayoutPanel.Controls.Add(this.assessmentSectionSelectLabel, 0, 0);
-            this.tableLayoutPanel.Controls.Add(this.assessmentSectionComboBox, 0, 1);
-            this.tableLayoutPanel.Controls.Add(this.failureMechanismsSelectLabel, 0, 2);
-            this.tableLayoutPanel.Controls.Add(this.dataGridViewControl, 0, 3);
-            this.tableLayoutPanel.Controls.Add(this.flowLayoutPanelButtons, 0, 4);
-            this.tableLayoutPanel.Name = "tableLayoutPanel";
+            this.toolTip.AutoPopDelay = 5000;
+            this.toolTip.InitialDelay = 100;
+            this.toolTip.ReshowDelay = 100;
+            // 
+            // infoIcon
+            // 
+            resources.ApplyResources(this.infoIcon, "infoIcon");
+            this.infoIcon.Name = "infoIcon";
+            this.infoIcon.TabStop = false;
+            // 
+            // tableLayoutPanelForForm
+            // 
+            resources.ApplyResources(this.tableLayoutPanelForForm, "tableLayoutPanelForForm");
+            this.tableLayoutPanelForForm.Controls.Add(this.assessmentSectionSelectLabel, 0, 0);
+            this.tableLayoutPanelForForm.Controls.Add(this.assessmentSectionComboBox, 0, 1);
+            this.tableLayoutPanelForForm.Controls.Add(this.tableLayoutPanelForLabel, 0, 2);
+            this.tableLayoutPanelForForm.Controls.Add(this.dataGridViewControl, 0, 3);
+            this.tableLayoutPanelForForm.Controls.Add(this.flowLayoutPanelButtons, 0, 4);
+            this.tableLayoutPanelForForm.Name = "tableLayoutPanelForForm";
             // 
             // assessmentSectionSelectLabel
             // 
@@ -65,16 +83,24 @@ namespace Ringtoets.Integration.Forms.Merge
             this.assessmentSectionComboBox.Name = "assessmentSectionComboBox";
             this.assessmentSectionComboBox.SelectedIndexChanged += new System.EventHandler(this.AssessmentSectionComboBox_OnSelectedIndexChanged);
             // 
-            // failureMechanismsSelectLabel
+            // tableLayoutPanelForLabel
             // 
-            resources.ApplyResources(this.failureMechanismsSelectLabel, "failureMechanismsSelectLabel");
-            this.failureMechanismsSelectLabel.Name = "failureMechanismsSelectLabel";
+            resources.ApplyResources(this.tableLayoutPanelForLabel, "tableLayoutPanelForLabel");
+            this.tableLayoutPanelForLabel.Controls.Add(this.infoIcon, 1, 0);
+            this.tableLayoutPanelForLabel.Controls.Add(this.failureMechanismSelectLabel, 0, 0);
+            this.tableLayoutPanelForLabel.Name = "tableLayoutPanelForLabel";
+            // 
+            // failureMechanismSelectLabel
+            // 
+            resources.ApplyResources(this.failureMechanismSelectLabel, "failureMechanismSelectLabel");
+            this.failureMechanismSelectLabel.Name = "failureMechanismSelectLabel";
             // 
             // dataGridViewControl
             // 
             resources.ApplyResources(this.dataGridViewControl, "dataGridViewControl");
             this.dataGridViewControl.MultiSelect = true;
             this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
             // flowLayoutPanelButtons
             // 
@@ -96,14 +122,17 @@ namespace Ringtoets.Integration.Forms.Merge
             this.importButton.UseVisualStyleBackColor = true;
             this.importButton.Click += new System.EventHandler(this.OnImportButtonClick);
             // 
-            // AssessmentSectionProviderDialog
+            // AssessmentSectionMergeDataProviderDialog
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel);
+            this.Controls.Add(this.tableLayoutPanelForForm);
             this.Name = "AssessmentSectionMergeDataProviderDialog";
-            this.tableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.infoIcon)).EndInit();
+            this.tableLayoutPanelForForm.ResumeLayout(false);
+            this.tableLayoutPanelForForm.PerformLayout();
+            this.tableLayoutPanelForLabel.ResumeLayout(false);
+            this.tableLayoutPanelForLabel.PerformLayout();
             this.flowLayoutPanelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -112,9 +141,12 @@ namespace Ringtoets.Integration.Forms.Merge
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelForForm;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelForLabel;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.PictureBox infoIcon;
         private System.Windows.Forms.Label assessmentSectionSelectLabel;
-        private System.Windows.Forms.Label failureMechanismsSelectLabel;
+        private System.Windows.Forms.Label failureMechanismSelectLabel;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelButtons;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button importButton;

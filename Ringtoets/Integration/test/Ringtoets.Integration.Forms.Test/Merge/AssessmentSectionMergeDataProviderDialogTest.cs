@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
 using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -15,6 +16,7 @@ using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.TestUtil;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Test.Merge
 {
@@ -78,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 // Assert
                 Assert.AreEqual(1, dialog.Controls.Count);
 
-                var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanel").TheObject;
+                var tableLayoutPanel = (TableLayoutPanel) new ControlTester("tableLayoutPanelForForm").TheObject;
                 Assert.AreEqual(1, tableLayoutPanel.ColumnCount);
                 Assert.AreEqual(5, tableLayoutPanel.RowCount);
 
@@ -90,11 +92,14 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.AreEqual(ComboBoxStyle.DropDownList, assessmentSectionComboBox.DropDownStyle);
                 CollectionAssert.IsEmpty(assessmentSectionComboBox.Items);
 
-                var failureMechanismSelectionLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 2);
+                var tableLayoutPanelForLabels = (TableLayoutPanel) tableLayoutPanel.GetControlFromPosition(0, 2);
+                Assert.AreEqual(2, tableLayoutPanelForLabels.ColumnCount);
+                Assert.AreEqual(1, tableLayoutPanelForLabels.RowCount);
+                var failureMechanismSelectionLabel = (Label) tableLayoutPanelForLabels.GetControlFromPosition(0, 0);
                 Assert.AreEqual("Selecteer toetssporen:", failureMechanismSelectionLabel.Text);
+                Assert.IsInstanceOf<PictureBox>(tableLayoutPanelForLabels.GetControlFromPosition(1, 0));
 
                 Assert.IsInstanceOf<DataGridViewControl>(tableLayoutPanel.GetControlFromPosition(0, 3));
-
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
                 Assert.AreEqual(0, dataGridView.RowCount);
@@ -134,6 +139,31 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
                 Assert.AreEqual(500, dialog.MinimumSize.Width);
                 Assert.AreEqual(350, dialog.MinimumSize.Height);
+            }
+        }
+
+        [Test]
+        public void Show_Always_InitializesTooltip()
+        {
+            // Setup
+            using (var dialogParent = new Form())
+            using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
+            {
+                // Call
+                dialog.Show();
+
+                // Assert
+                var infoIcon = (PictureBox) new ControlTester("infoIcon", dialog).TheObject;
+                TestHelper.AssertImagesAreEqual(CoreCommonGuiResources.information, infoIcon.BackgroundImage);
+                Assert.AreEqual(ImageLayout.Center, infoIcon.BackgroundImageLayout);
+
+                var toolTip = TypeUtils.GetField<ToolTip>(dialog, "toolTip");
+                Assert.AreEqual("Hydraulische belastingen op trajectniveau worden altijd samengevoegd. " +
+                                "Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.",
+                                toolTip.GetToolTip(infoIcon));
+                Assert.AreEqual(5000, toolTip.AutoPopDelay);
+                Assert.AreEqual(100, toolTip.InitialDelay);
+                Assert.AreEqual(100, toolTip.ReshowDelay);
             }
         }
 

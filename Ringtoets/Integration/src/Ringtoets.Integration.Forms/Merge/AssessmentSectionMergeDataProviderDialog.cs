@@ -6,6 +6,7 @@ using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.Integration.Forms.Merge
 {
@@ -28,6 +29,7 @@ namespace Ringtoets.Integration.Forms.Merge
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
         {
             InitializeComponent();
+            InitializeTooltip();
             InitializeDataGridView();
         }
 
@@ -59,6 +61,12 @@ namespace Ringtoets.Integration.Forms.Merge
             dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsRelevant), "Is relevant", true);
             dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections), "Heeft vakindeling", true);
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations), "Aantal berekeningen", true);
+        }
+
+        private void InitializeTooltip()
+        {
+            infoIcon.BackgroundImage = CoreCommonGuiResources.information;
+            toolTip.SetToolTip(infoIcon, "Hydraulische belastingen op trajectniveau worden altijd samengevoegd. Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.");
         }
 
         #region Data Setters
