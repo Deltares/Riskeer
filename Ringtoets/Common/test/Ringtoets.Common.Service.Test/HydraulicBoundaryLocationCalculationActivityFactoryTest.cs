@@ -57,7 +57,8 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 null,
                 assessmentSection,
-                new Random(12).NextDouble(), "A");
+                new Random(12).NextDouble(),
+                "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -72,7 +73,8 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 null,
-                new Random(12).NextDouble(), "A");
+                new Random(12).NextDouble(), 
+                "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -105,7 +107,8 @@ namespace Ringtoets.Common.Service.Test
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
                 assessmentSection,
-                norm, categoryBoundaryName);
+                norm, 
+                categoryBoundaryName);
 
             // Assert
             Assert.AreEqual(2, activities.Count());
@@ -129,7 +132,8 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 null,
                 assessmentSection,
-                new Random(12).NextDouble(), "A");
+                new Random(12).NextDouble(), 
+                "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -144,7 +148,8 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 null,
-                new Random(12).NextDouble(), "A");
+                new Random(12).NextDouble(), 
+                "A");
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -177,7 +182,8 @@ namespace Ringtoets.Common.Service.Test
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
                 assessmentSection,
-                norm, categoryBoundaryName);
+                norm,
+                categoryBoundaryName);
 
             // Assert
             Assert.AreEqual(2, activities.Count());

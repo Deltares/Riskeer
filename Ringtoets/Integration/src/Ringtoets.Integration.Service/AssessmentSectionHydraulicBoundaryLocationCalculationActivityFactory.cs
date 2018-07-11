@@ -69,21 +69,29 @@ namespace Ringtoets.Integration.Service
 
             var activities = new List<CalculatableActivity>();
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                                    assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm), 
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection.WaveHeightCalculationsForSignalingNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                                    assessmentSection.WaveHeightCalculationsForSignalingNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm), 
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                                    assessmentSection.WaveHeightCalculationsForLowerLimitNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm), 
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                                    assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm), 
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;
         }
@@ -104,21 +112,29 @@ namespace Ringtoets.Integration.Service
 
             var activities = new List<CalculatableActivity>();
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedSignalingNorm),
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedSignalingNorm_DisplayName));
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.SignalingNorm), 
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_SignalingNorm_DisplayName));
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.LowerLimitNorm),
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_LowerLimitNorm_DisplayName));
 
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                     assessmentSection,
-                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm), RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
+                                    assessmentSection.GetNorm(AssessmentSectionCategoryType.FactorizedLowerLimitNorm), 
+                                    RingtoetsCommonDataResources.AssessmentSectionCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;
         }
