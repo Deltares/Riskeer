@@ -94,6 +94,7 @@ namespace Ringtoets.Integration.Forms.Merge
             resources.ApplyResources(this.importButton, "importButton");
             this.importButton.Name = "importButton";
             this.importButton.UseVisualStyleBackColor = true;
+            this.importButton.Click += new System.EventHandler(this.OnImportButtonClick);
             // 
             // AssessmentSectionProviderDialog
             // 

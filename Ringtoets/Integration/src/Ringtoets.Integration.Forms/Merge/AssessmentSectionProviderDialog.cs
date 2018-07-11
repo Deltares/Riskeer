@@ -11,7 +11,9 @@ namespace Ringtoets.Integration.Forms.Merge
 {
     public partial class AssessmentSectionProviderDialog : DialogBase, IMergeDataProvider
     {
+        private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
         private bool assessmentSectionComboBoxUpdating;
+        private bool isDataSelected;
 
         public AssessmentSectionProviderDialog(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 500, 350)
@@ -20,8 +22,8 @@ namespace Ringtoets.Integration.Forms.Merge
             InitializeDataGridView();
         }
 
-        public AssessmentSection SelectedAssessmentSection { get; }
-        public IEnumerable<IFailureMechanism> SelectedFailureMechanisms { get; }
+        public AssessmentSection SelectedAssessmentSection { get; private set; }
+        public IEnumerable<IFailureMechanism> SelectedFailureMechanisms { get; private set; }
 
         public bool SelectData(IEnumerable<AssessmentSection> assessmentSections)
         {
@@ -31,9 +33,14 @@ namespace Ringtoets.Integration.Forms.Merge
             }
 
             SetComboBoxData(assessmentSections);
-            Show();
+            ShowDialog();
 
-            return false;
+            return isDataSelected;
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return cancelButton;
         }
 
         private void SetComboBoxData(IEnumerable<AssessmentSection> assessmentSections)
@@ -53,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Merge
 
         private void SetDataGridViewData(AssessmentSection assessmentSection)
         {
-            var rows = new[]
+            failureMechanismMergeDataRows = new[]
             {
                 new FailureMechanismMergeDataRow(assessmentSection.Piping),
                 new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
@@ -75,12 +82,7 @@ namespace Ringtoets.Integration.Forms.Merge
                 new FailureMechanismMergeDataRow(assessmentSection.TechnicalInnovation)
             };
 
-            dataGridViewControl.SetDataSource(rows);
-        }
-
-        protected override Button GetCancelButton()
-        {
-            return cancelButton;
+            dataGridViewControl.SetDataSource(failureMechanismMergeDataRows);
         }
 
         private void InitializeDataGridView()
@@ -100,6 +102,17 @@ namespace Ringtoets.Integration.Forms.Merge
             }
 
             SetDataGridViewData((AssessmentSection) assessmentSectionComboBox.SelectedItem);
+        }
+
+        private void OnImportButtonClick(object sender, EventArgs eventArgs)
+        {
+            SelectedAssessmentSection = (AssessmentSection) assessmentSectionComboBox.SelectedItem;
+            SelectedFailureMechanisms = failureMechanismMergeDataRows?.Where(row => row.IsSelected)
+                                                                     .Select(row => row.FailureMechanism)
+                                                                     .ToArray();
+
+            isDataSelected = true;
+            Close();
         }
     }
 }

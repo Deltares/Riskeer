@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Dialogs;
@@ -162,6 +162,11 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         public void SelectData_WithEmptyAssessmentSections_SetsDataOnDialog()
         {
             // Setup
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName)) {}
+            };
+
             using (var dialogParent = new Form())
             using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
             {
@@ -173,7 +178,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.IsNull(comboBox.SelectedItem);
                 CollectionAssert.IsEmpty(comboBox.Items);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(0, rows.Count);
             }
@@ -183,6 +188,11 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         public void SelectData_WithAssessmentSections_SetsDataOnDialog()
         {
             // Setup
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName)) {}
+            };
+
             var random = new Random(21);
             AssessmentSection[] assessmentSections =
             {
@@ -203,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.AreSame(expectedDefaultSelectedAssessmentSection, comboBox.SelectedItem);
                 CollectionAssert.AreEqual(assessmentSections, comboBox.Items);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 AssertFailureMechanismRows(expectedDefaultSelectedAssessmentSection, rows);
             }
@@ -213,6 +223,15 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         public void GivenValidDialog_WhenSelectDataCalledAndCancelPressed_ThenSelectedDataNullAndReturnsFalse()
         {
             // Given
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName))
+                {
+                    var button = new ButtonTester("cancelButton", formName);
+                    button.Click();
+                }
+            };
+
             using (var dialogParent = new Form())
             using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
             {
@@ -222,13 +241,62 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                     TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations()
                 });
 
-                var button = new ButtonTester("cancelButton", dialog);
-                button.Click();
-
                 // Then
                 Assert.IsFalse(result);
                 Assert.IsNull(dialog.SelectedAssessmentSection);
                 Assert.IsNull(dialog.SelectedFailureMechanisms);
+            }
+        }
+
+        [Test]
+        public void GivenValidDialog_WhenSelectDataCalledAndDataSelectedAndImportPressed_ThenSelectedDataSetAndReturnsTrue()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection selectedAssessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
+            const int selectedFailureMechanismOne = 5;
+            const int selectedFailureMechanismTwo = 8;
+
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (var formTester = new FormTester(formName))
+                {
+                    var dialog = (AssessmentSectionProviderDialog) formTester.TheObject;
+                    var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
+                    comboBox.SelectedItem = selectedAssessmentSection;
+
+                    var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
+
+                    DataGridViewRowCollection rows = dataGridView.Rows;
+                    rows[selectedFailureMechanismOne].Cells[isSelectedIndex].Value = true;
+                    rows[selectedFailureMechanismTwo].Cells[isSelectedIndex].Value = true;
+
+                    var button = new ButtonTester("importButton", formName);
+                    button.Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
+            {
+                // When
+                bool result = dialog.SelectData(new[]
+                {
+                    new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()),
+                    selectedAssessmentSection
+                });
+
+                // Then
+                Assert.IsTrue(result);
+                Assert.AreSame(selectedAssessmentSection, dialog.SelectedAssessmentSection);
+
+                IEnumerable<IFailureMechanism> selectedFailureMechanisms = dialog.SelectedFailureMechanisms;
+                Assert.AreEqual(2, selectedFailureMechanisms.Count());
+                CollectionAssert.AreEquivalent(new IFailureMechanism[]
+                {
+                    selectedAssessmentSection.StabilityStoneCover,
+                    selectedAssessmentSection.GrassCoverErosionOutwards
+                }, selectedFailureMechanisms);
             }
         }
 
@@ -243,13 +311,18 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
             };
 
+            DialogBoxHandler = (formName, wnd) =>
+            {
+                using (new FormTester(formName)) {}
+            };
+
             using (var dialogParent = new Form())
             using (var dialog = new AssessmentSectionProviderDialog(dialogParent))
             {
                 dialog.SelectData(assessmentSections);
 
                 var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
 
                 // Precondition 
                 AssessmentSection defaultSelectedAssessmentSection = assessmentSections[0];
