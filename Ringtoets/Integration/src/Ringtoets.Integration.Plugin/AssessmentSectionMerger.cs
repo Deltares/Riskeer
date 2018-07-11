@@ -151,9 +151,7 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
-            log.Info(Resources.AssessmentSectionMerger_StartMerge_Merging_projects_started);
-            mergeHandler.PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
-            log.Info(Resources.AssessmentSectionMerger_StartMerge_Merging_projects_succeeded);
+            PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
         }
 
         private string SelectProject()
@@ -167,6 +165,24 @@ namespace Ringtoets.Integration.Plugin
             getAssessmentSectionsAction(filePath, assessmentSectionsOwner);
             return assessmentSectionsOwner.AssessmentSections;
         }
+
+        private void PerformMerge(AssessmentSection assessmentSection, AssessmentSection assessmentSectionToMerge, IEnumerable<IFailureMechanism> failureMechanismToMerge)
+        {
+            log.InfoFormat(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSection_0_with_AssessmentSection_1_started,
+                assessmentSectionToMerge.Name, assessmentSection.Name);
+
+            try
+            {
+                mergeHandler.PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
+                log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_successful);
+            }
+            catch (Exception e)
+            {
+                log.Error(Resources.AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merging, e);
+                log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_failed);
+            }
+        }
+
 
         private static void LogCancelMessage()
         {

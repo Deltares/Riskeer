@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using Core.Common.Gui;
 using Core.Common.TestUtil;
+using log4net.Core;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -397,8 +398,63 @@ namespace Ringtoets.Integration.Plugin.Test
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                Assert.AreEqual("Samenvoegen van projecten is gestart.", msgs[0]);
-                Assert.AreEqual("Samenvoegen van projecten is gelukt.", msgs[1]);
+                Assert.AreEqual($"Samenvoegen van traject {assessmentSectionToMerge.Name} met traject {originalAssessmentSection.Name} is gestart.", msgs[0]);
+                Assert.AreEqual("Samenvoegen van trajecten is gelukt.", msgs[1]);
+            });
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenMatchedAssessmentSection_WhenMergerThrowsException_ThenMergeFailedAndLogged()
+        {
+            // Given
+            var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var failureMechanismsToMerge = new IFailureMechanism[]
+            {
+                assessmentSectionToMerge.Piping
+            };
+
+            var mocks = new MockRepository();
+            var inquiryHelper = mocks.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(helper => helper.GetSourceFileLocation(null)).IgnoreArguments().Return(string.Empty);
+            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
+            comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
+            var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
+            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(true);
+            mergeDataProvider.Expect(mdp => mdp.SelectedAssessmentSection).Return(assessmentSectionToMerge);
+            mergeDataProvider.Expect(mdp => mdp.SelectedFailureMechanisms).Return(failureMechanismsToMerge);
+            var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
+            mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge)).Throw(new Exception());
+            mocks.ReplayAll();
+
+            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
+            {
+                owner.AssessmentSections = new[]
+                {
+                    assessmentSectionToMerge
+                };
+            };
+
+            var merger = new AssessmentSectionMerger(inquiryHelper, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+
+            // When
+            Action call = () => merger.StartMerge(originalAssessmentSection);
+
+            // Then
+            TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+            {
+                Assert.AreEqual(3, messages.Count());
+
+                Assert.AreEqual($"Samenvoegen van traject {assessmentSectionToMerge.Name} met traject {originalAssessmentSection.Name} is gestart.", messages.ElementAt(0).Item1);
+
+                Tuple<string, Level, Exception> expectedLog = messages.ElementAt(1);
+                Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten.", expectedLog.Item1);
+                Assert.AreEqual(Level.Error, expectedLog.Item2);
+                Exception loggedException = expectedLog.Item3;
+                Assert.IsInstanceOf<Exception>(loggedException);
+
+                Assert.AreEqual("Samenvoegen van trajecten is mislukt.", messages.ElementAt(2).Item1);
             });
             mocks.VerifyAll();
         }
