@@ -102,17 +102,11 @@ namespace Ringtoets.Integration.Service.Test.Merge
 
             // Assert
             Assert.IsInstanceOf<LoadAssessmentSectionsActivity>(activity);
-            AssertLoadAssessmentSectionsActivity(activity, owner, expectedAssessmentSections);
-            mocks.VerifyAll();
-        }
 
-        private static void AssertLoadAssessmentSectionsActivity(Activity activity,
-                                                                 AssessmentSectionsOwner owner,
-                                                                 IEnumerable<AssessmentSection> expectedAssessmentSections)
-        {
             activity.Run();
-
             Assert.AreSame(expectedAssessmentSections, owner.AssessmentSections);
+
+            mocks.VerifyAll();
         }
     }
 }

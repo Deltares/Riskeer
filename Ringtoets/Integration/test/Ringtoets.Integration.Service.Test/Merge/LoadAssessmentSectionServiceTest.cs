@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void GetAssessmentSections_LoadingProjectSuccesful_ReturnsRingtoetsProject()
+        public void GetAssessmentSections_LoadingProjectSuccessful_ReturnsRingtoetsProject()
         {
             // Setup
             var project = new RingtoetsProject();

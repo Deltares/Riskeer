@@ -37,9 +37,9 @@ namespace Ringtoets.Integration.Service.Merge
         private readonly IStoreProject storage;
 
         /// <summary>
-        /// Creates a new instance of <see cref="LoadAssessmentSectionService"/>
+        /// Creates a new instance of <see cref="LoadAssessmentSectionService"/>.
         /// </summary>
-        /// <param name="projectStorage">Class responsible to storing and loading the application project.</param>
+        /// <param name="projectStorage">Class responsible for storing and loading the application project.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="projectStorage"/> is <c>null</c>.</exception>
         public LoadAssessmentSectionService(IStoreProject projectStorage)
         {

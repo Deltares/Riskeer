@@ -32,7 +32,7 @@ namespace Ringtoets.Integration.Service.Merge
     /// </summary>
     internal class LoadAssessmentSectionsActivity : Activity
     {
-        private readonly AssessmentSectionsOwner owner;
+        private readonly AssessmentSectionsOwner assessmentSectionsOwner;
         private readonly IAssessmentSectionProvider assessmentSectionProvider;
         private readonly string filePath;
 
@@ -41,20 +41,20 @@ namespace Ringtoets.Integration.Service.Merge
         /// <summary>
         /// Creates a new instance of <see cref="LoadAssessmentSectionsActivity"/>.
         /// </summary>
-        /// <param name="owner">The owner to set the retrieved collection
+        /// <param name="assessmentSectionsOwner">The owner to set the retrieved collection
         /// of <see cref="AssessmentSection"/> on.</param>
         /// <param name="assessmentSectionProvider">The provider defining how to
         /// retrieve the collection of <see cref="AssessmentSection"/> from a file.</param>
         /// <param name="filePath">The file path to retrieve the collection of
         /// <see cref="AssessmentSection"/> from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
-        public LoadAssessmentSectionsActivity(AssessmentSectionsOwner owner,
+        public LoadAssessmentSectionsActivity(AssessmentSectionsOwner assessmentSectionsOwner,
                                               IAssessmentSectionProvider assessmentSectionProvider,
                                               string filePath)
         {
-            if (owner == null)
+            if (assessmentSectionsOwner == null)
             {
-                throw new ArgumentNullException(nameof(owner));
+                throw new ArgumentNullException(nameof(assessmentSectionsOwner));
             }
 
             if (assessmentSectionProvider == null)
@@ -67,7 +67,7 @@ namespace Ringtoets.Integration.Service.Merge
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            this.owner = owner;
+            this.assessmentSectionsOwner = assessmentSectionsOwner;
             this.assessmentSectionProvider = assessmentSectionProvider;
             this.filePath = filePath;
 
@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Service.Merge
 
         protected override void OnRun()
         {
-            owner.AssessmentSections = assessmentSectionProvider.GetAssessmentSections(filePath);
+            assessmentSectionsOwner.AssessmentSections = assessmentSectionProvider.GetAssessmentSections(filePath);
         }
 
         protected override void OnCancel()
@@ -88,7 +88,7 @@ namespace Ringtoets.Integration.Service.Merge
         {
             if (canceled)
             {
-                owner.AssessmentSections = null;
+                assessmentSectionsOwner.AssessmentSections = null;
             }
         }
     }

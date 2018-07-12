@@ -36,7 +36,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
     public class LoadAssessmentSectionsActivityTest
     {
         [Test]
-        public void Constructor_OwnerNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionsOwnerNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -48,7 +48,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("owner", exception.ParamName);
+            Assert.AreEqual("assessmentSectionsOwner", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -72,16 +72,16 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(), 
-                                                                            provider, 
-                                                                            null);
+            TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(),
+                                                                         provider,
+                                                                         null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("filePath", exception.ParamName);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void Run_Always_SendsFilePathToGetsAssessmentSections()
+        public void Run_Always_SendsFilePathToGetAssessmentSections()
         {
             // Setup
             const string filePath = "File\\Path";
