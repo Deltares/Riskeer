@@ -47,6 +47,8 @@ namespace Ringtoets.Integration.Forms.Merge
         /// Creates a new instance of the <see cref="AssessmentSectionMergeDataProviderDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/>
+        /// is <c>null</c>.</exception>
         public AssessmentSectionMergeDataProviderDialog(IWin32Window dialogParent)
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 720, 590)
         {
