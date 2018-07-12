@@ -1,0 +1,59 @@
+﻿// Copyright (C) Stichting Deltares 2017. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System.Collections.Generic;
+using System.Linq;
+using NUnit.Framework;
+using Ringtoets.Common.Service.TestUtil;
+
+namespace Ringtoets.Common.Plugin.TestUtil
+{
+    /// <summary>
+    /// Class containing helper methods used to assert the log messages of a calculation activity
+    /// for hydraulic boundary location calculations.
+    /// </summary>
+    public static class HydraulicBoundaryLocationCalculationActivityTestHelper
+    {
+        /// <summary>
+        /// Asserts whether <see cref="actualMessages"/> contains the correct items given the other parameters.
+        /// </summary>
+        /// <param name="locationName">The name of the location.</param>
+        /// <param name="type">The type of calculation being performed.</param>
+        /// <param name="categoryName">The category boundary name of the calculation.</param>
+        /// <param name="actualMessages">The log messages to assert.</param>
+        /// <param name="startIndex">The index to start asserting from.</param>
+        public static void AssertHydraulicBoundaryLocationCalculationMessages(string locationName,
+                                                                              string type,
+                                                                              string categoryName,
+                                                                              IEnumerable<string> actualMessages,
+                                                                              int startIndex)
+        {
+            Assert.AreEqual($"{type} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gestart.", actualMessages.ElementAt(startIndex));
+            CalculationServiceTestHelper.AssertValidationStartMessage(actualMessages.ElementAt(startIndex + 1));
+            CalculationServiceTestHelper.AssertValidationEndMessage(actualMessages.ElementAt(startIndex + 2));
+            CalculationServiceTestHelper.AssertCalculationStartMessage(actualMessages.ElementAt(startIndex + 3));
+            Assert.AreEqual($"{type} berekening voor locatie '{locationName}' (Categorie {categoryName}) is niet geconvergeerd.", actualMessages.ElementAt(startIndex + 4));
+            StringAssert.StartsWith($"{type} berekening is uitgevoerd op de tijdelijke locatie", actualMessages.ElementAt(startIndex + 5));
+            CalculationServiceTestHelper.AssertCalculationEndMessage(actualMessages.ElementAt(startIndex + 6));
+            Assert.AreEqual($"{type} berekenen voor locatie '{locationName}' (Categorie {categoryName}) is gelukt.", actualMessages.ElementAt(startIndex + 7));
+        }
+    }
+}
