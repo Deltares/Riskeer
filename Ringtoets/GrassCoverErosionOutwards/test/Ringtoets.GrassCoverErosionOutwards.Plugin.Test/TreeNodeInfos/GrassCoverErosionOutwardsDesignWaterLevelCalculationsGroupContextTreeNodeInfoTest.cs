@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,8 +39,8 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -371,11 +370,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         {
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(40, msgs.Length);
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 0, "Iv->IIv");
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 8, "IIv->IIIv");
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 16, "IIIv->IVv");
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 24, "IVv->Vv");
-                            AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation, msgs, 32, "Vv->VIv");
+
+                            const string designWaterLevelName = "Waterstand";
+                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                                hydraulicBoundaryLocation.Name, designWaterLevelName, "Iv->IIv", msgs, 0);
+                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                                hydraulicBoundaryLocation.Name, designWaterLevelName, "IIv->IIIv", msgs, 8);
+                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                                hydraulicBoundaryLocation.Name, designWaterLevelName, "IIIv->IVv", msgs, 16);
+                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                                hydraulicBoundaryLocation.Name, designWaterLevelName, "IVv->Vv", msgs, 24);
+                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                                hydraulicBoundaryLocation.Name, designWaterLevelName, "Vv->VIv", msgs, 32);
                         });
 
                         AssertHydraulicBoundaryLocationCalculationOutput(designWaterLevelCalculator, failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output);
@@ -452,21 +458,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             Assert.AreEqual(designWaterLevelCalculator.DesignWaterLevel, actualOutput.Result, actualOutput.Result.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actualOutput.CalculationConvergence);
-        }
-
-        private static void AssertHydraulicBoundaryLocationCalculationMessages(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                               IEnumerable<string> messages,
-                                                                               int startIndex,
-                                                                               string categoryName)
-        {
-            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is gestart.", messages.ElementAt(startIndex));
-            CalculationServiceTestHelper.AssertValidationStartMessage(messages.ElementAt(startIndex + 1));
-            CalculationServiceTestHelper.AssertValidationEndMessage(messages.ElementAt(startIndex + 2));
-            CalculationServiceTestHelper.AssertCalculationStartMessage(messages.ElementAt(startIndex + 3));
-            Assert.AreEqual($"Waterstand berekening voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is niet geconvergeerd.", messages.ElementAt(startIndex + 4));
-            StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages.ElementAt(startIndex + 5));
-            CalculationServiceTestHelper.AssertCalculationEndMessage(messages.ElementAt(startIndex + 6));
-            Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryName}) is gelukt.", messages.ElementAt(startIndex + 7));
         }
 
         private static double GetExpectedNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, Func<double> getNormFunc)

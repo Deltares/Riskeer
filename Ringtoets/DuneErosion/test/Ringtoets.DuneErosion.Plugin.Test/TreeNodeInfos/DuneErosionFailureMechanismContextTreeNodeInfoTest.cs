@@ -40,7 +40,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -507,31 +507,22 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(40, msgs.Length);
 
-                        AssertDuneLocationCalculationMessages(duneLocation, msgs, 0, "Iv->IIv");
-                        AssertDuneLocationCalculationMessages(duneLocation, msgs, 8, "IIv->IIIv");
-                        AssertDuneLocationCalculationMessages(duneLocation, msgs, 16, "IIIv->IVv");
-                        AssertDuneLocationCalculationMessages(duneLocation, msgs, 24, "IVv->Vv");
-                        AssertDuneLocationCalculationMessages(duneLocation, msgs, 32, "Vv->VIv");
+                        const string duneCalculationName = "Hydraulische randvoorwaarden";
+                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            duneLocation.Name, duneCalculationName, "Iv->IIv", msgs, 0);
+                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            duneLocation.Name, duneCalculationName, "IIv->IIIv", msgs, 8);
+                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            duneLocation.Name, duneCalculationName, "IIIv->IVv", msgs, 16);
+                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            duneLocation.Name, duneCalculationName, "IVv->Vv", msgs, 24);
+                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            duneLocation.Name, duneCalculationName, "Vv->VIv", msgs, 32);
                     });
                 }
             }
 
             mocks.VerifyAll();
-        }
-
-        private static void AssertDuneLocationCalculationMessages(DuneLocation duneLocation,
-                                                                  string[] messages,
-                                                                  int startIndex,
-                                                                  string categoryName)
-        {
-            Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}' (Categorie {categoryName}) is gestart.", messages[startIndex]);
-            CalculationServiceTestHelper.AssertValidationStartMessage(messages[startIndex + 1]);
-            CalculationServiceTestHelper.AssertValidationEndMessage(messages[startIndex + 2]);
-            CalculationServiceTestHelper.AssertCalculationStartMessage(messages[startIndex + 3]);
-            Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocation.Name}' (Categorie {categoryName}) is niet geconvergeerd.", messages[startIndex + 4]);
-            StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messages[startIndex + 5]);
-            CalculationServiceTestHelper.AssertCalculationEndMessage(messages[startIndex + 6]);
-            Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocation.Name}' (Categorie {categoryName}) is gelukt.", messages[startIndex + 7]);
         }
     }
 }
