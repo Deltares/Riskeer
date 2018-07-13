@@ -194,7 +194,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
-                                                                  "Alle hydraulische randvoorwaarden berekenen.",
+                                                                  "Voer alle berekeningen binnen deze map met berekeningen uit.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon);
                 }
             }
