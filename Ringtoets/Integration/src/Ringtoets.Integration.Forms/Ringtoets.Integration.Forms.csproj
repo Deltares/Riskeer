@@ -48,6 +48,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Merge\FailureMechanismMergeDataRow.cs" />
+    <Compile Include="Merge\IAssessmentSectionMergeFilePathProvider.cs" />
     <Compile Include="Merge\IMergeDataProvider.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
