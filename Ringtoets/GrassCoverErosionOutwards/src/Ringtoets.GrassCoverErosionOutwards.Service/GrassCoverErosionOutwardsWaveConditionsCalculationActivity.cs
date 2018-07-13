@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
         protected override void OnFinish()
         {
-            // something.Notify();
+            calculation.NotifyObservers();
         }
     }
 }
