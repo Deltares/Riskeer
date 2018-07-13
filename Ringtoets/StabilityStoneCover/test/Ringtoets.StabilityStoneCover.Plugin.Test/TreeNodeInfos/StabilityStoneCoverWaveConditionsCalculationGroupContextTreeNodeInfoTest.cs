@@ -1110,18 +1110,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var observerA = mocks.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-            var observerB = mocks.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-
             var group = new CalculationGroup();
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationA.Name = "A";
             StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationB.Name = "B";
-            calculationA.Attach(observerA);
-            calculationB.Attach(observerB);
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 

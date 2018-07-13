@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Ringtoets.StabilityStoneCover.Service")]
 [assembly: AssemblyProduct("Ringtoets.StabilityStoneCover.Service")]
+[assembly: InternalsVisibleTo("Ringtoets.StabilityStoneCover.Service.Test")]
