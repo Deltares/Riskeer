@@ -40,6 +40,7 @@
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyControlTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControlTest.cs" />
+    <Compile Include="Merge\AssessmentSectionMergeFilePathProviderTest.cs" />
     <Compile Include="Merge\FailureMechanismMergeDataRowTest.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
