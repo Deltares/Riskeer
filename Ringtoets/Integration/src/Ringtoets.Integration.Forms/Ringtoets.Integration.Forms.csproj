@@ -47,6 +47,7 @@
     <Compile Include="Controls\AssessmentSectionAssemblyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Merge\AssessmentSectionMergeFilePathProvider.cs" />
     <Compile Include="Merge\FailureMechanismMergeDataRow.cs" />
     <Compile Include="Merge\IAssessmentSectionMergeFilePathProvider.cs" />
     <Compile Include="Merge\IMergeDataProvider.cs" />
@@ -282,6 +283,11 @@
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
       <Project>{b479e3af-7c34-488c-bb73-d324100d36c9}</Project>
       <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Storage\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
+      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
+      <Name>Ringtoets.Storage.Core</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
