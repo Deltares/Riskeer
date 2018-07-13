@@ -33,13 +33,15 @@ namespace Ringtoets.Common.Plugin.TestUtil
     public static class HydraulicBoundaryLocationCalculationActivityTestHelper
     {
         /// <summary>
-        /// Asserts whether <see cref="actualMessages"/> contains the correct items given the other parameters.
+        /// Asserts whether <paramref cref="actualMessages"/> contains the correct items given the other parameters.
         /// </summary>
         /// <param name="locationName">The name of the location.</param>
         /// <param name="type">The type of calculation being performed.</param>
         /// <param name="categoryName">The category boundary name of the calculation.</param>
         /// <param name="actualMessages">The log messages to assert.</param>
         /// <param name="startIndex">The index to start asserting from.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actualMessages"/>
+        /// contains incorrect messages.</exception>
         public static void AssertHydraulicBoundaryLocationCalculationMessages(string locationName,
                                                                               string type,
                                                                               string categoryName,

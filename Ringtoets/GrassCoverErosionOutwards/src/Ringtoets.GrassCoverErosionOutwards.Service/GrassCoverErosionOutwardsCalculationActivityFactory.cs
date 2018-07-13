@@ -38,7 +38,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     public static class GrassCoverErosionOutwardsCalculationActivityFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> for all hydraulic boundary location calculations
+        /// Creates a collection of <see cref="CalculatableActivity"/> for all calculations
         /// on grass cover erosion outwards level.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to create the activities for.</param>
