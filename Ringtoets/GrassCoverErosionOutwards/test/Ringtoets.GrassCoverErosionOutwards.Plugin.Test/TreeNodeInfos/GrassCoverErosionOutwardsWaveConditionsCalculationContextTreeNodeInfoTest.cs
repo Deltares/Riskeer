@@ -1524,9 +1524,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                          viewCommands,
                                                          context,
                                                          treeViewControl);
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                calculation.Attach(observer);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);

@@ -1160,18 +1160,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 });
             ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
-            var observerA = mocks.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-            var observerB = mocks.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-
             var group = new CalculationGroup();
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationA.Name = "A";
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationB.Name = "B";
-            calculationA.Attach(observerA);
-            calculationB.Attach(observerB);
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 

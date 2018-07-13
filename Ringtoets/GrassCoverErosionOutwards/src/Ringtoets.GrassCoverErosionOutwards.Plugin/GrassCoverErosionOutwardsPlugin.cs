@@ -868,28 +868,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
-
-            CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
-        }
-
-        private void CalculateAll(GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations,
-                                  GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                  IAssessmentSection assessmentSection)
-        {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                calculations
-                    .Select(calculation => new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                                          assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                          failureMechanism,
-                                                                                                          assessmentSection))
-                    .ToList());
-
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
-            {
-                calculation.NotifyObservers();
-            }
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                context.FailureMechanism,
+                                                                                                context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
@@ -994,11 +977,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                         GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                                            context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                            context.FailureMechanism,
-                                                                                                            context.AssessmentSection));
-            calculation.NotifyObservers();
+                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                           context.FailureMechanism,
+                                                                                                                           context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
