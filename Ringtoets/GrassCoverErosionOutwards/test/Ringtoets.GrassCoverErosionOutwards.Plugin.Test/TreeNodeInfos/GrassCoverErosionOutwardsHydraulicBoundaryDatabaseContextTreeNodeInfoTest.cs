@@ -57,7 +57,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
 
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [SetUp]
         public void SetUp()
@@ -160,6 +161,46 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath
+                }
+            };
+
+            var nodeData = new GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, 
+                                                                                         failureMechanism, 
+                                                                                         assessmentSection);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mockRepository.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                mockRepository.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  "Alles be&rekenen",
+                                                                  "Alle hydraulische randvoorwaarden berekenen.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet()
         {
             // Setup
@@ -209,7 +250,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                    FilePath = validFilePath
                 }
             };
 

@@ -520,7 +520,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             IAssessmentSection assessmentSection = failureMechanismContext.Parent;
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
