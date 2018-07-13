@@ -19,6 +19,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivityFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StabilityStoneCoverDataSynchronizationServiceTest.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivityTest.cs" />

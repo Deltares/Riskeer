@@ -165,8 +165,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
 
-            AssertGrassCoverErosionOutwardsCalculationActivity(activities.ElementAt(10), calculation1);
-            AssertGrassCoverErosionOutwardsCalculationActivity(activities.ElementAt(11), calculation2);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(10), calculation1);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(11), calculation2);
         }
 
         private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanism()
@@ -223,21 +223,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
         }
 
-        private static void AssertGrassCoverErosionOutwardsCalculationActivity(Activity activity,
-                                                                               GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        private static void AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(Activity activity,
+                                                                                             GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+            const int nrOfCalculations = 3;
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
-                             .Return(testCalculator).Repeat.Times(3);
+                             .Return(testCalculator).Repeat.Times(nrOfCalculations);
             mocks.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
 
-                Assert.AreEqual(3, testCalculator.ReceivedInputs.Count);
+                Assert.AreEqual(nrOfCalculations, testCalculator.ReceivedInputs.Count);
                 foreach (WaveConditionsCosineCalculationInput input in testCalculator.ReceivedInputs)
                 {
                     Assert.AreEqual(calculation.InputParameters.BreakWater.Height, input.BreakWater.Height);
@@ -327,7 +328,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculationActivity>(activity);
-            AssertGrassCoverErosionOutwardsCalculationActivity(activity, calculation);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activity, calculation);
             mocks.VerifyAll();
         }
 
@@ -418,8 +419,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionOutwardsWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            AssertGrassCoverErosionOutwardsCalculationActivity(activities.First(), calculation1);
-            AssertGrassCoverErosionOutwardsCalculationActivity(activities.ElementAt(1), calculation2);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.First(), calculation1);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2);
             mocks.VerifyAll();
         }
 
