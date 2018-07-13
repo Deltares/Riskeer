@@ -173,7 +173,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_ValidPathEmptyList_NoLog()
+        public void Calculate_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -206,7 +206,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         }
 
         [Test]
-        public void Calculate_ValidPathOneCalculationInTheList_LogsMessages()
+        public void Calculate_ValidPathOneCalculation_LogsMessages()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase

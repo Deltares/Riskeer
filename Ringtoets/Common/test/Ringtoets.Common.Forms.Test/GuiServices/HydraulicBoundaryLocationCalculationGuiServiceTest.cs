@@ -175,7 +175,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateDesignWaterLevels_ValidPathEmptyList_NoLog()
+        public void CalculateDesignWaterLevels_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
             var mocks = new MockRepository();
@@ -367,7 +367,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
         }
 
         [Test]
-        public void CalculateWaveHeights_ValidPathEmptyList_NoLog()
+        public void CalculateWaveHeights_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
             var mocks = new MockRepository();
