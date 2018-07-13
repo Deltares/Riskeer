@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Gui;
 using log4net;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
@@ -32,7 +31,6 @@ using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Comparers;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
-using RingtoetsStorageResources = Ringtoets.Storage.Core.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin
 {
@@ -43,7 +41,7 @@ namespace Ringtoets.Integration.Plugin
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMerger));
 
-        private readonly IInquiryHelper inquiryHandler;
+        private readonly IAssessmentSectionMergeFilePathProvider filePathProvider;
         private readonly Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction;
         private readonly IAssessmentSectionMergeComparer comparer;
         private readonly IMergeDataProvider mergeDataProvider;
@@ -52,19 +50,19 @@ namespace Ringtoets.Integration.Plugin
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
         /// </summary>
-        /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
+        /// <param name="filePathProvider">The provider to get the file path of the file to merge.</param>
         /// <param name="getAssessmentSectionsAction">The action for getting the assessment sections
         /// to merge.</param>
         /// <param name="comparer">The comparer to compare the assessment sections with.</param>
         /// <param name="mergeDataProvider">The provider to get the data to merge from.</param>
         /// <param name="mergeHandler">The handler to perform the merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionMerger(IInquiryHelper inquiryHandler, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction,
+        public AssessmentSectionMerger(IAssessmentSectionMergeFilePathProvider filePathProvider, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction,
                                        IAssessmentSectionMergeComparer comparer, IMergeDataProvider mergeDataProvider, IAssessmentSectionMergeHandler mergeHandler)
         {
-            if (inquiryHandler == null)
+            if (filePathProvider == null)
             {
-                throw new ArgumentNullException(nameof(inquiryHandler));
+                throw new ArgumentNullException(nameof(filePathProvider));
             }
 
             if (getAssessmentSectionsAction == null)
@@ -87,7 +85,7 @@ namespace Ringtoets.Integration.Plugin
                 throw new ArgumentNullException(nameof(mergeHandler));
             }
 
-            this.inquiryHandler = inquiryHandler;
+            this.filePathProvider = filePathProvider;
             this.getAssessmentSectionsAction = getAssessmentSectionsAction;
             this.comparer = comparer;
             this.mergeDataProvider = mergeDataProvider;
@@ -107,7 +105,7 @@ namespace Ringtoets.Integration.Plugin
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            string filePath = SelectProject();
+            string filePath = filePathProvider.GetFilePath();
 
             if (filePath == null)
             {
@@ -154,11 +152,6 @@ namespace Ringtoets.Integration.Plugin
             PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
         }
 
-        private string SelectProject()
-        {
-            return inquiryHandler.GetSourceFileLocation(RingtoetsStorageResources.Ringtoets_project_file_filter);
-        }
-
         private IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
         {
             var assessmentSectionsOwner = new AssessmentSectionsOwner();
@@ -169,7 +162,7 @@ namespace Ringtoets.Integration.Plugin
         private void PerformMerge(AssessmentSection assessmentSection, AssessmentSection assessmentSectionToMerge, IEnumerable<IFailureMechanism> failureMechanismToMerge)
         {
             log.InfoFormat(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSection_0_with_AssessmentSection_1_started,
-                assessmentSectionToMerge.Name, assessmentSection.Name);
+                           assessmentSectionToMerge.Name, assessmentSection.Name);
 
             try
             {
@@ -182,7 +175,6 @@ namespace Ringtoets.Integration.Plugin
                 log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_failed);
             }
         }
-
 
         private static void LogCancelMessage()
         {

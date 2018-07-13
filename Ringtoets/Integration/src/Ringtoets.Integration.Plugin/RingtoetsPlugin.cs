@@ -278,7 +278,7 @@ namespace Ringtoets.Integration.Plugin
 
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
-            assessmentSectionMerger = new AssessmentSectionMerger(new DialogBasedInquiryHelper(Gui.MainWindow),
+            assessmentSectionMerger = new AssessmentSectionMerger(new AssessmentSectionMergeFilePathProvider(new DialogBasedInquiryHelper(Gui.MainWindow)),
                                                                   (filePath, assessmentSectionOwner) =>
                                                                   {
                                                                       ActivityProgressDialogRunner.Run(Gui.MainWindow,
