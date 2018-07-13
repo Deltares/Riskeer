@@ -58,12 +58,12 @@ namespace Ringtoets.DuneErosion.Service
                                                string categoryBoundaryName)
             : base(duneLocationCalculation)
         {
+            messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
+
             this.duneLocationCalculation = duneLocationCalculation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
-
-            messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
 
             DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
             Description = messageProvider.GetActivityDescription(duneLocation.Name);
