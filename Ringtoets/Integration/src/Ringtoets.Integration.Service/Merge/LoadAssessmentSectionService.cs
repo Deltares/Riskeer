@@ -63,12 +63,12 @@ namespace Ringtoets.Integration.Service.Merge
                 string exceptionMessage = e.Message;
                 log.Error(exceptionMessage, e.InnerException);
 
-                throw new AssessmentSectionProviderException(exceptionMessage, e);
+                throw new LoadAssessmentSectionException(exceptionMessage, e);
             }
 
             if (openedProject == null)
             {
-                throw new AssessmentSectionProviderException();
+                throw new LoadAssessmentSectionException();
             }
 
             return openedProject.AssessmentSections;

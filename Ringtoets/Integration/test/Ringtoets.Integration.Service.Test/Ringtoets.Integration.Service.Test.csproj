@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparers\AssessmentSectionMergeComparerTest.cs" />
-    <Compile Include="Exceptions\AssessmentSectionProviderExceptionTest.cs" />
+    <Compile Include="Exceptions\LoadAssessmentSectionExceptionTest.cs" />
     <Compile Include="Merge\LoadAssessmentSectionsActivityFactoryTest.cs" />
     <Compile Include="Merge\LoadAssessmentSectionsActivityTest.cs" />
     <Compile Include="Merge\LoadAssessmentSectionServiceTest.cs" />

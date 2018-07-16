@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void LoadAssessmentSections_LoadedProjectNull_ThrowsAssessmentSectionProviderException()
+        public void LoadAssessmentSections_LoadedProjectNull_ThrowsLoadAssessmentSectionException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -121,12 +121,12 @@ namespace Ringtoets.Integration.Service.Test.Merge
             TestDelegate call = () => provider.LoadAssessmentSections(string.Empty);
 
             // Assert
-            Assert.Throws<AssessmentSectionProviderException>(call);
+            Assert.Throws<LoadAssessmentSectionException>(call);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void LoadAssessmentSections_LoadingProjectThrowsException_ThrowsAssessmentSectionProviderExceptionAndLogsError()
+        public void LoadAssessmentSections_LoadingProjectThrowsException_ThrowsLoadAssessmentSectionExceptionAndLogsError()
         {
             // Setup
             const string exceptionMessage = "StorageException";
@@ -141,7 +141,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
 
             var provider = new LoadAssessmentSectionService(storeProject);
 
-            AssessmentSectionProviderException exception = null;
+            LoadAssessmentSectionException exception = null;
 
             // Call
             Action call = () =>
@@ -150,7 +150,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
                 {
                     provider.LoadAssessmentSections(string.Empty);
                 }
-                catch (AssessmentSectionProviderException e)
+                catch (LoadAssessmentSectionException e)
                 {
                     exception = e;
                 }
