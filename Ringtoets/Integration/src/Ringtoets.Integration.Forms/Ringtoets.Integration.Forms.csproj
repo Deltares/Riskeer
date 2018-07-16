@@ -26,12 +26,6 @@
     <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.Designer.cs">
       <DependentUpon>AssessmentSectionMergeDataProviderDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\AssessmentSectionProviderStub.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\AssessmentSectionProviderStub.Designer.cs">
-      <DependentUpon>AssessmentSectionProviderStub.cs</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -311,9 +305,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Dialogs\AssessmentSectionProviderStub.resx">
-      <DependentUpon>AssessmentSectionProviderStub.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\BackgroundMapDataSelectionDialog.resx">
       <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>

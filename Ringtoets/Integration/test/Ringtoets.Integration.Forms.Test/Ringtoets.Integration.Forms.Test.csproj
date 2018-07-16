@@ -34,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Merge\AssessmentSectionMergeDataProviderDialogTest.cs" />
-    <Compile Include="Dialogs\AssessmentSectionProviderStubTest.cs" />
     <Compile Include="Dialogs\BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
