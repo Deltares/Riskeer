@@ -39,7 +39,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssessmentSectionMergerTest.cs" />
+    <Compile Include="Merge\AssessmentSectionMergerTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundaryDatabaseContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\ReferenceLineContextExportInfoTest.cs" />
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategyTest.cs" />

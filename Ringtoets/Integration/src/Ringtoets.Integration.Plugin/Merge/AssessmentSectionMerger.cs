@@ -32,7 +32,7 @@ using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Comparers;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin
+namespace Ringtoets.Integration.Plugin.Merge
 {
     /// <summary>
     /// Class responsible for merging <see cref="AssessmentSection"/>.

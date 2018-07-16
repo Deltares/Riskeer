@@ -31,9 +31,10 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Plugin.Merge;
 using Ringtoets.Integration.Service.Comparers;
 
-namespace Ringtoets.Integration.Plugin.Test
+namespace Ringtoets.Integration.Plugin.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionMergerTest
