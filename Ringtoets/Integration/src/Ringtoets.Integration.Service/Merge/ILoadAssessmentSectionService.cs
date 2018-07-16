@@ -31,12 +31,12 @@ namespace Ringtoets.Integration.Service.Merge
     public interface ILoadAssessmentSectionService
     {
         /// <summary>
-        /// Gets the assessment sections from the given <paramref name="filePath"/>.
+        /// Loads the assessment sections from the given <paramref name="filePath"/>.
         /// </summary>
         /// <param name="filePath">The file path to read the assessment sections from.</param>
         /// <returns>A collection of <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="AssessmentSectionProviderException">Thrown if something went wrong
         /// when providing the assessment sections.</exception>
-        IEnumerable<AssessmentSection> GetAssessmentSections(string filePath);
+        IEnumerable<AssessmentSection> LoadAssessmentSections(string filePath);
     }
 }

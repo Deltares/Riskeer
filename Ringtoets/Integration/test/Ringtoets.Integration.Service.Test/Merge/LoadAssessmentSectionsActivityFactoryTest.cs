@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
 
             var mocks = new MockRepository();
             var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
-            provider.Expect(pr => pr.GetAssessmentSections(filePath)).Return(expectedAssessmentSections);
+            provider.Expect(pr => pr.LoadAssessmentSections(filePath)).Return(expectedAssessmentSections);
             mocks.ReplayAll();
 
             // Call
