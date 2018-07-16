@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
@@ -53,14 +53,14 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void Constructor_ProviderNull_ThrowsArgumentNullException()
+        public void Constructor_loadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(), null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSectionProvider", exception.ParamName);
+            Assert.AreEqual("loadAssessmentSectionService", exception.ParamName);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
@@ -87,7 +87,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
@@ -109,7 +109,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             const string filePath = "File\\Path";
 
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             provider.Expect(p => p.GetAssessmentSections(filePath)).Return(Enumerable.Empty<AssessmentSection>());
             mocks.ReplayAll();
 
@@ -130,7 +130,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
 
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             provider.Expect(p => p.GetAssessmentSections(null))
                     .IgnoreArguments()
                     .Return(assessmentSections);
@@ -153,7 +153,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             provider.Expect(p => p.GetAssessmentSections(null))
                     .IgnoreArguments()
                     .Throw(new AssessmentSectionProviderException());
@@ -178,7 +178,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
 
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             provider.Expect(p => p.GetAssessmentSections(null))
                     .IgnoreArguments()
                     .Return(assessmentSections);

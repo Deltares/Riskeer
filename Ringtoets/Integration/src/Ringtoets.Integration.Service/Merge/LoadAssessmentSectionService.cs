@@ -31,7 +31,7 @@ namespace Ringtoets.Integration.Service.Merge
     /// <summary>
     /// Service which provides a <see cref="RingtoetsProject"/> from a file.
     /// </summary>
-    public class LoadAssessmentSectionService : IAssessmentSectionProvider
+    public class LoadAssessmentSectionService : ILoadAssessmentSectionService
     {
         private readonly ILog log = LogManager.GetLogger(typeof(LoadAssessmentSectionService));
         private readonly IStoreProject storage;

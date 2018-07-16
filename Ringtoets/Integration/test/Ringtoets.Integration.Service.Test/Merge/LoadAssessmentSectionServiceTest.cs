@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             var provider = new LoadAssessmentSectionService(storeProject);
 
             // Assert
-            Assert.IsInstanceOf<IAssessmentSectionProvider>(provider);
+            Assert.IsInstanceOf<ILoadAssessmentSectionService>(provider);
             mocks.VerifyAll();
         }
 
