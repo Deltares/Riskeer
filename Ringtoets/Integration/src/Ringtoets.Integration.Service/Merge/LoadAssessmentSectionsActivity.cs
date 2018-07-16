@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Service.Merge
 
         protected override void OnRun()
         {
-            assessmentSectionsOwner.AssessmentSections = loadAssessmentSectionService.GetAssessmentSections(filePath);
+            assessmentSectionsOwner.AssessmentSections = loadAssessmentSectionService.LoadAssessmentSections(filePath);
         }
 
         protected override void OnCancel()

@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Service.Merge
             storage = projectStorage;
         }
 
-        public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
+        public IEnumerable<AssessmentSection> LoadAssessmentSections(string filePath)
         {
             RingtoetsProject openedProject;
             try
