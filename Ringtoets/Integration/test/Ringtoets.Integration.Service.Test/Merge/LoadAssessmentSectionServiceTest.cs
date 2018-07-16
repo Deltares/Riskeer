@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var storeProject = mocks.Stub<IStoreProject>();
+            var storeProject = mocks.StrictMock<IStoreProject>();
             mocks.ReplayAll();
 
             // Call
