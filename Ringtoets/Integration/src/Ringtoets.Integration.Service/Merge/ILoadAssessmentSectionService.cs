@@ -28,7 +28,7 @@ namespace Ringtoets.Integration.Service.Merge
     /// <summary>
     /// Interface for reading and providing <see cref="AssessmentSection"/> instances.
     /// </summary>
-    public interface IAssessmentSectionProvider
+    public interface ILoadAssessmentSectionService
     {
         /// <summary>
         /// Gets the assessment sections from the given <paramref name="filePath"/>.

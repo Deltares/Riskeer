@@ -35,16 +35,14 @@ namespace Ringtoets.Integration.Service.Merge
         /// <summary>
         /// Creates an activity to load collections of <see cref="AssessmentSection"/> from a file.
         /// </summary>
-        /// <param name="owner">The owner to set the retrieved collection
-        /// of <see cref="AssessmentSection"/> on.</param>
-        /// <param name="assessmentSectionProvider">The provider defining how to
-        /// retrieve the collection of <see cref="AssessmentSection"/> from a file.</param>
-        /// <param name="filePath">The file path to retrieve the collection of
-        /// <see cref="AssessmentSection"/> from.</param>
+        /// <param name="owner">The owner to set the retrieved collection of <see cref="AssessmentSection"/> on.</param>
+        /// <param name="loadAssessmentSectionService">The service for retrieving the collection of
+        /// <see cref="AssessmentSection"/> from a file.</param>
+        /// <param name="filePath">The file path to retrieve the collection of <see cref="AssessmentSection"/> from.</param>
         /// <returns>The <see cref="Activity"/> to load <see cref="AssessmentSection"/> from a file.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any of the arguments is <c>null</c>.</exception>
         public static Activity CreateLoadAssessmentSectionsActivity(AssessmentSectionsOwner owner,
-                                                                    IAssessmentSectionProvider assessmentSectionProvider,
+                                                                    ILoadAssessmentSectionService loadAssessmentSectionService,
                                                                     string filePath)
         {
             if (owner == null)
@@ -52,9 +50,9 @@ namespace Ringtoets.Integration.Service.Merge
                 throw new ArgumentNullException(nameof(owner));
             }
 
-            if (assessmentSectionProvider == null)
+            if (loadAssessmentSectionService == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSectionProvider));
+                throw new ArgumentNullException(nameof(loadAssessmentSectionService));
             }
 
             if (filePath == null)
@@ -62,7 +60,7 @@ namespace Ringtoets.Integration.Service.Merge
                 throw new ArgumentNullException(nameof(filePath));
             }
 
-            return new LoadAssessmentSectionsActivity(owner, assessmentSectionProvider, filePath);
+            return new LoadAssessmentSectionsActivity(owner, loadAssessmentSectionService, filePath);
         }
     }
 }

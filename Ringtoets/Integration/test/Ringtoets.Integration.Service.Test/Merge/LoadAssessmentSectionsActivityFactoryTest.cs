@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void CreateLoadAssessmentSectionsActivity_AssessmentSectionsProviderNull_ThrowsArgumentNullException()
+        public void CreateLoadAssessmentSectionsActivity_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(new AssessmentSectionsOwner(),
@@ -61,7 +61,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSectionProvider", exception.ParamName);
+            Assert.AreEqual("loadAssessmentSectionService", exception.ParamName);
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> expectedAssessmentSections = Enumerable.Empty<AssessmentSection>();
 
             var mocks = new MockRepository();
-            var provider = mocks.Stub<IAssessmentSectionProvider>();
+            var provider = mocks.Stub<ILoadAssessmentSectionService>();
             provider.Expect(pr => pr.GetAssessmentSections(filePath)).Return(expectedAssessmentSections);
             mocks.ReplayAll();
 
