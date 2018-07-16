@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void Run_ProviderReturnsAssessmentSections_SetsActivityStateToExecutedAndSetsAssessmentSections()
+        public void Run_ServiceReturnsAssessmentSections_SetsActivityStateToExecutedAndSetsAssessmentSections()
         {
             // Setup
             IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
@@ -149,14 +149,14 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void Run_ProviderThrowsException_SetsActivityStateToFailedAndDoesNotSetAssessmentSections()
+        public void Run_ServiceThrowsException_SetsActivityStateToFailedAndDoesNotSetAssessmentSections()
         {
             // Setup
             var mocks = new MockRepository();
             var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
             provider.Expect(p => p.LoadAssessmentSections(null))
                     .IgnoreArguments()
-                    .Throw(new AssessmentSectionProviderException());
+                    .Throw(new LoadAssessmentSectionException());
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();

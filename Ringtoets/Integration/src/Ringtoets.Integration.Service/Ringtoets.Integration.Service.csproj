@@ -18,7 +18,7 @@
     <Compile Include="AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.cs" />
     <Compile Include="Comparers\AssessmentSectionMergeComparer.cs" />
     <Compile Include="Comparers\IAssessmentSectionMergeComparer.cs" />
-    <Compile Include="Exceptions\AssessmentSectionProviderException.cs" />
+    <Compile Include="Exceptions\LoadAssessmentSectionException.cs" />
     <Compile Include="Merge\LoadAssessmentSectionsActivity.cs" />
     <Compile Include="Merge\LoadAssessmentSectionsActivityFactory.cs" />
     <Compile Include="Merge\LoadAssessmentSectionService.cs" />

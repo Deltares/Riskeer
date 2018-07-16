@@ -27,6 +27,6 @@ using Ringtoets.Integration.Service.Exceptions;
 namespace Ringtoets.Integration.Service.Test.Exceptions
 {
     [TestFixture]
-    public class AssessmentSectionProviderExceptionTest :
-        CustomExceptionDesignGuidelinesTestFixture<AssessmentSectionProviderException, Exception> {}
+    public class LoadAssessmentSectionExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<LoadAssessmentSectionException, Exception> {}
 }
