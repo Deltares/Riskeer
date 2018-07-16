@@ -90,6 +90,7 @@ using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.IO.Exporters;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Plugin.Merge;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.Comparers;
