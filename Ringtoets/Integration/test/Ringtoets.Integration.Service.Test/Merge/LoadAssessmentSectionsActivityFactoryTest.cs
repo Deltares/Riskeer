@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ILoadAssessmentSectionService>();
+            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ILoadAssessmentSectionService>();
+            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> expectedAssessmentSections = Enumerable.Empty<AssessmentSection>();
 
             var mocks = new MockRepository();
-            var provider = mocks.Stub<ILoadAssessmentSectionService>();
+            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
             provider.Expect(pr => pr.GetAssessmentSections(filePath)).Return(expectedAssessmentSections);
             mocks.ReplayAll();
 
