@@ -337,19 +337,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllCalculationsAndNotifyObservers()
         {
             // Setup
+            const string categoryBoundaryName = "A";
+            const string locationName1 = "1";
+            const string locationName2 = "2";
+
             using (var treeViewControl = new TreeViewControl())
             {
                 string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
                 var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
                 {
-                    new DuneLocationCalculation(new DuneLocation(1300001, "1", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                    new DuneLocationCalculation(new DuneLocation(1300001, locationName1, new Point2D(0, 0), new DuneLocation.ConstructionProperties
                     {
                         CoastalAreaId = 0,
                         Offset = 0,
                         Orientation = 0,
                         D50 = 0.000007
                     })),
-                    new DuneLocationCalculation(new DuneLocation(1300002, "2", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                    new DuneLocationCalculation(new DuneLocation(1300002, locationName2, new Point2D(0, 0), new DuneLocation.ConstructionProperties
                     {
                         CoastalAreaId = 0,
                         Offset = 0,
@@ -384,7 +388,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                   failureMechanism,
                                                                   assessmentSection,
                                                                   () => 0.01,
-                                                                  "A");
+                                                                  categoryBoundaryName);
 
                 var builder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -420,23 +424,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
                         // Assert
                         Assert.AreEqual(16, messageList.Count);
-                        Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' (Categorie A) is gestart.", messageList[0]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName1}' (Categorie {categoryBoundaryName}) is gestart.", messageList[0]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
-                        Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie '1' (Categorie A) is niet geconvergeerd.", messageList[4]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{locationName1}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", messageList[4]);
                         StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
-                        Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' (Categorie A) is gelukt.", messageList[7]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName1}' (Categorie {categoryBoundaryName}) is gelukt.", messageList[7]);
 
-                        Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '2' (Categorie A) is gestart.", messageList[8]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName2}' (Categorie {categoryBoundaryName}) is gestart.", messageList[8]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(messageList[9]);
                         CalculationServiceTestHelper.AssertValidationEndMessage(messageList[10]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[11]);
-                        Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie '2' (Categorie A) is niet geconvergeerd.", messageList[12]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{locationName2}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", messageList[12]);
                         StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[13]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[14]);
-                        Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '2' (Categorie A) is gelukt.", messageList[15]);
+                        Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName2}' (Categorie {categoryBoundaryName}) is gelukt.", messageList[15]);
                     });
                 }
             }

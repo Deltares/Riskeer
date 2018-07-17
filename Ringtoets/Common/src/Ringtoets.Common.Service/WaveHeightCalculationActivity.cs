@@ -61,11 +61,10 @@ namespace Ringtoets.Common.Service
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
-            
+
             calculationService = new WaveHeightCalculationService();
 
             Description = messageProvider.GetActivityDescription(hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation.Name);
-
         }
 
         protected override bool Validate()

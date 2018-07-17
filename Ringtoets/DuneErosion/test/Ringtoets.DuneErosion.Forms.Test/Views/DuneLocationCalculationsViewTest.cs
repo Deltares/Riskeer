@@ -495,6 +495,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_OneCalculationSelected_CalculateForSelectedCalculationAndLogsMessages()
         {
             // Setup
+            const string categoryBoundaryName = "A";
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
@@ -518,10 +520,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
                                                                                         failureMechanism,
                                                                                         assessmentSection,
-                                                                                        "A"))
+                                                                                        categoryBoundaryName))
             {
                 var dataGridView = (DataGridView) view.Controls.Find("dataGridView", true)[0];
-                object originalDataSource = dataGridView.DataSource;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 rows[0].Cells[calculateColumnIndex].Value = true;
 
@@ -538,6 +539,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                     Action action = () => buttonTester.Click();
 
                     // Assert
+                    string expectedDuneLocationName = calculations.ElementAt(0).DuneLocation.Name;
+
                     TestHelper.AssertLogMessages(action,
                                                  messages =>
                                                  {
@@ -545,14 +548,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
 
                                                      // Assert
                                                      Assert.AreEqual(8, messageList.Count);
-                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' (Categorie A) is gestart.", messageList[0]);
+                                                     Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{expectedDuneLocationName}' (Categorie {categoryBoundaryName}) is gestart.", messageList[0]);
                                                      CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
                                                      CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
                                                      CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
-                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie '1' (Categorie A) is niet geconvergeerd.", messageList[4]);
+                                                     Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{expectedDuneLocationName}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", messageList[4]);
                                                      StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
                                                      CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
-                                                     Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie '1' (Categorie A) is gelukt.", messageList[7]);
+                                                     Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{expectedDuneLocationName}' (Categorie {categoryBoundaryName}) is gelukt.", messageList[7]);
                                                  });
                 }
             }
