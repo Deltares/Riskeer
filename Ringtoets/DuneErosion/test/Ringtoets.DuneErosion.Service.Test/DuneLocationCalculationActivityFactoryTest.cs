@@ -52,7 +52,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
@@ -119,7 +119,7 @@ namespace Ringtoets.DuneErosion.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             // Call
