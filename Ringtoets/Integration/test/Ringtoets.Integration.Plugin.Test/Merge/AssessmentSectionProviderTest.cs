@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Windows.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Integration.Plugin.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
@@ -30,11 +33,28 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         [Test]
         public void Constructor_ExpectedValues()
         {
-             // Call
-            var provider = new AssessmentSectionProvider();
+            // Setup
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            // Call
+            var provider = new AssessmentSectionProvider(viewParent);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionProvider>(provider);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_ViewParentNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => new AssessmentSectionProvider(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("viewParent", exception.ParamName);
         }
     }
 }

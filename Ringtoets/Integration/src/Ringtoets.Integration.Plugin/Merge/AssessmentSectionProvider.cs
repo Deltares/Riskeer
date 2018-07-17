@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Plugin.Merge
@@ -29,9 +31,27 @@ namespace Ringtoets.Integration.Plugin.Merge
     /// </summary>
     public class AssessmentSectionProvider : IAssessmentSectionProvider
     {
+        private readonly IWin32Window viewParent;
+
+        /// <summary>
+        /// Initializes a new instance of <see cref="AssessmentSectionProvider"/>.
+        /// </summary>
+        /// <param name="viewParent">The parent of the view.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewParent"/>
+        /// is <c>null</c>.</exception>
+        public AssessmentSectionProvider(IWin32Window viewParent)
+        {
+            if (viewParent == null)
+            {
+                throw new ArgumentNullException(nameof(viewParent));
+            }
+
+            this.viewParent = viewParent;
+        }
+
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
