@@ -34,6 +34,8 @@ namespace Ringtoets.Integration.Plugin.Merge
         /// </summary>
         /// <param name="filePath">The file path to read the assessment sections from.</param>
         /// <returns>A collection of <see cref="AssessmentSection"/>.</returns>
+        /// <exception cref="AssessmentSectionProviderException">Thrown when something went wrong
+        /// while getting the assessment sections.</exception>
         IEnumerable<AssessmentSection> GetAssessmentSections(string filePath);
     }
 }
