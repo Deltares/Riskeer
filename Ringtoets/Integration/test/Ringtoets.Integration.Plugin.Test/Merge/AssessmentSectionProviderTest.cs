@@ -20,16 +20,24 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
 {
     [TestFixture]
-    public class AssessmentSectionProviderTest
+    public class AssessmentSectionProviderTest : NUnitFormTest
     {
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin, nameof(AssessmentSectionProvider));
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -55,6 +63,72 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("viewParent", exception.ParamName);
+        }
+
+        [Test]
+        public void GetAssessmentSections_FilePathNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var provider = new AssessmentSectionProvider(viewParent);
+
+            // Call
+            TestDelegate call = () => provider.GetAssessmentSections(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("filePath", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenGetAssessmentSections_WhenAssessmentSectionFromActivityNull_ThenThrowsAssessmentSectionProviderException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var provider = new AssessmentSectionProvider(viewParent);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // Call
+            TestDelegate call = () => provider.GetAssessmentSections("filePath");
+
+            // Assert
+            Assert.Throws<AssessmentSectionProviderException>(call);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetAssessmentSections_ValidFilePath_ReturnsAssessmentSections()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            var provider = new AssessmentSectionProvider(viewParent);
+            string filePath = Path.Combine(testDataPath, "project.rtd");
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                // Expect an activity dialog which is automatically closed
+            };
+
+            // Call
+            IEnumerable<AssessmentSection> assessmentSections = provider.GetAssessmentSections(filePath);
+
+            // Assert
+            Assert.AreEqual(1, assessmentSections.Count());
+            mocks.VerifyAll();
         }
     }
 }
