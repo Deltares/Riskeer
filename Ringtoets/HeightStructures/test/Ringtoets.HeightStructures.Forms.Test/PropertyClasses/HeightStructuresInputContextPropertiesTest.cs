@@ -72,7 +72,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void SetUp()
         {
             mockRepository = new MockRepository();
-            assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            assessmentSection = mockRepository.Stub<IAssessmentSection>();
         }
 
         [Test]

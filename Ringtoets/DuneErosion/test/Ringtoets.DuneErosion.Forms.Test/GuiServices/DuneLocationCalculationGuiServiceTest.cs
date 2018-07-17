@@ -60,7 +60,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
@@ -111,8 +111,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
             mockRepository.ReplayAll();
@@ -149,8 +149,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
             mockRepository.ReplayAll();
@@ -182,8 +182,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
             mockRepository.ReplayAll();
@@ -225,8 +225,8 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(new TestDunesBoundaryConditionsCalculator());
-            var assessmentSection = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.HydraulicBoundaryDatabase)
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
                              .Return(hydraulicBoundaryDatabase)
                              .Repeat.Any();
             mockRepository.ReplayAll();

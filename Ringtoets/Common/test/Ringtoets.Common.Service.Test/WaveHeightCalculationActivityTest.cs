@@ -325,8 +325,10 @@ namespace Ringtoets.Common.Service.Test
                     CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
 
-                    string errorMessage = GetErrorMessage(endInFailure, lastErrorFileContent);
-                    Assert.AreEqual($"Er is een fout opgetreden tijdens de golfhoogte berekening 'locationName' (Categorie {categoryBoundaryName}). {errorMessage}", messages[4]);
+                    string expectedFailureMessage = string.IsNullOrEmpty(lastErrorFileContent)
+                                                        ? $"Er is een fout opgetreden tijdens de golfhoogte berekening '{locationName}' (Categorie {categoryBoundaryName}). Er is geen foutrapport beschikbaar."
+                                                        : $"Er is een fout opgetreden tijdens de golfhoogte berekening '{locationName}' (Categorie {categoryBoundaryName}). Bekijk het foutrapport door op details te klikken.{Environment.NewLine}{lastErrorFileContent}";
+                    Assert.AreEqual(expectedFailureMessage, messages[4]);
 
                     StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(messages[6]);
@@ -422,25 +424,6 @@ namespace Ringtoets.Common.Service.Test
 
             // Assert
             mockRepository.VerifyAll();
-        }
-
-        private static string GetErrorMessage(bool endInFailure, string lastErrorFileContent)
-        {
-            string errorMessage;
-            if (endInFailure && string.IsNullOrEmpty(lastErrorFileContent))
-            {
-                errorMessage = "Er is geen foutrapport beschikbaar.";
-            }
-            else if (endInFailure)
-            {
-                errorMessage = "Bekijk het foutrapport door op details te klikken.\r\nLastErrorFileContentAndEndInFailure";
-            }
-            else
-            {
-                errorMessage = "Bekijk het foutrapport door op details te klikken.\r\nLastErrorFileContent";
-            }
-
-            return errorMessage;
         }
 
         private static string GetActivityDescription(string locationName, string categoryBoundaryName)
