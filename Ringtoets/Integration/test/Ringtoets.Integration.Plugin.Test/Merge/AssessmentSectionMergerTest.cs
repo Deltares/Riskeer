@@ -28,7 +28,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Merge;
@@ -44,13 +43,14 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(null, (path, owner) => {}, comparer, mergeDataProvider, mergeHandler);
+            TestDelegate call = () => new AssessmentSectionMerger(null, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void Constructor_GetAssessmentSectionsActionNull_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionProvider_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getAssessmentSectionsAction", exception.ParamName);
+            Assert.AreEqual("assessmentSectionProvider", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -84,12 +84,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, (path, owner) => {}, null, mergeDataProvider, mergeHandler);
+            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, null, mergeDataProvider, mergeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,12 +104,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, (path, owner) => {}, comparer, null, mergeHandler);
+            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, null, mergeHandler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -122,12 +124,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, (path, owner) => {}, comparer, mergeDataProvider, null);
+            TestDelegate call = () => new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -141,12 +144,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(filePathProvider, (path, owner) => {}, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Call
             TestDelegate call = () => merger.StartMerge(null);
@@ -164,12 +168,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(null);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(filePathProvider, (path, owner) => {}, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // Call
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -180,18 +185,21 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenValidFilePath_WhenGetAssessmentSectionActionReturnNull_ThenAbort()
+        public void GivenValidFilePath_WhenAssessmentSectionProviderThrowsAssessmentSectionProviderException_ThenAbort()
         {
             // Given
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+                                     .Throw(new AssessmentSectionProviderException());
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            var merger = new AssessmentSectionMerger(filePathProvider, (path, owner) => {}, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -208,14 +216,15 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+                                     .Return(Enumerable.Empty<AssessmentSection>());
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) => { owner.AssessmentSections = Enumerable.Empty<AssessmentSection>(); };
-
-            var merger = new AssessmentSectionMerger(filePathProvider, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -232,21 +241,19 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+                                     .Return(new[]
+                                     {
+                                         new AssessmentSection(AssessmentSectionComposition.Dike)
+                                     });
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(false);
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
-            {
-                owner.AssessmentSections = new[]
-                {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
-                };
-            };
-
-            var merger = new AssessmentSectionMerger(filePathProvider, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -263,6 +270,12 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+                                     .Return(new[]
+                                     {
+                                         new AssessmentSection(AssessmentSectionComposition.Dike)
+                                     });
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
@@ -270,15 +283,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
-            {
-                owner.AssessmentSections = new[]
-                {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
-                };
-            };
-
-            var merger = new AssessmentSectionMerger(filePathProvider, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -295,6 +300,12 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+                                     .Return(new[]
+                                     {
+                                         new AssessmentSection(AssessmentSectionComposition.Dike)
+                                     });
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
@@ -304,15 +315,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
-            {
-                owner.AssessmentSections = new[]
-                {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
-                };
-            };
-
-            var merger = new AssessmentSectionMerger(filePathProvider, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -329,6 +332,12 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+                                     .Return(new[]
+                                     {
+                                         new AssessmentSection(AssessmentSectionComposition.Dike)
+                                     });
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
@@ -338,15 +347,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
-            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
-            {
-                owner.AssessmentSections = new[]
-                {
-                    new AssessmentSection(AssessmentSectionComposition.Dike)
-                };
-            };
-
-            var merger = new AssessmentSectionMerger(filePathProvider, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
@@ -360,6 +361,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         public void GivenMatchedAssessmentSection_WhenAllDataValid_ThenMergePerformedAndLogged()
         {
             // Given
+            var filePath = "Filepath";
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             var assessmentSectionToMerge = new AssessmentSection(AssessmentSectionComposition.Dike);
             var failureMechanismsToMerge = new IFailureMechanism[]
@@ -369,7 +371,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            filePathProvider.Expect(helper => helper.GetFilePath()).Return(filePath);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(filePath))
+                                     .Return(new[]
+                                     {
+                                         assessmentSectionToMerge
+                                     });
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
@@ -380,15 +388,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge));
             mocks.ReplayAll();
 
-            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
-            {
-                owner.AssessmentSections = new[]
-                {
-                    assessmentSectionToMerge
-                };
-            };
-
-            var merger = new AssessmentSectionMerger(filePathProvider, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(originalAssessmentSection);
@@ -418,6 +418,12 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var mocks = new MockRepository();
             var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
             filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
+            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
+            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
+                                     .Return(new[]
+                                     {
+                                         assessmentSectionToMerge
+                                     });
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IMergeDataProvider>();
@@ -428,15 +434,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge)).Throw(new Exception());
             mocks.ReplayAll();
 
-            Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction = (path, owner) =>
-            {
-                owner.AssessmentSections = new[]
-                {
-                    assessmentSectionToMerge
-                };
-            };
-
-            var merger = new AssessmentSectionMerger(filePathProvider, getAssessmentSectionsAction, comparer, mergeDataProvider, mergeHandler);
+            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
 
             // When
             Action call = () => merger.StartMerge(originalAssessmentSection);

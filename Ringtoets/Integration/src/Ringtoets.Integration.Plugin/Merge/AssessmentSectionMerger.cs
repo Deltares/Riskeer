@@ -25,7 +25,6 @@ using System.Linq;
 using log4net;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
@@ -42,7 +41,7 @@ namespace Ringtoets.Integration.Plugin.Merge
         private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMerger));
 
         private readonly IAssessmentSectionMergeFilePathProvider filePathProvider;
-        private readonly Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction;
+        private readonly IAssessmentSectionProvider assessmentSectionProvider;
         private readonly IAssessmentSectionMergeComparer comparer;
         private readonly IMergeDataProvider mergeDataProvider;
         private readonly IAssessmentSectionMergeHandler mergeHandler;
@@ -51,13 +50,12 @@ namespace Ringtoets.Integration.Plugin.Merge
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
         /// </summary>
         /// <param name="filePathProvider">The provider to get the file path of the file to merge.</param>
-        /// <param name="getAssessmentSectionsAction">The action for getting the assessment sections
-        /// to merge.</param>
+        /// <param name="assessmentSectionProvider">The provider to the assessment sections to merge.</param>
         /// <param name="comparer">The comparer to compare the assessment sections with.</param>
         /// <param name="mergeDataProvider">The provider to get the data to merge from.</param>
         /// <param name="mergeHandler">The handler to perform the merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssessmentSectionMerger(IAssessmentSectionMergeFilePathProvider filePathProvider, Action<string, AssessmentSectionsOwner> getAssessmentSectionsAction,
+        public AssessmentSectionMerger(IAssessmentSectionMergeFilePathProvider filePathProvider, IAssessmentSectionProvider assessmentSectionProvider,
                                        IAssessmentSectionMergeComparer comparer, IMergeDataProvider mergeDataProvider, IAssessmentSectionMergeHandler mergeHandler)
         {
             if (filePathProvider == null)
@@ -65,9 +63,9 @@ namespace Ringtoets.Integration.Plugin.Merge
                 throw new ArgumentNullException(nameof(filePathProvider));
             }
 
-            if (getAssessmentSectionsAction == null)
+            if (assessmentSectionProvider == null)
             {
-                throw new ArgumentNullException(nameof(getAssessmentSectionsAction));
+                throw new ArgumentNullException(nameof(assessmentSectionProvider));
             }
 
             if (comparer == null)
@@ -86,7 +84,7 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             this.filePathProvider = filePathProvider;
-            this.getAssessmentSectionsAction = getAssessmentSectionsAction;
+            this.assessmentSectionProvider = assessmentSectionProvider;
             this.comparer = comparer;
             this.mergeDataProvider = mergeDataProvider;
             this.mergeHandler = mergeHandler;
@@ -113,9 +111,13 @@ namespace Ringtoets.Integration.Plugin.Merge
                 return;
             }
 
-            IEnumerable<AssessmentSection> assessmentSections = GetAssessmentSections(filePath);
+            IEnumerable<AssessmentSection> assessmentSections;
 
-            if (assessmentSections == null)
+            try
+            {
+                assessmentSections = assessmentSectionProvider.GetAssessmentSections(filePath);
+            }
+            catch (AssessmentSectionProviderException)
             {
                 return;
             }
@@ -150,13 +152,6 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
-        }
-
-        private IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
-        {
-            var assessmentSectionsOwner = new AssessmentSectionsOwner();
-            getAssessmentSectionsAction(filePath, assessmentSectionsOwner);
-            return assessmentSectionsOwner.AssessmentSections;
         }
 
         private void PerformMerge(AssessmentSection assessmentSection, AssessmentSection assessmentSectionToMerge, IEnumerable<IFailureMechanism> failureMechanismToMerge)

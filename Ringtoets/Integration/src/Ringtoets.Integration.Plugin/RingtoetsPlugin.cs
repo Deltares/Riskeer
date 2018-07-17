@@ -94,7 +94,6 @@ using Ringtoets.Integration.Plugin.Merge;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.Comparers;
-using Ringtoets.Integration.Service.Merge;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -103,7 +102,6 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
-using Ringtoets.Storage.Core;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RingtoetsDataResources = Ringtoets.Integration.Data.Properties.Resources;
@@ -280,13 +278,7 @@ namespace Ringtoets.Integration.Plugin
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
             assessmentSectionMerger = new AssessmentSectionMerger(new AssessmentSectionMergeFilePathProvider(new DialogBasedInquiryHelper(Gui.MainWindow)),
-                                                                  (filePath, assessmentSectionOwner) =>
-                                                                  {
-                                                                      ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                                                                                       LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(
-                                                                                                           assessmentSectionOwner, new LoadAssessmentSectionService(new StorageSqLite()),
-                                                                                                           filePath));
-                                                                  },
+                                                                  new AssessmentSectionProvider(Gui.MainWindow),
                                                                   new AssessmentSectionMergeComparer(),
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
                                                                   new AssessmentSectionMergeHandlerStub());
