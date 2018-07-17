@@ -22,38 +22,38 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Ringtoets.Integration.Service.Exceptions
+namespace Ringtoets.Integration.Plugin.Merge
 {
     /// <summary>
-    /// The exception that is thrown when something went wrong while loading assessment sections.
+    /// The exception that is thrown when something fails while providing assessment sections.
     /// </summary>
     [Serializable]
-    public class LoadAssessmentSectionException : Exception
+    public class AssessmentSectionProviderException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoadAssessmentSectionException"/> class.
+        /// Initializes a new instance of the <see cref="AssessmentSectionProviderException"/> class.
         /// </summary>
-        public LoadAssessmentSectionException() {}
+        public AssessmentSectionProviderException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoadAssessmentSectionException"/> class 
+        /// Initializes a new instance of the <see cref="AssessmentSectionProviderException"/> class
         /// with a specified error message.
         /// </summary>
-        /// <param name="message">The message that describes the error.</param>
-        public LoadAssessmentSectionException(string message)
-            : base(message) {}
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        public AssessmentSectionProviderException(string message) : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoadAssessmentSectionException"/> class with a specified error message 
-        /// and a reference to the inner exception that is the cause of this exception.
+        /// Initializes a new instance of the <see cref="AssessmentSectionProviderException"/> class
+        /// with a specified error message and a reference to the inner exception that is
+        /// the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception,
-        /// or <c>null</c> if no inner exception is specified.</param>
-        public LoadAssessmentSectionException(string message, Exception innerException) : base(message, innerException) {}
+        /// <param name="inner">The exception that is the cause of the current exception, 
+        /// or a null reference if no inner exception is specified.</param>
+        public AssessmentSectionProviderException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="LoadAssessmentSectionException"/> with
+        /// Initializes a new instance of <see cref="AssessmentSectionProviderException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Ringtoets.Integration.Service.Exceptions
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected LoadAssessmentSectionException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected AssessmentSectionProviderException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

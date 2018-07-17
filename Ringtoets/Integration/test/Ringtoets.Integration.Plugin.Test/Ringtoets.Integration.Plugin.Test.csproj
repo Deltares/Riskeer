@@ -51,6 +51,7 @@
     <Compile Include="ImportInfos\FailureMechanismSectionsContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ForeshoreProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ReferenceLineContextImportInfoTest.cs" />
+    <Compile Include="Merge\AssessmentSectionProviderExceptionTest.cs" />
     <Compile Include="Merge\AssessmentSectionProviderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyInfos\BackgroundDataPropertyInfoTest .cs" />
