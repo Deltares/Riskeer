@@ -22,7 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
+using Ringtoets.Integration.Service.Merge;
+using Ringtoets.Storage.Core;
 
 namespace Ringtoets.Integration.Plugin.Merge
 {
@@ -32,6 +36,7 @@ namespace Ringtoets.Integration.Plugin.Merge
     public class AssessmentSectionProvider : IAssessmentSectionProvider
     {
         private readonly IWin32Window viewParent;
+        private readonly AssessmentSectionsOwner assessmentSectionsOwner;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssessmentSectionProvider"/>.
@@ -47,11 +52,27 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             this.viewParent = viewParent;
+            assessmentSectionsOwner = new AssessmentSectionsOwner();
         }
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
         {
-            throw new NotImplementedException();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            ActivityProgressDialogRunner.Run(viewParent,
+                                             LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(
+                                                 assessmentSectionsOwner, new LoadAssessmentSectionService(new StorageSqLite()),
+                                                 filePath));
+
+            if (assessmentSectionsOwner.AssessmentSections == null)
+            {
+                throw new AssessmentSectionProviderException();
+            }
+
+            return assessmentSectionsOwner.AssessmentSections;
         }
     }
 }
