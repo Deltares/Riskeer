@@ -78,7 +78,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
-                IEnumerable<FailureMechanismCategoryLimits> output = kernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                CategoriesList<FailureMechanismCategory> output = kernel.CalculateFailureMechanismCategoryLimitsWbi11(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
 
