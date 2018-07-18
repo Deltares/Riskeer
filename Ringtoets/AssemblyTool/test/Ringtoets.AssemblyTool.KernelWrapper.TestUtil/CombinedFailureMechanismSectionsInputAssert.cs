@@ -51,11 +51,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
                 CombinedAssemblyFailureMechanismSection[] sections = original.ElementAt(i);
                 FailureMechanismSectionList sectionList = actual.ElementAt(i);
                 Assert.IsEmpty(sectionList.FailureMechanismId);
-                AssertSections(sections, sectionList.Results);
+                AssertSections(sections, sectionList.Sections);
             }
         }
 
-        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSection> originalSections, IEnumerable<FmSectionWithCategory> fmSectionWithCategories)
+        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSection> originalSections, IEnumerable<FailureMechanismSection> fmSectionWithCategories)
         {
             Assert.AreEqual(originalSections.Count(), fmSectionWithCategories.Count());
             Assert.IsTrue(fmSectionWithCategories.All(r => r.GetType() == typeof(FmSectionWithDirectCategory)));
