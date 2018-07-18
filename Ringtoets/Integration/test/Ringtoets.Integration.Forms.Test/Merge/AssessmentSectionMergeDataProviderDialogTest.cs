@@ -76,7 +76,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             {
                 // Assert
                 Assert.IsInstanceOf<DialogBase>(dialog);
-                Assert.IsInstanceOf<IMergeDataProvider>(dialog);
+                Assert.IsInstanceOf<IAssessmentSectionMergeDataProvider>(dialog);
 
                 Assert.AreEqual("Selecteer trajectinformatie", dialog.Text);
 

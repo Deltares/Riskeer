@@ -43,7 +43,7 @@ namespace Ringtoets.Integration.Plugin.Merge
         private readonly IAssessmentSectionMergeFilePathProvider filePathProvider;
         private readonly IAssessmentSectionProvider assessmentSectionProvider;
         private readonly IAssessmentSectionMergeComparer comparer;
-        private readonly IMergeDataProvider mergeDataProvider;
+        private readonly IAssessmentSectionMergeDataProvider mergeDataProvider;
         private readonly IAssessmentSectionMergeHandler mergeHandler;
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Plugin.Merge
         /// <param name="mergeHandler">The handler to perform the merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AssessmentSectionMerger(IAssessmentSectionMergeFilePathProvider filePathProvider, IAssessmentSectionProvider assessmentSectionProvider,
-                                       IAssessmentSectionMergeComparer comparer, IMergeDataProvider mergeDataProvider, IAssessmentSectionMergeHandler mergeHandler)
+                                       IAssessmentSectionMergeComparer comparer, IAssessmentSectionMergeDataProvider mergeDataProvider, IAssessmentSectionMergeHandler mergeHandler)
         {
             if (filePathProvider == null)
             {
