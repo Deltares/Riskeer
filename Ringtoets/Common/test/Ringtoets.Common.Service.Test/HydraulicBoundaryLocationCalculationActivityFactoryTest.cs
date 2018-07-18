@@ -73,7 +73,7 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 null,
-                new Random(12).NextDouble(), 
+                new Random(12).NextDouble(),
                 "A");
 
             // Assert
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Service.Test
                     new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation2)
                 },
                 assessmentSection,
-                norm, 
+                norm,
                 categoryBoundaryName);
 
             // Assert
@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 null,
                 assessmentSection,
-                new Random(12).NextDouble(), 
+                new Random(12).NextDouble(),
                 "A");
 
             // Assert
@@ -148,7 +148,7 @@ namespace Ringtoets.Common.Service.Test
             TestDelegate test = () => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                 Enumerable.Empty<HydraulicBoundaryLocationCalculation>(),
                 null,
-                new Random(12).NextDouble(), 
+                new Random(12).NextDouble(),
                 "A");
 
             // Assert
@@ -195,11 +195,11 @@ namespace Ringtoets.Common.Service.Test
             mocks.VerifyAll();
         }
 
-        private void AssertWaveHeightCalculationActivity(Activity activity,
-                                                         HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                         string categoryBoundaryName,
-                                                         double norm,
-                                                         bool usePreprocessor)
+        private static void AssertWaveHeightCalculationActivity(Activity activity,
+                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                string categoryBoundaryName,
+                                                                double norm,
+                                                                bool usePreprocessor)
         {
             var mocks = new MockRepository();
             var calculator = new TestWaveHeightCalculator
@@ -231,15 +231,14 @@ namespace Ringtoets.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
             }
 
-            Assert.AreEqual(ActivityState.Executed, activity.State);
             mocks.VerifyAll();
         }
 
-        private void AssertDesignWaterLevelCalculationActivity(Activity activity,
-                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                               string categoryBoundaryName,
-                                                               double norm,
-                                                               bool usePreprocessor)
+        private static void AssertDesignWaterLevelCalculationActivity(Activity activity,
+                                                                      HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                                                                      string categoryBoundaryName,
+                                                                      double norm,
+                                                                      bool usePreprocessor)
         {
             var mocks = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator
@@ -271,7 +270,6 @@ namespace Ringtoets.Common.Service.Test
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
             }
 
-            Assert.AreEqual(ActivityState.Executed, activity.State);
             mocks.VerifyAll();
         }
 

@@ -296,7 +296,6 @@ namespace Ringtoets.DuneErosion.Service.Test
             DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();
             Assert.AreEqual(locationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
-            Assert.AreEqual(ActivityState.Executed, activity.State);
 
             mocks.VerifyAll();
         }
