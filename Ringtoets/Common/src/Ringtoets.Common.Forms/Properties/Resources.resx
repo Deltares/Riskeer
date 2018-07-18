@@ -169,9 +169,6 @@
   <data name="WaveHeight_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle golfhoogten berekenen.</value>
   </data>
-  <data name="HydraulicBoundaryDatabase_Calculate_All_ToolTip" xml:space="preserve">
-    <value>Alle hydraulische randvoorwaarden berekenen.</value>
-  </data>
   <data name="Clear_all_output_ToolTip" xml:space="preserve">
     <value>Wis de uitvoer van alle berekeningen binnen dit toetsspoor.</value>
   </data>

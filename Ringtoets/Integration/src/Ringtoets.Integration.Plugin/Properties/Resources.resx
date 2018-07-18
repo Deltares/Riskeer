@@ -203,4 +203,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_failed" xml:space="preserve">
     <value>Samenvoegen van trajecten is mislukt.</value>
   </data>
+  <data name="HydraulicBoundaryDatabase_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Alle hydraulische randvoorwaarden berekenen.</value>
+  </data>
 </root>
