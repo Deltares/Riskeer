@@ -229,11 +229,6 @@
       <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
-      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>
@@ -293,15 +288,6 @@
       <Project>{11f1f874-45af-43e4-8ae5-15a5c9593e28}</Project>
       <Name>Ringtoets.Integration.Data</Name>
       <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
-      <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
-      <Name>Ringtoets.Integration.IO</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
