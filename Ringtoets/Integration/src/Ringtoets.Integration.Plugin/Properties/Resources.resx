@@ -191,16 +191,16 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSectionMerger_No_AssessmentSection_selected" xml:space="preserve">
     <value>Er is geen traject geselecteerd.</value>
   </data>
-  <data name="AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_successful" xml:space="preserve">
+  <data name="AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful" xml:space="preserve">
     <value>Samenvoegen van trajecten is gelukt.</value>
   </data>
   <data name="AssessmentSectionMerger_PerformMerge_Merging_AssessmentSection_0_with_AssessmentSection_1_started" xml:space="preserve">
-    <value>Samenvoegen van traject {0} met traject {1} is gestart.</value>
+    <value>Samenvoegen van traject '{0}' met traject '{1}' is gestart.</value>
   </data>
-  <data name="AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merging" xml:space="preserve">
+  <data name="AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten.</value>
   </data>
-  <data name="AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_failed" xml:space="preserve">
+  <data name="AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed" xml:space="preserve">
     <value>Samenvoegen van trajecten is mislukt.</value>
   </data>
   <data name="HydraulicBoundaryDatabase_Calculate_All_ToolTip" xml:space="preserve">
