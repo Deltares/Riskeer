@@ -114,7 +114,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("assessmentSectionMergeDataProvider", exception.ParamName);
+            Assert.AreEqual("mergeDataProvider", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -398,7 +398,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(2, msgs.Length);
-                Assert.AreEqual($"Samenvoegen van traject {assessmentSectionToMerge.Name} met traject {originalAssessmentSection.Name} is gestart.", msgs[0]);
+                Assert.AreEqual($"Samenvoegen van traject '{assessmentSectionToMerge.Name}' met traject '{originalAssessmentSection.Name}' is gestart.", msgs[0]);
                 Assert.AreEqual("Samenvoegen van trajecten is gelukt.", msgs[1]);
             });
             mocks.VerifyAll();
@@ -444,7 +444,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             {
                 Assert.AreEqual(3, messages.Count());
 
-                Assert.AreEqual($"Samenvoegen van traject {assessmentSectionToMerge.Name} met traject {originalAssessmentSection.Name} is gestart.", messages.ElementAt(0).Item1);
+                Assert.AreEqual($"Samenvoegen van traject '{assessmentSectionToMerge.Name}' met traject '{originalAssessmentSection.Name}' is gestart.", messages.ElementAt(0).Item1);
 
                 Tuple<string, Level, Exception> expectedLog = messages.ElementAt(1);
                 Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten.", expectedLog.Item1);

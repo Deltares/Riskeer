@@ -160,7 +160,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Samenvoegen van traject {0} met traject {1} is gestart..
+        ///   Looks up a localized string similar to Samenvoegen van traject &apos;{0}&apos; met traject &apos;{1}&apos; is gestart..
         /// </summary>
         public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSection_0_with_AssessmentSection_1_started {
             get {
@@ -172,27 +172,27 @@ namespace Ringtoets.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Samenvoegen van trajecten is mislukt..
         /// </summary>
-        public static string AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_failed {
+        public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed {
             get {
-                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_failed", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Samenvoegen van trajecten is gelukt..
         /// </summary>
-        public static string AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_successful {
+        public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful {
             get {
-                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_successful", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten..
         /// </summary>
-        public static string AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merging {
+        public static string AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge {
             get {
-                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merging", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge", resourceCulture);
             }
         }
         

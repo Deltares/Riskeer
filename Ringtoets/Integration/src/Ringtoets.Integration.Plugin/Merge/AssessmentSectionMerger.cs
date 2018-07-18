@@ -162,12 +162,12 @@ namespace Ringtoets.Integration.Plugin.Merge
             try
             {
                 mergeHandler.PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
-                log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_successful);
+                log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful);
             }
             catch (Exception e)
             {
-                log.Error(Resources.AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merging, e);
-                log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_assessmentSections_failed);
+                log.Error(Resources.AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge, e);
+                log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed);
             }
         }
 
