@@ -52,6 +52,7 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
@@ -518,7 +519,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [SetCulture("nl-NL")]
         public void GivenGrassCoverErosionCalculationsThatSucceed_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
@@ -623,9 +623,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs.ElementAt(81));
                         CalculationServiceTestHelper.AssertValidationEndMessage(msgs.ElementAt(82));
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(83));
-                        AssertWaveConditionsCalculationMessages(msgs, 84, "1,99");
-                        AssertWaveConditionsCalculationMessages(msgs, 87, "1,50");
-                        AssertWaveConditionsCalculationMessages(msgs, 90, "1,00");
+
+                        IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(
+                            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output.Result);
+                        Assert.AreEqual(3, waterLevels.Count());
+                        AssertWaveConditionsCalculationMessages(msgs, 84, waterLevels.First());
+                        AssertWaveConditionsCalculationMessages(msgs, 87, waterLevels.ElementAt(1));
+                        AssertWaveConditionsCalculationMessages(msgs, 90, waterLevels.ElementAt(2));
                         CalculationServiceTestHelper.AssertCalculationEndMessage(msgs.ElementAt(93));
                         Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gelukt.", msgs.ElementAt(94));
                     });
@@ -633,7 +637,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             }
         }
 
-        private static void AssertWaveConditionsCalculationMessages(IEnumerable<string> messages, int startIndex, string waterLevel)
+        private static void AssertWaveConditionsCalculationMessages(IEnumerable<string> messages, int startIndex, RoundedDouble waterLevel)
         {
             Assert.AreEqual($"Berekening voor waterstand '{waterLevel}' is gestart.", messages.ElementAt(startIndex));
             Assert.AreEqual("Golfcondities berekening is uitgevoerd op de tijdelijke locatie ''. " +
