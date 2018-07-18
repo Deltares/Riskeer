@@ -54,13 +54,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(11);
 
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
-            };
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.75, 1.00),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.5, 0.75),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.25, 0.5),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0, 0.25)
+            });
 
             // Call
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
@@ -73,10 +73,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategoryLimits((EAssessmentGrade) 99, 0, 0)
-            };
+                new AssessmentSectionCategory((EAssessmentGrade) 99, 0, 0)
+            });
 
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
@@ -93,10 +93,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategoryLimits(categoryGroup, 0, 0)
-            };
+                new AssessmentSectionCategory(categoryGroup, 0, 1)
+            });
 
             // Call
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
@@ -108,12 +108,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [Test]
         public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
-            // Setup
-            var categoryLimits = new[]
-            {
-                new AssessmentSectionCategoryLimits((EAssessmentGrade) 99, 0, 0)
-            };
-
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory((EAssessmentGrade) 99);
 

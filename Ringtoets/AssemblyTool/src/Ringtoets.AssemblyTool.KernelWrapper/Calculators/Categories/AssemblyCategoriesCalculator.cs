@@ -58,7 +58,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
-                IEnumerable<AssessmentSectionCategoryLimits> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(
+                CategoriesList<AssessmentSectionCategory> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(
                     new AssessmentSection(1, signalingNorm, lowerLimitNorm));
 
                 return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);

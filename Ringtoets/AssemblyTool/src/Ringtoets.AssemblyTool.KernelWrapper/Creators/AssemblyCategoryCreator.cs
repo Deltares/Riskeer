@@ -38,8 +38,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// Creates a collection of <see cref="AssessmentSectionAssemblyCategory"/>
         /// based on the information given in the <paramref name="categoryLimits"/>.
         /// </summary>
-        /// <param name="categoryLimits">The collection of <see cref="AssessmentSectionCategoryLimits"/> to
-        /// create the result for.</param>
+        /// <param name="categoryLimits">The <see cref="CategoriesList{TCategory}"/> with
+        /// <see cref="AssessmentSectionCategory"/> to create the result for.</param>
         /// <returns>A collection of <see cref="AssessmentSectionAssemblyCategory"/>
         /// with information taken from the <paramref name="categoryLimits"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="categoryLimits"/> is <c>null</c>.</exception>
@@ -48,14 +48,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryLimits"/>
         /// contains a valid value, but unsupported.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(
-            IEnumerable<AssessmentSectionCategoryLimits> categoryLimits)
+            CategoriesList<AssessmentSectionCategory> categoryLimits)
         {
             if (categoryLimits == null)
             {
                 throw new ArgumentNullException(nameof(categoryLimits));
             }
 
-            return categoryLimits.Select(
+            return categoryLimits.Categories.Select(
                 categoriesOutput => new AssessmentSectionAssemblyCategory(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
