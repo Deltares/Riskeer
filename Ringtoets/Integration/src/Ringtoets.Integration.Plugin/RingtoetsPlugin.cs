@@ -1945,7 +1945,7 @@ namespace Ringtoets.Integration.Plugin
 
             var calculateAllItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.Calculate_All,
-                RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Calculate_All_ToolTip,
+                Resources.HydraulicBoundaryDatabase_Calculate_All_ToolTip,
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {

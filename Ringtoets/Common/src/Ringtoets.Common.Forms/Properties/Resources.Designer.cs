@@ -2150,15 +2150,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
-        /// </summary>
-        public static string HydraulicBoundaryDatabase_Calculate_All_ToolTip {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabase_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Coördinaten van de hydraulische randvoorwaardenlocatie..
         /// </summary>
         public static string HydraulicBoundaryDatabase_Location_Coordinates_Description {
