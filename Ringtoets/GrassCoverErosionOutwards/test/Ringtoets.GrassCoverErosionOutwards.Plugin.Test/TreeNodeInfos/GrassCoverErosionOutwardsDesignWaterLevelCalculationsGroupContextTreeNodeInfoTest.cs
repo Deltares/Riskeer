@@ -372,15 +372,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual(40, msgs.Length);
 
                             const string designWaterLevelName = "Waterstand";
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "Iv->IIv", msgs, 0);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "IIv->IIIv", msgs, 8);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "IIIv->IVv", msgs, 16);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "IVv->Vv", msgs, 24);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "Vv->VIv", msgs, 32);
                         });
 

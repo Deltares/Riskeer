@@ -862,23 +862,23 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(64, msgs.Length);
 
                         const string designWaterLevelName = "Waterstand";
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "A+->A", msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "A->B", msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "B->C", msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "C->D", msgs, 24);
 
                         const string waveHeightName = "Golfhoogte";
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "A+->A", msgs, 32);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "A->B", msgs, 40);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "B->C", msgs, 48);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "C->D", msgs, 56);
                     });
 

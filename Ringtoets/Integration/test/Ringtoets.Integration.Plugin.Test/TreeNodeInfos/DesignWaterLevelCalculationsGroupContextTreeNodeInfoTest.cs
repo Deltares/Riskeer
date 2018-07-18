@@ -348,13 +348,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             string[] msgs = messages.ToArray();
                             Assert.AreEqual(32, msgs.Length);
                             const string designWaterLevelName = "Waterstand";
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "A+->A", msgs, 0);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "A->B", msgs, 8);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "B->C", msgs, 16);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, designWaterLevelName, "C->D", msgs, 24);
                         });
 

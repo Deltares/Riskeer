@@ -321,27 +321,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(95, msgs.Length);
 
                         const string designWaterLevelName = "Waterstand";
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "Iv->IIv", msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "IIv->IIIv", msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "IIIv->IVv", msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "IVv->Vv", msgs, 24);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, designWaterLevelName, "Vv->VIv", msgs, 32);
 
                         const string waveHeightName = "Golfhoogte";
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "Iv->IIv", msgs, 40);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "IIv->IIIv", msgs, 48);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "IIIv->IVv", msgs, 56);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "IVv->Vv", msgs, 64);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "Vv->VIv", msgs, 72);
 
                         Assert.AreEqual($"Golfcondities berekenen voor '{calculation.Name}' is gestart.", msgs.ElementAt(80));
