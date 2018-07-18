@@ -42,21 +42,21 @@ namespace Ringtoets.Integration.Plugin.Merge
 
         private readonly IAssessmentSectionMergeFilePathProvider filePathProvider;
         private readonly IAssessmentSectionProvider assessmentSectionProvider;
-        private readonly IAssessmentSectionMergeComparer comparer;
+        private readonly IAssessmentSectionMergeComparer mergeComparer;
         private readonly IAssessmentSectionMergeDataProvider mergeDataProvider;
         private readonly IAssessmentSectionMergeHandler mergeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionMerger"/>,
+        /// Creates a new instance of <see cref="AssessmentSectionMerger"/>.
         /// </summary>
         /// <param name="filePathProvider">The provider to get the file path of the file to merge.</param>
         /// <param name="assessmentSectionProvider">The provider to the assessment sections to merge.</param>
-        /// <param name="comparer">The comparer to compare the assessment sections with.</param>
+        /// <param name="mergeComparer">The comparer to compare the assessment sections with.</param>
         /// <param name="mergeDataProvider">The provider to get the data to merge from.</param>
         /// <param name="mergeHandler">The handler to perform the merge.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public AssessmentSectionMerger(IAssessmentSectionMergeFilePathProvider filePathProvider, IAssessmentSectionProvider assessmentSectionProvider,
-                                       IAssessmentSectionMergeComparer comparer, IAssessmentSectionMergeDataProvider mergeDataProvider, IAssessmentSectionMergeHandler mergeHandler)
+                                       IAssessmentSectionMergeComparer mergeComparer, IAssessmentSectionMergeDataProvider mergeDataProvider, IAssessmentSectionMergeHandler mergeHandler)
         {
             if (filePathProvider == null)
             {
@@ -68,9 +68,9 @@ namespace Ringtoets.Integration.Plugin.Merge
                 throw new ArgumentNullException(nameof(assessmentSectionProvider));
             }
 
-            if (comparer == null)
+            if (mergeComparer == null)
             {
-                throw new ArgumentNullException(nameof(comparer));
+                throw new ArgumentNullException(nameof(mergeComparer));
             }
 
             if (mergeDataProvider == null)
@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Plugin.Merge
 
             this.filePathProvider = filePathProvider;
             this.assessmentSectionProvider = assessmentSectionProvider;
-            this.comparer = comparer;
+            this.mergeComparer = mergeComparer;
             this.mergeDataProvider = mergeDataProvider;
             this.mergeHandler = mergeHandler;
         }
@@ -128,7 +128,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                 return;
             }
 
-            IEnumerable<AssessmentSection> matchingAssessmentSections = assessmentSections.Where(section => comparer.Compare(assessmentSection, section));
+            IEnumerable<AssessmentSection> matchingAssessmentSections = assessmentSections.Where(section => mergeComparer.Compare(assessmentSection, section));
 
             if (!matchingAssessmentSections.Any())
             {
@@ -167,13 +167,13 @@ namespace Ringtoets.Integration.Plugin.Merge
             catch (Exception e)
             {
                 log.Error(Resources.AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge, e);
-                log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed);
+                log.Error(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed);
             }
         }
 
         private static void LogCancelMessage()
         {
-            log.Info(CoreCommonGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
+            log.Warn(CoreCommonGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
         }
 
         private static void LogError(string message)

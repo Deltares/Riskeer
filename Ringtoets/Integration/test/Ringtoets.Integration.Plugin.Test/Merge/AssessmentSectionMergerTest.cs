@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void Constructor_ComparerNull_ThrowsArgumentNullException()
+        public void Constructor_MergeComparerNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -94,7 +94,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("comparer", exception.ParamName);
+            Assert.AreEqual("mergeComparer", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -180,7 +180,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Info), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
             mocks.VerifyAll();
         }
 
@@ -289,7 +289,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Then
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Info), 1);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
             mocks.VerifyAll();
         }
 
