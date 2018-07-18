@@ -350,13 +350,13 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual(32, msgs.Length);
 
                             const string waveHeightName = "Golfhoogte";
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "A+->A", msgs, 0);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "A->B", msgs, 8);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "B->C", msgs, 16);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "C->D", msgs, 24);
                         });
 

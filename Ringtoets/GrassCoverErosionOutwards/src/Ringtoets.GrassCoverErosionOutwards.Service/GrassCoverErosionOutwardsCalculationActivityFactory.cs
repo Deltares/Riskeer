@@ -38,8 +38,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     public static class GrassCoverErosionOutwardsCalculationActivityFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> for all calculations
-        /// on grass cover erosion outwards level.
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
+        /// <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to create the activities for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
@@ -142,8 +142,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         #region Hydraulic Boundary Location Calculations
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> for wave height calculations
-        /// on grass cover erosion outwards level.
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the wave height calculations in
+        /// <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to create the activities for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
@@ -199,8 +199,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> for design water level calculations
-        /// on grass cover erosion outwards level.
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the design water level calculations in
+        /// <paramref name="failureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to create the activities for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>

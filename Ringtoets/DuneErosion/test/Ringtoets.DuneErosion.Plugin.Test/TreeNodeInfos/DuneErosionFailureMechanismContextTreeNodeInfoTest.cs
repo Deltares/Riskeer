@@ -508,15 +508,15 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual(40, msgs.Length);
 
                         const string duneCalculationName = "Hydraulische randvoorwaarden";
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             duneLocation.Name, duneCalculationName, "Iv->IIv", msgs, 0);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             duneLocation.Name, duneCalculationName, "IIv->IIIv", msgs, 8);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             duneLocation.Name, duneCalculationName, "IIIv->IVv", msgs, 16);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             duneLocation.Name, duneCalculationName, "IVv->Vv", msgs, 24);
-                        HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                        HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             duneLocation.Name, duneCalculationName, "Vv->VIv", msgs, 32);
                     });
                 }

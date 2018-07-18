@@ -372,15 +372,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                             Assert.AreEqual(40, msgs.Length);
 
                             const string waveHeightName = "Golfhoogte";
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "Iv->IIv", msgs, 0);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "IIv->IIIv", msgs, 8);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "IIIv->IVv", msgs, 16);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "IVv->Vv", msgs, 24);
-                            HydraulicBoundaryLocationCalculationActivityTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
+                            HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                                 hydraulicBoundaryLocation.Name, waveHeightName, "Vv->VIv", msgs, 32);
                         });
 
