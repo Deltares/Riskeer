@@ -29,7 +29,7 @@ namespace Ringtoets.Integration.Forms.Merge
     /// <summary>
     /// Interface for providing the data to merge.
     /// </summary>
-    public interface IMergeDataProvider
+    public interface IAssessmentSectionMergeDataProvider
     {
         /// <summary>
         /// Gets the selected <see cref="AssessmentSection"/>.

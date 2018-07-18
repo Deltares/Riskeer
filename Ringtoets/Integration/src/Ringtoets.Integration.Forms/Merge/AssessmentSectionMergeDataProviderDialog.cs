@@ -37,7 +37,7 @@ namespace Ringtoets.Integration.Forms.Merge
     /// and its <see cref="IFailureMechanism"/> to use for merging the data. The selections
     /// can be obtained upon closing the dialog.
     /// </summary>
-    public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IMergeDataProvider
+    public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IAssessmentSectionMergeDataProvider
     {
         private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
         private bool assessmentSectionComboBoxUpdating;
