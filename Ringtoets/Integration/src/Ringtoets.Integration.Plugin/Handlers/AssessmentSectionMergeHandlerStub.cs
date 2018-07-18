@@ -28,24 +28,24 @@ using Ringtoets.Integration.Data;
 namespace Ringtoets.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Stub for handling the merge of the <see cref="AssessmentSection"/>.
+    /// Stub for handling the merge of <see cref="AssessmentSection"/> data.
     /// </summary>
     public class AssessmentSectionMergeHandlerStub : IAssessmentSectionMergeHandler
     {
-        public void PerformMerge(AssessmentSection originalAssessmentSection, AssessmentSection assessmentSectionToMerge,
-                                 IEnumerable<IFailureMechanism> failureMechanismToMerge)
+        public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
+                                 IEnumerable<IFailureMechanism> failureMechanismsToMerge)
         {
-            for (var i = 0; i < originalAssessmentSection.HydraulicBoundaryDatabase.Locations.Count; i++)
+            for (var i = 0; i < targetAssessmentSection.HydraulicBoundaryDatabase.Locations.Count; i++)
             {
-                ReplaceOutput(originalAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i), assessmentSectionToMerge.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i));
-                ReplaceOutput(originalAssessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(i), assessmentSectionToMerge.WaterLevelCalculationsForSignalingNorm.ElementAt(i));
-                ReplaceOutput(originalAssessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(i), assessmentSectionToMerge.WaterLevelCalculationsForLowerLimitNorm.ElementAt(i));
-                ReplaceOutput(originalAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(i), assessmentSectionToMerge.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i), sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(i), sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(i), sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(i), sourceAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.ElementAt(i));
 
-                ReplaceOutput(originalAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.ElementAt(i), assessmentSectionToMerge.WaveHeightCalculationsForFactorizedSignalingNorm.ElementAt(i));
-                ReplaceOutput(originalAssessmentSection.WaveHeightCalculationsForSignalingNorm.ElementAt(i), assessmentSectionToMerge.WaveHeightCalculationsForSignalingNorm.ElementAt(i));
-                ReplaceOutput(originalAssessmentSection.WaveHeightCalculationsForLowerLimitNorm.ElementAt(i), assessmentSectionToMerge.WaveHeightCalculationsForLowerLimitNorm.ElementAt(i));
-                ReplaceOutput(originalAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(i), assessmentSectionToMerge.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.ElementAt(i), sourceAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaveHeightCalculationsForSignalingNorm.ElementAt(i), sourceAssessmentSection.WaveHeightCalculationsForSignalingNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaveHeightCalculationsForLowerLimitNorm.ElementAt(i), sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm.ElementAt(i));
+                ReplaceOutput(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(i), sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.ElementAt(i));
             }
         }
 

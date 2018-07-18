@@ -26,17 +26,17 @@ using Ringtoets.Integration.Data;
 namespace Ringtoets.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Interface for handling the merge of the <see cref="AssessmentSection"/>.
+    /// Interface for handling the merge of <see cref="AssessmentSection"/> data.
     /// </summary>
     public interface IAssessmentSectionMergeHandler
     {
         /// <summary>
-        /// Performs the merges.
+        /// Performs the merge.
         /// </summary>
-        /// <param name="originalAssessmentSection">The assessment section to merge to.</param>
-        /// <param name="assessmentSectionToMerge">The assessment section to merge from.</param>
-        /// <param name="failureMechanismToMerge">The failure mechanisms to merge.</param>
-        void PerformMerge(AssessmentSection originalAssessmentSection, AssessmentSection assessmentSectionToMerge,
-                          IEnumerable<IFailureMechanism> failureMechanismToMerge);
+        /// <param name="targetAssessmentSection">The assessment section to merge to.</param>
+        /// <param name="sourceAssessmentSection">The assessment section to merge from.</param>
+        /// <param name="failureMechanismsToMerge">The failure mechanisms to merge.</param>
+        void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
+                          IEnumerable<IFailureMechanism> failureMechanismsToMerge);
     }
 }
