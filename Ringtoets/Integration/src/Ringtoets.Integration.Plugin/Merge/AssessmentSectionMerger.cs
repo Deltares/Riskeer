@@ -25,6 +25,7 @@ using System.Linq;
 using log4net;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
@@ -136,22 +137,15 @@ namespace Ringtoets.Integration.Plugin.Merge
                 return;
             }
 
-            if (!mergeDataProvider.SelectData(matchingAssessmentSections))
+            AssessmentSectionMergeData mergeData = mergeDataProvider.SelectData(matchingAssessmentSections);
+
+            if (mergeData == null)
             {
                 LogCancelMessage();
                 return;
             }
 
-            AssessmentSection assessmentSectionToMerge = mergeDataProvider.SelectedAssessmentSection;
-            IEnumerable<IFailureMechanism> failureMechanismToMerge = mergeDataProvider.SelectedFailureMechanisms;
-
-            if (assessmentSectionToMerge == null || failureMechanismToMerge == null)
-            {
-                LogError(Resources.AssessmentSectionMerger_No_AssessmentSection_selected);
-                return;
-            }
-
-            PerformMerge(assessmentSection, assessmentSectionToMerge, failureMechanismToMerge);
+            PerformMerge(assessmentSection, mergeData.AssessmentSection, mergeData.FailureMechanisms);
         }
 
         private void PerformMerge(AssessmentSection assessmentSection, AssessmentSection assessmentSectionToMerge, IEnumerable<IFailureMechanism> failureMechanismToMerge)

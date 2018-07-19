@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 
 namespace Ringtoets.Integration.Forms.Merge
 {
@@ -45,9 +46,9 @@ namespace Ringtoets.Integration.Forms.Merge
         /// Select the data to merge.
         /// </summary>
         /// <param name="assessmentSections">The collection of assessment sections to select from.</param>
-        /// <returns>Indicator whether selection succeeded.</returns>
+        /// <returns>The selected merge data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSections"/>
         /// is <c>null</c>.</exception>
-         bool SelectData(IEnumerable<AssessmentSection> assessmentSections);
+        AssessmentSectionMergeData SelectData(IEnumerable<AssessmentSection> assessmentSections);
     }
 }

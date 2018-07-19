@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.TestUtil;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -275,7 +276,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenValidDialog_WhenSelectDataCalledAndCancelPressed_ThenSelectedDataNullAndReturnsFalse()
+        public void GivenValidDialog_WhenSelectDataCalledAndCancelPressed_ThenReturnsNull()
         {
             // Given
             DialogBoxHandler = (formName, wnd) =>
@@ -291,21 +292,19 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                bool result = dialog.SelectData(new[]
+                AssessmentSectionMergeData result = dialog.SelectData(new[]
                 {
                     TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations()
                 });
 
                 // Then
-                Assert.IsFalse(result);
-                Assert.IsNull(dialog.SelectedAssessmentSection);
-                Assert.IsNull(dialog.SelectedFailureMechanisms);
+                Assert.IsNull(result);
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenValidDialog_WhenSelectDataCalledAndDataSelectedAndImportPressed_ThenSelectedDataSetAndReturnsTrue()
+        public void GivenValidDialog_WhenSelectDataCalledAndDataSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
             var random = new Random(21);
@@ -336,17 +335,16 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                bool result = dialog.SelectData(new[]
+                AssessmentSectionMergeData result = dialog.SelectData(new[]
                 {
                     new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()),
                     selectedAssessmentSection
                 });
 
                 // Then
-                Assert.IsTrue(result);
-                Assert.AreSame(selectedAssessmentSection, dialog.SelectedAssessmentSection);
+                Assert.AreSame(selectedAssessmentSection, result.AssessmentSection);
 
-                IEnumerable<IFailureMechanism> selectedFailureMechanisms = dialog.SelectedFailureMechanisms;
+                IEnumerable<IFailureMechanism> selectedFailureMechanisms = result.FailureMechanisms;
                 Assert.AreEqual(2, selectedFailureMechanisms.Count());
                 CollectionAssert.AreEquivalent(new IFailureMechanism[]
                 {
