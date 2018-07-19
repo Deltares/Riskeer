@@ -21,10 +21,12 @@
 
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -45,6 +47,7 @@ using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
@@ -329,6 +332,40 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                     // Call
                     info.ContextMenuStrip(null, null, treeViewControl);
+                }
+            }
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_ContextMenuItemImportAssessmentSectionEnabled()
+        {
+            // Setup
+            var section = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(section, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                mocks.ReplayAll();
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(section, section, treeViewControl))
+                    {
+                        const string expectedItemText = "&Importeren...";
+                        const string expectedItemTooltip = "Importeer de gegevens vanuit een bestand.";
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, 2,
+                                                                      expectedItemText, expectedItemTooltip,
+                                                                      CoreCommonGuiResources.ImportIcon);
+                    }
                 }
             }
 
