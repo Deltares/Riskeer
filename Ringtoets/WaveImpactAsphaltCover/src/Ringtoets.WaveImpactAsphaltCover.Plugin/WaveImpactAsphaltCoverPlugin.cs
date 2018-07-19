@@ -327,11 +327,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddPerformAllCalculationsInFailureMechanismItem(
+                              failureMechanismContext,
+                              CalculateAll)
+                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void CalculateAll(WaveImpactAsphaltCoverFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                                           context.Parent));
         }
 
         private void RemoveAllViewsForItem(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
