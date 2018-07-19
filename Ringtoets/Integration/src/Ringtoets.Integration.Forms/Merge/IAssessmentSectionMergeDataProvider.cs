@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 
@@ -32,16 +31,6 @@ namespace Ringtoets.Integration.Forms.Merge
     /// </summary>
     public interface IAssessmentSectionMergeDataProvider
     {
-        /// <summary>
-        /// Gets the selected <see cref="AssessmentSection"/>.
-        /// </summary>
-        AssessmentSection SelectedAssessmentSection { get; }
-
-        /// <summary>
-        /// Gets the collection of selected <see cref="IFailureMechanism"/>.
-        /// </summary>
-        IEnumerable<IFailureMechanism> SelectedFailureMechanisms { get; }
-
         /// <summary>
         /// Select the data to merge.
         /// </summary>
