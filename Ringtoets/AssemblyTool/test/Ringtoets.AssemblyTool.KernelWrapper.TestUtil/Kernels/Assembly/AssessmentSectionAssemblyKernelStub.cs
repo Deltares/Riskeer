@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.CategoryLimits;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
@@ -32,11 +33,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     /// </summary>
     public class AssessmentSectionAssemblyKernelStub : IAssessmentGradeAssembler
     {
-        /// <summary>
-        /// Gets the <see cref="AssessmentSection"/> used as an input parameter for assembly methods.
-        /// </summary>
-        public AssessmentSection AssessmentSectionInput { get; private set; }
-
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
         /// </summary>
@@ -48,9 +44,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public EAssessmentGrade AssessmentGradeResult { get; set; }
 
         /// <summary>
+        /// Gets or sets the failure mechanism category result
+        /// </summary>
+        public EFailureMechanismCategory FailureMechanismCategoryResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism assembly result.
+        /// </summary>
+        public FailureMechanismAssemblyResult FailureMechanismAssemblyResult { get; set; }
+
+        /// <summary>
         /// Gets or sets the assessment section assembly result.
         /// </summary>
-        public AssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
+        public EAssessmentGrade AssessmentSectionAssemblyResult { get; set; }
 
         /// <summary>
         /// Gets the collection of <see cref="FailureMechanismAssemblyResult"/> used as an input parameter for assembly methods.
@@ -58,14 +64,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public IEnumerable<FailureMechanismAssemblyResult> FailureMechanismAssemblyResults { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="AssessmentSectionAssemblyResult"/> used as an input parameter for assembly methods.
+        /// Gets the <see cref="EFailureMechanismCategory"/> used as an input parameter for assembly methods.
         /// </summary>
-        public AssessmentSectionAssemblyResult AssemblyResultNoFailureProbability { get; private set; }
+        public EFailureMechanismCategory? AssemblyResultNoFailureProbability { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="AssessmentSectionAssemblyResult"/> used as an input parameter for assembly methods.
+        /// Gets the <see cref="FailureMechanismAssemblyResult"/> used as an input parameter for assembly methods.
         /// </summary>
-        public AssessmentSectionAssemblyResult AssemblyResultWithFailureProbability { get; private set; }
+        public FailureMechanismAssemblyResult AssemblyResultWithFailureProbability { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="CategoriesList{TCategory}"/> used as an input parameter for assembly methods.
+        /// </summary>
+        public CategoriesList<FailureMechanismCategory> FailureMechanismCategories { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not. 
@@ -82,8 +93,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public EAssessmentGrade AssembleAssessmentSectionWbi2A1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
-                                                                bool partialAssembly)
+        public EFailureMechanismCategory AssembleAssessmentSectionWbi2A1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
+                                                                         bool partialAssembly)
         {
             ThrowException();
 
@@ -92,26 +103,26 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             Calculated = true;
 
-            return AssessmentGradeResult;
+            return FailureMechanismCategoryResult;
         }
 
-        public AssessmentSectionAssemblyResult AssembleAssessmentSectionWbi2B1(AssessmentSection section,
-                                                                               IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
-                                                                               bool partialAssembly)
+        public FailureMechanismAssemblyResult AssembleAssessmentSectionWbi2B1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
+                                                                              CategoriesList<FailureMechanismCategory> failureMechanismCategories,
+                                                                              bool partialAssembly)
         {
             ThrowException();
 
             PartialAssembly = partialAssembly;
-            AssessmentSectionInput = section;
+            FailureMechanismCategories = failureMechanismCategories;
             FailureMechanismAssemblyResults = failureMechanismAssemblyResults;
 
             Calculated = true;
 
-            return AssessmentSectionAssemblyResult;
+            return FailureMechanismAssemblyResult;
         }
 
-        public AssessmentSectionAssemblyResult AssembleAssessmentSectionWbi2C1(AssessmentSectionAssemblyResult assemblyResultNoFailureProbability,
-                                                                               AssessmentSectionAssemblyResult assemblyResultWithFailureProbability)
+        public EAssessmentGrade AssembleAssessmentSectionWbi2C1(EFailureMechanismCategory assemblyResultNoFailureProbability,
+                                                                FailureMechanismAssemblyResult assemblyResultWithFailureProbability)
         {
             ThrowException();
 
