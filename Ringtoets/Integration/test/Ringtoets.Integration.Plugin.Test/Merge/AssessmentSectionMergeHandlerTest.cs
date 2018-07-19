@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Gui.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
@@ -54,6 +58,89 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionMergeHandler>(handler);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_targetAssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            TestDelegate call = () => handler.PerformMerge(null, new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                           Enumerable.Empty<IFailureMechanism>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("targetAssessmentSection", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_sourceAssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            TestDelegate call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                           null, Enumerable.Empty<IFailureMechanism>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("sourceAssessmentSection", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_FailureMechanismsToMergeNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            TestDelegate call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                           new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                           null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanismsToMerge", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_WithAllData_AllViewsForTargetAssessmentSectionClosed()
+        {
+            // Setup
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(targetAssessmentSection));
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection,
+                                 new AssessmentSection(AssessmentSectionComposition.Dike),
+                                 Enumerable.Empty<IFailureMechanism>());
+
+            // Assert
             mocks.VerifyAll();
         }
     }

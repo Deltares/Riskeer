@@ -54,6 +54,27 @@ namespace Ringtoets.Integration.Plugin.Merge
         public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
                                  IEnumerable<IFailureMechanism> failureMechanismsToMerge)
         {
+            if (targetAssessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(targetAssessmentSection));
+            }
+
+            if (sourceAssessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(sourceAssessmentSection));
+            }
+
+            if (failureMechanismsToMerge == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismsToMerge));
+            }
+
+            BeforeMerge(targetAssessmentSection);
+        }
+
+        private void BeforeMerge(AssessmentSection assessmentSection)
+        {
+            viewCommands.RemoveAllViewsForItem(assessmentSection);
         }
     }
 }
