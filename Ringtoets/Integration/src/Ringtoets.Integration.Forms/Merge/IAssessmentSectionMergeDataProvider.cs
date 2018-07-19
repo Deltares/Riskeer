@@ -32,12 +32,13 @@ namespace Ringtoets.Integration.Forms.Merge
     public interface IAssessmentSectionMergeDataProvider
     {
         /// <summary>
-        /// Select the data to merge.
+        /// Gets the data to merge.
         /// </summary>
-        /// <param name="assessmentSections">The collection of assessment sections to select from.</param>
+        /// <param name="assessmentSections">The collection of assessment sections to get the merge
+        /// data from.</param>
         /// <returns>The selected merge data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSections"/>
         /// is <c>null</c>.</exception>
-        AssessmentSectionMergeData SelectData(IEnumerable<AssessmentSection> assessmentSections);
+        AssessmentSectionMergeData GetMergeData(IEnumerable<AssessmentSection> assessmentSections);
     }
 }

@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        public void SelectData_AssessmentSectionsNull_ThrowsArgumentNullException()
+        public void GetMergeData_AssessmentSectionsNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
-                TestDelegate call = () => dialog.SelectData(null);
+                TestDelegate call = () => dialog.GetMergeData(null);
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(call);
@@ -213,7 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void SelectData_WithEmptyAssessmentSections_SetsDataOnDialog()
+        public void GetMergeData_WithEmptyAssessmentSections_SetsDataOnDialog()
         {
             // Setup
             DialogBoxHandler = (formName, wnd) =>
@@ -225,7 +225,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
-                dialog.SelectData(Enumerable.Empty<AssessmentSection>());
+                dialog.GetMergeData(Enumerable.Empty<AssessmentSection>());
 
                 // Assert
                 var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
@@ -240,7 +240,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void SelectData_WithAssessmentSections_SetsDataOnDialog()
+        public void GetMergeData_WithAssessmentSections_SetsDataOnDialog()
         {
             // Setup
             DialogBoxHandler = (formName, wnd) =>
@@ -259,7 +259,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // Call
-                dialog.SelectData(assessmentSections);
+                dialog.GetMergeData(assessmentSections);
 
                 // Assert
                 AssessmentSection expectedDefaultSelectedAssessmentSection = assessmentSections[0];
@@ -276,7 +276,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenValidDialog_WhenSelectDataCalledAndCancelPressed_ThenReturnsNull()
+        public void GivenValidDialog_WhenGetMergeDataCalledAndCancelPressed_ThenReturnsNull()
         {
             // Given
             DialogBoxHandler = (formName, wnd) =>
@@ -292,7 +292,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                AssessmentSectionMergeData result = dialog.SelectData(new[]
+                AssessmentSectionMergeData result = dialog.GetMergeData(new[]
                 {
                     TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations()
                 });
@@ -304,7 +304,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenValidDialog_WhenSelectDataCalledAndDataSelectedAndImportPressed_ThenReturnsSelectedData()
+        public void GivenValidDialog_WhenGetMergeDataCalledAndDataSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
             var random = new Random(21);
@@ -335,7 +335,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                AssessmentSectionMergeData result = dialog.SelectData(new[]
+                AssessmentSectionMergeData result = dialog.GetMergeData(new[]
                 {
                     new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()),
                     selectedAssessmentSection
@@ -374,7 +374,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
             using (var dialogParent = new Form())
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
-                dialog.SelectData(assessmentSections);
+                dialog.GetMergeData(assessmentSections);
 
                 var comboBox = (ComboBox) new ComboBoxTester("assessmentSectionComboBox", dialog).TheObject;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView", dialog).TheObject;
