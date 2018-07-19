@@ -46,7 +46,6 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
@@ -410,7 +409,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
             // Setup
             var duneLocation = new TestDuneLocation("Test");
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune);
+            var assessmentSection = new AssessmentSectionStub();
 
             failureMechanism.SetDuneLocations(new[]
             {
@@ -419,15 +418,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var mocks = new MockRepository();
-
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
+                var gui = mocksRepository.Stub<IGui>();
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
+                mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
 
@@ -443,15 +440,13 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
+            var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
@@ -472,25 +467,23 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var failureMechanismContext = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-            var mocks = new MockRepository();
-
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                var gui = mocksRepository.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mocksRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+                gui.Stub(g => g.DocumentViewController).Return(mocksRepository.Stub<IDocumentViewController>());
 
-                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                var calculatorFactory = mocksRepository.Stub<IHydraRingCalculatorFactory>();
                 var dunesBoundaryConditionsCalculator = new TestDunesBoundaryConditionsCalculator
                 {
                     Converged = false
                 };
 
                 calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, string.Empty)).Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);
-                mocks.ReplayAll();
+                mocksRepository.ReplayAll();
 
                 plugin.Gui = gui;
                 plugin.Activate();
@@ -521,8 +514,6 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
                     });
                 }
             }
-
-            mocks.VerifyAll();
         }
     }
 }
