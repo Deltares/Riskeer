@@ -107,7 +107,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Assert
-            Assert.AreEqual(expectedGroup, ((FmSectionWithDirectCategory) output.Single().Results.Single()).Category);
+            Assert.AreEqual(expectedGroup, ((FmSectionWithDirectCategory) output.Single().Sections.Single()).Category);
         }
     }
 }
