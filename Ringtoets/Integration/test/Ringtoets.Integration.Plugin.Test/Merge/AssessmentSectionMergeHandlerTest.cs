@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Gui.Commands;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Integration.Plugin.Merge;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
@@ -28,13 +31,30 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
     public class AssessmentSectionMergeHandlerTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
         {
             // Call
-            var handler = new AssessmentSectionMergeHandler();
+            TestDelegate call = () => new AssessmentSectionMergeHandler(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("viewCommands", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.StrictMock<IViewCommands>();
+            mocks.ReplayAll();
+
+            // Call
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionMergeHandler>(handler);
+            mocks.VerifyAll();
         }
     }
 }
