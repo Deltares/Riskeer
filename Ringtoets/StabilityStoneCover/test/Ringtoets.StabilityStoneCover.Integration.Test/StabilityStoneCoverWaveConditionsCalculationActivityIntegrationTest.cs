@@ -714,15 +714,16 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             mockRepository.ReplayAll();
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             calculation.Attach(observer);
 
-            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
-                                                                                                                                  failureMechanism,
-                                                                                                                                  assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();
@@ -753,15 +754,16 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             mockRepository.ReplayAll();
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
             calculation.Attach(observer);
 
-            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
-                                                                                                                                  failureMechanism,
-                                                                                                                                  assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 activity.Run();

@@ -566,11 +566,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                                                                        failureMechanism,
                                                                                                        assessmentSection))
                     .ToList());
-
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
-            {
-                calculation.NotifyObservers();
-            }
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
@@ -664,7 +659,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                                                                                          context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                          context.FailureMechanism,
                                                                                                          context.AssessmentSection));
-            calculation.NotifyObservers();
         }
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentNodeData)

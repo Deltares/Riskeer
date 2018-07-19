@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -529,6 +531,98 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             }
 
             // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Finish_InvalidCalculation_DoesNotSetOutputAndNotifyObservers)
+        })]
+        public void Finish_InvalidCalculation_DoesNotSetOutputAndNotifyObservers(bool endInFailure,
+                                                                                 string lastErrorFileContent)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var calculator = new TestWaveConditionsCosineCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
+            };
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(calculator).Repeat.Times(3);
+            mockRepository.ReplayAll();
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            calculation.Attach(observer);
+
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.IsNull(calculation.Output);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_ValidCalculation_SetsOutputAndNotifyObserversOfCalculation()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator
+            {
+                WaveHeight = new Random(39).NextDouble()
+            };
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(waveConditionsCosineCalculator).Repeat.Times(3);
+            mockRepository.ReplayAll();
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            calculation.Attach(observer);
+
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            Assert.AreEqual(3, calculation.Output.Items.Count());
+            foreach (WaveConditionsOutput waveConditionsOutput in calculation.Output.Items)
+            {
+                Assert.AreEqual(waveConditionsCosineCalculator.WaveHeight, waveConditionsOutput.WaveHeight, waveConditionsOutput.WaveHeight.GetAccuracy());
+            }
+
             mockRepository.VerifyAll();
         }
 
