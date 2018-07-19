@@ -202,8 +202,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         }
 
         public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0G3(EAssessmentResultTypeG2 assessment,
-                                                                             double failureProbability,
-                                                                             CategoriesList<FmSectionCategory> categories)
+                                                                                            double failureProbability,
+                                                                                            CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
@@ -261,20 +261,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T3(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             EAssessmentResultTypeT3 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0T3(EAssessmentResultTypeT3 assessment,
+                                                                                            double failureProbability,
+                                                                                            CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeT3Input = assessment;
             FailureProbabilityInput = failureProbability;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T4(EAssessmentResultTypeT3 assessment, EFmSectionCategory? category)
