@@ -35,7 +35,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -657,15 +656,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 Action call = activity.Run;
 
-                TestHelper.AssertLogMessages(call, m =>
-                {
-                    string[] messages = m.ToArray();
-                    AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation,
-                                                                       messages,
-                                                                       "Waterstand",
-                                                                       categoryBoundaryName);
-                });
+                string expectedLogMessage = $"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
 
+                TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 AssessmentLevelCalculationInput actualCalculationInput = designWaterLevelCalculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
@@ -689,36 +682,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 Action call = activity.Run;
 
-                TestHelper.AssertLogMessages(call, m =>
-                {
-                    string[] messages = m.ToArray();
-                    AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation,
-                                                                       messages,
-                                                                       "Golfhoogte",
-                                                                       categoryBoundaryName);
-                });
+                string expectedLogMessage = $"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
 
+                TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 WaveHeightCalculationInput actualCalculationInput = waveHeightCalculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
             }
 
             mocks.VerifyAll();
-        }
-
-        private static void AssertHydraulicBoundaryLocationCalculationMessages(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                               IEnumerable<string> messages,
-                                                                               string calculationTypeName,
-                                                                               string categoryBoundaryName)
-        {
-            Assert.AreEqual(7, messages.Count());
-            Assert.AreEqual($"{calculationTypeName} berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.", messages.First());
-            CalculationServiceTestHelper.AssertValidationStartMessage(messages.ElementAt(1));
-            CalculationServiceTestHelper.AssertValidationEndMessage(messages.ElementAt(2));
-            CalculationServiceTestHelper.AssertCalculationStartMessage(messages.ElementAt(3));
-            Assert.AreEqual($"{calculationTypeName} berekening voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", messages.ElementAt(4));
-            StringAssert.StartsWith($"{calculationTypeName} berekening is uitgevoerd op de tijdelijke locatie", messages.ElementAt(5));
-            CalculationServiceTestHelper.AssertCalculationEndMessage(messages.ElementAt(6));
         }
 
         private static double GetExpectedNorm(GrassCoverErosionOutwardsFailureMechanism failureMechanism, double norm)
