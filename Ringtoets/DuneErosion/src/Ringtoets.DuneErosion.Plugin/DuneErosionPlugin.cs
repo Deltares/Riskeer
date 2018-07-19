@@ -314,18 +314,10 @@ namespace Ringtoets.DuneErosion.Plugin
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {
-            StrictContextMenuItem calculateAllItem = CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection);
-
-            if (calculateAllItem.Enabled && !nodeData.FailureMechanism.DuneLocations.Any())
-            {
-                calculateAllItem.Enabled = false;
-                calculateAllItem.ToolTipText = Resources.DuneErosionPlugin_DuneLocationCalculationsGroupContextMenuStrip_No_calculatable_locations_present;
-            }
-
             return Gui.Get(nodeData, treeViewControl)
                       .AddExportItem()
                       .AddSeparator()
-                      .AddCustomItem(calculateAllItem)
+                      .AddCustomItem(CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection))
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
@@ -442,6 +434,11 @@ namespace Ringtoets.DuneErosion.Plugin
                 });
 
             string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+
+            if (string.IsNullOrEmpty(validationText) && !failureMechanism.DuneLocations.Any())
+            {
+                validationText = Resources.DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present;
+            }
 
             if (!string.IsNullOrEmpty(validationText))
             {
