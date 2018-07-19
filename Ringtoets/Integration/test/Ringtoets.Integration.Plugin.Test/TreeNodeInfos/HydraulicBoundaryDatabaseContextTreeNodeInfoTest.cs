@@ -797,7 +797,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenHydraulicBoundaryLocationsThatSucceed_CalculatingHydraulicBoundaryCalculationsFromContextMenu_ThenLogMessagesAddedOutputSet()
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
