@@ -122,7 +122,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
-                IEnumerable<FmSectionCategoryLimits> output = kernel.CalculateFmSectionCategoryLimitsWbi02(
+                CategoriesList<FmSectionCategory> output = kernel.CalculateFmSectionCategoryLimitsWbi02(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
 

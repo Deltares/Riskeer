@@ -22,9 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
-using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.CategoryLimits;
-using Assembly.Kernel.Model.FmSectionTypes;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -80,7 +78,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.AssessmentSectionCategoriesOutput = CreateAssessmentSectionCategoryKernelOutput();
+                kernel.AssessmentSectionCategoriesOutput = CategoriesListTestFactory.CreateAssessmentSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -100,7 +98,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             var random = new Random(11);
             double lowerLimitNorm = random.NextDouble(0.5, 1.0);
             double signalingNorm = random.NextDouble(0.0, 0.5);
-            IEnumerable<AssessmentSectionCategoryLimits> output = CreateAssessmentSectionCategoryKernelOutput();
+            CategoriesList<AssessmentSectionCategory> output = CategoriesListTestFactory.CreateAssessmentSectionCategories();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -183,7 +181,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismCategoriesOutput = CreateFailureMechanismCategoryKernelOutput();
+                kernel.FailureMechanismCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -202,7 +200,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateFailureMechanismCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
-            IEnumerable<FailureMechanismCategoryLimits> output = CreateFailureMechanismCategoryKernelOutput();
+            CategoriesList<FailureMechanismCategory> output = CategoriesListTestFactory.CreateFailureMechanismCategories();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -280,7 +278,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = CreateFailureMechanismSectionCategoryKernelOutput();
+                kernel.FailureMechanismSectionCategoriesOutputWbi01 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -299,13 +297,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
-            IEnumerable<FmSectionCategoryLimits> output = CreateFailureMechanismSectionCategoryKernelOutput();
+            CategoriesList<FmSectionCategory> output = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = output;
+                kernel.FailureMechanismSectionCategoriesOutputWbi01 = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -377,7 +375,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = CreateFailureMechanismSectionCategoryKernelOutput();
+                kernel.FailureMechanismSectionCategoriesOutputWbi02 = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -396,13 +394,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void CalculateGeotechnicalFailureMechanismSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
-            IEnumerable<FmSectionCategoryLimits> output = CreateFailureMechanismSectionCategoryKernelOutput();
+            CategoriesList<FmSectionCategory> output = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoriesKernelStub kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.FailureMechanismSectionCategoriesOutput = output;
+                kernel.FailureMechanismSectionCategoriesOutputWbi02 = output;
 
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
@@ -471,36 +469,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                                                random.NextDouble(),
                                                random.NextDouble(0.0, 0.5),
                                                random.NextDouble(0.5, 1.0));
-        }
-
-        private static IEnumerable<AssessmentSectionCategoryLimits> CreateAssessmentSectionCategoryKernelOutput()
-        {
-            var random = new Random(11);
-
-            yield return new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-        }
-
-        private static IEnumerable<FmSectionCategoryLimits> CreateFailureMechanismSectionCategoryKernelOutput()
-        {
-            var random = new Random(11);
-
-            yield return new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-        }
-
-        private static IEnumerable<FailureMechanismCategoryLimits> CreateFailureMechanismCategoryKernelOutput()
-        {
-            var random = new Random(11);
-
-            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
-            yield return new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1));
         }
     }
 }
