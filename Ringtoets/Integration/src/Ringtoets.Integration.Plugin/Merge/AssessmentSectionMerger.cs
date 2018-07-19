@@ -27,7 +27,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
-using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service.Comparers;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;

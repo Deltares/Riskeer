@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Plugin.Merge;
 
-namespace Ringtoets.Integration.Plugin.Test.Handlers
+namespace Ringtoets.Integration.Plugin.Test.Merge
 {
     [TestFixture]
     public class AssessmentSectionMergeHandlerStubTest
