@@ -74,18 +74,6 @@ namespace Ringtoets.Integration.Forms.Merge
                        : null;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-
-            assessmentSectionComboBox.SelectedIndexChanged -= AssessmentSectionComboBox_OnSelectedIndexChanged;
-        }
-
         protected override Button GetCancelButton()
         {
             return cancelButton;
