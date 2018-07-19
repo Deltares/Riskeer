@@ -31,7 +31,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : CalculatableActivity
+    internal class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : CalculatableActivity
     {
         private readonly WaveImpactAsphaltCoverWaveConditionsCalculation calculation;
         private readonly string hlcdFilePath;

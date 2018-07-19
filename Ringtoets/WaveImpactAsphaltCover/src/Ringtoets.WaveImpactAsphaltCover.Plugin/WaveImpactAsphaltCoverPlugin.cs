@@ -549,23 +549,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private void CalculateAll(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
-
-            CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
-        }
-
-        private void CalculateAll(WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations,
-                                  WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                  IAssessmentSection assessmentSection)
-        {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                calculations
-                    .Select(calculation => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                       assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                       failureMechanism,
-                                                                                                       assessmentSection))
-                    .ToList());
+                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                           context.FailureMechanism,
+                                                                                                           context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
@@ -655,10 +643,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                         WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                         context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                         context.FailureMechanism,
-                                                                                                         context.AssessmentSection));
+                                             WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                                      context.FailureMechanism,
+                                                                                                                                      context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentNodeData)

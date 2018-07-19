@@ -57,17 +57,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         public void Run_CalculationWithInvalidHydraulicBoundaryDatabaseFilePath_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
-            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = invalidFilePath;
 
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       invalidFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
+
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -105,12 +111,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -146,12 +150,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
             assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -185,12 +187,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
             int nrOfCalculators = waterLevels.Length;
@@ -231,15 +231,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
             calculation.InputParameters.BreakWater.Type = breakWaterType;
 
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                                     waveImpactAsphaltCoverFailureMechanism,
+                                                                                                                                     assessmentSection);
 
             var calculator = new TestWaveConditionsCosineCalculator();
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
@@ -293,12 +291,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -340,36 +336,63 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
-        {
-            nameof(Run_CalculationFailed_OutputNull)
-        })]
-        public void Run_CalculationFailed_OutputNull(bool endInFailure, string lastErrorFileContent)
+        public void Run_WhenCanceled_OutputNull()
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator());
+            mockRepository.ReplayAll();
 
-            var calculator = new TestWaveConditionsCosineCalculator
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
-                EndInFailure = endInFailure,
-                LastErrorFileContent = lastErrorFileContent
-            };
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+                activity.ProgressChanged += (sender, args) =>
+                {
+                    if (activity.State != ActivityState.Canceled)
+                    {
+                        activity.Cancel();
+                    }
+                };
+
+                activity.Run();
+
+                // Call
+                activity.Finish();
+
+                // Assert
+                Assert.AreEqual(ActivityState.Canceled, activity.State);
+                Assert.IsNull(calculation.Output);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Run_CalculationPerformed_SetsOutput()
+        {
+            // Setup
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
-                             .Return(calculator)
+                             .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -378,7 +401,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 activity.Run();
 
                 // Assert
-                Assert.IsNull(calculation.Output);
+                Assert.IsNotNull(calculation.Output);
+                Assert.AreEqual(3, calculation.Output.Items.Count());
             }
 
             mockRepository.VerifyAll();
@@ -395,11 +419,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
-
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -411,7 +434,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(calculator)
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -427,18 +450,53 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
+        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
+        {
+            nameof(Run_CalculationFailed_OutputNull)
+        })]
+        public void Run_CalculationFailed_OutputNull(bool endInFailure, string lastErrorFileContent)
+        {
+            // Setup
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
+
+            var mockRepository = new MockRepository();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator
+            {
+                EndInFailure = endInFailure,
+                LastErrorFileContent = lastErrorFileContent
+            }).Repeat.Times(GetWaterLevels(calculation, assessmentSection).Count());
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                activity.Run();
+
+                // Assert
+                Assert.IsNull(calculation.Output);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Run_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_CreateWaveConditionsCosineCalculatorAsExpected()
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
 
@@ -471,20 +529,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new WaveImpactAsphaltCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -506,22 +561,18 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
-            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "NonExistingPreprocessorDirectory";
+            assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       validFilePath,
-                                                                                       waveImpactAsphaltCoverFailureMechanism,
-                                                                                       assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
+            CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                                     new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                                                     assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
