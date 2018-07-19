@@ -572,7 +572,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenHydraulicBoundaryLocationThatSucceeds_CalculatingWaveHeightFromContextMenu_ThenLogMessagesAddedPreviousOutputAffected()
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
             const string locationName = "locationName";

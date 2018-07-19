@@ -519,7 +519,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenGrassCoverErosionCalculationsThatSucceed_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
             var assessmentSection = new AssessmentSectionStub
