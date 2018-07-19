@@ -391,6 +391,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Is relevant</value>
   </data>
   <data name="AssessmentSectionMergeDataProviderDialog_InfoToolTip" xml:space="preserve">
-    <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd. Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
+    <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
+Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
 </root>

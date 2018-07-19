@@ -315,7 +315,8 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belastingen op trajectniveau worden altijd samengevoegd. Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren..
+        ///   Looks up a localized string similar to Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
+        ///Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren..
         /// </summary>
         public static string AssessmentSectionMergeDataProviderDialog_InfoToolTip {
             get {
