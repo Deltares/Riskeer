@@ -42,9 +42,6 @@ namespace Ringtoets.Integration.Forms.Merge
     {
         private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
         private bool assessmentSectionComboBoxUpdating;
-        private bool isDataSelected;
-        private AssessmentSection selectedAssessmentSection;
-        private IEnumerable<IFailureMechanism> selectedFailureMechanisms;
 
         /// <summary>
         /// Creates a new instance of the <see cref="AssessmentSectionMergeDataProviderDialog"/>.
@@ -68,10 +65,12 @@ namespace Ringtoets.Integration.Forms.Merge
             }
 
             SetComboBoxData(assessmentSections);
-            ShowDialog();
 
-            return isDataSelected
-                       ? new AssessmentSectionMergeData(selectedAssessmentSection, selectedFailureMechanisms)
+            return ShowDialog() == DialogResult.OK
+                       ? new AssessmentSectionMergeData((AssessmentSection) assessmentSectionComboBox.SelectedItem,
+                                                        failureMechanismMergeDataRows.Where(row => row.IsSelected)
+                                                                                     .Select(row => row.FailureMechanism)
+                                                                                     .ToArray())
                        : null;
         }
 
@@ -84,7 +83,6 @@ namespace Ringtoets.Integration.Forms.Merge
 
             base.Dispose(disposing);
 
-            importButton.Click -= OnImportButtonClick;
             assessmentSectionComboBox.SelectedIndexChanged -= AssessmentSectionComboBox_OnSelectedIndexChanged;
         }
 
@@ -116,6 +114,20 @@ namespace Ringtoets.Integration.Forms.Merge
             infoIcon.BackgroundImage = CoreCommonGuiResources.information;
             toolTip.SetToolTip(infoIcon, Resources.AssessmentSectionMergeDataProviderDialog_InfoToolTip);
         }
+
+        #region Event Handling
+
+        private void AssessmentSectionComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
+        {
+            if (assessmentSectionComboBoxUpdating || assessmentSectionComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            SetDataGridViewData((AssessmentSection) assessmentSectionComboBox.SelectedItem);
+        }
+
+        #endregion
 
         #region Data Setters
 
@@ -159,31 +171,6 @@ namespace Ringtoets.Integration.Forms.Merge
             };
 
             dataGridViewControl.SetDataSource(failureMechanismMergeDataRows);
-        }
-
-        #endregion
-
-        #region Event Handling
-
-        private void AssessmentSectionComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
-        {
-            if (assessmentSectionComboBoxUpdating || assessmentSectionComboBox.SelectedIndex == -1)
-            {
-                return;
-            }
-
-            SetDataGridViewData((AssessmentSection) assessmentSectionComboBox.SelectedItem);
-        }
-
-        private void OnImportButtonClick(object sender, EventArgs eventArgs)
-        {
-            selectedAssessmentSection = (AssessmentSection) assessmentSectionComboBox.SelectedItem;
-            selectedFailureMechanisms = failureMechanismMergeDataRows?.Where(row => row.IsSelected)
-                                                                     .Select(row => row.FailureMechanism)
-                                                                     .ToArray();
-
-            isDataSelected = true;
-            Close();
         }
 
         #endregion

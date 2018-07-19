@@ -130,7 +130,6 @@ namespace Ringtoets.Integration.Forms.Merge
             this.importButton.DialogResult = DialogResult.OK;
             this.importButton.Name = "importButton";
             this.importButton.UseVisualStyleBackColor = true;
-            this.importButton.Click += new System.EventHandler(this.OnImportButtonClick);
             // 
             // AssessmentSectionMergeDataProviderDialog
             // 
