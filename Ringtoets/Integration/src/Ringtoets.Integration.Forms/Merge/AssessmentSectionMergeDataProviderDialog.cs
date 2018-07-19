@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Merge
             InitializeDataGridView();
         }
 
-        public AssessmentSectionMergeData SelectData(IEnumerable<AssessmentSection> assessmentSections)
+        public AssessmentSectionMergeData GetMergeData(IEnumerable<AssessmentSection> assessmentSections)
         {
             if (assessmentSections == null)
             {

@@ -137,7 +137,7 @@ namespace Ringtoets.Integration.Plugin.Merge
                 return;
             }
 
-            AssessmentSectionMergeData mergeData = mergeDataProvider.SelectData(matchingAssessmentSections);
+            AssessmentSectionMergeData mergeData = mergeDataProvider.GetMergeData(matchingAssessmentSections);
 
             if (mergeData == null)
             {
