@@ -45,7 +45,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
@@ -881,16 +880,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                         HydraulicBoundaryLocationCalculationActivityLogTestHelper.AssertHydraulicBoundaryLocationCalculationMessages(
                             hydraulicBoundaryLocation.Name, waveHeightName, "C->D", msgs, 56);
                     });
-
-                    AssertDesignWaterLevelCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output);
-                    AssertDesignWaterLevelCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output);
-                    AssertDesignWaterLevelCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Single().Output);
-                    AssertDesignWaterLevelCalculationOutput(designWaterLevelCalculator, assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm.Single().Output);
-
-                    AssertWaveHeightCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm.Single().Output);
-                    AssertWaveHeightCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForSignalingNorm.Single().Output);
-                    AssertWaveHeightCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForLowerLimitNorm.Single().Output);
-                    AssertWaveHeightCalculationOutput(waveHeightCalculator, assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm.Single().Output);
                 }
             }
 
@@ -994,20 +983,6 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 duneLocationCalculationsForLowerLimitNormObserver.Expect(o => o.UpdateObserver());
                 duneLocationCalculationsForFactorizedLowerLimitNormObserver.Expect(o => o.UpdateObserver());
             }
-        }
-
-        private static void AssertDesignWaterLevelCalculationOutput(IDesignWaterLevelCalculator designWaterLevelCalculator,
-                                                                    HydraulicBoundaryLocationCalculationOutput actualOutput)
-        {
-            Assert.AreEqual(designWaterLevelCalculator.DesignWaterLevel, actualOutput.Result, actualOutput.Result.GetAccuracy());
-            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actualOutput.CalculationConvergence);
-        }
-
-        private static void AssertWaveHeightCalculationOutput(IWaveHeightCalculator waveHeightCalculator,
-                                                              HydraulicBoundaryLocationCalculationOutput actualOutput)
-        {
-            Assert.AreEqual(waveHeightCalculator.WaveHeight, actualOutput.Result, actualOutput.Result.GetAccuracy());
-            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, actualOutput.CalculationConvergence);
         }
 
         private static TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
