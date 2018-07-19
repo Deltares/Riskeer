@@ -210,10 +210,6 @@
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
-      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
@@ -258,17 +254,9 @@
       <Project>{ad0cdc89-0a00-4068-aeec-9838863c2fe8}</Project>
       <Name>Ringtoets.Integration.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.IO\Ringtoets.Integration.IO.csproj">
-      <Project>{D693D18E-C257-4FDE-96BC-F6E6FB043ECF}</Project>
-      <Name>Ringtoets.Integration.IO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>
       <Name>Ringtoets.Integration.Plugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Integration.Forms.TestUtil\Ringtoets.Integration.Forms.TestUtil.csproj">
       <Project>{93C3B757-C591-4451-BA56-140FF91EFE9A}</Project>
