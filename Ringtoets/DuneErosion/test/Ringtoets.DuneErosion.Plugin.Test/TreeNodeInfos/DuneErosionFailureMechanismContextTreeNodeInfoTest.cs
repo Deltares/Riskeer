@@ -448,7 +448,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenDuneLocationCalculationsThatSucceed_WhenCalculatingDuneLocationCalculationsFromContextMenu_ThenAllCalculationsScheduled()
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)

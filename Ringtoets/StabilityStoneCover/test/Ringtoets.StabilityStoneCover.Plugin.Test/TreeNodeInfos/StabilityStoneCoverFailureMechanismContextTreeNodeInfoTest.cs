@@ -516,7 +516,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenStabilityStoneCoverWaveConditionsCalculationThatSucceed_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
