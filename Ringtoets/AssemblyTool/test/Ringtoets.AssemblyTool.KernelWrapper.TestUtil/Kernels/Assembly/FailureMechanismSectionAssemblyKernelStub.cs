@@ -287,9 +287,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         }
 
         public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0T5(double fmSectionLengthEffectFactor,
-                                                                             EAssessmentResultTypeT3 assessment,
-                                                                             double failureProbability,
-                                                                             CategoriesList<FmSectionCategory> categories)
+                                                                                            EAssessmentResultTypeT3 assessment,
+                                                                                            double failureProbability,
+                                                                                            CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
@@ -307,17 +307,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             EAssessmentResultTypeT4 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(EAssessmentResultTypeT4 assessment,
+                                                                             double failureProbability,
+                                                                             CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeT4Input = assessment;
             FailureProbabilityInput = failureProbability;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
             return FailureMechanismSectionDirectResult;
