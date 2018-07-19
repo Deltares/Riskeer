@@ -42,7 +42,6 @@ using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
-using Ringtoets.Integration.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
@@ -354,11 +353,11 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
+            var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                    FilePath = validFilePath
                 }
             };
 
@@ -402,7 +401,7 @@ namespace Ringtoets.DuneErosion.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
+            var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
