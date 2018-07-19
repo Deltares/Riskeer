@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Plugin.Handlers;
 using Ringtoets.Integration.Plugin.Merge;
@@ -264,7 +265,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnsFalse_ThenLogCancelMessageAndAbort()
+        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnsNull_ThenLogCancelMessageAndAbort()
         {
             // Given
             var mocks = new MockRepository();
@@ -279,7 +280,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(false);
+            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(null);
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mocks.ReplayAll();
 
@@ -290,70 +291,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Then
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Importeren van gegevens is geannuleerd.", LogLevelConstant.Warn), 1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnsTrueButSelectedAssessmentSectionNull_ThenLogErrorMessageAndAbort()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
-            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
-                                     .Return(new[]
-                                     {
-                                         new AssessmentSection(AssessmentSectionComposition.Dike)
-                                     });
-            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
-            comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
-            var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(true);
-            mergeDataProvider.Expect(mdp => mdp.SelectedAssessmentSection).Return(null);
-            mergeDataProvider.Expect(mdp => mdp.SelectedFailureMechanisms).Return(Enumerable.Empty<IFailureMechanism>());
-            var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mocks.ReplayAll();
-
-            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
-
-            // When
-            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-            // Then
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er is geen traject geselecteerd.", LogLevelConstant.Error), 1);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnsTrueButSelectedFailureMechanismsNull_ThenLogErrorMessageAndAbort()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var filePathProvider = mocks.StrictMock<IAssessmentSectionMergeFilePathProvider>();
-            filePathProvider.Expect(helper => helper.GetFilePath()).Return(string.Empty);
-            var assessmentSectionProvider = mocks.StrictMock<IAssessmentSectionProvider>();
-            assessmentSectionProvider.Expect(asp => asp.GetAssessmentSections(null)).IgnoreArguments()
-                                     .Return(new[]
-                                     {
-                                         new AssessmentSection(AssessmentSectionComposition.Dike)
-                                     });
-            var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
-            comparer.Expect(c => c.Compare(null, null)).IgnoreArguments().Return(true);
-            var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(true);
-            mergeDataProvider.Expect(mdp => mdp.SelectedAssessmentSection).Return(new AssessmentSection(AssessmentSectionComposition.Dike));
-            mergeDataProvider.Expect(mdp => mdp.SelectedFailureMechanisms).Return(null);
-            var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
-            mocks.ReplayAll();
-
-            var merger = new AssessmentSectionMerger(filePathProvider, assessmentSectionProvider, comparer, mergeDataProvider, mergeHandler);
-
-            // When
-            Action call = () => merger.StartMerge(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-            // Then
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Er is geen traject geselecteerd.", LogLevelConstant.Error), 1);
             mocks.VerifyAll();
         }
 
@@ -381,9 +318,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(true);
-            mergeDataProvider.Expect(mdp => mdp.SelectedAssessmentSection).Return(assessmentSectionToMerge);
-            mergeDataProvider.Expect(mdp => mdp.SelectedFailureMechanisms).Return(failureMechanismsToMerge);
+            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(
+                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge));
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge));
             mocks.ReplayAll();
@@ -425,9 +361,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var comparer = mocks.StrictMock<IAssessmentSectionMergeComparer>();
             comparer.Expect(c => c.Compare(originalAssessmentSection, assessmentSectionToMerge)).Return(true);
             var mergeDataProvider = mocks.StrictMock<IAssessmentSectionMergeDataProvider>();
-            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(true);
-            mergeDataProvider.Expect(mdp => mdp.SelectedAssessmentSection).Return(assessmentSectionToMerge);
-            mergeDataProvider.Expect(mdp => mdp.SelectedFailureMechanisms).Return(failureMechanismsToMerge);
+            mergeDataProvider.Expect(mdp => mdp.SelectData(null)).IgnoreArguments().Return(
+                new AssessmentSectionMergeData(assessmentSectionToMerge, failureMechanismsToMerge));
             var mergeHandler = mocks.StrictMock<IAssessmentSectionMergeHandler>();
             mergeHandler.Expect(mh => mh.PerformMerge(originalAssessmentSection, assessmentSectionToMerge, failureMechanismsToMerge)).Throw(new Exception());
             mocks.ReplayAll();

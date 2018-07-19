@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -60,7 +61,7 @@ namespace Ringtoets.Integration.Forms.Merge
         public AssessmentSection SelectedAssessmentSection { get; private set; }
         public IEnumerable<IFailureMechanism> SelectedFailureMechanisms { get; private set; }
 
-        public bool SelectData(IEnumerable<AssessmentSection> assessmentSections)
+        public AssessmentSectionMergeData SelectData(IEnumerable<AssessmentSection> assessmentSections)
         {
             if (assessmentSections == null)
             {
@@ -70,7 +71,9 @@ namespace Ringtoets.Integration.Forms.Merge
             SetComboBoxData(assessmentSections);
             ShowDialog();
 
-            return isDataSelected;
+            return isDataSelected 
+                       ? new AssessmentSectionMergeData(SelectedAssessmentSection, SelectedFailureMechanisms) 
+                       : null;
         }
 
         protected override void Dispose(bool disposing)
