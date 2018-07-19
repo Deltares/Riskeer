@@ -183,7 +183,7 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 Assert.AreEqual(ImageLayout.Center, infoIcon.BackgroundImageLayout);
 
                 var toolTip = TypeUtils.GetField<ToolTip>(dialog, "toolTip");
-                Assert.AreEqual("Hydraulische belastingen op trajectniveau worden altijd samengevoegd. " +
+                Assert.AreEqual("Hydraulische belastingen op trajectniveau worden altijd samengevoegd.\r\n" +
                                 "Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.",
                                 toolTip.GetToolTip(infoIcon));
                 Assert.AreEqual(5000, toolTip.AutoPopDelay);
