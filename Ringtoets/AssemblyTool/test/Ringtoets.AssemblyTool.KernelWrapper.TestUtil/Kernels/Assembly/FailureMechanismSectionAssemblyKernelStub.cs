@@ -201,20 +201,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G3(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             EAssessmentResultTypeG2 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0G3(EAssessmentResultTypeG2 assessment,
+                                                                             double failureProbability,
+                                                                             CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeG2Input = assessment;
             FailureProbabilityInput = failureProbability;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G4(EAssessmentResultTypeG2 assessment, EFmSectionCategory? category)

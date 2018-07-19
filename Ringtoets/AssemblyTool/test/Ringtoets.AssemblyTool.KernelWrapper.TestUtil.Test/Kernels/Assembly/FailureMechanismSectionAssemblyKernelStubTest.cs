@@ -375,10 +375,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
-            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
             var assessmentResult = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
+            CategoriesList<FmSectionCategory> categories = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
@@ -386,13 +385,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsFalse(kernel.Calculated);
 
             // Call
-            kernel.TranslateAssessmentResultWbi0G3(assessmentSection, failureMechanism, assessmentResult, failureProbability);
+            kernel.TranslateAssessmentResultWbi0G3(assessmentResult, failureProbability, categories);
 
             // Assert
-            Assert.AreSame(assessmentSection, kernel.AssessmentSectionInput);
-            Assert.AreSame(failureMechanism, kernel.FailureMechanismInput);
             Assert.AreEqual(assessmentResult, kernel.AssessmentResultTypeG2Input);
             Assert.AreEqual(failureProbability, kernel.FailureProbabilityInput);
+            Assert.AreSame(categories, kernel.FailureMechanismSectionCategories);
             Assert.IsTrue(kernel.Calculated);
         }
 
@@ -401,21 +399,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
-            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
             var assessmentResult = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
+            CategoriesList<FmSectionCategory> categories = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
-                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
+                FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                                                       random.NextDouble())
             };
 
             // Call
-            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0G3(assessmentSection,
-                                                                                          failureMechanism,
-                                                                                          assessmentResult,
-                                                                                          failureProbability);
+            FmSectionAssemblyDirectResultWithProbability result = kernel.TranslateAssessmentResultWbi0G3(assessmentResult,
+                                                                                                         failureProbability,
+                                                                                                         categories);
 
             // Assert
             Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
@@ -426,10 +423,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
-            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
             var assessmentResult = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
+            CategoriesList<FmSectionCategory> categories = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
@@ -437,16 +433,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             };
 
             // Call
-            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G3(assessmentSection, failureMechanism, assessmentResult, failureProbability);
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G3(assessmentResult, failureProbability, categories);
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
             Assert.AreEqual("Message", exception.Message);
             Assert.IsNotNull(exception.InnerException);
-            Assert.IsNull(kernel.AssessmentSectionInput);
-            Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeG2Input);
             Assert.IsNaN(kernel.FailureProbabilityInput);
+            Assert.IsNull(kernel.FailureMechanismSectionCategories);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
@@ -456,10 +451,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(39);
-            AssessmentSection assessmentSection = CreateRandomAssessmentSection(random);
-            FailureMechanism failureMechanism = CreateRandomFailureMechanism(random);
             var assessmentResult = random.NextEnumValue<EAssessmentResultTypeG2>();
             double failureProbability = random.NextDouble();
+            CategoriesList<FmSectionCategory> categories = CategoriesListTestFactory.CreateFailureMechanismSectionCategories();
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
@@ -467,17 +461,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             };
 
             // Call
-            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G3(assessmentSection, failureMechanism, assessmentResult, failureProbability);
+            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0G3(assessmentResult, failureProbability, categories);
 
             // Assert
             var exception = Assert.Throws<AssemblyException>(test);
             AssemblyErrorMessage errorMessage = exception.Errors.Single();
             Assert.AreEqual("entity", errorMessage.EntityId);
             Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
-            Assert.IsNull(kernel.AssessmentSectionInput);
-            Assert.IsNull(kernel.FailureMechanismInput);
             Assert.IsNull(kernel.AssessmentResultTypeG2Input);
             Assert.IsNaN(kernel.FailureProbabilityInput);
+            Assert.IsNull(kernel.FailureMechanismSectionCategories);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
         }
