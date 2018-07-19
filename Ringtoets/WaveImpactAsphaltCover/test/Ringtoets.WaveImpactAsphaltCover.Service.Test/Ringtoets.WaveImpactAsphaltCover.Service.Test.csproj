@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactoryTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverDataSynchronizationServiceTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationActivityTest.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationServiceTest.cs" />
