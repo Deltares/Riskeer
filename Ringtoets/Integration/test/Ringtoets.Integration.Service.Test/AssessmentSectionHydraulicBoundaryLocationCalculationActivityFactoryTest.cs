@@ -31,7 +31,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -214,7 +213,10 @@ namespace Ringtoets.Integration.Service.Test
 
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
             double factorizedSignalingNorm = signalingNorm / 30;
-            AssertDesignWaterLevelCalculationActivity(activities.First(),
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            double factorizedLowerLimitNorm = lowerLimitNorm * 30;
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
                                                       factorizedSignalingNorm,
                                                       expectedCategoryBoundaryName1,
@@ -236,7 +238,6 @@ namespace Ringtoets.Integration.Service.Test
                                                       expectedCategoryBoundaryName2,
                                                       usePreprocessor);
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(4),
                                                       hydraulicBoundaryLocation1,
                                                       lowerLimitNorm,
@@ -248,7 +249,6 @@ namespace Ringtoets.Integration.Service.Test
                                                       expectedCategoryBoundaryName3,
                                                       usePreprocessor);
 
-            double factorizedLowerLimitNorm = lowerLimitNorm * 30;
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(6),
                                                       hydraulicBoundaryLocation1,
                                                       factorizedLowerLimitNorm,
@@ -297,7 +297,10 @@ namespace Ringtoets.Integration.Service.Test
 
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
             double factorizedSignalingNorm = signalingNorm / 30;
-            AssertWaveHeightCalculationActivity(activities.First(),
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            double factorizedLowerLimitNorm = lowerLimitNorm * 30;
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(0),
                                                 hydraulicBoundaryLocation1,
                                                 factorizedSignalingNorm,
                                                 expectedCategoryBoundaryName1,
@@ -319,7 +322,6 @@ namespace Ringtoets.Integration.Service.Test
                                                 expectedCategoryBoundaryName2,
                                                 usePreprocessor);
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
             AssertWaveHeightCalculationActivity(activities.ElementAt(4),
                                                 hydraulicBoundaryLocation1,
                                                 lowerLimitNorm,
@@ -331,7 +333,6 @@ namespace Ringtoets.Integration.Service.Test
                                                 expectedCategoryBoundaryName3,
                                                 usePreprocessor);
 
-            double factorizedLowerLimitNorm = lowerLimitNorm * 30;
             AssertWaveHeightCalculationActivity(activities.ElementAt(6),
                                                 hydraulicBoundaryLocation1,
                                                 factorizedLowerLimitNorm,
@@ -372,15 +373,9 @@ namespace Ringtoets.Integration.Service.Test
             {
                 Action call = activity.Run;
 
-                TestHelper.AssertLogMessages(call, m =>
-                {
-                    string[] messages = m.ToArray();
-                    AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation,
-                                                                       messages,
-                                                                       "Waterstand",
-                                                                       categoryBoundaryName);
-                });
+                string expectedLogMessage = $"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
 
+                TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 AssessmentLevelCalculationInput actualCalculationInput = designWaterLevelCalculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
@@ -405,36 +400,15 @@ namespace Ringtoets.Integration.Service.Test
             {
                 Action call = activity.Run;
 
-                TestHelper.AssertLogMessages(call, m =>
-                {
-                    string[] messages = m.ToArray();
-                    AssertHydraulicBoundaryLocationCalculationMessages(hydraulicBoundaryLocation,
-                                                                       messages,
-                                                                       "Golfhoogte",
-                                                                       categoryBoundaryName);
-                });
+                string expectedLogMessage = $"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
 
+                TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
                 WaveHeightCalculationInput actualCalculationInput = waveHeightCalculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, actualCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), actualCalculationInput.Beta);
             }
 
             mocks.VerifyAll();
-        }
-
-        private static void AssertHydraulicBoundaryLocationCalculationMessages(HydraulicBoundaryLocation hydraulicBoundaryLocation,
-                                                                               IEnumerable<string> messages,
-                                                                               string calculationTypeName,
-                                                                               string categoryBoundaryName)
-        {
-            Assert.AreEqual(7, messages.Count());
-            Assert.AreEqual($"{calculationTypeName} berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.", messages.First());
-            CalculationServiceTestHelper.AssertValidationStartMessage(messages.ElementAt(1));
-            CalculationServiceTestHelper.AssertValidationEndMessage(messages.ElementAt(2));
-            CalculationServiceTestHelper.AssertCalculationStartMessage(messages.ElementAt(3));
-            Assert.AreEqual($"{calculationTypeName} berekening voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", messages.ElementAt(4));
-            StringAssert.StartsWith($"{calculationTypeName} berekening is uitgevoerd op de tijdelijke locatie", messages.ElementAt(5));
-            CalculationServiceTestHelper.AssertCalculationEndMessage(messages.ElementAt(6));
         }
     }
 }

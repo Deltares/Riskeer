@@ -31,7 +31,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -202,10 +201,7 @@ namespace Ringtoets.Common.Service.Test
                                                                 bool usePreprocessor)
         {
             var mocks = new MockRepository();
-            var calculator = new TestWaveHeightCalculator
-            {
-                Converged = true
-            };
+            var calculator = new TestWaveHeightCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
             mocks.ReplayAll();
@@ -214,19 +210,10 @@ namespace Ringtoets.Common.Service.Test
             {
                 Action call = activity.Run;
 
-                TestHelper.AssertLogMessages(call, m =>
-                {
-                    string[] messages = m.ToArray();
-                    Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
-                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
-                });
-                WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
+                string expectedLogMessage = $"Golfhoogte berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
 
+                TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
+                WaveHeightCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
                 Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
             }
@@ -241,10 +228,7 @@ namespace Ringtoets.Common.Service.Test
                                                                       bool usePreprocessor)
         {
             var mocks = new MockRepository();
-            var calculator = new TestDesignWaterLevelCalculator
-            {
-                Converged = true
-            };
+            var calculator = new TestDesignWaterLevelCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, usePreprocessor ? validPreprocessorDirectory : "")).Return(calculator);
             mocks.ReplayAll();
@@ -253,21 +237,12 @@ namespace Ringtoets.Common.Service.Test
             {
                 Action call = activity.Run;
 
-                TestHelper.AssertLogMessages(call, m =>
-                {
-                    string[] messages = m.ToArray();
-                    Assert.AreEqual(6, messages.Length);
-                    Assert.AreEqual($"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
-                    CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
-                    StringAssert.StartsWith("Waterstand berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
-                });
-                AssessmentLevelCalculationInput waveHeightCalculationInput = calculator.ReceivedInputs.Single();
+                string expectedLogMessage = $"Waterstand berekenen voor locatie '{hydraulicBoundaryLocation.Name}' (Categorie {categoryBoundaryName}) is gestart.";
 
-                Assert.AreEqual(hydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), waveHeightCalculationInput.Beta);
+                TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
+                AssessmentLevelCalculationInput designWaterLevelCalculationInput = calculator.ReceivedInputs.Single();
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), designWaterLevelCalculationInput.Beta);
             }
 
             mocks.VerifyAll();

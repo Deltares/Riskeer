@@ -32,7 +32,6 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -262,10 +261,7 @@ namespace Ringtoets.DuneErosion.Service.Test
                                                                   double norm,
                                                                   bool usePreprocessor)
         {
-            var calculator = new TestDunesBoundaryConditionsCalculator
-            {
-                Converged = true
-            };
+            var calculator = new TestDunesBoundaryConditionsCalculator();
 
             var mocks = new MockRepository();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
@@ -281,18 +277,9 @@ namespace Ringtoets.DuneErosion.Service.Test
                 }
             };
 
-            TestHelper.AssertLogMessages(call, m =>
-            {
-                string[] messages = m.ToArray();
-                Assert.AreEqual(6, messages.Length);
-                Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.", messages[0]);
-                CalculationServiceTestHelper.AssertValidationStartMessage(messages[1]);
-                CalculationServiceTestHelper.AssertValidationEndMessage(messages[2]);
-                CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
-                StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messages[4]);
-                CalculationServiceTestHelper.AssertCalculationEndMessage(messages[5]);
-            });
+            string expectedLogMessage = $"Hydraulische randvoorwaarden berekenen voor locatie '{locationName}' (Categorie {categoryBoundaryName}) is gestart.";
 
+            TestHelper.AssertLogMessageIsGenerated(call, expectedLogMessage);
             DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = calculator.ReceivedInputs.Last();
             Assert.AreEqual(locationId, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
