@@ -23,7 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 
-namespace Ringtoets.Integration.Plugin.Handlers
+namespace Ringtoets.Integration.Plugin.Merge
 {
     /// <summary>
     /// Interface for handling the merge of <see cref="AssessmentSection"/> data.
