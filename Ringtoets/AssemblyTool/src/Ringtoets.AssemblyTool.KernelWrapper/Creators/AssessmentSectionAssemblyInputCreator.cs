@@ -53,7 +53,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(input));
             }
 
-            return new FailureMechanismAssemblyResult(ConvertFailureMechanismAssemblyCategoryGroup(input.Group),
+            return new FailureMechanismAssemblyResult(CreateFailureMechanismCategory(input.Group),
                                                       input.Probability);
         }
 
@@ -68,7 +68,51 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// a valid but unsupported <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
         public static FailureMechanismAssemblyResult CreateFailureMechanismAssemblyResult(FailureMechanismAssemblyCategoryGroup input)
         {
-            return new FailureMechanismAssemblyResult(ConvertFailureMechanismAssemblyCategoryGroup(input));
+            return new FailureMechanismAssemblyResult(CreateFailureMechanismCategory(input), double.NaN);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="EFailureMechanismCategory"/> based on the <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The <see cref="FailureMechanismAssemblyCategoryGroup"/>
+        /// to create a <see cref="EFailureMechanismCategory"/> for.</param>
+        /// <returns>The created <see cref="EFailureMechanismCategory"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="input"/> contains
+        /// an invalid <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="input"/> contains
+        /// a valid but unsupported <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
+        public static EFailureMechanismCategory CreateFailureMechanismCategory(FailureMechanismAssemblyCategoryGroup input)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismAssemblyCategoryGroup), input))
+            {
+                throw new InvalidEnumArgumentException(nameof(input),
+                                                       (int) input,
+                                                       typeof(FailureMechanismAssemblyCategoryGroup));
+            }
+
+            switch (input)
+            {
+                case FailureMechanismAssemblyCategoryGroup.None:
+                    return EFailureMechanismCategory.Gr;
+                case FailureMechanismAssemblyCategoryGroup.NotApplicable:
+                    return EFailureMechanismCategory.Nvt;
+                case FailureMechanismAssemblyCategoryGroup.It:
+                    return EFailureMechanismCategory.It;
+                case FailureMechanismAssemblyCategoryGroup.IIt:
+                    return EFailureMechanismCategory.IIt;
+                case FailureMechanismAssemblyCategoryGroup.IIIt:
+                    return EFailureMechanismCategory.IIIt;
+                case FailureMechanismAssemblyCategoryGroup.IVt:
+                    return EFailureMechanismCategory.IVt;
+                case FailureMechanismAssemblyCategoryGroup.Vt:
+                    return EFailureMechanismCategory.Vt;
+                case FailureMechanismAssemblyCategoryGroup.VIt:
+                    return EFailureMechanismCategory.VIt;
+                case FailureMechanismAssemblyCategoryGroup.VIIt:
+                    return EFailureMechanismCategory.VIIt;
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         /// <summary>
@@ -133,40 +177,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     return EAssessmentGrade.C;
                 case AssessmentSectionAssemblyCategoryGroup.D:
                     return EAssessmentGrade.D;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private static EFailureMechanismCategory ConvertFailureMechanismAssemblyCategoryGroup(FailureMechanismAssemblyCategoryGroup input)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismAssemblyCategoryGroup), input))
-            {
-                throw new InvalidEnumArgumentException(nameof(input),
-                                                       (int) input,
-                                                       typeof(FailureMechanismAssemblyCategoryGroup));
-            }
-
-            switch (input)
-            {
-                case FailureMechanismAssemblyCategoryGroup.None:
-                    return EFailureMechanismCategory.Gr;
-                case FailureMechanismAssemblyCategoryGroup.NotApplicable:
-                    return EFailureMechanismCategory.Nvt;
-                case FailureMechanismAssemblyCategoryGroup.It:
-                    return EFailureMechanismCategory.It;
-                case FailureMechanismAssemblyCategoryGroup.IIt:
-                    return EFailureMechanismCategory.IIt;
-                case FailureMechanismAssemblyCategoryGroup.IIIt:
-                    return EFailureMechanismCategory.IIIt;
-                case FailureMechanismAssemblyCategoryGroup.IVt:
-                    return EFailureMechanismCategory.IVt;
-                case FailureMechanismAssemblyCategoryGroup.Vt:
-                    return EFailureMechanismCategory.Vt;
-                case FailureMechanismAssemblyCategoryGroup.VIt:
-                    return EFailureMechanismCategory.VIt;
-                case FailureMechanismAssemblyCategoryGroup.VIIt:
-                    return EFailureMechanismCategory.VIIt;
                 default:
                     throw new NotSupportedException();
             }

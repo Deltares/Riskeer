@@ -135,6 +135,30 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
+        public void CreateFailureMechanismCategory_WithInvalidEnumInput_ThrowsInvalidEnumArgumentException()
+        {
+            // Call
+            TestDelegate test = () => AssessmentSectionAssemblyInputCreator.CreateFailureMechanismCategory((FailureMechanismAssemblyCategoryGroup) 99);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'input' (99) is invalid for Enum type 'FailureMechanismAssemblyCategoryGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetFailureMechanismAssemblyCategoryGroupConversions))]
+        public void CreateFailureMechanismCategory_WithValidEnumInput_ReturnsFailureMechanismAssemblyResult(
+            FailureMechanismAssemblyCategoryGroup originalGroup,
+            EFailureMechanismCategory expectedGroup)
+        {
+            // Call
+            EFailureMechanismCategory result = AssessmentSectionAssemblyInputCreator.CreateFailureMechanismCategory(originalGroup);
+
+            // Assert
+            Assert.AreEqual(expectedGroup, result);
+        }
+
+        [Test]
         public void CreateAssessementSectionAssemblyResult_WithAssessmentSectionAssemblyAndInvalidEnumInput_ThrowsArgumentNullException()
         {
             // Call
