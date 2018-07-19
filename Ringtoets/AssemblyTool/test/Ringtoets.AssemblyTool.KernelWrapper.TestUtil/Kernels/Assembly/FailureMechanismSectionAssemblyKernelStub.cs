@@ -286,22 +286,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionDirectResult;
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T5(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             double fmSectionLengthEffectFactor,
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0T5(double fmSectionLengthEffectFactor,
                                                                              EAssessmentResultTypeT3 assessment,
-                                                                             double failureProbability)
+                                                                             double failureProbability,
+                                                                             CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeT3Input = assessment;
             FailureProbabilityInput = failureProbability;
             LengthEffectFactorInput = fmSectionLengthEffectFactor;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T6(FmSectionCategoryCompliancyResults compliancyResults, EAssessmentResultTypeT3 assessment)
