@@ -82,21 +82,20 @@ namespace Ringtoets.DuneErosion.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geen van de locaties is geschikt voor een hydraulische belastingen berekening..
+        /// </summary>
+        internal static string DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present {
+            get {
+                return ResourceManager.GetString("DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
         /// </summary>
         internal static string DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip {
             get {
                 return ResourceManager.GetString("DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geen van de locaties is geschikt voor een hydraulische belastingen berekening..
-        /// </summary>
-        internal static string DuneErosionPlugin_DuneLocationCalculationsGroupContextMenuStrip_No_calculatable_locations_present {
-            get {
-                return ResourceManager.GetString("DuneErosionPlugin_DuneLocationCalculationsGroupContextMenuStrip_No_calculatable_l" +
-                        "ocations_present", resourceCulture);
             }
         }
         
