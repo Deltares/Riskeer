@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 
@@ -30,7 +32,28 @@ namespace Ringtoets.Integration.Plugin.Merge
     /// </summary>
     public class AssessmentSectionMergeHandler : IAssessmentSectionMergeHandler
     {
+        private readonly IViewCommands viewCommands;
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionMergeHandler"/>.
+        /// </summary>
+        /// <param name="viewCommands">The view commands used to close views for the target
+        /// <see cref="AssessmentSection"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewCommands"/>
+        /// is <c>null</c>.</exception>
+        public AssessmentSectionMergeHandler(IViewCommands viewCommands)
+        {
+            if (viewCommands == null)
+            {
+                throw new ArgumentNullException(nameof(viewCommands));
+            }
+
+            this.viewCommands = viewCommands;
+        }
+
         public void PerformMerge(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection,
-                                 IEnumerable<IFailureMechanism> failureMechanismsToMerge) {}
+                                 IEnumerable<IFailureMechanism> failureMechanismsToMerge)
+        {
+        }
     }
 }
