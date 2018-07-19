@@ -214,7 +214,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GetMergeData_WithEmptyAssessmentSections_SetsDataOnDialog()
         {
             // Setup
@@ -241,7 +240,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GetMergeData_WithAssessmentSections_SetsDataOnDialog()
         {
             // Setup
@@ -277,7 +275,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenValidDialog_WhenGetMergeDataCalledAndCancelPressed_ThenReturnsNull()
         {
             // Given
@@ -305,7 +302,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenValidDialog_WhenGetMergeDataCalledAndDataSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
@@ -357,7 +353,6 @@ namespace Ringtoets.Integration.Forms.Test.Merge
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void GivenDialogWithAssessmentSection_WhenSelectingOtherAssessmentSection_ThenDataUpdated()
         {
             // Given
