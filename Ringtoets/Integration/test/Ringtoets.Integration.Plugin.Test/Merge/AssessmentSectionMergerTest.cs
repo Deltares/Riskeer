@@ -210,7 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnEmptyCollection_ThenLogErrorAndAbort()
+        public void GivenValidFilePath_WhenAssessmentSectionProviderReturnsEmptyCollection_ThenLogErrorAndAbort()
         {
             // Given
             var mocks = new MockRepository();
@@ -235,7 +235,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenAssessmentSection_WhenComparerReturnFalse_ThenLogErrorAndAbort()
+        public void GivenAssessmentSection_WhenComparerReturnsFalse_ThenLogErrorAndAbort()
         {
             // Given
             var mocks = new MockRepository();
@@ -264,7 +264,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnFalse_ThenLogCancelMessageAndAbort()
+        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnsFalse_ThenLogCancelMessageAndAbort()
         {
             // Given
             var mocks = new MockRepository();
@@ -294,7 +294,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnTrueButSelectedAssessmentSectionNull_ThenLogErrorMessageAndAbort()
+        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnsTrueButSelectedAssessmentSectionNull_ThenLogErrorMessageAndAbort()
         {
             // Given
             var mocks = new MockRepository();
@@ -326,7 +326,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnTrueButSelectedFailureMechanismsNull_ThenLogErrorMessageAndAbort()
+        public void GivenMatchedAssessmentSection_WhenMergeDataProviderReturnsTrueButSelectedFailureMechanismsNull_ThenLogErrorMessageAndAbort()
         {
             // Given
             var mocks = new MockRepository();
@@ -394,18 +394,16 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Action call = () => merger.StartMerge(originalAssessmentSection);
 
             // Then
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
             {
-                string[] msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                Assert.AreEqual($"Samenvoegen van traject '{assessmentSectionToMerge.Name}' met traject '{originalAssessmentSection.Name}' is gestart.", msgs[0]);
-                Assert.AreEqual("Samenvoegen van trajecten is gelukt.", msgs[1]);
+                new Tuple<string, LogLevelConstant>($"Samenvoegen van traject '{assessmentSectionToMerge.Name}' met traject '{originalAssessmentSection.Name}' is gestart.", LogLevelConstant.Info),
+                new Tuple<string, LogLevelConstant>($"Samenvoegen van trajecten is gelukt.", LogLevelConstant.Info)
             });
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenMatchedAssessmentSection_WhenMergerThrowsException_ThenMergeFailedAndLogged()
+        public void GivenMatchedAssessmentSection_WhenMergeHandlerThrowsException_ThenMergeFailedAndLogged()
         {
             // Given
             var originalAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
