@@ -324,11 +324,23 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddPerformAllCalculationsInFailureMechanismItem(
+                              failureMechanismContext,
+                              CalculateAll)
+                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void CalculateAll(StabilityStoneCoverFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                                        context.Parent));
         }
 
         private void RemoveAllViewsForItem(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
