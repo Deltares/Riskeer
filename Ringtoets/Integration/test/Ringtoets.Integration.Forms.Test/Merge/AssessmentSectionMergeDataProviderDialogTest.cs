@@ -155,10 +155,12 @@ namespace Ringtoets.Integration.Forms.Test.Merge
                 var buttonSelect = (Button) new ButtonTester("importButton", dialog).TheObject;
                 Assert.AreEqual("Importeren", buttonSelect.Text);
                 Assert.IsTrue(buttonSelect.Enabled);
+                Assert.AreEqual(DialogResult.OK, buttonSelect.DialogResult);
 
                 var buttonCancel = (Button) new ButtonTester("cancelButton", dialog).TheObject;
                 Assert.AreEqual("Annuleren", buttonCancel.Text);
                 Assert.AreEqual(dialog.CancelButton, buttonCancel);
+                Assert.AreEqual(DialogResult.Cancel, buttonCancel.DialogResult);
 
                 Assert.AreEqual(720, dialog.MinimumSize.Width);
                 Assert.AreEqual(590, dialog.MinimumSize.Height);
