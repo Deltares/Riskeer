@@ -34,9 +34,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Merge
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection of which <see cref="AssessmentSection"/>
-    /// and its <see cref="IFailureMechanism"/> to use for merging the data. The selections
-    /// can be obtained upon closing the dialog.
+    /// A dialog for providing the data to merge.
     /// </summary>
     public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IAssessmentSectionMergeDataProvider
     {
@@ -44,7 +42,7 @@ namespace Ringtoets.Integration.Forms.Merge
         private bool assessmentSectionComboBoxUpdating;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="AssessmentSectionMergeDataProviderDialog"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionMergeDataProviderDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/>

@@ -34,7 +34,7 @@ namespace Ringtoets.Integration.Forms.Merge
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismMergeDataRow"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> it needs to wrap.</param>
+        /// <param name="failureMechanism">The wrapped <see cref="IFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         public FailureMechanismMergeDataRow(IFailureMechanism failureMechanism)
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Merge
         public IFailureMechanism FailureMechanism { get; }
 
         /// <summary>
-        /// Indicates whether the failure mechanism is selected to be merged.
+        /// Gets and sets whether the failure mechanism is selected to be merged.
         /// </summary>
         public bool IsSelected { get; set; }
 
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Forms.Merge
         }
 
         /// <summary>
-        /// Gets if the failure mechanism is relevant.
+        /// Gets indicator whether the failure mechanism is marked relevant.
         /// </summary>
         public bool IsRelevant
         {
@@ -80,7 +80,7 @@ namespace Ringtoets.Integration.Forms.Merge
         }
 
         /// <summary>
-        /// Gets if the failure mechanism has sections.
+        /// Gets indicator whether the failure mechanism has sections.
         /// </summary>
         public bool HasSections
         {
