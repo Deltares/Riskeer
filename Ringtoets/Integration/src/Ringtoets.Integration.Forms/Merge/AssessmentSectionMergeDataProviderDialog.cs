@@ -43,6 +43,8 @@ namespace Ringtoets.Integration.Forms.Merge
         private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
         private bool assessmentSectionComboBoxUpdating;
         private bool isDataSelected;
+        private AssessmentSection selectedAssessmentSection;
+        private IEnumerable<IFailureMechanism> selectedFailureMechanisms;
 
         /// <summary>
         /// Creates a new instance of the <see cref="AssessmentSectionMergeDataProviderDialog"/>.
@@ -58,9 +60,6 @@ namespace Ringtoets.Integration.Forms.Merge
             InitializeDataGridView();
         }
 
-        public AssessmentSection SelectedAssessmentSection { get; private set; }
-        public IEnumerable<IFailureMechanism> SelectedFailureMechanisms { get; private set; }
-
         public AssessmentSectionMergeData SelectData(IEnumerable<AssessmentSection> assessmentSections)
         {
             if (assessmentSections == null)
@@ -71,8 +70,8 @@ namespace Ringtoets.Integration.Forms.Merge
             SetComboBoxData(assessmentSections);
             ShowDialog();
 
-            return isDataSelected 
-                       ? new AssessmentSectionMergeData(SelectedAssessmentSection, SelectedFailureMechanisms) 
+            return isDataSelected
+                       ? new AssessmentSectionMergeData(selectedAssessmentSection, selectedFailureMechanisms)
                        : null;
         }
 
@@ -178,8 +177,8 @@ namespace Ringtoets.Integration.Forms.Merge
 
         private void OnImportButtonClick(object sender, EventArgs eventArgs)
         {
-            SelectedAssessmentSection = (AssessmentSection) assessmentSectionComboBox.SelectedItem;
-            SelectedFailureMechanisms = failureMechanismMergeDataRows?.Where(row => row.IsSelected)
+            selectedAssessmentSection = (AssessmentSection) assessmentSectionComboBox.SelectedItem;
+            selectedFailureMechanisms = failureMechanismMergeDataRows?.Where(row => row.IsSelected)
                                                                      .Select(row => row.FailureMechanism)
                                                                      .ToArray();
 
