@@ -169,11 +169,17 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                 calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             }
 
+            foreach (HydraulicBoundaryLocationCalculation calculation in sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
+            {
+                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
+            }
+
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Precondition
             Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
             Assert.IsTrue(sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // Call
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
@@ -181,6 +187,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Assert
             Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
             Assert.IsTrue(sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
             mocks.VerifyAll();
         }
 
@@ -203,6 +210,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             foreach (HydraulicBoundaryLocationCalculation calculation in sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
             {
+                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
                 calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
             }
 
@@ -211,12 +219,15 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Precondition
             Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
             Assert.IsTrue(sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
+            Assert.IsTrue(sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
             // Call
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
 
             // Assert
             Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
             mocks.VerifyAll();
         }
 

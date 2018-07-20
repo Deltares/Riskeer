@@ -75,6 +75,11 @@ namespace Ringtoets.Integration.Plugin.Merge
             MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection);
         }
 
+        private void BeforeMerge(AssessmentSection assessmentSection)
+        {
+            viewCommands.RemoveAllViewsForItem(assessmentSection);
+        }
+
         private void MergeHydraulicBoundaryLocations(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection)
         {
             for (var i = 0; i < targetAssessmentSection.HydraulicBoundaryDatabase.Locations.Count; i++)
@@ -84,6 +89,7 @@ namespace Ringtoets.Integration.Plugin.Merge
 
                 if (ShouldMerge(targetCalculation, sourceCalculation))
                 {
+                    targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated = sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated;
                     targetCalculation.Output = sourceCalculation.Output;
                 }
             }
@@ -94,7 +100,7 @@ namespace Ringtoets.Integration.Plugin.Merge
             bool targetCalculationHasOutput = targetCalculation.HasOutput;
             bool sourceCalculationHasOutput = sourceCalculation.HasOutput;
 
-            if (!targetCalculationHasOutput && !sourceCalculationHasOutput 
+            if (!targetCalculationHasOutput && !sourceCalculationHasOutput
                 || targetCalculationHasOutput && !sourceCalculationHasOutput
                 || targetCalculationHasOutput && targetCalculation.Output.HasGeneralResult && !sourceCalculation.Output.HasGeneralResult)
             {
@@ -102,11 +108,6 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             return true;
-        }
-
-        private void BeforeMerge(AssessmentSection assessmentSection)
-        {
-            viewCommands.RemoveAllViewsForItem(assessmentSection);
         }
     }
 }
