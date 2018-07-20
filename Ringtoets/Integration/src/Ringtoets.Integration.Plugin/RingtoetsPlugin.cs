@@ -281,7 +281,7 @@ namespace Ringtoets.Integration.Plugin
                                                                   new AssessmentSectionProvider(Gui.MainWindow),
                                                                   new AssessmentSectionMergeComparer(),
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
-                                                                  new AssessmentSectionMergeHandlerStub());
+                                                                  new AssessmentSectionMergeHandler(Gui.ViewCommands));
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
