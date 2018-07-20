@@ -331,8 +331,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             // Then
             TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
             {
-                new Tuple<string, LogLevelConstant>($"Samenvoegen van traject '{assessmentSectionToMerge.Name}' met traject '{originalAssessmentSection.Name}' is gestart.", LogLevelConstant.Info),
-                new Tuple<string, LogLevelConstant>($"Samenvoegen van trajecten is gelukt.", LogLevelConstant.Info)
+                new Tuple<string, LogLevelConstant>("Samenvoegen van trajectinformatie is gestart.", LogLevelConstant.Info),
+                new Tuple<string, LogLevelConstant>("Samenvoegen van trajectinformatie is gelukt.", LogLevelConstant.Info)
             });
             mocks.VerifyAll();
         }
@@ -376,7 +376,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             {
                 Assert.AreEqual(3, messages.Count());
 
-                Assert.AreEqual($"Samenvoegen van traject '{assessmentSectionToMerge.Name}' met traject '{originalAssessmentSection.Name}' is gestart.", messages.ElementAt(0).Item1);
+                Assert.AreEqual("Samenvoegen van trajectinformatie is gestart.", messages.ElementAt(0).Item1);
 
                 Tuple<string, Level, Exception> expectedLog = messages.ElementAt(1);
                 Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten.", expectedLog.Item1);
@@ -384,7 +384,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                 Exception loggedException = expectedLog.Item3;
                 Assert.IsInstanceOf<Exception>(loggedException);
 
-                Assert.AreEqual("Samenvoegen van trajecten is mislukt.", messages.ElementAt(2).Item1);
+                Assert.AreEqual("Samenvoegen van trajectinformatie is mislukt.", messages.ElementAt(2).Item1);
             });
             mocks.VerifyAll();
         }
