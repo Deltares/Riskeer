@@ -161,17 +161,7 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Samenvoegen van traject &apos;{0}&apos; met traject &apos;{1}&apos; is gestart..
-        /// </summary>
-        public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSection_0_with_AssessmentSection_1_started {
-            get {
-                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_AssessmentSection_0_with_AssessmentS" +
-                        "ection_1_started", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Samenvoegen van trajecten is mislukt..
+        ///   Looks up a localized string similar to Samenvoegen van trajectinformatie is mislukt..
         /// </summary>
         public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed {
             get {
@@ -180,7 +170,16 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Samenvoegen van trajecten is gelukt..
+        ///   Looks up a localized string similar to Samenvoegen van trajectinformatie is gestart..
+        /// </summary>
+        public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samenvoegen van trajectinformatie is gelukt..
         /// </summary>
         public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful {
             get {

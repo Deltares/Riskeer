@@ -124,7 +124,7 @@ namespace Ringtoets.Integration.Plugin.Merge
 
             if (!assessmentSections.Any())
             {
-                LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
+                log.Error(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
                 return;
             }
 
@@ -132,7 +132,7 @@ namespace Ringtoets.Integration.Plugin.Merge
 
             if (!matchingAssessmentSections.Any())
             {
-                LogError(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
+                log.Error(Resources.AssessmentSectionMerger_No_matching_AssessmentSections);
                 return;
             }
 
@@ -149,8 +149,7 @@ namespace Ringtoets.Integration.Plugin.Merge
 
         private void PerformMerge(AssessmentSection assessmentSection, AssessmentSection assessmentSectionToMerge, IEnumerable<IFailureMechanism> failureMechanismToMerge)
         {
-            log.InfoFormat(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSection_0_with_AssessmentSection_1_started,
-                           assessmentSectionToMerge.Name, assessmentSection.Name);
+            log.Info(Resources.AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started);
 
             try
             {
@@ -167,11 +166,6 @@ namespace Ringtoets.Integration.Plugin.Merge
         private static void LogCancelMessage()
         {
             log.Warn(CoreCommonGuiResources.GuiImportHandler_ImportItemsUsingDialog_Importing_cancelled);
-        }
-
-        private static void LogError(string message)
-        {
-            log.Error(message);
         }
     }
 }
