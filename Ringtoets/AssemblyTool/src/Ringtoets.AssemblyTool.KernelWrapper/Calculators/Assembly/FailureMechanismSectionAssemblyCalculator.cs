@@ -203,13 +203,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G5(
+                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
+                CategoriesList<FmSectionCategory> categories = categoriesKernel.CalculateFmSectionCategoryLimitsWbi01(
                     new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    failureMechanismSectionN,
-                    GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
-                    probability);
+                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
+
+                IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G5(failureMechanismSectionN,
+                                                                                              GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
+                                                                                              probability,
+                                                                                              categories);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
             }
