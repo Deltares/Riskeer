@@ -168,6 +168,107 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(11), calculation2, hydraulicBoundaryLocationCalculationOutput.Result);
         }
 
+        [Test]
+        public void CreateCalculationActivitiesWithoutAssessmentSectionCalculations_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate test = () => 
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesWithoutAssessmentSectionCalculations_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => 
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(new GrassCoverErosionOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateCalculationActivitiesWithoutAssessmentSectionCalculations_WithValidData_ExpectedInputSetToActivities()
+        {
+            // Setup
+            AssessmentSectionStub assessmentSection = CreateAssessmentSection();
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, assessmentSection, new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.AddRange(new[]
+            {
+                calculation1,
+                calculation2
+            });
+
+            // Call
+            IEnumerable<CalculatableActivity> activities =
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivitiesWithoutAssessmentSectionCalculations(
+                    failureMechanism,
+                    assessmentSection);
+
+            // Assert
+            Assert.AreEqual(8, activities.Count());
+
+            double mechanismSpecificFactorizedSignalingNorm = GetExpectedNorm(failureMechanism,
+                                                                              assessmentSection.FailureMechanismContribution.SignalingNorm / 30);
+            double mechanismSpecificSignalingNorm = GetExpectedNorm(failureMechanism, assessmentSection.FailureMechanismContribution.SignalingNorm);
+            double mechanismSpecificLowerLimitNorm = GetExpectedNorm(failureMechanism, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+
+            AssertDesignWaterLevelCalculationActivity(activities.First(),
+                                                      hydraulicBoundaryLocation,
+                                                      mechanismSpecificFactorizedSignalingNorm,
+                                                      "Iv->IIv");
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
+                                                      hydraulicBoundaryLocation,
+                                                      mechanismSpecificSignalingNorm,
+                                                      "IIv->IIIv");
+
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
+                                                      hydraulicBoundaryLocation,
+                                                      mechanismSpecificLowerLimitNorm,
+                                                      "IIIv->IVv");
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(3),
+                                                hydraulicBoundaryLocation,
+                                                mechanismSpecificFactorizedSignalingNorm,
+                                                "Iv->IIv");
+            AssertWaveHeightCalculationActivity(activities.ElementAt(4),
+                                                hydraulicBoundaryLocation,
+                                                mechanismSpecificSignalingNorm,
+                                                "IIv->IIIv");
+
+            AssertWaveHeightCalculationActivity(activities.ElementAt(5),
+                                                hydraulicBoundaryLocation,
+                                                mechanismSpecificLowerLimitNorm,
+                                                "IIIv->IVv");
+
+            var hydraulicBoundaryLocationCalculationOutput = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
+            failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Single().Output = hydraulicBoundaryLocationCalculationOutput;
+
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(6), calculation1, hydraulicBoundaryLocationCalculationOutput.Result);
+            AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(7), calculation2, hydraulicBoundaryLocationCalculationOutput.Result);
+        }
+
         private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanism()
         {
             return new GrassCoverErosionOutwardsFailureMechanism
