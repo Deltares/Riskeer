@@ -26,7 +26,6 @@ using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
 using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
-using Ringtoets.AssemblyTool.Data;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
@@ -140,6 +139,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets or sets the failure mechanism section assembly result with probability.
         /// </summary>
         public FmSectionAssemblyDirectResultWithProbability FailureMechanismAssemblyDirectResultWithProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism section assembly result.
+        /// </summary>
+        public IFmSectionAssemblyResult FailureMechanismAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
@@ -321,25 +325,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionDirectResult;
         }
 
-        public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResult simpleAssessmentResult,
-                                                                       FmSectionAssemblyDirectResult detailedAssessmentResult,
-                                                                       FmSectionAssemblyDirectResult tailorMadeAssessmentResult)
+        public TResult TranslateAssessmentResultWbi0A1<TResult>(TResult simpleAssessmentResult,
+                                                                TResult detailedAssessmentResult,
+                                                                TResult customAssessmentResult)
+            where TResult : IFmSectionAssemblyResult
         {
             ThrowException();
 
-            SimpleAssessmentResultInput = simpleAssessmentResult;
-            DetailedAssessmentResultInput = detailedAssessmentResult;
-            TailorMadeAssessmentResultInput = tailorMadeAssessmentResult;
+            SimpleAssessmentResultInput = simpleAssessmentResult as FmSectionAssemblyDirectResult;
+            DetailedAssessmentResultInput = detailedAssessmentResult as FmSectionAssemblyDirectResult;
+            TailorMadeAssessmentResultInput = customAssessmentResult as FmSectionAssemblyDirectResult;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
-        }
-
-        public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyIndirectResult simpleAssessmentResult,
-                                                                       FmSectionAssemblyIndirectResult detailedAssessmentResult,
-                                                                       FmSectionAssemblyIndirectResult customAssessmentResult)
-        {
-            throw new NotImplementedException();
+            return (TResult) FailureMechanismAssessmentResult;
         }
 
         private void ThrowException()

@@ -1244,9 +1244,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(11);
-            var simpleAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble());
-            var detailedAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble());
-            var tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble());
+            var simpleAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
+            var detailedAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
+            var tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub();
 
@@ -1265,18 +1265,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         {
             // Setup
             var random = new Random(11);
-            var simpleAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble());
-            var detailedAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble());
-            var tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble());
+            var simpleAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
+            var detailedAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
+            var tailorMadeAssemblyResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>());
 
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
-                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(
+                FailureMechanismAssessmentResult = new FmSectionAssemblyDirectResult(
                     random.NextEnumValue<EFmSectionCategory>())
             };
 
             // Call
-            var result = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
+            FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0A1(
                 simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
 
             // Assert
@@ -1295,9 +1295,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 
             // Call
             TestDelegate test = () => kernel.TranslateAssessmentResultWbi0A1(
-                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()),
-                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()),
-                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()));
+                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>()),
+                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>()),
+                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>()));
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
@@ -1307,35 +1307,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.DetailedAssessmentResultInput);
             Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
             Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
-        }
-
-        [Test]
-        public void TranslateAssessmentResultWbi0A1_WithDirectResultAndThrowAssemblyExceptionOnCalculateTrue_ThrowsAssemblyException()
-        {
-            // Setup
-            var random = new Random(11);
-            var kernel = new FailureMechanismSectionAssemblyKernelStub
-            {
-                ThrowAssemblyExceptionOnCalculate = true
-            };
-
-            // Call
-            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0A1(
-                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()),
-                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()),
-                new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble()));
-
-            // Assert
-            var exception = Assert.Throws<AssemblyException>(test);
-            AssemblyErrorMessage errorMessage = exception.Errors.Single();
-            Assert.AreEqual("entity", errorMessage.EntityId);
-            Assert.AreEqual(EAssemblyErrors.CategoryLowerLimitOutOfRange, errorMessage.ErrorCode);
-            Assert.IsNull(kernel.SimpleAssessmentResultInput);
-            Assert.IsNull(kernel.DetailedAssessmentResultInput);
-            Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
-            Assert.IsFalse(kernel.Calculated);
-            Assert.IsNull(kernel.FailureMechanismSectionDirectResult);
+            Assert.IsNull(kernel.FailureMechanismAssessmentResult);
         }
 
         [Test]
