@@ -95,7 +95,8 @@ namespace Ringtoets.Integration.Plugin.Merge
             bool sourceCalculationHasOutput = sourceCalculation.HasOutput;
 
             if (!targetCalculationHasOutput && !sourceCalculationHasOutput 
-                || targetCalculationHasOutput && !sourceCalculationHasOutput)
+                || targetCalculationHasOutput && !sourceCalculationHasOutput
+                || targetCalculationHasOutput && targetCalculation.Output.HasGeneralResult && !sourceCalculation.Output.HasGeneralResult)
             {
                 return false;
             }
