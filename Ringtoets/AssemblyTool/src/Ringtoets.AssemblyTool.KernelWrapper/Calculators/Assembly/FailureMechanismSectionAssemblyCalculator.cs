@@ -209,10 +209,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
 
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G5(failureMechanismSectionN,
-                                                                                              GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
-                                                                                              probability,
-                                                                                              categories);
+                FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0G5(failureMechanismSectionN,
+                                                                                                             GetAssessmentResultTypeG2(detailedAssessmentResult, probability),
+                                                                                                             probability,
+                                                                                                             categories);
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
             }
