@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Commands;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -170,15 +171,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
             IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
 
-            foreach (HydraulicBoundaryLocationCalculation calculation in targetCalculations)
-            {
-                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            }
-
-            foreach (HydraulicBoundaryLocationCalculation calculation in sourceCalculations)
-            {
-                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
-            }
+            SetOutput(targetCalculations);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
@@ -219,11 +213,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
             IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
 
-            foreach (HydraulicBoundaryLocationCalculation calculation in sourceCalculations)
-            {
-                calculation.InputParameters.ShouldIllustrationPointsBeCalculated = true;
-                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            }
+            SetOutput(sourceCalculations);
+            sourceCalculations.ForEachElementDo(c => c.InputParameters.ShouldIllustrationPointsBeCalculated = true);
 
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
@@ -264,15 +255,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
             IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
 
-            foreach (HydraulicBoundaryLocationCalculation calculation in targetCalculations)
-            {
-                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-            }
-
-            foreach (HydraulicBoundaryLocationCalculation calculation in sourceCalculations)
-            {
-                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            }
+            SetOutput(targetCalculations, true);
+            SetOutput(sourceCalculations);
 
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
@@ -315,15 +299,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations = getCalculationsFunc(targetAssessmentSection);
             IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations = getCalculationsFunc(sourceAssessmentSection);
 
-            foreach (HydraulicBoundaryLocationCalculation calculation in targetCalculations)
-            {
-                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
-            }
-
-            foreach (HydraulicBoundaryLocationCalculation calculation in sourceCalculations)
-            {
-                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint());
-            }
+            SetOutput(targetCalculations);
+            SetOutput(sourceCalculations, true);
 
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
@@ -340,6 +317,16 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             mocks.VerifyAll();
+        }
+
+        private static void SetOutput(IEnumerable<HydraulicBoundaryLocationCalculation> calculations, bool illustrationPoints = false)
+        {
+            foreach (HydraulicBoundaryLocationCalculation calculation in calculations)
+            {
+                calculation.Output = illustrationPoints
+                                         ? new TestHydraulicBoundaryLocationCalculationOutput(new TestGeneralResultSubMechanismIllustrationPoint())
+                                         : new TestHydraulicBoundaryLocationCalculationOutput();
+            }
         }
 
         private static IEnumerable<TestCaseData> GetCalculationsFuncs()
