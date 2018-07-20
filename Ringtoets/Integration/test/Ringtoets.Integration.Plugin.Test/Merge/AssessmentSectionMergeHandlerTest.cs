@@ -339,6 +339,15 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                                               section => section.WaterLevelCalculationsForLowerLimitNorm));
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                                               section => section.WaterLevelCalculationsForFactorizedLowerLimitNorm));
+
+            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                              section => section.WaveHeightCalculationsForFactorizedSignalingNorm));
+            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                              section => section.WaveHeightCalculationsForSignalingNorm));
+            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                              section => section.WaveHeightCalculationsForLowerLimitNorm));
+            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                              section => section.WaveHeightCalculationsForFactorizedLowerLimitNorm));
         }
 
         private static AssessmentSection CreateAssessmentSection(TestHydraulicBoundaryLocation[] locations)
