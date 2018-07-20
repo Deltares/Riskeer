@@ -26,6 +26,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Merge;
 
@@ -142,6 +145,87 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenTargetAssessmentSectionHasOutput_ThenCalculationsNotChanged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var locations = new[]
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            foreach (HydraulicBoundaryLocationCalculation calculation in targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
+            {
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            }
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Precondition
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
+            Assert.IsTrue(sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+
+            // Assert
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
+            Assert.IsTrue(sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenSourceAssessmentSectionHasOutput_ThenCalculationDataMerged()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var locations = new[]
+            {
+                new TestHydraulicBoundaryLocation(),
+                new TestHydraulicBoundaryLocation()
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(locations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(locations);
+
+            foreach (HydraulicBoundaryLocationCalculation calculation in sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm)
+            {
+                calculation.Output = new TestHydraulicBoundaryLocationCalculationOutput();
+            }
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Precondition
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => !c.HasOutput));
+            Assert.IsTrue(sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
+
+            // Call
+            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
+
+            // Assert
+            Assert.IsTrue(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.All(c => c.HasOutput));
+            mocks.VerifyAll();
+        }
+
+        private static AssessmentSection CreateAssessmentSection(TestHydraulicBoundaryLocation[] locations)
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
+            return assessmentSection;
         }
     }
 }
