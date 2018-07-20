@@ -61,7 +61,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0E1(
+                FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0E1(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1(input));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
@@ -81,7 +81,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0E3(
+                FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0E3(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(input));
 
                 return FailureMechanismSectionAssemblyCreator.Create(output);
