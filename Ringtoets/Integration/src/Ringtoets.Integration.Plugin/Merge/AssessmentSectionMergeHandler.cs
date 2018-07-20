@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Gui.Commands;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.Integration.Plugin.Merge
@@ -70,6 +72,35 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             BeforeMerge(targetAssessmentSection);
+            MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection);
+        }
+
+        private void MergeHydraulicBoundaryLocations(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection)
+        {
+            for (var i = 0; i < targetAssessmentSection.HydraulicBoundaryDatabase.Locations.Count; i++)
+            {
+                HydraulicBoundaryLocationCalculation targetCalculation = targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i);
+                HydraulicBoundaryLocationCalculation sourceCalculation = sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i);
+
+                if (ShouldMerge(targetCalculation, sourceCalculation))
+                {
+                    targetCalculation.Output = sourceCalculation.Output;
+                }
+            }
+        }
+
+        private bool ShouldMerge(HydraulicBoundaryLocationCalculation targetCalculation, HydraulicBoundaryLocationCalculation sourceCalculation)
+        {
+            bool targetCalculationHasOutput = targetCalculation.HasOutput;
+            bool sourceCalculationHasOutput = sourceCalculation.HasOutput;
+
+            if (!targetCalculationHasOutput && !sourceCalculationHasOutput 
+                || targetCalculationHasOutput && !sourceCalculationHasOutput)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void BeforeMerge(AssessmentSection assessmentSection)
