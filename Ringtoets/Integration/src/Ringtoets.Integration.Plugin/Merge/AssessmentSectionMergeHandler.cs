@@ -80,12 +80,21 @@ namespace Ringtoets.Integration.Plugin.Merge
             viewCommands.RemoveAllViewsForItem(assessmentSection);
         }
 
-        private void MergeHydraulicBoundaryLocations(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection)
+        private static void MergeHydraulicBoundaryLocations(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection)
         {
-            for (var i = 0; i < targetAssessmentSection.HydraulicBoundaryDatabase.Locations.Count; i++)
+            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
+                                                       sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);
+            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                       sourceAssessmentSection.WaterLevelCalculationsForSignalingNorm);
+        }
+
+        private static void MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
+                                                                IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations)
+        {
+            for (var i = 0; i < targetCalculations.Count(); i++)
             {
-                HydraulicBoundaryLocationCalculation targetCalculation = targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i);
-                HydraulicBoundaryLocationCalculation sourceCalculation = sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.ElementAt(i);
+                HydraulicBoundaryLocationCalculation targetCalculation = targetCalculations.ElementAt(i);
+                HydraulicBoundaryLocationCalculation sourceCalculation = sourceCalculations.ElementAt(i);
 
                 if (ShouldMerge(targetCalculation, sourceCalculation))
                 {
@@ -95,7 +104,7 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
         }
 
-        private bool ShouldMerge(HydraulicBoundaryLocationCalculation targetCalculation, HydraulicBoundaryLocationCalculation sourceCalculation)
+        private static bool ShouldMerge(HydraulicBoundaryLocationCalculation targetCalculation, HydraulicBoundaryLocationCalculation sourceCalculation)
         {
             bool targetCalculationHasOutput = targetCalculation.HasOutput;
             bool sourceCalculationHasOutput = sourceCalculation.HasOutput;
