@@ -346,6 +346,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         {
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                                               section => section.WaterLevelCalculationsForFactorizedSignalingNorm));
+            yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                                              section => section.WaterLevelCalculationsForSignalingNorm));
         }
 
         private static AssessmentSection CreateAssessmentSection(TestHydraulicBoundaryLocation[] locations)
