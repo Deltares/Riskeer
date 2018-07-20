@@ -90,6 +90,15 @@ namespace Ringtoets.Integration.Plugin.Merge
                                                        sourceAssessmentSection.WaterLevelCalculationsForLowerLimitNorm);
             MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                                        sourceAssessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm);
+
+            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm,
+                                                       sourceAssessmentSection.WaveHeightCalculationsForFactorizedSignalingNorm);
+            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForSignalingNorm,
+                                                       sourceAssessmentSection.WaveHeightCalculationsForSignalingNorm);
+            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForLowerLimitNorm,
+                                                       sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm);
+            MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                                                       sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
         }
 
         private static void MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
