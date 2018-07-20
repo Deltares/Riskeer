@@ -30,7 +30,6 @@
     <Compile Include="FileImporters\ForeshoreProfileReplaceDataStrategy.cs" />
     <Compile Include="FileImporters\ForeshoreProfileUpdateDataStrategy.cs" />
     <Compile Include="Handlers\AssessmentSectionCompositionChangeHandler.cs" />
-    <Compile Include="Merge\AssessmentSectionMergeHandlerStub.cs" />
     <Compile Include="Handlers\FailureMechanismContributionNormChangeHandler.cs" />
     <Compile Include="Merge\IAssessmentSectionMergeHandler.cs" />
     <Compile Include="Handlers\ReferenceLineReplacementHandler.cs" />
