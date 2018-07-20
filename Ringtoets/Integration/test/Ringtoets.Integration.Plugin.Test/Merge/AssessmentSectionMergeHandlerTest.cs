@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Commands;
+using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -146,6 +147,29 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                                  Enumerable.Empty<IFailureMechanism>());
 
             // Assert
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void PerformMerge_WithAllData_LogMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            // Call
+            Action call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                     new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                     Enumerable.Empty<IFailureMechanism>());
+
+            // Assert
+            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
+            {
+                new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info)
+            });
             mocks.VerifyAll();
         }
 

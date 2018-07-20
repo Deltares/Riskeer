@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Commands;
+using log4net;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Merge
 {
@@ -34,6 +36,8 @@ namespace Ringtoets.Integration.Plugin.Merge
     /// </summary>
     public class AssessmentSectionMergeHandler : IAssessmentSectionMergeHandler
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(AssessmentSectionMergeHandler));
+
         private readonly IViewCommands viewCommands;
 
         /// <summary>
@@ -99,6 +103,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                                                        sourceAssessmentSection.WaveHeightCalculationsForLowerLimitNorm);
             MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
                                                        sourceAssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm);
+
+            log.Info(Resources.AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged);
         }
 
         private static void MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,

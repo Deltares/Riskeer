@@ -203,4 +203,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="HydraulicBoundaryDatabase_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle hydraulische randvoorwaarden berekenen.</value>
   </data>
+  <data name="AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged" xml:space="preserve">
+    <value>Hydraulische belastingen zijn samengevoegd.</value>
+  </data>
 </root>

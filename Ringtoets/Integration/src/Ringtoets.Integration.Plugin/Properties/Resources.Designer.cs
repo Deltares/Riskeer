@@ -142,6 +142,16 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen zijn samengevoegd..
+        /// </summary>
+        public static string AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLo" +
+                        "cations_merged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen trajecten gevonden die samengevoegd kunnen worden..
         /// </summary>
         public static string AssessmentSectionMerger_No_matching_AssessmentSections {
