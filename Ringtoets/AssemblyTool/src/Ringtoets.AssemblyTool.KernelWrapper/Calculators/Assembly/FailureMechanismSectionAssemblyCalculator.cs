@@ -386,7 +386,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
+                FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0A1(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
                     null,
                     null);
@@ -410,7 +410,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
+                FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0A1(
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
@@ -497,7 +497,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
                                                                               FmSectionAssemblyDirectResult tailorMadeAssemblyResult)
         {
             IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-            var output = (FmSectionAssemblyDirectResult) kernel.TranslateAssessmentResultWbi0A1(
+            FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0A1(
                 simpleAssemblyResult,
                 detailedAssemblyResult,
                 tailorMadeAssemblyResult);
