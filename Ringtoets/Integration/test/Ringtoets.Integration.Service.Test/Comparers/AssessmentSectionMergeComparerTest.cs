@@ -159,9 +159,9 @@ namespace Ringtoets.Integration.Service.Test.Comparers
                                                                    "Id");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryDatabase.Version = "DifferentVersion",
                                                                    "HydraulicBoundaryDataBase");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.LowerLimitNorm = sec.FailureMechanismContribution.LowerLimitNorm - 0.05,
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.LowerLimitNorm = sec.FailureMechanismContribution.LowerLimitNorm - 1e-15,
                                                                    "LowerLimitNorm");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalingNorm = sec.FailureMechanismContribution.SignalingNorm - 0.005,
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalingNorm = sec.FailureMechanismContribution.SignalingNorm - 1e-15,
                                                                    "SignalingNorm");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeNorm = sec.FailureMechanismContribution.NormativeNorm == NormType.LowerLimit
                                                                                                                                ? NormType.Signaling

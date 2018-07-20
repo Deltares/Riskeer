@@ -103,7 +103,7 @@ namespace Ringtoets.Integration.Service.Comparers
 
         private static bool AreNormsEquivalent(double norm, double otherNorm)
         {
-            return Math.Abs(norm - otherNorm) < 1e-5;
+            return Math.Abs(norm - otherNorm) < double.Epsilon;
         }
     }
 }
