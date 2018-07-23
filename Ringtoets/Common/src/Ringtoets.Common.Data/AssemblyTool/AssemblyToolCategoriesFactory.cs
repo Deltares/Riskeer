@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Data.AssemblyTool
             {
                 return calculator.CalculateGeotechnicalFailureMechanismSectionCategories(normativeNorm,
                                                                                          n,
-                                                                                         failureMechanismContribution);
+                                                                                         failureMechanismContribution / 100);
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
