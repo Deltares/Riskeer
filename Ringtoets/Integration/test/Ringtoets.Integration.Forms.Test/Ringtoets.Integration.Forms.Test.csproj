@@ -37,7 +37,6 @@
     <Compile Include="Dialogs\BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
-    <Compile Include="Controls\AssessmentSectionAssemblyControlTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControlTest.cs" />
     <Compile Include="Merge\AssessmentSectionMergeFilePathProviderTest.cs" />
     <Compile Include="Merge\FailureMechanismMergeDataRowTest.cs" />

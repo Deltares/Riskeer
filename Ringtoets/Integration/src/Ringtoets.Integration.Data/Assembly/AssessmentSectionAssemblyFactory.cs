@@ -55,7 +55,7 @@ namespace Ringtoets.Integration.Data.Assembly
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
         /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssembly"/> cannot be created.</exception>
+        /// <exception cref="AssemblyException">Thrown when <see cref="FailureMechanismAssembly"/> cannot be created.</exception>
         public static FailureMechanismAssembly AssembleFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
