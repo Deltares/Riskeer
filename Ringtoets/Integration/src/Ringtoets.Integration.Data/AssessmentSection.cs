@@ -122,94 +122,94 @@ namespace Ringtoets.Integration.Data
         }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Piping" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Piping" failure mechanism.
         /// </summary>
-        public PipingFailureMechanism Piping { get; }
+        public PipingFailureMechanism Piping { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards { get; }
+        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanism MacroStabilityInwards { get; }
+        public MacroStabilityInwardsFailureMechanism MacroStabilityInwards { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
         /// </summary>
-        public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards { get; }
+        public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Microstabiliteit" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Microstabiliteit" failure mechanism.
         /// </summary>
-        public MicrostabilityFailureMechanism Microstability { get; }
+        public MicrostabilityFailureMechanism Microstability { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
         /// </summary>
-        public StabilityStoneCoverFailureMechanism StabilityStoneCover { get; }
+        public StabilityStoneCoverFailureMechanism StabilityStoneCover { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
         /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover { get; }
+        public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
         /// </summary>
-        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover { get; }
+        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards { get; }
+        public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
-        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; }
+        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; set; }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
         /// </summary>
-        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards { get; }
+        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards { get; set; }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
         /// </summary>
-        public HeightStructuresFailureMechanism HeightStructures { get; }
+        public HeightStructuresFailureMechanism HeightStructures { get; set; }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
         /// </summary>
-        public ClosingStructuresFailureMechanism ClosingStructures { get; }
+        public ClosingStructuresFailureMechanism ClosingStructures { get; set; }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
         /// </summary>
-        public PipingStructureFailureMechanism PipingStructure { get; }
+        public PipingStructureFailureMechanism PipingStructure { get; set; }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
         /// </summary>
-        public StabilityPointStructuresFailureMechanism StabilityPointStructures { get; }
+        public StabilityPointStructuresFailureMechanism StabilityPointStructures { get; set; }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
         /// </summary>
-        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction { get; }
+        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction { get; set; }
 
         /// <summary>
-        /// Gets the "Duinwaterkering - Duinafslag" failure mechanism.
+        /// Gets or sets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
-        public DuneErosionFailureMechanism DuneErosion { get; }
+        public DuneErosionFailureMechanism DuneErosion { get; set; }
 
         /// <summary>
-        /// Gets the "Technische innovaties - Technische innovaties" failure mechanism.
+        /// Gets or sets the "Technische innovaties - Technische innovaties" failure mechanism.
         /// </summary>
-        public TechnicalInnovationFailureMechanism TechnicalInnovation { get; }
+        public TechnicalInnovationFailureMechanism TechnicalInnovation { get; set; }
 
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {

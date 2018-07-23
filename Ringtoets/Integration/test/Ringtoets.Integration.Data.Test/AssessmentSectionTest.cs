@@ -27,11 +27,22 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.DuneErosion.Data;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Data.Test
 {
@@ -532,6 +543,23 @@ namespace Ringtoets.Integration.Data.Test
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation2);
         }
 
+        [Test]
+        [TestCaseSource(nameof(GetNewFailureMechanisms))]
+        public void GivenAssessmentSection_WhenSettingFailureMechanismWithSameContribution_ThenNewFailureMechanismSet<TFailureMechanism>(
+            Action<AssessmentSection, TFailureMechanism> setNewFailureMechanismAction, TFailureMechanism newFailureMechanism,
+            Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc)
+            where TFailureMechanism : IFailureMechanism
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            // When
+            setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
+
+            // Then
+            Assert.AreSame(getFailureMechanismFunc(assessmentSection), newFailureMechanism);
+        }
+
         private static IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
         {
             return new IFailureMechanism[]
@@ -735,6 +763,67 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreSame(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+        }
+
+        private static IEnumerable<TestCaseData> GetNewFailureMechanisms()
+        {
+            yield return new TestCaseData(new Action<AssessmentSection, PipingFailureMechanism>((section, failureMechanism) => section.Piping = failureMechanism),
+                                          new PipingFailureMechanism(),
+                                          new Func<AssessmentSection, PipingFailureMechanism>(section => section.Piping));
+            yield return new TestCaseData(new Action<AssessmentSection, GrassCoverErosionInwardsFailureMechanism>((section, failureMechanism) => section.GrassCoverErosionInwards = failureMechanism),
+                                          new GrassCoverErosionInwardsFailureMechanism(),
+                                          new Func<AssessmentSection, GrassCoverErosionInwardsFailureMechanism>(section => section.GrassCoverErosionInwards));
+            yield return new TestCaseData(new Action<AssessmentSection, MacroStabilityInwardsFailureMechanism>((section, failureMechanism) => section.MacroStabilityInwards = failureMechanism),
+                                          new MacroStabilityInwardsFailureMechanism(),
+                                          new Func<AssessmentSection, MacroStabilityInwardsFailureMechanism>(section => section.MacroStabilityInwards));
+            yield return new TestCaseData(new Action<AssessmentSection, MacroStabilityOutwardsFailureMechanism>((section, failureMechanism) => section.MacroStabilityOutwards = failureMechanism),
+                                          new MacroStabilityOutwardsFailureMechanism(),
+                                          new Func<AssessmentSection, MacroStabilityOutwardsFailureMechanism>(section => section.MacroStabilityOutwards));
+            yield return new TestCaseData(new Action<AssessmentSection, MicrostabilityFailureMechanism>((section, failureMechanism) => section.Microstability = failureMechanism),
+                                          new MicrostabilityFailureMechanism(),
+                                          new Func<AssessmentSection, MicrostabilityFailureMechanism>(section => section.Microstability));
+            yield return new TestCaseData(new Action<AssessmentSection, StabilityStoneCoverFailureMechanism>((section, failureMechanism) => section.StabilityStoneCover = failureMechanism),
+                                          new StabilityStoneCoverFailureMechanism(),
+                                          new Func<AssessmentSection, StabilityStoneCoverFailureMechanism>(section => section.StabilityStoneCover));
+            yield return new TestCaseData(new Action<AssessmentSection, StabilityStoneCoverFailureMechanism>((section, failureMechanism) => section.StabilityStoneCover = failureMechanism),
+                                          new StabilityStoneCoverFailureMechanism(),
+                                          new Func<AssessmentSection, StabilityStoneCoverFailureMechanism>(section => section.StabilityStoneCover));
+            yield return new TestCaseData(new Action<AssessmentSection, WaveImpactAsphaltCoverFailureMechanism>((section, failureMechanism) => section.WaveImpactAsphaltCover = failureMechanism),
+                                          new WaveImpactAsphaltCoverFailureMechanism(),
+                                          new Func<AssessmentSection, WaveImpactAsphaltCoverFailureMechanism>(section => section.WaveImpactAsphaltCover));
+            yield return new TestCaseData(new Action<AssessmentSection, WaterPressureAsphaltCoverFailureMechanism>((section, failureMechanism) => section.WaterPressureAsphaltCover = failureMechanism),
+                                          new WaterPressureAsphaltCoverFailureMechanism(),
+                                          new Func<AssessmentSection, WaterPressureAsphaltCoverFailureMechanism>(section => section.WaterPressureAsphaltCover));
+            yield return new TestCaseData(new Action<AssessmentSection, GrassCoverErosionOutwardsFailureMechanism>((section, failureMechanism) => section.GrassCoverErosionOutwards = failureMechanism),
+                                          new GrassCoverErosionOutwardsFailureMechanism(),
+                                          new Func<AssessmentSection, GrassCoverErosionOutwardsFailureMechanism>(section => section.GrassCoverErosionOutwards));
+            yield return new TestCaseData(new Action<AssessmentSection, GrassCoverSlipOffOutwardsFailureMechanism>((section, failureMechanism) => section.GrassCoverSlipOffOutwards = failureMechanism),
+                                          new GrassCoverSlipOffOutwardsFailureMechanism(),
+                                          new Func<AssessmentSection, GrassCoverSlipOffOutwardsFailureMechanism>(section => section.GrassCoverSlipOffOutwards));
+            yield return new TestCaseData(new Action<AssessmentSection, GrassCoverSlipOffInwardsFailureMechanism>((section, failureMechanism) => section.GrassCoverSlipOffInwards = failureMechanism),
+                                          new GrassCoverSlipOffInwardsFailureMechanism(),
+                                          new Func<AssessmentSection, GrassCoverSlipOffInwardsFailureMechanism>(section => section.GrassCoverSlipOffInwards));
+            yield return new TestCaseData(new Action<AssessmentSection, HeightStructuresFailureMechanism>((section, failureMechanism) => section.HeightStructures = failureMechanism),
+                                          new HeightStructuresFailureMechanism(),
+                                          new Func<AssessmentSection, HeightStructuresFailureMechanism>(section => section.HeightStructures));
+            yield return new TestCaseData(new Action<AssessmentSection, ClosingStructuresFailureMechanism>((section, failureMechanism) => section.ClosingStructures = failureMechanism),
+                                          new ClosingStructuresFailureMechanism(),
+                                          new Func<AssessmentSection, ClosingStructuresFailureMechanism>(section => section.ClosingStructures));
+            yield return new TestCaseData(new Action<AssessmentSection, PipingStructureFailureMechanism>((section, failureMechanism) => section.PipingStructure = failureMechanism),
+                                          new PipingStructureFailureMechanism(),
+                                          new Func<AssessmentSection, PipingStructureFailureMechanism>(section => section.PipingStructure));
+            yield return new TestCaseData(new Action<AssessmentSection, StabilityPointStructuresFailureMechanism>((section, failureMechanism) => section.StabilityPointStructures = failureMechanism),
+                                          new StabilityPointStructuresFailureMechanism(),
+                                          new Func<AssessmentSection, StabilityPointStructuresFailureMechanism>(section => section.StabilityPointStructures));
+            yield return new TestCaseData(new Action<AssessmentSection, StrengthStabilityLengthwiseConstructionFailureMechanism>((section, failureMechanism) => section.StrengthStabilityLengthwiseConstruction = failureMechanism),
+                                          new StrengthStabilityLengthwiseConstructionFailureMechanism(),
+                                          new Func<AssessmentSection, StrengthStabilityLengthwiseConstructionFailureMechanism>(section => section.StrengthStabilityLengthwiseConstruction));
+            yield return new TestCaseData(new Action<AssessmentSection, DuneErosionFailureMechanism>((section, failureMechanism) => section.DuneErosion = failureMechanism),
+                                          new DuneErosionFailureMechanism(),
+                                          new Func<AssessmentSection, DuneErosionFailureMechanism>(section => section.DuneErosion));
+            yield return new TestCaseData(new Action<AssessmentSection, TechnicalInnovationFailureMechanism>((section, failureMechanism) => section.TechnicalInnovation = failureMechanism),
+                                          new TechnicalInnovationFailureMechanism(),
+                                          new Func<AssessmentSection, TechnicalInnovationFailureMechanism>(section => section.TechnicalInnovation));
         }
     }
 }
