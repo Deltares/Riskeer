@@ -25,7 +25,7 @@ using Ringtoets.Common.Service.Properties;
 namespace Ringtoets.Common.Service.MessageProviders
 {
     /// <summary>
-    /// This class provides messages used during the design water level calculation.
+    /// This class provides messages used during a design water level calculation.
     /// </summary>
     public class DesignWaterLevelCalculationMessageProvider : ICalculationMessageProvider
     {

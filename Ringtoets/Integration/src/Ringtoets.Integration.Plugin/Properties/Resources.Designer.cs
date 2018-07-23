@@ -120,6 +120,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voer alle berekeningen binnen dit traject uit..
+        /// </summary>
+        public static string AssessmentSection_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("AssessmentSection_Calculate_All_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
@@ -138,6 +147,61 @@ namespace Ringtoets.Integration.Plugin.Properties {
             get {
                 return ResourceManager.GetString("AssessmentSectionCompositionChangeHandler_Waveheight_and_design_water_level_resul" +
                         "ts_cleared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen zijn samengevoegd..
+        /// </summary>
+        public static string AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLo" +
+                        "cations_merged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen trajecten gevonden die samengevoegd kunnen worden..
+        /// </summary>
+        public static string AssessmentSectionMerger_No_matching_AssessmentSections {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_No_matching_AssessmentSections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samenvoegen van trajectinformatie is mislukt..
+        /// </summary>
+        public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samenvoegen van trajectinformatie is gestart..
+        /// </summary>
+        public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Samenvoegen van trajectinformatie is gelukt..
+        /// </summary>
+        public static string AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten..
+        /// </summary>
+        public static string AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge", resourceCulture);
             }
         }
         
@@ -215,6 +279,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         public static string ForeshoreProfilesImporter_DisplayName {
             get {
                 return ResourceManager.GetString("ForeshoreProfilesImporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alle hydraulische randvoorwaarden berekenen..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Calculate_All_ToolTip", resourceCulture);
             }
         }
         

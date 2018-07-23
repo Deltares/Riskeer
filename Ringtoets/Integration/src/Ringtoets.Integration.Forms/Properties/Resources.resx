@@ -237,24 +237,6 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="WaveHeightCalculationsContext_DisplayName" xml:space="preserve">
     <value>Golfhoogtes</value>
   </data>
-  <data name="DesignWaterLevelCalculation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de toetspeil berekening?</value>
-  </data>
-  <data name="WaveHeightCalculation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de golfhoogte berekening?</value>
-  </data>
-  <data name="DesignWaterLevelCalculation_Result_Description" xml:space="preserve">
-    <value>Berekend toetspeil.</value>
-  </data>
-  <data name="DesignWaterLevelCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Toetspeil [m+NAP]</value>
-  </data>
-  <data name="WaveHeightCalculation_Result_Description" xml:space="preserve">
-    <value>Berekende golfhoogte.</value>
-  </data>
-  <data name="WaveHeightCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Hs [m]</value>
-  </data>
   <data name="AssessmentSectionComposition_Composition_Description" xml:space="preserve">
     <value>Selecteer het type traject, bepalend voor de faalkansbegroting.</value>
   </data>
@@ -357,7 +339,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text" xml:space="preserve">
     <value>Groepen 3 en 4</value>
   </data>
-  <data name="FailureMechanismContributionView_GridColumn_Assessment" xml:space="preserve">
+  <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Toetsspoor</value>
   </data>
   <data name="FailureMechanismContributionView_GridColumn_Contribution" xml:space="preserve">
@@ -395,5 +377,21 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
   <data name="FailureMechanismSectionAssemblyCategories_DisplayName" xml:space="preserve">
     <value>Categoriegrenzen per vak</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_HasSections_DisplayName" xml:space="preserve">
+    <value>Heeft vakindeling</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName" xml:space="preserve">
+    <value>Aantal berekeningen</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_IsSelected_DisplayName" xml:space="preserve">
+    <value>Selecteer</value>
+  </data>
+  <data name="FailureMechanismMergeDataRow_IsRelevant_DisplayName" xml:space="preserve">
+    <value>Is relevant</value>
+  </data>
+  <data name="AssessmentSectionMergeDataProviderDialog_InfoToolTip" xml:space="preserve">
+    <value>Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
+Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
 </root>

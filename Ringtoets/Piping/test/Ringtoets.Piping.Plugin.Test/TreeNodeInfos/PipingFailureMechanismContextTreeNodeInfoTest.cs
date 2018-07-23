@@ -480,60 +480,6 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismContributionZero_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = new AssessmentSectionStub();
-                var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-                {
-                    hydraulicBoundaryLocation
-                }, true);
-
-                var failureMechanism = new PipingFailureMechanism
-                {
-                    CalculationsGroup =
-                    {
-                        Children =
-                        {
-                            PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
-                        }
-                    }
-                };
-
-                var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  "Alles be&rekenen",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
-                                                                  false);
-
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                                  "Alles &valideren",
-                                                                  "De bijdrage van dit toetsspoor is nul.",
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
@@ -732,13 +678,13 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                PipingCalculationScenario validCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
-                validCalculation.Name = "A";
-                PipingCalculationScenario invalidCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
-                invalidCalculation.Name = "B";
+                PipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                calculationA.Name = "A";
+                PipingCalculationScenario calculationB = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                calculationB.Name = "B";
 
-                failureMechanism.CalculationsGroup.Children.Add(validCalculation);
-                failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
+                failureMechanism.CalculationsGroup.Children.Add(calculationA);
+                failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
                 var failureMechanismContext = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
@@ -760,12 +706,29 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
                     // Call
-                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+                    Action call = () => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                    // Assert
+                    TestHelper.AssertLogMessages(call, messages =>
+                    {
+                        string[] msgs = messages.ToArray();
+                        Assert.AreEqual(12, msgs.Length);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
+
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[6]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[10]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[11]);
+                    });
                 }
             }
-
-            // Assert
-            // Assert expectancies are called in TearDown()
         }
 
         [Test]

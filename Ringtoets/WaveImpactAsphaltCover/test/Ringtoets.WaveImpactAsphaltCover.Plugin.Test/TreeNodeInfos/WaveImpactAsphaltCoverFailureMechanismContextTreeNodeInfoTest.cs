@@ -19,14 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -36,8 +40,13 @@ using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -49,42 +58,54 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuCalculateAllIndex = 4;
+
+        private readonly string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, Path.Combine("HydraRingCalculation", "HRD ijsselmeer.sqlite"));
+
         private MockRepository mocks;
+        private WaveImpactAsphaltCoverPlugin plugin;
+        private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
+            plugin = new WaveImpactAsphaltCoverPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            mocks.ReplayAll();
 
-                // Assert
-                Assert.IsNotNull(info.Text);
-                Assert.IsNotNull(info.ForeColor);
-                Assert.IsNotNull(info.Image);
-                Assert.IsNotNull(info.ContextMenuStrip);
-                Assert.IsNull(info.EnsureVisibleOnCreate);
-                Assert.IsNull(info.ExpandOnCreate);
-                Assert.IsNotNull(info.ChildNodeObjects);
-                Assert.IsNull(info.CanRename);
-                Assert.IsNull(info.OnNodeRenamed);
-                Assert.IsNull(info.CanRemove);
-                Assert.IsNull(info.OnNodeRemoved);
-                Assert.IsNull(info.CanCheck);
-                Assert.IsNull(info.IsChecked);
-                Assert.IsNull(info.OnNodeChecked);
-                Assert.IsNull(info.CanDrag);
-                Assert.IsNull(info.CanDrop);
-                Assert.IsNull(info.CanInsert);
-                Assert.IsNull(info.OnDrop);
-            }
+            // Assert
+            Assert.IsNotNull(info.Text);
+            Assert.IsNotNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ContextMenuStrip);
+            Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.ExpandOnCreate);
+            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNull(info.CanRename);
+            Assert.IsNull(info.OnNodeRenamed);
+            Assert.IsNull(info.CanRemove);
+            Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNull(info.CanCheck);
+            Assert.IsNull(info.IsChecked);
+            Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNull(info.CanDrag);
+            Assert.IsNull(info.CanDrop);
+            Assert.IsNull(info.CanInsert);
+            Assert.IsNull(info.OnDrop);
         }
 
         [Test]
@@ -98,16 +119,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                             assessmentSection);
 
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            // Call
+            string nodeText = info.Text(failureMechanismContext);
 
-                // Call
-                string nodeText = info.Text(failureMechanismContext);
-
-                // Assert
-                Assert.AreEqual(failureMechanism.Name, nodeText);
-            }
+            // Assert
+            Assert.AreEqual(failureMechanism.Name, nodeText);
         }
 
         [Test]
@@ -124,16 +140,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                             assessmentSection);
 
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            // Call
+            Color foreColor = info.ForeColor(failureMechanismContext);
 
-                // Call
-                Color foreColor = info.ForeColor(failureMechanismContext);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
-            }
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), foreColor);
         }
 
         [Test]
@@ -150,16 +161,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                             assessmentSection);
 
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            // Call
+            Color foreColor = info.ForeColor(failureMechanismContext);
 
-                // Call
-                Color foreColor = info.ForeColor(failureMechanismContext);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
-            }
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), foreColor);
         }
 
         [Test]
@@ -173,16 +179,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                             assessmentSection);
 
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            // Call
+            Image icon = info.Image(failureMechanismContext);
 
-                // Call
-                Image icon = info.Image(failureMechanismContext);
-
-                // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, icon);
-            }
+            // Assert
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismIcon, icon);
         }
 
         [Test]
@@ -198,65 +199,58 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                             assessmentSection);
 
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
+            // Call
+            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(3, children.Length);
+            var inputsFolder = (CategoryTreeFolder) children[0];
+            Assert.AreEqual("Invoer", inputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
+
+            Assert.AreEqual(3, inputsFolder.Contents.Count());
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
+            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
+
+            var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
+            Assert.AreSame(failureMechanism, profilesContext.ParentFailureMechanism);
+            Assert.AreSame(assessmentSection, profilesContext.ParentAssessmentSection);
+
+            var comment = (Comment) inputsFolder.Contents.ElementAt(2);
+            Assert.AreSame(failureMechanism.InputComments, comment);
+
+            var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
+            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
+            Assert.IsNull(hydraulicBoundariesCalculationGroup.Parent);
+            Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
+            Assert.AreSame(assessmentSection, hydraulicBoundariesCalculationGroup.AssessmentSection);
+
+            var outputsFolder = (CategoryTreeFolder) children[2];
+            Assert.AreEqual("Oordeel", outputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
+            Assert.AreEqual(3, outputsFolder.Contents.Count());
+
+            var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
+            Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
+            Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                TreeNodeInfo info = GetInfo(plugin);
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
-                // Call
-                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
-
-                // Assert
-                Assert.AreEqual(3, children.Length);
-
-                var inputsFolder = (CategoryTreeFolder) children[0];
-                Assert.AreEqual("Invoer", inputsFolder.Name);
-                Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
-
-                Assert.AreEqual(3, inputsFolder.Contents.Count());
-                var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents.ElementAt(0);
-                Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-                Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
-
-                var foreshoreProfilesContext = (ForeshoreProfilesContext) inputsFolder.Contents.ElementAt(1);
-                Assert.AreSame(failureMechanism.ForeshoreProfiles, foreshoreProfilesContext.WrappedData);
-                Assert.AreSame(failureMechanism, foreshoreProfilesContext.ParentFailureMechanism);
-                Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
-
-                var inputComment = (Comment) inputsFolder.Contents.ElementAt(2);
-                Assert.AreSame(failureMechanism.InputComments, inputComment);
-
-                var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
-                Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
-                Assert.IsNull(hydraulicBoundariesCalculationGroup.Parent);
-                Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
-                Assert.AreSame(assessmentSection, hydraulicBoundariesCalculationGroup.AssessmentSection);
-
-                var outputsFolder = (CategoryTreeFolder) children[2];
-                Assert.AreEqual("Oordeel", outputsFolder.Name);
-                Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-                Assert.AreEqual(3, outputsFolder.Contents.Count());
-
-                var failureMechanismAssemblyCategoriesContext = (FailureMechanismAssemblyCategoriesContext) outputsFolder.Contents.ElementAt(0);
-                Assert.AreSame(failureMechanism, failureMechanismAssemblyCategoriesContext.WrappedData);
-                Assert.AreSame(assessmentSection, failureMechanismAssemblyCategoriesContext.AssessmentSection);
-
-                using (new AssemblyToolCalculatorFactoryConfig())
-                {
-                    var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                    AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
-
-                    failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
-                    Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.N, calculator.AssemblyCategoriesInput.N);
-                }
-
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>)
-                    outputsFolder.Contents.ElementAt(1);
-                Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-
-                var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
-                Assert.AreSame(failureMechanism.OutputComments, outputComment);
+                failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
+                Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.N, calculator.AssemblyCategoriesInput.N);
             }
+
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+
+            var outputComment = (Comment) outputsFolder.Contents.ElementAt(2);
+            Assert.AreSame(failureMechanism.OutputComments, outputComment);
         }
 
         [Test]
@@ -273,18 +267,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                                             assessmentSection);
 
-            using (var plugin = new WaveImpactAsphaltCoverPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
+            // Call
+            object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
-                // Call
-                object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
-
-                // Assert
-                Assert.AreEqual(1, children.Length);
-                var comment = (Comment) children[0];
-                Assert.AreSame(failureMechanism.NotRelevantComments, comment);
-            }
+            // Assert
+            Assert.AreEqual(1, children.Length);
+            var comment = (Comment) children[0];
+            Assert.AreSame(failureMechanism.NotRelevantComments, comment);
         }
 
         [Test]
@@ -308,6 +297,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -319,15 +310,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                using (var plugin = new WaveImpactAsphaltCoverPlugin())
-                {
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    // Call
-                    info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
             }
 
             // Assert
@@ -361,19 +347,89 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                using (var plugin = new WaveImpactAsphaltCoverPlugin())
-                {
-                    plugin.Gui = gui;
+                plugin.Gui = gui;
 
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    // Call
-                    info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
-                }
+                // Call
+                info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
             }
 
             // Assert
             // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                {
+                    // Assert
+                    Assert.AreEqual(10, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
+                                                                  "I&s relevant",
+                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                  RingtoetsCommonFormsResources.Checkbox_ticked);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  "Alles be&rekenen",
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsNotRelevant_AddCustomItems()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+                {
+                    IsRelevant = false
+                };
+                var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(failureMechanismContext, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSection, treeView))
+                {
+                    // Assert
+                    Assert.AreEqual(4, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
+                                                                  "I&s relevant",
+                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
+                                                                  RingtoetsCommonFormsResources.Checkbox_empty);
+                }
+            }
         }
 
         [Test]
@@ -405,20 +461,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                using (var plugin = new WaveImpactAsphaltCoverPlugin())
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
-                    plugin.Gui = gui;
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
 
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                    {
-                        // Call
-                        contextMenu.Items[contextMenuRelevancyIndexWhenRelevant].PerformClick();
-
-                        // Assert
-                        Assert.IsFalse(failureMechanism.IsRelevant);
-                    }
+                    // Assert
+                    Assert.IsFalse(failureMechanism.IsRelevant);
                 }
             }
         }
@@ -452,27 +503,107 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
-                using (var plugin = new WaveImpactAsphaltCoverPlugin())
+                plugin.Gui = gui;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
-                    plugin.Gui = gui;
+                    // Call
+                    contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
 
-                    TreeNodeInfo info = GetInfo(plugin);
-
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
-                    {
-                        // Call
-                        contextMenu.Items[contextMenuRelevancyIndexWhenNotRelevant].PerformClick();
-
-                        // Assert
-                        Assert.IsTrue(failureMechanism.IsRelevant);
-                    }
+                    // Assert
+                    Assert.IsTrue(failureMechanism.IsRelevant);
                 }
             }
         }
 
-        private static TreeNodeInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
+        [Test]
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext));
+            // Given
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
+            List<ICalculationBase> calculations = failureMechanism.WaveConditionsCalculationGroup.Children;
+            calculations.Add(calculationA);
+            calculations.Add(calculationB);
+
+            var nodeData = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
+                                                                             assessmentSection);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var mainWindow = mocks.Stub<IMainWindow>();
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.MainWindow).Return(mainWindow);
+
+                var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(Path.GetDirectoryName(validFilePath), string.Empty))
+                                 .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(6);
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(3, calculationA.Output.Items.Count());
+                    Assert.AreEqual(3, calculationB.Output.Items.Count());
+                }
+            }
+        }
+
+        private IAssessmentSection CreateAssessmentSectionWithHydraulicBoundaryOutput()
+        {
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0);
+
+            var assessmentSection = new AssessmentSectionStub
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
+                }
+            };
+
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(9.3);
+
+            return assessmentSection;
+        }
+
+        private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            return new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = AssessmentSectionCategoryType.LowerLimitNorm,
+                    ForeshoreProfile = new TestForeshoreProfile(true),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
+                }
+            };
         }
     }
 }

@@ -126,4 +126,7 @@
   <data name="DuneErosionPlugin_GetExportInfos_MorphAn_boundary_conditions_file_filter_Extension" xml:space="preserve">
     <value>bnd</value>
   </data>
+  <data name="DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present" xml:space="preserve">
+    <value>Geen van de locaties is geschikt voor een hydraulische belastingen berekening.</value>
+  </data>
 </root>

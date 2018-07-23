@@ -53,7 +53,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.Controls;
 using Ringtoets.Common.Forms.GuiServices;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -64,7 +63,6 @@ using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Util.TypeConverters;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
@@ -79,8 +77,9 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.Input;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Forms.Commands;
+using Ringtoets.Integration.Forms.Dialogs;
+using Ringtoets.Integration.Forms.Merge;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
 using Ringtoets.Integration.Forms.PropertyClasses;
@@ -91,8 +90,10 @@ using Ringtoets.Integration.Forms.Views.SectionResultViews;
 using Ringtoets.Integration.IO.Exporters;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Handlers;
+using Ringtoets.Integration.Plugin.Merge;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.Integration.Service;
+using Ringtoets.Integration.Service.Comparers;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
 using Ringtoets.Piping.Data;
@@ -241,6 +242,7 @@ namespace Ringtoets.Integration.Plugin
 
         private IAssessmentSectionFromFileCommandHandler assessmentSectionFromFileCommandHandler;
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
+        private AssessmentSectionMerger assessmentSectionMerger;
 
         public override IRibbonCommandHandler RibbonCommandHandler
         {
@@ -275,6 +277,11 @@ namespace Ringtoets.Integration.Plugin
 
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
+            assessmentSectionMerger = new AssessmentSectionMerger(new AssessmentSectionMergeFilePathProvider(new DialogBasedInquiryHelper(Gui.MainWindow)),
+                                                                  new AssessmentSectionProvider(Gui.MainWindow),
+                                                                  new AssessmentSectionMergeComparer(),
+                                                                  new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
+                                                                  new AssessmentSectionMergeHandler(Gui.ViewCommands));
 
             ribbonCommandHandler = new RingtoetsRibbon
             {
@@ -385,7 +392,27 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<DesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
             {
-                CreateInstance = context => new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, context.AssessmentSection)
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<DesignWaterLevelCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
+            };
+            yield return new PropertyInfo<WaveHeightCalculationsGroupContext, WaveHeightCalculationsGroupProperties>
+            {
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        WaveHeightCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<WaveHeightCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
             };
         }
 
@@ -1438,10 +1465,26 @@ namespace Ringtoets.Integration.Plugin
             parentProject.NotifyObservers();
         }
 
-        private ContextMenuStrip AssessmentSectionContextMenuStrip(IAssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip AssessmentSectionContextMenuStrip(AssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                Resources.AssessmentSection_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
+
+            var importItem = new StrictContextMenuItem(
+                GuiResources.Import,
+                GuiResources.Import_ToolTip,
+                GuiResources.ImportIcon,
+                (sender, args) => assessmentSectionMerger.StartMerge(nodeData));
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
+                      .AddSeparator()
+                      .AddCustomItem(importItem)
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
                       .AddSeparator()
                       .AddRenameItem()
                       .AddSeparator()
@@ -1817,11 +1860,10 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                              assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                              nodeData.WrappedData,
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(nodeData.WrappedData,
+                                                                                              assessmentSection,
                                                                                               nodeData.GetNormFunc(),
-                                                                                              new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
+                                                                                              nodeData.CategoryBoundaryName);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
@@ -1851,11 +1893,10 @@ namespace Ringtoets.Integration.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                                        nodeData.WrappedData,
+                    hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(nodeData.WrappedData,
+                                                                                        assessmentSection,
                                                                                         nodeData.GetNormFunc(),
-                                                                                        new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
+                                                                                        nodeData.CategoryBoundaryName);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
@@ -1903,9 +1944,25 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
                 RingtoetsCommonFormsResources.DatabaseIcon, (sender, args) => SelectDatabaseFile(nodeData.AssessmentSection));
 
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                Resources.HydraulicBoundaryDatabase_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(nodeData.AssessmentSection));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
+                                                        calculateAllItem);
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(connectionItem)
                       .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
@@ -2053,23 +2110,9 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IEnumerable<DesignWaterLevelCalculationActivity> activities =
-                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<DesignWaterLevelCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                            context.WrappedData,
-                                            context.GetNormFunc(),
-                                            new DesignWaterLevelCalculationMessageProvider(context.CategoryBoundaryName)))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
@@ -2092,23 +2135,9 @@ namespace Ringtoets.Integration.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IEnumerable<WaveHeightCalculationActivity> activities =
-                        WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<WaveHeightCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                            context.WrappedData,
-                                            context.GetNormFunc(),
-                                            new WaveHeightCalculationMessageProvider(context.CategoryBoundaryName)))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(assessmentSection));
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);

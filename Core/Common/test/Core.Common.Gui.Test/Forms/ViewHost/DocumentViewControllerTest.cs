@@ -762,7 +762,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
 
                 // Assert
-                var expected = new[]
+                ViewInfo[] expected =
                 {
                     viewInfos[0],
                     viewInfos[2]
@@ -807,7 +807,7 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
                 ViewInfo[] matchedViewInfos = documentViewController.GetViewInfosFor(data).ToArray();
 
                 // Assert
-                var expected = new[]
+                ViewInfo[] expected =
                 {
                     viewInfos[0],
                     viewInfos[1]
@@ -869,27 +869,16 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Setup
             var data1 = new A();
             var data2 = new InheritedFromA();
-            var testView = new TestView
-            {
-                Data = data1
-            };
-            var testViewDerivative = new TestViewDerivative
-            {
-                Data = data2
-            };
 
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
-
+            var documentViews = new List<IView>();
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
-            viewHost.Stub(vh => vh.DocumentViews).Return(new[]
-            {
-                testView,
-                testViewDerivative
-            });
-
+            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); }).Repeat.Twice();
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments().Repeat.Twice();
             mocks.ReplayAll();
 
             var viewInfos = new ViewInfo[]
@@ -900,6 +889,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
+                documentViewController.OpenViewForData(data1);
+                documentViewController.OpenViewForData(data2);
+
                 // Call
                 documentViewController.CloseAllViewsFor(new object());
             }
@@ -914,28 +906,18 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             // Setup
             var data1 = new A();
             var data2 = new InheritedFromA();
-            var testView = new TestView
-            {
-                Data = data1
-            };
-            var testViewDerivative = new TestViewDerivative
-            {
-                Data = data2
-            };
 
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
-            var documentViews = new List<IView>
-            {
-                testView,
-                testViewDerivative
-            };
+            var documentViews = new List<IView>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); }).Repeat.Twice();
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments().Repeat.Twice();
+            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); });
 
             mocks.ReplayAll();
 
@@ -947,6 +929,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
+                documentViewController.OpenViewForData(data1);
+                documentViewController.OpenViewForData(data2);
+
                 // Call
                 documentViewController.CloseAllViewsFor(data1);
             }
@@ -962,30 +947,18 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             var data1 = new A();
             var data2 = new InheritedFromA();
             var unusedViewData = new object();
-            var testView = new TestView
-            {
-                Data = data1
-            };
-            var testViewDerivative = new TestViewDerivative
-            {
-                Data = data2
-            };
 
             var mocks = new MockRepository();
             var dialogParent = mocks.Stub<IWin32Window>();
             var viewHost = mocks.StrictMock<IViewHost>();
-            var documentViews = new List<IView>
-            {
-                testView,
-                testViewDerivative
-            };
+            var documentViews = new List<IView>();
 
             viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
             viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
             viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
-            viewHost.Expect(vh => vh.Remove(testView)).WhenCalled(x => documentViews.Remove(testView));
-            viewHost.Expect(vh => vh.Remove(testViewDerivative)).WhenCalled(x => documentViews.Remove(testViewDerivative));
-
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); }).Repeat.Twice();
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments().Repeat.Twice();
+            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); }).Repeat.Twice();
             mocks.ReplayAll();
 
             var viewInfos = new ViewInfo[]
@@ -1014,6 +987,9 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
 
             using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
             {
+                documentViewController.OpenViewForData(data1);
+                documentViewController.OpenViewForData(data2);
+
                 // Call
                 documentViewController.CloseAllViewsFor(unusedViewData);
             }
@@ -1022,7 +998,69 @@ namespace Core.Common.Gui.Test.Forms.ViewHost
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void CloseAllViewsFor_DataCorrespondsToOpenedViewWithViewInfoThatBindsToSameViews_RemoveCorrectView()
+        {
+            // Setup
+            var data = new A();
+            var viewData = new object();
+
+            var mocks = new MockRepository();
+            var dialogParent = mocks.Stub<IWin32Window>();
+            var viewHost = mocks.StrictMock<IViewHost>();
+            var documentViews = new List<IView>();
+
+            viewHost.Stub(vh => vh.ViewClosed += null).IgnoreArguments();
+            viewHost.Stub(vh => vh.ViewClosed -= null).IgnoreArguments();
+            viewHost.Stub(vh => vh.DocumentViews).Return(documentViews);
+            viewHost.Expect(vm => vm.AddDocumentView(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Add(invocation.Arguments[0] as TestView); });
+            viewHost.Expect(vh => vh.SetImage(null, null)).IgnoreArguments();
+            viewHost.Expect(vh => vh.Remove(Arg<TestView>.Is.NotNull)).WhenCalled(invocation => { documentViews.Remove(invocation.Arguments[0] as TestView); });
+
+            mocks.ReplayAll();
+
+            var viewClosed = false;
+            var viewInfos = new ViewInfo[]
+            {
+                new ViewInfo<B, object, TestView>
+                {
+                    CloseForData = (v, o) =>
+                    {
+                        Assert.Fail("Incorrect CloseForData called.");
+                        return true;
+                    }
+                },
+                new ViewInfo<A, object, TestView>
+                {
+                    CloseForData = (v, o) =>
+                    {
+                        if (o == viewData)
+                        {
+                            viewClosed = true;
+                            return true;
+                        }
+
+                        return false;
+                    }
+                }
+            };
+
+            using (var documentViewController = new DocumentViewController(viewHost, viewInfos, dialogParent))
+            {
+                documentViewController.OpenViewForData(data);
+
+                // Call
+                documentViewController.CloseAllViewsFor(viewData);
+            }
+
+            // Assert
+            Assert.IsTrue(viewClosed);
+            mocks.VerifyAll();
+        }
+
         private class A {}
+
+        private class B {}
 
         private class InheritedFromA : A {}
     }

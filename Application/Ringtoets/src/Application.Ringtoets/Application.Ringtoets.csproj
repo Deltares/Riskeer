@@ -154,9 +154,19 @@
       <Name>Ringtoets.MacroStabilityInwards.Plugin</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Migration\src\Ringtoets.Migration\Ringtoets.Migration.csproj">
+      <Project>{ac4f7f48-f674-4e32-ab35-9c726605f684}</Project>
+      <Name>Ringtoets.Migration</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Plugin\Ringtoets.StabilityPointStructures.Plugin.csproj">
       <Project>{E3DF5559-97D9-4038-BBE6-2E3DFB4F4C68}</Project>
       <Name>Ringtoets.StabilityPointStructures.Plugin</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Storage\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
+      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
+      <Name>Ringtoets.Storage.Core</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Plugin\Ringtoets.WaveImpactAsphaltCover.Plugin.csproj">
@@ -197,16 +207,6 @@
     <ProjectReference Include="..\..\..\..\Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
       <Project>{9ddc42cc-a2cc-4900-a711-aa1dd6d3a94a}</Project>
       <Name>Ringtoets.StabilityStoneCover.Plugin</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Application.Ringtoets.Migration\Application.Ringtoets.Migration.csproj">
-      <Project>{ac4f7f48-f674-4e32-ab35-9c726605f684}</Project>
-      <Name>Application.Ringtoets.Migration</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Application.Ringtoets.Storage\Application.Ringtoets.Storage.csproj">
-      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
-      <Name>Application.Ringtoets.Storage</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

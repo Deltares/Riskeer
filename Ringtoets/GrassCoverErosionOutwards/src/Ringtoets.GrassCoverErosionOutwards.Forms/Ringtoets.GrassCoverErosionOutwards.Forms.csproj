@@ -38,27 +38,17 @@
     </Compile>
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsFailureMechanismProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightCalculationProperties.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightCalculationsProperties.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismView.Designer.cs">
       <DependentUpon>GrassCoverErosionOutwardsFailureMechanismView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\GrassCoverErosionOutwardsDesignWaterLevelCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsWaveConditionsInputViewStyle.cs" />
-    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Factories\GrassCoverErosionOutwardsMapDataFeaturesFactory.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -324,11 +324,23 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddPerformAllCalculationsInFailureMechanismItem(
+                              failureMechanismContext,
+                              CalculateAll)
+                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void CalculateAll(StabilityStoneCoverFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                                        context.Parent));
         }
 
         private void RemoveAllViewsForItem(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
@@ -545,28 +557,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         private void CalculateAll(CalculationGroup group, StabilityStoneCoverWaveConditionsCalculationGroupContext context)
         {
-            StabilityStoneCoverWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>().ToArray();
-
-            CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
-        }
-
-        private void CalculateAll(StabilityStoneCoverWaveConditionsCalculation[] calculations,
-                                  StabilityStoneCoverFailureMechanism failureMechanism,
-                                  IAssessmentSection assessmentSection)
-        {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                calculations
-                    .Select(calculation => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection))
-                    .ToList());
-
-            foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
-            {
-                calculation.NotifyObservers();
-            }
+                StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                        context.FailureMechanism,
+                                                                                                        context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
@@ -657,11 +652,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                                         StabilityStoneCoverWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                      context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                      context.FailureMechanism,
-                                                                                                      context.AssessmentSection));
-            calculation.NotifyObservers();
+                                             StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                                                 calculation,
+                                                 context.FailureMechanism,
+                                                 context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationContext nodeData, object parentNodeData)

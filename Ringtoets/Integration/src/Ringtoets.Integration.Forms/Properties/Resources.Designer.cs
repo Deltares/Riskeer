@@ -315,6 +315,16 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belastingen op trajectniveau worden altijd samengevoegd.
+        ///Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren..
+        /// </summary>
+        public static string AssessmentSectionMergeDataProviderDialog_InfoToolTip {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMergeDataProviderDialog_InfoToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Geeft aan of de geselecteerde achtergrond kaartlaag in alle kaarten van dit traject wordt weergegeven..
         /// </summary>
         public static string BackgroundDataProperties_IsVisible_Description {
@@ -479,38 +489,20 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de toetspeil berekening?.
-        /// </summary>
-        public static string DesignWaterLevelCalculation_Convergence_Description {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculation_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekend toetspeil..
-        /// </summary>
-        public static string DesignWaterLevelCalculation_Result_Description {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculation_Result_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetspeil [m+NAP].
-        /// </summary>
-        public static string DesignWaterLevelCalculation_Result_DisplayName {
-            get {
-                return ResourceManager.GetString("DesignWaterLevelCalculation_Result_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetspeilen.
         /// </summary>
         public static string DesignWaterLevelCalculationsContext_DisplayName {
             get {
                 return ResourceManager.GetString("DesignWaterLevelCalculationsContext_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toetsspoor.
+        /// </summary>
+        public static string FailureMechanism_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_Name_DisplayName", resourceCulture);
             }
         }
         
@@ -550,15 +542,6 @@ namespace Ringtoets.Integration.Forms.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismContributionView_AssessmentSectionCompositionLabelText_Assessment" +
                         "SectionComposition_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsspoor.
-        /// </summary>
-        public static string FailureMechanismContributionView_GridColumn_Assessment {
-            get {
-                return ResourceManager.GetString("FailureMechanismContributionView_GridColumn_Assessment", resourceCulture);
             }
         }
         
@@ -605,6 +588,42 @@ namespace Ringtoets.Integration.Forms.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismContributionView_ReturnPeriodLabelText_Norm_is_one_over_ReturnPer" +
                         "iod_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heeft vakindeling.
+        /// </summary>
+        public static string FailureMechanismMergeDataRow_HasSections_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismMergeDataRow_HasSections_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is relevant.
+        /// </summary>
+        public static string FailureMechanismMergeDataRow_IsRelevant_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismMergeDataRow_IsRelevant_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecteer.
+        /// </summary>
+        public static string FailureMechanismMergeDataRow_IsSelected_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismMergeDataRow_IsSelected_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal berekeningen.
+        /// </summary>
+        public static string FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName", resourceCulture);
             }
         }
         
@@ -885,33 +904,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         public static string SignalingNorm_DisplayName {
             get {
                 return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Is convergentie bereikt in de golfhoogte berekening?.
-        /// </summary>
-        public static string WaveHeightCalculation_Convergence_Description {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculation_Convergence_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekende golfhoogte..
-        /// </summary>
-        public static string WaveHeightCalculation_Result_Description {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculation_Result_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hs [m].
-        /// </summary>
-        public static string WaveHeightCalculation_Result_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveHeightCalculation_Result_DisplayName", resourceCulture);
             }
         }
         

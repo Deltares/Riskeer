@@ -1110,18 +1110,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var observerA = mocks.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-            var observerB = mocks.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-
             var group = new CalculationGroup();
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationA.Name = "A";
             StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationB.Name = "B";
-            calculationA.Attach(observerA);
-            calculationB.Attach(observerB);
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
@@ -1167,10 +1160,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gestart.", messages[0]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messages[26]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gestart.", messages[27]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[30]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[53]);
-                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[54]);
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'A' is gelukt.", messages[27]);
+
+                        Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gestart.", messages[28]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[31]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[54]);
                         Assert.AreEqual("Golfcondities voor blokken en zuilen berekenen voor 'B' is gelukt.", messages[55]);
                     });
                     Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());

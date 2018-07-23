@@ -658,9 +658,9 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Finish_ActivityExecutedSuccessfully_ProjectOwnerAndNewProjectUpdatedWithLogMessage()
+        public void GivenSuccessfullyExecutedOpenProjectActivity_WhenFinishingOpenProjectActivity_ThenProjectOwnerAndNewProjectUpdatedWithLogMessage()
         {
-            // Setup
+            // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
 
             var mocks = new MockRepository();
@@ -691,10 +691,14 @@ namespace Core.Common.Gui.Test
             // Precondition
             Assert.AreEqual(ActivityState.Executed, activity.State);
 
-            // Call
-            Action call = () => activity.Finish();
+            // When
+            Action call = () =>
+            {
+                activity.LogState();
+                activity.Finish();
+            };
 
-            // Assert
+            // Then
             const string expectedMessage = "Openen van project is gelukt.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
 
@@ -706,9 +710,9 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Finish_ActivityFailedDueToNoProject_ProjectOwnerHasNewEmptyProjectWithLogMessage()
+        public void GivenOpenProjectActivityAndFailedDueToNoProject_WhenFinishingOpenProjectActivity_ThenProjectOwnerHasNewEmptyProjectWithLogMessage()
         {
-            // Setup
+            // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
 
             var mocks = new MockRepository();
@@ -740,10 +744,14 @@ namespace Core.Common.Gui.Test
             // Precondition
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
-            // Call
-            Action call = () => activity.Finish();
+            // When
+            Action call = () =>
+            {
+                activity.LogState();
+                activity.Finish();
+            };
 
-            // Assert
+            // Then
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is mislukt.",
                                                                            LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
@@ -754,21 +762,16 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Finish_ActivityFailedDueToException_ProjectOwnerHasNewEmptyProjectWithLogMessage(bool trueForStorageExceptionFalseForArgumentException)
+        [TestCaseSource(nameof(ExceptionCases))]
+        public void GivenOpenProjectActivityFailedDueToException_WhenFinishingOpenProjectActivity_ThenProjectOwnerHasNewEmptyProjectWithLogMessage(Exception exceptionToThrow)
         {
-            // Setup
+            // Given
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
-
-            Exception exception = trueForStorageExceptionFalseForArgumentException ?
-                                      (Exception) new StorageException() :
-                                      new ArgumentException();
 
             var mocks = new MockRepository();
             var projectStorage = mocks.Stub<IStoreProject>();
             projectStorage.Stub(ps => ps.LoadProject(someFilePath))
-                          .Throw(exception);
+                          .Throw(exceptionToThrow);
 
             var project = mocks.Stub<IProject>();
 
@@ -794,10 +797,14 @@ namespace Core.Common.Gui.Test
             // Precondition
             Assert.AreEqual(ActivityState.Failed, activity.State);
 
-            // Call
-            Action call = () => activity.Finish();
+            // When
+            Action call = () =>
+            {
+                activity.LogState();
+                activity.Finish();
+            };
 
-            // Assert
+            // Then
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is mislukt.",
                                                                            LogLevelConstant.Error);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
@@ -808,7 +815,7 @@ namespace Core.Common.Gui.Test
         }
 
         [Test]
-        public void Finish_ActivityCancelled_ProjectOwnerNotUpdatedWithLogMessage()
+        public void LogState_ActivityCancelled_ProjectOwnerNotUpdatedWithLogMessage()
         {
             // Setup
             const string someFilePath = @"c:\\folder\someFilePath.rtd";
@@ -845,7 +852,7 @@ namespace Core.Common.Gui.Test
             Assert.AreEqual(ActivityState.Canceled, activity.State);
 
             // Call
-            Action call = () => activity.Finish();
+            Action call = () => activity.LogState();
 
             // Assert
             Tuple<string, LogLevelConstant> expectedMessage = Tuple.Create("Openen van project is geannuleerd.",
@@ -1159,9 +1166,7 @@ namespace Core.Common.Gui.Test
         {
             // Setup
             var mocks = new MockRepository();
-            IProject project = loadProjectSuccessful ?
-                                   mocks.Stub<IProject>() :
-                                   null;
+            IProject project = loadProjectSuccessful ? mocks.Stub<IProject>() : null;
             var projectFactory = mocks.StrictMock<IProjectFactory>();
             var projectOwner = mocks.StrictMock<IProjectOwner>();
             var storeProject = mocks.Stub<IStoreProject>();
@@ -1219,6 +1224,12 @@ namespace Core.Common.Gui.Test
             // Assert
             Assert.AreEqual(ActivityState.Canceled, activity.State);
             mocks.VerifyAll();
+        }
+
+        private static IEnumerable<TestCaseData> ExceptionCases()
+        {
+            yield return new TestCaseData(new StorageException());
+            yield return new TestCaseData(new ArgumentException());
         }
     }
 }

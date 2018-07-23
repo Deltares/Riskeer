@@ -937,9 +937,6 @@ handmatig</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
-  <data name="Contribution_of_failure_mechanism_zero" xml:space="preserve">
-    <value>De bijdrage van dit toetsspoor is nul.</value>
-  </data>
   <data name="ObservablePropertyChangeHandler_ConfirmPropertyChange_Confirm_change_input_parameter_and_clear_calculation_output" xml:space="preserve">
     <value>Als u een parameter in deze berekening wijzigt, zal de uitvoer van deze berekening verwijderd worden.
 
@@ -1430,5 +1427,32 @@ Faalkans - Faalkans gespecificeerd of uitgerekend</value>
   </data>
   <data name="AssemblyCategory_UpperBoundary_DisplayName" xml:space="preserve">
     <value>Bovengrens [1/jaar]</value>
+  </data>
+  <data name="DesignWaterLevelCalculation_Result_DisplayName" xml:space="preserve">
+    <value>Waterstand [m+NAP]</value>
+  </data>
+  <data name="DesignWaterLevelCalculation_Result_Description" xml:space="preserve">
+    <value>Berekende waterstand.</value>
+  </data>
+  <data name="DesignWaterLevelCalculation_Convergence_Description" xml:space="preserve">
+    <value>Is convergentie bereikt in de waterstand berekening?</value>
+  </data>
+  <data name="WaveHeightCalculation_Convergence_Description" xml:space="preserve">
+    <value>Is convergentie bereikt in de golfhoogte berekening?</value>
+  </data>
+  <data name="WaveHeightCalculation_Result_DisplayName" xml:space="preserve">
+    <value>Golfhoogte [m]</value>
+  </data>
+  <data name="WaveHeightCalculation_Result_Description" xml:space="preserve">
+    <value>Berekende golfhoogte.</value>
+  </data>
+  <data name="HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_DisplayName" xml:space="preserve">
+    <value>Categoriegrens</value>
+  </data>
+  <data name="HydraulicBoundaryLocationCalculationOutputProperties_CategoryBoundaryName_Description" xml:space="preserve">
+    <value>De categoriegrens behorende bij het resultaat.</value>
+  </data>
+  <data name="HydraulicBoundaryLocationProperties_CategoryBoundaries_Description" xml:space="preserve">
+    <value>De berekeningen per categoriegrens voor deze locatie.</value>
   </data>
 </root>

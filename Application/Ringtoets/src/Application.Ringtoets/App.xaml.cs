@@ -33,8 +33,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
-using Application.Ringtoets.Migration;
-using Application.Ringtoets.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
@@ -56,9 +54,11 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.MacroStabilityInwards.Plugin;
+using Ringtoets.Migration;
 using Ringtoets.Piping.Plugin;
 using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.StabilityStoneCover.Plugin;
+using Ringtoets.Storage.Core;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
@@ -198,6 +198,7 @@ namespace Application.Ringtoets
                 }
                 catch (ArgumentException) {}
             }
+
             return false;
         }
 
@@ -218,6 +219,7 @@ namespace Application.Ringtoets
                 {
                     return;
                 }
+
                 throw;
             }
         }
@@ -236,6 +238,7 @@ namespace Application.Ringtoets
                         Shutdown(1);
                         return true; //done here
                     }
+
                     hasMutex = true;
                 }
             }
@@ -246,6 +249,7 @@ namespace Application.Ringtoets
                     singleInstanceMutex = null;
                 }
             }
+
             return false;
         }
 
@@ -290,6 +294,7 @@ namespace Application.Ringtoets
                 singleInstanceMutex = new Mutex(true, mutexName, out createdNew);
             }
             catch (AbandonedMutexException) {} //might throw an abandoned mutex exception if the previous DS instance forcefully exited.
+
             return createdNew;
         }
 

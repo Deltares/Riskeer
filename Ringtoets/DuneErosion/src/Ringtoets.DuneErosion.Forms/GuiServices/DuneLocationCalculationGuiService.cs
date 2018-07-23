@@ -21,10 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
 using Ringtoets.DuneErosion.Data;
@@ -60,22 +61,29 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
         /// Performs all <paramref name="calculations"/>.
         /// </summary>
         /// <param name="calculations">The collection of <see cref="DuneLocationCalculation"/> to perform.</param>
-        /// <param name="hydraulicBoundaryDatabaseFilePath">The hydraulic boundary database file 
-        /// that should be used for performing the calculations.</param>
-        /// <param name="preprocessorDirectory">The preprocessor directory.</param>
+        /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <param name="norm">The norm to use during the calculations.</param>
-        /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
-        /// equals <see cref="string.Empty"/>.</remarks>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> or
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public void Calculate(IEnumerable<DuneLocationCalculation> calculations,
-                              string hydraulicBoundaryDatabaseFilePath,
-                              string preprocessorDirectory,
-                              double norm)
+                              IAssessmentSection assessmentSection,
+                              double norm,
+                              string categoryBoundaryName)
         {
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            string hydraulicBoundaryDatabaseFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
+            string preprocessorDirectory = assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory();
 
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    preprocessorDirectory);
@@ -92,12 +100,11 @@ namespace Ringtoets.DuneErosion.Forms.GuiServices
                 return;
             }
 
-            ActivityProgressDialogRunner.Run(
-                viewParent,
-                calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
-                                                                                       hydraulicBoundaryDatabaseFilePath,
-                                                                                       preprocessorDirectory,
-                                                                                       norm)).ToArray());
+            ActivityProgressDialogRunner.Run(viewParent,
+                                             DuneLocationCalculationActivityFactory.CreateCalculationActivities(calculations,
+                                                                                                                assessmentSection,
+                                                                                                                norm,
+                                                                                                                categoryBoundaryName));
         }
     }
 }

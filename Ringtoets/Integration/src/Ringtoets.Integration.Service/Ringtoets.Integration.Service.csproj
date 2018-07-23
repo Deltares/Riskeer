@@ -7,11 +7,29 @@
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Ringtoets.targets" />
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\log4net.2.0.4\lib\net40-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentSectionCalculationActivityFactory.cs" />
+    <Compile Include="AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.cs" />
+    <Compile Include="Comparers\AssessmentSectionMergeComparer.cs" />
+    <Compile Include="Comparers\IAssessmentSectionMergeComparer.cs" />
+    <Compile Include="Exceptions\LoadAssessmentSectionException.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionsActivity.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionsActivityFactory.cs" />
+    <Compile Include="Merge\LoadAssessmentSectionService.cs" />
+    <Compile Include="Merge\ILoadAssessmentSectionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RingtoetsDataSynchronizationService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -140,10 +158,22 @@
       <Name>Ringtoets.WaveImpactAsphaltCover.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Integration.Data\Ringtoets.Integration.Data.csproj">
+      <Project>{11F1F874-45AF-43E4-8AE5-15A5C9593E28}</Project>
+      <Name>Ringtoets.Integration.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -43,10 +43,11 @@ using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.ImportInfos;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Plugin;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -79,13 +80,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     context.WrappedData,
                     new GrassCoverErosionOutwardsFailureMechanismPropertyChangeHandler())
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext, DesignWaterLevelCalculationsProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new DesignWaterLevelCalculationsProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext, GrassCoverErosionOutwardsWaveHeightCalculationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsContext, WaveHeightCalculationsProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new WaveHeightCalculationsProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();
@@ -100,14 +101,40 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationContext, GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationContext, DesignWaterLevelCalculationProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationProperties(context.WrappedData)
+                CreateInstance = context => new DesignWaterLevelCalculationProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationContext, GrassCoverErosionOutwardsWaveHeightCalculationProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationContext, WaveHeightCalculationProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationProperties(context.WrappedData)
+                CreateInstance = context => new WaveHeightCalculationProperties(context.WrappedData)
+            };
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext, DesignWaterLevelCalculationsGroupProperties>
+            {
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new DesignWaterLevelCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
+            };
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext, WaveHeightCalculationsGroupProperties>
+            {
+                CreateInstance = context =>
+                {
+                    IEnumerable<Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>> calculationsPerCategoryBoundary =
+                        WaveHeightCalculationsGroupContextChildNodeObjects(context)
+                            .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
+                            .Select(childContext => new Tuple<string, IEnumerable<HydraulicBoundaryLocationCalculation>>(childContext.CategoryBoundaryName,
+                                                                                                                         childContext.WrappedData));
+                    return new WaveHeightCalculationsGroupProperties(context.WrappedData, calculationsPerCategoryBoundary);
+                }
             };
         }
 
@@ -150,17 +177,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext,
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
-                GrassCoverErosionOutwardsDesignWaterLevelCalculationsView>
+                DesignWaterLevelCalculationsView>
             {
                 GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsDesignWaterLevelCalculationsView(context.WrappedData,
-                                                                                                          context.FailureMechanism,
-                                                                                                          context.AssessmentSection,
-                                                                                                          context.GetNormFunc,
-                                                                                                          context.CategoryBoundaryName),
+                CreateInstance = context => new DesignWaterLevelCalculationsView(context.WrappedData,
+                                                                                 context.AssessmentSection,
+                                                                                 context.GetNormFunc,
+                                                                                 context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
@@ -168,17 +194,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsWaveHeightCalculationsContext,
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation>,
-                GrassCoverErosionOutwardsWaveHeightCalculationsView>
+                WaveHeightCalculationsView>
             {
                 GetViewName = (view, context) => $"{Resources.GrassCoverErosionOutwardsWaveHeightCalculationsGroupContext_DisplayName} " +
                                                  $"- {RingtoetsPluginHelper.FormatCategoryBoundaryName(context.CategoryBoundaryName)}",
                 GetViewData = context => context.WrappedData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
-                CreateInstance = context => new GrassCoverErosionOutwardsWaveHeightCalculationsView(context.WrappedData,
-                                                                                                    context.FailureMechanism,
-                                                                                                    context.AssessmentSection,
-                                                                                                    context.GetNormFunc,
-                                                                                                    context.CategoryBoundaryName),
+                CreateInstance = context => new WaveHeightCalculationsView(context.WrappedData,
+                                                                           context.AssessmentSection,
+                                                                           context.GetNormFunc,
+                                                                           context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; },
                 CloseForData = (view, data) => CloseHydraulicBoundaryCalculationsViewForData(view.AssessmentSection, data)
             };
@@ -235,12 +260,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase.IsLinked()
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddExportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddCollapseAllItem()
-                                                                                 .AddExpandAllItem()
-                                                                                 .Build()
+                ContextMenuStrip = GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextMenuStrip
             };
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext>
@@ -491,15 +511,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext,
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext,
                                                                          object parentData,
                                                                          TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(grassCoverErosionOutwardsFailureMechanismContext, treeViewControl));
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
+
+            IAssessmentSection assessmentSection = failureMechanismContext.Parent;
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        GrassCoverErosionOutwardsCalculationActivityFactory
+                            .CreateCalculationActivities(failureMechanismContext.WrappedData, assessmentSection));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
+                                                        calculateAllItem);
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(grassCoverErosionOutwardsFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCustomItem(calculateAllItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -569,15 +607,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                         nodeData.WrappedData,
+                        assessmentSection,
                         nodeData.GetNormFunc(),
-                        new DesignWaterLevelCalculationMessageProvider(nodeData.CategoryBoundaryName));
+                        nodeData.CategoryBoundaryName);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.FailureMechanism,
                                                         nodeData.GetNormFunc(),
                                                         designWaterLevelItem);
 
@@ -612,15 +648,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
 
                     hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                         nodeData.WrappedData,
+                        assessmentSection,
                         nodeData.GetNormFunc(),
-                        new WaveHeightCalculationMessageProvider(nodeData.CategoryBoundaryName));
+                        nodeData.CategoryBoundaryName);
                 });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
-                                                        nodeData.FailureMechanism,
                                                         nodeData.GetNormFunc(),
                                                         waveHeightItem);
 
@@ -824,43 +858,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
-            GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>().ToArray();
-
-            CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
-        }
-
-        private void CalculateAll(GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations,
-                                  GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                  IAssessmentSection assessmentSection)
-        {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                calculations
-                    .Select(calculation => new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                                          assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                          failureMechanism,
-                                                                                                          assessmentSection))
-                    .ToList());
-
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
-            {
-                calculation.NotifyObservers();
-            }
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                context.FailureMechanism,
+                                                                                                context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
@@ -943,33 +955,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
-            IAssessmentSection contextAssessmentSection = context.AssessmentSection;
+            IAssessmentSection assessmentSection = context.AssessmentSection;
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = context.WrappedData;
 
             GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation,
-                                                                               failureMechanism.GetAssessmentLevel(contextAssessmentSection,
+                                                                               failureMechanism.GetAssessmentLevel(assessmentSection,
                                                                                                                    calculation.InputParameters.HydraulicBoundaryLocation,
                                                                                                                    calculation.InputParameters.CategoryType),
-                                                                               contextAssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                               contextAssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                               failureMechanism.GetNorm(contextAssessmentSection, calculation.InputParameters.CategoryType));
+                                                                               assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                               assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                                                                               failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
         private void PerformCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
                                         GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                                            context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                            context.FailureMechanism,
-                                                                                                            context.AssessmentSection));
-            calculation.NotifyObservers();
+                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                           context.FailureMechanism,
+                                                                                                                           context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
@@ -988,6 +998,39 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
+        #region GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext TreeNodeInfo
+
+        private ContextMenuStrip GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContextMenuStrip(
+            GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            IAssessmentSection assessmentSection = nodeData.AssessmentSection;
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                RingtoetsCommonFormsResources.CalculationGroup_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        GrassCoverErosionOutwardsCalculationActivityFactory
+                            .CreateCalculationActivities(nodeData.FailureMechanism, assessmentSection));
+                });
+
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection,
+                                                        calculateAllItem);
+
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
+                      .AddSeparator()
+                      .AddCollapseAllItem()
+                      .AddExpandAllItem()
+                      .Build();
+        }
+
+        #endregion
+
         #region GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContext TreeNodeInfo
 
         private ContextMenuStrip GrassCoverErosionOutwardsDesignWaterLevelCalculationsGroupContextMenuStrip(
@@ -1001,26 +1044,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IEnumerable<DesignWaterLevelCalculationActivity> activities =
-                        DesignWaterLevelCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<GrassCoverErosionOutwardsDesignWaterLevelCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                            context.WrappedData,
-                                            context.GetNormFunc(),
-                                            new DesignWaterLevelCalculationMessageProvider(context.CategoryBoundaryName)))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        GrassCoverErosionOutwardsCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                            nodeData.FailureMechanism, assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, designWaterLevelItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, designWaterLevelItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(designWaterLevelItem)
@@ -1082,26 +1112,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 RingtoetsCommonFormsResources.CalculateAllIcon,
                 (sender, args) =>
                 {
-                    if (hydraulicBoundaryLocationCalculationGuiService == null)
-                    {
-                        return;
-                    }
-
-                    IEnumerable<WaveHeightCalculationActivity> activities =
-                        WaveHeightCalculationsGroupContextChildNodeObjects(nodeData)
-                            .Cast<GrassCoverErosionOutwardsWaveHeightCalculationsContext>()
-                            .SelectMany(context => HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                            context.WrappedData,
-                                            context.GetNormFunc(),
-                                            new WaveHeightCalculationMessageProvider(context.CategoryBoundaryName)))
-                            .ToArray();
-
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, activities);
+                    ActivityProgressDialogRunner.Run(
+                        Gui.MainWindow,
+                        GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveHeightCalculationActivities(
+                            nodeData.FailureMechanism, assessmentSection));
                 });
 
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, nodeData.FailureMechanism, waveHeightItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, waveHeightItem);
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddCustomItem(waveHeightItem)
@@ -1151,10 +1168,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         #endregion
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
-                                                                        IFailureMechanism failureMechanism,
                                                                         StrictContextMenuItem menuItem)
         {
-            string validationText = ValidateAllDataAvailableAndGetErrorMessage(assessmentSection, failureMechanism);
+            string validationText = ValidateAllDataAvailableAndGetErrorMessage(assessmentSection);
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;
@@ -1163,11 +1179,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
-                                                                        IFailureMechanism failureMechanism,
                                                                         double norm,
                                                                         StrictContextMenuItem menuItem)
         {
-            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, failureMechanism, menuItem);
+            SetHydraulicsMenuItemEnabledStateAndTooltip(assessmentSection, menuItem);
             if (!menuItem.Enabled)
             {
                 return;

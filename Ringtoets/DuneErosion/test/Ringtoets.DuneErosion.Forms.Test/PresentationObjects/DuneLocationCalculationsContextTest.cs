@@ -122,7 +122,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_CategoryBoundaryNameNull_ThrowsArgumentException()
+        [TestCase(null)]
+        [TestCase("")]
+        public void Constructor_CategoryBoundaryNameInvalid_ThrowsArgumentException(string categoryBoundaryName)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -134,27 +136,7 @@ namespace Ringtoets.DuneErosion.Forms.Test.PresentationObjects
                                                                           new DuneErosionFailureMechanism(),
                                                                           assessmentSection,
                                                                           () => 0.01,
-                                                                          null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("'categoryBoundaryName' must have a value.", exception.Message);
-        }
-
-        [Test]
-        public void Constructor_CategoryBoundaryNameEmpty_ThrowsArgumentException()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new DuneLocationCalculationsContext(new ObservableList<DuneLocationCalculation>(),
-                                                                          new DuneErosionFailureMechanism(),
-                                                                          assessmentSection,
-                                                                          () => 0.01,
-                                                                          string.Empty);
+                                                                          categoryBoundaryName);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);

@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        public void GetAssessmentLevelConfigurationPerAssessmentSectionCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
+        public void GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
         {
             // Call
             TestCaseData[] testCaseDataCollection = AssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerAssessmentSectionCategoryType().ToArray();

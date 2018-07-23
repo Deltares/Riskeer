@@ -51,7 +51,6 @@
     <Compile Include="GuiServices\IHydraulicBoundaryLocationCalculationGuiService.cs" />
     <Compile Include="Helpers\AssemblyCategoryGroupColorHelper.cs" />
     <Compile Include="Helpers\FailureMechanismSectionAssemblyCategoryGroupHelper.cs" />
-    <Compile Include="Helpers\HydraulicBoundaryLocationCalculationActivityFactory.cs" />
     <Compile Include="Helpers\ObserverHelper.cs" />
     <Compile Include="Helpers\SelectableHydraulicBoundaryLocationHelper.cs" />
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
@@ -61,6 +60,7 @@
     <Compile Include="IScenarioRow.cs" />
     <Compile Include="Observers\FailureMechanismResultObserver.cs" />
     <Compile Include="Observers\CalculatableFailureMechanismResultObserver.cs" />
+    <Compile Include="PresentationObjects\DesignWaterLevelCalculationContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelCalculationsGroupContext.cs" />
     <Compile Include="PresentationObjects\FailureMechanismAssemblyCategoriesContext.cs" />
@@ -86,6 +86,7 @@
     <Compile Include="PresentationObjects\SelectedTopLevelSubMechanismIllustrationPoint.cs" />
     <Compile Include="PresentationObjects\StructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\StructuresOutputContext.cs" />
+    <Compile Include="PresentationObjects\WaveHeightCalculationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationsContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightCalculationsGroupContext.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -94,12 +95,24 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\DesignVariableProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsGroupBaseProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightHydraulicBoundaryLocationProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationBaseProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationsGroupProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationCategoryBoundaryProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationCategoryBoundaryProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProbabilityAssessmentProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionsProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationBaseProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationProperties.cs" />
+    <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationCategoryBoundaryProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryLocationCalculationsProperties.cs" />
+    <Compile Include="PropertyClasses\DesignWaterLevelHydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PropertyClasses\IllustrationPointProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointValuesProperties.cs" />
     <Compile Include="PropertyClasses\SubMechanismIllustrationPointProperties.cs" />
@@ -131,6 +144,8 @@
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
     <Compile Include="ExportInfos\RingtoetsExportInfoFactory.cs" />
     <Compile Include="PropertyClasses\TopLevelSubMechanismIllustrationPointProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationProperties.cs" />
+    <Compile Include="PropertyClasses\WaveHeightCalculationsProperties.cs" />
     <Compile Include="ScenarioSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,6 +173,12 @@
     <Compile Include="PresentationObjects\SelectableHydraulicBoundaryLocation.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\CalculatableRow.cs" />
+    <Compile Include="Views\DesignWaterLevelCalculationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DesignWaterLevelCalculationsView.Designer.cs">
+      <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FailureMechanismSectionProbabilityAssessmentRow.cs" />
     <Compile Include="Views\FailureMechanismSectionRow.cs" />
     <Compile Include="Views\FailureMechanismSectionsView.cs">
@@ -249,6 +270,12 @@
     <Compile Include="Views\FailureMechanismSectionsProbabilityAssessmentView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\WaveHeightCalculationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WaveHeightCalculationsView.Designer.cs">
+      <DependentUpon>WaveHeightCalculationsView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\AssemblyResultControl.resx">
@@ -264,6 +291,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ScenarioSelectionControl.resx">
       <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\DesignWaterLevelCalculationsView.resx">
+      <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\FailureMechanismSectionsView.resx">
       <DependentUpon>FailureMechanismSectionsView.cs</DependentUpon>
@@ -301,6 +331,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RingtoetsMapControl.resx">
       <DependentUpon>RingtoetsMapControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WaveHeightCalculationsView.resx">
+      <DependentUpon>WaveHeightCalculationsView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

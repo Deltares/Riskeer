@@ -72,7 +72,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -113,7 +115,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = true;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -157,7 +161,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = true;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -198,7 +204,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -237,7 +245,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -273,7 +283,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -317,7 +329,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -364,7 +378,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -376,6 +392,92 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
             Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_InvalidNormForDikeHeightCalculation_LogsMessageAndReturnTrue()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
+                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability
+                }
+            };
+
+            // Call
+            var isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                StringAssert.StartsWith("De HBN berekening kan niet worden uitgevoerd. " +
+                                        "Doelkans is te klein om een berekening uit te kunnen voeren.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsTrue(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_InvalidNormForOvertoppingRateCalculation_LogsMessageAndReturnTrue()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
+                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability
+                }
+            };
+
+            // Call
+            var isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                string[] msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                StringAssert.StartsWith("De overslagdebiet berekening kan niet worden uitgevoerd. " +
+                                        "Doelkans is te klein om een berekening uit te kunnen voeren.", msgs[1]);
+                CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+            });
+            Assert.IsTrue(isValid);
 
             mockRepository.VerifyAll();
         }
@@ -402,7 +504,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -440,7 +544,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -483,7 +589,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -526,7 +634,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation,
+                                                                                              grassCoverErosionInwardsFailureMechanism,
+                                                                                              assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -584,7 +694,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_GeneralinputNull_ThrowArgumentNullException()
+        public void Calculate_GeneralInputNull_ThrowArgumentNullException()
         {
             // Setup
             var calculation = new GrassCoverErosionInwardsCalculation();
@@ -612,10 +722,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         public void Calculate_CalculationValid_ReturnOutput([Values(true, false)] bool useForeland,
                                                             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                                                                 DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                DikeHeightCalculationType.NoCalculation)] DikeHeightCalculationType dikeHeightCalculationType,
+                                                                DikeHeightCalculationType.NoCalculation)]
+                                                            DikeHeightCalculationType dikeHeightCalculationType,
                                                             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
                                                                 OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability,
-                                                                OvertoppingRateCalculationType.NoCalculation)] OvertoppingRateCalculationType overtoppingRateCalculationType,
+                                                                OvertoppingRateCalculationType.NoCalculation)]
+                                                            OvertoppingRateCalculationType overtoppingRateCalculationType,
                                                             [Values(true, false)] bool calculateIllustrationPoints)
         {
             // Setup
@@ -911,7 +1023,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         public void Calculate_CancelDikeHeightCalculation_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeDikeHeightCalculationStarts,
             [Values(DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
-                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)] DikeHeightCalculationType dikeHeightCalculationType)
+                DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability)]
+            DikeHeightCalculationType dikeHeightCalculationType)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -970,7 +1083,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         public void Calculate_CancelOvertoppingRateCalculation_CancelsCalculatorAndHasNullOutput(
             [Values(true, false)] bool cancelBeforeOvertoppingRateCalculationStarts,
             [Values(OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
-                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)] OvertoppingRateCalculationType overtoppingRateCalculationType)
+                OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability)]
+            OvertoppingRateCalculationType overtoppingRateCalculationType)
         {
             // Setup
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateGrassCoverErosionInwardsFailureMechanism();
@@ -2818,6 +2932,88 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             Assert.IsFalse(dikeHeightCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
             Assert.IsFalse(overtoppingRateCalculator.ReceivedInputs.Single().PreprocessorSetting.RunPreprocessor);
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculateDikeHeightWithInvalidNorm_DikeHeightOutputNull()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
+            var overtoppingCalculator = new TestOvertoppingCalculator();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
+                    DikeHeightCalculationType = DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability
+                }
+            };
+
+            var service = new GrassCoverErosionInwardsCalculationService();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSection,
+                                  grassCoverErosionInwardsFailureMechanism.GeneralInput,
+                                  grassCoverErosionInwardsFailureMechanism.Contribution,
+                                  validFilePath);
+
+                // Assert
+                Assert.IsNull(calculation.Output.DikeHeightOutput);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculateOvertoppingRateWithInvalidNorm_OvertoppingRateOutputNull()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                       mockRepository,
+                                                                                                       validFilePath);
+            var overtoppingCalculator = new TestOvertoppingCalculator();
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, string.Empty)).Return(overtoppingCalculator);
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
+                    OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability
+                }
+            };
+
+            var service = new GrassCoverErosionInwardsCalculationService();
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSection,
+                                  grassCoverErosionInwardsFailureMechanism.GeneralInput,
+                                  grassCoverErosionInwardsFailureMechanism.Contribution,
+                                  validFilePath);
+
+                // Assert
+                Assert.IsNull(calculation.Output.OvertoppingRateOutput);
+            }
         }
 
         private static GrassCoverErosionInwardsFailureMechanism CreateGrassCoverErosionInwardsFailureMechanism()

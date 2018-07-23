@@ -31,7 +31,7 @@ namespace Ringtoets.StabilityStoneCover.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a stability stone cover wave conditions calculation.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationActivity : CalculatableActivity
+    internal class StabilityStoneCoverWaveConditionsCalculationActivity : CalculatableActivity
     {
         private readonly StabilityStoneCoverWaveConditionsCalculation calculation;
         private readonly string hlcdFilePath;
@@ -99,7 +99,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override void OnFinish()
         {
-            // something.Notify();
+            calculation.NotifyObservers();
         }
 
         protected override void OnCancel()

@@ -25,15 +25,14 @@ using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Plugin.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.Integration.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 {
@@ -132,7 +131,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             return new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
                                                                   new CalculationGroup(),
                                                                   new GrassCoverErosionInwardsFailureMechanism(),
-                                                                  new AssessmentSection(AssessmentSectionComposition.Dike));
+                                                                  new AssessmentSectionStub());
         }
 
         protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
@@ -147,7 +146,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 },
                 null,
                 new GrassCoverErosionInwardsFailureMechanism(),
-                new AssessmentSection(AssessmentSectionComposition.Dike));
+                new AssessmentSectionStub());
         }
 
         protected override IFailureMechanismContext<IFailureMechanism> GetFailureMechanismContextWithCalculation()
@@ -163,7 +162,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                         }
                     }
                 },
-                new AssessmentSection(AssessmentSectionComposition.Dike));
+                new AssessmentSectionStub());
         }
     }
 }

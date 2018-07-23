@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
@@ -32,6 +33,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -55,17 +57,23 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         public void Run_CalculationWithInvalidHydraulicBoundaryDatabaseFilePath_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
-            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
-            StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
             string invalidFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
+            var assessmentSection = new AssessmentSectionStub();
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = invalidFilePath;
 
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    invalidFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            {
+                hydraulicBoundaryLocation
+            });
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
+
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -103,12 +111,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -144,12 +150,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
             assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -176,7 +180,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             mockRepository.VerifyAll();
         }
 
-
         [Test]
         public void Run_Always_SetProgressTexts()
         {
@@ -184,22 +187,19 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(waterLevels.Length * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -229,8 +229,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         public void Run_Always_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
         {
             // Setup
-            const int nrOfCalculators = 6;
-
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
@@ -238,14 +236,16 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
             var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                                  stabilityStoneCoverFailureMechanism,
+                                                                                                                                  assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var calculator = new TestWaveConditionsCosineCalculator();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+            int nrOfCalculators = waterLevels.Length * 2;
+
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(calculator)
                              .Repeat
@@ -264,7 +264,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
                 WaveConditionsInput input = calculation.InputParameters;
-                RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
                 double norm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
 
                 var waterLevelIndex = 0;
@@ -312,12 +311,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -368,12 +365,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -437,12 +432,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -479,21 +472,17 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
-
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -521,12 +510,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -560,12 +547,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
@@ -595,21 +580,17 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
-
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -629,24 +610,21 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = validPreprocessorDirectory;
 
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -666,24 +644,21 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
-            var stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
-
             assessmentSection.HydraulicBoundaryDatabase.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.UsePreprocessor = false;
             assessmentSection.HydraulicBoundaryDatabase.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                    validFilePath,
-                                                                                    stabilityStoneCoverFailureMechanism,
-                                                                                    assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -691,6 +666,41 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 // Call
                 activity.Run();
             }
+
+            // Assert
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Finish_ValidCalculation_NotifiesObserversOfCalculation()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(6);
+            mockRepository.ReplayAll();
+
+            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
+
+            calculation.Attach(observer);
+
+            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
+                calculation,
+                new StabilityStoneCoverFailureMechanism(),
+                assessmentSection);
+
+            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+            {
+                activity.Run();
+            }
+
+            // Call
+            activity.Finish();
 
             // Assert
             mockRepository.VerifyAll();

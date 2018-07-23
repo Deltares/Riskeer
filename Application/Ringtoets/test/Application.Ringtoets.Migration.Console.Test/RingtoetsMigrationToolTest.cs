@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using Migration.Console;
 using Migration.Console.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
+using Ringtoets.Migration.Core;
+using Ringtoets.Migration.Core.TestUtil;
 
 namespace Application.Ringtoets.Migration.Console.Test
 {
@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Migration.Console.Test
     public class RingtoetsMigrationToolTest
     {
         private TestEnvironmentControl environmentControl;
-        private readonly TestDataPath testPath = TestDataPath.Application.Ringtoets.Migration.Core;
+        private readonly TestDataPath testPath = TestDataPath.Ringtoets.Migration.Core;
 
         [SetUp]
         public void SetUp()

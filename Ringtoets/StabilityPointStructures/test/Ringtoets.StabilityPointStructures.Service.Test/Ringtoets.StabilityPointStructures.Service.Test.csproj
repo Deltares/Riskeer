@@ -19,6 +19,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StabilityPointStructuresCalculationActivityFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StabilityPointStructuresCalculationActivityTest.cs" />
     <Compile Include="StabilityPointStructuresCalculationMessageProviderTest.cs" />

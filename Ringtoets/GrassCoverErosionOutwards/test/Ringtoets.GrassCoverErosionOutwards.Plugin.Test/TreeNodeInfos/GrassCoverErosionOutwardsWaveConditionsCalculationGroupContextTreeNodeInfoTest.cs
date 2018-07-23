@@ -787,62 +787,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismContributionZero_CalculateAllAndValidateAllDisabled()
-        {
-            // Setup
-            string validHydraulicBoundaryDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                                   Path.Combine("HydraulicBoundaryDatabaseImporter", "complete.sqlite"));
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var group = new CalculationGroup();
-                group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
-
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    Contribution = 0
-                };
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-                {
-                    FilePath = validHydraulicBoundaryDatabasePath
-                });
-
-                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
-                                                                                                  failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-                var parentNodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                gui.Stub(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
-                    Assert.IsFalse(validateItem.Enabled);
-                    Assert.IsFalse(calculateItem.Enabled);
-                    const string message = "De bijdrage van dit toetsspoor is nul.";
-                    Assert.AreEqual(message, calculateItem.ToolTipText);
-                    Assert.AreEqual(message, validateItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
         public void ContextMenuStrip_AllRequiredInputSet_CalculateAllAndValidateAllEnabled()
         {
             // Setup
@@ -1216,18 +1160,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 });
             ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
 
-            var observerA = mocks.StrictMock<IObserver>();
-            observerA.Expect(o => o.UpdateObserver());
-            var observerB = mocks.StrictMock<IObserver>();
-            observerB.Expect(o => o.UpdateObserver());
-
             var group = new CalculationGroup();
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationA = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationA.Name = "A";
             GrassCoverErosionOutwardsWaveConditionsCalculation calculationB = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             calculationB.Name = "B";
-            calculationA.Attach(observerA);
-            calculationB.Attach(observerB);
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
@@ -1274,10 +1211,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                         Assert.AreEqual("Golfcondities berekenen voor 'A' is gestart.", messages[0]);
                         CalculationServiceTestHelper.AssertCalculationStartMessage(messages[3]);
                         CalculationServiceTestHelper.AssertCalculationEndMessage(messages[13]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[14]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[17]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[27]);
-                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[28]);
+                        Assert.AreEqual("Golfcondities berekenen voor 'A' is gelukt.", messages[14]);
+
+                        Assert.AreEqual("Golfcondities berekenen voor 'B' is gestart.", messages[15]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(messages[18]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(messages[28]);
                         Assert.AreEqual("Golfcondities berekenen voor 'B' is gelukt.", messages[29]);
                     });
                 }

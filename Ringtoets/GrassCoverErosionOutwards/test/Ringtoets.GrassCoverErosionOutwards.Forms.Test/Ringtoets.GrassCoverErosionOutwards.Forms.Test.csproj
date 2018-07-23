@@ -41,18 +41,12 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelCalculationsContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsFailureMechanismPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelCalculationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsDesignWaterLevelCalculationsPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsOutputPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightCalculationPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveHeightCalculationsPropertiesTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismViewTest.cs" />
-    <Compile Include="Views\GrassCoverErosionOutwardsDesignWaterLevelCalculationsViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsWaveConditionsInputViewStyleTest.cs" />
-    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightCalculationsViewTest.cs" />
     <Compile Include="Factories\GrassCoverErosionOutwardsMapDataFeaturesFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,10 +143,6 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
       <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Service\Ringtoets.GrassCoverErosionOutwards.Service.csproj">
-      <Project>{18E9F7C8-3170-4E9D-8D9F-1378225EED90}</Project>
-      <Name>Ringtoets.GrassCoverErosionOutwards.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Util\Ringtoets.GrassCoverErosionOutwards.Util.csproj">
       <Project>{033ED27D-E806-42B4-9689-8150CFAE1906}</Project>

@@ -13,15 +13,23 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundMapDataSelectionDialog.cs">
+    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BackgroundMapDataSelectionDialog.Designer.cs">
+    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialog.Designer.cs">
+      <DependentUpon>AssessmentSectionMergeDataProviderDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialog.Designer.cs">
       <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Commands\AddAssessmentSectionCommand.cs" />
@@ -33,30 +41,27 @@
     <Compile Include="Controls\AssessmentSectionAssemblyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Merge\AssessmentSectionMergeFilePathProvider.cs" />
+    <Compile Include="Merge\FailureMechanismMergeDataRow.cs" />
+    <Compile Include="Merge\IAssessmentSectionMergeFilePathProvider.cs" />
+    <Compile Include="Merge\IAssessmentSectionMergeDataProvider.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserver.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContext.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContext.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelCalculationContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\WaveHeightCalculationContext.cs" />
     <Compile Include="PropertyClasses\BackgroundDataProperties.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextProperties.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupProperties.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsProperties.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryProperties.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryProperties.cs" />
-    <Compile Include="PropertyClasses\HydraulicBoundaryLocationProperties.cs" />
     <Compile Include="PropertyClasses\NormProperties.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionCompositionProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\ReferenceLineProperties.cs" />
-    <Compile Include="PropertyClasses\WaveHeightCalculationProperties.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectProperties.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,11 +72,10 @@
     </Compile>
     <Compile Include="PropertyClasses\AssessmentSectionProperties.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabaseProperties.cs" />
-    <Compile Include="PropertyClasses\WaveHeightCalculationsProperties.cs" />
-    <Compile Include="ReferenceLineMetaSelectionDialog.cs">
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReferenceLineMetaSelectionDialog.Designer.cs">
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialog.Designer.cs">
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="RingtoetsSettingsHelper.cs" />
@@ -109,12 +113,6 @@
     </Compile>
     <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DesignWaterLevelCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\DesignWaterLevelCalculationsView.Designer.cs">
-      <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertyClasses\IAssessmentSectionCompositionChangeHandler.cs" />
     <Compile Include="Views\AssemblyCategoryRow.cs" />
@@ -158,12 +156,6 @@
     </Compile>
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultView.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\WaveHeightCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\WaveHeightCalculationsView.Designer.cs">
-      <DependentUpon>WaveHeightCalculationsView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -237,11 +229,6 @@
       <Name>Ringtoets.Common.Primitives</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
-      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\DuneErosion\src\Ringtoets.DuneErosion.Data\Ringtoets.DuneErosion.Data.csproj">
       <Project>{d1068432-c172-4aa6-847b-d9deb4c6de26}</Project>
       <Name>Ringtoets.DuneErosion.Data</Name>
@@ -287,6 +274,11 @@
       <Name>Ringtoets.StabilityStoneCover.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Storage\src\Ringtoets.Storage.Core\Ringtoets.Storage.Core.csproj">
+      <Project>{50963f12-448c-41ba-a62c-cdb0ab8d21e0}</Project>
+      <Name>Ringtoets.Storage.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
@@ -297,22 +289,20 @@
       <Name>Ringtoets.Integration.Data</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.Integration.Service\Ringtoets.Integration.Service.csproj">
-      <Project>{28811C4A-6C18-42C1-88B2-A03A3784E2D0}</Project>
-      <Name>Ringtoets.Integration.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BackgroundMapDataSelectionDialog.resx">
+    <EmbeddedResource Include="Dialogs\BackgroundMapDataSelectionDialog.resx">
       <DependentUpon>BackgroundMapDataSelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Merge\AssessmentSectionMergeDataProviderDialog.resx">
+      <DependentUpon>AssessmentSectionMergeDataProviderDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReferenceLineMetaSelectionDialog.resx">
+    <EmbeddedResource Include="Dialogs\ReferenceLineMetaSelectionDialog.resx">
       <DependentUpon>ReferenceLineMetaSelectionDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -332,16 +322,8 @@
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\DesignWaterLevelCalculationsView.resx">
-      <DependentUpon>DesignWaterLevelCalculationsView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\AssessmentSectionAssemblyCategoriesView.resx">
       <DependentUpon>AssessmentSectionAssemblyCategoriesView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\WaveHeightCalculationsView.resx">
-      <DependentUpon>WaveHeightCalculationsView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

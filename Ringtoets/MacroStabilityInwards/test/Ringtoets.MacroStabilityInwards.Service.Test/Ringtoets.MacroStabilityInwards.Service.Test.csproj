@@ -32,6 +32,7 @@
     <Compile Include="MacroStabilityInwardsDataSynchronizationServiceTest.cs" />
     <Compile Include="MacroStabilityInwardsInputServiceTest.cs" />
     <Compile Include="MacroStabilityInwardsInputValidatorTest.cs" />
+    <Compile Include="MacroStabilityInwardsCalculationActivityFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

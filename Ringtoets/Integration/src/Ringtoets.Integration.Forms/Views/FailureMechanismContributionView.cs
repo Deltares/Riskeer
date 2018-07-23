@@ -232,7 +232,7 @@ namespace Ringtoets.Integration.Forms.Views
                                                           Resources.FailureMechanismContributionView_GridColumn_RelevancyFilter);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Assessment),
-                                                         Resources.FailureMechanismContributionView_GridColumn_Assessment,
+                                                         Resources.FailureMechanism_Name_DisplayName,
                                                          true);
 
             probabilityDistributionGrid.AddTextBoxColumn(nameof(FailureMechanismContributionItemRow.Code),

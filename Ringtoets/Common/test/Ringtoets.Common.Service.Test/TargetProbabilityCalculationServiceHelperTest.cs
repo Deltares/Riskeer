@@ -84,6 +84,21 @@ namespace Ringtoets.Common.Service.Test
             Assert.AreEqual("Doelkans is te groot om een berekening uit te kunnen voeren.", logMessage);
         }
 
+        [Test]
+        [TestCaseSource(nameof(TargetProbabilitiesThatAreTooSmall))]
+        public void ValidateTargetProbability_TargetProbabilityTooSmall_ReturnsFalseAndHandlesExpectedLogMessage(double targetProbability)
+        {
+            // Setup
+            string logMessage = string.Empty;
+
+            // Call
+            bool isValid = TargetProbabilityCalculationServiceHelper.ValidateTargetProbability(targetProbability, lm => logMessage = lm);
+
+            // Assert
+            Assert.IsFalse(isValid);
+            Assert.AreEqual("Doelkans is te klein om een berekening uit te kunnen voeren.", logMessage);
+        }
+
         private static IEnumerable<TestCaseData> ValidTargetProbabilities()
         {
             yield return new TestCaseData(0.005);
@@ -94,6 +109,12 @@ namespace Ringtoets.Common.Service.Test
         {
             yield return new TestCaseData(StatisticsConverter.ReliabilityToProbability(-1.005));
             yield return new TestCaseData(5.0);
+        }
+
+        private static IEnumerable<TestCaseData> TargetProbabilitiesThatAreTooSmall()
+        {
+            yield return new TestCaseData(StatisticsConverter.ReliabilityToProbability(40.005));
+            yield return new TestCaseData(0.0);
         }
     }
 }

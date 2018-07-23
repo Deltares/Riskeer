@@ -327,11 +327,23 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddPerformAllCalculationsInFailureMechanismItem(
+                              failureMechanismContext,
+                              CalculateAll)
+                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void CalculateAll(WaveImpactAsphaltCoverFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                                           context.Parent));
         }
 
         private void RemoveAllViewsForItem(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
@@ -549,28 +561,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         private void CalculateAll(CalculationGroup group, WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
-            WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations = group.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>().ToArray();
-
-            CalculateAll(calculations, context.FailureMechanism, context.AssessmentSection);
-        }
-
-        private void CalculateAll(WaveImpactAsphaltCoverWaveConditionsCalculation[] calculations,
-                                  WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                  IAssessmentSection assessmentSection)
-        {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
-                calculations
-                    .Select(calculation => new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                       assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                       failureMechanism,
-                                                                                                       assessmentSection))
-                    .ToList());
-
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
-            {
-                calculation.NotifyObservers();
-            }
+                WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                           context.FailureMechanism,
+                                                                                                           context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
@@ -660,11 +655,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                                         WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                         context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                         context.FailureMechanism,
-                                                                                                         context.AssessmentSection));
-            calculation.NotifyObservers();
+                                             WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                                      context.FailureMechanism,
+                                                                                                                                      context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentNodeData)

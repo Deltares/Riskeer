@@ -28,11 +28,11 @@ using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.TypeConverters;
@@ -46,6 +46,7 @@ using Ringtoets.DuneErosion.Forms.PropertyClasses;
 using Ringtoets.DuneErosion.Forms.Views;
 using Ringtoets.DuneErosion.IO;
 using Ringtoets.DuneErosion.Plugin.Properties;
+using Ringtoets.DuneErosion.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
@@ -148,7 +149,8 @@ namespace Ringtoets.DuneErosion.Plugin
                 CreateInstance = context => new DuneLocationCalculationsView(context.WrappedData,
                                                                              context.FailureMechanism,
                                                                              context.AssessmentSection,
-                                                                             context.GetNormFunc),
+                                                                             context.GetNormFunc,
+                                                                             context.CategoryBoundaryName),
                 AfterCreate = (view, context) => { view.CalculationGuiService = duneLocationCalculationGuiService; },
                 AdditionalDataCheck = context => context.WrappedData.Any()
             };
@@ -275,6 +277,8 @@ namespace Ringtoets.DuneErosion.Plugin
                           .AddSeparator()
                           .AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddCustomItem(CreateCalculateAllItem(failureMechanismContext.WrappedData, failureMechanismContext.Parent))
+                          .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .AddSeparator()
@@ -306,11 +310,14 @@ namespace Ringtoets.DuneErosion.Plugin
 
         #region DuneLocationCalculationsGroupContext TreeNodeInfo
 
-        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(
-            DuneLocationCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip DuneLocationCalculationsGroupContextMenuStrip(DuneLocationCalculationsGroupContext nodeData,
+                                                                               object parentData,
+                                                                               TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddExportItem()
+                      .AddSeparator()
+                      .AddCustomItem(CreateCalculateAllItem(nodeData.FailureMechanism, nodeData.AssessmentSection))
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()
@@ -361,14 +368,8 @@ namespace Ringtoets.DuneErosion.Plugin
         #region DuneLocationCalculationsContext TreeNodeInfo
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection,
-                                                                         double failureMechanismContribution,
                                                                          double norm)
         {
-            if (failureMechanismContribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             string errorMessage = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
 
             if (string.IsNullOrEmpty(errorMessage))
@@ -393,13 +394,12 @@ namespace Ringtoets.DuneErosion.Plugin
                     }
 
                     duneLocationCalculationGuiService.Calculate(context.WrappedData,
-                                                                context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                context.AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                                                context.GetNormFunc());
+                                                                context.AssessmentSection,
+                                                                context.GetNormFunc(),
+                                                                context.CategoryBoundaryName);
                 });
 
             string validationText = ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection,
-                                                                               context.FailureMechanism.Contribution,
                                                                                context.GetNormFunc());
 
             if (!string.IsNullOrEmpty(validationText))
@@ -420,6 +420,34 @@ namespace Ringtoets.DuneErosion.Plugin
         }
 
         #endregion
+
+        private StrictContextMenuItem CreateCalculateAllItem(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                Resources.DuneErosionPlugin_DuneLocationCalculationsContextMenuStrip_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) =>
+                {
+                    ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                                     DuneLocationCalculationActivityFactory.CreateCalculationActivities(failureMechanism, assessmentSection));
+                });
+
+            string validationText = HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+
+            if (string.IsNullOrEmpty(validationText) && !failureMechanism.DuneLocations.Any())
+            {
+                validationText = Resources.DuneErosionPlugin_CreateCalculateAllItem_No_calculatable_locations_present;
+            }
+
+            if (!string.IsNullOrEmpty(validationText))
+            {
+                calculateAllItem.Enabled = false;
+                calculateAllItem.ToolTipText = validationText;
+            }
+
+            return calculateAllItem;
+        }
 
         #endregion
 

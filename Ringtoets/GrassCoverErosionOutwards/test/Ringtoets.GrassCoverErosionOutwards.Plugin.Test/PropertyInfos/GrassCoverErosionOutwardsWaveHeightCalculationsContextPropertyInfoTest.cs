@@ -27,9 +27,9 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 {
@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsContext), info.DataType);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightCalculationsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(WaveHeightCalculationsProperties), info.PropertyObjectType);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightCalculationsProperties>(objectProperties);
+                Assert.IsInstanceOf<WaveHeightCalculationsProperties>(objectProperties);
                 Assert.AreSame(calculations, objectProperties.Data);
             }
 

@@ -21,13 +21,13 @@
 
 using System;
 using System.Collections.Generic;
-using Application.Ringtoets.Migration.Core;
-using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.TestUtil;
 using Migration.Console;
 using Migration.Console.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Util;
+using Ringtoets.Migration.Core;
+using Ringtoets.Migration.Core.TestUtil;
 
 namespace Application.Ringtoets.Migration.Console.Test
 {
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Migration.Console.Test
         public void GivenConsole_WhenVersionSupportedCall_ThenReturnedIfSupported(string file, string fileVersion, bool isSupported)
         {
             // Given
-            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Migration.Core, file);
+            string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Migration.Core, file);
             var console = new RingtoetsMigrationConsole();
             string expectedVersion = RingtoetsVersionHelper.GetCurrentDatabaseVersion();
 

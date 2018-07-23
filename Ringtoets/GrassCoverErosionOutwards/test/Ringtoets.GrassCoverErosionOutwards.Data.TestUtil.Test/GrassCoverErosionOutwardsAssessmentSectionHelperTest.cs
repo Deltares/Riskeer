@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
     public class GrassCoverErosionOutwardsAssessmentSectionHelperTest
     {
         [Test]
-        public void GetAssessmentLevelConfigurationPerFailureMechanismCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
+        public void GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType_Always_ReturnsExpectedTestCaseDataCollection()
         {
             // Call
             TestCaseData[] testCaseDataCollection = GrassCoverErosionOutwardsAssessmentSectionHelper.GetHydraulicBoundaryLocationCalculationConfigurationPerFailureMechanismCategoryType().ToArray();
@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
 
             HydraulicBoundaryLocationCalculation expectedHydraulicBoundaryLocationCalculation = getCalculationsFunc(assessmentSection, failureMechanism)
                 .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
-            Assert.AreEqual(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
+            Assert.AreSame(expectedHydraulicBoundaryLocationCalculation, hydraulicBoundaryLocationCalculation);
         }
     }
 }

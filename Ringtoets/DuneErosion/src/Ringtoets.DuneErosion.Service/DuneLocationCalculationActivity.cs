@@ -20,22 +20,22 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Service;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.DuneErosion.Data;
-using Ringtoets.DuneErosion.Service.Properties;
 
 namespace Ringtoets.DuneErosion.Service
 {
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a dune location calculation.
     /// </summary>
-    public class DuneLocationCalculationActivity : CalculatableActivity
+    internal class DuneLocationCalculationActivity : CalculatableActivity
     {
         private readonly DuneLocationCalculation duneLocationCalculation;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string preprocessorDirectory;
         private readonly double norm;
+        private readonly ICalculationMessageProvider messageProvider;
         private readonly DuneLocationCalculationService calculationService;
 
         /// <summary>
@@ -46,35 +46,33 @@ namespace Ringtoets.DuneErosion.Service
         /// should be used for performing the calculation.</param>
         /// <param name="preprocessorDirectory">The preprocessor directory.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <remarks>Preprocessing is disabled when <paramref name="preprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocationCalculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public DuneLocationCalculationActivity(DuneLocationCalculation duneLocationCalculation,
                                                string hydraulicBoundaryDatabaseFilePath,
                                                string preprocessorDirectory,
-                                               double norm)
+                                               double norm,
+                                               string categoryBoundaryName)
             : base(duneLocationCalculation)
         {
+            messageProvider = new DuneLocationCalculationMessageProvider(categoryBoundaryName);
+
             this.duneLocationCalculation = duneLocationCalculation;
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.preprocessorDirectory = preprocessorDirectory;
             this.norm = norm;
 
             DuneLocation duneLocation = duneLocationCalculation.DuneLocation;
-            Description = string.Format(Resources.DuneLocationCalculationActivity_Calculate_hydraulic_boundary_conditions_for_DuneLocation_with_name_0_,
-                                        duneLocation.Name);
+            Description = messageProvider.GetActivityDescription(duneLocation.Name);
 
             calculationService = new DuneLocationCalculationService();
         }
 
         protected override bool Validate()
         {
-            if (AlreadyCalculated)
-            {
-                State = ActivityState.Skipped;
-                return true;
-            }
-
             return calculationService.Validate(hydraulicBoundaryDatabaseFilePath,
                                                preprocessorDirectory,
                                                norm);
@@ -82,13 +80,11 @@ namespace Ringtoets.DuneErosion.Service
 
         protected override void PerformCalculation()
         {
-            if (State != ActivityState.Skipped)
-            {
-                calculationService.Calculate(duneLocationCalculation,
-                                             norm,
-                                             hydraulicBoundaryDatabaseFilePath,
-                                             preprocessorDirectory);
-            }
+            calculationService.Calculate(duneLocationCalculation,
+                                         norm,
+                                         hydraulicBoundaryDatabaseFilePath,
+                                         preprocessorDirectory,
+                                         messageProvider);
         }
 
         protected override void OnCancel()
@@ -99,14 +95,6 @@ namespace Ringtoets.DuneErosion.Service
         protected override void OnFinish()
         {
             duneLocationCalculation.NotifyObservers();
-        }
-
-        private bool AlreadyCalculated
-        {
-            get
-            {
-                return duneLocationCalculation.Output != null;
-            }
         }
     }
 }

@@ -117,24 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_Description" xml:space="preserve">
-    <value>Berekende waterstand bij doorsnede-eis.</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Waterstand bij doorsnede-eis [m+NAP]</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsDesignWaterLevelCalculation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de berekening van de waterstand bij doorsnede-eis?</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveHeightCalculation_Convergence_Description" xml:space="preserve">
-    <value>Is convergentie bereikt in de berekening van de golfhoogte bij doorsnede-eis?</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveHeightCalculation_Result_Description" xml:space="preserve">
-    <value>Berekende golfhoogte bij doorsnede-eis.</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveHeightCalculation_Result_DisplayName" xml:space="preserve">
-    <value>Golfhoogte bij doorsnede-eis [m]</value>
-  </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description" xml:space="preserve">
     <value>Berekende resultaten voor de hydraulische randvoorwaarden voor gras.</value>
   </data>
@@ -142,13 +124,13 @@
     <value>Hydraulische randvoorwaarden voor gras</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_Description" xml:space="preserve">
-    <value>Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.</value>
+    <value>Bovengrens bepaald aan de hand van de waarde van de waterstand op de geselecteerde hydraulische locatie.</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_UpperBoundaryDesignWaterLevel_DisplayName" xml:space="preserve">
-    <value>Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]</value>
+    <value>Bovengrens op basis van waterstand [m+NAP]</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description" xml:space="preserve">
-    <value>Berekende waterstand bij doorsnede-eis op de geselecteerde locatie.</value>
+    <value>Berekende waterstand op de geselecteerde locatie.</value>
   </data>
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType" xml:space="preserve">
     <value>Gras</value>

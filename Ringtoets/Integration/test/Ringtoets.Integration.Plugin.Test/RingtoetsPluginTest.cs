@@ -30,6 +30,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.Plugin;
@@ -221,7 +222,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(25, propertyInfos.Length);
+                Assert.AreEqual(26, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -347,6 +348,11 @@ namespace Ringtoets.Integration.Plugin.Test
                     propertyInfos,
                     typeof(DesignWaterLevelCalculationsGroupContext),
                     typeof(DesignWaterLevelCalculationsGroupProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(WaveHeightCalculationsGroupContext),
+                    typeof(WaveHeightCalculationsGroupProperties));
             }
         }
 
@@ -655,11 +661,13 @@ namespace Ringtoets.Integration.Plugin.Test
             var mockRepository = new MockRepository();
             var mainWindow = mockRepository.StrictMock<IMainWindow>();
             var documentViewController = mockRepository.StrictMock<IDocumentViewController>();
+            var viewCommands = mockRepository.StrictMock<IViewCommands>();
             var gui = mockRepository.StrictMock<IGui>();
             gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.AtLeastOnce();
             gui.Expect(g => g.DocumentViewController).Return(documentViewController);
             gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
-            gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
+            gui.Expect(g => g.ViewCommands).Return(viewCommands);
             mockRepository.ReplayAll();
 
             using (var plugin = new RingtoetsPlugin())

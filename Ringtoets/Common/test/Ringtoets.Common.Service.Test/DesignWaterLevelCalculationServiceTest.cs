@@ -202,7 +202,8 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             const double norm = 1.0 / 30;
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
+            const string failedConvergenceMessage = "failedConvergenceMessage";
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -214,7 +215,6 @@ namespace Ringtoets.Common.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, validPreprocessorDirectory)).Return(calculator);
 
-            const string failedConvergenceMessage = "Did not converge";
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProvider.Expect(c => c.GetCalculatedNotConvergedMessage(locationName)).Return(failedConvergenceMessage);
             mockRepository.ReplayAll();
@@ -320,7 +320,7 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_CalculationRanErrorInSettingIllustrationPoints_IllustrationPointsNotSetAndLogsWarning()
         {
             // Setup
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
 
             var calculator = new TestDesignWaterLevelCalculator
             {
@@ -379,7 +379,7 @@ namespace Ringtoets.Common.Service.Test
         public void Calculate_ValidDesignWaterLevelCalculationThrowsException_ThrowsHydraRingFileParserException()
         {
             // Setup
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
 
             var expectedException = new HydraRingFileParserException();
 
@@ -553,7 +553,7 @@ namespace Ringtoets.Common.Service.Test
         public void Run_InvalidCalculation_LogsErrorAndThrowException(bool endInFailure, string lastErrorFileContent)
         {
             // Setup
-            const string locationName = "punt_flw_1";
+            const string locationName = "locationName";
             const string calculationFailedMessage = "calculationFailedMessage";
 
             var calculator = new TestDesignWaterLevelCalculator

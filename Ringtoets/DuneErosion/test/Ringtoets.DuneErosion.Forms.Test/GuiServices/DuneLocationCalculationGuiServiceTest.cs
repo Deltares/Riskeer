@@ -20,14 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Data.TestUtil;
@@ -40,16 +40,9 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
     [TestFixture]
     public class DuneLocationCalculationGuiServiceTest
     {
-        private MockRepository mockRepository;
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryDatabaseImporter");
         private static readonly string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
         private static readonly string validPreprocessorDirectory = TestHelper.GetScratchPadPath();
-
-        [SetUp]
-        public void Setup()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Constructor_ViewParentNull_ThrowArgumentNullException()
@@ -66,111 +59,73 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_CalculationsNull_ThrowArgumentNullException()
         {
             // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
             using (var viewParent = new Form())
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
                 TestDelegate test = () => guiService.Calculate(null,
-                                                               validFilePath,
-                                                               validPreprocessorDirectory,
-                                                               1.0 / 30000);
+                                                               assessmentSection,
+                                                               1.0 / 30000,
+                                                               "A");
 
                 // Assert
                 var exception = Assert.Throws<ArgumentNullException>(test);
                 Assert.AreEqual("calculations", exception.ParamName);
-            }
-        }
-
-        [Test]
-        public void Calculate_ValidData_ScheduleAllCalculations()
-        {
-            // Setup
-            var duneLocationCalculations = new[]
-            {
-                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 0,
-                    Offset = 0,
-                    Orientation = 0,
-                    D50 = 0.000007
-                })),
-                new DuneLocationCalculation(new DuneLocation(1300002, "B", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 0,
-                    Offset = 0,
-                    Orientation = 0,
-                    D50 = 0.000007
-                }))
-            };
-
-            int nrOfCalculators = duneLocationCalculations.Length;
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
-                             .Return(new TestDunesBoundaryConditionsCalculator())
-                             .Repeat
-                             .Times(nrOfCalculators);
-            mockRepository.ReplayAll();
-
-            using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                var guiService = new DuneLocationCalculationGuiService(viewParent);
-
-                // Call
-                TestHelper.AssertLogMessages(() => guiService.Calculate(duneLocationCalculations,
-                                                                        validFilePath,
-                                                                        validPreprocessorDirectory,
-                                                                        1.0 / 200),
-                                             messages =>
-                                             {
-                                                 List<string> messageList = messages.ToList();
-
-                                                 // Assert
-                                                 Assert.AreEqual(16, messageList.Count);
-
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'A' is gestart.", messageList[0]);
-                                                 CalculationServiceTestHelper.AssertValidationStartMessage(messageList[1]);
-                                                 CalculationServiceTestHelper.AssertValidationEndMessage(messageList[2]);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[3]);
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie 'A' is niet geconvergeerd.", messageList[4]);
-                                                 StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[5]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[6]);
-
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'B' is gestart.", messageList[7]);
-                                                 CalculationServiceTestHelper.AssertValidationStartMessage(messageList[8]);
-                                                 CalculationServiceTestHelper.AssertValidationEndMessage(messageList[9]);
-                                                 CalculationServiceTestHelper.AssertCalculationStartMessage(messageList[10]);
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekening voor locatie 'B' is niet geconvergeerd.", messageList[11]);
-                                                 StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", messageList[12]);
-                                                 CalculationServiceTestHelper.AssertCalculationEndMessage(messageList[13]);
-
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'A' is gelukt.", messageList[14]);
-                                                 Assert.AreEqual("Hydraulische randvoorwaarden berekenen voor locatie 'B' is gelukt.", messageList[15]);
-                                             });
             }
 
             mockRepository.VerifyAll();
         }
 
         [Test]
+        public void Calculate_AssessmentSectionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            using (var viewParent = new Form())
+            {
+                var guiService = new DuneLocationCalculationGuiService(viewParent);
+
+                // Call
+                TestDelegate test = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
+                                                               null,
+                                                               1.0 / 30000,
+                                                               "A");
+
+                // Assert
+                var exception = Assert.Throws<ArgumentNullException>(test);
+                Assert.AreEqual("assessmentSection", exception.ParamName);
+            }
+        }
+
+        [Test]
         public void Calculate_HydraulicDatabaseDoesNotExist_LogsError()
         {
             // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = "Does not exist"
+            };
+
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
             mockRepository.ReplayAll();
 
-            const string databasePath = "Does not exist";
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         databasePath,
-                                                         validPreprocessorDirectory,
-                                                         1.0 / 30000);
+                                                         assessmentSection,
+                                                         1.0 / 30000,
+                                                         "A");
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -188,43 +143,92 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
         public void Calculate_InvalidNorm_LogsError()
         {
             // Setup
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
+
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
             mockRepository.ReplayAll();
 
             using (var viewParent = new Form())
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 var guiService = new DuneLocationCalculationGuiService(viewParent);
 
                 // Call
                 Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
-                                                         validFilePath,
-                                                         validPreprocessorDirectory,
-                                                         1.0);
+                                                         assessmentSection,
+                                                         1.0,
+                                                         "A");
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    string[] msgs = messages.ToArray();
-                    Assert.AreEqual(1, msgs.Length);
-                    Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", msgs.First());
-                });
+                TestHelper.AssertLogMessages(call, messages => { Assert.AreEqual("Berekeningen konden niet worden gestart. Doelkans is te groot om een berekening uit te kunnen voeren.", messages.Single()); });
             }
 
             mockRepository.VerifyAll();
         }
 
-
         [Test]
-        public void Calculate_ValidPathOneCalculationInTheList_LogsMessages()
+        public void Calculate_ValidPathEmptyCalculationList_NoLog()
         {
             // Setup
-            const string duneLocationName = "name";
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath
+            };
 
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
+            mockRepository.ReplayAll();
+
+            using (var viewParent = new Form())
+            {
+                var guiService = new DuneLocationCalculationGuiService(viewParent);
+
+                // Call
+                Action call = () => guiService.Calculate(Enumerable.Empty<DuneLocationCalculation>(),
+                                                         assessmentSection,
+                                                         0.01,
+                                                         "A");
+
+                // Assert
+                TestHelper.AssertLogMessagesCount(call, 0);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_ValidPathOneCalculation_LogsMessages()
+        {
+            // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                CanUsePreprocessor = true,
+                UsePreprocessor = true,
+                PreprocessorDirectory = validPreprocessorDirectory
+            };
+
+            const string categoryBoundaryName = "A";
+            const string duneLocationName = "duneLocationName";
+
+            var mockRepository = new MockRepository();
             var viewParent = mockRepository.Stub<IWin32Window>();
-
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory)).Return(new TestDunesBoundaryConditionsCalculator());
+            calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, validPreprocessorDirectory))
+                             .Return(new TestDunesBoundaryConditionsCalculator());
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase)
+                             .Return(hydraulicBoundaryDatabase)
+                             .Repeat.Any();
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -236,25 +240,23 @@ namespace Ringtoets.DuneErosion.Forms.Test.GuiServices
                                                          {
                                                              new DuneLocationCalculation(new TestDuneLocation(duneLocationName))
                                                          },
-                                                         validFilePath,
-                                                         validPreprocessorDirectory,
-                                                         1.0 / 30000);
+                                                         assessmentSection,
+                                                         1.0 / 30000,
+                                                         categoryBoundaryName);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
-
-                    string calculationName = $"Hydraulische belasting berekenen voor locatie '{duneLocationName}'";
-                    Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocationName}' is gestart.", msgs[0]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocationName}' is niet geconvergeerd.", msgs[4]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekening voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is niet geconvergeerd.", msgs[4]);
                     StringAssert.StartsWith("Hydraulische randvoorwaarden berekening is uitgevoerd op de tijdelijke locatie", msgs[5]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
-                    StringAssert.AreNotEqualIgnoringCase($"Uitvoeren van '{calculationName}' is gelukt.", msgs[7]);
+                    Assert.AreEqual($"Hydraulische randvoorwaarden berekenen voor locatie '{duneLocationName}' (Categorie {categoryBoundaryName}) is gelukt.", msgs[7]);
                 });
             }
 

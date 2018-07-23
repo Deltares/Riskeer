@@ -33,22 +33,22 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundMapDataSelectionDialogTest.cs" />
+    <Compile Include="Merge\AssessmentSectionMergeDataProviderDialogTest.cs" />
+    <Compile Include="Dialogs\BackgroundMapDataSelectionDialogTest.cs" />
     <Compile Include="Commands\AddAssessmentSectionCommandTest.cs" />
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandlerTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyControlTest.cs" />
     <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControlTest.cs" />
+    <Compile Include="Merge\AssessmentSectionMergeFilePathProviderTest.cs" />
+    <Compile Include="Merge\FailureMechanismMergeDataRowTest.cs" />
     <Compile Include="Observers\AssessmentSectionResultObserverTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultPerSectionContextTest.cs" />
     <Compile Include="PresentationObjects\AssemblyResultTotalContextTest.cs" />
-    <Compile Include="PresentationObjects\DesignWaterLevelCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\PipingStructureFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StandAlone\MacroStabilityOutwardsFailureMechanismContextTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsGroupPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoriesPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismAssemblyCategoryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\FailureMechanismSectionAssemblyCategoryPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\HydraulicBoundaryLocationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\PipingStructureFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\MacroStabilityOutwardsFailureMechanismPropertiesTest.cs" />
@@ -56,18 +56,13 @@
     <Compile Include="PropertyClasses\BackgroundDataPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormPropertiesIntegrationTest.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContextTest.cs" />
-    <Compile Include="PresentationObjects\WaveHeightCalculationContextTest.cs" />
     <Compile Include="PropertyClasses\CalculationGroupContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\CalculationContextPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationsPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\DesignWaterLevelCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionCompositionPropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightCalculationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\RingtoetsProjectPropertiesTest.cs" />
     <Compile Include="PropertyClasses\StandAlone\StandAloneFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HydraulicBoundaryDatabasePropertiesTest.cs" />
-    <Compile Include="PropertyClasses\WaveHeightCalculationsPropertiesTest.cs" />
-    <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
+    <Compile Include="Dialogs\ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
@@ -82,7 +77,6 @@
     <Compile Include="Views\FailureMechanismAssemblyCategoryGroupResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismAssemblyResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
-    <Compile Include="Views\DesignWaterLevelCalculationsViewTest.cs" />
     <Compile Include="FailureMechanismContributionViewIntegrationTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultViewTest.cs" />
@@ -102,7 +96,6 @@
     <Compile Include="Views\SectionResultRows\MacroStabilityOutwardsSectionResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
-    <Compile Include="Views\WaveHeightCalculationsViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -216,10 +209,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
-      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
-      <Name>Ringtoets.Common.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>

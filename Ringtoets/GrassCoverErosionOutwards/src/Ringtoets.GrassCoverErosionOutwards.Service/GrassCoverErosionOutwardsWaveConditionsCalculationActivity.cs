@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a grass cover erosion outwards wave conditions calculation.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationActivity : CalculatableActivity
+    internal class GrassCoverErosionOutwardsWaveConditionsCalculationActivity : CalculatableActivity
     {
         private readonly GrassCoverErosionOutwardsWaveConditionsCalculation calculation;
         private readonly string hlcdFilePath;
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
 
         protected override void OnFinish()
         {
-            // something.Notify();
+            calculation.NotifyObservers();
         }
     }
 }

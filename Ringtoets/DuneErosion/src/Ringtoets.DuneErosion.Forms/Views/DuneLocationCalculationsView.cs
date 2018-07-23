@@ -24,7 +24,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.DuneErosion.Data;
 using Ringtoets.DuneErosion.Forms.GuiServices;
 using Ringtoets.DuneErosion.Forms.Properties;
@@ -41,6 +40,7 @@ namespace Ringtoets.DuneErosion.Forms.Views
         private readonly Observer duneLocationCalculationsObserver;
         private readonly IObservableEnumerable<DuneLocationCalculation> calculations;
         private readonly Func<double> getNormFunc;
+        private readonly string categoryBoundaryName;
         private readonly RecursiveObserver<IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculation> duneLocationCalculationObserver;
 
         /// <summary>
@@ -50,11 +50,14 @@ namespace Ringtoets.DuneErosion.Forms.Views
         /// <param name="failureMechanism">The failure mechanism which the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section which the calculations belong to.</param>
         /// <param name="getNormFunc"><see cref="Func{TResult}"/> for getting the norm to use during calculations.</param>
+        /// <param name="categoryBoundaryName">The name of the category boundary.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="categoryBoundaryName"/> is <c>null</c> or empty.</exception>
         public DuneLocationCalculationsView(IObservableEnumerable<DuneLocationCalculation> calculations,
                                             DuneErosionFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection,
-                                            Func<double> getNormFunc)
+                                            Func<double> getNormFunc,
+                                            string categoryBoundaryName)
         {
             if (calculations == null)
             {
@@ -76,10 +79,16 @@ namespace Ringtoets.DuneErosion.Forms.Views
                 throw new ArgumentNullException(nameof(getNormFunc));
             }
 
+            if (string.IsNullOrEmpty(categoryBoundaryName))
+            {
+                throw new ArgumentException($"'{nameof(categoryBoundaryName)}' must have a value.");
+            }
+
             InitializeComponent();
 
             this.calculations = calculations;
             this.getNormFunc = getNormFunc;
+            this.categoryBoundaryName = categoryBoundaryName;
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
@@ -164,19 +173,9 @@ namespace Ringtoets.DuneErosion.Forms.Views
         protected override void CalculateForSelectedRows()
         {
             CalculationGuiService?.Calculate(GetSelectedCalculatableObjects(),
-                                             AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                             AssessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
-                                             getNormFunc());
-        }
-
-        protected override string ValidateCalculatableObjects()
-        {
-            if (FailureMechanism != null && FailureMechanism.Contribution <= 0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            return base.ValidateCalculatableObjects();
+                                             AssessmentSection,
+                                             getNormFunc(),
+                                             categoryBoundaryName);
         }
     }
 }

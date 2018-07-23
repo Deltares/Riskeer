@@ -36,19 +36,6 @@ namespace Core.Common.TestUtil
             };
         }
 
-        public static class Application
-        {
-            public static class Ringtoets
-            {
-                public static readonly TestDataPath Storage = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Storage.Test");
-
-                public static class Migration
-                {
-                    public static readonly TestDataPath Core = System.IO.Path.Combine("Application", "Ringtoets", "test", "Application.Ringtoets.Migration.Core.Test");
-                }
-            }
-        }
-
         public static class Core
         {
             public static class Common
@@ -107,6 +94,7 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath Forms = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Forms.Test");
                 public static readonly TestDataPath Service = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Service.Test");
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.IO.Test");
+                public static readonly TestDataPath Plugin = System.IO.Path.Combine("Ringtoets", "Integration", "test", "Ringtoets.Integration.Plugin.Test");
             }
 
             public static class MacroStabilityInwards
@@ -127,6 +115,16 @@ namespace Core.Common.TestUtil
             public static class StabilityPointStructures
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "StabilityPointStructures", "test", "Ringtoets.StabilityPointStructures.IO.Test");
+            }
+
+            public static class Storage
+            {
+                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Storage", "test", "Ringtoets.Storage.Core.Test");
+            }
+
+            public static class Migration
+            {
+                public static readonly TestDataPath Core = System.IO.Path.Combine("Ringtoets", "Migration", "test", "Ringtoets.Migration.Core.Test");
             }
         }
     }

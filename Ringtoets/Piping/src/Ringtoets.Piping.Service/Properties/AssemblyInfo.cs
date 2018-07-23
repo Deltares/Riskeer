@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Ringtoets.Piping.Service")]
 [assembly: AssemblyProduct("Ringtoets.Piping.Service")]
+[assembly: InternalsVisibleTo("Ringtoets.Piping.Service.Test")]

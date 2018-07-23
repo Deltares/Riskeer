@@ -329,13 +329,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region Validation and Calculation
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -345,19 +340,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             {
                 StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
             }
-        }
-
-        private void CalculateAll(StabilityPointStructuresFailureMechanism failureMechanism,
-                                  IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations,
-                                  IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             calculations.Select(calc => new StabilityPointStructuresCalculationActivity(
-                                                                     calc,
-                                                                     assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                     failureMechanism,
-                                                                     assessmentSection))
-                                                         .ToArray());
         }
 
         #endregion
@@ -411,7 +393,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
@@ -467,7 +449,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
         }
 
         private static void ValidateAll(StabilityPointStructuresFailureMechanismContext context)
@@ -478,7 +460,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private void CalculateAll(StabilityPointStructuresFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(), context.Parent);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -705,7 +688,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void ValidateAll(StabilityPointStructuresCalculationGroupContext context)
@@ -716,7 +699,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context)
         {
-            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(), context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                                            context.FailureMechanism,
+                                                                                                                            context.AssessmentSection));
         }
 
         #endregion
@@ -778,16 +764,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new StabilityPointStructuresCalculationActivity(calculation,
-                                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                             context.FailureMechanism,
-                                                                                             context.AssessmentSection));
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                          context.FailureMechanism,
+                                                                                                                          context.AssessmentSection));
         }
 
         private static void Validate(StabilityPointStructuresCalculationContext context)

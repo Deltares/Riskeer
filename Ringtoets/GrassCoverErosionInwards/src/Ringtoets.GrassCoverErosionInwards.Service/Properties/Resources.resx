@@ -151,4 +151,7 @@
   <data name="GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_illustrationPoints_for_CalculationName_0_overtopping_rate_with_ErrorMessage_1" xml:space="preserve">
     <value>Fout bij het uitlezen van de illustratiepunten voor berekening {0} (overslagdebiet): {1} Het uitlezen van illustratiepunten wordt overgeslagen.</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reason_1_">
+    <value>De {0} berekening kan niet worden uitgevoerd. {1}</value>
+  </data>
 </root>

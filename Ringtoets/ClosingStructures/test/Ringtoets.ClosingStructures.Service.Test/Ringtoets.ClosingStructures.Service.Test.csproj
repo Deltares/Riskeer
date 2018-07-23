@@ -24,6 +24,7 @@
     <Compile Include="ClosingStructuresCalculationMessageProviderTest.cs" />
     <Compile Include="ClosingStructuresCalculationServiceTest.cs" />
     <Compile Include="ClosingStructuresValidationRulesRegistryTest.cs" />
+    <Compile Include="ClosingStructuresCalculationActivityFactoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

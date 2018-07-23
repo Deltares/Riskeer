@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -149,6 +149,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertopping_Error_in_reading_" +
                         "illustrationPoints_for_CalculationName_0_overtopping_with_ErrorMessage_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De {0} berekening kan niet worden uitgevoerd. {1}.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reason_1_ {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculation_0_cannot_be_executed_Reaso" +
+                        "n_1_", resourceCulture);
             }
         }
         

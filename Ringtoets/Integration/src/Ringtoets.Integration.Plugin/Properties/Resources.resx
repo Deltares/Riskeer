@@ -185,4 +185,28 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssemblyResultTotal_DisplayName" xml:space="preserve">
     <value>Gecombineerd totaaloordeel</value>
   </data>
+  <data name="AssessmentSectionMerger_No_matching_AssessmentSections" xml:space="preserve">
+    <value>Er zijn geen trajecten gevonden die samengevoegd kunnen worden.</value>
+  </data>
+  <data name="AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_successful" xml:space="preserve">
+    <value>Samenvoegen van trajectinformatie is gelukt.</value>
+  </data>
+  <data name="AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_started" xml:space="preserve">
+    <value>Samenvoegen van trajectinformatie is gestart.</value>
+  </data>
+  <data name="AssessmentSectionMerger_PerformMerge_Unexpected_error_occurred_during_merge" xml:space="preserve">
+    <value>Er is een onverwachte fout opgetreden tijdens het samenvoegen van de trajecten.</value>
+  </data>
+  <data name="AssessmentSectionMerger_PerformMerge_Merging_AssessmentSections_failed" xml:space="preserve">
+    <value>Samenvoegen van trajectinformatie is mislukt.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabase_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Alle hydraulische randvoorwaarden berekenen.</value>
+  </data>
+  <data name="AssessmentSection_Calculate_All_ToolTip" xml:space="preserve">
+    <value>Voer alle berekeningen binnen dit traject uit.</value>
+  </data>
+  <data name="AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged" xml:space="preserve">
+    <value>Hydraulische belastingen zijn samengevoegd.</value>
+  </data>
 </root>

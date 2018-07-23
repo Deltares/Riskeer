@@ -11,6 +11,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GrassCoverErosionOutwardsCalculationActivityFactory.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationActivity.cs" />
     <Compile Include="GrassCoverErosionOutwardsDataSynchronizationService.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationService.cs" />

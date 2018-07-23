@@ -33,7 +33,6 @@ using Core.Common.Util;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.ChangeHandlers;
 using Ringtoets.Common.Forms.ExportInfos;
 using Ringtoets.Common.Forms.Helpers;
@@ -368,25 +367,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private void CalculateAll(GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<GrassCoverErosionInwardsCalculation> calculations, IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                calculations.Select(calc =>
-                                        new GrassCoverErosionInwardsCalculationActivity(
-                                            calc,
-                                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                            failureMechanism,
-                                            assessmentSection)).ToArray());
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, IFailureMechanism failureMechanism)
-        {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
             return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -500,11 +482,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations,
+                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                        IAssessmentSection assessmentSection)
         {
             foreach (GrassCoverErosionInwardsCalculation calculation in grassCoverErosionInwardsCalculations)
             {
-                GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+                GrassCoverErosionInwardsCalculationService.Validate(calculation, failureMechanism, assessmentSection);
             }
         }
 
@@ -561,7 +545,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             return new object[]
             {
-                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N), 
+                new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
                 new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
@@ -619,17 +603,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
         }
 
         private static void ValidateAll(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.WrappedData, context.Parent);
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -848,17 +834,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void ValidateAll(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), context.AssessmentSection);
+            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(),
+                        context.FailureMechanism,
+                        context.AssessmentSection);
         }
 
         private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), context.AssessmentSection);
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                               context.FailureMechanism,
+                                                                                               context.AssessmentSection));
         }
 
         #endregion
@@ -919,20 +911,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsCalculationContext context)
         {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionInwardsCalculationContext context)
         {
-            GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.AssessmentSection);
+            GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.FailureMechanism, context.AssessmentSection);
         }
 
         private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow, new GrassCoverErosionInwardsCalculationActivity(calculation,
-                                                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                                             context.FailureMechanism,
-                                                                                                             context.AssessmentSection));
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                          context.FailureMechanism,
+                                                                                                                          context.AssessmentSection));
         }
 
         private static void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext context, object parentData)

@@ -119,8 +119,14 @@ namespace Core.Common.Base.Service
             }
 
             ChangeState(OnFinish, State == ActivityState.Executed ? ActivityState.Finished : State); // If relevant, preserve the previous state
+        }
 
-            if (State == ActivityState.Finished)
+        /// <summary>
+        /// Logs the current state of the <see cref="Activity"/>.
+        /// </summary>
+        public void LogState()
+        {
+            if (State == ActivityState.Executed)
             {
                 log.InfoFormat(Resources.Activity_Finish_ActivityDescription_0_has_succeeded, Description);
             }

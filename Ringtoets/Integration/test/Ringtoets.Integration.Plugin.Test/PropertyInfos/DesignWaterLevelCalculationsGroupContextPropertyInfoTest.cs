@@ -24,11 +24,10 @@ using Core.Common.Base;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
 {
@@ -54,13 +53,8 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_WithContext_SetsDataCorrectly()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
             var locations = new ObservableList<HydraulicBoundaryLocation>();
-
-            var context = new DesignWaterLevelCalculationsGroupContext(locations, assessmentSection);
+            var context = new DesignWaterLevelCalculationsGroupContext(locations, new AssessmentSectionStub());
 
             using (var plugin = new RingtoetsPlugin())
             {
@@ -73,8 +67,6 @@ namespace Ringtoets.Integration.Plugin.Test.PropertyInfos
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsGroupProperties>(objectProperties);
                 Assert.AreSame(locations, objectProperties.Data);
             }
-
-            mockRepository.VerifyAll();
         }
 
         private static PropertyInfo GetInfo(RingtoetsPlugin plugin)

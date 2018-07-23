@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
+using Ringtoets.Common.Service;
 using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -64,7 +65,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
 
             // Call
             Action call = () => activity.Run();
@@ -110,7 +113,10 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 }
             };
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
+
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -172,7 +178,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 }
             };
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -219,7 +227,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             calculation.Attach(observer);
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -275,7 +285,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             calculation.Attach(observer);
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -311,7 +323,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation();
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -346,7 +360,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation();
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call
@@ -381,7 +397,9 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new TestStabilityPointStructuresCalculation();
 
-            var activity = new StabilityPointStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
+            CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection);
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
                 // Call

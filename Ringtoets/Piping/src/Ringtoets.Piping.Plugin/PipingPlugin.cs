@@ -542,47 +542,12 @@ namespace Ringtoets.Piping.Plugin
 
         #endregion
 
-        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
-        {
-            IEnumerable<PipingCalculation> calculations = GetAllPipingCalculations(failureMechanismContext.WrappedData);
-
-            CalculateAll(calculations, failureMechanismContext.Parent);
-        }
-
-        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
-        {
-            PipingCalculation[] calculations = group.GetCalculations().OfType<PipingCalculation>().ToArray();
-
-            CalculateAll(calculations, context.AssessmentSection);
-        }
-
         private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
         {
             foreach (PipingCalculation calculation in pipingCalculations)
             {
                 PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
-        }
-
-        private void CalculateAll(IEnumerable<PipingCalculation> calculations,
-                                  IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                calculations
-                    .Select(pc => new PipingCalculationActivity(pc,
-                                                                GetNormativeAssessmentLevel(assessmentSection, pc)))
-                    .ToList());
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IFailureMechanism failureMechanism)
-        {
-            if (failureMechanism.Contribution <= 0.0)
-            {
-                return RingtoetsCommonFormsResources.Contribution_of_failure_mechanism_zero;
-            }
-
-            return null;
         }
 
         #region PipingSurfaceLinesContext TreeNodeInfo
@@ -638,12 +603,10 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               pipingFailureMechanismContext,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              ValidateAll)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               pipingFailureMechanismContext,
-                              CalculateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              CalculateAll)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -664,6 +627,12 @@ namespace Ringtoets.Piping.Plugin
             ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
         }
 
+        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
+        }
+
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
@@ -675,16 +644,6 @@ namespace Ringtoets.Piping.Plugin
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
                           .Build();
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingFailureMechanismContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.WrappedData);
-        }
-
-        private static IEnumerable<PipingCalculation> GetAllPipingCalculations(PipingFailureMechanism failureMechanism)
-        {
-            return failureMechanism.Calculations.OfType<PipingCalculation>();
         }
 
         private static object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext context)
@@ -754,13 +713,11 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               nodeData,
-                              Validate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              Validate)
                           .AddPerformCalculationItem(
                               calculation,
                               nodeData,
-                              PerformCalculation,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              PerformCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -820,16 +777,10 @@ namespace Ringtoets.Piping.Plugin
             PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationScenarioContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
-        }
-
         private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             new PipingCalculationActivity(calculation,
-                                                                           GetNormativeAssessmentLevel(context.AssessmentSection, calculation)));
+                                             PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
         }
 
         private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
@@ -975,13 +926,11 @@ namespace Ringtoets.Piping.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        nodeData,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAll)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        nodeData,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAll)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -1000,6 +949,12 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
         }
 
         private static void ValidateAll(PipingCalculationGroupContext context)
@@ -1033,11 +988,6 @@ namespace Ringtoets.Piping.Plugin
             {
                 Enabled = surfaceLineAvailable
             };
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(PipingCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.FailureMechanism);
         }
 
         private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)

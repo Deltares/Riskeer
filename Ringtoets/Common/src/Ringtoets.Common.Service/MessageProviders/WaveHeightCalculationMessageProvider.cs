@@ -25,7 +25,7 @@ using Ringtoets.Common.Service.Properties;
 namespace Ringtoets.Common.Service.MessageProviders
 {
     /// <summary>
-    /// This class provides messages used during the wave height calculation.
+    /// This class provides messages used during a wave height calculation.
     /// </summary>
     public class WaveHeightCalculationMessageProvider : ICalculationMessageProvider
     {

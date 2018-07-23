@@ -22,15 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base.Service;
 using Core.Common.Gui.Forms.ProgressDialog;
 using log4net;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Hydraulics;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.MessageProviders;
 
 namespace Ringtoets.Common.Forms.GuiServices
 {
@@ -57,63 +55,58 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public void CalculateDesignWaterLevels(string hydraulicBoundaryDatabaseFilePath,
-                                               string preprocessorDirectory,
-                                               IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        public void CalculateDesignWaterLevels(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                               IAssessmentSection assessmentSection,
                                                double norm,
-                                               ICalculationMessageProvider messageProvider)
+                                               string categoryBoundaryName)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
-            RunActivities(hydraulicBoundaryDatabaseFilePath,
-                          preprocessorDirectory,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                          preprocessorDirectory,
-                                                                                                                          calculations,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(calculations,
+                                                                                                                          assessmentSection,
                                                                                                                           norm,
-                                                                                                                          messageProvider));
+                                                                                                                          categoryBoundaryName));
         }
 
-        public void CalculateWaveHeights(string hydraulicBoundaryDatabaseFilePath,
-                                         string preprocessorDirectory,
-                                         IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+        public void CalculateWaveHeights(IEnumerable<HydraulicBoundaryLocationCalculation> calculations,
+                                         IAssessmentSection assessmentSection,
                                          double norm,
-                                         ICalculationMessageProvider messageProvider)
+                                         string categoryBoundaryName)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             if (calculations == null)
             {
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            if (messageProvider == null)
-            {
-                throw new ArgumentNullException(nameof(messageProvider));
-            }
-
-            RunActivities(hydraulicBoundaryDatabaseFilePath,
-                          preprocessorDirectory,
+            RunActivities(assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                          assessmentSection.HydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
                           norm,
-                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(hydraulicBoundaryDatabaseFilePath,
-                                                                                                                    preprocessorDirectory,
-                                                                                                                    calculations,
+                          HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(calculations,
+                                                                                                                    assessmentSection,
                                                                                                                     norm,
-                                                                                                                    messageProvider));
+                                                                                                                    categoryBoundaryName));
         }
 
-        private void RunActivities<TActivity>(string hydraulicBoundaryDatabaseFilePath,
-                                              string preprocessorDirectory,
-                                              double norm,
-                                              IEnumerable<TActivity> activities)
-            where TActivity : Activity
+        private void RunActivities(string hydraulicBoundaryDatabaseFilePath,
+                                   string preprocessorDirectory,
+                                   double norm,
+                                   IEnumerable<CalculatableActivity> activities)
         {
             string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabaseFilePath,
                                                                                                    preprocessorDirectory);

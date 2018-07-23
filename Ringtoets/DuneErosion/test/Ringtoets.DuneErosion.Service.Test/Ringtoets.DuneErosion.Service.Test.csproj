@@ -19,7 +19,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DuneLocationCalculationActivityFactoryTest.cs" />
     <Compile Include="DuneLocationCalculationActivityTest.cs" />
+    <Compile Include="DuneLocationCalculationMessageProviderTest.cs" />
     <Compile Include="DuneLocationCalculationServiceTest.cs" />
     <Compile Include="DuneErosionDataSynchronizationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
