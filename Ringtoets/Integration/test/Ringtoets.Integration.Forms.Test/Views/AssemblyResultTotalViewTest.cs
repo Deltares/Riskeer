@@ -142,8 +142,8 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var failureMechanismsWithoutProbablityLabel = (Label) tableLayoutPanel.GetControlFromPosition(0, 2);
                 Assert.AreEqual("Groepen 3 en 4", failureMechanismsWithoutProbablityLabel.Text);
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 0));
-                Assert.IsInstanceOf<AssessmentSectionAssemblyControl>(tableLayoutPanel.GetControlFromPosition(1, 1));
-                Assert.IsInstanceOf<AssessmentSectionAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 2));
+                Assert.IsInstanceOf<FailureMechanismAssemblyControl>(tableLayoutPanel.GetControlFromPosition(1, 1));
+                Assert.IsInstanceOf<FailureMechanismAssemblyCategoryGroupControl>(tableLayoutPanel.GetControlFromPosition(1, 2));
 
                 var datagridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
                 Assert.AreEqual(DockStyle.Fill, datagridViewControl.Dock);
@@ -247,15 +247,15 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
-                calculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(0.5, AssessmentSectionAssemblyCategoryGroup.APlus);
-                calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.B;
+                calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(0.5, FailureMechanismAssemblyCategoryGroup.IIIt);
+                calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = FailureMechanismAssemblyCategoryGroup.IVt;
 
                 buttonTester.Click();
 
                 // Then
                 AssertAssessmentSectionAssemblyCategoryGroupControl(totalControlName, "A");
-                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "A+", "1/2");
-                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "B");
+                AssertAssessmentSectionAssemblyControl(failureMechanismsWithProbabilityControlName, "IIIt", "1/2");
+                AssertAssessmentSectionAssemblyCategoryGroupControl(failureMechanismsWithoutProbabilityControlName, "IVt");
             }
         }
 
