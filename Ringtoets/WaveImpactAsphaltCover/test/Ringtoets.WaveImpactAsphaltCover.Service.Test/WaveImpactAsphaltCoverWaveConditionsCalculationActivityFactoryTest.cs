@@ -36,6 +36,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
@@ -100,9 +101,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     assessmentSection);
 
             // Assert
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1);
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2);
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel);
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
         }
 
         [Test]
@@ -115,8 +118,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Call
             TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(null,
-                                                                                                                            new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                                                            assessmentSection);
+                                                                                                                               new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -134,8 +137,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Call
             TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(new WaveImpactAsphaltCoverWaveConditionsCalculation(),
-                                                                                                                            null,
-                                                                                                                            assessmentSection);
+                                                                                                                               null,
+                                                                                                                               assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -172,12 +175,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Call
             CalculatableActivity activity = WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(calculation,
-                                                                                                                                  failureMechanism,
-                                                                                                                                  assessmentSection);
+                                                                                                                                     failureMechanism,
+                                                                                                                                     assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationActivity>(activity);
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activity, calculation);
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activity,
+                                                                          calculation,
+                                                                          assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result);
         }
 
         [Test]
@@ -190,8 +195,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Call
             TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(null,
-                                                                                                                              new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                                                              assessmentSection);
+                                                                                                                                 new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                                                 assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -209,8 +214,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Call
             TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                              null,
-                                                                                                                              assessmentSection);
+                                                                                                                                 null,
+                                                                                                                                 assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -223,8 +228,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Call
             TestDelegate test = () => WaveImpactAsphaltCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivities(new CalculationGroup(),
-                                                                                                                              new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                                                              null);
+                                                                                                                                 new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                                                 null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -236,11 +241,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFailureMechanism();
-
-            var mocks = new MockRepository();
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-
-            mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
@@ -264,9 +265,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1);
-            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2);
-            mocks.VerifyAll();
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel);
+            AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
         }
 
         private static void SetHydraulicBoundaryLocationToAssessmentSection(AssessmentSectionStub assessmentSection, TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -323,12 +324,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(Activity activity,
-                                                                                       WaveImpactAsphaltCoverWaveConditionsCalculation calculation)
+                                                                                          WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
+                                                                                          RoundedDouble assessmentLevel)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            const int nrOfCalculations = 3;
+            int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
                              .Return(testCalculator).Repeat.Times(nrOfCalculations);
             mocks.ReplayAll();

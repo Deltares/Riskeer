@@ -679,25 +679,15 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        [TestCaseSource(typeof(HydraRingCalculatorTestCaseProvider), nameof(HydraRingCalculatorTestCaseProvider.GetCalculatorFailingConditions), new object[]
-        {
-            nameof(Finish_InvalidCalculation_DoesNotSetOutputAndNotifyObservers)
-        })]
-        public void Finish_InvalidCalculation_DoesNotSetOutputAndNotifyObservers(bool endInFailure,
-                                                                                 string lastErrorFileContent)
+        public void Finish_ValidCalculation_NotifiesObserversOfCalculation()
         {
             // Setup
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var calculator = new TestWaveConditionsCosineCalculator
-            {
-                EndInFailure = endInFailure,
-                LastErrorFileContent = lastErrorFileContent
-            };
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(calculator).Repeat.Times(3);
+            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(6);
             mockRepository.ReplayAll();
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
@@ -720,59 +710,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             activity.Finish();
 
             // Assert
-            Assert.IsNull(calculation.Output);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Finish_ValidCalculation_SetsOutputAndNotifyObserversOfCalculation()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            var waveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator
-            {
-                WaveHeight = new Random(39).NextDouble()
-            };
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(waveConditionsCosineCalculator).Repeat.Times(6);
-            mockRepository.ReplayAll();
-
-            IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
-
-            StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
-
-            calculation.Attach(observer);
-
-            CalculatableActivity activity = StabilityStoneCoverWaveConditionsCalculationActivityFactory.CreateCalculationActivity(
-                calculation,
-                new StabilityStoneCoverFailureMechanism(),
-                assessmentSection);
-
-            using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
-            {
-                activity.Run();
-            }
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            Assert.IsNotNull(calculation.Output);
-            Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
-            foreach (WaveConditionsOutput waveConditionsOutput in calculation.Output.BlocksOutput)
-            {
-                Assert.AreEqual(waveConditionsCosineCalculator.WaveHeight, waveConditionsOutput.WaveHeight, waveConditionsOutput.WaveHeight.GetAccuracy());
-            }
-
-            Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
-            foreach (WaveConditionsOutput waveConditionsOutput in calculation.Output.ColumnsOutput)
-            {
-                Assert.AreEqual(waveConditionsCosineCalculator.WaveHeight, waveConditionsOutput.WaveHeight, waveConditionsOutput.WaveHeight.GetAccuracy());
-            }
-
             mockRepository.VerifyAll();
         }
 

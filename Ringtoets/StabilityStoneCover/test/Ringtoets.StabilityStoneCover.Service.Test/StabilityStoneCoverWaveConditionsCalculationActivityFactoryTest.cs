@@ -36,6 +36,7 @@ using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service.Test
@@ -100,9 +101,11 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     assessmentSection);
 
             // Assert
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityStoneCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1);
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2);
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel);
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
         }
 
         [Test]
@@ -177,7 +180,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculationActivity>(activity);
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activity, calculation);
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activity,
+                                                                       calculation,
+                                                                       assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result);
         }
 
         [Test]
@@ -236,11 +241,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             StabilityStoneCoverFailureMechanism failureMechanism = CreateFailureMechanism();
-
-            var mocks = new MockRepository();
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-
-            mocks.ReplayAll();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
@@ -264,9 +265,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(StabilityStoneCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.First(), calculation1);
-            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2);
-            mocks.VerifyAll();
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm.Single().Output.Result;
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel);
+            AssertStabilityStoneCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel);
         }
 
         private static void SetHydraulicBoundaryLocationToAssessmentSection(AssessmentSectionStub assessmentSection, TestHydraulicBoundaryLocation hydraulicBoundaryLocation)
@@ -323,12 +324,13 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         private static void AssertStabilityStoneCoverWaveConditionsCalculationActivity(Activity activity,
-                                                                                       StabilityStoneCoverWaveConditionsCalculation calculation)
+                                                                                       StabilityStoneCoverWaveConditionsCalculation calculation,
+                                                                                       RoundedDouble assessmentLevel)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestWaveConditionsCosineCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
-            const int nrOfCalculations = 6;
+            int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count() * 2;
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
                              .Return(testCalculator).Repeat.Times(nrOfCalculations);
             mocks.ReplayAll();

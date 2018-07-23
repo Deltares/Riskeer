@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -522,13 +523,12 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
-            var group = new CalculationGroup();
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
-            group.Children.Add(calculationA);
-            group.Children.Add(calculationB);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            List<ICalculationBase> calculations = failureMechanism.WaveConditionsCalculationGroup.Children;
+            calculations.Add(calculationA);
+            calculations.Add(calculationB);
 
             var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
                                                                           assessmentSection);
