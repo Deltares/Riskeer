@@ -164,7 +164,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             targetAssessmentSection.Attach(observer);
-            
+
             // Call
             Action call = () => handler.PerformMerge(targetAssessmentSection,
                                                      new AssessmentSection(AssessmentSectionComposition.Dike),
@@ -285,7 +285,15 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             });
         }
 
-        #region Hydraulic Boundary Location Calculations
+        private static AssessmentSection CreateAssessmentSection(TestHydraulicBoundaryLocation[] locations)
+        {
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
+            return assessmentSection;
+        }
+
+        #region HydraulicBoundaryLocationCalculations
 
         [Test]
         [TestCaseSource(nameof(GetCalculationsFuncs))]
@@ -486,14 +494,6 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                                               section => section.WaveHeightCalculationsForLowerLimitNorm));
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                                               section => section.WaveHeightCalculationsForFactorizedLowerLimitNorm));
-        }
-
-        private static AssessmentSection CreateAssessmentSection(TestHydraulicBoundaryLocation[] locations)
-        {
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
-            return assessmentSection;
         }
 
         #endregion
