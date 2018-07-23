@@ -824,6 +824,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+                gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator
