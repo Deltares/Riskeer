@@ -56,10 +56,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.75, 1.00),
-                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.5, 0.75),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0, 0.25),
                 new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.25, 0.5),
-                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0, 0.25)
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.5, 0.75),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.75, 1)
             });
 
             // Call
@@ -75,7 +75,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategory((EAssessmentGrade) 99, 0, 0)
+                new AssessmentSectionCategory((EAssessmentGrade) 99, 0, 1)
             });
 
             // Call
@@ -148,10 +148,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
             {
-                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.75, 1.00),
-                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.5, 0.75),
+                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0, 0.25),
                 new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.25, 0.5),
-                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0, 0.25)
+                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.5, 0.75),
+                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.75, 1)
             });
 
             // Call
@@ -167,7 +167,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var categoryLimit = new CategoriesList<FailureMechanismCategory>(new[]
             {
-                new FailureMechanismCategory((EFailureMechanismCategory) 99, 0, 0)
+                new FailureMechanismCategory((EFailureMechanismCategory) 99, 0, 1)
             });
 
             // Call
@@ -195,7 +195,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
             {
-                new FailureMechanismCategory(categoryGroup, 0, 0)
+                new FailureMechanismCategory(categoryGroup, 0, 1)
             });
 
             // Call
@@ -224,10 +224,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             var categoryLimits = new CategoriesList<FmSectionCategory>(new[]
             {
-                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.75, 1.00),
-                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.5, 0.75),
+                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0, 0.25),
                 new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.25, 0.5),
-                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0, 0.25)
+                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.5, 0.75),
+                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.75, 1)
             });
 
             // Call
@@ -243,7 +243,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var categoryLimit = new CategoriesList<FmSectionCategory>(new[]
             {
-                new FmSectionCategory((EFmSectionCategory) 99, 0, 0)
+                new FmSectionCategory((EFmSectionCategory) 99, 0, 1)
             });
 
             // Call
