@@ -570,7 +570,7 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            newFailureMechanism.Contribution = 80;
+            newFailureMechanism.Contribution = new Random(21).Next(0, 100);
 
             // When
             TestDelegate call = () => setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
