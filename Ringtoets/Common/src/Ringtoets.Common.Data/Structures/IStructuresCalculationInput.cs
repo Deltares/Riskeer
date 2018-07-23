@@ -26,7 +26,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// Interface describing an object that is the input to a structures calculation.
     /// </summary>
-    public interface IStructuresCalculationInput : ICalculationInput
+    public interface IStructuresCalculationInput : ICalculationInputWithLocation
     {
         /// <summary>
         /// Gets if the illustration points should be calculated.

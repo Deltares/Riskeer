@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Class that holds all grass cover erosion inwards calculation specific input parameters.
     /// </summary>
-    public class GrassCoverErosionInwardsInput : CloneableObservable, ICalculationInput, IUseBreakWater, IUseForeshore
+    public class GrassCoverErosionInwardsInput : CloneableObservable, ICalculationInputWithLocation, IUseBreakWater, IUseForeshore
     {
         private const int orientationNumberOfDecimals = 2;
 
@@ -101,6 +101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                     throw new ArgumentOutOfRangeException(null, string.Format(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_in_Range_0_,
                                                                               orientationValidityRange));
                 }
+
                 orientation = newOrientation;
             }
         }
@@ -154,11 +155,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the hydraulic boundary location.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        /// <summary>
         /// Gets or sets how the dike height should be calculated.
         /// </summary>
         public DikeHeightCalculationType DikeHeightCalculationType { get; set; }
@@ -210,6 +206,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                        && UseForeshore == dikeProfile.ForeshoreGeometry.Count() > 1;
             }
         }
+
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         public bool UseBreakWater { get; set; }
 

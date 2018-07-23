@@ -25,7 +25,7 @@ using Core.Common.Base;
 namespace Ringtoets.Common.Data.Calculation
 {
     /// <summary>
-    /// Interface describing an object that is the input to a <see cref="ICalculation"/>.
+    /// Interface describing an object that is the input to an <see cref="ICalculation"/>.
     /// </summary>
     public interface ICalculationInput : IObservable, ICloneable {}
 }

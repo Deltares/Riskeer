@@ -203,9 +203,6 @@ namespace Ringtoets.Common.Data.Structures
 
         #region Hydraulic data
 
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location.
-        /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
@@ -249,6 +246,7 @@ namespace Ringtoets.Common.Data.Structures
                     throw new ArgumentOutOfRangeException(null, string.Format(Resources.Orientation_Value_needs_to_be_in_Range_0_,
                                                                               structureNormalOrientationValidityRange));
                 }
+
                 structureNormalOrientation = newStructureNormalOrientation;
             }
         }

@@ -34,7 +34,7 @@ namespace Ringtoets.MacroStabilityInwards.Data
     /// Class that holds all macro stability inwards calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class MacroStabilityInwardsInput : CloneableObservable, ICalculationInput, IMacroStabilityInwardsWaternetInput
+    public class MacroStabilityInwardsInput : CloneableObservable, ICalculationInputWithLocation, IMacroStabilityInwardsWaternetInput
     {
         private static readonly Range<int> tangentLineNumberValidityRange = new Range<int>(1, 50);
 
@@ -149,14 +149,11 @@ namespace Ringtoets.MacroStabilityInwards.Data
         public MacroStabilityInwardsStochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
-        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        /// <summary>
         /// Gets or sets whether the assessment level is manual input for the calculation.
         /// </summary>
         public bool UseAssessmentLevelManualInput { get; set; }
+
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Gets or sets the surface line.
