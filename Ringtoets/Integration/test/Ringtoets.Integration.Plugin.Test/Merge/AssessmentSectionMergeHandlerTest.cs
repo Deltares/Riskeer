@@ -28,13 +28,22 @@ using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Merge;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Plugin.Test.Merge
 {
@@ -285,7 +294,127 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             });
         }
 
-        private static AssessmentSection CreateAssessmentSection(TestHydraulicBoundaryLocation[] locations)
+        [Test]
+        public void GivenFailureMechanismWithWithCalculations_WhenCalculationHasReferenceToHydraulicBoundaryLocation_ThenReferenceUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var viewCommands = mocks.Stub<IViewCommands>();
+            mocks.ReplayAll();
+
+            var handler = new AssessmentSectionMergeHandler(viewCommands);
+
+            var targetLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+
+            var sourceLocations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "location 1", 1, 1),
+                new HydraulicBoundaryLocation(2, "location 2", 2, 2)
+            };
+
+            AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
+            AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations);
+            sourceAssessmentSection.Piping.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[0]
+                }
+            });
+            sourceAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[1]
+                }
+            });
+            sourceAssessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[0]
+                }
+            });
+            sourceAssessmentSection.HeightStructures.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[1]
+                }
+            });
+            sourceAssessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[0]
+                }
+            });
+            sourceAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[1]
+                }
+            });
+            sourceAssessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[0]
+                }
+            });
+            sourceAssessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[1]
+                }
+            });
+
+            // When
+            handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new IFailureMechanism[]
+            {
+                sourceAssessmentSection.Piping,
+                sourceAssessmentSection.GrassCoverErosionInwards,
+                sourceAssessmentSection.MacroStabilityInwards,
+                sourceAssessmentSection.HeightStructures,
+                sourceAssessmentSection.ClosingStructures,
+                sourceAssessmentSection.StabilityPointStructures,
+                sourceAssessmentSection.StabilityStoneCover,
+                sourceAssessmentSection.WaveImpactAsphaltCover
+            });
+
+            // Then
+            var pipingCalculation =  (PipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
+            Assert.AreSame(targetLocations[0], pipingCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var grassInwardsCalculation = (GrassCoverErosionInwardsCalculation) targetAssessmentSection.GrassCoverErosionInwards.Calculations.Single();
+            Assert.AreSame(targetLocations[1], grassInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var macroStabilityInwardsCalculation = (MacroStabilityInwardsCalculation) targetAssessmentSection.MacroStabilityInwards.Calculations.Single();
+            Assert.AreSame(targetLocations[0], macroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var heightStructuresCalculation = (StructuresCalculation<HeightStructuresInput>) targetAssessmentSection.HeightStructures.Calculations.Single();
+            Assert.AreSame(targetLocations[1], heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var closingStructuresCalculation = (StructuresCalculation<ClosingStructuresInput>) targetAssessmentSection.ClosingStructures.Calculations.Single();
+            Assert.AreSame(targetLocations[0], closingStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var stabilityPointStructuresCalculation = (StructuresCalculation<StabilityPointStructuresInput>) targetAssessmentSection.StabilityPointStructures.Calculations.Single();
+            Assert.AreSame(targetLocations[1], stabilityPointStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var stabilityStoneCoverCalculation = (StabilityStoneCoverWaveConditionsCalculation) targetAssessmentSection.StabilityStoneCover.Calculations.Single();
+            Assert.AreSame(targetLocations[0], stabilityStoneCoverCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var waveImpactAsphatlCoverCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) targetAssessmentSection.WaveImpactAsphaltCover.Calculations.Single();
+            Assert.AreSame(targetLocations[1], waveImpactAsphatlCoverCalculation.InputParameters.HydraulicBoundaryLocation);
+        }
+
+        private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);

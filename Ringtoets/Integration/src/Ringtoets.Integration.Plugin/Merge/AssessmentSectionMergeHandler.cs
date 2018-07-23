@@ -22,18 +22,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Properties;
 using Ringtoets.MacroStabilityInwards.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -160,14 +165,17 @@ namespace Ringtoets.Integration.Plugin.Merge
 
         #region FailureMechanisms
 
-        private void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, IEnumerable<IFailureMechanism> failureMechanismsToMerge)
+        private static void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, IEnumerable<IFailureMechanism> failureMechanismsToMerge)
         {
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = targetAssessmentSection.HydraulicBoundaryDatabase.Locations;
             foreach (IFailureMechanism failureMechanism in failureMechanismsToMerge)
             {
                 if (TryMergeFailureMechanism<PipingFailureMechanism>(
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.Piping = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<PipingFailureMechanism, PipingCalculationScenario, PipingInput>(
+                        targetAssessmentSection.Piping, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -175,6 +183,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.GrassCoverErosionInwards = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                        targetAssessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -182,6 +192,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.MacroStabilityInwards = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput>(
+                        targetAssessmentSection.MacroStabilityInwards, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -203,6 +215,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.StabilityStoneCover = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<StabilityStoneCoverFailureMechanism, StabilityStoneCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                        targetAssessmentSection.StabilityStoneCover, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -210,6 +224,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.WaveImpactAsphaltCover = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverWaveConditionsCalculation, AssessmentSectionCategoryWaveConditionsInput>(
+                        targetAssessmentSection.WaveImpactAsphaltCover, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -238,6 +254,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.HeightStructures = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<HeightStructuresFailureMechanism, StructuresCalculation<HeightStructuresInput>, HeightStructuresInput>(
+                        targetAssessmentSection.HeightStructures, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -245,6 +263,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.ClosingStructures = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<ClosingStructuresFailureMechanism, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresInput>(
+                        targetAssessmentSection.ClosingStructures, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -259,6 +279,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.StabilityPointStructures = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<StabilityPointStructuresFailureMechanism, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresInput>(
+                        targetAssessmentSection.StabilityPointStructures, hydraulicBoundaryLocations);
                     continue;
                 }
 
@@ -288,6 +310,27 @@ namespace Ringtoets.Integration.Plugin.Merge
             }
 
             return false;
+        }
+
+        private static void UpdateHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(
+            TFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> locations)
+            where TFailureMechanism : IFailureMechanism
+            where TCalculation : ICalculation<TCalculationInput>
+            where TCalculationInput : class, ICalculationInputWithLocation
+        {
+            foreach (TCalculation calculation in failureMechanism.Calculations.Cast<TCalculation>())
+            {
+                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
+                {
+                    calculation.InputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocation(calculation.InputParameters.HydraulicBoundaryLocation,
+                                                                                                         locations);
+                }
+            }
+        }
+
+        private static HydraulicBoundaryLocation GetHydraulicBoundaryLocation(HydraulicBoundaryLocation location, IEnumerable<HydraulicBoundaryLocation> locations)
+        {
+            return locations.Single(l => l.Name == location.Name && l.Id == location.Id && l.Location.Equals(location.Location));
         }
 
         #endregion
