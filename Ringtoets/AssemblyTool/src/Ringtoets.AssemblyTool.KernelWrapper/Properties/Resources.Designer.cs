@@ -136,15 +136,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De gespecificeerde vakindeling voor een of meerdere toetssporen bevat een of meer overlappende vakken..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_FailureMechanismDuplicateSection {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureMechanismDuplicateSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Faalkansruimte moet in het bereik [0,1] liggen..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange {
@@ -186,6 +177,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_GenericErrorMessage {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_GenericErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De categoriegrenzen zijn niet aaneengesloten en spannen niet de volldige faalskansruimte..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits", resourceCulture);
             }
         }
         
@@ -267,6 +267,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_SectionLengthOutOfRange {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_SectionLengthOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_SectionsWithoutCategory {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SectionsWithoutCategory", resourceCulture);
             }
         }
         

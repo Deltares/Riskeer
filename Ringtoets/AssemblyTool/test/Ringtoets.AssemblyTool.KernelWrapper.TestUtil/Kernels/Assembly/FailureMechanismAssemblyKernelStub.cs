@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
@@ -39,19 +40,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public IEnumerable<FmSectionAssemblyDirectResult> FmSectionAssemblyResultsInput { get; private set; }
 
         /// <summary>
+        /// Gets the collection of <see cref="FmSectionAssemblyDirectResult"/> used as input parameter for assembly methods.
+        /// </summary>
+        public IEnumerable<FmSectionAssemblyDirectResultWithProbability> FmSectionAssemblyResultsWithProbabilityInput { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating whether an assembly is partial.
         /// </summary>
         public bool? PartialAssembly { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="AssessmentSection"/> used as input parameter for assembly methods.
-        /// </summary>
-        public AssessmentSection AssessmentSectionInput { get; private set; }
-
-        /// <summary>
         /// Gets the <see cref="FailureMechanism"/> used as input parameter for assembly methods.
         /// </summary>
         public FailureMechanism FailureMechanismInput { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="CategoryLimits"/> with <see cref="FailureMechanismCategory"/>
+        /// used as input parameter for assembly methods.
+        /// </summary>
+        public CategoriesList<FailureMechanismCategory> CategoryLimits { get; private set; }
 
         /// <summary>
         /// Gets or sets the failure mechanism category result.
@@ -96,16 +103,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FailureMechanismAssemblyResult AssembleFailureMechanismWbi1B1(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             IEnumerable<FmSectionAssemblyDirectResult> fmSectionAssemblyResults,
+        public FailureMechanismAssemblyResult AssembleFailureMechanismWbi1B1(FailureMechanism failureMechanism,
+                                                                             IEnumerable<FmSectionAssemblyDirectResultWithProbability> fmSectionAssemblyResults,
+                                                                             CategoriesList<FailureMechanismCategory> categoryLimits,
                                                                              bool partialAssembly)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
+            CategoryLimits = categoryLimits;
             FailureMechanismInput = failureMechanism;
-            FmSectionAssemblyResultsInput = fmSectionAssemblyResults;
+            FmSectionAssemblyResultsWithProbabilityInput = fmSectionAssemblyResults;
             PartialAssembly = partialAssembly;
 
             Calculated = true;

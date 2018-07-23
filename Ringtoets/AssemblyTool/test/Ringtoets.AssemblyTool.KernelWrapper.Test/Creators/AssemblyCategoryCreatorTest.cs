@@ -54,13 +54,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(11);
 
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new AssessmentSectionCategoryLimits(random.NextEnumValue<EAssessmentGrade>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
-            };
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0, 0.25),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.25, 0.5),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.5, 0.75),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), 0.75, 1)
+            });
 
             // Call
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
@@ -73,10 +73,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategoryLimits((EAssessmentGrade) 99, 0, 0)
-            };
+                new AssessmentSectionCategory((EAssessmentGrade) 99, 0, 1)
+            });
 
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
@@ -93,10 +93,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
             {
-                new AssessmentSectionCategoryLimits(categoryGroup, 0, 0)
-            };
+                new AssessmentSectionCategory(categoryGroup, 0, 1)
+            });
 
             // Call
             IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categoryLimits);
@@ -108,12 +108,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         [Test]
         public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
-            // Setup
-            var categoryLimits = new[]
-            {
-                new AssessmentSectionCategoryLimits((EAssessmentGrade) 99, 0, 0)
-            };
-
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory((EAssessmentGrade) 99);
 
@@ -152,13 +146,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(11);
 
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
             {
-                new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FailureMechanismCategoryLimits(random.NextEnumValue<EFailureMechanismCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
-            };
+                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0, 0.25),
+                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.25, 0.5),
+                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.5, 0.75),
+                new FailureMechanismCategory(random.NextEnumValue<EFailureMechanismCategory>(), 0.75, 1)
+            });
 
             // Call
             IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimits);
@@ -171,10 +165,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismAssemblyCategories_CategoryWithInvalidFailureMechanismCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimit = new[]
+            var categoryLimit = new CategoriesList<FailureMechanismCategory>(new[]
             {
-                new FailureMechanismCategoryLimits((EFailureMechanismCategory) 99, 0, 0)
-            };
+                new FailureMechanismCategory((EFailureMechanismCategory) 99, 0, 1)
+            });
 
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimit);
@@ -199,10 +193,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<FailureMechanismCategory>(new[]
             {
-                new FailureMechanismCategoryLimits(categoryGroup, 0, 0)
-            };
+                new FailureMechanismCategory(categoryGroup, 0, 1)
+            });
 
             // Call
             IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categoryLimits);
@@ -228,13 +222,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(11);
 
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<FmSectionCategory>(new[]
             {
-                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1)),
-                new FmSectionCategoryLimits(random.NextEnumValue<EFmSectionCategory>(), random.NextDouble(0, 0.5), random.NextDouble(0.5, 1))
-            };
+                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0, 0.25),
+                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.25, 0.5),
+                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.5, 0.75),
+                new FmSectionCategory(random.NextEnumValue<EFmSectionCategory>(), 0.75, 1)
+            });
 
             // Call
             IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimits);
@@ -247,10 +241,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyCategories_CategoryWithInvalidFailureMechanismSectionCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categoryLimit = new[]
+            var categoryLimit = new CategoriesList<FmSectionCategory>(new[]
             {
-                new FmSectionCategoryLimits((EFmSectionCategory) 99, 0, 0)
-            };
+                new FmSectionCategory((EFmSectionCategory) 99, 0, 1)
+            });
 
             // Call
             TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimit);
@@ -275,10 +269,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             FailureMechanismSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Setup
-            var categoryLimits = new[]
+            var categoryLimits = new CategoriesList<FmSectionCategory>(new[]
             {
-                new FmSectionCategoryLimits(categoryGroup, 0, 0)
-            };
+                new FmSectionCategory(categoryGroup, 0, 1)
+            });
 
             // Call
             IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categoryLimits);

@@ -35,22 +35,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="input">The collection of failure mechanism assemblies to assemble for.</param>
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
-        /// <returns>An <see cref="AssessmentSectionAssembly"/>.</returns>
+        /// <returns>An <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
-                                                            double signalingNorm,
-                                                            double lowerLimitNorm);
+        FailureMechanismAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
+                                                           double signalingNorm,
+                                                           double lowerLimitNorm);
 
         /// <summary>
         /// Assembles the failure mechanisms for the given <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The collection of failure mechanism assembly category groups
         /// to assemble for.</param>
-        /// <returns>An <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
+        /// <returns>An <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input);
+        FailureMechanismAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input);
 
         /// <summary>
         /// Assembles the assessment section for the given inputs.
@@ -62,8 +62,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>An <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
-                                                                         AssessmentSectionAssembly failureMechanismsWithProbability);
+        AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(FailureMechanismAssemblyCategoryGroup failureMechanismsWithoutProbability,
+                                                                         FailureMechanismAssembly failureMechanismsWithProbability);
 
         /// <summary>
         /// Assembles the combined assessment section for the given input.

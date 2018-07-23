@@ -30,7 +30,6 @@
     <Compile Include="Calculators\IAssemblyToolCalculatorFactory.cs" />
     <Compile Include="Creators\AssemblyCalculatorInputCreator.cs" />
     <Compile Include="Creators\AssemblyCategoryCreator.cs" />
-    <Compile Include="Creators\AssessmentSectionAssemblyCreator.cs" />
     <Compile Include="Creators\AssessmentSectionAssemblyInputCreator.cs" />
     <Compile Include="Creators\CombinedFailureMechanismSectionAssemblyCreator.cs" />
     <Compile Include="Creators\FailureMechanismSectionAssemblyCalculatorInputCreator.cs" />

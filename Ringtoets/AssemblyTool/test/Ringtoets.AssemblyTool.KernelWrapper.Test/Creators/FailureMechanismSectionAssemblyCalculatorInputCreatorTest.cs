@@ -286,7 +286,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
             var assembly = new FailureMechanismSectionAssembly(random.NextDouble(), originalGroup);
 
             // Call
-            FmSectionAssemblyDirectResult input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
+            FmSectionAssemblyDirectResultWithProbability input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
                 assembly);
 
             // Assert
@@ -326,7 +326,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
 
             // Assert
             Assert.AreEqual(expectedGroup, actualResult.Result);
-            Assert.IsNaN(actualResult.FailureProbability);
         }
 
         [Test]

@@ -158,10 +158,15 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
 
             try
             {
+                double n = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
+                    failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
+
                 return calculator.AssembleTailorMadeAssessment(
                     failureMechanismSectionResult.TailorMadeAssessmentResult,
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
-                    CreateAssemblyCategoriesInput(failureMechanism, assessmentSection)).Group;
+                    assessmentSection.FailureMechanismContribution.Norm,
+                    n,
+                    failureMechanism.Contribution).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

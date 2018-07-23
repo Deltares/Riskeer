@@ -42,6 +42,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double LowerLimitNorm { get; private set; }
 
         /// <summary>
+        /// Gets the normative norm that is used in the calculation.
+        /// </summary>
+        public double NormativeNorm { get; private set; }
+
+        /// <summary>
+        /// Gets the 'N' parameter used to factor in the 'length effect'
+        /// that is used in the calculation.
+        /// </summary>
+        public double FailureMechanismN { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanism contribution that is used in the calculation.
+        /// </summary>
+        public double FailureMechanismContribution { get; private set; }
+
+        /// <summary>
         /// Gets the assembly categories input used in the assembly calculation methods.
         /// </summary>
         public AssemblyCategoriesInput AssemblyCategoriesInput { get; private set; }
@@ -128,14 +144,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         }
 
         public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(
-            AssemblyCategoriesInput assemblyCategoriesInput)
+            double normativeNorm,
+            double failureMechanismN,
+            double failureMechanismContribution)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new AssemblyCategoriesCalculatorException("Message", new Exception());
             }
 
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            NormativeNorm = normativeNorm;
+            FailureMechanismN = failureMechanismN;
+            FailureMechanismContribution = failureMechanismContribution;
 
             return GeoTechnicalFailureMechanismSectionCategoriesOutput
                    ?? (GeoTechnicalFailureMechanismSectionCategoriesOutput = new[]

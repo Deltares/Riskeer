@@ -78,20 +78,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void Create_ResultProbabilityNull_ReturnExpectedFailureMechanismAssembly()
-        {
-            // Setup
-            var group = new Random(39).NextEnumValue<EFailureMechanismCategory>();
-
-            // Call
-            FailureMechanismAssembly assembly = FailureMechanismAssemblyCreator.Create(new FailureMechanismAssemblyResult(group));
-
-            // Assert
-            Assert.AreEqual(FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(group), assembly.Group);
-            Assert.IsNaN(assembly.Probability);
-        }
-
-        [Test]
         public void CreateFailureMechanismAssemblyCategoryGroup_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call

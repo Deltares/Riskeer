@@ -38,52 +38,55 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original collection of <see cref="AssessmentSectionCategoryLimits"/>.</param>
+        /// <param name="original">The original <see cref="CategoriesList{TCategory}"/> with
+        /// <see cref="AssessmentSectionCategory"/>.</param>
         /// <param name="actual">The actual collection of <see cref="AssessmentSectionAssemblyCategory"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssessmentSectionAssemblyCategories(IEnumerable<AssessmentSectionCategoryLimits> original,
+        public static void AssertAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> original,
                                                                      IEnumerable<AssessmentSectionAssemblyCategory> actual)
         {
-            Assert.AreEqual(original.Count(), actual.Count());
+            Assert.AreEqual(original.Categories.Length, actual.Count());
 
-            CollectionAssert.AreEqual(original.Select(o => GetAssessmentSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
-            CollectionAssert.AreEqual(original.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => GetAssessmentSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
+            CollectionAssert.AreEqual(original.Categories.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original collection of <see cref="FailureMechanismCategoryLimits"/>.</param>
+        /// <param name="original">The original <see cref="CategoriesList{TCategory}"/> with
+        /// <see cref="FailureMechanismCategory"/>.</param>
         /// <param name="actual">The actual collection of <see cref="FailureMechanismAssemblyCategory"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertFailureMechanismAssemblyCategories(IEnumerable<FailureMechanismCategoryLimits> original,
+        public static void AssertFailureMechanismAssemblyCategories(CategoriesList<FailureMechanismCategory> original,
                                                                     IEnumerable<FailureMechanismAssemblyCategory> actual)
         {
-            Assert.AreEqual(original.Count(), actual.Count());
+            Assert.AreEqual(original.Categories.Length, actual.Count());
 
-            CollectionAssert.AreEqual(original.Select(o => GetFailureMechanismCategoryGroup(o.Category)), actual.Select(r => r.Group));
-            CollectionAssert.AreEqual(original.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => GetFailureMechanismCategoryGroup(o.Category)), actual.Select(r => r.Group));
+            CollectionAssert.AreEqual(original.Categories.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original collection of <see cref="FmSectionCategoryLimits"/>.</param>
+        /// <param name="original">The original <see cref="CategoriesList{TCategory}"/>
+        /// with <see cref="FmSectionCategory"/>.</param>
         /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertFailureMechanismSectionAssemblyCategories(IEnumerable<FmSectionCategoryLimits> original,
+        public static void AssertFailureMechanismSectionAssemblyCategories(CategoriesList<FmSectionCategory> original,
                                                                            IEnumerable<FailureMechanismSectionAssemblyCategory> actual)
         {
-            Assert.AreEqual(original.Count(), actual.Count());
+            Assert.AreEqual(original.Categories.Length, actual.Count());
 
-            CollectionAssert.AreEqual(original.Select(o => GetFailureMechanismSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
-            CollectionAssert.AreEqual(original.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => GetFailureMechanismSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
+            CollectionAssert.AreEqual(original.Categories.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
         /// <summary>

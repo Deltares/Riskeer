@@ -25,6 +25,7 @@ using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.CategoryLimits;
 using Ringtoets.AssemblyTool.Data;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
@@ -53,19 +54,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
+        public FailureMechanismAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
                                                                    double signalingNorm,
                                                                    double lowerLimitNorm)
         {
             try
             {
-                IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
-                AssessmentSectionAssemblyResult output = kernel.AssembleAssessmentSectionWbi2B1(
-                    new AssessmentSection(1, signalingNorm, lowerLimitNorm),
-                    input.Select(AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult).ToArray(),
-                    false);
+                
+                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
+                CategoriesList<FailureMechanismCategory> categories = categoriesKernel.CalculateFailureMechanismCategoryLimitsWbi11(
+                    new AssessmentSection(1, signalingNorm, lowerLimitNorm), 
+                    new FailureMechanism(1, 0.54));
 
-                return AssessmentSectionAssemblyCreator.CreateAssessmentSectionAssembly(output);
+                IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
+                FailureMechanismAssemblyResult output = kernel.AssembleAssessmentSectionWbi2B1(
+                    input.Select(AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult).ToArray(),
+                    categories, false);
+
+                return FailureMechanismAssemblyCreator.Create(output);
             }
             catch (AssemblyException e)
             {
@@ -77,38 +83,38 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input)
+        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input)
         {
             try
             {
                 IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
-                EAssessmentGrade output = kernel.AssembleAssessmentSectionWbi2A1(
+                EFailureMechanismCategory output = kernel.AssembleAssessmentSectionWbi2A1(
                     input.Select(AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult).ToArray(),
                     false);
+
+                return FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(output);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
+        }
+
+        public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(FailureMechanismAssemblyCategoryGroup failureMechanismsWithoutProbability,
+                                                                                FailureMechanismAssembly failureMechanismsWithProbability)
+        {
+            try
+            {
+                IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
+                EAssessmentGrade output = kernel.AssembleAssessmentSectionWbi2C1(
+                    AssessmentSectionAssemblyInputCreator.CreateFailureMechanismCategory(failureMechanismsWithoutProbability),
+                    AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult(failureMechanismsWithProbability));
 
                 return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(output);
-            }
-            catch (AssemblyException e)
-            {
-                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
-            }
-            catch (Exception e)
-            {
-                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
-            }
-        }
-
-        public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
-                                                                                AssessmentSectionAssembly failureMechanismsWithProbability)
-        {
-            try
-            {
-                IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
-                AssessmentSectionAssemblyResult output = kernel.AssembleAssessmentSectionWbi2C1(
-                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithoutProbability),
-                    AssessmentSectionAssemblyInputCreator.CreateAssessementSectionAssemblyResult(failureMechanismsWithProbability));
-
-                return AssessmentSectionAssemblyCreator.CreateAssessmentSectionAssembly(output).Group;
             }
             catch (AssemblyException e)
             {

@@ -53,7 +53,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(input));
             }
 
-            return new FailureMechanismAssemblyResult(ConvertFailureMechanismAssemblyCategoryGroup(input.Group),
+            return new FailureMechanismAssemblyResult(CreateFailureMechanismCategory(input.Group),
                                                       input.Probability);
         }
 
@@ -68,77 +68,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// a valid but unsupported <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
         public static FailureMechanismAssemblyResult CreateFailureMechanismAssemblyResult(FailureMechanismAssemblyCategoryGroup input)
         {
-            return new FailureMechanismAssemblyResult(ConvertFailureMechanismAssemblyCategoryGroup(input));
+            return new FailureMechanismAssemblyResult(CreateFailureMechanismCategory(input), double.NaN);
         }
 
         /// <summary>
-        /// Creates <see cref="AssessmentSectionAssembly"/> based on the given parameters.
+        /// Creates a <see cref="EFailureMechanismCategory"/> based on the <paramref name="input"/>.
         /// </summary>
-        /// <param name="input">The assembly to create a <see cref="AssessmentSectionAssembly"/> for.</param>
-        /// <returns>The created <see cref="AssessmentSectionAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
+        /// <param name="input">The <see cref="FailureMechanismAssemblyCategoryGroup"/>
+        /// to create a <see cref="EFailureMechanismCategory"/> for.</param>
+        /// <returns>The created <see cref="EFailureMechanismCategory"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="input"/> contains
-        /// an invalid <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// an invalid <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="input"/> contains
-        /// a valid but unsupported <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
-        public static AssessmentSectionAssemblyResult CreateAssessementSectionAssemblyResult(AssessmentSectionAssembly input)
-        {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            return new AssessmentSectionAssemblyResult(ConvertAssessmentSectionAssemblyCategoryGroup(input.Group),
-                                                       input.Probability);
-        }
-
-        /// <summary>
-        /// Creates <see cref="AssessmentSectionAssembly"/> based on the given parameters.
-        /// </summary>
-        /// <param name="input">The assembly to create a <see cref="AssessmentSectionAssembly"/> for.</param>
-        /// <returns>The created <see cref="AssessmentSectionAssemblyResult"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="input"/> contains
-        /// an invalid <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="input"/> contains
-        /// a valid but unsupported <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
-        public static AssessmentSectionAssemblyResult CreateAssessementSectionAssemblyResult(AssessmentSectionAssemblyCategoryGroup input)
-        {
-            return new AssessmentSectionAssemblyResult(ConvertAssessmentSectionAssemblyCategoryGroup(input));
-        }
-
-        private static EAssessmentGrade ConvertAssessmentSectionAssemblyCategoryGroup(AssessmentSectionAssemblyCategoryGroup input)
-        {
-            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategoryGroup), input))
-            {
-                throw new InvalidEnumArgumentException(nameof(input),
-                                                       (int) input,
-                                                       typeof(AssessmentSectionAssemblyCategoryGroup));
-            }
-
-            switch (input)
-            {
-                case AssessmentSectionAssemblyCategoryGroup.None:
-                    return EAssessmentGrade.Gr;
-                case AssessmentSectionAssemblyCategoryGroup.NotApplicable:
-                    return EAssessmentGrade.Nvt;
-                case AssessmentSectionAssemblyCategoryGroup.NotAssessed:
-                    return EAssessmentGrade.Ngo;
-                case AssessmentSectionAssemblyCategoryGroup.APlus:
-                    return EAssessmentGrade.APlus;
-                case AssessmentSectionAssemblyCategoryGroup.A:
-                    return EAssessmentGrade.A;
-                case AssessmentSectionAssemblyCategoryGroup.B:
-                    return EAssessmentGrade.B;
-                case AssessmentSectionAssemblyCategoryGroup.C:
-                    return EAssessmentGrade.C;
-                case AssessmentSectionAssemblyCategoryGroup.D:
-                    return EAssessmentGrade.D;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private static EFailureMechanismCategory ConvertFailureMechanismAssemblyCategoryGroup(FailureMechanismAssemblyCategoryGroup input)
+        /// a valid but unsupported <see cref="FailureMechanismAssemblyCategoryGroup"/>.</exception>
+        public static EFailureMechanismCategory CreateFailureMechanismCategory(FailureMechanismAssemblyCategoryGroup input)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismAssemblyCategoryGroup), input))
             {

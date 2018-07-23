@@ -129,13 +129,17 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="tailorMadeAssessmentResult">The <see cref="TailorMadeAssessmentProbabilityAndDetailedCalculationResultType"/>
         /// to assemble for.</param>
         /// <param name="probability">The probability to calculate with.</param>
-        /// <param name="assemblyCategoriesInput">The input parameters used to determine the assembly categories.</param>
+        /// <param name="normativeNorm">The norm which has been defined on the assessment section.</param>
+        /// <param name="failureMechanismN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="failureMechanismContribution">The contribution of a failure mechanism.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
         FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
                                                                      double probability,
-                                                                     AssemblyCategoriesInput assemblyCategoriesInput);
+                                                                     double normativeNorm,
+                                                                     double failureMechanismN,
+                                                                     double failureMechanismContribution);
 
         /// <summary>
         /// Assembles the tailor made assessment based on the input parameters.

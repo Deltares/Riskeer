@@ -72,12 +72,10 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
                 IEnumerable<FailureMechanismSectionAssemblyCategory> calculatorOutput = calculator.GeoTechnicalFailureMechanismSectionCategoriesOutput;
                 Assert.AreSame(calculatorOutput, output);
 
-                AssemblyCategoriesInput actualCalculatorInput = calculator.AssemblyCategoriesInput;
-                FailureMechanismContribution expectedContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanism.Contribution / 100, actualCalculatorInput.FailureMechanismContribution, tolerance);
-                Assert.AreEqual(expectedContribution.LowerLimitNorm, actualCalculatorInput.LowerLimitNorm, tolerance);
-                Assert.AreEqual(expectedContribution.SignalingNorm, actualCalculatorInput.SignalingNorm, tolerance);
-                Assert.AreEqual(n, actualCalculatorInput.N);
+                double normativeNorm = assessmentSection.FailureMechanismContribution.Norm;
+                Assert.AreEqual(failureMechanism.Contribution / 100, calculator.FailureMechanismContribution, tolerance);
+                Assert.AreEqual(normativeNorm, calculator.NormativeNorm, tolerance);
+                Assert.AreEqual(n, calculator.FailureMechanismN);
             }
 
             mocks.VerifyAll();

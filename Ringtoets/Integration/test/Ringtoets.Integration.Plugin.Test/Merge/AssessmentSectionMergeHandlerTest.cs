@@ -389,7 +389,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             });
 
             // Then
-            var pipingCalculation =  (PipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
+            var pipingCalculation = (PipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
             Assert.AreSame(targetLocations[0], pipingCalculation.InputParameters.HydraulicBoundaryLocation);
 
             var grassInwardsCalculation = (GrassCoverErosionInwardsCalculation) targetAssessmentSection.GrassCoverErosionInwards.Calculations.Single();
