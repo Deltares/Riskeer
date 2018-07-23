@@ -127,9 +127,24 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public double TailorMadeAssessmentProbabilityInput { get; private set; }
 
         /// <summary>
-        /// Gets the 'N' parameter input of the tailor made assessment calculation.
+        /// Gets the 'N' parameter of a failure mechanism section input of the tailor made assessment calculation.
         /// </summary>
         public double TailorMadeAssessmentFailureMechanismSectionNInput { get; private set; }
+
+        /// <summary>
+        /// Gets the normative norm input of the tailor made assessment calculation.
+        /// </summary>
+        public double TailorMadeNormativeNormInput { get; private set; }
+
+        /// <summary>
+        /// Gets the 'N' parameter of a failure mechanism input of the tailor made assessment calculation.
+        /// </summary>
+        public double TailorMadeFailureMechanismNInput { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanism contribution input of the tailor made assessment calculation.
+        /// </summary>
+        public double TailorMadeFailureMechanismContributionInput { get; private set; }
 
         /// <summary>
         /// Gets the result type of the tailor made assessment calculation with a category group.
@@ -335,7 +350,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
         public FailureMechanismSectionAssembly AssembleTailorMadeAssessment(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType tailorMadeAssessmentResult,
                                                                             double probability,
-                                                                            AssemblyCategoriesInput assemblyCategoriesInput)
+                                                                            double normativeNorm, 
+                                                                            double failureMechanismN,
+                                                                            double failureMechanismContribution)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -344,7 +361,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             TailorMadeAssessmentProbabilityAndDetailedCalculationResultInput = tailorMadeAssessmentResult;
             TailorMadeAssessmentProbabilityInput = probability;
-            AssemblyCategoriesInput = assemblyCategoriesInput;
+            TailorMadeNormativeNormInput = normativeNorm;
+            TailorMadeFailureMechanismNInput = failureMechanismN;
+            TailorMadeFailureMechanismContributionInput = failureMechanismContribution;
 
             return TailorMadeAssessmentAssemblyOutput ??
                    (TailorMadeAssessmentAssemblyOutput = new FailureMechanismSectionAssembly(1, FailureMechanismSectionAssemblyCategoryGroup.VIv));
