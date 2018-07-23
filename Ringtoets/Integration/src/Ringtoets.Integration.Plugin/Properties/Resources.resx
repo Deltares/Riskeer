@@ -209,4 +209,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   <data name="AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_merged" xml:space="preserve">
     <value>Hydraulische belastingen zijn samengevoegd.</value>
   </data>
+  <data name="AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced" xml:space="preserve">
+    <value>Gegevens van toetsspoor '{0}' zijn vervangen.</value>
+  </data>
 </root>

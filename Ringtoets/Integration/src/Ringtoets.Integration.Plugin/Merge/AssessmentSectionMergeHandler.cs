@@ -213,6 +213,7 @@ namespace Ringtoets.Integration.Plugin.Merge
             if (failureMechanism != null)
             {
                 mergeFailureMechanismAction(targetAssessmentSection, failureMechanism);
+                log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced, failureMechanism.Name);
                 return true;
             }
 
