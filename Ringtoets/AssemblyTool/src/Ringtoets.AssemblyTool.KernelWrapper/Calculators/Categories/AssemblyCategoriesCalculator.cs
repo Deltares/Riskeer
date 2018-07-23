@@ -116,15 +116,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
             }
         }
 
-        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(
-            AssemblyCategoriesInput assemblyCategoriesInput)
+        public IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(double normativeNorm,
+                                                                                                                           double failureMechanismN,
+                                                                                                                           double failureMechanismContribution)
         {
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CategoriesList<FmSectionCategory> output = kernel.CalculateFmSectionCategoryLimitsWbi02(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
+                    normativeNorm,
+                    new FailureMechanism(failureMechanismN, failureMechanismContribution));
 
                 return AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(output);
             }

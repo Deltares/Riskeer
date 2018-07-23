@@ -67,13 +67,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <summary>
         /// Performs the calculation for getting the geotechnical failure mechanism section categories.
         /// </summary>
-        /// <param name="assemblyCategoriesInput">The object containing the input parameters for
-        /// determining the assembly categories.</param>
+        /// <param name="normativeNorm">The norm which has been defined on the assessment section.</param>
+        /// <param name="failureMechanismN">The 'N' parameter used to factor in the 'length effect'.</param>
+        /// <param name="failureMechanismContribution">The contribution of a failure mechanism.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
-        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(
-            AssemblyCategoriesInput assemblyCategoriesInput);
+        IEnumerable<FailureMechanismSectionAssemblyCategory> CalculateGeotechnicalFailureMechanismSectionCategories(double normativeNorm,
+                                                                                                                    double failureMechanismN,
+                                                                                                                    double failureMechanismContribution);
     }
 }
