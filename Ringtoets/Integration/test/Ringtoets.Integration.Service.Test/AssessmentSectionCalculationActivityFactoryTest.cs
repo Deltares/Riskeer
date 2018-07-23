@@ -24,14 +24,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.TestUtil;
@@ -62,7 +60,6 @@ namespace Ringtoets.Integration.Service.Test
     public class AssessmentSectionCalculationActivityFactoryTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
         [Test]
         public void CreateActivities_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -81,7 +78,7 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSection();
 
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {
                 hydraulicBoundaryLocation
@@ -340,20 +337,11 @@ namespace Ringtoets.Integration.Service.Test
             Assert.AreEqual(0, activities.Count());
         }
 
-        private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
-        {
-            var duneLocation = new TestDuneLocation();
-            assessmentSection.DuneErosion.SetDuneLocations(new[]
-            {
-                duneLocation
-            });
-        }
-
         private static AssessmentSection CreateAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune);
 
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
+            assessmentSection.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             return assessmentSection;
         }
@@ -366,14 +354,7 @@ namespace Ringtoets.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    DikeProfile = new DikeProfile(new Point2D(0, 0),
-                                                  new RoughnessPoint[0],
-                                                  new Point2D[0],
-                                                  new BreakWater(BreakWaterType.Dam, new Random(39).NextDouble()),
-                                                  new DikeProfile.ConstructionProperties
-                                                  {
-                                                      Id = "id"
-                                                  })
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             });
         }
@@ -406,13 +387,7 @@ namespace Ringtoets.Integration.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                    ForeshoreProfile = new TestForeshoreProfile(true)
-                    {
-                        BreakWater =
-                        {
-                            Height = new Random(39).NextRoundedDouble()
-                        }
-                    },
+                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -432,13 +407,7 @@ namespace Ringtoets.Integration.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
-                    ForeshoreProfile = new TestForeshoreProfile(true)
-                    {
-                        BreakWater =
-                        {
-                            Height = new Random(39).NextRoundedDouble()
-                        }
-                    },
+                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -501,6 +470,15 @@ namespace Ringtoets.Integration.Service.Test
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
+            });
+        }
+
+        private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
+        {
+            var duneLocation = new TestDuneLocation();
+            assessmentSection.DuneErosion.SetDuneLocations(new[]
+            {
+                duneLocation
             });
         }
     }
