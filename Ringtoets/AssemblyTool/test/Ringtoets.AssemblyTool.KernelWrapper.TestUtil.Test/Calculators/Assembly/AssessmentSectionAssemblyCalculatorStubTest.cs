@@ -46,7 +46,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             Assert.IsNull(calculator.FailureMechanismsWithProbabilityInput);
             Assert.AreEqual(0.0, calculator.LowerLimitNormInput);
             Assert.AreEqual(0.0, calculator.SignalingNormInput);
-            Assert.AreEqual((AssessmentSectionAssemblyCategoryGroup) 0,
+            Assert.AreEqual((FailureMechanismAssemblyCategoryGroup) 0,
                             calculator.FailureMechanismsWithoutProbabilityInput);
         }
 
@@ -63,7 +63,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
 
             // Assert
             Assert.AreEqual(0.75, output.Probability);
-            Assert.AreEqual(AssessmentSectionAssemblyCategoryGroup.D, output.Group);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.IIIt, output.Group);
         }
 
         [Test]
@@ -137,7 +137,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Calculators.Assembl
             FailureMechanismAssemblyCategoryGroup output = calculator.AssembleFailureMechanisms(Enumerable.Empty<FailureMechanismAssemblyCategoryGroup>());
 
             // Assert
-            Assert.AreEqual(AssessmentSectionAssemblyCategoryGroup.D, output);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.IIIt, output);
         }
 
         [Test]

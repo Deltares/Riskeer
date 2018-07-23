@@ -16,19 +16,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test
             Assert.IsNotNull(categories);
 
             FmSectionCategory[] sectionCategories = categories.Categories;
-            Assert.AreEqual(4, sectionCategories);
+            Assert.AreEqual(4, sectionCategories.Length);
 
             Assert.AreEqual(0, sectionCategories[0].LowerLimit);
             Assert.AreEqual(0.25, sectionCategories[0].UpperLimit);
 
-            Assert.AreEqual(0.25, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(0.5, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.25, sectionCategories[1].LowerLimit);
+            Assert.AreEqual(0.5, sectionCategories[1].UpperLimit);
 
-            Assert.AreEqual(0.5, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(0.75, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.5, sectionCategories[2].LowerLimit);
+            Assert.AreEqual(0.75, sectionCategories[2].UpperLimit);
 
-            Assert.AreEqual(0.75, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(1, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.75, sectionCategories[3].LowerLimit);
+            Assert.AreEqual(1, sectionCategories[3].UpperLimit);
         }
 
         [Test]
@@ -41,19 +41,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test
             Assert.IsNotNull(categories);
 
             FailureMechanismCategory[] sectionCategories = categories.Categories;
-            Assert.AreEqual(4, sectionCategories);
+            Assert.AreEqual(4, sectionCategories.Length);
 
             Assert.AreEqual(0, sectionCategories[0].LowerLimit);
             Assert.AreEqual(0.25, sectionCategories[0].UpperLimit);
 
-            Assert.AreEqual(0.25, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(0.5, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.25, sectionCategories[1].LowerLimit);
+            Assert.AreEqual(0.5, sectionCategories[1].UpperLimit);
 
-            Assert.AreEqual(0.5, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(0.75, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.5, sectionCategories[2].LowerLimit);
+            Assert.AreEqual(0.75, sectionCategories[2].UpperLimit);
 
-            Assert.AreEqual(0.75, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(1, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.75, sectionCategories[3].LowerLimit);
+            Assert.AreEqual(1, sectionCategories[3].UpperLimit);
         }
 
         [Test]
@@ -66,19 +66,19 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test
             Assert.IsNotNull(categories);
 
             AssessmentSectionCategory[] sectionCategories = categories.Categories;
-            Assert.AreEqual(4, sectionCategories);
+            Assert.AreEqual(4, sectionCategories.Length);
 
             Assert.AreEqual(0, sectionCategories[0].LowerLimit);
             Assert.AreEqual(0.25, sectionCategories[0].UpperLimit);
 
-            Assert.AreEqual(0.25, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(0.5, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.25, sectionCategories[1].LowerLimit);
+            Assert.AreEqual(0.5, sectionCategories[1].UpperLimit);
 
-            Assert.AreEqual(0.5, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(0.75, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.5, sectionCategories[2].LowerLimit);
+            Assert.AreEqual(0.75, sectionCategories[2].UpperLimit);
 
-            Assert.AreEqual(0.75, sectionCategories[0].LowerLimit);
-            Assert.AreEqual(1, sectionCategories[0].UpperLimit);
+            Assert.AreEqual(0.75, sectionCategories[3].LowerLimit);
+            Assert.AreEqual(1, sectionCategories[3].UpperLimit);
         }
     }
 }

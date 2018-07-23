@@ -106,14 +106,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var random = new Random(39);
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
-                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
+                FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                                                       random.NextDouble())
             };
 
             // Call
             FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0E1(0);
 
             // Assert
-            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
+            Assert.AreSame(kernel.FailureMechanismAssemblyDirectResultWithProbability, result);
         }
 
         [Test]
@@ -199,14 +200,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var random = new Random(39);
             var kernel = new FailureMechanismSectionAssemblyKernelStub
             {
-                FailureMechanismSectionDirectResult = new FmSectionAssemblyDirectResult(random.NextEnumValue<EFmSectionCategory>())
+                FailureMechanismAssemblyDirectResultWithProbability = new FmSectionAssemblyDirectResultWithProbability(random.NextEnumValue<EFmSectionCategory>(),
+                                                                                                                       random.NextDouble())
             };
 
             // Call
             FmSectionAssemblyDirectResult result = kernel.TranslateAssessmentResultWbi0E3(0);
 
             // Assert
-            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
+            Assert.AreSame(kernel.FailureMechanismAssemblyDirectResultWithProbability, result);
         }
 
         [Test]
@@ -415,7 +417,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
                                                                                                          categories);
 
             // Assert
-            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
+            Assert.AreSame(kernel.FailureMechanismAssemblyDirectResultWithProbability, result);
         }
 
         [Test]
@@ -1280,7 +1282,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
                 simpleAssemblyResult, detailedAssemblyResult, tailorMadeAssemblyResult);
 
             // Assert
-            Assert.AreSame(kernel.FailureMechanismSectionDirectResult, result);
+            Assert.AreSame(kernel.FailureMechanismAssessmentResult, result);
         }
 
         [Test]
@@ -1308,23 +1310,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.TailorMadeAssessmentResultInput);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.FailureMechanismAssessmentResult);
-        }
-
-        [Test]
-        public void TranslateAssessmentResultWbi0A1_WithIndirectResult_ThrowNotImplementedException()
-        {
-            // Setup
-            var random = new Random(11);
-            var kernel = new FailureMechanismSectionAssemblyKernelStub();
-
-            // Call
-            TestDelegate test = () => kernel.TranslateAssessmentResultWbi0A1(
-                new FmSectionAssemblyIndirectResult(random.NextEnumValue<EIndirectAssessmentResult>()),
-                new FmSectionAssemblyIndirectResult(random.NextEnumValue<EIndirectAssessmentResult>()),
-                new FmSectionAssemblyIndirectResult(random.NextEnumValue<EIndirectAssessmentResult>()));
-
-            // Assert
-            Assert.Throws<NotImplementedException>(test);
         }
 
         #endregion

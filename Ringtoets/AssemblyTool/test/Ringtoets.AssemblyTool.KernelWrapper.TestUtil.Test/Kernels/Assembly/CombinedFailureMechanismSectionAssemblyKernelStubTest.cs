@@ -150,9 +150,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             var kernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
 
             // Call
-            TestDelegate test = () => kernel.AssembleCommonFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionList>(),
-                                                                                    random.NextDouble(),
-                                                                                    random.NextBoolean());
+            TestDelegate test = () => kernel.FindGreatestCommonDenominatorSectionsWbi3A1(Enumerable.Empty<FailureMechanismSectionList>(),
+                                                                                         random.NextDouble());
 
             // Assert
             Assert.Throws<NotImplementedException>(test);
@@ -162,7 +161,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
         public void TranslateFailureMechanismResultsToCommonSectionsWbi3B1_Always_ThrowsNotImplementedException()
         {
             // Setup
-            var random = new Random(21);
             var kernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
 
             // Call
@@ -190,7 +188,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 
         private static FailureMechanismSectionList CreateFailureMechanismSectionList()
         {
-            return new FailureMechanismSectionList(string.Empty, Enumerable.Empty<FailureMechanismSection>());
+            return new FailureMechanismSectionList(string.Empty, new[]
+            {
+                new FailureMechanismSection(0, 1) 
+            });
         }
     }
 }
