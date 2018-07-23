@@ -19,43 +19,73 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
+using Core.Common.Gui.Forms.ViewHost;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.DuneErosion.Data.TestUtil;
 using Ringtoets.DuneErosion.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.PresentationObjects.StandAlone;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.MacroStabilityInwards.Data.TestUtil;
 using Ringtoets.MacroStabilityInwards.Forms.PresentationObjects;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.Kernels;
+using Ringtoets.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Ringtoets.Piping.Data;
+using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.Piping.KernelWrapper.SubCalculator;
+using Ringtoets.Piping.KernelWrapper.TestUtil.SubCalculator;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsIntegrationFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
     public class AssessmentSectionTreeNodeInfoTest
     {
+        private const int contextMenuCalculateAllIndex = 8;
         private MockRepository mocks;
+        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Forms, "HydraulicBoundaryDatabase");
 
         [SetUp]
         public void SetUp()
@@ -310,6 +340,8 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddDeleteItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -371,6 +403,40 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismIsRelevant_AddCustomItems()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(assessmentSection, treeView)).Return(menuBuilder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                mocks.ReplayAll();
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(assessmentSection, assessmentSection, treeView))
+                    {
+                        // Assert
+                        Assert.AreEqual(14, menu.Items.Count);
+
+                        TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                      "Alles be&rekenen",
+                                                                      "Voer alle berekeningen binnen dit traject uit.",
+                                                                      RingtoetsCommonFormsResources.CalculateAllIcon);
+                    }
+                }
+            }
         }
 
         [Test]
@@ -466,9 +532,256 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.DikeAndDune)
+            {
+                HydraulicBoundaryDatabase =
+                {
+                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                }
+            };
+
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
+            {
+                hydraulicBoundaryLocation
+            };
+            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+
+            AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
+            AddMacroStabilityInwardsCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
+            AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddGrassCoverErosionOutwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddHeightStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddClosingStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddStabilityPointStructuresCalculation(assessmentSection, hydraulicBoundaryLocation);
+            AddDuneLocationCalculation(assessmentSection);
+
+            var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
+
+            using (mocks.Ordered())
+            {
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, ""))
+                                 .Return(new TestDesignWaterLevelCalculator
+                                 {
+                                     DesignWaterLevel = 2.0
+                                 }).Repeat.Times(4);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, ""))
+                                 .Return(new TestWaveHeightCalculator()).Repeat.Times(4);
+
+                calculatorFactory.Expect(cf => cf.CreateOvertoppingCalculator(testDataPath, ""))
+                                 .Return(new TestOvertoppingCalculator());
+
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
+                                 .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(9);
+
+                calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(testDataPath, ""))
+                                 .Return(new TestDesignWaterLevelCalculator()).Repeat.Times(3);
+                calculatorFactory.Expect(cf => cf.CreateWaveHeightCalculator(testDataPath, ""))
+                                 .Return(new TestWaveHeightCalculator()).Repeat.Times(3);
+
+                calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
+                                 .Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);
+
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresOvertoppingCalculationInput>(testDataPath, ""))
+                                 .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
+
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresClosureCalculationInput>(testDataPath, ""))
+                                 .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
+
+                calculatorFactory.Expect(cf => cf.CreateStructuresCalculator<StructuresStabilityPointCalculationInput>(testDataPath, ""))
+                                 .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
+
+                calculatorFactory.Expect(cf => cf.CreateDunesBoundaryConditionsCalculator(testDataPath, ""))
+                                 .Return(new TestDunesBoundaryConditionsCalculator()).Repeat.Times(5);
+            }
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.Get(assessmentSection, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+
+                mocks.ReplayAll();
+
+                using (var plugin = new RingtoetsPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(assessmentSection, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
+                    using (new PipingSubCalculatorFactoryConfig())
+                    using (new MacroStabilityInwardsKernelFactoryConfig())
+                    {
+                        var pipingTestFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
+                        var macroStabilityTestFactory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+
+                        // Precondition
+                        Assert.IsFalse(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
+                        Assert.IsFalse(macroStabilityTestFactory.LastCreatedUpliftVanKernel.Calculated);
+
+                        // When
+                        contextMenuAdapter.Items[contextMenuCalculateAllIndex].PerformClick();
+
+                        // Then
+                        Assert.IsTrue(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
+                        Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanKernel.Calculated);
+                    }
+                }
+
+                mocks.VerifyAll();
+            }
+        }
+
         private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssessmentSection));
+        }
+
+        private static void AddGrassCoverErosionInwardsCalculation(AssessmentSection assessmentSection,
+                                                                   HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                }
+            });
+        }
+
+        private static void AddPipingCalculationScenario(AssessmentSection assessmentSection,
+                                                         HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            pipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;
+            pipingCalculationScenario.InputParameters.AssessmentLevel = new Random(39).NextRoundedDouble();
+            assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculationScenario);
+        }
+
+        private static void AddMacroStabilityInwardsCalculationScenario(AssessmentSection assessmentSection,
+                                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            macroStabilityInwardsCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;
+            macroStabilityInwardsCalculationScenario.InputParameters.AssessmentLevel = new Random(39).NextRoundedDouble();
+            assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(macroStabilityInwardsCalculationScenario);
+        }
+
+        private static void AddStabilityStoneCoverCalculation(AssessmentSection assessmentSection,
+                                                              HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                    ForeshoreProfile = new TestForeshoreProfile(true),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    LowerBoundaryRevetment = (RoundedDouble) 1,
+                    UpperBoundaryRevetment = (RoundedDouble) 3,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3
+                }
+            });
+        }
+
+        private static void AddWaveImpactAsphaltCoverCalculation(AssessmentSection assessmentSection,
+                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = AssessmentSectionCategoryType.FactorizedLowerLimitNorm,
+                    ForeshoreProfile = new TestForeshoreProfile(true),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    LowerBoundaryRevetment = (RoundedDouble) 1,
+                    UpperBoundaryRevetment = (RoundedDouble) 3,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3
+                }
+            });
+        }
+
+        private static void AddGrassCoverErosionOutwardsCalculation(AssessmentSection assessmentSection,
+                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    CategoryType = FailureMechanismCategoryType.FactorizedLowerLimitNorm,
+                    UseBreakWater = true,
+                    LowerBoundaryRevetment = (RoundedDouble) 1,
+                    UpperBoundaryRevetment = (RoundedDouble) 3,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 3,
+                    Orientation = (RoundedDouble) 10
+                }
+            });
+        }
+
+        private static void AddHeightStructuresCalculation(AssessmentSection assessmentSection,
+                                                           HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            });
+        }
+
+        private static void AddClosingStructuresCalculation(AssessmentSection assessmentSection,
+                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            });
+        }
+
+        private static void AddStabilityPointStructuresCalculation(AssessmentSection assessmentSection,
+                                                                   HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        {
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            });
+        }
+
+        private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
+        {
+            var duneLocation = new TestDuneLocation();
+            assessmentSection.DuneErosion.SetDuneLocations(new[]
+            {
+                duneLocation
+            });
         }
     }
 }

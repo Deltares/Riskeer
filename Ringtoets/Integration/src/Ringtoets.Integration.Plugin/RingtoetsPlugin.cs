@@ -1465,13 +1465,19 @@ namespace Ringtoets.Integration.Plugin
             parentProject.NotifyObservers();
         }
 
-        private ContextMenuStrip AssessmentSectionContextMenuStrip(IAssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip AssessmentSectionContextMenuStrip(AssessmentSection nodeData, object parentData, TreeViewControl treeViewControl)
         {
+            var calculateAllItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.Calculate_All,
+                Resources.AssessmentSection_Calculate_All_ToolTip,
+                RingtoetsCommonFormsResources.CalculateAllIcon,
+                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
+
             var importItem = new StrictContextMenuItem(
                 GuiResources.Import,
                 GuiResources.Import_ToolTip,
                 GuiResources.ImportIcon,
-                (sender, args) => assessmentSectionMerger.StartMerge((AssessmentSection) nodeData));
+                (sender, args) => assessmentSectionMerger.StartMerge(nodeData));
 
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
@@ -1481,6 +1487,8 @@ namespace Ringtoets.Integration.Plugin
                       .AddRenameItem()
                       .AddSeparator()
                       .AddDeleteItem()
+                      .AddSeparator()
+                      .AddCustomItem(calculateAllItem)
                       .AddSeparator()
                       .AddCollapseAllItem()
                       .AddExpandAllItem()

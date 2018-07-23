@@ -120,6 +120,15 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voer alle berekeningen binnen dit traject uit..
+        /// </summary>
+        public static string AssessmentSection_Calculate_All_ToolTip {
+            get {
+                return ResourceManager.GetString("AssessmentSection_Calculate_All_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Als u het trajecttype aanpast, dan worden alle rekenresultaten van alle relevante toetssporen verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
