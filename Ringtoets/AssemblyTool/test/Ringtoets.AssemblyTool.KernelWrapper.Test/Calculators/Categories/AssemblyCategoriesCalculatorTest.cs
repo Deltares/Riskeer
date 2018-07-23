@@ -371,7 +371,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             // Setup
             var random = new Random(21);
             double normativeNorm = random.NextDouble();
-            double failureMechanismN = random.NextDouble();
+            double failureMechanismN = random.NextDouble(1, 10);
             double failureMechanismContribution = random.NextDouble();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -412,7 +412,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Call
                 IEnumerable<FailureMechanismSectionAssemblyCategory> result = calculator.CalculateGeotechnicalFailureMechanismSectionCategories(
                     random.NextDouble(),
-                    random.NextDouble(),
+                    random.NextDouble(1, 10),
                     random.NextDouble());
 
                 // Assert
@@ -436,7 +436,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Call
                 TestDelegate test = () => calculator.CalculateGeotechnicalFailureMechanismSectionCategories(
                     random.NextDouble(),
-                    random.NextDouble(),
+                    random.NextDouble(1, 10),
                     random.NextDouble());
 
                 // Assert
@@ -462,7 +462,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Call
                 TestDelegate test = () => calculator.CalculateGeotechnicalFailureMechanismSectionCategories(
                     random.NextDouble(),
-                    random.NextDouble(),
+                    random.NextDouble(1, 10),
                     random.NextDouble());
 
                 // Assert

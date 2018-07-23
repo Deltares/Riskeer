@@ -341,7 +341,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
-                kernel.AssessmentGradeResult = (EAssessmentGrade) 99;
+                kernel.FailureMechanismCategoryResult = (EFailureMechanismCategory) 99;
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
@@ -450,7 +450,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleAssessmentSection(failureMechanismsWithoutProbability, failureMechanismsWithProbability);
 
                 // Assert
-                Assert.AreEqual(failureMechanismsWithoutProbability, kernel.AssemblyResultNoFailureProbability);
+                FailureMechanismAssemblyResult expectedKernelInputFailureWithoutProbability =
+                    AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult(failureMechanismsWithoutProbability);
+                Assert.AreEqual(expectedKernelInputFailureWithoutProbability.Category, kernel.AssemblyResultNoFailureProbability);
 
                 FailureMechanismAssemblyResult actualKernelInputFailureProbability = kernel.AssemblyResultWithFailureProbability;
                 FailureMechanismAssemblyResult expectedKernelInputFailureProbability =
@@ -484,7 +486,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                                                        failureMechanismsWithProbability);
 
                 // Assert
-                AssessmentSectionAssemblyCategoryGroup expectedAssembly = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentGradeResult);
+                AssessmentSectionAssemblyCategoryGroup expectedAssembly = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentSectionAssemblyResult);
                 Assert.AreEqual(expectedAssembly, assembly);
             }
         }

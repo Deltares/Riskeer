@@ -39,11 +39,6 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool? PartialAssembly { get; private set; }
 
         /// <summary>
-        /// Gets or sets the assessment section assembly result.
-        /// </summary>
-        public EAssessmentGrade AssessmentGradeResult { get; set; }
-
-        /// <summary>
         /// Gets or sets the failure mechanism category result
         /// </summary>
         public EFailureMechanismCategory FailureMechanismCategoryResult { get; set; }
