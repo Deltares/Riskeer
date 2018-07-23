@@ -53,10 +53,10 @@ namespace Ringtoets.Integration.Data.Assembly
         /// Assembles the results of the failure mechanisms with probability within the assessment sections.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
-        /// <returns>A <see cref="AssessmentSectionAssembly"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssembly"/> cannot be created.</exception>
-        public static AssessmentSectionAssembly AssembleFailureMechanismsWithProbability(AssessmentSection assessmentSection)
+        public static FailureMechanismAssembly AssembleFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -88,10 +88,10 @@ namespace Ringtoets.Integration.Data.Assembly
         /// Assembles the results of failure mechanisms without probability within the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/> cannot be created.</exception>
-        public static AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanismsWithoutProbability(AssessmentSection assessmentSection)
+        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanismsWithoutProbability(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {

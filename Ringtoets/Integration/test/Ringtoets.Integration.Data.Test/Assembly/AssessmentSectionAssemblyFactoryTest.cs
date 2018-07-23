@@ -93,11 +93,11 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(
-                    random.NextDouble(), random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(
+                    random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
 
                 // Call
-                AssessmentSectionAssembly output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection);
+                FailureMechanismAssembly output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection);
 
                 // Assert
                 Assert.AreSame(calculator.AssembleFailureMechanismsAssemblyOutput, output);
@@ -193,10 +193,10 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+                calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
                 // Call
-                AssessmentSectionAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
+                FailureMechanismAssemblyCategoryGroup output = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection);
 
                 // Assert
                 Assert.AreEqual(calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput, output);
@@ -269,9 +269,9 @@ namespace Ringtoets.Integration.Data.Test.Assembly
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(
-                    random.NextDouble(), random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
-                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(
+                    random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+                assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
                 // Call
                 AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
@@ -303,8 +303,8 @@ namespace Ringtoets.Integration.Data.Test.Assembly
             {
                 var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssembleFailureMechanismsAssemblyOutput = new AssessmentSectionAssembly(
-                    random.NextDouble(), random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(
+                    random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
                 calculator.AssembleAssessmentSectionCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
 
                 // Call
