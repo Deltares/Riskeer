@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.Plugin.Test.TreeNodeInfos
 
                 failureMechanismAssemblyCategoriesContext.GetFailureMechanismSectionAssemblyCategoriesFunc();
                 MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput;
-                Assert.AreEqual(probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength), calculator.AssemblyCategoriesInput.N);
+                Assert.AreEqual(probabilityAssessmentInput.GetN(probabilityAssessmentInput.SectionLength), calculator.FailureMechanismN);
             }
 
             var failureMechanismResultsContext = (FailureMechanismSectionResultContext<MacroStabilityOutwardsFailureMechanismSectionResult>)
