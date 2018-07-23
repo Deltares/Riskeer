@@ -108,7 +108,7 @@ namespace Ringtoets.Integration.Plugin.Merge
         }
 
         private static void MergeHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
-                                                                IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations)
+                                                                       IEnumerable<HydraulicBoundaryLocationCalculation> sourceCalculations)
         {
             for (var i = 0; i < targetCalculations.Count(); i++)
             {
