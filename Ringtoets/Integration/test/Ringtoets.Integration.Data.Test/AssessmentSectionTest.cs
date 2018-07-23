@@ -552,12 +552,31 @@ namespace Ringtoets.Integration.Data.Test
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            newFailureMechanism.Contribution = getFailureMechanismFunc(assessmentSection).Contribution;
 
             // When
             setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
 
             // Then
             Assert.AreSame(getFailureMechanismFunc(assessmentSection), newFailureMechanism);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetNewFailureMechanisms))]
+        public void GivenAssessmentSection_WhenSettingFailureMechanismWithOtherContributionContribution_ThenThrowsArgumentException<TFailureMechanism>(
+            Action<AssessmentSection, TFailureMechanism> setNewFailureMechanismAction, TFailureMechanism newFailureMechanism,
+            Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc)
+            where TFailureMechanism : IFailureMechanism
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            newFailureMechanism.Contribution = 80;
+
+            // When
+            TestDelegate call = () => setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
+
+            // Then
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor.");
         }
 
         private static IFailureMechanism[] GetExpectedContributingFailureMechanisms(AssessmentSection section)
