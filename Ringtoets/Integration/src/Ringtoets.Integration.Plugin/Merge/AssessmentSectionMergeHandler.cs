@@ -24,10 +24,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Commands;
 using log4net;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
+using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
+using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Plugin.Properties;
+using Ringtoets.MacroStabilityInwards.Data;
+using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.Integration.Plugin.Merge
 {
@@ -77,7 +86,137 @@ namespace Ringtoets.Integration.Plugin.Merge
 
             BeforeMerge(targetAssessmentSection);
             MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection);
+            MergeFailureMechanisms(targetAssessmentSection, failureMechanismsToMerge);
             AfterMerge(targetAssessmentSection);
+        }
+
+        private void MergeFailureMechanisms(AssessmentSection targetAssessmentSection, IEnumerable<IFailureMechanism> failureMechanismsToMerge)
+        {
+            foreach (IFailureMechanism failureMechanism in failureMechanismsToMerge)
+            {
+                if (TryMergeFailureMechanism<PipingFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.Piping = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<GrassCoverErosionInwardsFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.GrassCoverErosionInwards = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<MacroStabilityInwardsFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.MacroStabilityInwards = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<MacroStabilityOutwardsFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.MacroStabilityOutwards = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<MicrostabilityFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.Microstability = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<StabilityStoneCoverFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.StabilityStoneCover = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<WaveImpactAsphaltCoverFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.WaveImpactAsphaltCover = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<WaterPressureAsphaltCoverFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.WaterPressureAsphaltCover = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<GrassCoverSlipOffOutwardsFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.GrassCoverSlipOffOutwards = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<GrassCoverSlipOffInwardsFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.GrassCoverSlipOffInwards = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<HeightStructuresFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.HeightStructures = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<ClosingStructuresFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.ClosingStructures = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<PipingStructureFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.PipingStructure = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<StabilityPointStructuresFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.StabilityPointStructures = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<StrengthStabilityLengthwiseConstructionFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.StrengthStabilityLengthwiseConstruction = mechanism))
+                {
+                    continue;
+                }
+
+                TryMergeFailureMechanism<TechnicalInnovationFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.TechnicalInnovation = mechanism);
+            }
+        }
+
+        private bool TryMergeFailureMechanism<TFailureMechanism>(AssessmentSection targetAssessmentSection, IFailureMechanism failureMechanismToMerge,
+                                                                 Action<AssessmentSection, TFailureMechanism> mergeFailureMechanismAction)
+            where TFailureMechanism : class, IFailureMechanism
+        {
+            var failureMechanism = failureMechanismToMerge as TFailureMechanism;
+            if (failureMechanism != null)
+            {
+                mergeFailureMechanismAction(targetAssessmentSection, failureMechanism);
+                return true;
+            }
+
+            return false;
         }
 
         private void BeforeMerge(AssessmentSection assessmentSection)
