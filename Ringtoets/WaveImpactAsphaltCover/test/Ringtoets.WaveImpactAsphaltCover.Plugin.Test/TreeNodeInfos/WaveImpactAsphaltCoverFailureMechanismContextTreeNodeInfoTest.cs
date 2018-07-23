@@ -517,7 +517,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenWaveImpactAsphaltCoverWaveConditionsCalculationThatSucceed_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
+        public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();

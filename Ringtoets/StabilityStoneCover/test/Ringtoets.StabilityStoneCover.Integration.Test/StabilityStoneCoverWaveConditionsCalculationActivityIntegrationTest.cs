@@ -193,14 +193,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 assessmentSection);
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length * 2;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(waterLevels.Length * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -230,8 +229,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         public void Run_Always_InputPropertiesCorrectlySendToService(BreakWaterType breakWaterType)
         {
             // Setup
-            const int nrOfCalculators = 6;
-
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
             StabilityStoneCoverWaveConditionsCalculation calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
 
@@ -246,6 +243,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             var calculator = new TestWaveConditionsCosineCalculator();
+            RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
+            int nrOfCalculators = waterLevels.Length * 2;
+
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(calculator)
                              .Repeat
@@ -264,7 +264,6 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
                 WaveConditionsInput input = calculation.InputParameters;
-                RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
                 double norm = assessmentSection.FailureMechanismContribution.LowerLimitNorm * 30;
 
                 var waterLevelIndex = 0;
@@ -478,14 +477,12 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 new StabilityStoneCoverFailureMechanism(),
                 assessmentSection);
 
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
-
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -588,14 +585,12 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 new StabilityStoneCoverFailureMechanism(),
                 assessmentSection);
 
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
-
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -623,14 +618,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 calculation,
                 new StabilityStoneCoverFailureMechanism(),
                 assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, validPreprocessorDirectory))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -658,14 +652,13 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 calculation,
                 new StabilityStoneCoverFailureMechanism(),
                 assessmentSection);
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count() * 2;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count() * 2);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))

@@ -193,14 +193,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 assessmentSection);
 
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(waterLevels.Length);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -241,10 +240,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
             var calculator = new TestWaveConditionsCosineCalculator();
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, assessmentSection).ToArray();
-            int nrOfCalculators = waterLevels.Length;
 
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
+            int nrOfCalculators = waterLevels.Length;
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(calculator)
                              .Repeat
@@ -258,7 +257,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = calculator.ReceivedInputs.ToArray();
-                Assert.AreEqual(3, testWaveConditionsInputs.Length);
+                Assert.AreEqual(nrOfCalculators, testWaveConditionsInputs.Length);
 
                 var waterLevelIndex = 0;
                 foreach (WaveConditionsCosineCalculationInput actualInput in testWaveConditionsInputs)
@@ -498,14 +497,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 new WaveImpactAsphaltCoverFailureMechanism(),
                 assessmentSection);
 
-            int nrOfCalculators = GetWaterLevels(calculation, assessmentSection).Count();
-
             var mockRepository = new MockRepository();
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
                              .Return(new TestWaveConditionsCosineCalculator())
                              .Repeat
-                             .Times(nrOfCalculators);
+                             .Times(GetWaterLevels(calculation, assessmentSection).Count());
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
