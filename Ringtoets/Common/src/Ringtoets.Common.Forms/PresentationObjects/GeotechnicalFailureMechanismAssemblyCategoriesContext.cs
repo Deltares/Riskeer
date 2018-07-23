@@ -47,8 +47,7 @@ namespace Ringtoets.Common.Forms.PresentationObjects
             : base(wrappedData, assessmentSection, getNFunc)
         {
             GetFailureMechanismSectionAssemblyCategoriesFunc = () =>
-                AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(FailureMechanismContribution.SignalingNorm,
-                                                                                                          FailureMechanismContribution.LowerLimitNorm,
+                AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(assessmentSection.FailureMechanismContribution.Norm,
                                                                                                           wrappedData.Contribution,
                                                                                                           getNFunc());
         }
