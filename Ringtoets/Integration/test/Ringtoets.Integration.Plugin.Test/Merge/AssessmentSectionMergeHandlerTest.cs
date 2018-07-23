@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
@@ -151,17 +152,21 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_WithAllData_LogMessage()
+        public void PerformMerge_WithAllData_LogMessageAndNotifyObservers()
         {
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var handler = new AssessmentSectionMergeHandler(viewCommands);
-
+            var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            targetAssessmentSection.Attach(observer);
+            
             // Call
-            Action call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike),
+            Action call = () => handler.PerformMerge(targetAssessmentSection,
                                                      new AssessmentSection(AssessmentSectionComposition.Dike),
                                                      Enumerable.Empty<IFailureMechanism>());
 

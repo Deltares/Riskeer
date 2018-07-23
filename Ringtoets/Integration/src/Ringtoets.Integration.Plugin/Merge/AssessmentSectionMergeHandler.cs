@@ -77,11 +77,17 @@ namespace Ringtoets.Integration.Plugin.Merge
 
             BeforeMerge(targetAssessmentSection);
             MergeHydraulicBoundaryLocations(targetAssessmentSection, sourceAssessmentSection);
+            AfterMerge(targetAssessmentSection);
         }
 
         private void BeforeMerge(AssessmentSection assessmentSection)
         {
             viewCommands.RemoveAllViewsForItem(assessmentSection);
+        }
+
+        private static void AfterMerge(AssessmentSection targetAssessmentSection)
+        {
+            targetAssessmentSection.NotifyObservers();
         }
 
         private static void MergeHydraulicBoundaryLocations(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection)
