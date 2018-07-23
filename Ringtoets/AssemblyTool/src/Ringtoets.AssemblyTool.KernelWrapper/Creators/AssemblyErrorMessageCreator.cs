@@ -126,8 +126,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_RequestedPointOutOfRange;
-                case EAssemblyErrors.FailureMechanismDuplicateSection:
-                    return Resources.AssemblyErrorMessageCreator_FailureMechanismDuplicateSection;
+                case EAssemblyErrors.SectionsWithoutCategory:
+                    return Resources.AssemblyErrorMessageCreator_SectionsWithoutCategory;
+                case EAssemblyErrors.InvalidCategoryLimits:
+                    return Resources.AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits;
                 default:
                     throw new NotSupportedException();
             }
