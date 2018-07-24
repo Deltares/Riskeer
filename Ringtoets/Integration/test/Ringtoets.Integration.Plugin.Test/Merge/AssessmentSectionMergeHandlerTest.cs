@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data.TestUtil;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Merge;
@@ -373,6 +374,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[1]
                 }
             });
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(sourceAssessmentSection.GrassCoverErosionOutwards, sourceLocations, true);
             sourceAssessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
@@ -380,6 +382,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[0]
                 }
             });
+
+            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificFactorizedSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaterLevelForMechanismSpecificLowerLimitNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificFactorizedSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificSignalingNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm.ToArray();
+            HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificLowerLimitNorm = sourceAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
 
             // When
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new IFailureMechanism[]
@@ -422,6 +431,44 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
 
             var grassOutwardsCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) targetAssessmentSection.GrassCoverErosionOutwards.Calculations.Single();
             Assert.AreSame(targetLocations[0], grassOutwardsCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            AssertHydraulicBoundaryCalculations(oldWaterLevelForMechanismSpecificFactorizedSignalingNorm,
+                                                targetAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                targetLocations);
+            AssertHydraulicBoundaryCalculations(oldWaterLevelForMechanismSpecificSignalingNorm,
+                                                targetAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                                                targetLocations);
+            AssertHydraulicBoundaryCalculations(oldWaterLevelForMechanismSpecificLowerLimitNorm,
+                                                targetAssessmentSection.GrassCoverErosionOutwards.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                                                targetLocations);
+
+            AssertHydraulicBoundaryCalculations(oldWaveHeightForMechanismSpecificFactorizedSignalingNorm,
+                                                targetAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                                targetLocations);
+            AssertHydraulicBoundaryCalculations(oldWaveHeightForMechanismSpecificSignalingNorm,
+                                                targetAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificSignalingNorm,
+                                                targetLocations);
+            AssertHydraulicBoundaryCalculations(oldWaveHeightForMechanismSpecificLowerLimitNorm,
+                                                targetAssessmentSection.GrassCoverErosionOutwards.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm,
+                                                targetLocations);
+        }
+
+        private void AssertHydraulicBoundaryCalculations(HydraulicBoundaryLocationCalculation[] sourceCalculations,
+                                                         IEnumerable<HydraulicBoundaryLocationCalculation> targetCalculations,
+                                                         HydraulicBoundaryLocation[] targetLocations)
+        {
+            Assert.AreEqual(sourceCalculations.Length, targetLocations.Length);
+            Assert.AreEqual(targetCalculations.Count(), sourceCalculations.Length);
+            
+            for (var i = 0; i < sourceCalculations.Length; i++)
+            {
+                HydraulicBoundaryLocationCalculation sourceCalculation = sourceCalculations[i];
+                HydraulicBoundaryLocationCalculation targetCalculation = targetCalculations.ElementAt(i);
+                Assert.AreEqual(sourceCalculation.InputParameters.ShouldIllustrationPointsBeCalculated,
+                                targetCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+                Assert.AreSame(sourceCalculation.Output, targetCalculation.Output);
+                Assert.AreSame(targetLocations[i], targetCalculation.HydraulicBoundaryLocation);
+            }
         }
 
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations)
