@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Data.TestUtil.IllustrationPoints;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.Merge;
@@ -372,6 +373,13 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[1]
                 }
             });
+            sourceAssessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = sourceLocations[0]
+                }
+            });
 
             // When
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, new IFailureMechanism[]
@@ -383,7 +391,8 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                 sourceAssessmentSection.ClosingStructures,
                 sourceAssessmentSection.StabilityPointStructures,
                 sourceAssessmentSection.StabilityStoneCover,
-                sourceAssessmentSection.WaveImpactAsphaltCover
+                sourceAssessmentSection.WaveImpactAsphaltCover,
+                sourceAssessmentSection.GrassCoverErosionOutwards
             });
 
             // Then
@@ -408,8 +417,11 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             var stabilityStoneCoverCalculation = (StabilityStoneCoverWaveConditionsCalculation) targetAssessmentSection.StabilityStoneCover.Calculations.Single();
             Assert.AreSame(targetLocations[0], stabilityStoneCoverCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var waveImpactAsphatlCoverCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) targetAssessmentSection.WaveImpactAsphaltCover.Calculations.Single();
-            Assert.AreSame(targetLocations[1], waveImpactAsphatlCoverCalculation.InputParameters.HydraulicBoundaryLocation);
+            var waveImpactAsphaltCoverCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) targetAssessmentSection.WaveImpactAsphaltCover.Calculations.Single();
+            Assert.AreSame(targetLocations[1], waveImpactAsphaltCoverCalculation.InputParameters.HydraulicBoundaryLocation);
+
+            var grassOutwardsCalculation = (GrassCoverErosionOutwardsWaveConditionsCalculation) targetAssessmentSection.GrassCoverErosionOutwards.Calculations.Single();
+            Assert.AreSame(targetLocations[0], grassOutwardsCalculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         private static AssessmentSection CreateAssessmentSection(HydraulicBoundaryLocation[] locations)

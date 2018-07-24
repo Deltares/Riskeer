@@ -242,6 +242,8 @@ namespace Ringtoets.Integration.Plugin.Merge
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.GrassCoverErosionOutwards = mechanism))
                 {
+                    UpdateHydraulicBoundaryLocationReferences<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsWaveConditionsCalculation, FailureMechanismCategoryWaveConditionsInput>(
+                        targetAssessmentSection.GrassCoverErosionOutwards, hydraulicBoundaryLocations);
                     continue;
                 }
 
