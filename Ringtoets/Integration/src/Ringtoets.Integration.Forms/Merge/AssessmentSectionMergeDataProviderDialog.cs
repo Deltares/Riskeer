@@ -61,6 +61,11 @@ namespace Ringtoets.Integration.Forms.Merge
                 throw new ArgumentNullException(nameof(assessmentSections));
             }
 
+            if (!assessmentSections.Any())
+            {
+                throw new ArgumentException($@"{nameof(assessmentSections)} must at least have one element.", nameof(assessmentSections));
+            }
+
             SetComboBoxData(assessmentSections);
 
             return ShowDialog() == DialogResult.OK
