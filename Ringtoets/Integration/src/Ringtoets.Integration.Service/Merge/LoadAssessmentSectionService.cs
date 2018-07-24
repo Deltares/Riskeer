@@ -29,7 +29,7 @@ using Ringtoets.Integration.Service.Exceptions;
 namespace Ringtoets.Integration.Service.Merge
 {
     /// <summary>
-    /// Service which provides a <see cref="RingtoetsProject"/> from a file.
+    /// Service to load a <see cref="RingtoetsProject"/> from a file.
     /// </summary>
     public class LoadAssessmentSectionService : ILoadAssessmentSectionService
     {
@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Service.Merge
         /// <summary>
         /// Creates a new instance of <see cref="LoadAssessmentSectionService"/>.
         /// </summary>
-        /// <param name="projectStorage">Class responsible for storing and loading the application project.</param>
+        /// <param name="projectStorage">Class responsible for loading the project.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="projectStorage"/> is <c>null</c>.</exception>
         public LoadAssessmentSectionService(IStoreProject projectStorage)
         {
