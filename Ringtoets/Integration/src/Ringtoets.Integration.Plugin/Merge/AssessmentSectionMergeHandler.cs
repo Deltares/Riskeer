@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.Integration.Data;
@@ -233,6 +234,13 @@ namespace Ringtoets.Integration.Plugin.Merge
                 if (TryMergeFailureMechanism<WaterPressureAsphaltCoverFailureMechanism>(
                     targetAssessmentSection, failureMechanism,
                     (section, mechanism) => section.WaterPressureAsphaltCover = mechanism))
+                {
+                    continue;
+                }
+
+                if (TryMergeFailureMechanism<GrassCoverErosionOutwardsFailureMechanism>(
+                    targetAssessmentSection, failureMechanism,
+                    (section, mechanism) => section.GrassCoverErosionOutwards = mechanism))
                 {
                     continue;
                 }
