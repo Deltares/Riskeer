@@ -229,11 +229,13 @@ namespace Ringtoets.HeightStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            failureMechanism.AddSections(new [] {FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSections(new[]
             {
-                locationStructureA,
-                new Point2D(1, 1)
-            }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    locationStructureA,
+                    new Point2D(1, 1)
+                }),
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(1, 1),

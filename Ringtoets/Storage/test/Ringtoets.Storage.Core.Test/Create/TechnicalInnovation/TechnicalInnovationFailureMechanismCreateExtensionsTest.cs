@@ -140,7 +140,10 @@ namespace Ringtoets.Storage.Core.Test.Create.TechnicalInnovation
         {
             // Setup
             var failureMechanism = new TechnicalInnovationFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

@@ -25,7 +25,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create
 {
@@ -79,7 +78,10 @@ namespace Ringtoets.Storage.Core.Test.Create
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
             var failureMechanismEntity = new FailureMechanismEntity();
 
             // Call

@@ -32,7 +32,6 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.StabilityPointStructures;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
 {
@@ -169,7 +168,10 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityPointStructures
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

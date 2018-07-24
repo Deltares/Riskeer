@@ -170,7 +170,10 @@ namespace Ringtoets.Storage.Core.Test.Create.MacroStabilityOutwards
         {
             // Setup
             var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

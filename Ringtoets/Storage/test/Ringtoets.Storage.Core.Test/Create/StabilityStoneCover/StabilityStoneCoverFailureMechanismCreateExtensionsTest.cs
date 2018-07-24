@@ -29,7 +29,6 @@ using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.Storage.Core.Create;
 using Ringtoets.Storage.Core.Create.StabilityStoneCover;
 using Ringtoets.Storage.Core.DbContext;
-using Ringtoets.Storage.Core.TestUtil;
 
 namespace Ringtoets.Storage.Core.Test.Create.StabilityStoneCover
 {
@@ -148,7 +147,10 @@ namespace Ringtoets.Storage.Core.Test.Create.StabilityStoneCover
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());

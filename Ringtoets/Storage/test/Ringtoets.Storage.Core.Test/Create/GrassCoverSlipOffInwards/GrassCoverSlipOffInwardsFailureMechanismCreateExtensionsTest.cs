@@ -140,7 +140,10 @@ namespace Ringtoets.Storage.Core.Test.Create.GrassCoverSlipOffInwards
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(new PersistenceRegistry());
