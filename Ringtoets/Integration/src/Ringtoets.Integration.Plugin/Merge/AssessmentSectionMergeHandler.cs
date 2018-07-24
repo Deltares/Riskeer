@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Gui.Commands;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
@@ -107,7 +108,7 @@ namespace Ringtoets.Integration.Plugin.Merge
 
         #region HydraulicBoundaryLocationCalculations
 
-        private static void MergeHydraulicBoundaryLocations(AssessmentSection targetAssessmentSection, AssessmentSection sourceAssessmentSection)
+        private static void MergeHydraulicBoundaryLocations(IAssessmentSection targetAssessmentSection, IAssessmentSection sourceAssessmentSection)
         {
             MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm,
                                                        sourceAssessmentSection.WaterLevelCalculationsForFactorizedSignalingNorm);

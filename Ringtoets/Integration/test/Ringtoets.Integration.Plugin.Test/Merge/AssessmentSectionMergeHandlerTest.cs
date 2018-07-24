@@ -78,7 +78,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_targetAssessmentSectionNull_ThrowsArgumentNullException()
+        public void PerformMerge_TargetAssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -98,7 +98,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_sourceAssessmentSectionNull_ThrowsArgumentNullException()
+        public void PerformMerge_SourceAssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -180,10 +180,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
                                                      Enumerable.Empty<IFailureMechanism>());
 
             // Assert
-            TestHelper.AssertLogMessagesWithLevelAreGenerated(call, new[]
-            {
-                new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info)
-            });
+            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
             mocks.VerifyAll();
         }
 
@@ -429,7 +426,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenTargetAssessmentSectionHasOutput_ThenCalculationsNotChanged(
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
@@ -456,10 +453,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
-            // Call
+            // When
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
 
-            // Assert
+            // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
@@ -471,7 +468,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenSourceAssessmentSectionHasOutput_ThenCalculationDataMerged(
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
@@ -499,10 +496,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(targetCalculations.All(c => !c.InputParameters.ShouldIllustrationPointsBeCalculated));
             Assert.IsTrue(sourceCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
 
-            // Call
+            // When
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
 
-            // Assert
+            // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.InputParameters.ShouldIllustrationPointsBeCalculated));
             mocks.VerifyAll();
@@ -513,7 +510,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenTargetAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsNotChanged(
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
@@ -541,10 +538,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => !c.Output.HasGeneralResult));
 
-            // Call
+            // When
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
 
-            // Assert
+            // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
@@ -557,7 +554,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         public void GivenAssessmentSectionWithHydraulicBoundaryLocationCalculations_WhenSourceAssessmentSectionHasOutputWithIllustrationPoints_ThenCalculationsMerged(
             Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
@@ -585,10 +582,10 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
             Assert.IsTrue(sourceCalculations.All(c => c.HasOutput));
             Assert.IsTrue(sourceCalculations.All(c => c.Output.HasGeneralResult));
 
-            // Call
+            // When
             handler.PerformMerge(targetAssessmentSection, sourceAssessmentSection, Enumerable.Empty<IFailureMechanism>());
 
-            // Assert
+            // Then
             Assert.IsTrue(targetCalculations.All(c => c.HasOutput));
             Assert.IsTrue(targetCalculations.All(c => c.Output.HasGeneralResult));
             mocks.VerifyAll();
