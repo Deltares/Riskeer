@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void SetHydraulicBoundaryLocations_Always_SetsLocationsAndCalculations(bool setCalculationOutput)
+        public void SetHydraulicBoundaryLocationsWithAssessmentSection_Always_SetsLocationsAndCalculations(bool setCalculationOutput)
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -60,6 +60,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.TestUtil.Test
             AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForLowerLimitNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, locations, setCalculationOutput);
 
+            AssertHydraulicBoundaryCalculations(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, locations, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, locations, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, locations, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm, locations, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm, locations, setCalculationOutput);
+            AssertHydraulicBoundaryCalculations(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm, locations, setCalculationOutput);
+        }
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void SetHydraulicBoundaryLocations_Always_SetsLocationsAndCalculations(bool setCalculationOutput)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var locations = new[]
+            {
+                new HydraulicBoundaryLocation(1, "Test", 1, 1),
+                new HydraulicBoundaryLocation(2, "Test", 2, 2)
+            };
+
+            // Call
+            GrassCoverErosionOutwardsHydraulicBoundaryLocationsTestHelper.SetHydraulicBoundaryLocations(failureMechanism, locations, setCalculationOutput);
+
+            // Assert
             AssertHydraulicBoundaryCalculations(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm, locations, setCalculationOutput);
             AssertHydraulicBoundaryCalculations(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm, locations, setCalculationOutput);
