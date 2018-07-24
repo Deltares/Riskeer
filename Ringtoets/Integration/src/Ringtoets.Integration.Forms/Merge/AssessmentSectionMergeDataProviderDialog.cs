@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.Merge;
 using Ringtoets.Integration.Forms.Properties;
@@ -39,7 +38,6 @@ namespace Ringtoets.Integration.Forms.Merge
     public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IAssessmentSectionMergeDataProvider
     {
         private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
-        private bool assessmentSectionComboBoxUpdating;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMergeDataProviderDialog"/>.
@@ -51,6 +49,7 @@ namespace Ringtoets.Integration.Forms.Merge
             : base(dialogParent, RingtoetsCommonFormsResources.SelectionDialogIcon, 720, 590)
         {
             InitializeComponent();
+            InitializeComboBox();
             InitializeTooltip();
             InitializeDataGridView();
         }
@@ -75,6 +74,11 @@ namespace Ringtoets.Integration.Forms.Merge
         protected override Button GetCancelButton()
         {
             return cancelButton;
+        }
+
+        private void InitializeComboBox()
+        {
+            assessmentSectionComboBox.DisplayMember = nameof(AssessmentSection.Name);
         }
 
         private void InitializeDataGridView()
@@ -105,7 +109,7 @@ namespace Ringtoets.Integration.Forms.Merge
 
         private void AssessmentSectionComboBox_OnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
-            if (assessmentSectionComboBoxUpdating || assessmentSectionComboBox.SelectedIndex == -1)
+            if (assessmentSectionComboBox.SelectedIndex == -1)
             {
                 return;
             }
@@ -120,15 +124,7 @@ namespace Ringtoets.Integration.Forms.Merge
         private void SetComboBoxData(IEnumerable<AssessmentSection> assessmentSections)
         {
             assessmentSectionComboBox.BeginUpdate();
-
-            assessmentSectionComboBoxUpdating = true;
             assessmentSectionComboBox.DataSource = assessmentSections.ToArray();
-            assessmentSectionComboBox.DisplayMember = nameof(AssessmentSection.Name);
-            assessmentSectionComboBox.SelectedItem = null;
-            assessmentSectionComboBoxUpdating = false;
-
-            assessmentSectionComboBox.SelectedItem = assessmentSections.FirstOrDefault();
-
             assessmentSectionComboBox.EndUpdate();
         }
 
