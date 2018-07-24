@@ -101,7 +101,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FmSectionWithDirectCategory> DeterminCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults, bool partialAssembly)
+        public IEnumerable<FmSectionWithDirectCategory> DeterminCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults,
+                                                                                                     bool partialAssembly)
         {
             throw new NotImplementedException();
         }

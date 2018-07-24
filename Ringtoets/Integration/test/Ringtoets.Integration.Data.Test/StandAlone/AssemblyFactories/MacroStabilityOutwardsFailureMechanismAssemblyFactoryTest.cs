@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, assemblyCategoriesInput.SignalingNorm);
             Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
-            Assert.AreEqual(failureMechanism.Contribution, assemblyCategoriesInput.FailureMechanismContribution);
+            Assert.AreEqual(failureMechanism.Contribution / 100, assemblyCategoriesInput.FailureMechanismContribution);
             Assert.AreEqual(failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
                                 failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength), assemblyCategoriesInput.N);
         }
@@ -201,7 +201,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleDetailedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var random = new Random(21);
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            {
+                Contribution = random.NextDouble(0, 100)
+            };
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -354,7 +358,11 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleTailorMadeAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var failureMechanism = new MacroStabilityOutwardsFailureMechanism();
+            var random = new Random(21);
+            var failureMechanism = new MacroStabilityOutwardsFailureMechanism
+            {
+                Contribution = random.NextDouble(0, 100)
+            };
 
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
@@ -380,7 +388,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.AssemblyFactories
                 double expectedN = failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.GetN(
                     failureMechanism.MacroStabilityOutwardsProbabilityAssessmentInput.SectionLength);
                 Assert.AreEqual(expectedN, calculator.TailorMadeFailureMechanismNInput);
-                Assert.AreEqual(failureMechanism.Contribution, calculator.TailorMadeFailureMechanismContributionInput);
+                Assert.AreEqual(failureMechanism.Contribution / 100, calculator.TailorMadeFailureMechanismContributionInput);
                 mocks.VerifyAll();
             }
         }

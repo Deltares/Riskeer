@@ -166,7 +166,7 @@ namespace Ringtoets.Integration.Data.StandAlone.AssemblyFactories
                     failureMechanismSectionResult.TailorMadeAssessmentProbability,
                     assessmentSection.FailureMechanismContribution.Norm,
                     n,
-                    failureMechanism.Contribution).Group;
+                    failureMechanism.Contribution / 100).Group;
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
             {

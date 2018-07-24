@@ -50,6 +50,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.FailureMechanismAssemblyResults);
             Assert.IsNull(kernel.AssemblyResultNoFailureProbability);
             Assert.IsNull(kernel.AssemblyResultWithFailureProbability);
+            Assert.AreEqual((EAssessmentGrade) 0, kernel.AssessmentSectionAssemblyResult);
         }
 
         [Test]

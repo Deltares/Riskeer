@@ -47,7 +47,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         public void Create_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var result = new FmSectionAssemblyDirectResult((EFmSectionCategory)99);
+            var result = new FmSectionAssemblyDirectResult((EFmSectionCategory) 99);
 
             // Call
             TestDelegate test = () => FailureMechanismSectionAssemblyCreator.Create(result);
@@ -58,17 +58,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void Create_ValidResult_ReturnExpectedFailureMechanismSectionAssembly()
+        [TestCase(EFmSectionCategory.Gr, FailureMechanismSectionAssemblyCategoryGroup.None)]
+        [TestCase(EFmSectionCategory.NotApplicable, FailureMechanismSectionAssemblyCategoryGroup.NotApplicable)]
+        [TestCase(EFmSectionCategory.Iv, FailureMechanismSectionAssemblyCategoryGroup.Iv)]
+        [TestCase(EFmSectionCategory.IIv, FailureMechanismSectionAssemblyCategoryGroup.IIv)]
+        [TestCase(EFmSectionCategory.IIIv, FailureMechanismSectionAssemblyCategoryGroup.IIIv)]
+        [TestCase(EFmSectionCategory.IVv, FailureMechanismSectionAssemblyCategoryGroup.IVv)]
+        [TestCase(EFmSectionCategory.Vv, FailureMechanismSectionAssemblyCategoryGroup.Vv)]
+        [TestCase(EFmSectionCategory.VIv, FailureMechanismSectionAssemblyCategoryGroup.VIv)]
+        [TestCase(EFmSectionCategory.VIIv, FailureMechanismSectionAssemblyCategoryGroup.VIIv)]
+        public void Create_ValidResult_ReturnExpectedFailureMechanismSectionAssembly(
+            EFmSectionCategory originalGroup,
+            FailureMechanismSectionAssemblyCategoryGroup expectedGroup)
         {
-            // Setup
-            var group = new Random(39).NextEnumValue<EFmSectionCategory>();
-
             // Call
             FailureMechanismSectionAssembly assembly = FailureMechanismSectionAssemblyCreator.Create(
-                new FmSectionAssemblyDirectResult(group));
+                new FmSectionAssemblyDirectResult(originalGroup));
 
             // Assert
-            Assert.AreEqual(FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(group), assembly.Group);
+            Assert.AreEqual(expectedGroup, assembly.Group);
             Assert.IsNaN(assembly.Probability);
         }
 
