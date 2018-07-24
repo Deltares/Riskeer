@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Plugin.Merge
         /// Creates a new instance of <see cref="AssessmentSectionMerger"/>.
         /// </summary>
         /// <param name="filePathProvider">The provider to get the file path of the file to merge.</param>
-        /// <param name="assessmentSectionProvider">The provider to the assessment sections to merge.</param>
+        /// <param name="assessmentSectionProvider">The provider to get the assessment sections to merge.</param>
         /// <param name="mergeComparer">The comparer to compare the assessment sections with.</param>
         /// <param name="mergeDataProvider">The provider to get the data to merge from.</param>
         /// <param name="mergeHandler">The handler to perform the merge.</param>
