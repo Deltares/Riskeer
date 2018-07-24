@@ -583,15 +583,21 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        public void Finish_ValidCalculation_NotifiesObserversOfCalculation()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Finish_VariousCalculationEndStates_NotifiesObserversOfCalculation(bool endInFailure)
         {
             // Setup
             var mockRepository = new MockRepository();
             var observer = mockRepository.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
-            calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty)).Return(new TestWaveConditionsCosineCalculator()).Repeat.Times(3);
+            var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
+            calculatorFactory.Stub(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, string.Empty))
+                             .Return(new TestWaveConditionsCosineCalculator
+                             {
+                                 EndInFailure = endInFailure
+                             });
             mockRepository.ReplayAll();
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();

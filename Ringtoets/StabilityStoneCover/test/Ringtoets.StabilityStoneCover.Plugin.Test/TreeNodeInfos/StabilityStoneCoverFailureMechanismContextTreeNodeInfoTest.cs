@@ -527,8 +527,11 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             List<ICalculationBase> calculations = failureMechanism.WaveConditionsCalculationGroup.Children;
-            calculations.Add(calculationA);
-            calculations.Add(calculationB);
+            calculations.AddRange(new[]
+            {
+                calculationA,
+                calculationB
+            });
 
             var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism,
                                                                           assessmentSection);
