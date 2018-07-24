@@ -1062,8 +1062,7 @@ namespace Ringtoets.Integration.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
+            failureMechanism.AddSections(new [] { section1, section2});
         }
 
         private static void AddFailureMechanismSections(IFailureMechanism failureMechanism, int numberOfSections)

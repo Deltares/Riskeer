@@ -107,7 +107,10 @@ namespace Ringtoets.Common.Forms.Test.Observers
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
             {

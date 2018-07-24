@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var sections = new[]
+            FailureMechanismSection[] sections =
             {
                 CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0),
                 CreateFailureMechanismSection("b", 1.0, 1.0, 2.0, 2.0),
@@ -179,7 +179,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
+            failureMechanism.AddSections(new[]
+            {
+                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
+            });
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
@@ -193,7 +196,10 @@ namespace Ringtoets.Common.Forms.Test.Views
                 AssertSectionsDataGridViewControl(failureMechanism.Sections.ToArray(), probabilityAssessmentInput, sectionsDataGridViewControl);
 
                 // When
-                failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 1.0, 1.0, 2.0, 2.0));
+                failureMechanism.AddSections(new[]
+                {
+                    CreateFailureMechanismSection("a", 1.0, 1.0, 2.0, 2.0)
+                });
                 failureMechanism.NotifyObservers();
 
                 // Then
@@ -206,7 +212,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
+            failureMechanism.AddSections(new[]
+            {
+                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
+            });
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 
@@ -240,7 +249,10 @@ namespace Ringtoets.Common.Forms.Test.Views
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            failureMechanism.AddSectionResult(CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0));
+            failureMechanism.AddSections(new[]
+            {
+                CreateFailureMechanismSection("a", 0.0, 0.0, 1.0, 1.0)
+            });
 
             ProbabilityAssessmentInput probabilityAssessmentInput = CreateProbabilityAssessmentInput();
 

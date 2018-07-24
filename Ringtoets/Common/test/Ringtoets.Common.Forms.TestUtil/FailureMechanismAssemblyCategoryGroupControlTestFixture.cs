@@ -69,7 +69,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Setup
             var failureMechanism = new TFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -141,7 +144,7 @@ namespace Ringtoets.Common.Forms.TestUtil
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorfactory = (TestAssemblyToolCalculatorFactory)AssemblyToolCalculatorFactory.Instance;
+                var calculatorfactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorfactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
@@ -167,7 +170,10 @@ namespace Ringtoets.Common.Forms.TestUtil
         {
             // Given
             var failureMechanism = new TFailureMechanism();
-            failureMechanism.AddSection(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism))

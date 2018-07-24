@@ -58,7 +58,7 @@ namespace Ringtoets.Common.Data.TestUtil
             }
         }
 
-        public override void AddSectionResult(FailureMechanismSection section)
+        protected override void AddSectionResult(FailureMechanismSection section)
         {
             base.AddSectionResult(section);
             sectionResults.Add(new TestFailureMechanismSectionResult(section));
