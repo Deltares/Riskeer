@@ -74,16 +74,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            failureMechanism.AddSectionResult(new FailureMechanismSection("firstSection", new List<Point2D>
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.1, 1.1)
-            }));
-            failureMechanism.AddSectionResult(new FailureMechanismSection("secondSection", new List<Point2D>
-            {
-                new Point2D(1.1, 1.1),
-                new Point2D(2.2, 2.2)
-            }));
+                new FailureMechanismSection("firstSection", new List<Point2D>
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(1.1, 1.1)
+                }), new FailureMechanismSection("secondSection", new List<Point2D>
+                {
+                    new Point2D(1.1, 1.1),
+                    new Point2D(2.2, 2.2)
+                })
+            });
 
             GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
             sectionResults[0].Calculation = calculation;
@@ -140,16 +142,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
 
-            failureMechanism.AddSectionResult(new FailureMechanismSection("firstSection", new List<Point2D>
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.1, 1.1)
-            }));
-            failureMechanism.AddSectionResult(new FailureMechanismSection("secondSection", new List<Point2D>
-            {
-                new Point2D(1.1, 1.1),
-                new Point2D(2.2, 2.2)
-            }));
+                new FailureMechanismSection("firstSection", new List<Point2D>
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(1.1, 1.1)
+                }), new FailureMechanismSection("secondSection", new List<Point2D>
+                {
+                    new Point2D(1.1, 1.1),
+                    new Point2D(2.2, 2.2)
+                })
+            });
 
             GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
             sectionResults[0].Calculation = calculation1;

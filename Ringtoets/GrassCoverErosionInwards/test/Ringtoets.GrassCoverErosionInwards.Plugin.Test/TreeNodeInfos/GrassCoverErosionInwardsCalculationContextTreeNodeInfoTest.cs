@@ -939,11 +939,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             var group = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("test", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 1.0)
-            }));
+                new FailureMechanismSection("test", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(1.0, 1.0)
+                })
+            });
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.5, 0.5));
             failureMechanism.DikeProfiles.AddRange(new[]
             {
@@ -1008,10 +1011,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(elementToBeRemoved);
 
-            failureMechanism.AddSectionResult(new FailureMechanismSection("section", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0)
-            }));
+                new FailureMechanismSection("section", new[]
+                {
+                    new Point2D(0, 0)
+                })
+            });
 
             GrassCoverErosionInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
             result.Calculation = elementToBeRemoved;

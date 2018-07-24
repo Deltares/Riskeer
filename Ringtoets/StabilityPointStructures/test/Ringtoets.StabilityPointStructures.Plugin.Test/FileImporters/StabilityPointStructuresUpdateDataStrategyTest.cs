@@ -618,16 +618,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var intersectionPoint = new Point2D(10, 10);
-            failureMechanism.AddSectionResult(new FailureMechanismSection("OldSection", new[]
+            failureMechanism.AddSections(new[]
             {
-                originalMatchingPoint,
-                intersectionPoint
-            }));
-            failureMechanism.AddSectionResult(new FailureMechanismSection("NewSection", new[]
-            {
-                intersectionPoint,
-                updatedMatchingPoint
-            }));
+                new FailureMechanismSection("OldSection", new[]
+                {
+                    originalMatchingPoint,
+                    intersectionPoint
+                }),
+                new FailureMechanismSection("NewSection", new[]
+                {
+                    intersectionPoint,
+                    updatedMatchingPoint
+                })
+            });
 
             StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();

@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             const string duplicateId = "I am a duplicate id";
             var expectedStructure = new TestHeightStructure(duplicateId, "expectedStructure");
 
-            var expectedCollection = new[]
+            TestHeightStructure[] expectedCollection =
             {
                 expectedStructure
             };
@@ -174,7 +174,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestHeightStructure("read id");
-            var importedStructures = new[]
+            TestHeightStructure[] importedStructures =
             {
                 readStructure
             };
@@ -210,7 +210,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestHeightStructure(commonId, "new name");
-            var importedStructures = new[]
+            TestHeightStructure[] importedStructures =
             {
                 readStructure
             };
@@ -250,7 +250,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
 
             var structureToUpdateFrom = new TestHeightStructure(commonId, "new name");
             var addedStructure = new TestHeightStructure("added id");
-            var importedStructures = new[]
+            TestHeightStructure[] importedStructures =
             {
                 structureToUpdateFrom,
                 addedStructure
@@ -595,16 +595,19 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var intersectionPoint = new Point2D(10, 10);
-            failureMechanism.AddSectionResult(new FailureMechanismSection("OldSection", new[]
+            failureMechanism.AddSections(new[]
             {
-                originalMatchingPoint,
-                intersectionPoint
-            }));
-            failureMechanism.AddSectionResult(new FailureMechanismSection("NewSection", new[]
-            {
-                intersectionPoint,
-                updatedMatchingPoint
-            }));
+                new FailureMechanismSection("OldSection", new[]
+                {
+                    originalMatchingPoint,
+                    intersectionPoint
+                }),
+                new FailureMechanismSection("NewSection", new[]
+                {
+                    intersectionPoint,
+                    updatedMatchingPoint
+                })
+            });
 
             HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
@@ -670,11 +673,14 @@ namespace Ringtoets.HeightStructures.Plugin.Test.FileImporters
                 removedStructure
             }, sourceFilePath);
 
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSections(new[]
             {
-                originalMatchingPoint,
-                new Point2D(10, 10)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    originalMatchingPoint,
+                    new Point2D(10, 10)
+                })
+            });
 
             HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();

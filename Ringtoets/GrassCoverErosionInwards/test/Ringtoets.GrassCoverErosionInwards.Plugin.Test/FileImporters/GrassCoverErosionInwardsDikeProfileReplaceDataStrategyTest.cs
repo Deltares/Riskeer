@@ -121,7 +121,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void UpdateDikeProfilesWithImportedData_CollectionEmptyAndImportedCollectionNotEmpty_AddsNewDikeProfiles()
         {
             // Setup
-            var importedDikeProfiles = new[]
+            DikeProfile[] importedDikeProfiles =
             {
                 DikeProfileTestFactory.CreateDikeProfile()
             };
@@ -169,7 +169,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 failureMechanism.DikeProfiles
             }, affectedObjects);
 
-            var expectedDikeProfiles = new[]
+            DikeProfile[] expectedDikeProfiles =
             {
                 readDikeProfile
             };
@@ -258,11 +258,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
 
-            failureMechanism.AddSectionResult(new FailureMechanismSection("Section", new[]
+            failureMechanism.AddSections(new[]
             {
-                matchingPoint,
-                new Point2D(10, 10)
-            }));
+                new FailureMechanismSection("Section", new[]
+                {
+                    matchingPoint,
+                    new Point2D(10, 10)
+                })
+            });
 
             GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 failureMechanism.SectionResults,

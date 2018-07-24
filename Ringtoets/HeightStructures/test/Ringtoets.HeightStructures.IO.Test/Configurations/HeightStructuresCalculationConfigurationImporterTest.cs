@@ -29,7 +29,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Hydraulics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -572,12 +571,15 @@ namespace Ringtoets.HeightStructures.IO.Test.Configurations
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            failureMechanism.AddSectionResult(
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSections(new[]
                 {
-                    new Point2D(0, 0),
-                    new Point2D(10, 10)
-                }));
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                    {
+                        new Point2D(0, 0),
+                        new Point2D(10, 10)
+                    })
+                }
+            );
 
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {

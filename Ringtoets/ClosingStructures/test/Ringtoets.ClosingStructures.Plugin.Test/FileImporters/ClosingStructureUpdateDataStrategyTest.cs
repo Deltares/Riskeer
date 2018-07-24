@@ -132,7 +132,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             const string duplicateId = "I am a duplicate id";
             var expectedStructure = new TestClosingStructure(duplicateId, "expectedStructure");
 
-            var expectedCollection = new[]
+            TestClosingStructure[] expectedCollection =
             {
                 expectedStructure
             };
@@ -174,7 +174,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestClosingStructure("read id");
-            var importedStructures = new[]
+            TestClosingStructure[] importedStructures =
             {
                 readStructure
             };
@@ -210,7 +210,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var readStructure = new TestClosingStructure(commonId, "new name");
-            var importedStructures = new[]
+            TestClosingStructure[] importedStructures =
             {
                 readStructure
             };
@@ -250,7 +250,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
 
             var structureToUpdateFrom = new TestClosingStructure(commonId, "new name");
             var addedStructure = new TestClosingStructure("added id");
-            var importedStructures = new[]
+            TestClosingStructure[] importedStructures =
             {
                 structureToUpdateFrom,
                 addedStructure
@@ -647,16 +647,19 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
             }, sourceFilePath);
 
             var intersectionPoint = new Point2D(10, 10);
-            failureMechanism.AddSectionResult(new FailureMechanismSection("OldSection", new[]
+            failureMechanism.AddSections(new[]
             {
-                originalMatchingPoint,
-                intersectionPoint
-            }));
-            failureMechanism.AddSectionResult(new FailureMechanismSection("NewSection", new[]
-            {
-                intersectionPoint,
-                updatedMatchingPoint
-            }));
+                new FailureMechanismSection("OldSection", new[]
+                {
+                    originalMatchingPoint,
+                    intersectionPoint
+                }),
+                new FailureMechanismSection("NewSection", new[]
+                {
+                    intersectionPoint,
+                    updatedMatchingPoint
+                })
+            });
 
             ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
@@ -723,11 +726,14 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 removedStructure
             }, sourceFilePath);
 
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSections(new[]
             {
-                originalMatchingPoint,
-                new Point2D(10, 10)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    originalMatchingPoint,
+                    new Point2D(10, 10)
+                })
+            });
 
             ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
 
