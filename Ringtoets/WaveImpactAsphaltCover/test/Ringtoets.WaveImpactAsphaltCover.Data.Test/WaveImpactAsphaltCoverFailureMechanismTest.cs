@@ -63,7 +63,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            failureMechanism.AddSectionResult(section);
+            failureMechanism.AddSections(new[]
+            {
+                section
+            });
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
@@ -77,14 +80,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(2, 1)
-            }));
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(2, 1)
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(2, 1)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(2, 1)
+                })
+            });
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.Sections.Count());
