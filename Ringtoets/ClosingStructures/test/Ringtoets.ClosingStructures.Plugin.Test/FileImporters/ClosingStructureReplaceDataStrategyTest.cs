@@ -193,7 +193,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 failureMechanism.ClosingStructures
             }, affectedObjects);
 
-            var expected = new[]
+            TestClosingStructure[] expected =
             {
                 importedStructure
             };
@@ -317,10 +317,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.FileImporters
                 }
             };
 
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            failureMechanism.AddSections(new[]
             {
-                location
-            }));
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    location
+                })
+            });
             ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = calculation;
 

@@ -211,11 +211,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.AddSectionResult(new FailureMechanismSection("SectionC", new[]
+                view.FailureMechanism.AddSections(new[]
                 {
-                    view.FailureMechanism.Sections.Last().EndPoint,
-                    new Point2D(30, 30)
-                }));
+                    new FailureMechanismSection("SectionC", new[]
+                    {
+                        view.FailureMechanism.Sections.Last().EndPoint,
+                        new Point2D(30, 30)
+                    })
+                });
 
                 // Call
                 failureMechanism.NotifyObservers();
@@ -380,8 +383,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
             failureMechanism.CalculationsGroup.Children.Add(calculationB);
-            failureMechanism.AddSectionResult(failureMechanismSectionA);
-            failureMechanism.AddSectionResult(failureMechanismSectionB);
+            failureMechanism.AddSections(new[]
+            {
+                failureMechanismSectionA,
+                failureMechanismSectionB
+            });
 
             return failureMechanism;
         }
