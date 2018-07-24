@@ -54,10 +54,10 @@ namespace Ringtoets.Integration.Service.Test.Merge
             mocks.ReplayAll();
 
             // Call
-            var provider = new LoadAssessmentSectionService(storeProject);
+            var service = new LoadAssessmentSectionService(storeProject);
 
             // Assert
-            Assert.IsInstanceOf<ILoadAssessmentSectionService>(provider);
+            Assert.IsInstanceOf<ILoadAssessmentSectionService>(service);
             mocks.VerifyAll();
         }
 
@@ -72,10 +72,10 @@ namespace Ringtoets.Integration.Service.Test.Merge
             storeProject.Expect(sp => sp.LoadProject(filePath)).Return(new RingtoetsProject());
             mocks.ReplayAll();
 
-            var provider = new LoadAssessmentSectionService(storeProject);
+            var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
-            provider.LoadAssessmentSections(filePath);
+            service.LoadAssessmentSections(filePath);
 
             // Assert
             mocks.VerifyAll();
@@ -94,10 +94,10 @@ namespace Ringtoets.Integration.Service.Test.Merge
                         .Return(project);
             mocks.ReplayAll();
 
-            var provider = new LoadAssessmentSectionService(storeProject);
+            var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
-            IEnumerable<AssessmentSection> assessmentSections = provider.LoadAssessmentSections(string.Empty);
+            IEnumerable<AssessmentSection> assessmentSections = service.LoadAssessmentSections(string.Empty);
 
             // Assert
             Assert.AreSame(project.AssessmentSections, assessmentSections);
@@ -115,10 +115,10 @@ namespace Ringtoets.Integration.Service.Test.Merge
                         .Return(null);
             mocks.ReplayAll();
 
-            var provider = new LoadAssessmentSectionService(storeProject);
+            var service = new LoadAssessmentSectionService(storeProject);
 
             // Call
-            TestDelegate call = () => provider.LoadAssessmentSections(string.Empty);
+            TestDelegate call = () => service.LoadAssessmentSections(string.Empty);
 
             // Assert
             Assert.Throws<LoadAssessmentSectionException>(call);
@@ -139,7 +139,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
                         .Throw(storageException);
             mocks.ReplayAll();
 
-            var provider = new LoadAssessmentSectionService(storeProject);
+            var service = new LoadAssessmentSectionService(storeProject);
 
             LoadAssessmentSectionException exception = null;
 
@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
             {
                 try
                 {
-                    provider.LoadAssessmentSections(string.Empty);
+                    service.LoadAssessmentSections(string.Empty);
                 }
                 catch (LoadAssessmentSectionException e)
                 {

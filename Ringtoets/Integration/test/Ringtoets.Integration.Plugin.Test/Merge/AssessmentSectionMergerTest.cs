@@ -59,7 +59,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void Constructor_AssessmentSectionProvider_ThrowsArgumentNullException()
+        public void Constructor_AssessmentSectionProviderNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();

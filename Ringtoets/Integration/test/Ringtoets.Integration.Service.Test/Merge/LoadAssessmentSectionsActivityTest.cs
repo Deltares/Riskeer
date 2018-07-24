@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Service.Test.Merge
         }
 
         [Test]
-        public void Constructor_loadAssessmentSectionServiceNull_ThrowsArgumentNullException()
+        public void Constructor_LoadAssessmentSectionServiceNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(), null, string.Empty);
@@ -68,12 +68,12 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             // Call
             TestDelegate call = () => new LoadAssessmentSectionsActivity(new AssessmentSectionsOwner(),
-                                                                         provider,
+                                                                         service,
                                                                          null);
 
             // Assert
@@ -87,13 +87,13 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
 
             // Call
-            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -109,12 +109,12 @@ namespace Ringtoets.Integration.Service.Test.Merge
             const string filePath = "File\\Path";
 
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
-            provider.Expect(p => p.LoadAssessmentSections(filePath)).Return(Enumerable.Empty<AssessmentSection>());
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
+            service.Expect(p => p.LoadAssessmentSections(filePath)).Return(Enumerable.Empty<AssessmentSection>());
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new LoadAssessmentSectionsActivity(owner, provider, filePath);
+            var activity = new LoadAssessmentSectionsActivity(owner, service, filePath);
 
             // Call
             activity.Run();
@@ -130,14 +130,14 @@ namespace Ringtoets.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
 
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
-            provider.Expect(p => p.LoadAssessmentSections(null))
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
+            service.Expect(p => p.LoadAssessmentSections(null))
                     .IgnoreArguments()
                     .Return(assessmentSections);
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
 
             // Call
             activity.Run();
@@ -153,14 +153,14 @@ namespace Ringtoets.Integration.Service.Test.Merge
         {
             // Setup
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
-            provider.Expect(p => p.LoadAssessmentSections(null))
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
+            service.Expect(p => p.LoadAssessmentSections(null))
                     .IgnoreArguments()
                     .Throw(new LoadAssessmentSectionException());
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
 
             // Call
             activity.Run();
@@ -178,14 +178,14 @@ namespace Ringtoets.Integration.Service.Test.Merge
             IEnumerable<AssessmentSection> assessmentSections = Enumerable.Empty<AssessmentSection>();
 
             var mocks = new MockRepository();
-            var provider = mocks.StrictMock<ILoadAssessmentSectionService>();
-            provider.Expect(p => p.LoadAssessmentSections(null))
+            var service = mocks.StrictMock<ILoadAssessmentSectionService>();
+            service.Expect(p => p.LoadAssessmentSections(null))
                     .IgnoreArguments()
                     .Return(assessmentSections);
             mocks.ReplayAll();
 
             var owner = new AssessmentSectionsOwner();
-            var activity = new LoadAssessmentSectionsActivity(owner, provider, string.Empty);
+            var activity = new LoadAssessmentSectionsActivity(owner, service, string.Empty);
 
             activity.Run();
             activity.Cancel();

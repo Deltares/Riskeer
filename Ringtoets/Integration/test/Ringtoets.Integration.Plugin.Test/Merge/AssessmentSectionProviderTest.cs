@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void GivenGetAssessmentSections_WhenAssessmentSectionFromActivityNull_ThenThrowsAssessmentSectionProviderException()
+        public void GetAssessmentSections_AssessmentSectionsFromActivityNull_ThrowsAssessmentSectionProviderException()
         {
             // Setup
             var mocks = new MockRepository();
