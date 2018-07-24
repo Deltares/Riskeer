@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
@@ -38,7 +37,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
     public abstract class FailureMechanismBase : Observable, IFailureMechanism
     {
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
-        private readonly FailureMechanismSectionCollection sections;
+        private readonly FailureMechanismSectionCollection sectionCollection;
         private double contribution;
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
             Name = name;
             Code = failureMechanismCode;
             Group = group;
-            sections = new FailureMechanismSectionCollection();
+            sectionCollection = new FailureMechanismSectionCollection();
             IsRelevant = true;
             InputComments = new Comment();
             OutputComments = new Comment();
@@ -98,7 +97,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
         {
             get
             {
-                return sections;
+                return sectionCollection;
             }
         }
 
@@ -110,22 +109,22 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         public bool IsRelevant { get; set; }
 
-        public void AddSections(IEnumerable<FailureMechanismSection> failureMechanismSections)
+        public void AddSections(IEnumerable<FailureMechanismSection> sections)
         {
-            sections.AddRange(failureMechanismSections, string.Empty);
+            sectionCollection.AddRange(sections, string.Empty);
 
-            foreach (FailureMechanismSection failureMechanismSection in sections)
+            foreach (FailureMechanismSection failureMechanismSection in sectionCollection)
             {
                 AddSectionResult(failureMechanismSection);
             }
         }
 
-        protected virtual void AddSectionResult(FailureMechanismSection section) {}
-     
         public virtual void ClearAllSections()
         {
-            sections.Clear();
+            sectionCollection.Clear();
         }
+
+        protected virtual void AddSectionResult(FailureMechanismSection section) {}
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {
