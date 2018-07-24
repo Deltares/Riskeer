@@ -427,8 +427,11 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 profile
             }, "path");
 
-            failureMechanism.AddSectionResult(section1);
-            failureMechanism.AddSectionResult(section2);
+            failureMechanism.AddSections(new[]
+            {
+                section1,
+                section2
+            });
             StabilityPointStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
                                                                                             .First(sr => ReferenceEquals(sr.Section, section1));
             StabilityPointStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults

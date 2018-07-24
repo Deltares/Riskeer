@@ -412,8 +412,11 @@ namespace Ringtoets.Piping.Data.TestUtil
                                                            new Point2D(5, 5),
                                                            new Point2D(15, 15)
                                                        });
-            failureMechanism.AddSectionResult(section1);
-            failureMechanism.AddSectionResult(section2);
+            failureMechanism.AddSections(new[]
+            {
+                section1,
+                section2
+            });
         }
 
         /// <summary>

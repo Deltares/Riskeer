@@ -544,11 +544,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            });
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
@@ -601,11 +604,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            });
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
@@ -659,11 +665,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
@@ -986,11 +995,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            });
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
@@ -1361,11 +1373,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            });
 
             IAssessmentSection assessmentSection = AssessmentSectionHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
@@ -1419,11 +1434,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            });
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
@@ -1480,11 +1498,14 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", new[]
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
+                new FailureMechanismSection("A", new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 1)
+                })
+            });
 
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 

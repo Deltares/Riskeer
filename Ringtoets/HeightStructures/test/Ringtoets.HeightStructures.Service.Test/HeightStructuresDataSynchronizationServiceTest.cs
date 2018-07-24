@@ -609,8 +609,11 @@ namespace Ringtoets.HeightStructures.Service.Test
                 structure2
             }, "someLocation");
 
-            failureMechanism.AddSectionResult(section1);
-            failureMechanism.AddSectionResult(section2);
+            failureMechanism.AddSections(new[]
+            {
+                section1,
+                section2
+            });
             HeightStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
                                                                                     .First(sr => ReferenceEquals(sr.Section, section1));
             HeightStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults

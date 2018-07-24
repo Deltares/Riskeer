@@ -606,8 +606,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 profile
             }, "path");
 
-            failureMechanism.AddSectionResult(section1);
-            failureMechanism.AddSectionResult(section2);
+            failureMechanism.AddSections(new[]
+            {
+                section1,
+                section2
+            });
             ClosingStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
                                                                                      .First(sr => ReferenceEquals(sr.Section, section1));
             ClosingStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
