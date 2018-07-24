@@ -1276,17 +1276,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
+                pipingFailureMechanism.AddSections(new[]
                 {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }));
-
-                pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                }));
+                    new FailureMechanismSection("Section 1", new List<Point2D>
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(5.0, 0.0)
+                    }),
+                    new FailureMechanismSection("Section 2", new List<Point2D>
+                    {
+                        new Point2D(5.0, 0.0),
+                        new Point2D(10.0, 0.0)
+                    })
+                });
 
                 var nodeData = new PipingCalculationGroupContext(
                     pipingFailureMechanism.CalculationsGroup,
@@ -1390,17 +1392,19 @@ namespace Ringtoets.Piping.Plugin.Test.TreeNodeInfos
                     surfaceLine1,
                     surfaceLine2
                 };
-                pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
+                pipingFailureMechanism.AddSections(new[]
                 {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }));
-
-                pipingFailureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                }));
+                    new FailureMechanismSection("Section 1", new List<Point2D>
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(5.0, 0.0)
+                    }),
+                    new FailureMechanismSection("Section 2", new List<Point2D>
+                    {
+                        new Point2D(5.0, 0.0),
+                        new Point2D(10.0, 0.0)
+                    })
+                });
 
                 var nodeData = new PipingCalculationGroupContext(group,
                                                                  null,

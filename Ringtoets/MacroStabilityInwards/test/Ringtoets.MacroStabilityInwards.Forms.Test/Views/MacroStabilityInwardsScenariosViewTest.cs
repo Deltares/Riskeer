@@ -149,9 +149,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
                 new Point2D(15.0, 0.0)
             });
 
-            failureMechanism.AddSectionResult(failureMechanismSection1);
-            failureMechanism.AddSectionResult(failureMechanismSection2);
-            failureMechanism.AddSectionResult(failureMechanismSection3);
+            failureMechanism.AddSections(new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
 
             MacroStabilityInwardsScenariosView macroStabilityInwardsScenarioView = ShowMacroStabilityInwardsScenarioView();
 
@@ -195,9 +198,12 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
             // Precondition
             Assert.AreEqual(0, listBox.Items.Count);
 
-            failureMechanismWithSections.AddSectionResult(failureMechanismSection1);
-            failureMechanismWithSections.AddSectionResult(failureMechanismSection2);
-            failureMechanismWithSections.AddSectionResult(failureMechanismSection3);
+            failureMechanismWithSections.AddSections(new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
 
             // When
             failureMechanismWithSections.NotifyObservers();
@@ -399,17 +405,19 @@ namespace Ringtoets.MacroStabilityInwards.Forms.Test.Views
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 1", new List<Point2D>
+            failureMechanism.AddSections(new[]
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            }));
-
-            failureMechanism.AddSectionResult(new FailureMechanismSection("Section 2", new List<Point2D>
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            }));
+                new FailureMechanismSection("Section 1", new List<Point2D>
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new List<Point2D>
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
+            });
 
             MacroStabilityInwardsScenariosView macroStabilityInwardsScenarioView = ShowMacroStabilityInwardsScenarioView();
 
