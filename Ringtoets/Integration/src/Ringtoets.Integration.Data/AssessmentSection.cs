@@ -61,6 +61,24 @@ namespace Ringtoets.Integration.Data
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
         private ReferenceLine referenceLine;
+        private PipingFailureMechanism piping;
+        private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards;
+        private MacroStabilityInwardsFailureMechanism macroStabilityInwards;
+        private MacroStabilityOutwardsFailureMechanism macroStabilityOutwards;
+        private MicrostabilityFailureMechanism microstability;
+        private StabilityStoneCoverFailureMechanism stabilityStoneCover;
+        private WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover;
+        private WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover;
+        private GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards;
+        private GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards;
+        private GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards;
+        private HeightStructuresFailureMechanism heightStructures;
+        private ClosingStructuresFailureMechanism closingStructures;
+        private PipingStructureFailureMechanism pipingStructure;
+        private StabilityPointStructuresFailureMechanism stabilityPointStructures;
+        private StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction;
+        private DuneErosionFailureMechanism duneErosion;
+        private TechnicalInnovationFailureMechanism technicalInnovation;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
@@ -94,24 +112,24 @@ namespace Ringtoets.Integration.Data
 
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
-            Piping = new PipingFailureMechanism();
-            GrassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
-            MacroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
-            MacroStabilityOutwards = new MacroStabilityOutwardsFailureMechanism();
-            Microstability = new MicrostabilityFailureMechanism();
-            StabilityStoneCover = new StabilityStoneCoverFailureMechanism();
-            WaveImpactAsphaltCover = new WaveImpactAsphaltCoverFailureMechanism();
-            WaterPressureAsphaltCover = new WaterPressureAsphaltCoverFailureMechanism();
-            GrassCoverErosionOutwards = new GrassCoverErosionOutwardsFailureMechanism();
-            GrassCoverSlipOffOutwards = new GrassCoverSlipOffOutwardsFailureMechanism();
-            GrassCoverSlipOffInwards = new GrassCoverSlipOffInwardsFailureMechanism();
-            HeightStructures = new HeightStructuresFailureMechanism();
-            ClosingStructures = new ClosingStructuresFailureMechanism();
-            StabilityPointStructures = new StabilityPointStructuresFailureMechanism();
-            StrengthStabilityLengthwiseConstruction = new StrengthStabilityLengthwiseConstructionFailureMechanism();
-            PipingStructure = new PipingStructureFailureMechanism();
-            DuneErosion = new DuneErosionFailureMechanism();
-            TechnicalInnovation = new TechnicalInnovationFailureMechanism();
+            piping = new PipingFailureMechanism();
+            grassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
+            macroStabilityInwards = new MacroStabilityInwardsFailureMechanism();
+            macroStabilityOutwards = new MacroStabilityOutwardsFailureMechanism();
+            microstability = new MicrostabilityFailureMechanism();
+            stabilityStoneCover = new StabilityStoneCoverFailureMechanism();
+            waveImpactAsphaltCover = new WaveImpactAsphaltCoverFailureMechanism();
+            waterPressureAsphaltCover = new WaterPressureAsphaltCoverFailureMechanism();
+            grassCoverErosionOutwards = new GrassCoverErosionOutwardsFailureMechanism();
+            grassCoverSlipOffOutwards = new GrassCoverSlipOffOutwardsFailureMechanism();
+            grassCoverSlipOffInwards = new GrassCoverSlipOffInwardsFailureMechanism();
+            heightStructures = new HeightStructuresFailureMechanism();
+            closingStructures = new ClosingStructuresFailureMechanism();
+            stabilityPointStructures = new StabilityPointStructuresFailureMechanism();
+            strengthStabilityLengthwiseConstruction = new StrengthStabilityLengthwiseConstructionFailureMechanism();
+            pipingStructure = new PipingStructureFailureMechanism();
+            duneErosion = new DuneErosionFailureMechanism();
+            technicalInnovation = new TechnicalInnovationFailureMechanism();
 
             const int otherContribution = 30;
             FailureMechanismContribution = new FailureMechanismContribution(GetContributingFailureMechanisms(),
@@ -122,94 +140,328 @@ namespace Ringtoets.Integration.Data
         }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Piping" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Piping" failure mechanism.
         /// </summary>
-        public PipingFailureMechanism Piping { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public PipingFailureMechanism Piping
+        {
+            get
+            {
+                return piping;
+            }
+            set
+            {
+                ValidateContribution(piping, value);
+                piping = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding erosie kruin en binnentalud" failure mechanism.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwards
+        {
+            get
+            {
+                return grassCoverErosionInwards;
+            }
+            set
+            {
+                ValidateContribution(grassCoverErosionInwards, value);
+                grassCoverErosionInwards = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Macrostabiliteit binnenwaarts" failure mechanism.
         /// </summary>
-        public MacroStabilityInwardsFailureMechanism MacroStabilityInwards { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public MacroStabilityInwardsFailureMechanism MacroStabilityInwards
+        {
+            get
+            {
+                return macroStabilityInwards;
+            }
+            set
+            {
+                ValidateContribution(macroStabilityInwards, value);
+                macroStabilityInwards = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Macrostabiliteit buitenwaarts" failure mechanism.
         /// </summary>
-        public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public MacroStabilityOutwardsFailureMechanism MacroStabilityOutwards
+        {
+            get
+            {
+                return macroStabilityOutwards;
+            }
+            set
+            {
+                ValidateContribution(macroStabilityOutwards, value);
+                macroStabilityOutwards = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Microstabiliteit" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Microstabiliteit" failure mechanism.
         /// </summary>
-        public MicrostabilityFailureMechanism Microstability { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public MicrostabilityFailureMechanism Microstability
+        {
+            get
+            {
+                return microstability;
+            }
+            set
+            {
+                ValidateContribution(microstability, value);
+                microstability = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Stabiliteit steenzetting" failure mechanism.
         /// </summary>
-        public StabilityStoneCoverFailureMechanism StabilityStoneCover { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public StabilityStoneCoverFailureMechanism StabilityStoneCover
+        {
+            get
+            {
+                return stabilityStoneCover;
+            }
+            set
+            {
+                ValidateContribution(stabilityStoneCover, value);
+                stabilityStoneCover = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Golfklappen op asfaltbekledingen" failure mechanism.
         /// </summary>
-        public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover
+        {
+            get
+            {
+                return waveImpactAsphaltCover;
+            }
+            set
+            {
+                ValidateContribution(waveImpactAsphaltCover, value);
+                waveImpactAsphaltCover = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
         /// </summary>
-        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover
+        {
+            get
+            {
+                return waterPressureAsphaltCover;
+            }
+            set
+            {
+                ValidateContribution(waterPressureAsphaltCover, value);
+                waterPressureAsphaltCover = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding erosie buitentalud" failure mechanism.
         /// </summary>
-        public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards
+        {
+            get
+            {
+                return grassCoverErosionOutwards;
+            }
+            set
+            {
+                ValidateContribution(grassCoverErosionOutwards, value);
+                grassCoverErosionOutwards = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
-        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards
+        {
+            get
+            {
+                return grassCoverSlipOffOutwards;
+            }
+            set
+            {
+                ValidateContribution(grassCoverSlipOffOutwards, value);
+                grassCoverSlipOffOutwards = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
+        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
         /// </summary>
-        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards
+        {
+            get
+            {
+                return grassCoverSlipOffInwards;
+            }
+            set
+            {
+                ValidateContribution(grassCoverSlipOffInwards, value);
+                grassCoverSlipOffInwards = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Hoogte kunstwerk" failure mechanism.
         /// </summary>
-        public HeightStructuresFailureMechanism HeightStructures { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public HeightStructuresFailureMechanism HeightStructures
+        {
+            get
+            {
+                return heightStructures;
+            }
+            set
+            {
+                ValidateContribution(heightStructures, value);
+                heightStructures = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Betrouwbaarheid sluiting kunstwerk" failure mechanism.
         /// </summary>
-        public ClosingStructuresFailureMechanism ClosingStructures { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public ClosingStructuresFailureMechanism ClosingStructures
+        {
+            get
+            {
+                return closingStructures;
+            }
+            set
+            {
+                ValidateContribution(closingStructures, value);
+                closingStructures = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
         /// </summary>
-        public PipingStructureFailureMechanism PipingStructure { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public PipingStructureFailureMechanism PipingStructure
+        {
+            get
+            {
+                return pipingStructure;
+            }
+            set
+            {
+                ValidateContribution(pipingStructure, value);
+                pipingStructure = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
         /// </summary>
-        public StabilityPointStructuresFailureMechanism StabilityPointStructures { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public StabilityPointStructuresFailureMechanism StabilityPointStructures
+        {
+            get
+            {
+                return stabilityPointStructures;
+            }
+            set
+            {
+                ValidateContribution(stabilityPointStructures, value);
+                stabilityPointStructures = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
+        /// Gets or sets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
         /// </summary>
-        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public StrengthStabilityLengthwiseConstructionFailureMechanism StrengthStabilityLengthwiseConstruction
+        {
+            get
+            {
+                return strengthStabilityLengthwiseConstruction;
+            }
+            set
+            {
+                ValidateContribution(strengthStabilityLengthwiseConstruction, value);
+                strengthStabilityLengthwiseConstruction = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Duinwaterkering - Duinafslag" failure mechanism.
+        /// Gets or sets the "Duinwaterkering - Duinafslag" failure mechanism.
         /// </summary>
-        public DuneErosionFailureMechanism DuneErosion { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public DuneErosionFailureMechanism DuneErosion
+        {
+            get
+            {
+                return duneErosion;
+            }
+            set
+            {
+                ValidateContribution(duneErosion, value);
+                duneErosion = value;
+            }
+        }
 
         /// <summary>
-        /// Gets the "Technische innovaties - Technische innovaties" failure mechanism.
+        /// Gets or sets the "Technische innovaties - Technische innovaties" failure mechanism.
         /// </summary>
-        public TechnicalInnovationFailureMechanism TechnicalInnovation { get; }
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
+        /// is not equal to the contribution of the old failure mechanism.</exception>
+        public TechnicalInnovationFailureMechanism TechnicalInnovation
+        {
+            get
+            {
+                return technicalInnovation;
+            }
+            set
+            {
+                ValidateContribution(technicalInnovation, value);
+                technicalInnovation = value;
+            }
+        }
 
         public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForFactorizedSignalingNorm
         {
@@ -415,6 +667,22 @@ namespace Ringtoets.Integration.Data
 
             Composition = newComposition;
             SetFailureMechanismRelevancy();
+        }
+
+        /// <summary>
+        /// Validates whether the contribution of <paramref name="newFailureMechanism"/>
+        /// is equal to the contribution of <paramref name="oldFailureMechanism"/>.
+        /// </summary>
+        /// <param name="oldFailureMechanism">The old failure mechanism value.</param>
+        /// <param name="newFailureMechanism">The new failure mechanism value.</param>
+        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="newFailureMechanism"/>
+        /// is not equal to the contribution of <paramref name="oldFailureMechanism"/>.</exception>
+        private static void ValidateContribution(IFailureMechanism oldFailureMechanism, IFailureMechanism newFailureMechanism)
+        {
+            if (!(Math.Abs(oldFailureMechanism.Contribution - newFailureMechanism.Contribution) < double.Epsilon))
+            {
+                throw new ArgumentException(Resources.AssessmentSection_ValidateContribution_Contribution_new_FailureMechanism_must_be_equal_to_old_FailureMechanism);
+            }
         }
 
         private void ClearHydraulicBoundaryLocationCalculations()

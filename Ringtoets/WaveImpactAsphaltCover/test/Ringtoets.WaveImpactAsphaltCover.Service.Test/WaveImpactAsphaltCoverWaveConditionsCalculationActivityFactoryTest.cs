@@ -331,6 +331,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var testCalculator = new TestWaveConditionsCosineCalculator();
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
             int nrOfCalculations = calculation.InputParameters.GetWaterLevels(assessmentLevel).Count();
+
             calculatorFactory.Expect(cf => cf.CreateWaveConditionsCosineCalculator(testDataPath, ""))
                              .Return(testCalculator).Repeat.Times(nrOfCalculations);
             mocks.ReplayAll();

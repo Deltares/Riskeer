@@ -272,8 +272,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         {
             // Setup
             var random = new Random(11);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = random.NextDouble();
+            double normativeNorm = random.NextDouble();
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
@@ -283,17 +282,14 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(signalingNorm,
-                                                                                                          lowerLimitNorm,
+                AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(normativeNorm,
                                                                                                           failureMechanismContribution,
                                                                                                           n);
 
                 // Assert
-                AssemblyCategoriesInput assemblyCategoriesInput = calculator.AssemblyCategoriesInput;
-                Assert.AreEqual(signalingNorm, assemblyCategoriesInput.SignalingNorm);
-                Assert.AreEqual(lowerLimitNorm, assemblyCategoriesInput.LowerLimitNorm);
-                Assert.AreEqual(failureMechanismContribution / 100, assemblyCategoriesInput.FailureMechanismContribution);
-                Assert.AreEqual(n, assemblyCategoriesInput.N);
+                Assert.AreEqual(normativeNorm, calculator.NormativeNorm);
+                Assert.AreEqual(failureMechanismContribution / 100, calculator.FailureMechanismContribution);
+                Assert.AreEqual(n, calculator.FailureMechanismN);
             }
         }
 
@@ -302,8 +298,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
         {
             // Setup
             var random = new Random(11);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = random.NextDouble();
+            double normativeNorm = random.NextDouble();
             double failureMechanismContribution = random.NextDouble();
             double n = random.NextDouble();
 
@@ -314,8 +309,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
 
                 // Call
                 FailureMechanismSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(
-                    signalingNorm,
-                    lowerLimitNorm,
+                    normativeNorm,
                     failureMechanismContribution,
                     n).ToArray();
 
@@ -340,7 +334,7 @@ namespace Ringtoets.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate test = () => AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(0, 0, 0, 0);
+                TestDelegate test = () => AssemblyToolCategoriesFactory.CreateGeotechnicalFailureMechanismSectionAssemblyCategories(0, 0, 0);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(test);

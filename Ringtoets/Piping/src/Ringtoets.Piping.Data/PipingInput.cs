@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.Data
     /// Class that holds all piping calculation specific input parameters, i.e. the values
     /// that can differ across various calculations.
     /// </summary>
-    public class PipingInput : CloneableObservable, ICalculationInput
+    public class PipingInput : CloneableObservable, ICalculationInputWithLocation
     {
         private readonly GeneralPipingInput generalInputParameters;
         private NormalDistribution phreaticLevelExit;
@@ -185,11 +185,6 @@ namespace Ringtoets.Piping.Data
         public PipingStochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
-        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        /// <summary>
         /// Gets or sets whether the assessment level is manual input for the calculation.
         /// </summary>
         public bool UseAssessmentLevelManualInput { get; set; }
@@ -234,6 +229,8 @@ namespace Ringtoets.Piping.Data
                 assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
+
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Applies the entry point and exit point of the <see cref="SurfaceLine"/> to the

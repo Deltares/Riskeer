@@ -49,6 +49,27 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
+            return new FailureMechanismSectionAssembly(double.NaN,
+                                                       CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
+        }
+
+        /// <summary>
+        /// Creates <see cref="FailureMechanismSectionAssembly"/> from the given <see cref="FmSectionAssemblyDirectResultWithProbability"/>.
+        /// </summary>
+        /// <param name="result">The result to create the assembly from.</param>
+        /// <returns>The created assembly.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EFmSectionCategory"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="EFmSectionCategory"/>
+        /// is a valid value, but unsupported.</exception>
+        public static FailureMechanismSectionAssembly Create(FmSectionAssemblyDirectResultWithProbability result)
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
             return new FailureMechanismSectionAssembly(result.FailureProbability,
                                                        CreateFailureMechanismSectionAssemblyCategoryGroup(result.Result));
         }

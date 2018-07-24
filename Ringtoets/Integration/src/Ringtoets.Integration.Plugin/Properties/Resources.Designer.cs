@@ -161,6 +161,16 @@ namespace Ringtoets.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gegevens van toetsspoor &apos;{0}&apos; zijn vervangen..
+        /// </summary>
+        public static string AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replace" +
+                        "d", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn geen trajecten gevonden die samengevoegd kunnen worden..
         /// </summary>
         public static string AssessmentSectionMerger_No_matching_AssessmentSections {

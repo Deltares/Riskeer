@@ -55,7 +55,7 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil
                 for (var j = 0; j < failureMechanismResults.Length; j++)
                 {
                     FailureMechanismSectionAssemblyCategoryGroup expectedGroup = AssemblyCategoryAssert.GetFailureMechanismSectionCategoryGroup(
-                        ((FmSectionWithDirectCategory) failureMechanismResults[j].Results[i]).Category);
+                        ((FmSectionWithDirectCategory) failureMechanismResults[j].Sections.ElementAt(i)).Category);
                     Assert.AreEqual(expectedGroup, actual.ElementAt(i).FailureMechanismResults.ElementAt(j));
                 }
             }

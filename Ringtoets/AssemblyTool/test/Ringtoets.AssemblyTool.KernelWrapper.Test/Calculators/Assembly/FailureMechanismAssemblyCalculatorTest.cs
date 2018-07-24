@@ -30,12 +30,13 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.AssemblyTool.Data;
-using Ringtoets.AssemblyTool.KernelWrapper.Calculators;
 using Ringtoets.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Ringtoets.AssemblyTool.KernelWrapper.Creators;
 using Ringtoets.AssemblyTool.KernelWrapper.Kernels;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
+using Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
@@ -247,6 +248,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoriesKernelStub categoriesKernel = factory.LastCreatedAssemblyCategoriesKernel;
+                categoriesKernel.FailureMechanismCategoriesOutput = CategoriesListTestFactory.CreateFailureMechanismCategories();
+
                 FailureMechanismAssemblyKernelStub kernel = factory.LastCreatedFailureMechanismAssemblyKernel;
                 kernel.FailureMechanismAssemblyResult = new FailureMechanismAssemblyResult(random.NextEnumValue<EFailureMechanismCategory>(),
                                                                                            random.NextDouble());
@@ -256,12 +260,16 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.Assemble(expectedResults, assemblyCategoriesInput);
 
                 // Assert
-                AssertCalculatorOutput(expectedResults.Single(), kernel.FmSectionAssemblyResultsInput.Single());
+                AssertCalculatorOutput(expectedResults.Single(), kernel.FmSectionAssemblyResultsWithProbabilityInput.Single());
                 Assert.IsFalse(kernel.PartialAssembly);
                 Assert.AreEqual(assemblyCategoriesInput.N, kernel.FailureMechanismInput.LengthEffectFactor);
                 Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, kernel.FailureMechanismInput.FailureProbabilityMarginFactor);
-                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, kernel.AssessmentSectionInput.FailureProbabilityLowerLimit);
-                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, kernel.AssessmentSectionInput.FailureProbabilitySignallingLimit);
+
+                Assert.AreSame(categoriesKernel.FailureMechanismCategoriesOutput, kernel.CategoryLimits);
+                Assert.AreEqual(assemblyCategoriesInput.LowerLimitNorm, categoriesKernel.LowerLimitNorm);
+                Assert.AreEqual(assemblyCategoriesInput.SignalingNorm, categoriesKernel.SignalingNorm);
+                Assert.AreEqual(assemblyCategoriesInput.N, categoriesKernel.N);
+                Assert.AreEqual(assemblyCategoriesInput.FailureMechanismContribution, categoriesKernel.FailureMechanismContribution);
             }
         }
 
@@ -363,9 +371,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         private static void AssertCalculatorOutput(FailureMechanismSectionAssembly expectedSectionAssembly,
-                                                   FmSectionAssemblyDirectResult actualResult)
+                                                   FmSectionAssemblyDirectResultWithProbability actualResult)
         {
-            FailureMechanismSectionAssemblyCategoryGroup actualGroup = FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(actualResult.Result);
+            FailureMechanismSectionAssemblyCategoryGroup actualGroup =
+                FailureMechanismSectionAssemblyCreator.CreateFailureMechanismSectionAssemblyCategoryGroup(actualResult.Result);
             Assert.AreEqual(expectedSectionAssembly.Group, actualGroup);
             Assert.AreEqual(expectedSectionAssembly.Probability, actualResult.FailureProbability);
         }

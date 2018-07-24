@@ -35,7 +35,7 @@ namespace Ringtoets.Revetment.Data
     /// <summary>
     /// Abstract class that holds all generic wave conditions calculation input parameters.
     /// </summary>
-    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInput, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
+    public abstract class WaveConditionsInput : CloneableObservable, ICalculationInputWithLocation, IUseBreakWater, IUseForeshore, IHasForeshoreProfile
     {
         private const int orientationNumberOfDecimals = 2;
 
@@ -64,11 +64,6 @@ namespace Ringtoets.Revetment.Data
 
             SynchronizeForeshoreProfileInput();
         }
-
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Gets or sets the orientation of the foreshore profile geometry with respect to North
@@ -204,6 +199,8 @@ namespace Ringtoets.Revetment.Data
                 upperBoundaryWaterLevels = newUpperBoundaryWaterLevels;
             }
         }
+
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
         /// Gets or sets the foreshore profile.

@@ -143,7 +143,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(input);
-            Assert.IsInstanceOf<ICalculationInput>(input);
+            Assert.IsInstanceOf<ICalculationInputWithLocation>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
 

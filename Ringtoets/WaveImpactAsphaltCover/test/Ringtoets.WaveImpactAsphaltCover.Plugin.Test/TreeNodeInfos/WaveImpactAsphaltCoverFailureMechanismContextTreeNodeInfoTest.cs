@@ -527,8 +527,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             WaveImpactAsphaltCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             WaveImpactAsphaltCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
             List<ICalculationBase> calculations = failureMechanism.WaveConditionsCalculationGroup.Children;
-            calculations.Add(calculationA);
-            calculations.Add(calculationB);
+            calculations.AddRange(new[]
+            {
+                calculationA,
+                calculationB
+            });
 
             var nodeData = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
                                                                              assessmentSection);

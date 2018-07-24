@@ -59,12 +59,12 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the failure mechanisms without probability input when assembling the assessment section.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup FailureMechanismsWithoutProbabilityInput { get; private set; }
+        public FailureMechanismAssemblyCategoryGroup FailureMechanismsWithoutProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets the failure mechanisms with probability input when assembling the assessment section.
         /// </summary>
-        public AssessmentSectionAssembly FailureMechanismsWithProbabilityInput { get; private set; }
+        public FailureMechanismAssembly FailureMechanismsWithProbabilityInput { get; private set; }
 
         /// <summary>
         /// Gets the combined failure mechanism sections input.
@@ -80,13 +80,13 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// Gets or sets the output of the assessment section assembly for failure
         ///  mechanisms with probability.
         /// </summary>
-        public AssessmentSectionAssembly AssembleFailureMechanismsAssemblyOutput { get; set; }
+        public FailureMechanismAssembly AssembleFailureMechanismsAssemblyOutput { get; set; }
 
         /// <summary>
         /// Gets or sets the output of the assessment section assembly category group when assembling failure 
         /// mechanisms without probability.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup? AssembleFailureMechanismsAssemblyCategoryGroupOutput { get; set; }
+        public FailureMechanismAssemblyCategoryGroup? AssembleFailureMechanismsAssemblyCategoryGroupOutput { get; set; }
 
         /// <summary>
         /// Gets or sets the output of the assessment section assembly category group 
@@ -104,9 +104,9 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public AssessmentSectionAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
-                                                                   double signalingNorm,
-                                                                   double lowerLimitNorm)
+        public FailureMechanismAssembly AssembleFailureMechanisms(IEnumerable<FailureMechanismAssembly> input,
+                                                                  double signalingNorm,
+                                                                  double lowerLimitNorm)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -118,10 +118,10 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             SignalingNormInput = signalingNorm;
 
             return AssembleFailureMechanismsAssemblyOutput ??
-                   new AssessmentSectionAssembly(0.75, AssessmentSectionAssemblyCategoryGroup.D);
+                   new FailureMechanismAssembly(0.75, FailureMechanismAssemblyCategoryGroup.IIIt);
         }
 
-        public AssessmentSectionAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input)
+        public FailureMechanismAssemblyCategoryGroup AssembleFailureMechanisms(IEnumerable<FailureMechanismAssemblyCategoryGroup> input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -132,14 +132,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             if (AssembleFailureMechanismsAssemblyCategoryGroupOutput == null)
             {
-                AssembleFailureMechanismsAssemblyCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.D;
+                AssembleFailureMechanismsAssemblyCategoryGroupOutput = FailureMechanismAssemblyCategoryGroup.IIIt;
             }
 
             return AssembleFailureMechanismsAssemblyCategoryGroupOutput.Value;
         }
 
-        public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSectionAssemblyCategoryGroup failureMechanismsWithoutProbability,
-                                                                                AssessmentSectionAssembly failureMechanismsWithProbability)
+        public AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(FailureMechanismAssemblyCategoryGroup failureMechanismsWithoutProbability,
+                                                                                FailureMechanismAssembly failureMechanismsWithProbability)
         {
             if (ThrowExceptionOnCalculate)
             {

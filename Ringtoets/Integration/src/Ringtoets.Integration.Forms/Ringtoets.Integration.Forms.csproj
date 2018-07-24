@@ -38,9 +38,6 @@
     <Compile Include="Controls\AssessmentSectionAssemblyCategoryGroupControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\AssessmentSectionAssemblyControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Merge\AssessmentSectionMergeFilePathProvider.cs" />
     <Compile Include="Merge\FailureMechanismMergeDataRow.cs" />
     <Compile Include="Merge\IAssessmentSectionMergeFilePathProvider.cs" />

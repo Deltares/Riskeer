@@ -19,29 +19,18 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
+using Ringtoets.Common.Data.Hydraulics;
 
-namespace Ringtoets.AssemblyTool.Data.Test
+namespace Ringtoets.Common.Data.Calculation
 {
-    [TestFixture]
-    public class AssessmentSectionAssemblyTest
+    /// <summary>
+    /// Interface  describing an object that is the input to an <see cref="ICalculation{T}"/>.
+    /// </summary>
+    public interface ICalculationInputWithLocation : ICalculationInput
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(21);
-            double probability = random.NextDouble();
-            var assessmentSectionAssemblyCategoryGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
-
-            // Call
-            var assembly = new AssessmentSectionAssembly(probability, assessmentSectionAssemblyCategoryGroup);
-
-            // Assert
-            Assert.AreEqual(probability, assembly.Probability);
-            Assert.AreEqual(assessmentSectionAssemblyCategoryGroup, assembly.Group);
-        }
+        /// <summary>
+        /// Gets or sets the hydraulic boundary location.
+        /// </summary>
+        HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
     }
 }

@@ -24,6 +24,7 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentResultTypes;
+using Assembly.Kernel.Model.CategoryLimits;
 using Assembly.Kernel.Model.FmSectionTypes;
 
 namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
@@ -124,9 +125,25 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public FmSectionCategoryCompliancyResults CategoryCompliancyResultsInput { get; private set; }
 
         /// <summary>
+        /// Gets the <see cref="CategoriesList{TCategory}"/> with <see cref="FmSectionCategory"/> used
+        /// as input for assembly methods.
+        /// </summary>
+        public CategoriesList<FmSectionCategory> FailureMechanismSectionCategories { get; private set; }
+
+        /// <summary>
         /// Gets or sets the failure mechanism section assembly result.
         /// </summary>
         public FmSectionAssemblyDirectResult FailureMechanismSectionDirectResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism section assembly result with probability.
+        /// </summary>
+        public FmSectionAssemblyDirectResultWithProbability FailureMechanismAssemblyDirectResultWithProbability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism section assembly result.
+        /// </summary>
+        public IFmSectionAssemblyResult FailureMechanismAssessmentResult { get; set; }
 
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not.
@@ -143,14 +160,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0E1(EAssessmentResultTypeE1 assessment)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0E1(EAssessmentResultTypeE1 assessment)
         {
             ThrowException();
 
             AssessmentResultTypeE1Input = assessment;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0E2(EAssessmentResultTypeE1 assessment)
@@ -158,14 +175,14 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0E3(EAssessmentResultTypeE2 assessment)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0E3(EAssessmentResultTypeE2 assessment)
         {
             ThrowException();
 
             AssessmentResultTypeE2Input = assessment;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyIndirectResult TranslateAssessmentResultWbi0E4(EAssessmentResultTypeE2 assessment)
@@ -188,20 +205,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G3(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             EAssessmentResultTypeG2 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0G3(EAssessmentResultTypeG2 assessment,
+                                                                                            double failureProbability,
+                                                                                            CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeG2Input = assessment;
             FailureProbabilityInput = failureProbability;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G4(EAssessmentResultTypeG2 assessment, EFmSectionCategory? category)
@@ -209,22 +224,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G5(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             double fmSectionLengthEffectFactor,
-                                                                             EAssessmentResultTypeG2 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0G5(double fmSectionLengthEffectFactor,
+                                                                                            EAssessmentResultTypeG2 assessment,
+                                                                                            double failureProbability,
+                                                                                            CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeG2Input = assessment;
             FailureProbabilityInput = failureProbability;
             LengthEffectFactorInput = fmSectionLengthEffectFactor;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0G6(FmSectionCategoryCompliancyResults compliancyResults)
@@ -252,20 +265,18 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T3(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             EAssessmentResultTypeT3 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0T3(EAssessmentResultTypeT3 assessment,
+                                                                                            double failureProbability,
+                                                                                            CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeT3Input = assessment;
             FailureProbabilityInput = failureProbability;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T4(EAssessmentResultTypeT3 assessment, EFmSectionCategory? category)
@@ -279,22 +290,20 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionDirectResult;
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T5(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             double fmSectionLengthEffectFactor,
-                                                                             EAssessmentResultTypeT3 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResultWithProbability TranslateAssessmentResultWbi0T5(double fmSectionLengthEffectFactor,
+                                                                                            EAssessmentResultTypeT3 assessment,
+                                                                                            double failureProbability,
+                                                                                            CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeT3Input = assessment;
             FailureProbabilityInput = failureProbability;
             LengthEffectFactorInput = fmSectionLengthEffectFactor;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
+            return FailureMechanismAssemblyDirectResultWithProbability;
         }
 
         public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T6(FmSectionCategoryCompliancyResults compliancyResults, EAssessmentResultTypeT3 assessment)
@@ -302,41 +311,33 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             throw new NotImplementedException();
         }
 
-        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(AssessmentSection section,
-                                                                             FailureMechanism failureMechanism,
-                                                                             EAssessmentResultTypeT4 assessment,
-                                                                             double failureProbability)
+        public FmSectionAssemblyDirectResult TranslateAssessmentResultWbi0T7(EAssessmentResultTypeT4 assessment,
+                                                                             double failureProbability,
+                                                                             CategoriesList<FmSectionCategory> categories)
         {
             ThrowException();
 
-            AssessmentSectionInput = section;
-            FailureMechanismInput = failureMechanism;
             AssessmentResultTypeT4Input = assessment;
             FailureProbabilityInput = failureProbability;
+            FailureMechanismSectionCategories = categories;
 
             Calculated = true;
             return FailureMechanismSectionDirectResult;
         }
 
-        public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyDirectResult simpleAssessmentResult,
-                                                                       FmSectionAssemblyDirectResult detailedAssessmentResult,
-                                                                       FmSectionAssemblyDirectResult tailorMadeAssessmentResult)
+        public TResult TranslateAssessmentResultWbi0A1<TResult>(TResult simpleAssessmentResult,
+                                                                TResult detailedAssessmentResult,
+                                                                TResult customAssessmentResult)
+            where TResult : IFmSectionAssemblyResult
         {
             ThrowException();
 
-            SimpleAssessmentResultInput = simpleAssessmentResult;
-            DetailedAssessmentResultInput = detailedAssessmentResult;
-            TailorMadeAssessmentResultInput = tailorMadeAssessmentResult;
+            SimpleAssessmentResultInput = simpleAssessmentResult as FmSectionAssemblyDirectResult;
+            DetailedAssessmentResultInput = detailedAssessmentResult as FmSectionAssemblyDirectResult;
+            TailorMadeAssessmentResultInput = customAssessmentResult as FmSectionAssemblyDirectResult;
 
             Calculated = true;
-            return FailureMechanismSectionDirectResult;
-        }
-
-        public FmSectionAssemblyResult TranslateAssessmentResultWbi0A1(FmSectionAssemblyIndirectResult simpleAssessmentResult,
-                                                                       FmSectionAssemblyIndirectResult detailedAssessmentResult,
-                                                                       FmSectionAssemblyIndirectResult customAssessmentResult)
-        {
-            throw new NotImplementedException();
+            return (TResult) FailureMechanismAssessmentResult;
         }
 
         private void ThrowException()

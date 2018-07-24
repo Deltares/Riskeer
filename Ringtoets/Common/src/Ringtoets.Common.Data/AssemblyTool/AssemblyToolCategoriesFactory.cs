@@ -122,16 +122,14 @@ namespace Ringtoets.Common.Data.AssemblyTool
         /// <summary>
         /// Creates the geotechnical failure mechanism section assembly categories.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
+        /// <param name="normativeNorm">The norm to use in the calculation.</param>
         /// <param name="failureMechanismContribution">The failure mechanism contribution to calculate with.</param>
         /// <param name="n">The 'N' parameter used to factor in the 'length effect'.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
         /// <see cref="FailureMechanismSectionAssemblyCategory"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateGeotechnicalFailureMechanismSectionAssemblyCategories(
-            double signalingNorm,
-            double lowerLimitNorm,
+            double normativeNorm,
             double failureMechanismContribution,
             double n)
         {
@@ -140,10 +138,9 @@ namespace Ringtoets.Common.Data.AssemblyTool
 
             try
             {
-                return calculator.CalculateGeotechnicalFailureMechanismSectionCategories(new AssemblyCategoriesInput(n,
-                                                                                                                     failureMechanismContribution,
-                                                                                                                     signalingNorm,
-                                                                                                                     lowerLimitNorm));
+                return calculator.CalculateGeotechnicalFailureMechanismSectionCategories(normativeNorm,
+                                                                                         n,
+                                                                                         failureMechanismContribution / 100);
             }
             catch (AssemblyCategoriesCalculatorException e)
             {

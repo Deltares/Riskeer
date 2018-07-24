@@ -100,6 +100,16 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor..
+        /// </summary>
+        public static string AssessmentSection_ValidateContribution_Contribution_new_FailureMechanism_must_be_equal_to_old_FailureMechanism {
+            get {
+                return ResourceManager.GetString("AssessmentSection_ValidateContribution_Contribution_new_FailureMechanism_must_be_" +
+                        "equal_to_old_FailureMechanism", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voor een of meerdere toetssporen kan geen oordeel worden bepaald..
         /// </summary>
         public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims {

@@ -103,11 +103,11 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates <see cref="FmSectionAssemblyDirectResult"/> based on the given parameters.
+        /// Creates <see cref="FmSectionAssemblyDirectResultWithProbability"/> based on the given parameters.
         /// </summary>
         /// <param name="assembly">The <see cref="FailureMechanismSectionAssembly"/> to create
-        /// a <see cref="FmSectionAssemblyDirectResult"/> for.</param>
-        /// <returns>The created <see cref="FmSectionAssemblyDirectResult"/>.</returns>
+        /// a <see cref="FmSectionAssemblyDirectResultWithProbability"/> for.</param>
+        /// <returns>The created <see cref="FmSectionAssemblyDirectResultWithProbability"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assembly"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="assembly"/> contains
@@ -116,15 +116,15 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.Creators
         /// a valid but unsupported <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="AssemblyException">Thrown when <paramref name="assembly"/> has an
         /// invalid value.</exception>
-        public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(FailureMechanismSectionAssembly assembly)
+        public static FmSectionAssemblyDirectResultWithProbability CreateFailureMechanismSectionAssemblyDirectResult(FailureMechanismSectionAssembly assembly)
         {
             if (assembly == null)
             {
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            return new FmSectionAssemblyDirectResult(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(assembly.Group),
-                                                     assembly.Probability);
+            return new FmSectionAssemblyDirectResultWithProbability(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(assembly.Group),
+                                                                    assembly.Probability);
         }
 
         /// <summary>

@@ -82,7 +82,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 
             // Call
             AssemblyResult result = kernel.AssembleCommonFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionList>(),
-                                                                                  random.NextDouble(), random.NextBoolean());
+                                                                                  random.NextDouble(),
+                                                                                  random.NextBoolean());
 
             // Assert
             Assert.AreEqual(kernel.AssemblyResult, result);
@@ -100,7 +101,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 
             // Call
             TestDelegate test = () => kernel.AssembleCommonFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionList>(),
-                                                                                    random.NextDouble(), random.NextBoolean());
+                                                                                    random.NextDouble(),
+                                                                                    random.NextBoolean());
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
@@ -125,7 +127,8 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
 
             // Call
             TestDelegate test = () => kernel.AssembleCommonFailureMechanismSections(Enumerable.Empty<FailureMechanismSectionList>(),
-                                                                                    random.NextDouble(), random.NextBoolean());
+                                                                                    random.NextDouble(),
+                                                                                    random.NextBoolean());
 
             // Assert
             var exception = Assert.Throws<AssemblyException>(test);
@@ -137,6 +140,58 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Test.Kernels.Assembly
             Assert.IsNull(kernel.PartialAssembly);
             Assert.IsNull(kernel.AssemblyResult);
             Assert.IsFalse(kernel.Calculated);
+        }
+
+        [Test]
+        public void FindGreatestCommonDenominatorSectionsWbi3A1_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var random = new Random(21);
+            var kernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
+
+            // Call
+            TestDelegate test = () => kernel.FindGreatestCommonDenominatorSectionsWbi3A1(Enumerable.Empty<FailureMechanismSectionList>(),
+                                                                                         random.NextDouble());
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
+        }
+
+        [Test]
+        public void TranslateFailureMechanismResultsToCommonSectionsWbi3B1_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var kernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
+
+            // Call
+            TestDelegate test = () => kernel.TranslateFailureMechanismResultsToCommonSectionsWbi3B1(CreateFailureMechanismSectionList(),
+                                                                                                    CreateFailureMechanismSectionList());
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
+        }
+
+        [Test]
+        public void DeterminCombinedResultPerCommonSectionWbi3C1_Always_ThrowsNotImplementedException()
+        {
+            // Setup
+            var random = new Random(21);
+            var kernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
+
+            // Call
+            TestDelegate test = () => kernel.DeterminCombinedResultPerCommonSectionWbi3C1(Enumerable.Empty<FailureMechanismSectionList>(),
+                                                                                          random.NextBoolean());
+
+            // Assert
+            Assert.Throws<NotImplementedException>(test);
+        }
+
+        private static FailureMechanismSectionList CreateFailureMechanismSectionList()
+        {
+            return new FailureMechanismSectionList(string.Empty, new[]
+            {
+                new FailureMechanismSection(0, 1) 
+            });
         }
     }
 }

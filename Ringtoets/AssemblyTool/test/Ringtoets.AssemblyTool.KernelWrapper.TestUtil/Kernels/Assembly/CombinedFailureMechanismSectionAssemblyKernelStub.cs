@@ -88,5 +88,22 @@ namespace Ringtoets.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             return AssemblyResult;
         }
+
+        public FailureMechanismSectionList FindGreatestCommonDenominatorSectionsWbi3A1(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
+                                                                                       double assessmentSectionLength)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FailureMechanismSectionList TranslateFailureMechanismResultsToCommonSectionsWbi3B1(FailureMechanismSectionList failureMechanismSectionList,
+                                                                                                  FailureMechanismSectionList commonSections)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<FmSectionWithDirectCategory> DeterminCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults, bool partialAssembly)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

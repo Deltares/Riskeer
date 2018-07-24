@@ -47,8 +47,8 @@ namespace Ringtoets.Integration.Forms.Views
             this.failureMechanismsWithProbabilityLabel = new System.Windows.Forms.Label();
             this.failureMechanismsWithoutProbabilityLabel = new System.Windows.Forms.Label();
             this.totalAssemblyCategoryGroupControl = new Ringtoets.Integration.Forms.Controls.AssessmentSectionAssemblyCategoryGroupControl();
-            this.failureMechanismsWithProbabilityAssemblyControl = new Ringtoets.Integration.Forms.Controls.AssessmentSectionAssemblyControl();
-            this.failureMechanismsWithoutProbabilityAssemblyControl = new Ringtoets.Integration.Forms.Controls.AssessmentSectionAssemblyCategoryGroupControl();
+            this.failureMechanismsWithProbabilityAssemblyControl = new Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyControl();
+            this.failureMechanismsWithoutProbabilityAssemblyControl = new Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.assemblyResultGroupBox.SuspendLayout();
@@ -222,8 +222,8 @@ namespace Ringtoets.Integration.Forms.Views
         private System.Windows.Forms.Label failureMechanismsWithProbabilityLabel;
         private System.Windows.Forms.Label failureMechanismsWithoutProbabilityLabel;
         private Controls.AssessmentSectionAssemblyCategoryGroupControl totalAssemblyCategoryGroupControl;
-        private Controls.AssessmentSectionAssemblyControl failureMechanismsWithProbabilityAssemblyControl;
-        private Controls.AssessmentSectionAssemblyCategoryGroupControl failureMechanismsWithoutProbabilityAssemblyControl;
+        private Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyControl failureMechanismsWithProbabilityAssemblyControl;
+        private Ringtoets.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl failureMechanismsWithoutProbabilityAssemblyControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;
     }
