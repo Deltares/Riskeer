@@ -172,9 +172,12 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
             {
                 new TestDuneLocation()
             });
-            failureMechanism.AddSectionResult(new FailureMechanismSection("A", geometryPoints.Take(2)));
-            failureMechanism.AddSectionResult(new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)));
-            failureMechanism.AddSectionResult(new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2)));
+            failureMechanism.AddSections(new[]
+            {
+                new FailureMechanismSection("A", geometryPoints.Take(2)),
+                new FailureMechanismSection("B", geometryPoints.Skip(1).Take(2)),
+                new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
+            });
 
             // Call
             using (var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection))
@@ -305,11 +308,14 @@ namespace Ringtoets.DuneErosion.Forms.Test.Views
                 var sectionsEndsMapData = (MapPointData) map.Data.Collection.ElementAt(sectionsEndPointIndex);
 
                 // When
-                failureMechanism.AddSectionResult(new FailureMechanismSection(string.Empty, new[]
+                failureMechanism.AddSections(new[]
                 {
-                    new Point2D(1, 2),
-                    new Point2D(1, 2)
-                }));
+                    new FailureMechanismSection(string.Empty, new[]
+                    {
+                        new Point2D(1, 2),
+                        new Point2D(1, 2)
+                    })
+                });
                 failureMechanism.NotifyObservers();
 
                 // Then

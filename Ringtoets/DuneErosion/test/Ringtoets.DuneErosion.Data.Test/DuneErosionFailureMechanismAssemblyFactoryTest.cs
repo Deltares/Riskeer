@@ -546,7 +546,10 @@ namespace Ringtoets.DuneErosion.Data.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -584,7 +587,10 @@ namespace Ringtoets.DuneErosion.Data.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
             DuneErosionFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
             sectionResult.UseManualAssemblyCategoryGroup = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
@@ -646,7 +652,10 @@ namespace Ringtoets.DuneErosion.Data.Test
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.AddSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            failureMechanism.AddSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            });
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
